@@ -45,13 +45,40 @@ module.exports = function (ctx) {
         'QItem',
         'QItemSection',
         'QItemLabel',
+        'QSpace',
+        'QSeparator',
 
         'QTabs',
         'QTab',
         'QRouteTab',
 
 	      'QTabPanels',
-        'QTabPanel'
+        'QTabPanel',
+
+        'QInput',
+        'QSelect',
+        'QCheckbox',
+        'QToggle',
+        'QRadio',
+        'QForm',
+        'QSlider',
+        'QDate',
+
+        'QImg',
+
+        'QTable',
+	      'QTh',
+	      'QTr',
+	      'QTd',
+        'QMarkupTable',
+
+	      'QSpinnerFacebook',
+
+	      'QStepper',
+	      'QStep',
+	      'QStepperNavigation',
+
+	      'QInnerLoading'
       ],
 
       directives: [
