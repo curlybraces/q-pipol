@@ -13,7 +13,7 @@
         </q-btn>
 
         <q-toolbar-title>
-          Quasar App
+          {{ appTitle }}
         </q-toolbar-title>
 
         <div>Quasar v{{ $q.version }}</div>
@@ -54,6 +54,7 @@ export default {
   name: "MyLayout",
   data() {
     return {
+      appTitle: 'PIPOL',
       leftDrawerOpen: this.$q.platform.is.desktop,
       sidemenu: [
         {
