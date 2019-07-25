@@ -17,7 +17,7 @@
           {{ appTitle }}
         </q-toolbar-title>
 
-        <q-btn flat>Login</q-btn>
+        <q-btn flat to="/login">Login</q-btn>
 
         <q-btn flat>Logout</q-btn>
 

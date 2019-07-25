@@ -13,7 +13,7 @@
 
 import Vue from 'vue'
 
-import {Quasar,QLayout,QHeader,QDrawer,QPageContainer,QPage,QToolbar,QToolbarTitle,QBtn,QIcon,QList,QItem,QItemSection,QItemLabel,QSpace,QSeparator,QTabs,QTab,QRouteTab,QTabPanels,QTabPanel,QInput,QSelect,QCheckbox,QToggle,QRadio,QForm,QSlider,QDate,QImg,QTable,QTh,QTr,QTd,QMarkupTable,QSpinnerFacebook,QStepper,QStep,QStepperNavigation,QInnerLoading,Ripple,Notify} from 'quasar'
+import {Quasar,QLayout,QHeader,QDrawer,QPageContainer,QPage,QToolbar,QToolbarTitle,QBtn,QIcon,QList,QItem,QItemSection,QItemLabel,QSpace,QSeparator,QTabs,QTab,QRouteTab,QTabPanels,QTabPanel,QInput,QSelect,QCheckbox,QToggle,QRadio,QForm,QSlider,QDate,QImg,QTable,QTh,QTr,QTd,QMarkupTable,QSpinnerFacebook,QStepper,QStep,QStepperNavigation,QInnerLoading,Ripple,Notify,AppFullscreen} from 'quasar'
 
 
-Vue.use(Quasar, { config: {},components: {QLayout,QHeader,QDrawer,QPageContainer,QPage,QToolbar,QToolbarTitle,QBtn,QIcon,QList,QItem,QItemSection,QItemLabel,QSpace,QSeparator,QTabs,QTab,QRouteTab,QTabPanels,QTabPanel,QInput,QSelect,QCheckbox,QToggle,QRadio,QForm,QSlider,QDate,QImg,QTable,QTh,QTr,QTd,QMarkupTable,QSpinnerFacebook,QStepper,QStep,QStepperNavigation,QInnerLoading},directives: {Ripple},plugins: {Notify} })
+Vue.use(Quasar, { config: {},components: {QLayout,QHeader,QDrawer,QPageContainer,QPage,QToolbar,QToolbarTitle,QBtn,QIcon,QList,QItem,QItemSection,QItemLabel,QSpace,QSeparator,QTabs,QTab,QRouteTab,QTabPanels,QTabPanel,QInput,QSelect,QCheckbox,QToggle,QRadio,QForm,QSlider,QDate,QImg,QTable,QTh,QTr,QTd,QMarkupTable,QSpinnerFacebook,QStepper,QStep,QStepperNavigation,QInnerLoading},directives: {Ripple},plugins: {Notify,AppFullscreen} })

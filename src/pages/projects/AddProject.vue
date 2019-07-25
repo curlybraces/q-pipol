@@ -1,6 +1,15 @@
 <template>
   <q-page padding>
-    <p>Add Project</p>
+    <div class="row">
+      <p>Add Project</p>
+      <q-space/>
+      <q-btn
+        flat round dense
+        :icon="$q.fullscreen.isActive ? 'fullscreen_exit' : 'fullscreen'"
+        @click="$q.fullscreen.toggle()"
+        class="q-ml-md"
+      />
+    </div>
 
     <q-stepper
       v-model="step"
