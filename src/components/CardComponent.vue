@@ -2,14 +2,13 @@
   <q-card class="q-my-md">
     <q-card-section
       class="bg-primary text-white"
-      dense
     >
       <div class="row align-center">
         <div class="text-weight-bold text-uppercase">
           <slot name="title"/>
         </div>
         <q-space/>
-        <q-btn dense flat rounded icon="visibility" @click="show = !show"></q-btn>
+        <q-btn dense flat rounded :icon="show ? 'visibility_off': 'visibility'" @click="show = !show"></q-btn>
       </div>
     </q-card-section>
 
