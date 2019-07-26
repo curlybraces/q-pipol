@@ -3,6 +3,7 @@
     <p>View Projects</p>
 
     <q-table
+      :grid="$q.screen.lt.md"
       class="my-sticky-column-table"
       :data="data"
       :columns="columns"
@@ -29,77 +30,64 @@ export default {
   name: "PageViewProjects",
   data() {
   	return {
-      tableTitle: 'Treats',
+      tableTitle: 'Projects',
       columns: [
         {
-          name: 'name',
+          name: 'pipol_code',
           required: true,
-          label: 'Dessert (100g serving)',
+          label: 'PIPOL Code',
           align: 'left',
-          field: row => row.name,
-          format: val => `${val}`,
+          field: 'pipol_code',
           sortable: true
         },
         {
-          name: 'calories',
+          name: 'title',
           align: 'center',
-          label: 'Calories',
-          field: 'calories',
+          label: 'Title',
+          field: 'title',
           sortable: true
         },
         {
-          name: 'fat',
-          label: 'Fat (g)',
-          field: 'fat',
+          name: 'spatial_coverage',
+          label: 'Spatial Coverage',
+          field: 'spatial_coverage',
           sortable: true
         },
         {
-          name: 'carbs',
-          label: 'Carbs (g)',
-          field: 'carbs',
+          name: 'pdp_chapter',
+          label: 'Main PDP Chapter',
+          field: 'pdp_chapter',
           sortable: true
         },
         {
-          name: 'protein',
-          label: 'Protein (g)',
-          field: 'protein',
+          name: 'main_funding_source',
+          label: 'Main Funding Source',
+          field: 'main_funding_source',
           sortable: true
         },
         {
-          name: 'sodium',
-          label: 'Sodium (mg)',
-          field: 'sodium',
+          name: 'categorization',
+          label: 'Categorization',
+          field: 'categorization',
           sortable: true
         },
         {
-          name: 'calcium',
-          label: 'Calcium (%)',
-          field: 'calcium',
-          sortable: true,
-          sort: (a, b) => parseInt(a, 10) - parseInt(b, 10)
-        },
-        {
-          name: 'iron',
-          label: 'Iron (%)',
-          field: 'iron',
-          sortable: true,
-          sort: (a, b) => parseInt(a, 10) - parseInt(b, 10)
+          name: 'action',
+          label: 'Action'
         }
       ],
 
       data: [
         {
-          name: 'Frozen Yogurt',
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0,
-          sodium: 87,
-          calcium: '14%',
-          iron: '1%'
+	      pipol_code: 'Frozen Yogurt',
+          title: 'Ice cream sandwich',
+          spatial_coverage: 159,
+          pdp_chapter: 6.0,
+          main_funding_source: 24,
+          categorization: 4.0,
         },
         {
-          name: 'Ice cream sandwich',
+
           calories: 237,
           fat: 9.0,
           carbs: 37,
@@ -194,4 +182,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+
+</style>
