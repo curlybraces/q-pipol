@@ -13,6 +13,10 @@
           <q-icon name="menu" />
         </q-btn>
 
+        <q-avatar color="white">
+          <img src="statics/app-logo-128x128.png">
+        </q-avatar>
+
         <q-toolbar-title>
           {{ appTitle }}
         </q-toolbar-title>

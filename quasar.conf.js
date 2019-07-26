@@ -63,6 +63,8 @@ module.exports = function (ctx) {
         'QForm',
         'QSlider',
         'QDate',
+	      'QOptionGroup',
+        'QBtnToggle',
 
         'QImg',
 
@@ -78,7 +80,15 @@ module.exports = function (ctx) {
 	      'QStep',
 	      'QStepperNavigation',
 
-	      'QInnerLoading'
+	      'QInnerLoading',
+
+        'QCard',
+	      'QCardSection',
+	      'QCardActions',
+
+        'QPopupProxy',
+
+        'QAvatar'
       ],
 
       directives: [

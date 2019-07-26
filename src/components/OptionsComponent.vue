@@ -1,0 +1,37 @@
+<template>
+  <div class="row items-start q-my-md">
+    <div class="col-md-3 text-primary text-weight-bold gt-sm">{{ label }}</div>
+    <div class="col-md-9 col-sm-12 col-xs-12">
+      <q-option-group
+        dense
+        :options="options"
+        @input="onInput"
+        v-model="selected"
+        inline>
+      </q-option-group>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'OptionsComponent',
+  props: {
+  	label: String,
+  	options: Array
+  },
+  data () {
+    return {
+      selected: null
+    }
+  },
+  methods: {
+  	onInput() {
+  		this.$emit('input', this.selected)
+    }
+  }
+}
+</script>
+
+<style>
+</style>

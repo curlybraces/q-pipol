@@ -1,14 +1,15 @@
 <template>
   <div class="row items-start q-my-md">
-    <div class="col-2 text-primary text-weight-bold">{{ label }}</div>
-    <div class="col-10">
+    <div class="col-3 text-primary text-weight-bold gt-sm">{{ label }}</div>
+    <div class="col-md-9 col-sm-12 col-xs-12">
       <q-input
         dense
-        type="text"
+        :type="type"
+        :step="step"
         outlined
         :placeholder="label"
         :hint="hint"
-        ></q-input>
+        />
     </div>
   </div>
 </template>
@@ -18,7 +19,9 @@ export default {
   name: 'InputComponent',
   props: {
   	label: String,
-    hint: String
+    hint: String,
+    type: String,
+    step: Number
   },
   data () {
     return {}
