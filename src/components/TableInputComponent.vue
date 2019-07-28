@@ -7,24 +7,24 @@
     input-class="text-right"
     @change="onInput"
     @input="onInput"
-    v-model="value"></q-input>
+    v-model="value"
+  ></q-input>
 </template>
 
 <script>
 export default {
-  name: 'TableInputComponent',
-  data () {
+  name: "TableInputComponent",
+  data() {
     return {
       value: 0
-    }
+    };
   },
   methods: {
-  	onInput() {
-  		this.$emit('input', this.value)
+    onInput() {
+      this.$emit("input", this.value);
     }
   }
-}
+};
 </script>
 
-<style>
-</style>
+<style></style>

@@ -13,7 +13,9 @@
         :multiple="multiple"
         :hint="hint"
         :label="label"
-        v-model="selected">
+        v-model="selected"
+        map-options
+      >
       </q-select>
     </div>
   </div>
@@ -21,9 +23,9 @@
 
 <script>
 export default {
-  name: 'SelectComponent',
+  name: "SelectComponent",
   props: {
-  	label: String,
+    label: String,
     options: Array,
     multiple: {
       type: Boolean,
@@ -31,18 +33,17 @@ export default {
     },
     hint: String
   },
-  data () {
+  data() {
     return {
       selected: []
-    }
+    };
   },
   methods: {
-	  onInput() {
-  		this.$emit('input',this.selected)
+    onInput() {
+      this.$emit("input", this.selected);
     }
   }
-}
+};
 </script>
 
-<style>
-</style>
+<style></style>

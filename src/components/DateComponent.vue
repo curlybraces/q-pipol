@@ -7,7 +7,11 @@
       <q-input outlined dense v-model="date" mask="date">
         <template v-slot:prepend>
           <q-icon name="event" class="cursor-pointer">
-            <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
+            <q-popup-proxy
+              ref="qDateProxy"
+              transition-show="scale"
+              transition-hide="scale"
+            >
               <q-date v-model="date" @input="() => $refs.qDateProxy.hide()" />
             </q-popup-proxy>
           </q-icon>
@@ -19,17 +23,16 @@
 
 <script>
 export default {
-  name: 'DateComponent',
+  name: "DateComponent",
   props: {
-  	label: String
+    label: String
   },
-  data () {
+  data() {
     return {
       date: null
-    }
+    };
   }
-}
+};
 </script>
 
-<style>
-</style>
+<style></style>

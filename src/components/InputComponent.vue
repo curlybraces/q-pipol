@@ -9,25 +9,24 @@
         outlined
         :placeholder="label"
         :hint="hint"
-        />
+      />
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'InputComponent',
+  name: "InputComponent",
   props: {
-  	label: String,
+    label: String,
     hint: String,
     type: String,
     step: Number
   },
-  data () {
-    return {}
+  data() {
+    return {};
   }
-}
+};
 </script>
 
-<style>
-</style>
+<style></style>

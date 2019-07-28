@@ -7,7 +7,8 @@
         :options="options"
         @input="onInput"
         v-model="selected"
-        inline>
+        inline
+      >
       </q-option-group>
     </div>
   </div>
@@ -15,23 +16,22 @@
 
 <script>
 export default {
-  name: 'OptionsComponent',
+  name: "OptionsComponent",
   props: {
-  	label: String,
-  	options: Array
+    label: String,
+    options: Array
   },
-  data () {
+  data() {
     return {
       selected: null
-    }
+    };
   },
   methods: {
-  	onInput() {
-  		this.$emit('input', this.selected)
+    onInput() {
+      this.$emit("input", this.selected);
     }
   }
-}
+};
 </script>
 
-<style>
-</style>
+<style></style>
