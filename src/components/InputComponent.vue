@@ -9,6 +9,8 @@
         outlined
         :placeholder="label"
         :hint="hint"
+        @input="onInput"
+        v-model="value"
       />
     </div>
   </div>
@@ -24,7 +26,14 @@ export default {
     step: Number
   },
   data() {
-    return {};
+    return {
+      value: null
+    };
+  },
+  methods: {
+  	onInput() {
+      this.$emit('input', this.value )
+    }
   }
 };
 </script>

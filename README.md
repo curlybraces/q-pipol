@@ -1,2 +1,2 @@
 # q-pipol
- Quasar framework version of PIPOL
+ A Quasar framework version of PIPOL

@@ -51,6 +51,15 @@
       </q-list>
     </q-drawer>
 
+    <q-footer class="bg-primary-1 text-white">
+      <q-toolbar>
+        <q-toolbar-title>
+          {{ appTitle }}
+        </q-toolbar-title>
+        v.0.0.1
+      </q-toolbar>
+    </q-footer>
+
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -86,15 +95,16 @@ export default {
           caption: "Add a new project"
         },
         {
+          label: 'Programs',
+          href: '/programs',
+          icon: 'list',
+          caption: 'View all programs'
+        },
+        {
           label: "Settings",
           href: "/settings",
           icon: "settings",
           caption: "Change user and system settings"
-        },
-        {
-          label: "Admin",
-          href: "/admin",
-          icon: "person"
         }
       ]
     };

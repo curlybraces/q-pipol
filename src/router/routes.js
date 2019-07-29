@@ -19,6 +19,14 @@ const routes = [
         component: () => import("pages/projects/EditProject.vue")
       }
     ]
+  },
+  {
+    path: '/programs',
+    component: () => import('layouts/MyLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/programs/ViewPrograms.vue') },
+	    { path: 'add', component: () => import('pages/programs/AddSubproject.vue') },
+    ]
   }
 ];
 

@@ -7,6 +7,7 @@
         </div>
         <q-space />
         <q-btn
+          v-if="collapsible"
           dense
           flat
           rounded
@@ -23,7 +24,7 @@
     </q-card-section>
 
     <q-card-actions align="center" v-show="show">
-      <q-btn icon="save" class="bg-primary text-white">Save</q-btn>
+      <q-btn icon="save" class="bg-primary text-white" @click="onClick">Save</q-btn>
     </q-card-actions>
   </q-card>
 </template>
@@ -32,7 +33,12 @@
 export default {
   name: "CardComponent",
   props: {
-    title: String
+    title: String,
+    onClick: Function,
+    collapsible: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
