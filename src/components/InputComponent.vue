@@ -31,8 +31,8 @@ export default {
     };
   },
   methods: {
-  	onInput() {
-      this.$emit('input', this.value )
+    onInput() {
+      this.$emit("input", this.value);
     }
   }
 };

@@ -12,7 +12,7 @@ const routes = [
     path: "/projects",
     component: () => import("layouts/MyLayout.vue"),
     children: [
-      { path: "", component: () => import("pages/projects/ViewProjects.vue") },
+      { path: "", component: () => import("pages/projects/ListProjects.vue") },
       { path: "add", component: () => import("pages/projects/AddProject.vue") },
       {
         path: "edit",
@@ -21,11 +21,14 @@ const routes = [
     ]
   },
   {
-    path: '/programs',
-    component: () => import('layouts/MyLayout.vue'),
+    path: "/programs",
+    component: () => import("layouts/MyLayout.vue"),
     children: [
-      { path: '', component: () => import('pages/programs/ViewPrograms.vue') },
-	    { path: 'add', component: () => import('pages/programs/AddSubproject.vue') },
+      { path: "", component: () => import("pages/programs/ViewPrograms.vue") },
+      {
+        path: "add",
+        component: () => import("pages/programs/AddSubproject.vue")
+      }
     ]
   }
 ];

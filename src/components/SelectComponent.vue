@@ -60,10 +60,10 @@ export default {
   methods: {
     onInput() {
       this.$emit("input", this.selected);
-        if (this.onChange !== null) {
-            this.onChange()
-        }
+      if (this.onChange !== null) {
+        this.onChange();
       }
+    }
   }
 };
 </script>

@@ -95,10 +95,10 @@ export default {
           caption: "Add a new project"
         },
         {
-          label: 'Programs',
-          href: '/programs',
-          icon: 'list',
-          caption: 'View all programs'
+          label: "Programs",
+          href: "/programs",
+          icon: "list",
+          caption: "View all programs"
         },
         {
           label: "Settings",

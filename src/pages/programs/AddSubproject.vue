@@ -13,15 +13,9 @@
       />
     </div>
 
-    <card-component
-      title="Subproject Profile"
-      :onClick="addSubproject">
+    <card-component title="Subproject Profile" :onClick="addSubproject">
       <template v-slot:content>
-
-        <select-component
-          label="Program"
-          :readonly="true"
-          ></select-component>
+        <select-component label="Program" :readonly="true"></select-component>
 
         <input-component
           label="Subproject Title"
@@ -60,7 +54,11 @@
           label="Region/s"
           :options="regions"
           :multiple="form.spatial_coverage == 2"
-          :hint=" (form.spatial_coverage == 3) ? 'Select region' : 'Select as many as applicable' "
+          :hint="
+            form.spatial_coverage == 3
+              ? 'Select region'
+              : 'Select as many as applicable'
+          "
           v-if="form.spatial_coverage == 2 || form.spatial_coverage == 3"
           v-model="form.regions"
         ></select-component>
@@ -132,11 +130,8 @@
           v-show="form.categorization == 1 || form.categorization == 3"
           v-model="form.uacs_code"
         ></input-component>
-
       </template>
-
     </card-component>
-
   </q-page>
 </template>
 
@@ -171,60 +166,65 @@ export default {
   },
   methods: {
     loadRegions() {
-      this.$axios.get('/regions')
+      this.$axios
+        .get("/regions")
         .then(res => {
-          this.regions = res.data
+          this.regions = res.data;
         })
         .catch(e => {
-          console.log(e)
-        })
+          console.log(e);
+        });
     },
     loadSpatialCoverages() {
-        this.$axios.get('/spatial_coverages')
-            .then(res => {
-                this.spatial_coverages = res.data
-            })
-            .catch(e => {
-                console.log(e)
-            })
+      this.$axios
+        .get("/spatial_coverages")
+        .then(res => {
+          this.spatial_coverages = res.data;
+        })
+        .catch(e => {
+          console.log(e);
+        });
     },
     loadApprovalLevels() {
-      this.$axios.get('/approval_levels')
-          .then(res => {
-              this.approval_levels = res.data
-          })
-          .catch(e => {
-              console.log(e)
-          })
+      this.$axios
+        .get("/approval_levels")
+        .then(res => {
+          this.approval_levels = res.data;
+        })
+        .catch(e => {
+          console.log(e);
+        });
     },
     loadImplementationBases() {
-      this.$axios.get('/implementation_bases')
-          .then(res => {
-              this.implementation_bases = res.data
-          })
-          .catch(e => {
-              console.log(e)
-          })
+      this.$axios
+        .get("/implementation_bases")
+        .then(res => {
+          this.implementation_bases = res.data;
+        })
+        .catch(e => {
+          console.log(e);
+        });
     },
     loadImplementationPeriods() {
-        this.$axios.get('/implementation_periods')
-            .then(res => {
-                this.implementation_periods = res.data
-            })
-            .catch(e => {
-                console.log(e)
-            })
+      this.$axios
+        .get("/implementation_periods")
+        .then(res => {
+          this.implementation_periods = res.data;
+        })
+        .catch(e => {
+          console.log(e);
+        });
     },
     addSubproject() {
-    	console.log( this.form )
+      console.log(this.form);
     }
   },
   mounted() {
-    this.loadRegions()
-    this.loadSpatialCoverages()
-    this.loadApprovalLevels()
-    this.loadImplementationBases()
-    this.loadImplementationPeriods()
+    this.loadRegions();
+    this.loadSpatialCoverages();
+    this.loadApprovalLevels();
+    this.loadImplementationBases();
+    this.loadImplementationPeriods();
   }
 };
 </script>
