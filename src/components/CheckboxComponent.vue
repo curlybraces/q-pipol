@@ -7,7 +7,8 @@
         :options="options"
         @input="onInput"
         v-model="selected"
-        inline>
+        inline
+      >
       </q-option-group>
     </div>
   </div>
@@ -16,11 +17,10 @@
 <script>
 export default {
   // name: 'ComponentName',
-  data () {
-    return {}
+  data() {
+    return {};
   }
-}
+};
 </script>
 
-<style>
-</style>
+<style></style>

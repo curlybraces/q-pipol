@@ -1,40 +1,45 @@
 <template>
   <q-card class="q-my-md">
-    <q-card-section
-      class="bg-primary text-white"
-    >
+    <q-card-section class="bg-primary text-white">
       <div class="row align-center">
         <div class="text-weight-bold text-uppercase">
-          <slot name="title"/>
+          {{ title }}
         </div>
-        <q-space/>
-        <q-btn dense flat rounded :icon="show ? 'visibility_off': 'visibility'" @click="show = !show"></q-btn>
+        <q-space />
+        <q-btn
+          dense
+          flat
+          rounded
+          :icon="show ? 'visibility_off' : 'visibility'"
+          @click="show = !show"
+        ></q-btn>
       </div>
     </q-card-section>
 
-    <q-separator color="primary"/>
+    <q-separator color="primary" />
 
     <q-card-section v-show="show">
-      <slot name="content"/>
+      <slot name="content" />
     </q-card-section>
 
     <q-card-actions align="center" v-show="show">
-      <slot name="actions"/>
+      <q-btn icon="save" class="bg-primary text-white">Save</q-btn>
     </q-card-actions>
-
   </q-card>
 </template>
 
 <script>
 export default {
-  name: 'CardComponent',
-  data () {
+  name: "CardComponent",
+  props: {
+    title: String
+  },
+  data() {
     return {
       show: true
-    }
+    };
   }
-}
+};
 </script>
 
-<style>
-</style>
+<style></style>

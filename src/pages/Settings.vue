@@ -6,9 +6,8 @@
 
 <script>
 export default {
-  name: 'PageSettings',
-}
+  name: "PageSettings"
+};
 </script>
 
-<style>
-</style>
+<style></style>
