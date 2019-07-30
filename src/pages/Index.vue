@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <tree-component label="PDP" :treeData="pdp" v-model="selected" />
+    <tree-component label="PDP" :treeData="pdp" tickStrategy="leaf" v-model="selected" />
     <q-btn @click="onSubmit">Submit</q-btn>
   </q-page>
 </template>
