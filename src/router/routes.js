@@ -25,10 +25,10 @@ const routes = [
     path: "/programs",
     component: () => import("layouts/MyLayout.vue"),
     children: [
-      { path: "", component: () => import("pages/programs/ViewPrograms.vue") },
+      { path: "", component: () => import("pages/programs/ViewActivities.vue") },
       {
-        path: "add",
-        component: () => import("pages/programs/AddSubproject.vue")
+        path: "add-activities",
+        component: () => import("pages/programs/AddActivity.vue")
       }
     ]
   }

@@ -95,7 +95,9 @@ module.exports = function (ctx) {
         'QTree',
 
         'QFab',
-        'QFabAction'
+        'QFabAction',
+
+        'QPageSticky'
       ],
 
       directives: [

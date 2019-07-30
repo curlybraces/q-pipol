@@ -1,10 +1,24 @@
 <template>
-  <div>My component</div>
+  <q-page-sticky
+    position="bottom-right"
+    :offset="[18, 18]">
+    <q-btn
+      fab
+      icon="add"
+      color="secondary"
+      :to="link" />
+  </q-page-sticky>
 </template>
 
 <script>
 export default {
-  // name: 'ComponentName',
+  name: 'FabComponent',
+  props: {
+    link: {
+      type: String,
+      default: '#'
+    }
+  },
   data () {
     return {}
   }

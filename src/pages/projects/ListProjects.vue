@@ -8,14 +8,19 @@
     </q-input>
 
     <list-component :items="projects"> </list-component>
+
+    <fab-component link="/projects/add"/>
   </q-page>
 </template>
 
 <script>
 import ListComponent from "../../components/ListComponent";
+import FabComponent from "../../components/FabComponent";
 
 export default {
-  components: { ListComponent },
+  components: {
+      FabComponent,
+      ListComponent },
   name: "PageViewProjects",
   data() {
     return {
