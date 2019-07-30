@@ -1,12 +1,7 @@
 <template>
   <q-page padding>
     <p>View Projects</p>
-    <q-input
-      outlined
-      dense
-      rounded
-      class="q-mb-md"
-      clearable>
+    <q-input outlined dense rounded class="q-mb-md" clearable placeholder="Search in project titles...">
       <template v-slot:append>
         <q-icon name="search" />
       </template>
@@ -32,59 +27,59 @@ export default {
             name: "Lester"
           },
           title: "Project Title",
-          description: 'Description of the project',
-          total_cost: '1,000,000.00',
-          implementation_period: '2017-2022',
-          date_added: '10/9/2019'
+          description: "Description of the project",
+          total_cost: "1,000,000.00",
+          implementation_period: "2017-2022",
+          date_added: "10/9/2019"
         },
         {
           id: 2,
           icon: "home",
           user: {
-              name: "Lester"
+            name: "Lester"
           },
           title: "Project Title",
-          description: 'Description of the project',
-          total_cost: '1,000,000.00',
-          implementation_period: '2017-2022',
-          date_added: '10/9/2019'
+          description: "Description of the project",
+          total_cost: "1,000,000.00",
+          implementation_period: "2017-2022",
+          date_added: "10/9/2019"
         },
         {
           id: 3,
           icon: "home",
           user: {
-              name: "Lester"
+            name: "Lester"
           },
           title: "Project Title",
-          description: 'Description of the project',
-          total_cost: '1,000,000.00',
-          implementation_period: '2017-2022',
-          date_added: '10/9/2019'
+          description: "Description of the project",
+          total_cost: "1,000,000.00",
+          implementation_period: "2017-2022",
+          date_added: "10/9/2019"
         },
         {
           id: 4,
           icon: "home",
           user: {
-              name: "Lester"
+            name: "Lester"
           },
           title: "Project Title",
-          description: 'Description of the project',
-          total_cost: '1,000,000.00',
-          implementation_period: '2017-2022',
-          date_added: '10/9/2019'
+          description: "Description of the project",
+          total_cost: "1,000,000.00",
+          implementation_period: "2017-2022",
+          date_added: "10/9/2019"
         },
         {
           id: 5,
           icon: "home",
           user: {
-              name: "Lester"
+            name: "Lester"
           },
           title: "Project Title",
-          description: 'Description of the project',
-          total_cost: '1,000,000.00',
-          implementation_period: '2017-2022',
-          date_added: '10/9/2019'
-        },
+          description: "Description of the project",
+          total_cost: "1,000,000.00",
+          implementation_period: "2017-2022",
+          date_added: "10/9/2019"
+        }
       ]
     };
   }

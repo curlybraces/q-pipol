@@ -14,7 +14,6 @@
     </div>
 
     <card-component title="Basic Information" :onClick="addProject">
-
       <template v-slot:content>
         <input-component
           label="Project Title"
@@ -90,12 +89,14 @@
         <select-component
           label="ODA Funding Institutions"
           v-if="form.funding_source == 2 || form.funding_source == 3"
-          v-model="form.funding_institution"></select-component>
+          v-model="form.funding_institution"
+        ></select-component>
 
         <input-component
           label="Others"
           v-if="form.funding_institution == 99"
-          v-model="form.other_funding_institution"></input-component>
+          v-model="form.other_funding_institution"
+        ></input-component>
 
         <select-component
           label="Categorization"
@@ -104,8 +105,8 @@
 
         <input-component
           label="UACS Code"
-          v-model="form.uacs_code"></input-component>
-
+          v-model="form.uacs_code"
+        ></input-component>
       </template>
     </card-component>
   </q-page>
@@ -145,22 +146,23 @@ export default {
         });
     },
     loadDropdowns() {
-      this.$axios.get('/dropdowns')
+      this.$axios
+        .get("/dropdowns")
         .then(res => {
-          console.log(res.data)
+          console.log(res.data);
         })
         .catch(e => {
-          console.log(e)
+          console.log(e);
         });
     },
     loadFundingSources() {
       this.$axios
         .get("/spatial_coverages")
         .then(res => {
-            this.spatial_coverages = res.data;
+          this.spatial_coverages = res.data;
         })
         .catch(e => {
-            console.log(e);
+          console.log(e);
         });
     },
     loadSpatialCoverages() {
@@ -185,13 +187,13 @@ export default {
     },
     loadImplementationPeriods() {
       this.$axios
-        .get('/implementation_periods')
+        .get("/implementation_periods")
         .then(res => {
-          this.implementation_periods = res.data
+          this.implementation_periods = res.data;
         })
         .catch(e => {
-          console.log(e)
-        })
+          console.log(e);
+        });
     },
     loadImplementationBases() {
       this.$axios
@@ -204,23 +206,24 @@ export default {
         });
     },
     addProject() {
-      console.log( this.form );
-      this.$axios.post('/projects', this.form )
+      console.log(this.form);
+      this.$axios
+        .post("/projects", this.form)
         .then(res => {
-          console.log(res.data)
+          console.log(res.data);
           this.$q.notify({
             message: res.data,
-            color: 'secondary',
-            position: 'top'
-          })
+            color: "secondary",
+            position: "top"
+          });
         })
         .catch(e => {
           this.$q.notify({
             message: e.message,
-            color: 'red',
-            position: 'top'
-          })
-        })
+            color: "red",
+            position: "top"
+          });
+        });
     }
   },
   mounted() {

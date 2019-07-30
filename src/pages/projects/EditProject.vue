@@ -102,14 +102,26 @@
 
     <card-component title="Philippine Development Plan (PDP) Chapter">
       <template v-slot:content>
-        <select-component label="Main PDP Chapter"></select-component>
+        <select-component
+          label="Main PDP Chapter"
+          :options="pdp_chapters"
+          v-model="main_pdp_chapter"
+          @input="filterPpdIndicators"
+        ></select-component>
 
         <select-component
           label="Other PDP Chapters"
+          :options="pdp_chapters"
+          v-model="other_pdp_chapter"
           :multiple="true"
         ></select-component>
 
-        <p>PDP Chapter Outcome Statements/Outputs</p>
+        <tree-component
+          label="PDP Chapter Outcome Statements/Outputs"
+          noNodesLabel="No PDP chapter selected"
+          :treeData="pdp_indicators"
+          v-model="pdp_indicators_selected"
+        ></tree-component>
       </template>
     </card-component>
 
@@ -1020,9 +1032,11 @@ import SelectComponent from "../../components/SelectComponent";
 import OptionsComponent from "../../components/OptionsComponent";
 import DateComponent from "../../components/DateComponent";
 import TableInputComponent from "../../components/TableInputComponent";
+import TreeComponent from "../../components/TreeComponent";
 
 export default {
   components: {
+    TreeComponent,
     TableInputComponent,
     DateComponent,
     OptionsComponent,
@@ -1036,7 +1050,10 @@ export default {
       regions: [],
       spatial_coverages: [],
       approval_levels: [],
-      implementation_bases: []
+      implementation_bases: [],
+      pdp_chapters: [],
+      pdp_indicators: [],
+      pdp_indicators_selected: []
     };
   },
   methods: {
@@ -1079,6 +1096,29 @@ export default {
         .catch(e => {
           console.log(e);
         });
+    },
+    loadPdpChapters() {
+      this.$axios
+        .get("/pdp_chapters")
+        .then(res => {
+          this.pdp_chapters = res.data;
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    },
+    loadPdpIndicators(id) {
+      this.$axios
+        .get("/pdp_indicators/" + id)
+        .then(res => {
+          this.pdp_indicators = res.data;
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    },
+    filterPpdIndicators(id) {
+      this.loadPdpIndicators(id);
     }
   },
   mounted() {
@@ -1086,6 +1126,7 @@ export default {
     this.loadSpatialCoverages();
     this.loadApprovalLevels();
     this.loadImplementationBases();
+    this.loadPdpChapters();
   }
 };
 </script>

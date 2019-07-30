@@ -1,9 +1,5 @@
 <template>
-  <q-list
-    bordered
-    separator
-    class="rounded-borders">
-
+  <q-list bordered separator class="rounded-borders">
     <q-item v-for="item in items" :key="item.id">
       <q-item-section class="gt-xs" avatar>
         <q-icon :name="item.icon" color="black" size="34px" />
@@ -26,15 +22,29 @@
       </q-item-section>
 
       <q-item-section side>
-        <q-item-label>
-          PhP {{ item.total_cost }}
-        </q-item-label>
+        <q-item-label> PhP {{ item.total_cost }} </q-item-label>
       </q-item-section>
 
       <q-item-section side>
         <div class="text-grey-8 q-gutter-xs">
-          <q-btn class="gt-xs" size="12px" flat dense round icon="edit" :to=" '/projects/' + item.id "/>
-          <q-btn class="gt-xs" size="12px" flat dense round icon="delete" @click="promptToDelete(item.id)"/>
+          <q-btn
+            class="gt-xs"
+            size="12px"
+            flat
+            dense
+            round
+            icon="edit"
+            :to="'/projects/' + item.id"
+          />
+          <q-btn
+            class="gt-xs"
+            size="12px"
+            flat
+            dense
+            round
+            icon="delete"
+            @click="promptToDelete(item.id)"
+          />
         </div>
       </q-item-section>
     </q-item>
@@ -52,7 +62,7 @@ export default {
   },
   methods: {
     promptToDelete(id) {
-      alert(id)
+      alert(id);
     }
   }
 };

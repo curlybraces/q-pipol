@@ -31,6 +31,7 @@
         <q-item-label header>NAVIGATION</q-item-label>
 
         <template v-for="item in sidemenu">
+
           <q-item
             :key="item.label"
             exact
@@ -49,6 +50,7 @@
           </q-item>
         </template>
       </q-list>
+
     </q-drawer>
 
     <q-footer class="bg-primary-1 text-white">
@@ -75,6 +77,7 @@ export default {
     return {
       appTitle: "PIPOL",
       leftDrawerOpen: this.$q.platform.is.desktop,
+      expanded: false,
       sidemenu: [
         {
           label: "Dashboard",
@@ -84,27 +87,28 @@ export default {
         },
         {
           label: "Projects",
-          href: "/projects",
+          href: '/projects',
           icon: "list",
-          caption: "View all projects"
-        },
-        {
-          label: "Add Project",
-          href: "/projects/add",
-          icon: "playlist_add",
-          caption: "Add a new project"
+          caption: "View all projects",
         },
         {
           label: "Programs",
-          href: "/programs",
+          href: '/programs',
           icon: "list",
-          caption: "View all programs"
+          caption: "View all programs",
+
         },
         {
           label: "Settings",
           href: "/settings",
           icon: "settings",
           caption: "Change user and system settings"
+        },
+        {
+          label: "About",
+          href: "/about",
+          icon: "info",
+          caption: "About the System"
         }
       ]
     };

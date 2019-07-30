@@ -1,16 +1,38 @@
 <template>
-  <q-page class="flex flex-center">
-    <div class="column">
-      <img alt="App logo" src="statics/icons/icon-192x192.png" />
-      <h4 class="text-center">PIPOL System</h4>
-    </div>
+  <q-page padding>
+    <tree-component label="PDP" :treeData="pdp" v-model="selected" />
+    <q-btn @click="onSubmit">Submit</q-btn>
   </q-page>
 </template>
 
-<style></style>
-
 <script>
+import TreeComponent from "../components/TreeComponent";
 export default {
-  name: "PageIndex"
+  components: { TreeComponent },
+  name: "PageIndex",
+  data() {
+    return {
+      pdp: [],
+      selected: []
+    };
+  },
+  methods: {
+    loadPdpData() {
+      this.$axios
+        .get("/test")
+        .then(res => {
+          this.pdp = res.data;
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    },
+    onSubmit() {
+      alert(this.selected);
+    }
+  },
+  mounted() {
+    this.loadPdpData();
+  }
 };
 </script>

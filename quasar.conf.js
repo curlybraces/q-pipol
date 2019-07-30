@@ -43,6 +43,7 @@ module.exports = function (ctx) {
         'QBtn',
         'QIcon',
         'QList',
+        'QExpansionItem',
         'QItem',
         'QItemSection',
         'QItemLabel',
@@ -89,7 +90,9 @@ module.exports = function (ctx) {
 
         'QPopupProxy',
 
-        'QAvatar'
+        'QAvatar',
+
+        'QTree'
       ],
 
       directives: [
