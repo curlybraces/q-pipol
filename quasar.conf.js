@@ -92,7 +92,9 @@ module.exports = function (ctx) {
 
         'QAvatar',
 
-        'QTree'
+        'QTree',
+
+        'QBanner'
       ],
 
       directives: [

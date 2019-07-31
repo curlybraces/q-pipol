@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <div class="col-md-6 col-sm-12">
+    <q-card class="auth-tabs">
       <q-tabs
         v-model="tab"
         class="bg-primary text-grey-4"
@@ -15,23 +15,27 @@
       <q-separator />
 
       <q-tab-panels v-model="tab" animated>
+
         <q-tab-panel name="login">
-          <div class="text-h6">Login</div>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          <login-register :tab="tab"></login-register>
         </q-tab-panel>
 
         <q-tab-panel name="register">
-          <div class="text-h6">Register</div>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          <login-register :tab="tab"></login-register>
         </q-tab-panel>
+
       </q-tab-panels>
-    </div>
+    </q-card>
   </q-page>
 </template>
 
 <script>
+import LoginRegister from "../components/Auth/LoginRegister";
 export default {
-  name: "PageLogin",
+	components: {
+      LoginRegister
+    },
+	name: "PageLogin",
   data() {
     return {
       tab: "login"
@@ -40,4 +44,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+  .auth-tabs {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+</style>

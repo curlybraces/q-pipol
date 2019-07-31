@@ -20,9 +20,12 @@
           {{ appTitle }}
         </q-toolbar-title>
 
-        <q-btn flat to="/login">Login</q-btn>
+        <q-btn
+          flat
+          to="/login"
+          icon-right="account_circle"
+          class="absolute-right">Login </q-btn>
 
-        <q-btn flat>Logout</q-btn>
       </q-toolbar>
     </q-header>
 
