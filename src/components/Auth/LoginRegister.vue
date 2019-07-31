@@ -11,6 +11,19 @@
     </q-banner>
 
     <q-input
+      v-if=" tab == 'register' "
+      dense
+      label="Name"
+      type="text"
+      ref="name"
+      :rules="[ val => !!val || 'Please enter your name.' ]"
+      lazy-rules
+      outlined
+      stack-label
+      v-model="formData.name"
+    ></q-input>
+
+    <q-input
       dense
       label="Email"
       type="email"
@@ -54,6 +67,7 @@ export default {
   data () {
     return {
       formData: {
+      	name: '',
         email: 'mlab817@gmail.com',
         password: 'password'
       }
@@ -71,6 +85,7 @@ export default {
         if (this.tab == 'login') {
           this.loginUser(this.formData)
         } else {
+          this.$refs.name.validate()
           this.registerUser(this.formData)
         }
       }
@@ -82,7 +97,7 @@ export default {
   },
   filters: {
   	titleCase(value) {
-  		return value.charAt(0).toUpperCase() + value.slice(1)
+      return value.charAt(0).toUpperCase() + value.slice(1)
     }
   }
 }

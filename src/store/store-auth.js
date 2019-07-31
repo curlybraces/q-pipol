@@ -1,25 +1,84 @@
-const state = {
+import { axiosInstance } from 'boot/axios'
+import { Notify } from 'quasar'
 
+const state = {
+	loggedIn: localStorage.getItem('loggedIn') || false,
+	token: localStorage.getItem('token') || '',
+	user: localStorage.getItem('user') || {}
 }
 
 const mutations = {
-
+	setLoggedIn(state, value) {
+		state.loggedIn = value
+	},
+	setToken(state, value) {
+		state.token = value
+	},
+	setUser(state, value) {
+		state.user = value
+	}
 }
 
 const actions = {
 	registerUser( context, payload) {
-		this.$axios.post('/register', payload)
+		axiosInstance.post('/register', payload)
 			.then(res => {
-				console.log(res.data)
+				Notify.create({
+					message: res.data,
+					position: 'top',
+					color: 'success'
+				});
+			})
+			.catch(e => {
+				Notify.create({
+					message: e.message,
+					position: 'top',
+					color: 'error'
+				});
+			});
+	},
+	loginUser( { commit }, payload ) {
+		axiosInstance.post('/login', payload)
+			.then(res => {
+				localStorage.setItem('loggedIn', true);
+				localStorage.setItem('token', res.data.token );
+				localStorage.setItem('user', res.data.user );
+
+				commit('setLoggedIn', true);
+				commit('setToken', res.data.token );
+				commit('setUser', res.data.user );
 			})
 			.catch(e => {
 				console.log(e.message)
+			});
+	},
+	logoutUser({ commit }) {
+		axiosInstance.post('/logout')
+			.then(() => {
+				commit('setLoggedIn', false);
+				commit('setToken', '');
+				commit('setUser', {});
+
+				localStorage.removeItem('loggedIn');
+				localStorage.removeItem('token');
+				localStorage.removeItem('user');
+			})
+			.catch(e => {
+				console.log(e.message);
 			});
 	}
 }
 
 const getters = {
-
+	getLoggedIn(state) {
+		return state.loggedIn
+	},
+	getToken(state) {
+		return state.token
+	},
+	getUser(state) {
+		return state.user
+	}
 }
 
 export default {

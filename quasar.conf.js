@@ -95,7 +95,7 @@ module.exports = function (ctx) {
         'QTree',
 
         'QBanner',
-        
+
         'QPageSticky'
       ],
 
