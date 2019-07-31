@@ -94,7 +94,9 @@ module.exports = function (ctx) {
 
         'QTree',
 
-        'QBanner'
+        'QBanner',
+        
+        'QPageSticky'
       ],
 
       directives: [
