@@ -2,35 +2,39 @@
   <div class="row items-start q-my-md">
     <div class="col-md-3 text-primary text-weight-bold">{{ label }}</div>
     <div class="col-md-9 col-sm-12 col-xs-12 q-col-lg">
-      <q-option-group
+      <q-btn-toggle
         :options="options"
         @input="onInput"
-        v-model="selected"
-        inline
+        v-model="value"
+        spread
       >
-      </q-option-group>
+      </q-btn-toggle>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "OptionsComponent",
+  name: 'ToggleComponent',
   props: {
-    label: String,
+    label: {
+      type: String,
+      default: 'No Label Specified'
+    },
     options: Array
   },
-  data() {
+  data () {
     return {
-      selected: null
-    };
+      value: false
+    }
   },
   methods: {
     onInput() {
-      this.$emit("input", this.selected);
+
     }
   }
-};
+}
 </script>
 
-<style></style>
+<style>
+</style>

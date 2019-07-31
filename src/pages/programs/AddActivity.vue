@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <div class="row">
-      <p>Add Subproject</p>
+      <p>Add Activity</p>
       <q-space />
       <q-btn
         flat
@@ -13,22 +13,28 @@
       />
     </div>
 
-    <card-component title="Subproject Profile" :onClick="addSubproject">
+    <card-component title="New or Expanded Locally Funded Programs/Projects" :onClick="addActivity">
       <template v-slot:content>
-        <select-component label="Program" :readonly="true"></select-component>
+        <select-component
+          label="Program"
+          v-model="form.program_uacs_code"></select-component>
 
         <input-component
-          label="Subproject Title"
+          label="Proposal/Project Name"
           v-model="form.title"
+          hint="Proposal/project name must be as specific as possible. Include the intervention and the location of intervention"
         ></input-component>
 
-        <select-component
-          label="Basis for Implementation"
-          hint="Included in any of the following documents"
-          :options="implementation_bases"
-          :multiple="true"
-          v-model="form.implementation_bases"
-        ></select-component>
+        <options-component
+          label="Categorization"
+          :options="categorizations"
+          v-model="form.categorization_id"
+        ></options-component>
+
+        <toggle-component
+          label="Infrastructure"
+          :options="[ { label: 'Infrastructure', value: true }, { label: 'Non-Infreastructure', value: false } ]"
+          ></toggle-component>
 
         <input-component
           type="textarea"
@@ -36,6 +42,11 @@
           hint="Overview, Purpose, and/or Rationale of the Undertaking, Sub-programs/Components"
           v-model="form.description"
         ></input-component>
+
+        <input-component
+          type="number"
+          label="Total Project Cost (in absolute PhP)"
+          v-model="form.total_project_cost"/>
 
         <input-component
           type="textarea"
@@ -90,46 +101,8 @@
           v-model="form.implementation_end"
         ></select-component>
 
-        <select-component
-          label="Preparation Document"
-          :options="preparation_documents"
-          v-model="form.preparation_document"
-        ></select-component>
 
-        <select-component
-          label="Main Funding Source"
-          :options="funding_sources"
-          v-model="form.main_funding_source"
-        ></select-component>
 
-        <select-component
-          label="ODA Funding Institutions"
-          :options="funding_institutions"
-          v-model="form.funding_institution"
-        ></select-component>
-
-        <input-component
-          label="Others"
-          v-model="form.other_funding_institutions"
-        ></input-component>
-
-        <select-component
-          label="Mode of Implementation/Procurement"
-          :options="implementation_modes"
-          v-model="form.implementation_mode"
-        ></select-component>
-
-        <select-component
-          label="Categorization"
-          :options="categorizations"
-          v-model="form.categorization"
-        ></select-component>
-
-        <input-component
-          label="UACS Code"
-          v-show="form.categorization == 1 || form.categorization == 3"
-          v-model="form.uacs_code"
-        ></input-component>
       </template>
     </card-component>
   </q-page>
@@ -139,28 +112,26 @@
 import InputComponent from "../../components/InputComponent";
 import CardComponent from "../../components/CardComponent";
 import SelectComponent from "../../components/SelectComponent";
+import OptionsComponent from "../../components/OptionsComponent";
+import ToggleComponent from "../../components/ToggleComponent";
 
 export default {
   components: {
+      ToggleComponent,
+      OptionsComponent,
     SelectComponent,
     CardComponent,
     InputComponent
   },
-  name: "PageAddProject",
+  name: "PageAddActivity",
   data() {
     return {
       regions: [],
       spatial_coverages: [],
-      approval_levels: [],
       categorizations: [],
       provinces: [],
-      implementation_bases: [],
       implementation_periods: [],
-      funding_institutions: [],
       city_municipalities: [],
-      preparation_documents: [],
-      funding_sources: [],
-      implementation_modes: [],
       form: {}
     };
   },
@@ -180,16 +151,6 @@ export default {
         .get("/spatial_coverages")
         .then(res => {
           this.spatial_coverages = res.data;
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    },
-    loadApprovalLevels() {
-      this.$axios
-        .get("/approval_levels")
-        .then(res => {
-          this.approval_levels = res.data;
         })
         .catch(e => {
           console.log(e);
@@ -215,15 +176,23 @@ export default {
           console.log(e);
         });
     },
-    addSubproject() {
+    loadCategorizations() {
+      this.$axios.get('/categorizations')
+        .then(res => {
+          this.categorizations = res.data
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    },
+    addActivity() {
       console.log(this.form);
     }
   },
   mounted() {
+    this.loadCategorizations();
     this.loadRegions();
     this.loadSpatialCoverages();
-    this.loadApprovalLevels();
-    this.loadImplementationBases();
     this.loadImplementationPeriods();
   }
 };
