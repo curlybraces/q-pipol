@@ -8,6 +8,7 @@
           round
           @click="leftDrawerOpen = !leftDrawerOpen"
           aria-label="Menu"
+          v-if="loggedIn"
         >
           <q-icon name="menu" />
         </q-btn>
@@ -39,7 +40,11 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" bordered content-class="bg-primary">
+    <q-drawer
+      v-if="loggedIn"
+      v-model="leftDrawerOpen"
+      bordered
+      content-class="bg-primary">
       <q-list separator padding dark>
         <q-item-label header>NAVIGATION</q-item-label>
 

@@ -106,7 +106,8 @@ module.exports = function (ctx) {
       // Quasar plugins
       plugins: [
         'Notify',
-        'AppFullscreen'
+        'AppFullscreen',
+        'Dialog'
       ]
     },
 
