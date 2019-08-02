@@ -94,7 +94,7 @@ export default {
   name: "MyLayout",
   data() {
     return {
-      appTitle: "PIPOL",
+      appTitle: "iPMS",
       leftDrawerOpen: this.$q.platform.is.desktop,
       expanded: false,
       sidemenu: [
