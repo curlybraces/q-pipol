@@ -27,6 +27,7 @@
             { label: 'Program', value: '1' },
             { label: 'Project', value: '2' }
           ]"
+          v-model="pap_type_id"
         ></options-component>
 
         <select-component
