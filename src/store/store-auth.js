@@ -47,6 +47,8 @@ const actions = {
 				commit('setLoggedIn', true);
 				commit('setToken', res.data.token );
 				commit('setUser', res.data.user );
+
+				this.$router.push('/');
 			})
 			.catch(e => {
 				console.log(e.message)
@@ -62,6 +64,8 @@ const actions = {
 				localStorage.removeItem('loggedIn');
 				localStorage.removeItem('token');
 				localStorage.removeItem('user');
+
+				this.$router.replace('/login');
 			})
 			.catch(e => {
 				console.log(e.message);
