@@ -6,7 +6,7 @@
       </q-item-section>
 
       <q-item-section class="col-2 gt-sm">
-        <q-item-label class="q-mt-sm">{{ item.user.name }}</q-item-label>
+        <q-item-label class="q-mt-sm"></q-item-label>
       </q-item-section>
 
       <q-item-section>
@@ -17,7 +17,7 @@
           {{ item.description }}
         </q-item-label>
         <q-item-label caption lines="1">
-          [ {{ item.implementation_period }} ]
+          [ {{ item.implementation_start + ' - ' + item.implementation_end }} ]
         </q-item-label>
       </q-item-section>
 

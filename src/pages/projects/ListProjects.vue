@@ -14,7 +14,8 @@
       </template>
     </q-input>
 
-    <list-component :items="projects"> </list-component>
+    <list-component
+      :items="projects"> </list-component>
 
     <fab-component link="/projects/add" />
   </q-page>
@@ -33,68 +34,23 @@ export default {
   data() {
     return {
       projects: [
-        {
-          id: 1,
-          icon: "home",
-          user: {
-            name: "Lester"
-          },
-          title: "Project Title",
-          description: "Description of the project",
-          total_cost: "1,000,000.00",
-          implementation_period: "2017-2022",
-          date_added: "10/9/2019"
-        },
-        {
-          id: 2,
-          icon: "home",
-          user: {
-            name: "Lester"
-          },
-          title: "Project Title",
-          description: "Description of the project",
-          total_cost: "1,000,000.00",
-          implementation_period: "2017-2022",
-          date_added: "10/9/2019"
-        },
-        {
-          id: 3,
-          icon: "home",
-          user: {
-            name: "Lester"
-          },
-          title: "Project Title",
-          description: "Description of the project",
-          total_cost: "1,000,000.00",
-          implementation_period: "2017-2022",
-          date_added: "10/9/2019"
-        },
-        {
-          id: 4,
-          icon: "home",
-          user: {
-            name: "Lester"
-          },
-          title: "Project Title",
-          description: "Description of the project",
-          total_cost: "1,000,000.00",
-          implementation_period: "2017-2022",
-          date_added: "10/9/2019"
-        },
-        {
-          id: 5,
-          icon: "home",
-          user: {
-            name: "Lester"
-          },
-          title: "Project Title",
-          description: "Description of the project",
-          total_cost: "1,000,000.00",
-          implementation_period: "2017-2022",
-          date_added: "10/9/2019"
-        }
+        //
       ]
     };
+  },
+  methods: {
+    loadProjects() {
+      this.$axios.get('/projects')
+      .then(res => {
+        this.projects = res.data.data;
+      })
+      .catch(e => {
+        console.log(e.message)
+      });
+    }
+  },
+  mounted() {
+    this.loadProjects()
   }
 };
 </script>

@@ -13,8 +13,15 @@
       />
     </div>
 
-    <card-component title="Basic Information" :onClick="addProject">
+    <card-component title="Add Project" :onClick="addProject">
       <template v-slot:content>
+        <q-banner class="bg-grey-3">
+          <template v-slot:avatar>
+            <q-icon name="info" color="primary" />
+          </template>
+          This module is <strong>only</strong> for adding new projects. Once added, you may view your projects in the project list and edit to finalize your submission.
+        </q-banner>
+
         <input-component
           label="Project Title"
           hint="Project title must match title in budget proposal"
@@ -47,6 +54,7 @@
           label="Spatial Coverage"
           :options="spatial_coverages"
           v-model="form.spatial_coverage"
+          hint="Choose where your project will be implemented."
         ></select-component>
 
         <select-component
@@ -79,17 +87,21 @@
         <select-component
           label="Project Preparation Document"
           v-model="form.preparation_document"
+          :options="preparation_documents"
         ></select-component>
 
         <select-component
           label="Main Funding Source"
           v-model="form.funding_source"
+          hint="Choose the major type of funding source for the PAP."
+          :options="funding_sources"
         ></select-component>
 
         <select-component
           label="ODA Funding Institutions"
           v-if="form.funding_source == 2 || form.funding_source == 3"
           v-model="form.funding_institution"
+          :options="funding_institutions"
         ></select-component>
 
         <input-component
@@ -101,11 +113,14 @@
         <select-component
           label="Categorization"
           v-model="form.categorization"
+          hint="Indicate the status of the PAP."
+          :options="categorizations"
         ></select-component>
 
         <input-component
           label="UACS Code"
           v-model="form.uacs_code"
+          hint="UACS code is optional for new PAPs."
         ></input-component>
       </template>
     </card-component>
@@ -131,7 +146,15 @@ export default {
       approval_levels: [],
       implementation_bases: [],
       implementation_periods: [],
-      form: {}
+      categorizations: [],
+      funding_sources: [],
+      funding_institutions: [],
+      preparation_documents: [],
+      form: {
+        title: 'Title',
+        description: 'Description',
+        expected_outputs: 'Outputs'
+      }
     };
   },
   methods: {
@@ -155,11 +178,21 @@ export default {
           console.log(e);
         });
     },
+    loadFundingInstitutions() {
+      this.$axios
+        .get("/funding_institutions")
+        .then(res => {
+          this.funding_institutions = res.data;
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    },
     loadFundingSources() {
       this.$axios
-        .get("/spatial_coverages")
+        .get("/funding_sources")
         .then(res => {
-          this.spatial_coverages = res.data;
+          this.funding_sources = res.data;
         })
         .catch(e => {
           console.log(e);
@@ -205,8 +238,28 @@ export default {
           console.log(e);
         });
     },
+    loadPreparationDocuments() {
+      this.$axios
+        .get("/preparation_documents")
+        .then(res => {
+          this.preparation_documents = res.data;
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    },
+    loadCategorizations() {
+      this.$axios
+        .get("/categorizations")
+        .then(res => {
+          this.categorizations = res.data;
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    },
     addProject() {
-      console.log(this.form);
+      // console.log(this.form);
       this.$axios
         .post("/projects", this.form)
         .then(res => {
@@ -228,10 +281,14 @@ export default {
   },
   mounted() {
     this.loadRegions();
+    this.loadCategorizations();
     this.loadSpatialCoverages();
+    this.loadFundingSources();
+    this.loadFundingInstitutions();
     this.loadApprovalLevels();
     this.loadImplementationBases();
     this.loadImplementationPeriods();
+    this.loadPreparationDocuments();
     this.loadDropdowns();
   }
 };

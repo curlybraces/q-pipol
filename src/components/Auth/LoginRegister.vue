@@ -51,7 +51,11 @@
     <div class="row">
       <q-space />
       <q-btn flat type="reset" label="Reset" />
-      <q-btn type="submit" color="primary" :label="tab" />
+      <q-btn
+        type="submit"
+        color="primary"
+        :label="tab">
+      </q-btn>
     </div>
   </q-form>
 </template>
@@ -64,6 +68,7 @@ export default {
   props: ["tab"],
   data() {
     return {
+      loading: false,
       formData: {
         name: "",
         email: "mlab817@gmail.com",

@@ -1,5 +1,6 @@
 import { axiosInstance } from "boot/axios";
 import { Notify } from "quasar";
+import { Loading, QSpinnerFacebook } from "quasar";
 
 const state = {
   loggedIn: localStorage.getItem("loggedIn") || false,
@@ -39,6 +40,10 @@ const actions = {
       });
   },
   loginUser({ commit }, payload) {
+    Loading.show({
+      spinner: QSpinnerFacebook,
+      message: 'Logging in...'
+    });
     axiosInstance
       .post("/login", payload)
       .then(res => {
@@ -52,6 +57,8 @@ const actions = {
         commit("setLoggedIn", true);
         commit("setToken", res.data.token);
         commit("setUser", res.data.user);
+
+        Loading.hide();
 
         this.$router.push("/");
       })
