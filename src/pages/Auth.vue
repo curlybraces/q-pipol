@@ -15,7 +15,6 @@
       <q-separator />
 
       <q-tab-panels v-model="tab" animated>
-
         <q-tab-panel name="login">
           <login-register :tab="tab"></login-register>
         </q-tab-panel>
@@ -23,7 +22,6 @@
         <q-tab-panel name="register">
           <login-register :tab="tab"></login-register>
         </q-tab-panel>
-
       </q-tab-panels>
     </q-card>
   </q-page>
@@ -32,10 +30,10 @@
 <script>
 import LoginRegister from "../components/Auth/LoginRegister";
 export default {
-	components: {
-      LoginRegister
-    },
-	name: "PageLogin",
+  components: {
+    LoginRegister
+  },
+  name: "PageLogin",
   data() {
     return {
       tab: "login"
@@ -45,8 +43,8 @@ export default {
 </script>
 
 <style scoped>
-  .auth-tabs {
-    max-width: 500px;
-    margin: 0 auto;
-  }
+.auth-tabs {
+  max-width: 500px;
+  margin: 0 auto;
+}
 </style>

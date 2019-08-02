@@ -1,8 +1,5 @@
 <template>
-  <q-form
-    @submit.prevent="submitForm"
-    @reset="onReset"
-    class="q-gutter-y-sm">
+  <q-form @submit.prevent="submitForm" @reset="onReset" class="q-gutter-y-sm">
     <q-banner class="bg-grey-3">
       <template v-slot:avatar>
         <q-icon name="account_circle" color="primary" />
@@ -11,12 +8,12 @@
     </q-banner>
 
     <q-input
-      v-if=" tab == 'register' "
+      v-if="tab == 'register'"
       dense
       label="Name"
       type="text"
       ref="name"
-      :rules="[ val => !!val || 'Please enter your name.' ]"
+      :rules="[val => !!val || 'Please enter your name.']"
       lazy-rules
       outlined
       stack-label
@@ -28,7 +25,9 @@
       label="Email"
       type="email"
       ref="email"
-      :rules="[ val => isValidEmailAddress(val) || 'Please enter a valid email.' ]"
+      :rules="[
+        val => isValidEmailAddress(val) || 'Please enter a valid email.'
+      ]"
       lazy-rules
       outlined
       stack-label
@@ -40,7 +39,9 @@
       label="Password"
       type="password"
       ref="password"
-      :rules="[ val => val.length >= 8 || 'Password must at least be 8 characters.' ]"
+      :rules="[
+        val => val.length >= 8 || 'Password must at least be 8 characters.'
+      ]"
       lazy-rules
       outlined
       stack-label
@@ -48,60 +49,56 @@
     ></q-input>
 
     <div class="row">
-      <q-space/>
-      <q-btn flat type="reset" label="Reset"/>
-      <q-btn type="submit" color="primary" :label="tab"/>
+      <q-space />
+      <q-btn flat type="reset" label="Reset" />
+      <q-btn type="submit" color="primary" :label="tab" />
     </div>
-
   </q-form>
 </template>
 
 <script>
-  import { mapActions } from 'vuex'
+import { mapActions } from "vuex";
 
 export default {
-  name: 'LoginRegister',
-  props: [
-  	'tab'
-  ],
-  data () {
+  name: "LoginRegister",
+  props: ["tab"],
+  data() {
     return {
       formData: {
-      	name: '',
-        email: 'mlab817@gmail.com',
-        password: 'password'
+        name: "",
+        email: "mlab817@gmail.com",
+        password: "password"
       }
-    }
+    };
   },
   methods: {
-  	isValidEmailAddress(email) {
+    isValidEmailAddress(email) {
       var re = /\S+@\S+\.\S+/;
       return re.test(String(email).toLowerCase());
     },
-  	submitForm() {
-      this.$refs.email.validate()
-      this.$refs.password.validate()
+    submitForm() {
+      this.$refs.email.validate();
+      this.$refs.password.validate();
       if (!this.$refs.email.hasError && !this.$refs.password.hasError) {
-        if (this.tab == 'login') {
-          this.loginUser(this.formData)
+        if (this.tab == "login") {
+          this.loginUser(this.formData);
         } else {
-          this.$refs.name.validate()
-          this.registerUser(this.formData)
+          this.$refs.name.validate();
+          this.registerUser(this.formData);
         }
       }
     },
     onReset() {
-      this.formData = {}
+      this.formData = {};
     },
-    ...mapActions('auth', ['registerUser','loginUser'])
+    ...mapActions("auth", ["registerUser", "loginUser"])
   },
   filters: {
-  	titleCase(value) {
-      return value.charAt(0).toUpperCase() + value.slice(1)
+    titleCase(value) {
+      return value.charAt(0).toUpperCase() + value.slice(1);
     }
   }
-}
+};
 </script>
 
-<style>
-</style>
+<style></style>

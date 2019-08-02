@@ -27,7 +27,8 @@
           to="/login"
           icon-right="account_circle"
           class="absolute-right"
-          label="Login"/>
+          label="Login"
+        />
 
         <q-btn
           flat
@@ -35,8 +36,8 @@
           @click="logoutUser"
           icon-right="account_circle"
           class="absolute-right"
-          label="Logout"/>
-
+          label="Logout"
+        />
       </q-toolbar>
     </q-header>
 
@@ -44,12 +45,12 @@
       v-if="loggedIn"
       v-model="leftDrawerOpen"
       bordered
-      content-class="bg-primary">
+      content-class="bg-primary"
+    >
       <q-list separator padding dark>
         <q-item-label header>NAVIGATION</q-item-label>
 
         <template v-for="item in sidemenu">
-
           <q-item
             :key="item.label"
             exact
@@ -68,7 +69,6 @@
           </q-item>
         </template>
       </q-list>
-
     </q-drawer>
 
     <q-footer class="bg-primary-1 text-white">
@@ -83,13 +83,12 @@
     <q-page-container>
       <router-view />
     </q-page-container>
-
   </q-layout>
 </template>
 
 <script>
 import { openURL } from "quasar";
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "MyLayout",
@@ -107,16 +106,15 @@ export default {
         },
         {
           label: "Projects",
-          href: '/projects',
+          href: "/projects",
           icon: "list",
-          caption: "View all projects",
+          caption: "View all projects"
         },
         {
           label: "Programs",
-          href: '/programs',
+          href: "/programs",
           icon: "list",
-          caption: "View all programs",
-
+          caption: "View all programs"
         },
         {
           label: "Settings",
@@ -134,11 +132,11 @@ export default {
     };
   },
   computed: {
-    ...mapState('auth',['loggedIn'])
+    ...mapState("auth", ["loggedIn"])
   },
   methods: {
     openURL,
-    ...mapActions('auth',['logoutUser'])
+    ...mapActions("auth", ["logoutUser"])
   }
 };
 </script>

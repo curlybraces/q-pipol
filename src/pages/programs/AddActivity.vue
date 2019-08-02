@@ -13,11 +13,15 @@
       />
     </div>
 
-    <card-component title="New or Expanded Locally Funded Programs/Projects" :onClick="addActivity">
+    <card-component
+      title="New or Expanded Locally Funded Programs/Projects"
+      :onClick="addActivity"
+    >
       <template v-slot:content>
         <select-component
           label="Program"
-          v-model="form.program_uacs_code"></select-component>
+          v-model="form.program_uacs_code"
+        ></select-component>
 
         <input-component
           label="Proposal/Project Name"
@@ -33,8 +37,11 @@
 
         <toggle-component
           label="Infrastructure"
-          :options="[ { label: 'Infrastructure', value: true }, { label: 'Non-Infreastructure', value: false } ]"
-          ></toggle-component>
+          :options="[
+            { label: 'Infrastructure', value: true },
+            { label: 'Non-Infreastructure', value: false }
+          ]"
+        ></toggle-component>
 
         <input-component
           type="textarea"
@@ -46,7 +53,8 @@
         <input-component
           type="number"
           label="Total Project Cost (in absolute PhP)"
-          v-model="form.total_project_cost"/>
+          v-model="form.total_project_cost"
+        />
 
         <input-component
           type="textarea"
@@ -100,9 +108,6 @@
           hint="Target year of project completion"
           v-model="form.implementation_end"
         ></select-component>
-
-
-
       </template>
     </card-component>
   </q-page>
@@ -117,8 +122,8 @@ import ToggleComponent from "../../components/ToggleComponent";
 
 export default {
   components: {
-      ToggleComponent,
-      OptionsComponent,
+    ToggleComponent,
+    OptionsComponent,
     SelectComponent,
     CardComponent,
     InputComponent
@@ -177,13 +182,14 @@ export default {
         });
     },
     loadCategorizations() {
-      this.$axios.get('/categorizations')
+      this.$axios
+        .get("/categorizations")
         .then(res => {
-          this.categorizations = res.data
+          this.categorizations = res.data;
         })
         .catch(e => {
-          console.log(e)
-        })
+          console.log(e);
+        });
     },
     addActivity() {
       console.log(this.form);

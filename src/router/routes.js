@@ -15,17 +15,17 @@ const routes = [
     children: [
       { path: "", component: () => import("pages/projects/ListProjects.vue") },
       { path: "add", component: () => import("pages/projects/AddProject.vue") },
-      {
-        path: "edit",
-        component: () => import("pages/projects/EditProject.vue")
-      }
+      { path: ":id", component: () => import("pages/projects/EditProject.vue") }
     ]
   },
   {
     path: "/programs",
     component: () => import("layouts/MyLayout.vue"),
     children: [
-      { path: "", component: () => import("pages/programs/ViewActivities.vue") },
+      {
+        path: "",
+        component: () => import("pages/programs/ViewActivities.vue")
+      },
       {
         path: "add-activities",
         component: () => import("pages/programs/AddActivity.vue")
