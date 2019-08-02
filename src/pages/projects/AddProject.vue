@@ -128,6 +128,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import InputComponent from "../../components/InputComponent";
 import CardComponent from "../../components/CardComponent";
 import SelectComponent from "../../components/SelectComponent";
@@ -143,12 +144,9 @@ export default {
     return {
       regions: [],
       spatial_coverages: [],
-      approval_levels: [],
       implementation_bases: [],
       implementation_periods: [],
-      categorizations: [],
       funding_sources: [],
-      funding_institutions: [],
       preparation_documents: [],
       form: {
         title: 'Title',
@@ -156,6 +154,9 @@ export default {
         expected_outputs: 'Outputs'
       }
     };
+  },
+  computed: {
+    ...mapState('dropdown',['categorizations','funding_institutions'])
   },
   methods: {
     loadRegions() {
