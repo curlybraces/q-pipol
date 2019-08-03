@@ -24,6 +24,11 @@
           finalize your submission.
         </q-banner>
 
+        <select-component
+          label="Implementing Unit"
+          :options="operating_units"
+          v-model="form.implementing_unit"></select-component>
+
         <input-component
           label="Project Title"
           hint="Project title must match title in budget proposal"
@@ -126,13 +131,21 @@
           v-model="form.uacs_code"
           hint="UACS code is optional for new PAPs."
         ></input-component>
+
+        <input-component
+          type="number"
+          label="Total Project Cost (in PhP)"
+          hint="Total cost of the project in absolute terms"
+          v-model="form.total_cost"
+          />
       </template>
+
     </card-component>
   </q-page>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 import InputComponent from "../../components/InputComponent";
 import CardComponent from "../../components/CardComponent";
 import SelectComponent from "../../components/SelectComponent";
@@ -160,109 +173,23 @@ export default {
     };
   },
   computed: {
-    ...mapState("dropdown", ["categorizations", "funding_institutions"])
+    ...mapState("dropdown",
+          [
+            "categorizations",
+            "funding_institutions",
+            "operating_units",
+            "implementation_bases",
+            "spatial_coverages",
+            "regions",
+            "implementation_periods",
+            "funding_sources",
+            "funding_institutions",
+            "categorizations"
+          ]
+        )
   },
   methods: {
-    loadRegions() {
-      this.$axios
-        .get("/regions")
-        .then(res => {
-          this.regions = res.data;
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    },
-    loadDropdowns() {
-      this.$axios
-        .get("/dropdowns")
-        .then(res => {
-          console.log(res.data);
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    },
-    loadFundingInstitutions() {
-      this.$axios
-        .get("/funding_institutions")
-        .then(res => {
-          this.funding_institutions = res.data;
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    },
-    loadFundingSources() {
-      this.$axios
-        .get("/funding_sources")
-        .then(res => {
-          this.funding_sources = res.data;
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    },
-    loadSpatialCoverages() {
-      this.$axios
-        .get("/spatial_coverages")
-        .then(res => {
-          this.spatial_coverages = res.data;
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    },
-    loadApprovalLevels() {
-      this.$axios
-        .get("/approval_levels")
-        .then(res => {
-          this.approval_levels = res.data;
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    },
-    loadImplementationPeriods() {
-      this.$axios
-        .get("/implementation_periods")
-        .then(res => {
-          this.implementation_periods = res.data;
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    },
-    loadImplementationBases() {
-      this.$axios
-        .get("/implementation_bases")
-        .then(res => {
-          this.implementation_bases = res.data;
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    },
-    loadPreparationDocuments() {
-      this.$axios
-        .get("/preparation_documents")
-        .then(res => {
-          this.preparation_documents = res.data;
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    },
-    loadCategorizations() {
-      this.$axios
-        .get("/categorizations")
-        .then(res => {
-          this.categorizations = res.data;
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    },
+    ...mapActions('dropdown',['init']),
     addProject() {
       // console.log(this.form);
       this.$axios

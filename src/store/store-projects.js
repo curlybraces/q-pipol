@@ -4,7 +4,6 @@ import { Loading, QSpinnerFacebook } from 'quasar';
 const state = {
   project: {},
   projects: [],
-  filteredProjects: [],
   search: ''
 };
 
@@ -17,9 +16,6 @@ const mutations = {
   },
   setSearch(state, value) {
     state.search = value;
-  },
-  setFilteredProjects(state, value) {
-    state.filteredProjects = value;
   }
 };
 
@@ -28,7 +24,7 @@ const actions = {
     axiosInstance
       .get("/projects")
       .then(res => {
-        commit('setProjects',res.data.data)
+        commit('setProjects',res.data)
       })
       .catch(e => {
         console.log('Error: ',e.message)
@@ -60,20 +56,20 @@ const getters = {
   },
   projects: (state, getters) => {
     var projects = getters.projectsFiltered;
-    return projects;
+    if (projects) {
+      return projects;
+    }
+    return state.projects;
   },
   projectsFiltered: (state) => {
-    let filteredProjects = [];
     if (state.search) {
-      console.log(state.search);
-      state.projects.filter(function(project) {
-        return project.title.toLowerCase().includes(state.search.toLowerCase());
+      var searchLowerCase = state.search.toLowerCase();
+      // return items that contain. need two returns.
+      return state.projects.filter((project) => {
+        return project.title.toLowerCase().includes(searchLowerCase) || project.description.toLowerCase().includes(searchLowerCase);
       });
-      console.log(filteredProjects);
-    } else {
-      return state.projects;
     }
-    console.log(filteredProjects)
+    return state.projects;
   }
 };
 

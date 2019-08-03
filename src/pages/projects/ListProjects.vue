@@ -16,7 +16,9 @@
       </template>
     </q-input>
 
-    <list-component :items="projects"> </list-component>
+    <list-component
+      :items="projects">
+    </list-component>
 
     <fab-component link="/projects/add" />
   </q-page>
@@ -39,7 +41,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('projects',['projects']),
+    ...mapGetters('projects',['projects','projectsFiltered']),
     ...mapState('projects',['search']),
     searchField: {
       get() {

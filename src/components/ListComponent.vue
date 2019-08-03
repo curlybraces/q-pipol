@@ -22,7 +22,7 @@
       </q-item-section>
 
       <q-item-section side>
-        <q-item-label> PhP {{ item.total_cost }} </q-item-label>
+        <q-item-label> PhP {{ Number(item.total_cost).toLocaleString() }} </q-item-label>
       </q-item-section>
 
       <q-item-section side>
@@ -34,6 +34,7 @@
             dense
             round
             icon="edit"
+            color="green"
             :to="'/projects/' + item.id"
           />
           <q-btn
@@ -43,6 +44,7 @@
             dense
             round
             icon="delete"
+            color="red"
             @click="promptToDelete(item.id)"
           />
         </div>
