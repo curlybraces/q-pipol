@@ -17,7 +17,7 @@
           {{ item.description }}
         </q-item-label>
         <q-item-label caption lines="1">
-          [ {{ item.implementation_start + ' - ' + item.implementation_end }} ]
+          [ {{ item.implementation_start + " - " + item.implementation_end }} ]
         </q-item-label>
       </q-item-section>
 

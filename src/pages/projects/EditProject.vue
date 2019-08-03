@@ -12,13 +12,13 @@
         class="q-ml-md"
       />
     </div>
-
-    <card-component title="General Information">
+    <card-component title="General Information" :onClick="updateProject">
       <template v-slot:content>
         <input-component
           label="Project Title"
           hint="Project title must match title in budget proposal"
-          v-model="title"
+          v-model="project.title"
+          :value.sync="project.title"
         ></input-component>
 
         <options-component
@@ -27,7 +27,8 @@
             { label: 'Program', value: '1' },
             { label: 'Project', value: '2' }
           ]"
-          v-model="pap_type_id"
+          v-model="project.pap_type_id"
+          :value.sync="project.pap_type_id"
         ></options-component>
 
         <select-component
@@ -35,21 +36,21 @@
           hint="Included in any of the following documents"
           :options="implementation_bases"
           :multiple="true"
-          v-model="implementation_basis_id"
+          v-model="project.implementation_basis_id"
         ></select-component>
 
         <input-component
           type="textarea"
           label="Description"
           hint="Overview, Purpose, and/or Rationale of the Undertaking, Sub-programs/Components"
-          v-model="description"
+          v-model="project.description"
         ></input-component>
 
         <input-component
           type="textarea"
           label="Expected Outputs"
           hint="Actual Deliverables, i.e. 100km of paved roads"
-          v-model="expected_outputs"
+          v-model="project.expected_outputs"
         ></input-component>
       </template>
     </card-component>
@@ -59,28 +60,24 @@
         <select-component
           label="Spatial Coverage"
           :options="spatial_coverages"
-          v-model="spatial_coverage_id"
+          v-model="project.spatial_coverage_id"
         ></select-component>
 
         <select-component
           label="Region/s"
           :options="regions"
-          v-model="region_id"
+          v-model="project.region_id"
         ></select-component>
 
         <select-component
           label="Province/s"
-          v-model="province_id"
+          v-model="project.province_id"
         ></select-component>
 
         <select-component
           label="City and Municipalities"
-          v-model="city_municipality_id"
+          v-model="project.city_municipality_id"
         ></select-component>
-      </template>
-
-      <template v-slot:actions>
-        <q-btn icon="save" class="bg-primary text-white">Save</q-btn>
       </template>
     </card-component>
 
@@ -89,12 +86,12 @@
         <select-component
           label="Level of Approval"
           :options="approval_levels"
-          v-model="approval_level_id"
+          v-model="project.approval_level_id"
         ></select-component>
 
         <date-component
           label="Approval Date"
-          v-model="approved_at"
+          v-model="project.approved_at"
         ></date-component>
       </template>
     </card-component>
@@ -104,25 +101,25 @@
         <select-component
           label="PIP Category"
           :options="pip_types"
-          v-model="pip_type_id"
+          v-model="project.pip_type_id"
         ></select-component>
 
         <select-component
           label="CIP Category"
           :options="cip_types"
-          v-model="cip_type_id"
+          v-model="project.cip_type_id"
         ></select-component>
 
         <options-component
           label="TRIP"
           :options="[{ label: 'TRIP', value: 1 }, { label: 'No', value: 0 }]"
-          v-model="trip"
+          v-model="project.trip"
         ></options-component>
 
         <options-component
           label="RDIP"
           :options="[{ label: 'RDIP', value: 1 }, { label: 'No', value: 0 }]"
-          v-model="rdip"
+          v-model="project.rdip"
         ></options-component>
       </template>
     </card-component>
@@ -132,14 +129,14 @@
         <select-component
           label="Main PDP Chapter"
           :options="pdp_chapters"
-          v-model="main_pdp_chapter"
+          v-model="project.main_pdp_chapter"
           @input="filterPpdIndicators"
         ></select-component>
 
         <select-component
           label="Other PDP Chapters"
           :options="pdp_chapters"
-          v-model="other_pdp_chapter"
+          v-model="project.other_pdp_chapter"
           :multiple="true"
         ></select-component>
 
@@ -147,7 +144,7 @@
           label="PDP Chapter Outcome Statements/Outputs"
           noNodesLabel="No PDP chapter selected"
           :treeData="pdp_indicators"
-          v-model="pdp_indicators_selected"
+          v-model="project.pdp_indicators_selected"
         ></tree-component>
       </template>
     </card-component>
@@ -157,7 +154,7 @@
         <select-component
           label="0-10 Point Socioeconomic Agenda"
           :multiple="true"
-          v-model="ten_point_agenda"
+          v-model="project.ten_point_agenda"
         ></select-component>
       </template>
     </card-component>
@@ -167,7 +164,7 @@
         <select-component
           label="Sustainable Development Goals (SDG)"
           :multiple="true"
-          v-model="sustainable_development_goal"
+          v-model="project.sustainable_development_goal"
         ></select-component>
       </template>
     </card-component>
@@ -177,13 +174,13 @@
         <select-component
           label="Implementation Start"
           hint="Target year of start of implementation"
-          v-model="implementation_start"
+          v-model="project.implementation_start"
         ></select-component>
 
         <select-component
           label="Implementation End"
           hint="Target year of project completion"
-          v-model="implementation_end"
+          v-model="project.project.implementation_end"
         ></select-component>
       </template>
     </card-component>
@@ -192,7 +189,7 @@
       <template v-slot:content>
         <select-component
           label="Project Preparation Document"
-          v-model="preparation_document"
+          v-model="project.preparation_document"
         ></select-component>
 
         <select-component
@@ -203,25 +200,28 @@
 
         <date-component
           label="Target Date of Start/Completion"
+          v-model="fs_start"
         ></date-component>
 
         <input-component label="Others"></input-component>
 
         <p>Schedule of F/S Cost (In Exact Amount in PhP)</p>
 
-        <input-component label="FS Cost for 2017"></input-component>
+        <input-component
+          label="FS Cost for 2017"
+          v-model="project.fs_2017"></input-component>
 
-        <input-component label="FS Cost for 2018"></input-component>
+        <input-component label="FS Cost for 2018" v-model="project.fs_2018"></input-component>
 
-        <input-component label="FS Cost for 2019"></input-component>
+        <input-component label="FS Cost for 2019" v-model="project.fs_2019"></input-component>
 
-        <input-component label="FS Cost for 2020"></input-component>
+        <input-component label="FS Cost for 2020" v-model="project.fs_2020"></input-component>
 
-        <input-component label="FS Cost for 2021"></input-component>
+        <input-component label="FS Cost for 2021" v-model="project.fs_2021"></input-component>
 
-        <input-component label="FS Cost for 2022"></input-component>
+        <input-component label="FS Cost for 2022" v-model="project.fs_2022"></input-component>
 
-        <input-component label="Total FS Cost"></input-component>
+        <input-component label="Total FS Cost" v-model="project.fs_total"></input-component>
       </template>
 
       <template v-slot:actions>
@@ -1010,6 +1010,7 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex';
 import InputComponent from "../../components/InputComponent";
 import CardComponent from "../../components/CardComponent";
 import SelectComponent from "../../components/SelectComponent";
@@ -1041,88 +1042,16 @@ export default {
     };
   },
   methods: {
-    loadRegions() {
-      this.$axios
-        .get("/regions")
-        .then(res => {
-          this.regions = res.data;
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    },
-    loadSpatialCoverages() {
-      this.$axios
-        .get("/spatial_coverages")
-        .then(res => {
-          this.spatial_coverages = res.data;
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    },
-    loadApprovalLevels() {
-      this.$axios
-        .get("/approval_levels")
-        .then(res => {
-          this.approval_levels = res.data;
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    },
-    loadImplementationBases() {
-      this.$axios
-        .get("/implementation_bases")
-        .then(res => {
-          this.implementation_bases = res.data;
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    },
-    loadPdpChapters() {
-      this.$axios
-        .get("/pdp_chapters")
-        .then(res => {
-          this.pdp_chapters = res.data;
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    },
-    loadPdpIndicators(id) {
-      this.$axios
-        .get("/pdp_indicators/" + id)
-        .then(res => {
-          this.pdp_indicators = res.data;
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    },
-    filterPpdIndicators(id) {
-      this.loadPdpIndicators(id);
-    },
-    loadProject() {
-      this.$axios
-        .get("/projects/" + this.$route.params.id)
-        .then(res => {
-          this.project = res.data;
-        })
-        .catch(e => {
-          console.log(e.message);
-        });
+    ...mapActions('project',['loadProject']),
+    updateProject() {
+      console.log('payload: ',this.project)
     }
   },
+  computed: {
+    ...mapState('project',['project'])
+  },
   mounted() {
-    this.loadRegions();
-    this.loadSpatialCoverages();
-    this.loadApprovalLevels();
-    this.loadImplementationBases();
-    this.loadPdpChapters();
-
-    this.loadProject();
+    this.loadProject( { id: this.$route.params.id } );
   }
 };
 </script>

@@ -11,6 +11,7 @@
         :hint="hint"
         @input="onInput"
         v-model="value"
+        :value="value"
       />
     </div>
   </div>
@@ -23,11 +24,12 @@ export default {
     label: String,
     hint: String,
     type: String,
-    step: Number
+    step: Number,
+    value: String
   },
   data() {
     return {
-      value: null
+      // value: null
     };
   },
   methods: {

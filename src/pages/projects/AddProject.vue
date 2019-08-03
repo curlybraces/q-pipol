@@ -19,7 +19,9 @@
           <template v-slot:avatar>
             <q-icon name="info" color="primary" />
           </template>
-          This module is <strong>only</strong> for adding new projects. Once added, you may view your projects in the project list and edit to finalize your submission.
+          This module is <strong>only</strong> for adding new projects. Once
+          added, you may view your projects in the project list and edit to complete and
+          finalize your submission.
         </q-banner>
 
         <input-component
@@ -85,12 +87,6 @@
         ></select-component>
 
         <select-component
-          label="Project Preparation Document"
-          v-model="form.preparation_document"
-          :options="preparation_documents"
-        ></select-component>
-
-        <select-component
           label="Main Funding Source"
           v-model="form.funding_source"
           hint="Choose the major type of funding source for the PAP."
@@ -105,7 +101,7 @@
         ></select-component>
 
         <input-component
-          label="Others"
+          label="Other Funding Institution"
           v-if="form.funding_institution == 99"
           v-model="form.other_funding_institution"
         ></input-component>
@@ -117,7 +113,15 @@
           :options="categorizations"
         ></select-component>
 
+        <select-component
+          v-if="form.categorization == 2"
+          label="Project Preparation Document"
+          v-model="form.preparation_document"
+          :options="preparation_documents"
+        ></select-component>
+
         <input-component
+          v-if="form.categorization == 1 || form.categorization ==3"
           label="UACS Code"
           v-model="form.uacs_code"
           hint="UACS code is optional for new PAPs."
@@ -128,7 +132,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
 import InputComponent from "../../components/InputComponent";
 import CardComponent from "../../components/CardComponent";
 import SelectComponent from "../../components/SelectComponent";
@@ -149,14 +153,14 @@ export default {
       funding_sources: [],
       preparation_documents: [],
       form: {
-        title: 'Title',
-        description: 'Description',
-        expected_outputs: 'Outputs'
+        title: "Title",
+        description: "Description",
+        expected_outputs: "Outputs"
       }
     };
   },
   computed: {
-    ...mapState('dropdown',['categorizations','funding_institutions'])
+    ...mapState("dropdown", ["categorizations", "funding_institutions"])
   },
   methods: {
     loadRegions() {

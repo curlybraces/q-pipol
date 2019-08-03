@@ -42,7 +42,7 @@ const actions = {
   loginUser({ commit }, payload) {
     Loading.show({
       spinner: QSpinnerFacebook,
-      message: 'Logging in...'
+      message: "Logging in..."
     });
     axiosInstance
       .post("/login", payload)

@@ -2,7 +2,8 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 import auth from "./store-auth";
-import dropdown from './store-dropdown';
+import dropdown from "./store-dropdown";
+import projects from './store-projects';
 
 Vue.use(Vuex);
 
@@ -15,7 +16,8 @@ export default function(/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
       auth,
-      dropdown
+      dropdown,
+      projects
     },
 
     // enable strict mode (adds overhead!)
