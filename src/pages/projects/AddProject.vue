@@ -82,12 +82,13 @@
           hint="Target year of start of implementation"
           :options="implementation_periods"
           v-model="form.implementation_start"
+          @input="updateImplementationEnd"
         ></select-component>
 
         <select-component
           label="Implementation End"
           hint="Target year of project completion"
-          :options="implementation_periods"
+          :options="filteredImplementationPeriods"
           v-model="form.implementation_end"
         ></select-component>
 
@@ -159,12 +160,7 @@ export default {
   name: "PageAddProject",
   data() {
     return {
-      regions: [],
-      spatial_coverages: [],
-      implementation_bases: [],
-      implementation_periods: [],
-      funding_sources: [],
-      preparation_documents: [],
+      filteredImplementationPeriods: [],
       form: {
         title: "Title",
         description: "Description",
@@ -176,7 +172,6 @@ export default {
     ...mapState("dropdown",
           [
             "categorizations",
-            "funding_institutions",
             "operating_units",
             "implementation_bases",
             "spatial_coverages",
@@ -184,12 +179,30 @@ export default {
             "implementation_periods",
             "funding_sources",
             "funding_institutions",
-            "categorizations"
           ]
         )
   },
   methods: {
-    ...mapActions('dropdown',['init']),
+    ...mapActions('dropdown',['loadCategorizations','loadOperatingUnits','loadImplementationBases','loadSpatialCoverages',
+    'loadRegions','loadImplementationPeriods','loadFundingInstitutions','loadFundingSources',]),
+    init() {
+      this.loadCategorizations();
+      this.loadOperatingUnits();
+      this.loadImplementationBases();
+      this.loadSpatialCoverages();
+      this.loadRegions();
+      this.loadImplementationPeriods();
+      this.loadFundingInstitutions();
+      this.loadFundingSources();
+    },
+    updateImplementationEnd(evt) {
+      let filteredImplementationPeriods = [];
+      var start = parseInt(evt);
+      filteredImplementationPeriods = this.implementation_periods.filter((period) => {
+        return parseInt(period.name) >= start
+      });
+      this.filteredImplementationPeriods = filteredImplementationPeriods;
+    },
     addProject() {
       // console.log(this.form);
       this.$axios
@@ -212,16 +225,7 @@ export default {
     }
   },
   mounted() {
-    this.loadRegions();
-    this.loadCategorizations();
-    this.loadSpatialCoverages();
-    this.loadFundingSources();
-    this.loadFundingInstitutions();
-    this.loadApprovalLevels();
-    this.loadImplementationBases();
-    this.loadImplementationPeriods();
-    this.loadPreparationDocuments();
-    this.loadDropdowns();
+    this.init();
   }
 };
 </script>
