@@ -1,6 +1,10 @@
 <template>
   <q-list bordered separator class="rounded-borders">
-    <q-item v-for="item in items" :key="item.id">
+    <q-item
+      v-for="item in items"
+      :key="item.id"
+      @click="goTo(item.id)"
+      clickable>
       <q-item-section class="gt-xs" avatar>
         <q-icon :name="item.icon" color="black" size="34px" />
       </q-item-section>
@@ -47,7 +51,7 @@
             round
             icon="delete"
             color="red"
-            @click="promptToDelete(item.id)"
+            @click.stop="promptToDelete(item.id)"
           />
         </div>
       </q-item-section>
@@ -56,6 +60,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   name: "ListComponent",
   props: {
@@ -65,8 +71,26 @@ export default {
     return {};
   },
   methods: {
+    ...mapActions('projects',['deleteProject']),
+    goTo(id) {
+      this.$router.push('/projects/' + id);
+    },
     promptToDelete(id) {
-      alert(id);
+      this.$q.dialog({
+        title: 'Confirm Delete',
+        message: 'Are you sure you want to delete this item #' + id +'?',
+        ok: {
+          color: 'primary'
+        },
+        cancel: {
+          color: 'negative'
+        },
+        persistent: true,
+      })
+      .onOk(() => {
+        console.log('deleted');
+        this.deleteProject({ id: id });
+      })
     }
   }
 };
