@@ -6,18 +6,19 @@
       <input-validation
         label="test"
         v-model="test"
-        :rules="rules.required"></input-validation>
+        :rules="rules.required"
+      ></input-validation>
       <q-btn type="submit" @click="submit">SAVE</q-btn>
     </q-form>
   </q-page>
 </template>
 
 <script>
-import InputValidation from '../components/InputValidation.vue';
+import InputValidation from "../components/InputValidation.vue";
 
 export default {
   components: {
-    InputValidation,
+    InputValidation
   },
   name: "PageIndex",
   data() {
@@ -25,7 +26,7 @@ export default {
       test: "",
       submitStatus: "",
       rules: {
-        required: [ v => !!v || 'This field is required' ]
+        required: [v => !!v || "This field is required"]
       }
     };
   },

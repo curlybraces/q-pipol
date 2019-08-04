@@ -30,14 +30,21 @@
           label="Login"
         />
 
-        <q-btn
-          flat
-          v-else
-          @click="logoutUser"
-          icon-right="account_circle"
-          class="absolute-right"
-          label="Logout"
-        />
+        <div class="row" v-else>
+          <q-btn
+            flat
+            color="grey-6"
+            round
+            icon="notifications"
+            class="q-mr-xs"/>
+
+          <q-btn
+            flat
+            @click="logoutUser"
+            icon-right="account_circle"
+            label="Logout"/>
+
+          </div>
       </q-toolbar>
     </q-header>
 
@@ -74,7 +81,7 @@
     <q-footer class="bg-primary-1 text-white">
       <q-toolbar>
         <q-toolbar-title>
-          {{ appTitle }}
+          <small>&copy; {{ copyright }}</small>
         </q-toolbar-title>
         v.0.0.1-beta
       </q-toolbar>
@@ -95,6 +102,7 @@ export default {
   data() {
     return {
       appTitle: "iPMS",
+      copyright: "Made by Mark Lester A. Bolotaolo",
       leftDrawerOpen: this.$q.platform.is.desktop,
       expanded: false,
       sidemenu: [
@@ -110,12 +118,14 @@ export default {
           icon: "list",
           caption: "View all projects"
         },
+        /*
         {
           label: "Programs",
           href: "/programs",
           icon: "list",
           caption: "View all programs"
         },
+        */
         {
           label: "Help",
           href: "/help",

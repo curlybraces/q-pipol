@@ -9,9 +9,11 @@
         outlined
         :placeholder="label"
         :hint="hint"
+        :rules="rules"
+        lazy-rules
         @input="onInput"
-        v-model="input"
         :value="value"
+        :readonly="readonly"
       />
     </div>
   </div>
@@ -25,16 +27,19 @@ export default {
     hint: String,
     type: String,
     step: Number,
-    value: String
+    value: String,
+    rules: Array,
+    readonly: {
+      default: false,
+      type: Boolean
+    }
   },
   data() {
-    return {
-      input: ''
-    };
+    return {};
   },
   methods: {
-    onInput() {
-      this.$emit("input", this.input);
+    onInput(evt) {
+      this.$emit("input", evt);
     }
   }
 };

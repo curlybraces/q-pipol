@@ -45,10 +45,10 @@ const actions = {
         console.log("Error: ", e.message);
       });
   },
-  deleteProject({ dispatch }, payload ) {
-    console.log('deleting project: ', payload.id);
+  deleteProject({ dispatch }, payload) {
+    console.log("deleting project: ", payload.id);
     // call axios here for deleting projects based on id
-    dispatch('loadProjects'); // reload projects after delete
+    dispatch("loadProjects"); // reload projects after delete
   },
   setSearch({ commit }, value) {
     commit("setSearch", value);

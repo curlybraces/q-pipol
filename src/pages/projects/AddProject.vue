@@ -27,14 +27,14 @@
         <select-component
           label="Implementing Unit"
           :options="operating_units"
-          v-model="form.implementing_unit"
+          v-model="form.operating_unit"
         ></select-component>
 
         <input-component
           label="Project Title"
           hint="Project title must match title in budget proposal"
           v-model="form.title"
-          :rules="[ v => !!v || 'Title is required.']"
+          :rules="[v => !!v || 'Title is required.']"
         ></input-component>
 
         <select-component
@@ -50,6 +50,7 @@
           label="Description"
           hint="Overview, Purpose, and/or Rationale of the Undertaking, Sub-programs/Components"
           v-model="form.description"
+          :rules="[v => !!v || 'Project description is required.']"
         ></input-component>
 
         <input-component
@@ -57,6 +58,7 @@
           label="Expected Outputs"
           hint="Actual Deliverables, i.e. 100km of paved roads"
           v-model="form.expected_outputs"
+          :rules="[v => !!v || 'Project description is required.']"
         ></input-component>
 
         <select-component
@@ -214,16 +216,20 @@ export default {
       this.filteredImplementationPeriods = filteredImplementationPeriods;
     },
     addProject() {
-      // console.log(this.form);
+      this.$q.loading.show();
+
       this.$axios
         .post("/projects", this.form)
         .then(res => {
-          console.log(res.data);
+
           this.$q.notify({
             message: res.data,
             color: "secondary",
             position: "top"
           });
+
+          this.$q.loading.hide();
+          this.$router.push('/projects');
         })
         .catch(e => {
           this.$q.notify({
@@ -232,6 +238,7 @@ export default {
             position: "top"
           });
         });
+
     }
   },
   mounted() {
