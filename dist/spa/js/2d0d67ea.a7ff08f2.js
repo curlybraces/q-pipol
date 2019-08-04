@@ -1,1 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["2d0d67ea"],{7391:function(e,t,n){"use strict";n.r(t);var a=function(){var e=this,t=e.$createElement,n=e._self._c||t;return n("q-page",{attrs:{padding:""}},[n("p",[e._v("Edit Project")])])},r=[],c={name:"PageEditProject"},d=c,i=n("2877"),l=Object(i["a"])(d,a,r,!1,null,null,null);t["default"]=l.exports}}]);
