@@ -14,7 +14,9 @@
     </div>
 
     <card-component title="Add Project" :onClick="addProject">
+
       <template v-slot:content>
+
         <q-banner class="bg-grey-3">
           <template v-slot:avatar>
             <q-icon name="info" color="primary" />
@@ -90,6 +92,7 @@
           hint="Target year of project completion"
           :options="filteredImplementationPeriods"
           v-model="form.implementation_end"
+          :readonly="!form.implementation_start"
         ></select-component>
 
         <select-component
@@ -139,6 +142,7 @@
           hint="Total cost of the project in absolute terms"
           v-model="form.total_cost"
           />
+
       </template>
 
     </card-component>
