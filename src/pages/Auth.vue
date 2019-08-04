@@ -8,7 +8,7 @@
           </q-avatar>
           <div class="headline q-ml-md text-weight-bolder">
             <span class="text-uppercase">Department of Agriculture</span>
-            <br/>
+            <br />
             Investment Programming & Management System
           </div>
         </div>

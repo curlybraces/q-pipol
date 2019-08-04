@@ -10,7 +10,7 @@
         :placeholder="label"
         :hint="hint"
         @input="onInput"
-        v-model="value"
+        v-model="input"
         :value="value"
       />
     </div>
@@ -29,12 +29,12 @@ export default {
   },
   data() {
     return {
-      // value: null
+      input: ''
     };
   },
   methods: {
     onInput() {
-      this.$emit("input", this.value);
+      this.$emit("input", this.input);
     }
   }
 };

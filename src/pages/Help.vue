@@ -6,9 +6,8 @@
 
 <script>
 export default {
-  name: 'PageHelp',
-}
+  name: "PageHelp"
+};
 </script>
 
-<style>
-</style>
+<style></style>

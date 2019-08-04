@@ -12,20 +12,18 @@
       v-model="searchField"
     >
       <template v-slot:append>
-        <q-icon name="search" @click="search"/>
+        <q-icon name="search" @click="search" />
       </template>
     </q-input>
 
-    <list-component
-      :items="projects">
-    </list-component>
+    <list-component :items="projects"> </list-component>
 
     <fab-component link="/projects/add" />
   </q-page>
 </template>
 
 <script>
-import { mapActions, mapState, mapGetters } from 'vuex';
+import { mapActions, mapState, mapGetters } from "vuex";
 import ListComponent from "../../components/ListComponent";
 import FabComponent from "../../components/FabComponent";
 
@@ -36,13 +34,11 @@ export default {
   },
   name: "PageViewProjects",
   data() {
-    return {
-
-    };
+    return {};
   },
   computed: {
-    ...mapGetters('projects',['projects','projectsFiltered']),
-    ...mapState('projects',['search']),
+    ...mapGetters("projects", ["projects", "projectsFiltered"]),
+    ...mapState("projects", ["search"]),
     searchField: {
       get() {
         return this.search;
@@ -53,9 +49,9 @@ export default {
     }
   },
   methods: {
-    ...mapActions('projects',['loadProjects','setSearch']),
+    ...mapActions("projects", ["loadProjects", "setSearch"]),
     alert() {
-      alert('Searching')
+      alert("Searching");
     }
   },
   mounted() {

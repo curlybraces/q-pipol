@@ -31,7 +31,7 @@ const state = {
   roles: [], // localStorage.getItem("roles") || [],
   spatial_coverages: [], // localStorage.getItem("spatial_coverages") || [],
   sustainable_development_goals: [], // localStorage.getItem("sustainable_development_goals") || [],
-  ten_point_agenda: [], //  localStorage.getItem("ten_point_agenda") || []
+  ten_point_agenda: [] //  localStorage.getItem("ten_point_agenda") || []
 };
 
 const mutations = {
@@ -53,73 +53,73 @@ const mutations = {
   setFundingInstitutions(state, value) {
     state.funding_institutions = value;
   },
-  setFundingSources( state, value ) {
+  setFundingSources(state, value) {
     state.funding_sources = value;
   },
-  setGadReadinesses( state, value ) {
+  setGadReadinesses(state, value) {
     state.gad_readinesses = value;
   },
-  setImplementationBases( state, value ) {
+  setImplementationBases(state, value) {
     state.implementation_bases = value;
   },
-  setImplementationModes( state, value ) {
+  setImplementationModes(state, value) {
     state.implementation_modes = value;
   },
-  setImplementationPeriods( state, value ) {
+  setImplementationPeriods(state, value) {
     state.implementation_periods = value;
   },
-  setImplementationReadinesses( state, value ) {
+  setImplementationReadinesses(state, value) {
     state.implementation_readinesses = value;
   },
-  setInfrastructureSectors( state, value ) {
+  setInfrastructureSectors(state, value) {
     state.infrastructure_sectors = value;
   },
-  setInfrastructureSubsectors( state, value ) {
+  setInfrastructureSubsectors(state, value) {
     state.infrastructure_subsectors = value;
   },
-  setOperatingUnits( state, value ) {
+  setOperatingUnits(state, value) {
     state.operating_units = value;
   },
-  setPapTypes( state, value ) {
+  setPapTypes(state, value) {
     state.pap_types = value;
   },
-  setPdpChapters( state, value ) {
+  setPdpChapters(state, value) {
     state.pdp_chapters = value;
   },
-  setPdpIndicators( state, value ) {
+  setPdpIndicators(state, value) {
     state.pdp_indicators = value;
   },
-  setPdpOutcomes( state, value ) {
+  setPdpOutcomes(state, value) {
     state.pdp_outcomes = value;
   },
-  setPdpOutputs( state, value ) {
+  setPdpOutputs(state, value) {
     state.pdp_outputs = value;
   },
-  setPipTypes( state, value ) {
+  setPipTypes(state, value) {
     state.pip_types = value;
   },
-  setPreparationDocuments( state, value ) {
+  setPreparationDocuments(state, value) {
     state.preparation_documents = value;
   },
-  setPrexcActivities( state, value ) {
+  setPrexcActivities(state, value) {
     state.prexc_activities = value;
   },
-  setProgrammingDocuments( state, value ) {
+  setProgrammingDocuments(state, value) {
     state.programming_documents = value;
   },
-  setProvinces( state, value ) {
+  setProvinces(state, value) {
     state.provinces = value;
   },
-  setRegions( state, value ) {
+  setRegions(state, value) {
     state.regions = value;
   },
-  setSpatialCoverages( state, value ) {
+  setSpatialCoverages(state, value) {
     state.spatial_coverages = value;
   },
-  setSustainableDevelopmentGoals( state, value ) {
+  setSustainableDevelopmentGoals(state, value) {
     state.sustainable_development_goals = value;
   },
-  setTenPointAgenda( state, value ) {
+  setTenPointAgenda(state, value) {
     state.ten_point_agenda = value;
   }
 };
@@ -213,7 +213,7 @@ const actions = {
         console.log("Error: ", e.message);
       });
   },
-  loadImplementationBases( { commit } ) {
+  loadImplementationBases({ commit }) {
     axiosInstance
       .get("/implementation_bases")
       .then(res => {
@@ -224,7 +224,7 @@ const actions = {
         console.log("Error: ", e.message);
       });
   },
-  loadImplementationModes( { commit } ) {
+  loadImplementationModes({ commit }) {
     axiosInstance
       .get("/implementation_modes")
       .then(res => {
@@ -235,51 +235,63 @@ const actions = {
         console.log("Error: ", e.message);
       });
   },
-  loadImplementationPeriods( { commit } ) {
+  loadImplementationPeriods({ commit }) {
     axiosInstance
       .get("/implementation_periods")
       .then(res => {
-        localStorage.setItem("implementation_periods", JSON.stringify(res.data));
+        localStorage.setItem(
+          "implementation_periods",
+          JSON.stringify(res.data)
+        );
         commit("setImplementationPeriods", res.data);
       })
       .catch(e => {
         console.log("Error: ", e.message);
       });
   },
-  loadImplementationReadinesses( { commit } ) {
+  loadImplementationReadinesses({ commit }) {
     axiosInstance
       .get("/implementation_readinesses")
       .then(res => {
-        localStorage.setItem("implementation_readinesses", JSON.stringify(res.data));
+        localStorage.setItem(
+          "implementation_readinesses",
+          JSON.stringify(res.data)
+        );
         commit("setImplementationReadinesses", res.data);
       })
       .catch(e => {
         console.log("Error: ", e.message);
       });
   },
-  loadInfrastructureSectors( { commit } ) {
+  loadInfrastructureSectors({ commit }) {
     axiosInstance
       .get("/infrastructure_sectors")
       .then(res => {
-        localStorage.setItem("infrastructure_sectors", JSON.stringify(res.data));
+        localStorage.setItem(
+          "infrastructure_sectors",
+          JSON.stringify(res.data)
+        );
         commit("setInfrastructureSectors", res.data);
       })
       .catch(e => {
         console.log("Error: ", e.message);
       });
   },
-  loadInfrastructureSubsectors( { commit } ) {
+  loadInfrastructureSubsectors({ commit }) {
     axiosInstance
       .get("/infrastructure_subsectors")
       .then(res => {
-        localStorage.setItem("infrastructure_subsectors", JSON.stringify(res.data));
+        localStorage.setItem(
+          "infrastructure_subsectors",
+          JSON.stringify(res.data)
+        );
         commit("setInfrastructureSubsectors", res.data);
       })
       .catch(e => {
         console.log("Error: ", e.message);
       });
   },
-  loadOperatingUnits( { commit } ) {
+  loadOperatingUnits({ commit }) {
     axiosInstance
       .get("/operating_units")
       .then(res => {
@@ -290,7 +302,7 @@ const actions = {
         console.log("Error: ", e.message);
       });
   },
-  loadPapTypes( { commit } ) {
+  loadPapTypes({ commit }) {
     axiosInstance
       .get("/pap_types")
       .then(res => {
@@ -301,7 +313,7 @@ const actions = {
         console.log("Error: ", e.message);
       });
   },
-  loadPdpChapters( { commit } ) {
+  loadPdpChapters({ commit }) {
     axiosInstance
       .get("/pdp_chapters")
       .then(res => {
@@ -312,7 +324,7 @@ const actions = {
         console.log("Error: ", e.message);
       });
   },
-  loadPdpIndicators( { commit } ) {
+  loadPdpIndicators({ commit }) {
     axiosInstance
       .get("/pdp_indicators")
       .then(res => {
@@ -323,7 +335,7 @@ const actions = {
         console.log("Error: ", e.message);
       });
   },
-  loadPdpOutcomes( { commit } ) {
+  loadPdpOutcomes({ commit }) {
     axiosInstance
       .get("/pdp_outcomes")
       .then(res => {
@@ -334,7 +346,7 @@ const actions = {
         console.log("Error: ", e.message);
       });
   },
-  loadPdpOutputs( { commit } ) {
+  loadPdpOutputs({ commit }) {
     axiosInstance
       .get("/pdp_outputs")
       .then(res => {
@@ -345,7 +357,7 @@ const actions = {
         console.log("Error: ", e.message);
       });
   },
-  loadPipTypes( { commit } ) {
+  loadPipTypes({ commit }) {
     axiosInstance
       .get("/pip_types")
       .then(res => {
@@ -356,7 +368,7 @@ const actions = {
         console.log("Error: ", e.message);
       });
   },
-  loadPreparationDocuments( { commit } ) {
+  loadPreparationDocuments({ commit }) {
     axiosInstance
       .get("/preparation_documents")
       .then(res => {
@@ -367,7 +379,7 @@ const actions = {
         console.log("Error: ", e.message);
       });
   },
-  loadPrexcActivities( { commit } ) {
+  loadPrexcActivities({ commit }) {
     axiosInstance
       .get("/prexc_activities")
       .then(res => {
@@ -378,7 +390,7 @@ const actions = {
         console.log("Error: ", e.message);
       });
   },
-  loadProgrammingDocuments( { commit } ) {
+  loadProgrammingDocuments({ commit }) {
     axiosInstance
       .get("/programming_documents")
       .then(res => {
@@ -389,7 +401,7 @@ const actions = {
         console.log("Error: ", e.message);
       });
   },
-  loadProvinces( { commit } ) {
+  loadProvinces({ commit }) {
     axiosInstance
       .get("/provinces")
       .then(res => {
@@ -400,7 +412,7 @@ const actions = {
         console.log("Error: ", e.message);
       });
   },
-  loadRegions( { commit } ) {
+  loadRegions({ commit }) {
     axiosInstance
       .get("/regions")
       .then(res => {
@@ -411,7 +423,7 @@ const actions = {
         console.log("Error: ", e.message);
       });
   },
-  loadSpatialCoverages( { commit } ) {
+  loadSpatialCoverages({ commit }) {
     axiosInstance
       .get("/spatial_coverages")
       .then(res => {
@@ -422,18 +434,21 @@ const actions = {
         console.log("Error: ", e.message);
       });
   },
-  loadSustainableDevelopmentGoals( { commit } ) {
+  loadSustainableDevelopmentGoals({ commit }) {
     axiosInstance
       .get("/sustainable_development_goals")
       .then(res => {
-        localStorage.setItem("sustainable_development_goals", JSON.stringify(res.data));
+        localStorage.setItem(
+          "sustainable_development_goals",
+          JSON.stringify(res.data)
+        );
         commit("setSustainableDevelopmentGoals", res.data);
       })
       .catch(e => {
         console.log("Error: ", e.message);
       });
   },
-  loadTenPointAgenda( { commit } ) {
+  loadTenPointAgenda({ commit }) {
     axiosInstance
       .get("/ten_point_agenda")
       .then(res => {

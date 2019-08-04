@@ -5,15 +5,6 @@
         <div class="text-weight-bold text-uppercase">
           {{ title }}
         </div>
-        <q-space />
-        <q-btn
-          v-if="collapsible"
-          dense
-          flat
-          rounded
-          :icon="show ? 'visibility_off' : 'visibility'"
-          @click="show = !show"
-        ></q-btn>
       </div>
     </q-card-section>
 
@@ -23,7 +14,7 @@
       <slot name="content" />
     </q-card-section>
 
-    <q-card-actions align="center" v-show="show">
+    <q-card-actions align="center" v-if="show && onClick">
       <q-btn icon="save" class="bg-primary text-white" @click="onClick"
         >Save</q-btn
       >

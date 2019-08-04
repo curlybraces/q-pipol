@@ -1,10 +1,10 @@
 import { axiosInstance } from "boot/axios";
-import { Loading, QSpinnerFacebook } from 'quasar';
+import { Loading, QSpinnerFacebook } from "quasar";
 
 const state = {
   project: {},
   projects: [],
-  search: ''
+  search: ""
 };
 
 const mutations = {
@@ -20,17 +20,17 @@ const mutations = {
 };
 
 const actions = {
-  loadProjects( { commit } ) {
+  loadProjects({ commit }) {
     axiosInstance
       .get("/projects")
       .then(res => {
-        commit('setProjects',res.data)
+        commit("setProjects", res.data);
       })
       .catch(e => {
-        console.log('Error: ',e.message)
+        console.log("Error: ", e.message);
       });
   },
-  loadProject( { commit }, payload) {
+  loadProject({ commit }, payload) {
     Loading.show({
       spinner: QSpinnerFacebook,
       message: "Logging in..."
@@ -39,19 +39,19 @@ const actions = {
       .get("/projects/" + payload.id)
       .then(res => {
         Loading.hide();
-        commit('setProject', res.data);
+        commit("setProject", res.data);
       })
       .catch(e => {
-        console.log('Error: ', e.message);
+        console.log("Error: ", e.message);
       });
   },
-  setSearch( { commit }, value) {
-    commit('setSearch', value);
+  setSearch({ commit }, value) {
+    commit("setSearch", value);
   }
 };
 
 const getters = {
-  project: (state) => {
+  project: state => {
     return state.project;
   },
   projects: (state, getters) => {
@@ -61,12 +61,15 @@ const getters = {
     }
     return state.projects;
   },
-  projectsFiltered: (state) => {
+  projectsFiltered: state => {
     if (state.search) {
       var searchLowerCase = state.search.toLowerCase();
       // return items that contain. need two returns.
-      return state.projects.filter((project) => {
-        return project.title.toLowerCase().includes(searchLowerCase) || project.description.toLowerCase().includes(searchLowerCase);
+      return state.projects.filter(project => {
+        return (
+          project.title.toLowerCase().includes(searchLowerCase) ||
+          project.description.toLowerCase().includes(searchLowerCase)
+        );
       });
     }
     return state.projects;

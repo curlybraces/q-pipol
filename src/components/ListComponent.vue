@@ -22,7 +22,9 @@
       </q-item-section>
 
       <q-item-section side>
-        <q-item-label> PhP {{ Number(item.total_cost).toLocaleString() }} </q-item-label>
+        <q-item-label>
+          PhP {{ Number(item.total_cost).toLocaleString() }}
+        </q-item-label>
       </q-item-section>
 
       <q-item-section side>
