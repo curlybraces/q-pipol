@@ -3,7 +3,7 @@ import Vuex from "vuex";
 
 import auth from "./store-auth";
 import dropdown from "./store-dropdown";
-import projects from './store-projects';
+import projects from "./store-projects";
 
 Vue.use(Vuex);
 

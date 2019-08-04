@@ -1,0 +1,1 @@
+.my-sticky-column-table thead tr:first-child th:first-child{background-color:#344955;opacity:1}.my-sticky-column-table td:first-child{background-color:#344955}.my-sticky-column-table td:first-child,.my-sticky-column-table thead tr:first-child th:first-child{position:-webkit-sticky;position:sticky;left:0;z-index:1;color:#fff}

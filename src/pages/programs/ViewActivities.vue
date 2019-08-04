@@ -36,27 +36,28 @@ export default {
   name: "PageViewActivities",
   data() {
     return {
-      tableTitle: 'Programs',
+      tableTitle: "Programs",
       data: [],
       columns: [
         {
-          name: 'asc',
-          label: 'PREXC Activities',
-          field: 'name',
-          align: 'left'
+          name: "asc",
+          label: "PREXC Activities",
+          field: "name",
+          align: "left"
         }
       ]
     };
   },
   methods: {
     loadPrexcActivities() {
-      this.$axios.get('/prexc_activities')
-      .then(res => {
-        this.data = res.data;
-      })
-      .catch(e => {
-        console.log("Error: ", e.message)
-      });
+      this.$axios
+        .get("/prexc_activities")
+        .then(res => {
+          this.data = res.data;
+        })
+        .catch(e => {
+          console.log("Error: ", e.message);
+        });
     }
   },
   mounted() {

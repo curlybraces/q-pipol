@@ -18,6 +18,7 @@
         :hint="hint"
         :label="label"
         v-model="selected"
+        :rules="rules"
         map-options
       >
       </q-select>
@@ -50,7 +51,8 @@ export default {
       type: Function,
       default: null
     },
-    hint: String
+    hint: String,
+    rules: Array
   },
   data() {
     return {

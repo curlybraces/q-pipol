@@ -4,11 +4,7 @@
       {{ label }}
     </div>
     <div class="col-md-9 col-sm-12 col-xs-12">
-      <q-input
-        outlined
-        dense
-        v-model="date"
-        mask="date">
+      <q-input outlined dense v-model="date" mask="date">
         <template v-slot:prepend>
           <q-icon name="event" class="cursor-pointer">
             <q-popup-proxy
@@ -33,12 +29,12 @@ export default {
   },
   data() {
     return {
-      date: ''
+      date: ""
     };
   },
   methods: {
     onInput() {
-      this.$emit('input', this.date )
+      this.$emit("input", this.date);
     }
   }
 };

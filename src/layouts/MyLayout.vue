@@ -117,10 +117,10 @@ export default {
           caption: "View all programs"
         },
         {
-          label: 'Help',
-          href: '/help',
-          icon: 'help',
-          caption: 'Understand how the system works'
+          label: "Help",
+          href: "/help",
+          icon: "help",
+          caption: "Understand how the system works"
         },
         {
           label: "Settings",

@@ -14,27 +14,27 @@
     </div>
 
     <card-component title="Add Project" :onClick="addProject">
-
       <template v-slot:content>
-
         <q-banner class="bg-grey-3">
           <template v-slot:avatar>
             <q-icon name="info" color="primary" />
           </template>
           This module is <strong>only</strong> for adding new projects. Once
-          added, you may view your projects in the project list and edit to complete and
-          finalize your submission.
+          added, you may view your projects in the project list and edit to
+          complete and finalize your submission.
         </q-banner>
 
         <select-component
           label="Implementing Unit"
           :options="operating_units"
-          v-model="form.implementing_unit"></select-component>
+          v-model="form.implementing_unit"
+        ></select-component>
 
         <input-component
           label="Project Title"
           hint="Project title must match title in budget proposal"
           v-model="form.title"
+          :rules="[ v => !!v || 'Title is required.']"
         ></input-component>
 
         <select-component
@@ -130,7 +130,7 @@
         ></select-component>
 
         <input-component
-          v-if="form.categorization == 1 || form.categorization ==3"
+          v-if="form.categorization == 1 || form.categorization == 3"
           label="UACS Code"
           v-model="form.uacs_code"
           hint="UACS code is optional for new PAPs."
@@ -141,10 +141,8 @@
           label="Total Project Cost (in PhP)"
           hint="Total cost of the project in absolute terms"
           v-model="form.total_cost"
-          />
-
+        />
       </template>
-
     </card-component>
   </q-page>
 </template>
@@ -173,22 +171,28 @@ export default {
     };
   },
   computed: {
-    ...mapState("dropdown",
-          [
-            "categorizations",
-            "operating_units",
-            "implementation_bases",
-            "spatial_coverages",
-            "regions",
-            "implementation_periods",
-            "funding_sources",
-            "funding_institutions",
-          ]
-        )
+    ...mapState("dropdown", [
+      "categorizations",
+      "operating_units",
+      "implementation_bases",
+      "spatial_coverages",
+      "regions",
+      "implementation_periods",
+      "funding_sources",
+      "funding_institutions"
+    ])
   },
   methods: {
-    ...mapActions('dropdown',['loadCategorizations','loadOperatingUnits','loadImplementationBases','loadSpatialCoverages',
-    'loadRegions','loadImplementationPeriods','loadFundingInstitutions','loadFundingSources',]),
+    ...mapActions("dropdown", [
+      "loadCategorizations",
+      "loadOperatingUnits",
+      "loadImplementationBases",
+      "loadSpatialCoverages",
+      "loadRegions",
+      "loadImplementationPeriods",
+      "loadFundingInstitutions",
+      "loadFundingSources"
+    ]),
     init() {
       this.loadCategorizations();
       this.loadOperatingUnits();
@@ -202,9 +206,11 @@ export default {
     updateImplementationEnd(evt) {
       let filteredImplementationPeriods = [];
       var start = parseInt(evt);
-      filteredImplementationPeriods = this.implementation_periods.filter((period) => {
-        return parseInt(period.name) >= start
-      });
+      filteredImplementationPeriods = this.implementation_periods.filter(
+        period => {
+          return parseInt(period.name) >= start;
+        }
+      );
       this.filteredImplementationPeriods = filteredImplementationPeriods;
     },
     addProject() {

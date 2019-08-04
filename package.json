@@ -1,9 +1,9 @@
 {
-  "name": "q-pipol",
+  "name": "i-pms",
   "version": "0.0.1",
-  "description": "A Quasar Framework App for PIPOL",
-  "productName": "PIPOL",
-  "cordovaId": "org.cordova.quasar.app",
+  "description": "A Quasar Framework App for iPMS",
+  "productName": "IPMS",
+  "cordovaId": "org.cordova.quasar.ipms",
   "author": "lester <mlab817@gmail.com>",
   "private": true,
   "scripts": {

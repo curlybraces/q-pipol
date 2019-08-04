@@ -8,7 +8,7 @@
           </q-avatar>
           <div class="headline q-ml-md text-weight-bolder">
             <span class="text-uppercase">Department of Agriculture</span>
-            <br/>
+            <br />
             Investment Programming & Management System
           </div>
         </div>
@@ -36,6 +36,17 @@
           <login-register :tab="tab"></login-register>
         </q-tab-panel>
       </q-tab-panels>
+
+      <q-card-section class="bg-primary">
+        <q-list dense>
+          <q-item class="items-center">
+            <q-item-section avatar>
+              <q-icon name="fab fa-github" color="white" size="34px" />
+            </q-item-section>
+            <span class="text-white">Hosted at Github.io</span>
+          </q-item>
+        </q-list>
+      </q-card-section>
     </q-card>
   </q-page>
 </template>
