@@ -17,3 +17,5 @@
 7. To deploy into the server, just copy the files in the spa folder and upload them to the server.
 
 ## License
+
+The Quasar Framework is open-source software licensed under the MIT license.
