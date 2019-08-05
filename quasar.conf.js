@@ -99,7 +99,8 @@ module.exports = function (ctx) {
         'QBanner',
 
         'QPageSticky',
-        'QDialog'
+        'QDialog',
+        'QMenu'
       ],
 
       directives: [
