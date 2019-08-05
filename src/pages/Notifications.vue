@@ -7,7 +7,8 @@
                 <q-item
                     :key="notif.id"
                     :class=" !(notif.read_at) ? 'red-2' : '' "
-                    clickable>
+                    clickable
+                    :to=" '/projects/' + notif.data.project_id ">
                     <q-item-section avatar>
                         <q-avatar>
                             <q-icon name="notifications" />

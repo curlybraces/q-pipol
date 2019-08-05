@@ -101,7 +101,10 @@ module.exports = function (ctx) {
         'QPageSticky',
         'QDialog',
         'QMenu',
-        'QBadge'
+        'QBadge',
+
+	      'QTimeline',
+	      'QTimelineEntry'
       ],
 
       directives: [

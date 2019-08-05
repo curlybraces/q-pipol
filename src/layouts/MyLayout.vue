@@ -204,6 +204,10 @@ export default {
   			return 'Project Created';
         } else if (type == "App\\Notifications\\ProjectUpdated") {
             return 'Project Updated';
+        } else if (type == "App\\Notifications\\ProjectDeleted") {
+            return 'Project Deleted';
+        } else if (type == "App\\Notifications\\ProjectFinalized") {
+            return 'Project Finalized';
         } else {
   			return 'Others';
         }
