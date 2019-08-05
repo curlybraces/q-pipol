@@ -8,7 +8,8 @@
           <select-component
             label="Operating Unit"
             :options="operating_units"
-            v-model="operating_unit"></select-component>
+            v-model="operating_unit"
+          ></select-component>
 
           <select-component
             label="PREXC Activity"
@@ -35,13 +36,13 @@ export default {
     return {
       operating_unit: null,
       prexc_activity: null
-    }
+    };
   },
   computed: {
-    ...mapState("dropdown", ["prexc_activities","operating_units"])
+    ...mapState("dropdown", ["prexc_activities", "operating_units"])
   },
   methods: {
-    ...mapActions("dropdown", ["loadPrexcActivities",'loadOperatingUnits'])
+    ...mapActions("dropdown", ["loadPrexcActivities", "loadOperatingUnits"])
   },
   mounted() {
     this.loadPrexcActivities();

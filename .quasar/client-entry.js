@@ -40,6 +40,8 @@ import qboot_Bootaxios from 'boot/axios'
 
 import qboot_Bootrouterauth from 'boot/router-auth'
 
+import qboot_Bootloadingdefaults from 'boot/loading-defaults'
+
 
 
 
@@ -63,7 +65,7 @@ const { app, store, router } = createApp()
 
 async function start () {
   
-  const bootFiles = [qboot_Bootaxios,qboot_Bootrouterauth]
+  const bootFiles = [qboot_Bootaxios,qboot_Bootrouterauth,qboot_Bootloadingdefaults]
   for (let i = 0; i < bootFiles.length; i++) {
     if (typeof bootFiles[i] !== 'function') {
       continue

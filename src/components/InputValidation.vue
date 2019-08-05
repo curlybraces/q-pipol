@@ -3,7 +3,8 @@
     <div class="col-2">
       {{ label }}
     </div>
-    <q-input class="col-10"
+    <q-input
+      class="col-10"
       outlined
       dense
       rounded
@@ -16,24 +17,23 @@
 
 <script>
 export default {
-  name: 'InputValidation',
+  name: "InputValidation",
   props: {
     label: String,
     errorMessage: String,
     rules: Array
   },
-  data () {
+  data() {
     return {
-      input: ''
-    }
+      input: ""
+    };
   },
   methods: {
     onInput() {
-      this.$emit('input',this.input)
+      this.$emit("input", this.input);
     }
   }
-}
+};
 </script>
 
-<style>
-</style>
+<style></style>

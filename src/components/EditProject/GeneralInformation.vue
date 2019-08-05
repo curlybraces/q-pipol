@@ -5,13 +5,14 @@
         label="Project Title"
         hint="Project title must match title in budget proposal"
         v-model="project.title"
+        :readonly="true"
       ></input-component>
 
       <options-component
         label="Program or Project"
         :options="[
-          { label: 'Program', value: '1' },
-          { label: 'Project', value: '2' }
+          { label: 'Program', value: 1 },
+          { label: 'Project', value: 2 }
         ]"
         v-model="project.pap_type_id"
       ></options-component>
@@ -42,12 +43,12 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions } from "vuex";
 
-import CardComponent from '../../components/CardComponent';
-import SelectComponent from '../../components/SelectComponent';
-import InputComponent from '../../components/InputComponent';
-import OptionsComponent from '../../components/OptionsComponent';
+import CardComponent from "../../components/CardComponent";
+import SelectComponent from "../../components/SelectComponent";
+import InputComponent from "../../components/InputComponent";
+import OptionsComponent from "../../components/OptionsComponent";
 
 export default {
   components: {
@@ -56,28 +57,23 @@ export default {
     InputComponent,
     OptionsComponent
   },
-  name: 'GeneralInformation',
+  name: "GeneralInformation",
   props: {
-    project: {
-      type: Object
-    }
+    project: Object
   },
-  data () {
-    return {
-
-    }
+  data() {
+    return {};
   },
   computed: {
-    ...mapState('dropdown',['implementation_bases'])
+    ...mapState("dropdown", ["implementation_bases"])
   },
   methods: {
-    ...mapActions('dropdown',['loadImplementationBases'])
+    ...mapActions("dropdown", ["loadImplementationBases"])
   },
   mounted() {
     this.loadImplementationBases();
   }
-}
+};
 </script>
 
-<style>
-</style>
+<style></style>

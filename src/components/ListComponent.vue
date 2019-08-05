@@ -4,13 +4,10 @@
       v-for="item in items"
       :key="item.id"
       @click="goTo(item.id)"
-      clickable>
-      <q-item-section class="gt-xs" avatar>
-        <q-icon :name="item.icon" color="black" size="34px" />
-      </q-item-section>
-
+      clickable
+    >
       <q-item-section class="col-2 gt-sm">
-        <q-item-label class="q-mt-sm"></q-item-label>
+        <q-item-label class="q-mt-sm">{{ item.operating_unit.name }}</q-item-label>
       </q-item-section>
 
       <q-item-section>
@@ -60,7 +57,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions } from "vuex";
 
 export default {
   name: "ListComponent",
@@ -71,26 +68,27 @@ export default {
     return {};
   },
   methods: {
-    ...mapActions('projects',['deleteProject']),
+    ...mapActions("projects", ["deleteProject"]),
     goTo(id) {
-      this.$router.push('/projects/' + id);
+      this.$router.push("/projects/" + id);
     },
     promptToDelete(id) {
-      this.$q.dialog({
-        title: 'Confirm Delete',
-        message: 'Are you sure you want to delete this item #' + id +'?',
-        ok: {
-          color: 'primary'
-        },
-        cancel: {
-          color: 'negative'
-        },
-        persistent: true,
-      })
-      .onOk(() => {
-        console.log('deleted');
-        this.deleteProject({ id: id });
-      })
+      this.$q
+        .dialog({
+          title: "Confirm Delete",
+          message: "Are you sure you want to delete this item #" + id + "?",
+          ok: {
+            color: "primary"
+          },
+          cancel: {
+            color: "negative"
+          },
+          persistent: true
+        })
+        .onOk(() => {
+          console.log("deleted");
+          this.deleteProject({ id: id });
+        });
     }
   }
 };

@@ -63,6 +63,14 @@ const actions = {
         this.$router.push("/");
       })
       .catch(e => {
+        Loading.hide();
+
+        Notify.create({
+          message: e.message,
+          position: "top",
+          color: "red"
+        });
+
         console.log(e.message);
       });
   },

@@ -7,7 +7,8 @@ module.exports = function (ctx) {
     // --> boot files are part of "main.js"
     boot: [
       'axios',
-      'router-auth'
+      'router-auth',
+      'loading-defaults'
     ],
 
     css: [
@@ -97,11 +98,13 @@ module.exports = function (ctx) {
 
         'QBanner',
 
-        'QPageSticky'
+        'QPageSticky',
+        'QDialog'
       ],
 
       directives: [
-        'Ripple'
+        'Ripple',
+        'ClosePopup'
       ],
 
       // Quasar plugins
