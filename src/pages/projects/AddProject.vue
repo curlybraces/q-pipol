@@ -192,18 +192,20 @@ export default {
     return {
       filteredImplementationPeriods: [],
       form: {
-        operating_unit: '050020000000',
-        title: 'Project',
-        expected_outputs: 'Output',
-        implementation_bases: [1,2,3],
-        description: 'description',
-        spatial_coverage: 1,
-        implementation_start: 2017,
-        implementation_end: 2022,
-        funding_source: 1,
-        categorization: 2,
-        preparation_document: 1,
-        total_cost: 1000000000
+        operating_unit: null,
+        title: null,
+        expected_outputs: null,
+        implementation_bases: [],
+        description: null,
+        spatial_coverage: null,
+        regions: [],
+        implementation_start: null,
+        implementation_end: null,
+        funding_source: null,
+        categorization: null,
+        uacs_code: null,
+        preparation_document: null,
+        total_cost: 0.00
       },
       rules: {
       	required: [ v => !!v || 'This field is required.' ],

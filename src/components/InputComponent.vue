@@ -3,17 +3,18 @@
     <div class="col-3 text-primary text-weight-bold gt-sm">{{ label }}</div>
     <div class="col-md-9 col-sm-12 col-xs-12">
       <q-input
+        :label="label"
         dense
         :type="type"
         :step="step"
         outlined
-        :placeholder="label"
         :hint="hint"
         :rules="rules"
         lazy-rules
         @input="onInput"
         :value="value"
         :readonly="readonly"
+        :stack-label="$q.screen.lt.sm"
       />
     </div>
   </div>

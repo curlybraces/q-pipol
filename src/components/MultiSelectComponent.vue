@@ -19,6 +19,7 @@
         :hint="hint"
         :label="label"
         :rules="rules"
+        :stack-label="$q.screen.lt.sm"
         map-options
         clearable
       >

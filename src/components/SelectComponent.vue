@@ -21,6 +21,7 @@
         @input="onInput"
         :value="value"
         clearable
+        :stack-label="$q.screen.lt.sm"
       >
       </q-select>
     </div>
