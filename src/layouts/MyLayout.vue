@@ -39,7 +39,7 @@
             icon="notifications"
             class="q-mr-xs"
           >
-            <q-badge color="red" floating>
+            <q-badge color="red" floating v-if="notifications.length > 0">
               {{ notifications.length }}
             </q-badge>
 
@@ -234,7 +234,9 @@ export default {
     }
   },
   mounted() {
-    this.loadNotifications();
+    if (this.loggedIn) {
+      this.loadNotifications();
+    }
   }
 };
 </script>

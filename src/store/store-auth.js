@@ -75,22 +75,15 @@ const actions = {
       });
   },
   logoutUser({ commit }) {
-    axiosInstance
-      .post("/logout")
-      .then(() => {
-        commit("setLoggedIn", false);
-        commit("setToken", "");
-        commit("setUser", {});
+    commit("setLoggedIn", false);
+    commit("setToken", "");
+    commit("setUser", {});
 
-        localStorage.removeItem("loggedIn");
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
+    localStorage.removeItem("loggedIn");
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
 
-        this.$router.replace("/login");
-      })
-      .catch(e => {
-        console.log(e.message);
-      });
+    this.$router.replace("/login");
   }
 };
 
