@@ -13,13 +13,13 @@
         option-value="id"
         option-label="name"
         emit-value
-        :multiple="multiple"
+        @input="onInput"
+        :value="value"
+        multiple
         :hint="hint"
         :label="label"
         :rules="rules"
         map-options
-        @input="onInput"
-        :value="value"
         clearable
       >
       </q-select>
@@ -48,11 +48,13 @@ export default {
       type: Boolean,
       default: false
     },
+    onChange: {
+      type: Function,
+      default: null
+    },
     hint: String,
     rules: Array,
-    value: {
-      type: [Number,String,Array]
-    }
+    value: Array
   },
   data() {
     return {

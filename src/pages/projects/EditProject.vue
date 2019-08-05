@@ -20,8 +20,8 @@
       indicator-color="secondary"
       align="justify"
     >
-      <q-tab name="edit" label="Edit" />
-      <q-tab name="history" label="Log" />
+      <q-tab name="edit" label="Edit Project" />
+      <q-tab name="history" label="Project Logs" />
     </q-tabs>
 
     <q-separator />
@@ -32,35 +32,9 @@
       </q-tab-panel>
 
       <q-tab-panel name="history">
-        <q-list
-          bordered
-          separator>
-          <q-item
-            v-for="item in project.backups"
-            :key="item.id"
-            clickable
-            @click="showPreviousVersion(item.id)">
-            <q-item-section top>
-              <q-item-label overline>
-                Changes
-              </q-item-label>
-              <q-item-label lines="3">
-                {{ item.changes }}
-              </q-item-label>
-            </q-item-section>
-
-            <q-item-section top side>
-              <div class="column text-right">
-                <div class="text-weight-bold">Last modified</div>
-                <div>{{ item.modified_by.name }}</div>
-                <div>{{ item.updated_at }}</div>
-              </div>
-            </q-item-section>
-          </q-item>
-        </q-list>
+        <project-history :backups="project.backups"></project-history>
       </q-tab-panel>
     </q-tab-panels>
-
   </q-page>
 </template>
 
@@ -68,15 +42,17 @@
 import { mapState, mapActions } from "vuex";
 
 import GeneralInformation from "../../components/EditProject/GeneralInformation.vue";
+import ProjectHistory from "../../components/EditProject/ProjectHistory";
 
 export default {
   components: {
+    ProjectHistory,
     GeneralInformation
   },
   name: "PageEditProject",
   data() {
     return {
-      tab: 'history'
+      tab: "edit"
     };
   },
   computed: {
@@ -85,10 +61,10 @@ export default {
   methods: {
     ...mapActions("projects", ["loadProject"]),
     showPreviousVersion(id) {
-      var backup = this.project.backups.filter(backup => backup.id == id)
+      var backup = this.project.backups.filter(backup => backup.id == id);
       this.$q.dialog({
         message: JSON.stringify(backup)
-      })
+      });
     }
   },
   mounted() {

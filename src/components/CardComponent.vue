@@ -14,11 +14,6 @@
       <slot name="content" />
     </q-card-section>
 
-    <q-card-actions align="center" v-if="show && onClick">
-      <q-btn icon="save" class="bg-primary text-white" @click="onClick"
-        >Save</q-btn
-      >
-    </q-card-actions>
   </q-card>
 </template>
 
