@@ -21,12 +21,15 @@ const mutations = {
 
 const actions = {
   loadProjects({ commit }) {
+    Loading.show();
     axiosInstance
       .get("/projects")
       .then(res => {
         commit("setProjects", res.data);
+        Loading.hide();
       })
       .catch(e => {
+        Loading.hide();
         console.log("Error: ", e.message);
       });
   },
@@ -45,8 +48,16 @@ const actions = {
   deleteProject({ dispatch }, payload) {
     console.log("deleting project: ", payload.id);
 
+    axiosInstance.delete('/projects/' + payload.id)
+        .then(res => {
+          console.log(res.data)
+
+          dispatch('loadProjects');
+        })
+        .catch(e => {
+          console.log(e.message)
+        });
     // call axios here for deleting projects based on id
-    dispatch("loadProjects"); // reload projects after delete
   },
   setSearch({ commit }, value) {
     commit("setSearch", value);

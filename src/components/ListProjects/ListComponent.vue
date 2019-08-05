@@ -58,26 +58,28 @@
       </q-item>
     </q-list>
 
-    <dialog-component/>
   </div>
 </template>
 
 <script>
 import { mapActions } from "vuex";
-import DialogComponent from 'DialogComponent';
+
 
 export default {
   name: "ListComponent",
-  components: {
-    DialogComponent
-  },
   props: {
     items: Array
   },
   data() {
     return {
-      prompt: false
+      prompt: false,
+      changes: ''
     };
+  },
+  computed: {
+    required() {
+      return this.changes.trim() !== ''
+    }
   },
   methods: {
     ...mapActions("projects", ["deleteProject"]),
@@ -85,7 +87,19 @@ export default {
       this.$router.push("/projects/" + id);
     },
     promptToDelete(id) {
-      console.log(id)
+      this.$q.dialog({
+        title: 'Confirm delete',
+        message: 'Are you sure you want to delete this project?',
+        persistent: true,
+        ok: {
+          color: 'primary',
+          flat: false
+        },
+        cancel: true
+      })
+      .onOk(() => {
+        this.deleteProject({ id: id })
+      });
     }
   }
 };
