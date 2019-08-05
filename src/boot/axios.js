@@ -4,7 +4,7 @@ const axiosInstance = axios.create({
   baseURL:
     process.env.NODE_ENV !== "production"
       ? "http://localhost:8000/api/v1"
-      : "http://afmp-api.daplanningcentral.net/api/v1",
+      : "http://pipol.daplanningcentral.net/api/v1",
   headers: {
     "Content-Type": "application/json"
   }
