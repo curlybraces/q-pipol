@@ -24,7 +24,7 @@
 
 <script>
 import { mapActions, mapState, mapGetters } from "vuex";
-import ListComponent from "../../components/ListComponent";
+import ListComponent from "../../components/ListProjects/ListComponent";
 import FabComponent from "../../components/FabComponent";
 
 export default {

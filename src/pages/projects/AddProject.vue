@@ -18,7 +18,6 @@
         <q-form
           ref="form"
           @submit="onSubmit"
-          no-error-focus
           autofocus>
 
           <select-component
