@@ -32,20 +32,44 @@
 
         <div class="row" v-else>
           <q-btn
+            dense
             flat
-            color="grey-6"
+            :color=" (notifications.length > 0) ? 'white' : 'grey-9' "
             round
             icon="notifications"
             class="q-mr-xs">
-            <q-menu :content-style="{ color: 'black'}" anchor="bottom right" self="top right" :offset="[0, 5]" square>
-              <q-list dense style="width: 250px">
-                <q-item clickable>
+
+            <q-badge color="red" floating>
+              {{ notifications.length }}
+            </q-badge>
+
+            <q-menu :content-style="{ color: 'primary'}" anchor="bottom right" self="top right" :offset="[0, 5]" square
+              v-if="notifications.length > 0">
+
+              <q-list dense style="width: 360px" separator>
+                <q-item>
                   <q-item-section class="text-center">Notifications</q-item-section>
                 </q-item>
-                <q-separator/>
-                <p>Notifications</p>
-                <q-separator />
-                <q-item clickable class="text-center">
+                <!-- Notifications go here -->
+                <q-item clickable v-for="notif in notifications" :key="notif.id" v-close-popup>
+
+                  <q-item-section avatar>
+                    <q-avatar color="white">
+                      <img src="statics/app-logo-128x128.png" />
+                    </q-avatar>
+                  </q-item-section>
+
+                  <q-item-section>
+                    <q-item-label overline>{{ notif.type | notifType }}</q-item-label>
+                    <q-item-label lines="3">{{ notif.data.message }}</q-item-label>
+                    <q-item-label caption>
+                      <q-icon name="access_time"/>
+                      {{ notif.created_at | dateDiff }}
+                    </q-item-label>
+                  </q-item-section>
+                </q-item>
+
+                <q-item clickable class="text-center" to="/notifications" v-close-popup>
                   <q-item-section>See all</q-item-section>
                 </q-item>
               </q-list>
@@ -94,9 +118,8 @@
 
     <q-footer class="bg-primary-1 text-white">
       <q-toolbar>
-        <q-toolbar-title>
-          <small>&copy; {{ copyright }}</small>
-        </q-toolbar-title>
+        <small>&copy; {{ copyright }}</small>
+        <q-space/>
         v.0.0.1-beta
       </q-toolbar>
     </q-footer>
@@ -108,7 +131,7 @@
 </template>
 
 <script>
-import { openURL } from "quasar";
+import { openURL, date } from "quasar";
 import { mapState, mapActions } from "vuex";
 
 export default {
@@ -162,12 +185,32 @@ export default {
     };
   },
   computed: {
-    ...mapState("auth", ["loggedIn"])
+    ...mapState("auth", ["loggedIn"]),
+    ...mapState('notifications',['notifications'])
   },
   methods: {
     openURL,
     ...mapActions("auth", ["logoutUser"]),
     ...mapActions('notifications',['loadNotifications'])
+  },
+  filters: {
+  	dateDiff(val) {
+      const newDate = new Date();
+      let notifDate = new Date(val);
+      return date.getDateDiff(newDate, notifDate, 'hours') + ' hrs ago'
+    },
+    notifType(type) {
+  		if (type == "App\\Notifications\\ProjectCreated") {
+  			return 'Project Created';
+        } else if (type == "App\\Notifications\\ProjectUpdated") {
+            return 'Project Updated';
+        } else {
+  			return 'Others';
+        }
+    }
+  },
+  mounted() {
+  	this.loadNotifications()
   }
 };
 </script>

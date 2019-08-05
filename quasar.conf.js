@@ -100,7 +100,8 @@ module.exports = function (ctx) {
 
         'QPageSticky',
         'QDialog',
-        'QMenu'
+        'QMenu',
+        'QBadge'
       ],
 
       directives: [
