@@ -1,4 +1,4 @@
-import { axiosInstance } from "boot/axios";
+// import { axiosInstance } from "boot/axios";
 
 const state = {
 
@@ -9,11 +9,13 @@ const mutations = {
 };
 
 const actions = {
-	loadNotifications();
+	loadNotifications() {
+
+	}
 };
 
 const getters = {
-	
+
 };
 
 export default {
