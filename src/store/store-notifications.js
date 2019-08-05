@@ -1,35 +1,34 @@
 import { axiosInstance } from "boot/axios";
 
 const state = {
-	notifications: []
+  notifications: []
 };
 
 const mutations = {
-	setNotifications( state, value ) {
-		state.notifications = value;
-	}
+  setNotifications(state, value) {
+    state.notifications = value;
+  }
 };
 
 const actions = {
-	loadNotifications({ commit }) {
-		axiosInstance.get('/notifications')
-			.then(res => {
-				commit('setNotifications', res.data);
-			})
-			.catch(e => {
-				console.log('Error: ', e.message);
-			});
-	}
+  loadNotifications({ commit }) {
+    axiosInstance
+      .get("/notifications")
+      .then(res => {
+        commit("setNotifications", res.data);
+      })
+      .catch(e => {
+        console.log("Error: ", e.message);
+      });
+  }
 };
 
-const getters = {
-
-};
+const getters = {};
 
 export default {
-	namespaced: true,
-	state,
-	getters,
-	mutations,
-	actions
+  namespaced: true,
+  state,
+  getters,
+  mutations,
+  actions
 };

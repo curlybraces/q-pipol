@@ -34,25 +34,36 @@
           <q-btn
             dense
             flat
-            :color=" (notifications.length > 0) ? 'white' : 'grey-9' "
+            :color="notifications.length > 0 ? 'white' : 'grey-9'"
             round
             icon="notifications"
-            class="q-mr-xs">
-
+            class="q-mr-xs"
+          >
             <q-badge color="red" floating>
               {{ notifications.length }}
             </q-badge>
 
-            <q-menu :content-style="{ color: 'primary'}" anchor="bottom right" self="top right" :offset="[0, 5]" square
-              v-if="notifications.length > 0">
-
+            <q-menu
+              :content-style="{ color: 'primary' }"
+              anchor="bottom right"
+              self="top right"
+              :offset="[0, 5]"
+              square
+              v-if="notifications.length > 0"
+            >
               <q-list dense style="width: 360px" separator>
                 <q-item>
-                  <q-item-section class="text-center">Notifications</q-item-section>
+                  <q-item-section class="text-center"
+                    >Notifications</q-item-section
+                  >
                 </q-item>
                 <!-- Notifications go here -->
-                <q-item clickable v-for="notif in notifications" :key="notif.id" v-close-popup>
-
+                <q-item
+                  clickable
+                  v-for="notif in notifications"
+                  :key="notif.id"
+                  v-close-popup
+                >
                   <q-item-section avatar>
                     <q-avatar color="white">
                       <img src="statics/app-logo-128x128.png" />
@@ -60,16 +71,25 @@
                   </q-item-section>
 
                   <q-item-section>
-                    <q-item-label overline>{{ notif.type | notifType }}</q-item-label>
-                    <q-item-label lines="3">{{ notif.data.message }}</q-item-label>
+                    <q-item-label overline>{{
+                      notif.type | notifType
+                    }}</q-item-label>
+                    <q-item-label lines="3">{{
+                      notif.data.message
+                    }}</q-item-label>
                     <q-item-label caption>
-                      <q-icon name="access_time"/>
+                      <q-icon name="access_time" />
                       {{ notif.created_at | dateDiff }}
                     </q-item-label>
                   </q-item-section>
                 </q-item>
 
-                <q-item clickable class="text-center" to="/notifications" v-close-popup>
+                <q-item
+                  clickable
+                  class="text-center"
+                  to="/notifications"
+                  v-close-popup
+                >
                   <q-item-section>See all</q-item-section>
                 </q-item>
               </q-list>
@@ -80,9 +100,9 @@
             flat
             @click="logoutUser"
             icon-right="account_circle"
-            label="Logout"/>
-
-          </div>
+            label="Logout"
+          />
+        </div>
       </q-toolbar>
     </q-header>
 
@@ -119,7 +139,7 @@
     <q-footer class="bg-primary-1 text-white">
       <q-toolbar>
         <small>&copy; {{ copyright }}</small>
-        <q-space/>
+        <q-space />
         v.0.0.1-beta
       </q-toolbar>
     </q-footer>
@@ -186,35 +206,35 @@ export default {
   },
   computed: {
     ...mapState("auth", ["loggedIn"]),
-    ...mapState('notifications',['notifications'])
+    ...mapState("notifications", ["notifications"])
   },
   methods: {
     openURL,
     ...mapActions("auth", ["logoutUser"]),
-    ...mapActions('notifications',['loadNotifications'])
+    ...mapActions("notifications", ["loadNotifications"])
   },
   filters: {
-  	dateDiff(val) {
+    dateDiff(val) {
       const newDate = new Date();
       let notifDate = new Date(val);
-      return date.getDateDiff(newDate, notifDate, 'hours') + ' hrs ago'
+      return date.getDateDiff(newDate, notifDate, "hours") + " hrs ago";
     },
     notifType(type) {
-  		if (type == "App\\Notifications\\ProjectCreated") {
-  			return 'Project Created';
-        } else if (type == "App\\Notifications\\ProjectUpdated") {
-            return 'Project Updated';
-        } else if (type == "App\\Notifications\\ProjectDeleted") {
-            return 'Project Deleted';
-        } else if (type == "App\\Notifications\\ProjectFinalized") {
-            return 'Project Finalized';
-        } else {
-  			return 'Others';
-        }
+      if (type == "App\\Notifications\\ProjectCreated") {
+        return "Project Created";
+      } else if (type == "App\\Notifications\\ProjectUpdated") {
+        return "Project Updated";
+      } else if (type == "App\\Notifications\\ProjectDeleted") {
+        return "Project Deleted";
+      } else if (type == "App\\Notifications\\ProjectFinalized") {
+        return "Project Finalized";
+      } else {
+        return "Others";
+      }
     }
   },
   mounted() {
-  	this.loadNotifications()
+    this.loadNotifications();
   }
 };
 </script>

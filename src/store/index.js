@@ -2,7 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 import auth from "./store-auth";
-import notifications from './store-notifications';
+import notifications from "./store-notifications";
 import dropdown from "./store-dropdown";
 import projects from "./store-projects";
 

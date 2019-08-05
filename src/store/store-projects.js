@@ -1,5 +1,5 @@
 import { axiosInstance } from "boot/axios";
-import { Loading, QSpinnerFacebook } from "quasar";
+import { Loading } from "quasar";
 
 const state = {
   project: {},
@@ -31,10 +31,7 @@ const actions = {
       });
   },
   loadProject({ commit }, payload) {
-    Loading.show({
-      spinner: QSpinnerFacebook,
-      message: "Logging in..."
-    });
+    Loading.show();
     axiosInstance
       .get("/projects/" + payload.id)
       .then(res => {

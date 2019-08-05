@@ -35,7 +35,6 @@
         <project-history :backups="project.backups"></project-history>
       </q-tab-panel>
     </q-tab-panels>
-
   </q-page>
 </template>
 
@@ -47,13 +46,13 @@ import ProjectHistory from "../../components/EditProject/ProjectHistory";
 
 export default {
   components: {
-	  ProjectHistory,
-	  GeneralInformation
+    ProjectHistory,
+    GeneralInformation
   },
   name: "PageEditProject",
   data() {
     return {
-      tab: 'edit'
+      tab: "edit"
     };
   },
   computed: {
@@ -62,10 +61,10 @@ export default {
   methods: {
     ...mapActions("projects", ["loadProject"]),
     showPreviousVersion(id) {
-      var backup = this.project.backups.filter(backup => backup.id == id)
+      var backup = this.project.backups.filter(backup => backup.id == id);
       this.$q.dialog({
         message: JSON.stringify(backup)
-      })
+      });
     }
   },
   mounted() {

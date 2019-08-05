@@ -16,7 +16,7 @@
       </template>
     </q-input>
 
-    <list-component :items="projects"> </list-component>
+    <list-component :items="projects"></list-component>
 
     <fab-component link="/projects/add" />
   </q-page>

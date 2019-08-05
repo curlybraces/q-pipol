@@ -7,7 +7,9 @@
       clickable
     >
       <q-item-section class="col-2 gt-sm">
-        <q-item-label class="q-mt-sm">{{ item.operating_unit.name }}</q-item-label>
+        <q-item-label class="q-mt-sm">{{
+          item.operating_unit.name
+        }}</q-item-label>
       </q-item-section>
 
       <q-item-section>

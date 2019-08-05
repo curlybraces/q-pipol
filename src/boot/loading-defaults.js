@@ -1,9 +1,9 @@
 // import something here
-import { Loading, QSpinnerFacebook } from 'quasar'
+import { Loading, QSpinnerFacebook } from "quasar";
 
 Loading.setDefaults({
-  message: 'Processing your request',
-  messageColor: 'secondary',
+  message: "Processing your request",
+  messageColor: "secondary",
   spinner: QSpinnerFacebook,
-  spinnerColor: 'secondary'
+  spinnerColor: "secondary"
 });
