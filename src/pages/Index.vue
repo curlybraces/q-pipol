@@ -1,7 +1,6 @@
 <template>
   <q-page padding>
     <p>Index</p>
-
   </q-page>
 </template>
 
@@ -15,7 +14,6 @@ export default {
     };
   },
   mounted() {
-    //
   }
 };
 </script>

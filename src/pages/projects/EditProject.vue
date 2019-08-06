@@ -29,6 +29,8 @@
     <q-tab-panels v-model="tab" animated>
       <q-tab-panel name="edit">
         <general-information :project="project"></general-information>
+
+        <pdp-indicators :project="project"></pdp-indicators>
       </q-tab-panel>
 
       <q-tab-panel name="history">
@@ -43,9 +45,11 @@ import { mapState, mapActions } from "vuex";
 
 import GeneralInformation from "../../components/EditProject/GeneralInformation.vue";
 import ProjectHistory from "../../components/EditProject/ProjectHistory";
+import PdpIndicators from "../../components/EditProject/PdpIndicators";
 
 export default {
   components: {
+      PdpIndicators,
     ProjectHistory,
     GeneralInformation
   },

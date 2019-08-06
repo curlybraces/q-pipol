@@ -22,20 +22,23 @@ const mutations = {
 
 const actions = {
   registerUser(context, payload) {
+    Loading.show();
     axiosInstance
       .post("/register", payload)
       .then(res => {
+        Loading.hide();
         Notify.create({
           message: res.data,
           position: "top",
-          color: "success"
+          color: "positive"
         });
       })
       .catch(e => {
+        Loading.hide();
         Notify.create({
           message: e.message,
           position: "top",
-          color: "error"
+          color: "negative"
         });
       });
   },

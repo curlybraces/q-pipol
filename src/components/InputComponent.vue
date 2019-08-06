@@ -6,7 +6,6 @@
         :label="label"
         dense
         :type="type"
-        :step="step"
         outlined
         :hint="hint"
         :rules="rules"
@@ -27,8 +26,7 @@ export default {
     label: String,
     hint: String,
     type: String,
-    step: Number,
-    value: String,
+    value: [String,Number],
     rules: Array,
     readonly: {
       default: false,

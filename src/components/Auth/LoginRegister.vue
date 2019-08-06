@@ -1,5 +1,6 @@
 <template>
   <q-form @submit.prevent="submitForm" @reset="onReset" class="q-gutter-y-sm">
+
     <q-banner class="bg-grey-3">
       <template v-slot:avatar>
         <q-icon name="account_circle" color="primary" />
@@ -53,6 +54,7 @@
       <q-btn flat type="reset" label="Reset" />
       <q-btn type="submit" color="primary" :label="tab"> </q-btn>
     </div>
+
   </q-form>
 </template>
 

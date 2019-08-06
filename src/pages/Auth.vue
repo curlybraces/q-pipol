@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <q-card class="auth-tabs">
+    <q-card class="auth-tabs align-center">
       <q-card-section class="bg-primary text-secondary">
         <div class="row items-center">
           <q-avatar color="white">

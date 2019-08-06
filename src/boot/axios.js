@@ -10,7 +10,7 @@ const axiosInstance = axios.create({
   }
 });
 
-axiosInstance.defaults.timeout = 5000;
+axiosInstance.defaults.timeout = 10000;
 axiosInstance.defaults.headers.common["Authorization"] =
   "Bearer " + localStorage.getItem("token");
 
