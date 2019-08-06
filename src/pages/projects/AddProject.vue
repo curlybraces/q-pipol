@@ -15,11 +15,7 @@
           complete and finalize your submission.
         </q-banner>
 
-        <q-form
-          ref="form"
-          @submit="onSubmit"
-          autofocus>
-
+        <q-form ref="form" @submit="onSubmit" autofocus>
           <select-component
             label="Implementing Unit"
             :options="operating_units"
@@ -83,8 +79,6 @@
             hint="Select the region where the project will be implemented."
             :rules="rules.required"
           ></select-component>
-
-
 
           <select-component
             label="Implementation Start"
@@ -164,9 +158,7 @@
               Save
             </q-btn>
           </div>
-
         </q-form>
-
       </template>
     </card-component>
   </q-page>
@@ -204,11 +196,11 @@ export default {
         categorization: null,
         uacs_code: null,
         preparation_document: null,
-        total_cost: 0.00
+        total_cost: 0.0
       },
       rules: {
-      	required: [ v => !!v || 'This field is required.' ],
-        select: [ v => v.length > 0 || 'This field is required' ]
+        required: [v => !!v || "This field is required."],
+        select: [v => v.length > 0 || "This field is required"]
       }
     };
   },
@@ -237,7 +229,7 @@ export default {
       "loadFundingSources",
       "loadPreparationDocuments"
     ]),
-    ...mapActions('projects',['addProject']),
+    ...mapActions("projects", ["addProject"]),
     init() {
       this.loadCategorizations();
       this.loadOperatingUnits();
@@ -261,18 +253,19 @@ export default {
     },
     addProject(payload) {
       this.$q.loading.show();
-      this.$axios.post('/projects', payload)
+      this.$axios
+        .post("/projects", payload)
         .then(() => {
           this.$q.loading.hide();
 
-          this.$router.push('/projects');
+          this.$router.push("/projects");
         })
         .catch(e => {
-          console.log(e.message)
+          console.log(e.message);
         });
     },
     onSubmit() {
-      this.addProject( this.form );
+      this.addProject(this.form);
     }
   },
   mounted() {

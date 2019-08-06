@@ -52,7 +52,7 @@ export default {
     hint: String,
     rules: Array,
     value: {
-      type: [Number,String,Array]
+      type: [Number, String, Array]
     }
   },
   data() {

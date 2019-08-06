@@ -176,10 +176,10 @@ export default {
           caption: "View all projects"
         },
         {
-          label: 'Recycle Bin',
-          href: '/projects/recycle',
-          icon: 'delete',
-          caption: 'View deleted projects'
+          label: "Recycle Bin",
+          href: "/projects/recycle",
+          icon: "delete",
+          caption: "View deleted projects"
         },
         /*
         {

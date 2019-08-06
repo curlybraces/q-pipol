@@ -6,7 +6,12 @@
       </q-card-section>
 
       <q-card-section>
-        <q-input dense v-model="address" autofocus @keyup.enter="prompt = false" />
+        <q-input
+          dense
+          v-model="address"
+          autofocus
+          @keyup.enter="prompt = false"
+        />
       </q-card-section>
 
       <q-card-actions align="right" class="text-primary">
@@ -18,7 +23,7 @@
 </template>
 
 <script>
-  export default {
-    name: 'DialogComponent'
-  }
+export default {
+  name: "DialogComponent"
+};
 </script>

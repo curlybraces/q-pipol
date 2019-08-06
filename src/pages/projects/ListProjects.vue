@@ -16,9 +16,7 @@
       </template>
     </q-input>
 
-    <list-component
-      :items="projects">
-    </list-component>
+    <list-component :items="projects"> </list-component>
 
     <fab-component link="/projects/add" />
   </q-page>
@@ -51,10 +49,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("projects", ["loadProjects", "setSearch"]),
-    alert() {
-      alert("Searching");
-    }
+    ...mapActions("projects", ["loadProjects", "setSearch"])
   },
   mounted() {
     this.loadProjects();

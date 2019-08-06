@@ -463,9 +463,8 @@ const actions = {
         console.log("Error: ", e.message);
       });
   },
-
   setPdpChapter({ commit }, value) {
-    commit('setPdpChapter', value);
+    commit("setPdpChapter", value);
   }
 };
 
@@ -473,11 +472,17 @@ const getters = {
   pdpOutcomesFiltered: state => {
     if (state.pdp_chapter) {
       return state.pdp_outcomes.filter(outcome => {
-        return (
-          outcome.pdp_chapter_id == state.pdp_chapter
-        );
+        return outcome.pdp_chapter_id == state.pdp_chapter;
       });
     }
+    return state.pdp_outcomes;
+  },
+  pdp_outcomes: (state, getters) => {
+    var pdp_outcomes = getters.pdpOutcomesFiltered;
+    if (pdp_outcomes) {
+      return pdp_outcomes;
+    }
+    return state.pdp_outcomes;
   }
 };
 

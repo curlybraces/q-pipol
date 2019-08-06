@@ -4,10 +4,7 @@
     <q-separator />
     <q-timeline color="secondary">
       <template v-for="item in backups">
-        <q-timeline-entry
-          :key="item.id"
-          :subtitle="item.created_at"
-        >
+        <q-timeline-entry :key="item.id" :subtitle="item.created_at">
           <template v-slot:title>
             {{ item.changes }} <small>by {{ item.modified_by.name }}</small>
           </template>

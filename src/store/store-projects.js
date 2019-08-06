@@ -48,15 +48,16 @@ const actions = {
   deleteProject({ dispatch }, payload) {
     console.log("deleting project: ", payload.id);
 
-    axiosInstance.delete('/projects/' + payload.id)
-        .then(res => {
-          console.log(res.data)
+    axiosInstance
+      .delete("/projects/" + payload.id)
+      .then(res => {
+        console.log(res.data);
 
-          dispatch('loadProjects');
-        })
-        .catch(e => {
-          console.log(e.message)
-        });
+        dispatch("loadProjects");
+      })
+      .catch(e => {
+        console.log(e.message);
+      });
     // call axios here for deleting projects based on id
   },
   setSearch({ commit }, value) {

@@ -21,7 +21,8 @@
             {{ item.description }}
           </q-item-label>
           <q-item-label caption lines="1">
-            [ {{ item.implementation_start + " - " + item.implementation_end }} ]
+            [
+            {{ item.implementation_start + " - " + item.implementation_end }} ]
           </q-item-label>
         </q-item-section>
 
@@ -57,13 +58,11 @@
         </q-item-section>
       </q-item>
     </q-list>
-
   </div>
 </template>
 
 <script>
 import { mapActions } from "vuex";
-
 
 export default {
   name: "ListComponent",
@@ -73,12 +72,12 @@ export default {
   data() {
     return {
       prompt: false,
-      changes: ''
+      changes: ""
     };
   },
   computed: {
     required() {
-      return this.changes.trim() !== ''
+      return this.changes.trim() !== "";
     }
   },
   methods: {
@@ -87,19 +86,20 @@ export default {
       this.$router.push("/projects/" + id);
     },
     promptToDelete(id) {
-      this.$q.dialog({
-        title: 'Confirm delete',
-        message: 'Are you sure you want to delete this project?',
-        persistent: true,
-        ok: {
-          color: 'primary',
-          flat: false
-        },
-        cancel: true
-      })
-      .onOk(() => {
-        this.deleteProject({ id: id })
-      });
+      this.$q
+        .dialog({
+          title: "Confirm delete",
+          message: "Are you sure you want to delete this project?",
+          persistent: true,
+          ok: {
+            color: "primary",
+            flat: false
+          },
+          cancel: true
+        })
+        .onOk(() => {
+          this.deleteProject({ id: id });
+        });
     }
   }
 };

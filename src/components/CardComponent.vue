@@ -13,7 +13,6 @@
     <q-card-section v-show="show">
       <slot name="content" />
     </q-card-section>
-
   </q-card>
 </template>
 

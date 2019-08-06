@@ -26,7 +26,7 @@ export default {
     label: String,
     hint: String,
     type: String,
-    value: [String,Number],
+    value: [String, Number],
     rules: Array,
     readonly: {
       default: false,

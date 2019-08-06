@@ -30,7 +30,24 @@
       <q-tab-panel name="edit">
         <general-information :project="project"></general-information>
 
-        <pdp-indicators :project="project"></pdp-indicators>
+        <spatial-coverage></spatial-coverage>
+
+        <programming-document></programming-document>
+
+        <macroeconomic-indicators :project="project"></macroeconomic-indicators>
+
+        <project-preparation></project-preparation>
+
+        <preconstruction-cost></preconstruction-cost>
+
+        <total-cost></total-cost>
+
+        <infrastructure-cost></infrastructure-cost>
+
+        <physical-accomplishments></physical-accomplishments>
+
+        <financial-accomplishments></financial-accomplishments>
+
       </q-tab-panel>
 
       <q-tab-panel name="history">
@@ -45,11 +62,27 @@ import { mapState, mapActions } from "vuex";
 
 import GeneralInformation from "../../components/EditProject/GeneralInformation.vue";
 import ProjectHistory from "../../components/EditProject/ProjectHistory";
-import PdpIndicators from "../../components/EditProject/PdpIndicators";
+import MacroeconomicIndicators from "../../components/EditProject/MacroeconomicIndicators";
+import ProgrammingDocument from "../../components/EditProject/ProgrammingDocument";
+import SpatialCoverage from "../../components/EditProject/SpatialCoverage";
+import PreconstructionCost from "../../components/EditProject/PreconstructionCost";
+import PhysicalAccomplishments from "../../components/EditProject/PhysicalAccomplishments";
+import FinancialAccomplishments from "../../components/EditProject/FinancialAccomplishments";
+import ProjectPreparation from "../../components/EditProject/ProjectPreparation";
+import TotalCost from "../../components/EditProject/TotalCost";
+import InfrastructureCost from "../../components/EditProject/InfrastructureCost";
 
 export default {
   components: {
-      PdpIndicators,
+	  InfrastructureCost,
+	  TotalCost,
+	  ProjectPreparation,
+	  FinancialAccomplishments,
+	  PhysicalAccomplishments,
+	  PreconstructionCost,
+	  SpatialCoverage,
+	  ProgrammingDocument,
+	  MacroeconomicIndicators,
     ProjectHistory,
     GeneralInformation
   },

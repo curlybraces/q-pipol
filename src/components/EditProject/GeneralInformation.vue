@@ -38,7 +38,27 @@
         hint="Actual Deliverables, i.e. 100km of paved roads"
         v-model="project.expected_outputs"
       ></input-component>
+
+      <select-component
+        label="Implementation Start"
+        hint="Target year of start of implementation"
+        v-model="project.implementation_start"
+      ></select-component>
+
+      <select-component
+        label="Implementation End"
+        hint="Target year of project completion"
+        v-model="project.implementation_end"
+      ></select-component>
+
+      <input-component
+        label="No. of persons to be employed"
+        type="number"
+        hint="Please indicate the no. of persons to be employed by the project outside of the implementing agency"
+      ></input-component>
+
     </template>
+
   </card-component>
 </template>
 
@@ -65,10 +85,10 @@ export default {
     return {};
   },
   computed: {
-    ...mapState("dropdown", ["implementation_bases"])
+    ...mapState("dropdown", ["implementation_bases",'implementation_periods'])
   },
   methods: {
-    ...mapActions("dropdown", ["loadImplementationBases"])
+    ...mapActions("dropdown", ["loadImplementationBases","loadImplementationPeriods"])
   },
   mounted() {
     this.loadImplementationBases();

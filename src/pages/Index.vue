@@ -5,15 +5,11 @@
 </template>
 
 <script>
-
 export default {
   name: "PageIndex",
   data() {
-    return {
-
-    };
+    return {};
   },
-  mounted() {
-  }
+  mounted() {}
 };
 </script>
