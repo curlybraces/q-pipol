@@ -10,7 +10,7 @@
 
     <q-separator color="primary" />
 
-    <q-card-section v-show="show">
+    <q-card-section>
       <slot name="content" />
     </q-card-section>
   </q-card>
@@ -20,19 +20,7 @@
 export default {
   name: "CardComponent",
   props: {
-    title: String,
-    onClick: Function,
-    collapsible: {
-      type: Boolean,
-      default: false
-    }
-  },
-  data() {
-    return {
-      show: true
-    };
+    title: String
   }
 };
 </script>
-
-<style></style>
