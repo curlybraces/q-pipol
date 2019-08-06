@@ -4,23 +4,23 @@
       <select-component
         label="Spatial Coverage"
         :options="spatial_coverages"
-        v-model="project.spatial_coverage"
+        v-model="project.spatial_coverage_id"
       ></select-component>
 
       <select-component
         label="Region/s"
         :options="regions"
-        v-model="project.region"
+        v-model="project.regions"
       ></select-component>
 
       <select-component
         label="Province/s"
-        v-model="project.province"
+        v-model="project.provinces"
       ></select-component>
 
       <select-component
         label="City and Municipalities"
-        v-model="project.city_municipality"
+        v-model="project.city_municipalities"
       ></select-component>
     </template>
   </card-component>

@@ -21,7 +21,7 @@
         hint="Included in any of the following documents"
         :options="implementation_bases"
         :multiple="true"
-        v-model="project.implementation_basis_id"
+        v-model="project.implementation_bases"
       ></select-component>
 
       <input-component
@@ -41,12 +41,15 @@
       <select-component
         label="Implementation Start"
         hint="Target year of start of implementation"
+        :options="implementation_periods"
         v-model="project.implementation_start"
+        @input="updateImplementationEnd"
       ></select-component>
 
       <select-component
         label="Implementation End"
         hint="Target year of project completion"
+        :options="filteredImplementationPeriods"
         v-model="project.implementation_end"
       ></select-component>
 
@@ -54,7 +57,10 @@
         label="No. of persons to be employed"
         type="number"
         hint="Please indicate the no. of persons to be employed by the project outside of the implementing agency"
+        v-model="project.employment_generation"
       ></input-component>
+
+      <q-btn @click="submitForm">Test</q-btn>
     </template>
   </card-component>
 </template>
@@ -76,7 +82,9 @@ export default {
   },
   name: "GeneralInformation",
   data() {
-    return {};
+    return {
+      filteredImplementationPeriods: []
+    };
   },
   computed: {
     ...mapState("dropdown", ["implementation_bases", "implementation_periods"]),
@@ -86,10 +94,24 @@ export default {
     ...mapActions("dropdown", [
       "loadImplementationBases",
       "loadImplementationPeriods"
-    ])
+    ]),
+    updateImplementationEnd(evt) {
+      let filteredImplementationPeriods = [];
+      var start = parseInt(evt);
+      filteredImplementationPeriods = this.implementation_periods.filter(
+        period => {
+          return parseInt(period.name) >= start;
+        }
+      );
+      this.filteredImplementationPeriods = filteredImplementationPeriods;
+    },
+    submitForm() {
+      console.log(this.project);
+    }
   },
   mounted() {
     this.loadImplementationBases();
+    this.loadImplementationPeriods();
   }
 };
 </script>
