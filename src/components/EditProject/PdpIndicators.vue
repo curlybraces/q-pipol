@@ -1,7 +1,10 @@
 <template>
   <card-component label="Responsiveness to the Philippine Development Plan">
 
-    <select-component :options="pdp_chapters" v-model="pdp_chapter"></select-component>
+    <select-component
+      :options="pdp_chapters"
+      v-model="pdp_chapter_id">
+    </select-component>
 
     <tree-component
       label="PDP Outcomes and Output Indicators"
@@ -21,15 +24,23 @@ export default {
   components: {CardComponent, TreeComponent},
   data() {
     return {
-      pdp_chapter: null,
+      pdp_chapter_id: null,
       pdp_indicators_selected: []
     }
   },
   computed: {
-    ...mapState('dropdown',['pdp_chapters','pdp_indicators'])
+    ...mapState('dropdown',['pdp_chapters','pdp_indicators']),
+    pdp_chapter: {
+      get() {
+        return this.pdp_chapter_id
+      },
+      set(value) {
+        this.setPdpChapter(value);
+      }
+    }
   },
   methods: {
-    ...mapActions('dropdown',['loadPdpChapters','loadPdpIndicators'])
+    ...mapActions('dropdown',['loadPdpChapters','loadPdpOutcomes','setPdpChapter'])
   },
   mounted() {
     this.loadPdpChapters();

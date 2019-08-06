@@ -31,7 +31,8 @@ const state = {
   roles: [], // localStorage.getItem("roles") || [],
   spatial_coverages: [], // localStorage.getItem("spatial_coverages") || [],
   sustainable_development_goals: [], // localStorage.getItem("sustainable_development_goals") || [],
-  ten_point_agenda: [] //  localStorage.getItem("ten_point_agenda") || []
+  ten_point_agenda: [], //  localStorage.getItem("ten_point_agenda") || []
+  pdp_chapter: null
 };
 
 const mutations = {
@@ -121,6 +122,9 @@ const mutations = {
   },
   setTenPointAgenda(state, value) {
     state.ten_point_agenda = value;
+  },
+  setPdpChapter(state, value) {
+    state.pdp_chapter = value;
   }
 };
 
@@ -458,10 +462,24 @@ const actions = {
       .catch(e => {
         console.log("Error: ", e.message);
       });
+  },
+
+  setPdpChapter({ commit }, value) {
+    commit('setPdpChapter', value);
   }
 };
 
-const getters = {};
+const getters = {
+  pdpOutcomesFiltered: state => {
+    if (state.pdp_chapter) {
+      return state.pdp_outcomes.filter(outcome => {
+        return (
+          outcome.pdp_chapter_id == state.pdp_chapter
+        );
+      });
+    }
+  }
+};
 
 export default {
   namespaced: true,

@@ -1,1 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["2d2132fc"],{ac37:function(e,t,n){"use strict";n.r(t);var a=function(){var e=this,t=e.$createElement,n=e._self._c||t;return n("q-page",{attrs:{padding:""}},[n("p",[e._v("Deleted Projects")])])},c=[],l={},r=l,s=n("2877"),p=Object(s["a"])(r,a,c,!1,null,null,null);t["default"]=p.exports}}]);
