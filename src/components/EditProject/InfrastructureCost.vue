@@ -287,7 +287,14 @@
 </template>
 
 <script>
+import TableInputComponent from "../TableInputComponent";
+import CardComponent from "../CardComponent";
+
 export default {
+  components: {
+    CardComponent,
+    TableInputComponent
+  },
   name: "InfrastructureCost",
   data() {
     return {};

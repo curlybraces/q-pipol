@@ -109,7 +109,10 @@
 </template>
 
 <script>
+import CardComponent from "../CardComponent";
+
 export default {
+  components: { CardComponent },
   name: "FinancialAccomplishments",
   data() {
     return {};

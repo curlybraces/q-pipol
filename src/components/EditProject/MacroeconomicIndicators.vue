@@ -1,7 +1,6 @@
 <template>
   <card-component title="Responsiveness to Strategic Plans">
     <template v-slot:content>
-
       <select-component
         label="0-10 Point Socioeconomic Agenda"
         :multiple="true"
@@ -46,9 +45,7 @@
         v-model="project.other_pdp_chapter"
       >
       </select-component>
-
     </template>
-
   </card-component>
 </template>
 

@@ -56,9 +56,7 @@
         type="number"
         hint="Please indicate the no. of persons to be employed by the project outside of the implementing agency"
       ></input-component>
-
     </template>
-
   </card-component>
 </template>
 
@@ -85,10 +83,13 @@ export default {
     return {};
   },
   computed: {
-    ...mapState("dropdown", ["implementation_bases",'implementation_periods'])
+    ...mapState("dropdown", ["implementation_bases", "implementation_periods"])
   },
   methods: {
-    ...mapActions("dropdown", ["loadImplementationBases","loadImplementationPeriods"])
+    ...mapActions("dropdown", [
+      "loadImplementationBases",
+      "loadImplementationPeriods"
+    ])
   },
   mounted() {
     this.loadImplementationBases();

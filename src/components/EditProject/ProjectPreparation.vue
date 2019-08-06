@@ -1,7 +1,6 @@
 <template>
   <card-component title="Project Preparation Details">
     <template v-slot:content>
-
       <select-component
         label="Project Preparation Document"
         v-model="project.preparation_document"
@@ -56,16 +55,15 @@
       ></input-component>
 
       <select-component
-              label="Level of Approval"
-              :options="approval_levels"
-              v-model="project.approval_level_id"
+        label="Level of Approval"
+        :options="approval_levels"
+        v-model="project.approval_level_id"
       ></select-component>
 
       <date-component
-              label="Approval Date"
-              v-model="project.approved_at"
+        label="Approval Date"
+        v-model="project.approved_at"
       ></date-component>
-
     </template>
   </card-component>
 </template>

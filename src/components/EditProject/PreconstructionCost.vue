@@ -47,7 +47,14 @@
 </template>
 
 <script>
+import CardComponent from "../CardComponent";
+import InputComponent from "../InputComponent";
+
 export default {
+  components: {
+    InputComponent,
+    CardComponent
+  },
   name: "PreconstructionCost"
 };
 </script>

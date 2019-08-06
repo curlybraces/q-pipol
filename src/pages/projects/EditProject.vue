@@ -47,7 +47,6 @@
         <physical-accomplishments></physical-accomplishments>
 
         <financial-accomplishments></financial-accomplishments>
-
       </q-tab-panel>
 
       <q-tab-panel name="history">
@@ -59,7 +58,6 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
-
 import GeneralInformation from "../../components/EditProject/GeneralInformation.vue";
 import ProjectHistory from "../../components/EditProject/ProjectHistory";
 import MacroeconomicIndicators from "../../components/EditProject/MacroeconomicIndicators";
@@ -74,15 +72,15 @@ import InfrastructureCost from "../../components/EditProject/InfrastructureCost"
 
 export default {
   components: {
-	  InfrastructureCost,
-	  TotalCost,
-	  ProjectPreparation,
-	  FinancialAccomplishments,
-	  PhysicalAccomplishments,
-	  PreconstructionCost,
-	  SpatialCoverage,
-	  ProgrammingDocument,
-	  MacroeconomicIndicators,
+    InfrastructureCost,
+    TotalCost,
+    ProjectPreparation,
+    FinancialAccomplishments,
+    PhysicalAccomplishments,
+    PreconstructionCost,
+    SpatialCoverage,
+    ProgrammingDocument,
+    MacroeconomicIndicators,
     ProjectHistory,
     GeneralInformation
   },

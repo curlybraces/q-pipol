@@ -13,7 +13,16 @@
 </template>
 
 <script>
+import SelectComponent from "../SelectComponent";
+import InputComponent from "../InputComponent";
+import DateComponent from "../DateComponent";
+
 export default {
+  components: {
+    DateComponent,
+    InputComponent,
+    SelectComponent
+  },
   name: "PhysicalAccomplishments",
   data() {
     return {};

@@ -295,7 +295,16 @@
 </template>
 
 <script>
+import InputComponent from "../InputComponent";
+import SelectComponent from "../SelectComponent";
+import CardComponent from "../CardComponent";
+
 export default {
+  components: {
+    CardComponent,
+    SelectComponent,
+    InputComponent
+  },
   name: "TotalCost",
   data() {
     return {};
