@@ -296,6 +296,7 @@
 
 <script>
 import InputComponent from "../InputComponent";
+import TableInputComponent from "../TableInputComponent";
 import SelectComponent from "../SelectComponent";
 import CardComponent from "../CardComponent";
 
@@ -303,7 +304,8 @@ export default {
   components: {
     CardComponent,
     SelectComponent,
-    InputComponent
+    InputComponent,
+    TableInputComponent
   },
   name: "TotalCost",
   data() {

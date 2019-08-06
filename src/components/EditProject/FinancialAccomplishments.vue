@@ -110,9 +110,12 @@
 
 <script>
 import CardComponent from "../CardComponent";
+import TableInputComponent from "../TableInputComponent";
 
 export default {
-  components: { CardComponent },
+  components: {
+    CardComponent, TableInputComponent
+  },
   name: "FinancialAccomplishments",
   data() {
     return {};

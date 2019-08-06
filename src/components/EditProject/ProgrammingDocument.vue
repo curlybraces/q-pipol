@@ -29,15 +29,28 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
 import CardComponent from "../CardComponent";
 import SelectComponent from "../SelectComponent";
 import OptionsComponent from "../OptionsComponent";
+
 export default {
   components: {
     OptionsComponent,
     SelectComponent,
     CardComponent
   },
-  name: "ProgrammingDocument"
+  name: "ProgrammingDocument",
+  computed: {
+    ...mapState("projects",["project"]),
+    ...mapState("dropdown",["pip_types","cip_types"])
+  },
+  methods: {
+    ...mapActions("dropdown",["loadPipTypes","loadCipTypes"])
+  },
+  mounted() {
+    this.loadPipTypes();
+    this.loadCipTypes();
+  }
 };
 </script>

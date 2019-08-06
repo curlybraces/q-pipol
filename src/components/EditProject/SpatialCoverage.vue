@@ -4,30 +4,51 @@
       <select-component
         label="Spatial Coverage"
         :options="spatial_coverages"
-        v-model="project.spatial_coverage_id"
+        v-model="project.spatial_coverage"
       ></select-component>
 
       <select-component
         label="Region/s"
         :options="regions"
-        v-model="project.region_id"
+        v-model="project.region"
       ></select-component>
 
       <select-component
         label="Province/s"
-        v-model="project.province_id"
+        v-model="project.province"
       ></select-component>
 
       <select-component
         label="City and Municipalities"
-        v-model="project.city_municipality_id"
+        v-model="project.city_municipality"
       ></select-component>
     </template>
   </card-component>
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+import CardComponent from "../CardComponent";
+import SelectComponent from "../SelectComponent";
+
 export default {
-  name: "SpatialCoverage"
+  name: "SpatialCoverage",
+  components: {
+    CardComponent,
+    SelectComponent
+  },
+  computed: {
+    ...mapState("projects",["project"]),
+    ...mapState("dropdown",["spatial_coverages","regions","provinces","city_municipalities"])
+  },
+  methods: {
+    ...mapActions("dropdown",["loadSpatialCoverages","loadRegions","loadProvinces","loadCityMunicipalities"])
+  },
+  mounted() {
+    this.loadSpatialCoverages();
+    this.loadRegions();
+    this.loadProvinces();
+    this.loadCityMunicipalities();
+  }
 };
 </script>

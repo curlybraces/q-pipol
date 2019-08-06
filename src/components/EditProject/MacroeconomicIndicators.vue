@@ -56,9 +56,6 @@ import SelectComponent from "../SelectComponent";
 
 export default {
   name: "PdpIndicators",
-  props: {
-    project: Object
-  },
   components: {
     SelectComponent,
     CardComponent
@@ -72,6 +69,7 @@ export default {
   computed: {
     ...mapState("dropdown", ["pdp_chapters", "pdp_chapter"]),
     ...mapGetters("dropdown", ["pdpOutcomesFiltered", "pdp_outcomes"]),
+    ...mapState("projects",["project"]),
     pdpChapterField: {
       get() {
         return this.pdp_chapter;

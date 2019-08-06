@@ -5,7 +5,6 @@
         label="Project Title"
         hint="Project title must match title in budget proposal"
         v-model="project.title"
-        :readonly="true"
       ></input-component>
 
       <options-component
@@ -76,14 +75,12 @@ export default {
     OptionsComponent
   },
   name: "GeneralInformation",
-  props: {
-    project: Object
-  },
   data() {
     return {};
   },
   computed: {
-    ...mapState("dropdown", ["implementation_bases", "implementation_periods"])
+    ...mapState("dropdown", ["implementation_bases", "implementation_periods"]),
+    ...mapState("projects", ["project"])
   },
   methods: {
     ...mapActions("dropdown", [

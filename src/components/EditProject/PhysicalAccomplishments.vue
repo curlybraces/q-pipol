@@ -13,12 +13,14 @@
 </template>
 
 <script>
+import CardComponent from "../CardComponent";
 import SelectComponent from "../SelectComponent";
 import InputComponent from "../InputComponent";
 import DateComponent from "../DateComponent";
 
 export default {
   components: {
+    CardComponent,
     DateComponent,
     InputComponent,
     SelectComponent

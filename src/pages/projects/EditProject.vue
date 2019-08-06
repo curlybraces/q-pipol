@@ -28,13 +28,13 @@
 
     <q-tab-panels v-model="tab" animated>
       <q-tab-panel name="edit">
-        <general-information :project="project"></general-information>
+        <general-information></general-information>
 
         <spatial-coverage></spatial-coverage>
 
         <programming-document></programming-document>
 
-        <macroeconomic-indicators :project="project"></macroeconomic-indicators>
+        <macroeconomic-indicators></macroeconomic-indicators>
 
         <project-preparation></project-preparation>
 
@@ -50,7 +50,7 @@
       </q-tab-panel>
 
       <q-tab-panel name="history">
-        <project-history :backups="project.backups"></project-history>
+        <project-history></project-history>
       </q-tab-panel>
     </q-tab-panels>
   </q-page>

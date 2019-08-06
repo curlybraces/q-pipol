@@ -12,7 +12,7 @@
 
       <date-component
         label="Target Date of Start/Completion"
-        v-model="fs_start"
+        v-model="project.fs_start"
       ></date-component>
 
       <input-component label="Others"></input-component>
@@ -69,7 +69,30 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+import CardComponent from "../CardComponent";
+import DateComponent from "../DateComponent";
+import InputComponent from "../InputComponent";
+import SelectComponent from "../SelectComponent";
+
 export default {
-  name: "ProjectPreparation"
+  components: {
+    CardComponent,
+    DateComponent,
+    InputComponent,
+    SelectComponent
+  },
+  name: "ProjectPreparation",
+  computed: {
+    ...mapState("projects",["project"]),
+    ...mapState("dropdown",["programming_documents","approval_levels"])
+  },
+  methods: {
+    ...mapActions("dropdown",["loadProgrammingDocuments","loadApprovalLevels"])
+  },
+  mounted() {
+    this.loadProgrammingDocuments();
+    this.loadApprovalLevels();
+  }
 };
 </script>
