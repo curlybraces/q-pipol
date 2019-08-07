@@ -28,8 +28,8 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
-import CardComponent from "../CardComponent";
-import SelectComponent from "../SelectComponent";
+import CardComponent from "../UI/CardComponent";
+import SelectComponent from "../Form/SelectComponent";
 
 export default {
   name: "SpatialCoverage",

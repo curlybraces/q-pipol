@@ -166,10 +166,10 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
-import InputComponent from "../../components/InputComponent";
-import CardComponent from "../../components/CardComponent";
-import SelectComponent from "../../components/SelectComponent";
-import MultiSelectComponent from "../../components/MultiSelectComponent";
+import InputComponent from "../../components/Form/InputComponent";
+import CardComponent from "../../components/UI/CardComponent";
+import SelectComponent from "../../components/Form/SelectComponent";
+import MultiSelectComponent from "../../components/Form/MultiSelectComponent";
 
 export default {
   components: {

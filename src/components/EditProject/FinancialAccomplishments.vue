@@ -109,8 +109,8 @@
 </template>
 
 <script>
-import CardComponent from "../CardComponent";
-import TableInputComponent from "../TableInputComponent";
+import CardComponent from "../UI/CardComponent";
+import TableInputComponent from "../Form/TableInputComponent";
 
 export default {
   components: {

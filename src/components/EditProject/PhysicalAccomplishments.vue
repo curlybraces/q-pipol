@@ -13,10 +13,10 @@
 </template>
 
 <script>
-import CardComponent from "../CardComponent";
-import SelectComponent from "../SelectComponent";
-import InputComponent from "../InputComponent";
-import DateComponent from "../DateComponent";
+import CardComponent from "../UI/CardComponent";
+import SelectComponent from "../Form/SelectComponent";
+import InputComponent from "../Form/InputComponent";
+import DateComponent from "../Form/DateComponent";
 
 export default {
   components: {

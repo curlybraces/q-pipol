@@ -30,9 +30,9 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
-import CardComponent from "../CardComponent";
-import SelectComponent from "../SelectComponent";
-import OptionsComponent from "../OptionsComponent";
+import CardComponent from "../UI/CardComponent";
+import SelectComponent from "../Form/SelectComponent";
+import OptionsComponent from "../Form/OptionsComponent";
 
 export default {
   components: {

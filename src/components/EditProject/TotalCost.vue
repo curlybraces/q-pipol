@@ -295,10 +295,10 @@
 </template>
 
 <script>
-import InputComponent from "../InputComponent";
-import TableInputComponent from "../TableInputComponent";
-import SelectComponent from "../SelectComponent";
-import CardComponent from "../CardComponent";
+import InputComponent from "../Form/InputComponent";
+import TableInputComponent from "../Form/TableInputComponent";
+import SelectComponent from "../Form/SelectComponent";
+import CardComponent from "../UICardComponent";
 
 export default {
   components: {

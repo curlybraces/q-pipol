@@ -70,10 +70,10 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
-import CardComponent from "../CardComponent";
-import DateComponent from "../DateComponent";
-import InputComponent from "../InputComponent";
-import SelectComponent from "../SelectComponent";
+import CardComponent from "../UI/CardComponent";
+import DateComponent from "../Form/DateComponent";
+import InputComponent from "../Form/InputComponent";
+import SelectComponent from "../Form/SelectComponent";
 
 export default {
   components: {
