@@ -4,6 +4,7 @@ import { Loading } from "quasar";
 const state = {
   project: {},
   projects: [],
+  deletedProjects: [],
   search: ""
 };
 
@@ -13,6 +14,9 @@ const mutations = {
   },
   setProject(state, value) {
     state.project = value;
+  },
+  setDeletedProjects(state, value) {
+    state.deletedProjects = value;
   },
   setSearch(state, value) {
     state.search = value;
@@ -60,6 +64,15 @@ const actions = {
       });
     // call axios here for deleting projects based on id
   },
+  loadDeletedProjects({ commit }) {
+    axiosInstance.get('/projects/deleted')
+    .then(res => {
+      commit('setDeletedProjects', res.data);
+    })
+    .catch(e => {
+      console.log(e.message);
+    })
+  }
   setSearch({ commit }, value) {
     commit("setSearch", value);
   }
