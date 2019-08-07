@@ -3,7 +3,7 @@
     <p>Your Notifications</p>
     <q-separator />
     <q-list>
-      <template v-for="notif in notifications">
+      <template v-for="notif in allNotifications">
         <q-item
           :key="notif.id"
           :class="!notif.read_at ? 'red-2' : ''"
@@ -36,13 +36,13 @@ import { mapActions, mapState } from "vuex";
 export default {
   name: "Notifications",
   methods: {
-    ...mapActions("notifications", ["loadNotifications"])
+    ...mapActions("notifications", ["loadAllNotifications"])
   },
   computed: {
-    ...mapState("notifications", ["notifications"])
+    ...mapState("notifications", ["allNotifications"])
   },
   mounted() {
-    this.loadNotifications();
+    this.loadAllNotifications();
   }
 };
 </script>

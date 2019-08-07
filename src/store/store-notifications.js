@@ -1,12 +1,16 @@
 import { axiosInstance } from "boot/axios";
 
 const state = {
-  notifications: []
+  notifications: [],
+  allNotifications: []
 };
 
 const mutations = {
   setNotifications(state, value) {
     state.notifications = value;
+  },
+  setAllNotifications(state, value) {
+    state.allNotifications = value;
   }
 };
 
@@ -16,6 +20,16 @@ const actions = {
       .get("/notifications")
       .then(res => {
         commit("setNotifications", res.data);
+      })
+      .catch(e => {
+        console.log("Error: ", e.message);
+      });
+  },
+  loadAllNotifications({ commit }) {
+    axiosInstance
+      .get("/notifications_all")
+      .then(res => {
+        commit("setAllNotifications", res.data);
       })
       .catch(e => {
         console.log("Error: ", e.message);

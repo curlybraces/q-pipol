@@ -197,7 +197,7 @@ export default {
         categorization: null,
         uacs_code: null,
         preparation_document: null,
-        total_cost: 0.0
+        total_cost: null
       },
       rules: {
         required: [v => !!v || "This field is required."],

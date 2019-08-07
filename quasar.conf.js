@@ -104,7 +104,10 @@ module.exports = function (ctx) {
         'QBadge',
 
 	      'QTimeline',
-	      'QTimelineEntry'
+	      'QTimelineEntry',
+
+        'QSplitter',
+        'QScrollArea'
       ],
 
       directives: [
