@@ -30,7 +30,8 @@
 </template>
 
 <script>
-import FabComponent from "../../components/FabComponent";
+import FabComponent from "../../components/UI/FabComponent";
+
 export default {
   components: { FabComponent },
   name: "PageViewActivities",

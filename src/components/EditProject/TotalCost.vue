@@ -298,7 +298,7 @@
 import InputComponent from "../Form/InputComponent";
 import TableInputComponent from "../Form/TableInputComponent";
 import SelectComponent from "../Form/SelectComponent";
-import CardComponent from "../UICardComponent";
+import CardComponent from "../UI/CardComponent";
 
 export default {
   components: {

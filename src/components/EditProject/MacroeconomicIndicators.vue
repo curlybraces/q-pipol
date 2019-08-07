@@ -4,12 +4,14 @@
       <select-component
         label="0-10 Point Socioeconomic Agenda"
         :multiple="true"
+        :options="ten_point_agenda"
         v-model="project.ten_point_agenda"
       ></select-component>
 
       <select-component
         label="Sustainable Development Goals (SDG)"
         :multiple="true"
+        :options="sustainable_development_goals"
         v-model="project.sustainable_development_goal"
       ></select-component>
 
@@ -67,7 +69,7 @@ export default {
     };
   },
   computed: {
-    ...mapState("dropdown", ["pdp_chapters", "pdp_chapter"]),
+    ...mapState("dropdown", ["ten_point_agenda","sustainable_development_goals","pdp_chapters", "pdp_chapter"]),
     ...mapGetters("dropdown", ["pdpOutcomesFiltered", "pdp_outcomes"]),
     ...mapState("projects",["project"]),
     pdpChapterField: {
@@ -86,6 +88,8 @@ export default {
   },
   methods: {
     ...mapActions("dropdown", [
+      "loadTenPointAgenda",
+      "loadSustainableDevelopmentGoals",
       "loadPdpChapters",
       "loadPdpOutcomes",
       "setPdpChapter"
@@ -95,6 +99,8 @@ export default {
     }
   },
   mounted() {
+    this.loadTenPointAgenda();
+    this.loadSustainableDevelopmentGoals();
     this.loadPdpChapters();
     this.loadPdpOutcomes();
   }

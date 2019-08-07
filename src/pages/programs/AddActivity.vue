@@ -23,8 +23,8 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
-import CardComponent from "../../components/CardComponent.vue";
-import SelectComponent from "../../components/SelectComponent.vue";
+import CardComponent from "../../components/UI/CardComponent.vue";
+import SelectComponent from "../../components/Form/SelectComponent.vue";
 
 export default {
   components: {
