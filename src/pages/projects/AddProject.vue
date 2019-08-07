@@ -159,7 +159,6 @@
             </q-btn>
           </div>
         </q-form>
-
       </template>
     </card-component>
   </q-page>

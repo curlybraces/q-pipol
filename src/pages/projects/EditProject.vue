@@ -104,7 +104,7 @@ export default {
       });
     },
     submitForm() {
-      console.log( this.project );
+      console.log(this.project);
     }
   },
   mounted() {

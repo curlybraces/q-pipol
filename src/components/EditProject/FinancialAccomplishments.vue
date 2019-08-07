@@ -114,7 +114,8 @@ import TableInputComponent from "../Form/TableInputComponent";
 
 export default {
   components: {
-    CardComponent, TableInputComponent
+    CardComponent,
+    TableInputComponent
   },
   name: "FinancialAccomplishments",
   data() {

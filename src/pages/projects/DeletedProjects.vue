@@ -17,7 +17,6 @@
     </q-input>
 
     <list-component :items="deletedProjects"> </list-component>
-
   </q-page>
 </template>
 
@@ -27,12 +26,12 @@ import ListComponent from "../../components/ListProjects/ListComponent";
 
 export default {
   components: { ListComponent },
-  name: 'PageDeletedProjects',
+  name: "PageDeletedProjects",
   computed: {
-    ...mapState("projects",["deletedProjects"])
+    ...mapState("projects", ["deletedProjects"])
   },
   methods: {
-    ...mapActions("projects",["loadDeletedProjects"])
+    ...mapActions("projects", ["loadDeletedProjects"])
   },
   mounted() {
     this.loadDeletedProjects();

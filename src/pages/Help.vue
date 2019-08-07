@@ -2,42 +2,40 @@
   <q-page padding>
     <p>Help</p>
 
-    <q-splitter
-      v-model="splitter"
-      class="q-pa-xs"
-      >
-
-      <template v-slot:before>
-        <q-input
-          outlined
-          rounded
-          dense
-          class="q-ma-sm"
-          v-model="filterSearch"/>
-        <q-scroll-area style="height: 600px">
-          <q-tree
-            :nodes="treeData"
-            node-key="label"
-            selected-color="primary"
-            :selected.sync="selected"
-            :default-expand-all="defaultExpandAll"
-            @update:selected="loadDesc"
-            :filter="filterSearch"
-            ></q-tree>
-        </q-scroll-area>
+    <q-input
+      outlined
+      rounded
+      dense
+      class="q-ma-sm"
+      v-model="filterSearch"
+      append-icon="search"
+      debounce="500">
+      <template v-slot:append>
+        <q-icon name="search"/>
       </template>
+    </q-input>
 
-      <template v-slot:after>
-        <div class="q-pa-md">
-          <q-card flat>
-            <div class="text-h4 q-mb-md">{{ (!selected) ? 'Nothing selected': selected }}</div>
-            <q-separator/>
-            <div>{{ selected }}</div>
-          </q-card>
-        </div>
-      </template>
+    <div class="q-pa-md">
+      <div class="text-h6">Form Fields</div>
+      <q-separator/>
+      <q-tree
+        :nodes="treeData"
+        node-key="label"
+        selected-color="primary"
+        :selected.sync="selected"
+        :default-expand-all="defaultExpandAll"
+        @update:selected="getNode"
+        :filter="filterSearch"
+        >
+        <template v-slot:default-body="prop">
+          <div v-if="prop.node.description">
+            <span class="text-weight-bold">Description</span>: {{ prop.node.description }}
+          </div>
+          <span v-else class="text-weight-light text-negative">No description added yet.</span>
+        </template>
+      </q-tree>
+    </div>
 
-    </q-splitter>
   </q-page>
 </template>
 
@@ -48,27 +46,32 @@ export default {
     return {
       filterSearch: "",
       defaultExpandAll: true,
-      splitter: 30,
       selected: "General Information",
+      description: "",
       treeData: [
         {
           label: "General Information",
           description: "General information about the proposed/ongoing project",
           children: [
             {
-              label: "Title"
+              label: "Title",
+              description: "The title of the program or project."
             },
             {
-              label: "Program or Project"
+              label: "Program or Project",
+              description: "Select whether program or project."
             },
             {
-              label: "Basis for Implementation"
+              label: "Basis for Implementation",
+              description: "Select bases for the implementation (as many as applicable)."
             },
             {
               label: "Location",
+              description: "Select where the project is or will be located.",
               children: [
                 {
-                  label: "Spatial Coverage"
+                  label: "Spatial Coverage",
+                  description: "The spatial coverage of the program/project."
                 },
                 {
                   label: "Region"
@@ -102,6 +105,7 @@ export default {
         },
         {
           label: "Inclusion in which Programming Document",
+          description: "Select which programming document the program/project qualifies to.",
           children: [
             {
               label: "PIP"
@@ -118,7 +122,8 @@ export default {
           ]
         },
         {
-          label: "Infrastructure Profile",
+          label: "Infrastructure Profile (requires TRIP)",
+          description: "This section appears only when the program/project is included in the TRIP.",
           children: [
             {
               label: "Infrastructure Sector",
@@ -138,6 +143,7 @@ export default {
         },
         {
           label: "Responsiveness to Strategic Plans",
+          description: "Shows how the program/project relates to strategic plans.",
           children: [
             {
               label: "0 + 10 Socioeconomic Agenda"
@@ -228,9 +234,11 @@ export default {
         },
         {
           label: "Project Cost",
+          description: "The total cost of the program/project.",
           children: [
             {
               label: "Main Fund Source",
+              description: "The main fund source for the program/project.",
               children: [
                 {
                   label: "ODA Funding Institutions",
@@ -394,8 +402,25 @@ export default {
     }
   },
   methods: {
-    loadDesc(node) {
-      console.log('cool',node);
+    getNode(selected) {
+      this.selectedObject = this.search(selected, this.treeData)
+    },
+    search (label, parent) {
+      const stack = []
+      let node, ii
+      stack.push(parent)
+
+      while (stack.length > 0) {
+        node = stack.pop()
+        if (node.label == label) {
+          this.description = node.description // return whatever you want here!!!
+        } else if (node.children && node.children.length) {
+          for (ii = 0; ii < node.children.length; ii += 1) {
+            stack.push(node.children[ii])
+          }
+        }
+      }
+      return null
     }
   }
 };

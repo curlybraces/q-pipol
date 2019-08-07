@@ -65,13 +65,14 @@ const actions = {
     // call axios here for deleting projects based on id
   },
   loadDeletedProjects({ commit }) {
-    axiosInstance.get('/projects/deleted')
-    .then(res => {
-      commit('setDeletedProjects', res.data);
-    })
-    .catch(e => {
-      console.log(e.message);
-    });
+    axiosInstance
+      .get("/projects/deleted")
+      .then(res => {
+        commit("setDeletedProjects", res.data);
+      })
+      .catch(e => {
+        console.log(e.message);
+      });
   },
   setSearch({ commit }, value) {
     commit("setSearch", value);

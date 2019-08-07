@@ -42,11 +42,11 @@ export default {
   },
   name: "ProgrammingDocument",
   computed: {
-    ...mapState("projects",["project"]),
-    ...mapState("dropdown",["pip_types","cip_types"])
+    ...mapState("projects", ["project"]),
+    ...mapState("dropdown", ["pip_types", "cip_types"])
   },
   methods: {
-    ...mapActions("dropdown",["loadPipTypes","loadCipTypes"])
+    ...mapActions("dropdown", ["loadPipTypes", "loadCipTypes"])
   },
   mounted() {
     this.loadPipTypes();

@@ -4,20 +4,19 @@
       <select-component
         :options="categorizations"
         v-model="categorization_id"
-        label="Categorization"> </select-component>
+        label="Categorization"
+      >
+      </select-component>
 
-      <input-component
-        label="UACS Code"
-        v-model="uacs_code"></input-component>
+      <input-component label="UACS Code" v-model="uacs_code"></input-component>
 
       <input-component
         label="Updates"
         type="textarea"
-        v-model="updates"></input-component>
+        v-model="updates"
+      ></input-component>
 
-      <date-component
-        label="As of"
-        v-model="as_of"></date-component>
+      <date-component label="As of" v-model="as_of"></date-component>
     </template>
   </card-component>
 </template>
@@ -41,12 +40,17 @@ export default {
     return {};
   },
   computed: {
-    ...mapState("projects",["project"]),
-    ...mapState("dropdown",["categorizations"])
+    ...mapState("projects", ["project"]),
+    ...mapState("dropdown", ["categorizations"])
   },
   methods: {
-    ...mapMutations("projects",["setCategorizationId","setUacsCode","setUpdates","setAsOf"]),
-    ...mapActions("dropdown",["loadCategorizations"])
+    ...mapMutations("projects", [
+      "setCategorizationId",
+      "setUacsCode",
+      "setUpdates",
+      "setAsOf"
+    ]),
+    ...mapActions("dropdown", ["loadCategorizations"])
   },
   mounted() {
     this.loadCategorizations();

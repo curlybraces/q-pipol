@@ -1,7 +1,6 @@
 <template>
   <card-component title="General Information">
     <template v-slot:content>
-
       <input-component
         label="Project Title"
         hint="Project title must match title in budget proposal"
@@ -60,7 +59,6 @@
         hint="Please indicate the no. of persons to be employed by the project outside of the implementing agency"
         v-model="project.employment_generation"
       ></input-component>
-
     </template>
   </card-component>
 </template>

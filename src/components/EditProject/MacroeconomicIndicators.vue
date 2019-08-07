@@ -69,9 +69,14 @@ export default {
     };
   },
   computed: {
-    ...mapState("dropdown", ["ten_point_agenda","sustainable_development_goals","pdp_chapters", "pdp_chapter"]),
+    ...mapState("dropdown", [
+      "ten_point_agenda",
+      "sustainable_development_goals",
+      "pdp_chapters",
+      "pdp_chapter"
+    ]),
     ...mapGetters("dropdown", ["pdpOutcomesFiltered", "pdp_outcomes"]),
-    ...mapState("projects",["project"]),
+    ...mapState("projects", ["project"]),
     pdpChapterField: {
       get() {
         return this.pdp_chapter;

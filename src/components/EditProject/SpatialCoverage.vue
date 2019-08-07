@@ -38,11 +38,21 @@ export default {
     SelectComponent
   },
   computed: {
-    ...mapState("projects",["project"]),
-    ...mapState("dropdown",["spatial_coverages","regions","provinces","city_municipalities"])
+    ...mapState("projects", ["project"]),
+    ...mapState("dropdown", [
+      "spatial_coverages",
+      "regions",
+      "provinces",
+      "city_municipalities"
+    ])
   },
   methods: {
-    ...mapActions("dropdown",["loadSpatialCoverages","loadRegions","loadProvinces","loadCityMunicipalities"])
+    ...mapActions("dropdown", [
+      "loadSpatialCoverages",
+      "loadRegions",
+      "loadProvinces",
+      "loadCityMunicipalities"
+    ])
   },
   mounted() {
     this.loadSpatialCoverages();

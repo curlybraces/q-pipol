@@ -84,11 +84,14 @@ export default {
   },
   name: "ProjectPreparation",
   computed: {
-    ...mapState("projects",["project"]),
-    ...mapState("dropdown",["programming_documents","approval_levels"])
+    ...mapState("projects", ["project"]),
+    ...mapState("dropdown", ["programming_documents", "approval_levels"])
   },
   methods: {
-    ...mapActions("dropdown",["loadProgrammingDocuments","loadApprovalLevels"])
+    ...mapActions("dropdown", [
+      "loadProgrammingDocuments",
+      "loadApprovalLevels"
+    ])
   },
   mounted() {
     this.loadProgrammingDocuments();
