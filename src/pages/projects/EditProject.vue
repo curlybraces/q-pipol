@@ -47,6 +47,8 @@
         <physical-accomplishments></physical-accomplishments>
 
         <financial-accomplishments></financial-accomplishments>
+
+        <q-btn @click="submitForm">Test</q-btn>
       </q-tab-panel>
 
       <q-tab-panel name="history">
@@ -100,6 +102,9 @@ export default {
       this.$q.dialog({
         message: JSON.stringify(backup)
       });
+    },
+    submitForm() {
+      console.log( this.project );
     }
   },
   mounted() {

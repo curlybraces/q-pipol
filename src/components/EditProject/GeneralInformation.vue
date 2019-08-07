@@ -1,6 +1,7 @@
 <template>
   <card-component title="General Information">
     <template v-slot:content>
+
       <input-component
         label="Project Title"
         hint="Project title must match title in budget proposal"
@@ -60,14 +61,12 @@
         v-model="project.employment_generation"
       ></input-component>
 
-      <q-btn @click="submitForm">Test</q-btn>
     </template>
   </card-component>
 </template>
 
 <script>
 import { mapState, mapActions } from "vuex";
-
 import CardComponent from "../../components/UI/CardComponent";
 import SelectComponent from "../../components/Form/SelectComponent";
 import InputComponent from "../../components/Form/InputComponent";

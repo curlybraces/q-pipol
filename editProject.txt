@@ -1,11 +1,54 @@
-
+    ,
+    categorization_id: {
+      get() {
+        return this.project.categorization_id;
+      },
+      set(value) {
+        this.setCategorizationId(value)
+      }
+    },
+    uacs_code: {
+      get() {
+        return this.project.uacs_code;
+      },
+      set(value) {
+        this.setUacsCode(value);
+      }
+    },
+    updates: {
+        get() {
+            return this.project.updates;
+        },
+        set(value) {
+            this.setUpdates(value);
+        }
+    },
+    as_of: {
+        get() {
+            return this.project.as_of;
+        },
+        set(value) {
+            this.setAsOf(value);
+        }
+    }
     
     
 
     
 
     
-
+  setCategorizationId(state, value) {
+    state.project.categorization_id = value;
+  },
+  setUacsCode(state, value) {
+    state.project.uacs_code = value;
+  },
+  setUpdates(state, value) {
+    state.project.updates = value;
+  },
+  setAsOf(state, value) {
+    state.project.as_of = value;
+  }
    
 
     
