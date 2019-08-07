@@ -71,8 +71,8 @@ const actions = {
     })
     .catch(e => {
       console.log(e.message);
-    })
-  }
+    });
+  },
   setSearch({ commit }, value) {
     commit("setSearch", value);
   }
