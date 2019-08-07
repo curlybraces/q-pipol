@@ -3,14 +3,16 @@
     <div class="row">
       <p>Edit Project</p>
       <q-space />
-      <q-btn
-        flat
-        round
-        dense
-        :icon="$q.fullscreen.isActive ? 'fullscreen_exit' : 'fullscreen'"
-        @click="$q.fullscreen.toggle()"
-        class="q-ml-md"
-      />
+      <div>
+        {{ (locked) ? 'Project is locked from editing.': '' }}
+        <q-btn
+          flat
+          round
+          dense
+          :icon=" (locked) ? 'lock': 'lock_open' "
+          @click="locked = !locked"
+        />
+      </div>
     </div>
 
     <q-tabs
@@ -89,7 +91,8 @@ export default {
   name: "PageEditProject",
   data() {
     return {
-      tab: "edit"
+      tab: "edit",
+      locked: true
     };
   },
   computed: {

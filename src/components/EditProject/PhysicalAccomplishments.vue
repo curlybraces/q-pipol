@@ -3,20 +3,28 @@
     <template v-slot:content>
       <select-component
         :options="categorizations"
-        v-model="categorization_id"
+        :value="project.categorization_id"
         label="Categorization"
       >
       </select-component>
 
-      <input-component label="UACS Code" v-model="uacs_code"></input-component>
+      <input-component
+        v-if="project.categorization_id == 1 || project.categorization_id == 3 || project.categorization_id == 4 "
+        label="UACS Code"
+        :value="project.uacs_code">
+      </input-component>
 
       <input-component
         label="Updates"
         type="textarea"
-        v-model="updates"
+        :value="project.updates"
       ></input-component>
 
-      <date-component label="As of" v-model="as_of"></date-component>
+      <date-component
+        label="As of"
+        :value="project.as_of">
+      </date-component>
+
     </template>
   </card-component>
 </template>
