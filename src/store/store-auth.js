@@ -5,7 +5,8 @@ import { Loading, QSpinnerFacebook } from "quasar";
 const state = {
   loggedIn: localStorage.getItem("loggedIn") || false,
   token: localStorage.getItem("token") || "",
-  user: localStorage.getItem("user") || {}
+  user: localStorage.getItem("user") || {},
+  passwordChecked: false
 };
 
 const mutations = {
@@ -17,6 +18,9 @@ const mutations = {
   },
   setUser(state, value) {
     state.user = value;
+  },
+  setPasswordChecked(state, value) {
+    state.passwordChecked = value;
   }
 };
 
@@ -87,6 +91,16 @@ const actions = {
     localStorage.removeItem("user");
 
     this.$router.replace("/login");
+  },
+  checkPassword({ commit }, payload) {
+    axiosInstance
+      .post('/check_password', { password: payload })
+      .then(res => {
+        commit("setPasswordChecked", res.data);
+      })
+      .catch(e => {
+        console.log("Error: ",e.message);
+      })
   }
 };
 

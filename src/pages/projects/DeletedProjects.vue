@@ -16,7 +16,10 @@
       </template>
     </q-input>
 
-    <list-component :items="deletedProjects"> </list-component>
+    <list-component
+      v-if="deletedProjects.length > 0"
+      :items="deletedProjects"></list-component>
+      
   </q-page>
 </template>
 
@@ -27,11 +30,23 @@ import ListComponent from "../../components/ListProjects/ListComponent";
 export default {
   components: { ListComponent },
   name: "PageDeletedProjects",
+  data() {
+    return {
+    }
+  },
   computed: {
-    ...mapState("projects", ["deletedProjects"])
+    ...mapState("projects", ["deletedProjects","search"]),
+    searchField: {
+      get() {
+        return this.search
+      },
+      set(value) {
+        this.setSearch(value);
+      }
+    }
   },
   methods: {
-    ...mapActions("projects", ["loadDeletedProjects"])
+    ...mapActions("projects", ["loadDeletedProjects","setSearch"])
   },
   mounted() {
     this.loadDeletedProjects();
