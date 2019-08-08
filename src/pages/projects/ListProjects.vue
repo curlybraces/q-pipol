@@ -16,7 +16,11 @@
       </template>
     </q-input>
 
-    <list-component :items="projects"> </list-component>
+    <div class="q-pa-md absolute-top full-height full-width" style="margin-top:90px">
+      <q-scroll-area style="height:400px">
+        <list-component :items="projects"></list-component>
+      </q-scroll-area>
+    </div>
 
     <fab-component link="/projects/add" />
   </q-page>
@@ -57,4 +61,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+
+</style>

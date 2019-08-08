@@ -28,7 +28,16 @@ export default {
   components: { ListComponent },
   name: "PageDeletedProjects",
   computed: {
-    ...mapState("projects", ["deletedProjects"])
+    ...mapState("projects", ["deletedProjects"]),
+    ...mapState("projects", ["search"]),
+    searchField: {
+      get() {
+        return this.search;
+      },
+      set(value) {
+        this.setSearch(value);
+      }
+    }
   },
   methods: {
     ...mapActions("projects", ["loadDeletedProjects"])

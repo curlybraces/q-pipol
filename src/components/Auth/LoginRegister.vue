@@ -20,6 +20,17 @@
       v-model="formData.name"
     ></q-input>
 
+    <q-select
+      v-if="tab == 'register'"
+      :options="operating_units"
+      option-label="name"
+      option-value="id"
+      dense
+      outlined
+      v-model="formData.operating_unit"
+    >
+    </q-select>
+
     <q-input
       dense
       label="Email"
@@ -57,7 +68,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
   name: "LoginRegister",
@@ -72,7 +83,11 @@ export default {
       }
     };
   },
+  computed: {
+    ...mapState("dropdown",["operating_units"])
+  },
   methods: {
+    ...mapActions("dropdown",["loadOperatingUnits"]),
     isValidEmailAddress(email) {
       var re = /\S+@\S+\.\S+/;
       return re.test(String(email).toLowerCase());
@@ -98,6 +113,9 @@ export default {
     titleCase(value) {
       return value.charAt(0).toUpperCase() + value.slice(1);
     }
+  },
+  mounted() {
+    this.loadOperatingUnits();
   }
 };
 </script>
