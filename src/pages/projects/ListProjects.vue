@@ -1,24 +1,12 @@
 <template>
-  <q-page padding>
-    <p>View Projects</p>
-    <q-input
-      outlined
-      dense
-      rounded
-      class="q-mb-md"
-      clearable
-      placeholder="Search in project titles..."
-      @keydown.enter="search"
-      v-model="searchField"
-    >
-      <template v-slot:append>
-        <q-icon name="search" @click="search" />
-      </template>
-    </q-input>
+  <q-page>
+    <div class="q-pa-md absolute full-height full-width column">
+      <p>View Projects</p>
 
-    <div class="q-pa-md absolute-top full-height full-width" style="margin-top:90px">
-      <q-scroll-area style="height:400px">
-        <list-component :items="projects"></list-component>
+      <search-component/>
+
+      <q-scroll-area class="q-scroll-area-projects" style="height:100px">
+        <list-component :items="projects" />
       </q-scroll-area>
     </div>
 
@@ -27,33 +15,26 @@
 </template>
 
 <script>
-import { mapActions, mapState, mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import ListComponent from "../../components/ListProjects/ListComponent";
 import FabComponent from "../../components/UI/FabComponent";
+import SearchComponent from "../../components/UI/SearchComponent";
 
 export default {
   components: {
     FabComponent,
-    ListComponent
+    ListComponent,
+    SearchComponent
   },
   name: "PageViewProjects",
   data() {
     return {};
   },
   computed: {
-    ...mapGetters("projects", ["projects", "projectsFiltered"]),
-    ...mapState("projects", ["search"]),
-    searchField: {
-      get() {
-        return this.search;
-      },
-      set(value) {
-        this.setSearch(value);
-      }
-    }
+    ...mapGetters("projects", ["projects", "projectsFiltered"])
   },
   methods: {
-    ...mapActions("projects", ["loadProjects", "setSearch"])
+    ...mapActions("projects",["loadProjects"])
   },
   mounted() {
     this.loadProjects();
@@ -62,5 +43,8 @@ export default {
 </script>
 
 <style>
-
+  .q-scroll-area-projects {
+    display: flex;
+    flex-grow: 1;
+  }
 </style>

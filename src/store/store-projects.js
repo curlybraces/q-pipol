@@ -20,6 +20,24 @@ const mutations = {
   },
   setSearch(state, value) {
     state.search = value;
+  },
+  setSpatialCoverage(state, value) {
+    state.project.spatial_coverage_id = value;
+  },
+  setRegions(state, value) {
+    state.project.regions = value;
+  },
+  setPipType(state, value) {
+    state.project.pip_type_id = value;
+  },
+  setCipType(state, value) {
+    state.project.cip_type_id = value;
+  },
+  setTrip(state, value) {
+    state.project.trip = value;
+  },
+  setRdip(state, value) {
+    state.project.rdip = value;
   }
 };
 

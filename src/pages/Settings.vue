@@ -164,6 +164,7 @@ export default {
       return this.newPassword === val;
     },
     validatePassword() {
+      console.log(this.checkPassword(this.oldPassword));
       if (this.checkPassword(this.oldPassword)) {
         this.enterPassword = true;
       };

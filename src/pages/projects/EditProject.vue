@@ -32,8 +32,6 @@
       <q-tab-panel name="edit">
         <general-information></general-information>
 
-        <spatial-coverage></spatial-coverage>
-
         <programming-document></programming-document>
 
         <macroeconomic-indicators></macroeconomic-indicators>
@@ -66,7 +64,6 @@ import GeneralInformation from "../../components/EditProject/GeneralInformation.
 import ProjectHistory from "../../components/EditProject/ProjectHistory";
 import MacroeconomicIndicators from "../../components/EditProject/MacroeconomicIndicators";
 import ProgrammingDocument from "../../components/EditProject/ProgrammingDocument";
-import SpatialCoverage from "../../components/EditProject/SpatialCoverage";
 import PreconstructionCost from "../../components/EditProject/PreconstructionCost";
 import PhysicalAccomplishments from "../../components/EditProject/PhysicalAccomplishments";
 import FinancialAccomplishments from "../../components/EditProject/FinancialAccomplishments";
@@ -82,7 +79,6 @@ export default {
     FinancialAccomplishments,
     PhysicalAccomplishments,
     PreconstructionCost,
-    SpatialCoverage,
     ProgrammingDocument,
     MacroeconomicIndicators,
     ProjectHistory,

@@ -10,8 +10,8 @@
       <options-component
         label="Program or Project"
         :options="[
-          { label: 'Program', value: 1 },
-          { label: 'Project', value: 2 }
+          { label: 'Program', value: '1' },
+          { label: 'Project', value: '2' }
         ]"
         v-model="project.pap_type_id"
       ></options-component>
@@ -53,6 +53,28 @@
         v-model="project.implementation_end"
       ></select-component>
 
+      <select-component
+        label="Spatial Coverage"
+        :options="spatial_coverages"
+        v-model="spatial_coverage_id"
+      ></select-component>
+
+      <select-component
+        label="Region/s"
+        :options="regions"
+        v-model="region_id"
+      ></select-component>
+
+      <select-component
+        label="Province/s"
+        v-model="project.provinces"
+      ></select-component>
+
+      <select-component
+        label="City and Municipalities"
+        v-model="project.city_municipalities"
+      ></select-component>
+
       <input-component
         label="No. of persons to be employed"
         type="number"
@@ -64,7 +86,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapMutations } from "vuex";
 import CardComponent from "../../components/UI/CardComponent";
 import SelectComponent from "../../components/Form/SelectComponent";
 import InputComponent from "../../components/Form/InputComponent";
@@ -84,14 +106,41 @@ export default {
     };
   },
   computed: {
-    ...mapState("dropdown", ["implementation_bases", "implementation_periods"]),
-    ...mapState("projects", ["project"])
+    ...mapState("dropdown",[
+      "implementation_bases",
+      "implementation_periods",
+      "spatial_coverages",
+      "regions",
+      "provinces",
+      "city_municipalities"]),
+    ...mapState("projects", ["project"]),
+    region_id: {
+      get() {
+        return this.project.regions;
+      },
+      set(val) {
+        this.setRegions(val);
+      }
+    },
+    spatial_coverage_id: {
+      get() {
+        return parseInt(this.project.spatial_coverage_id);
+      },
+      set(val) {
+        this.setSpatialCoverage(val);
+      }
+    }
   },
   methods: {
     ...mapActions("dropdown", [
       "loadImplementationBases",
-      "loadImplementationPeriods"
+      "loadImplementationPeriods",
+      "loadSpatialCoverages",
+      "loadRegions",
+      "loadProvinces",
+      "loadCityMunicipalities"
     ]),
+    ...mapMutations("projects",["setRegions","setSpatialCoverage"]),
     updateImplementationEnd(evt) {
       let filteredImplementationPeriods = [];
       var start = parseInt(evt);
@@ -109,6 +158,10 @@ export default {
   mounted() {
     this.loadImplementationBases();
     this.loadImplementationPeriods();
+    this.loadSpatialCoverages();
+    this.loadRegions();
+    this.loadProvinces();
+    this.loadCityMunicipalities();
   }
 };
 </script>
