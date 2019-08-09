@@ -16,13 +16,17 @@
         v-model="project.pap_type_id"
       ></options-component>
 
-      <select-component
+      <options-component
+        label="TRIP"
+        :options="[{ label: 'Infrastructure', value: 1 }, { label: 'Non-Infrastructure', value: 0 }]"
+        v-model="trip"
+      ></options-component>
+
+      <checkbox-component
         label="Basis for Implementation"
-        hint="Included in any of the following documents"
         :options="implementation_bases"
-        :multiple="true"
         v-model="project.implementation_bases"
-      ></select-component>
+      ></checkbox-component>
 
       <input-component
         type="textarea"
@@ -60,27 +64,32 @@
       ></select-component>
 
       <select-component
+        v-if="spatial_coverage_id == 2 || spatial_coverage_id == 3"
         label="Region/s"
         :options="regions"
+        optionLabel="label"
         v-model="region_id"
       ></select-component>
 
       <select-component
+        v-if="spatial_coverage_id == 3"
         label="Province/s"
         v-model="project.provinces"
       ></select-component>
 
       <select-component
+        v-if="spatial_coverage_id == 3"
         label="City and Municipalities"
         v-model="project.city_municipalities"
       ></select-component>
 
-      <input-component
-        label="No. of persons to be employed"
-        type="number"
-        hint="Please indicate the no. of persons to be employed by the project outside of the implementing agency"
-        v-model="project.employment_generation"
-      ></input-component>
+      <select-component
+        :options="categorizations"
+        :value="project.categorization_id"
+        label="Categorization"
+      >
+      </select-component>
+
     </template>
   </card-component>
 </template>
@@ -91,29 +100,33 @@ import CardComponent from "../../components/UI/CardComponent";
 import SelectComponent from "../../components/Form/SelectComponent";
 import InputComponent from "../../components/Form/InputComponent";
 import OptionsComponent from "../../components/Form/OptionsComponent";
+import CheckboxComponent from "../../components/Form/CheckboxComponent";
 
 export default {
   components: {
     CardComponent,
     SelectComponent,
     InputComponent,
-    OptionsComponent
+    OptionsComponent,
+    CheckboxComponent
   },
   name: "GeneralInformation",
   data() {
     return {
-      filteredImplementationPeriods: []
+      filteredImplementationPeriods: [],
+      trip: false
     };
   },
   computed: {
+    ...mapState("projects", ["project"]),
     ...mapState("dropdown",[
       "implementation_bases",
       "implementation_periods",
       "spatial_coverages",
       "regions",
       "provinces",
-      "city_municipalities"]),
-    ...mapState("projects", ["project"]),
+      "city_municipalities",
+      "categorizations"]),
     region_id: {
       get() {
         return this.project.regions;
@@ -124,7 +137,7 @@ export default {
     },
     spatial_coverage_id: {
       get() {
-        return parseInt(this.project.spatial_coverage_id);
+        return this.project.spatial_coverage_id;
       },
       set(val) {
         this.setSpatialCoverage(val);
@@ -138,7 +151,8 @@ export default {
       "loadSpatialCoverages",
       "loadRegions",
       "loadProvinces",
-      "loadCityMunicipalities"
+      "loadCityMunicipalities",
+      "loadCategorizations"
     ]),
     ...mapMutations("projects",["setRegions","setSpatialCoverage"]),
     updateImplementationEnd(evt) {
@@ -150,9 +164,6 @@ export default {
         }
       );
       this.filteredImplementationPeriods = filteredImplementationPeriods;
-    },
-    submitForm() {
-      console.log(this.project);
     }
   },
   mounted() {
@@ -162,6 +173,7 @@ export default {
     this.loadRegions();
     this.loadProvinces();
     this.loadCityMunicipalities();
+    this.loadCategorizations()
   }
 };
 </script>

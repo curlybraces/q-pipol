@@ -1,22 +1,32 @@
 <template>
   <card-component title="Project Cost (in absolute PhP)">
     <template v-slot:content>
-      <select-component label="Main Funding Source"></select-component>
+      <select-component
+        label="Main Funding Source"
+        :options="funding_sources"
+        v-model="project.funding_source"
+        ></select-component>
 
-      <select-component label="ODA Funding Institutions"></select-component>
+      <select-component
+        v-if="project.funding_source == 2 || project.funding_source == 3"
+        label="ODA Funding Institutions"
+        v-model="project.funding_institution"
+        ></select-component>
 
-      <input-component label="Others"></input-component>
+      <input-component
+        v-if="(project.funding_source == 2 || project.funding_source == 3) && project.funding_institution == 99"
+        label="Others"></input-component>
 
       <select-component
         label="Mode of Implementation/Procurement"
-      ></select-component>
+        ></select-component>
 
       <q-markup-table
         class="my-sticky-column-table"
         separator="cell"
         flat
         bordered
-      >
+        >
         <thead>
           <tr>
             <th class="text-left">Year</th>
@@ -295,6 +305,7 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
 import InputComponent from "../Form/InputComponent";
 import TableInputComponent from "../Form/TableInputComponent";
 import SelectComponent from "../Form/SelectComponent";
@@ -310,6 +321,16 @@ export default {
   name: "TotalCost",
   data() {
     return {};
+  },
+  computed: {
+    ...mapState("projects",["project"]),
+    ...mapState("dropdown",["funding_sources"])
+  },
+  methods: {
+    ...mapActions("dropdown",["loadFundingSources"])
+  },
+  mounted() {
+    this.loadFundingSources();
   }
 };
 </script>

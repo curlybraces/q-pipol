@@ -1,5 +1,6 @@
 <template>
   <q-page padding>
+
     <div class="row">
       <p>Edit Project</p>
       <q-space />
@@ -15,58 +16,91 @@
       </div>
     </div>
 
-    <q-tabs
-      v-model="tab"
-      class="bg-primary text-grey-4"
-      active-color="secondary"
-      indicator-color="secondary"
-      align="justify"
-    >
-      <q-tab name="edit" label="Edit Project" />
-      <q-tab name="history" label="Project Logs" />
-    </q-tabs>
-
     <q-separator />
 
-    <q-tab-panels v-model="tab" animated>
-      <q-tab-panel name="edit">
+    <q-stepper
+      v-model="step"
+      header-nav
+      color="primary"
+      ref="stepper"
+      animated>
+
+      <q-step
+        :name="1"
+        :done="done1"
+        title="General Information"
+        >
+
         <general-information></general-information>
+
+      </q-step>
+
+      <q-step
+        :name="2"
+        title="Strategic Alignment"
+        >
 
         <programming-document></programming-document>
 
-        <macroeconomic-indicators></macroeconomic-indicators>
+      </q-step>
+
+      <q-step
+        :name="3"
+        title="Readiness"
+        :disable="project.categorization !== 2"
+        >
 
         <project-preparation></project-preparation>
 
         <preconstruction-cost></preconstruction-cost>
 
+      </q-step>
+
+      <q-step
+        :name="4"
+        title="Project Cost"
+        >
+
         <total-cost></total-cost>
 
         <infrastructure-cost></infrastructure-cost>
 
+      </q-step>
+
+      <q-step
+        :name="5"
+        title="Accomplishments"
+        :disable="project.categorization == 2"
+        >
+
         <physical-accomplishments></physical-accomplishments>
 
-        <financial-accomplishments></financial-accomplishments>
+      </q-step>
 
-        <q-btn @click="submitForm">Test</q-btn>
-      </q-tab-panel>
+      <q-step
+        :name="6"
+        title="Submit">
 
-      <q-tab-panel name="history">
-        <project-history></project-history>
-      </q-tab-panel>
-    </q-tab-panels>
+      </q-step>
+
+      <template v-slot:navigation>
+        <q-stepper-navigation>
+          <q-btn @click="$refs.stepper.next()" color="primary" :label="step === 6 ? 'Finish' : 'Continue'" />
+          <q-btn v-if="step > 1" flat color="primary" @click="$refs.stepper.previous()" label="Back" class="q-ml-sm" />
+        </q-stepper-navigation>
+      </template>
+
+    </q-stepper>
+
   </q-page>
 </template>
 
 <script>
 import { mapState, mapActions } from "vuex";
 import GeneralInformation from "../../components/EditProject/GeneralInformation.vue";
-import ProjectHistory from "../../components/EditProject/ProjectHistory";
-import MacroeconomicIndicators from "../../components/EditProject/MacroeconomicIndicators";
 import ProgrammingDocument from "../../components/EditProject/ProgrammingDocument";
 import PreconstructionCost from "../../components/EditProject/PreconstructionCost";
 import PhysicalAccomplishments from "../../components/EditProject/PhysicalAccomplishments";
-import FinancialAccomplishments from "../../components/EditProject/FinancialAccomplishments";
 import ProjectPreparation from "../../components/EditProject/ProjectPreparation";
 import TotalCost from "../../components/EditProject/TotalCost";
 import InfrastructureCost from "../../components/EditProject/InfrastructureCost";
@@ -76,19 +110,17 @@ export default {
     InfrastructureCost,
     TotalCost,
     ProjectPreparation,
-    FinancialAccomplishments,
     PhysicalAccomplishments,
     PreconstructionCost,
     ProgrammingDocument,
-    MacroeconomicIndicators,
-    ProjectHistory,
     GeneralInformation
   },
   name: "PageEditProject",
   data() {
     return {
       tab: "edit",
-      locked: true
+      locked: true,
+      step: 1
     };
   },
   computed: {
@@ -107,7 +139,7 @@ export default {
     }
   },
   mounted() {
-    this.loadProject({ id: this.$route.params.id });
+    // this.loadProject({ id: this.$route.params.id });
   }
 };
 </script>
