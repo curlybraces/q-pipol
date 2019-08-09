@@ -50,12 +50,6 @@ import qboot_Bootloadingdefaults from 'boot/loading-defaults'
 
 
 
-Vue.config.devtools = true
-Vue.config.productionTip = false
-
-
-
-console.info('[Quasar] Running SPA.')
 
 
 
