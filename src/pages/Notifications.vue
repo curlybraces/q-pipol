@@ -28,7 +28,8 @@
               round
               color="red"
               icon="delete"
-              @click.stop="readNotification(notif.id)"></q-btn>
+              @click.stop="readNotification(notif.id)"
+            ></q-btn>
           </q-item-section>
         </q-item>
       </template>
@@ -41,10 +42,10 @@ import { mapActions, mapState } from "vuex";
 export default {
   name: "Notifications",
   methods: {
-    ...mapActions("notifications",["loadNotifications"]),
-    ...mapActions("notifications",["readNotification"]),
+    ...mapActions("notifications", ["loadNotifications"]),
+    ...mapActions("notifications", ["readNotification"]),
     goTo(id) {
-      this.$router.push('/projects/' + id);
+      this.$router.push("/projects/" + id);
     }
   },
   computed: {

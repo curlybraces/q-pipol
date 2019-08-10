@@ -3,7 +3,7 @@
     <div class="q-pa-md absolute full-height full-width column">
       <p>View Projects</p>
 
-      <search-component/>
+      <search-component />
 
       <q-scroll-area class="q-scroll-area-projects" style="height:100px">
         <list-component :items="projects" />
@@ -34,7 +34,7 @@ export default {
     ...mapGetters("projects", ["projects", "projectsFiltered"])
   },
   methods: {
-    ...mapActions("projects",["loadProjects"])
+    ...mapActions("projects", ["loadProjects"])
   },
   mounted() {
     this.loadProjects();
@@ -43,8 +43,8 @@ export default {
 </script>
 
 <style>
-  .q-scroll-area-projects {
-    display: flex;
-    flex-grow: 1;
-  }
+.q-scroll-area-projects {
+  display: flex;
+  flex-grow: 1;
+}
 </style>

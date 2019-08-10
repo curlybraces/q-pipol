@@ -1,11 +1,11 @@
 // import { axiosInstance } from "boot/axios";
 
 const state = {
-
+  dontShowAgain: false
 };
 
 const mutations = {
-
+  
 };
 
 const actions = {

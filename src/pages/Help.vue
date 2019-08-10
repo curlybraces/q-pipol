@@ -9,15 +9,16 @@
       class="q-ma-sm"
       v-model="filterSearch"
       append-icon="search"
-      debounce="500">
+      debounce="500"
+    >
       <template v-slot:append>
-        <q-icon name="search"/>
+        <q-icon name="search" />
       </template>
     </q-input>
 
     <div class="q-pa-md">
       <div class="text-h6">Form Fields</div>
-      <q-separator/>
+      <q-separator />
       <q-tree
         :nodes="treeData"
         node-key="label"
@@ -26,16 +27,18 @@
         :default-expand-all="defaultExpandAll"
         @update:selected="getNode"
         :filter="filterSearch"
-        >
+      >
         <template v-slot:default-body="prop">
           <div v-if="prop.node.description">
-            <span class="text-weight-bold">Description</span>: {{ prop.node.description }}
+            <span class="text-weight-bold">Description</span>:
+            {{ prop.node.description }}
           </div>
-          <span v-else class="text-weight-light text-negative">No description added yet.</span>
+          <span v-else class="text-weight-light text-negative"
+            >No description added yet.</span
+          >
         </template>
       </q-tree>
     </div>
-
   </q-page>
 </template>
 
@@ -63,7 +66,8 @@ export default {
             },
             {
               label: "Basis for Implementation",
-              description: "Select bases for the implementation (as many as applicable)."
+              description:
+                "Select bases for the implementation (as many as applicable)."
             },
             {
               label: "Location",
@@ -105,13 +109,14 @@ export default {
         },
         {
           label: "Inclusion in which Programming Document",
-          description: "Select which programming document the program/project qualifies to.",
+          description:
+            "Select which programming document the program/project qualifies to.",
           children: [
             {
               label: "PIP"
             },
             {
-              label: "CIP",
+              label: "CIP"
             },
             {
               label: "TRIP"
@@ -123,7 +128,8 @@ export default {
         },
         {
           label: "Infrastructure Profile (requires TRIP)",
-          description: "This section appears only when the program/project is included in the TRIP.",
+          description:
+            "This section appears only when the program/project is included in the TRIP.",
           children: [
             {
               label: "Infrastructure Sector",
@@ -143,7 +149,8 @@ export default {
         },
         {
           label: "Responsiveness to Strategic Plans",
-          description: "Shows how the program/project relates to strategic plans.",
+          description:
+            "Shows how the program/project relates to strategic plans.",
           children: [
             {
               label: "0 + 10 Socioeconomic Agenda"
@@ -347,7 +354,7 @@ export default {
                 },
                 {
                   label: "2022"
-                },
+                }
               ]
             },
             {
@@ -370,7 +377,7 @@ export default {
                 },
                 {
                   label: "2022"
-                },
+                }
               ]
             },
             {
@@ -393,34 +400,34 @@ export default {
                 },
                 {
                   label: "2022"
-                },
+                }
               ]
             }
           ]
-        },
+        }
       ]
-    }
+    };
   },
   methods: {
     getNode(selected) {
-      this.selectedObject = this.search(selected, this.treeData)
+      this.selectedObject = this.search(selected, this.treeData);
     },
-    search (label, parent) {
-      const stack = []
-      let node, ii
-      stack.push(parent)
+    search(label, parent) {
+      const stack = [];
+      let node, ii;
+      stack.push(parent);
 
       while (stack.length > 0) {
-        node = stack.pop()
+        node = stack.pop();
         if (node.label == label) {
-          this.description = node.description // return whatever you want here!!!
+          this.description = node.description; // return whatever you want here!!!
         } else if (node.children && node.children.length) {
           for (ii = 0; ii < node.children.length; ii += 1) {
-            stack.push(node.children[ii])
+            stack.push(node.children[ii]);
           }
         }
       }
-      return null
+      return null;
     }
   }
 };

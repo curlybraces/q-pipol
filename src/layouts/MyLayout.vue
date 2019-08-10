@@ -213,7 +213,7 @@ export default {
   },
   computed: {
     ...mapState("auth", ["loggedIn"]),
-    ...mapState("notifications",["notifications"]),
+    ...mapState("notifications", ["notifications"]),
     ...mapGetters("notifications", ["notificationsCount"])
   },
   methods: {

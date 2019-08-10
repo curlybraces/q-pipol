@@ -8,7 +8,8 @@
         :options="options"
         @input="onInput"
         :value="value"
-        :inline="inline">
+        :inline="inline"
+      >
       </q-option-group>
     </div>
   </div>

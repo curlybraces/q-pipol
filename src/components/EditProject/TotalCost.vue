@@ -5,28 +5,32 @@
         label="Main Funding Source"
         :options="funding_sources"
         v-model="project.funding_source"
-        ></select-component>
+      ></select-component>
 
       <select-component
         v-if="project.funding_source == 2 || project.funding_source == 3"
         label="ODA Funding Institutions"
         v-model="project.funding_institution"
-        ></select-component>
+      ></select-component>
 
       <input-component
-        v-if="(project.funding_source == 2 || project.funding_source == 3) && project.funding_institution == 99"
-        label="Others"></input-component>
+        v-if="
+          (project.funding_source == 2 || project.funding_source == 3) &&
+            project.funding_institution == 99
+        "
+        label="Others"
+      ></input-component>
 
       <select-component
         label="Mode of Implementation/Procurement"
-        ></select-component>
+      ></select-component>
 
       <q-markup-table
         class="my-sticky-column-table"
         separator="cell"
         flat
         bordered
-        >
+      >
         <thead>
           <tr>
             <th class="text-left">Year</th>
@@ -323,11 +327,11 @@ export default {
     return {};
   },
   computed: {
-    ...mapState("projects",["project"]),
-    ...mapState("dropdown",["funding_sources"])
+    ...mapState("projects", ["project"]),
+    ...mapState("dropdown", ["funding_sources"])
   },
   methods: {
-    ...mapActions("dropdown",["loadFundingSources"])
+    ...mapActions("dropdown", ["loadFundingSources"])
   },
   mounted() {
     this.loadFundingSources();

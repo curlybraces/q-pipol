@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     onInput() {
-      this.$emit('input', this.selected);
+      this.$emit("input", this.selected);
     }
   }
 };

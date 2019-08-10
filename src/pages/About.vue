@@ -30,11 +30,11 @@
     <h6>The Investment Programming and Management System (iPMS)</h6>
     <p>
       The <strong>iPMS</strong> is one of the components of the Roadmap on
-      Investment Programming. The said roadmap is a set of action plans to
-      be taken by the IPD in implementing the Manual on Investment Programming
-      and Management. The iPMS replaces the Google Sheets-based PIP-Data
-      Entry System as a means to collect data for the preparation of the
-      DA Public Investment Program 2017-2022.
+      Investment Programming. The said roadmap is a set of action plans to be
+      taken by the IPD in implementing the Manual on Investment Programming and
+      Management. The iPMS replaces the Google Sheets-based PIP-Data Entry
+      System as a means to collect data for the preparation of the DA Public
+      Investment Program 2017-2022.
     </p>
     <h6>Ways Forward</h6>
     <p></p>

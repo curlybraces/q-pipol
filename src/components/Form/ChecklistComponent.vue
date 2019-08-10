@@ -5,7 +5,13 @@
     </div>
     <div class="col-md-9 col-sm-12 col-xs-12">
       <q-list dense bordered separator>
-        <q-item dense v-for="option in options" :key="option.id" :tag="option.name" v-ripple>
+        <q-item
+          dense
+          v-for="option in options"
+          :key="option.id"
+          :tag="option.name"
+          v-ripple
+        >
           <q-item-section avatar>
             <q-checkbox v-model="selected" :val="option.id" color="primary" />
           </q-item-section>
@@ -21,18 +27,17 @@
 
 <script>
 export default {
-  name: 'ChecklistComponent',
+  name: "ChecklistComponent",
   props: {
     options: Array,
     label: String
   },
-  data () {
+  data() {
     return {
       checked: []
-    }
+    };
   }
-}
+};
 </script>
 
-<style>
-</style>
+<style></style>

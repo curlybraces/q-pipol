@@ -84,10 +84,10 @@ export default {
     };
   },
   computed: {
-    ...mapState("dropdown",["operating_units"])
+    ...mapState("dropdown", ["operating_units"])
   },
   methods: {
-    ...mapActions("dropdown",["loadOperatingUnits"]),
+    ...mapActions("dropdown", ["loadOperatingUnits"]),
     isValidEmailAddress(email) {
       var re = /\S+@\S+\.\S+/;
       return re.test(String(email).toLowerCase());
