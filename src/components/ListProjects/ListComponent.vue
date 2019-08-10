@@ -8,14 +8,17 @@
         clickable
       >
         <q-item-section class="col-2 gt-sm">
-          <q-item-label class="q-mt-sm">{{
-            item.operating_unit.name
-          }}</q-item-label>
+          <q-item-label class="q-mt-sm">
+            {{
+              item.operating_unit.name
+            }}
+          </q-item-label>
         </q-item-section>
 
         <q-item-section>
-          <q-item-label lines="1">
-            <span class="text-weight-medium">{{ item.title }}</span>
+          <q-item-label
+            lines="1"
+            v-html="$options.filters.searchHighlight(item.title, search)">
           </q-item-label>
           <q-item-label caption lines="2">
             {{ item.description }}
@@ -62,7 +65,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "ListComponent",
@@ -76,6 +79,7 @@ export default {
     };
   },
   computed: {
+    ...mapState("projects",["search"]),
     required() {
       return this.changes.trim() !== "";
     }
@@ -100,6 +104,17 @@ export default {
         .onOk(() => {
           this.deleteProject({ id: id });
         });
+    }
+  },
+  filters: {
+    searchHighlight(value, search) {
+      if (search) {
+        let searchRegExp = new RegExp(search,'ig');
+        return value.replace(searchRegExp, (match) => {
+          return "<span class='bg-yellow-6'>" + match + "</span>"
+        });
+      }
+      return value;
     }
   }
 };

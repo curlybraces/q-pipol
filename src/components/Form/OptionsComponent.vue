@@ -1,8 +1,14 @@
 <template>
   <div class="row items-start q-my-md">
-    <div class="col-md-3 text-primary text-weight-bold">{{ label }}</div>
+    <div class="col-md-3 text-primary text-weight-bold gt-sm">{{ label }}</div>
     <div class="col-md-9 col-sm-12 col-xs-12 q-col-lg">
-      <q-option-group :options="options" @input="onInput" :value="value" inline>
+      <q-option-group
+        color="primary"
+        dense
+        :options="options"
+        @input="onInput"
+        :value="value"
+        :inline="inline">
       </q-option-group>
     </div>
   </div>
@@ -14,7 +20,11 @@ export default {
   props: {
     label: String,
     options: Array,
-    value: Number
+    value: [Number, String],
+    inline: {
+      default: false,
+      type: Boolean
+    }
   },
   data() {
     return {};

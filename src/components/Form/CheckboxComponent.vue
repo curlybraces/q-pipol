@@ -3,11 +3,12 @@
     <div class="col-md-3 text-primary text-weight-bold gt-sm">{{ label }}</div>
     <div class="col-md-9 col-sm-12 col-xs-12">
       <q-option-group
+        color="primary"
         dense
+        type="checkbox"
         :options="options"
         @input="onInput"
-        v-model="selected"
-        inline
+        :value="selected"
       >
       </q-option-group>
     </div>
@@ -17,8 +18,19 @@
 <script>
 export default {
   name: "CheckboxComponent",
+  props: {
+    options: Array,
+    label: String
+  },
   data() {
-    return {};
+    return {
+      selected: []
+    };
+  },
+  methods: {
+    onInput() {
+      this.$emit('input', this.selected);
+    }
   }
 };
 </script>

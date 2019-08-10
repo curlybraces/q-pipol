@@ -5,6 +5,7 @@ import auth from "./store-auth";
 import notifications from "./store-notifications";
 import dropdown from "./store-dropdown";
 import projects from "./store-projects";
+import settings from "./store-settings";
 
 Vue.use(Vuex);
 
@@ -19,7 +20,8 @@ export default function(/* { ssrContext } */) {
       auth,
       notifications,
       dropdown,
-      projects
+      projects,
+      settings
     },
 
     // enable strict mode (adds overhead!)

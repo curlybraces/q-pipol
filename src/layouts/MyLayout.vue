@@ -34,13 +34,13 @@
           <q-btn
             dense
             flat
-            :color="notifications.length > 0 ? 'white' : 'grey-9'"
+            :color="notificationsCount > 0 ? 'white' : 'grey-9'"
             round
             icon="notifications"
             class="q-mr-xs"
           >
-            <q-badge color="red" floating v-if="notifications.length > 0">
-              {{ notifications.length }}
+            <q-badge color="red" floating v-if="notificationsCount > 0">
+              {{ notificationsCount }}
             </q-badge>
 
             <q-menu
@@ -49,7 +49,7 @@
               self="top right"
               :offset="[0, 5]"
               square
-              v-if="notifications.length > 0"
+              v-if="notificationsCount > 0"
             >
               <q-list dense style="width: 360px" separator>
                 <q-item>
@@ -152,7 +152,7 @@
 
 <script>
 import { openURL, date } from "quasar";
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapGetters } from "vuex";
 
 export default {
   name: "MyLayout",
@@ -175,13 +175,14 @@ export default {
           icon: "list",
           caption: "View all projects"
         },
+        /*
         {
           label: "Recycle Bin",
           href: "/projects/recycle",
           icon: "delete",
           caption: "View deleted projects"
         },
-        /*
+
         {
           label: "Programs",
           href: "/programs",
@@ -212,7 +213,8 @@ export default {
   },
   computed: {
     ...mapState("auth", ["loggedIn"]),
-    ...mapState("notifications", ["notifications"])
+    ...mapState("notifications",["notifications"]),
+    ...mapGetters("notifications", ["notificationsCount"])
   },
   methods: {
     openURL,

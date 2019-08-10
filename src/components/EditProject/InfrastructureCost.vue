@@ -287,8 +287,8 @@
 </template>
 
 <script>
-import TableInputComponent from "../TableInputComponent";
-import CardComponent from "../CardComponent";
+import TableInputComponent from "../Form/TableInputComponent";
+import CardComponent from "../UI/CardComponent";
 
 export default {
   components: {

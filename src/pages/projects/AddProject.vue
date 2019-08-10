@@ -166,10 +166,10 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
-import InputComponent from "../../components/InputComponent";
-import CardComponent from "../../components/CardComponent";
-import SelectComponent from "../../components/SelectComponent";
-import MultiSelectComponent from "../../components/MultiSelectComponent";
+import CardComponent from "../../components/UI/CardComponent";
+import InputComponent from "../../components/Form/InputComponent";
+import SelectComponent from "../../components/Form/SelectComponent";
+import MultiSelectComponent from "../../components/Form/MultiSelectComponent";
 
 export default {
   components: {
@@ -196,7 +196,7 @@ export default {
         categorization: null,
         uacs_code: null,
         preparation_document: null,
-        total_cost: 0.0
+        total_cost: null
       },
       rules: {
         required: [v => !!v || "This field is required."],
@@ -246,7 +246,7 @@ export default {
       var start = parseInt(evt);
       filteredImplementationPeriods = this.implementation_periods.filter(
         period => {
-          return parseInt(period.name) >= start;
+          return parseInt(period.value) >= start;
         }
       );
       this.filteredImplementationPeriods = filteredImplementationPeriods;

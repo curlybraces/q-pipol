@@ -4,6 +4,7 @@ import { Loading } from "quasar";
 const state = {
   project: {},
   projects: [],
+  deletedProjects: [],
   search: ""
 };
 
@@ -14,8 +15,29 @@ const mutations = {
   setProject(state, value) {
     state.project = value;
   },
+  setDeletedProjects(state, value) {
+    state.deletedProjects = value;
+  },
   setSearch(state, value) {
     state.search = value;
+  },
+  setSpatialCoverage(state, value) {
+    state.project.spatial_coverage_id = value;
+  },
+  setRegions(state, value) {
+    state.project.regions = value;
+  },
+  setPipType(state, value) {
+    state.project.pip_type_id = value;
+  },
+  setCipType(state, value) {
+    state.project.cip_type_id = value;
+  },
+  setTrip(state, value) {
+    state.project.trip = value;
+  },
+  setRdip(state, value) {
+    state.project.rdip = value;
   }
 };
 
@@ -59,6 +81,16 @@ const actions = {
         console.log(e.message);
       });
     // call axios here for deleting projects based on id
+  },
+  loadDeletedProjects({ commit }) {
+    axiosInstance
+      .get("/projects/deleted")
+      .then(res => {
+        commit("setDeletedProjects", res.data);
+      })
+      .catch(e => {
+        console.log(e.message);
+      });
   },
   setSearch({ commit }, value) {
     commit("setSearch", value);

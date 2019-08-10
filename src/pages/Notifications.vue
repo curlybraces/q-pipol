@@ -8,7 +8,7 @@
           :key="notif.id"
           :class="!notif.read_at ? 'red-2' : ''"
           clickable
-          :to="'/projects/' + notif.data.project_id"
+          @click="goTo(notif.data.project_id)"
         >
           <q-item-section avatar>
             <q-avatar>
@@ -23,7 +23,12 @@
             </q-item-label>
           </q-item-section>
           <q-item-section top side>
-            <q-btn flat round color="red" icon="delete"></q-btn>
+            <q-btn
+              flat
+              round
+              color="red"
+              icon="delete"
+              @click.stop="readNotification(notif.id)"></q-btn>
           </q-item-section>
         </q-item>
       </template>
@@ -36,7 +41,11 @@ import { mapActions, mapState } from "vuex";
 export default {
   name: "Notifications",
   methods: {
-    ...mapActions("notifications", ["loadNotifications"])
+    ...mapActions("notifications",["loadNotifications"]),
+    ...mapActions("notifications",["readNotification"]),
+    goTo(id) {
+      this.$router.push('/projects/' + id);
+    }
   },
   computed: {
     ...mapState("notifications", ["notifications"])

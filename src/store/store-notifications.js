@@ -20,10 +20,24 @@ const actions = {
       .catch(e => {
         console.log("Error: ", e.message);
       });
+  },
+  readNotification({ dispatch }, payload) {
+    axiosInstance
+      .get("/notifications/" + payload)
+      .then(() => {
+        dispatch("loadNotifications");
+      })
+      .catch(e => {
+        console.log("Error: ", e.message);
+      });
   }
 };
 
-const getters = {};
+const getters = {
+  notificationsCount: state => {
+    return state.notifications.length;
+  }
+};
 
 export default {
   namespaced: true,

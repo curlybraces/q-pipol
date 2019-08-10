@@ -47,8 +47,8 @@
 </template>
 
 <script>
-import CardComponent from "../CardComponent";
-import InputComponent from "../InputComponent";
+import CardComponent from "../UI/CardComponent";
+import InputComponent from "../Form/InputComponent";
 
 export default {
   components: {
