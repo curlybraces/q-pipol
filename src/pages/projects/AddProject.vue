@@ -246,7 +246,7 @@ export default {
       var start = parseInt(evt);
       filteredImplementationPeriods = this.implementation_periods.filter(
         period => {
-          return parseInt(period.name) >= start;
+          return parseInt(period.value) >= start;
         }
       );
       this.filteredImplementationPeriods = filteredImplementationPeriods;

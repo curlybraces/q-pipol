@@ -3,11 +3,16 @@
     <div class="q-pa-md absolute full-height full-width column">
       <p>View Projects</p>
 
-      <search-component />
+      <search-component v-if="projects.length > 0" />
 
-      <q-scroll-area class="q-scroll-area-projects" style="height:100px">
+      <q-scroll-area
+        v-if="projects.length > 0"
+        class="q-scroll-area-projects"
+        style="height:100px">
         <list-component :items="projects" />
       </q-scroll-area>
+
+      <no-project v-else/>
     </div>
 
     <fab-component link="/projects/add" />
@@ -17,6 +22,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import ListComponent from "../../components/ListProjects/ListComponent";
+import NoProject from "../../components/ListProjects/NoProject";
 import FabComponent from "../../components/UI/FabComponent";
 import SearchComponent from "../../components/UI/SearchComponent";
 
@@ -24,7 +30,8 @@ export default {
   components: {
     FabComponent,
     ListComponent,
-    SearchComponent
+    SearchComponent,
+    NoProject
   },
   name: "PageViewProjects",
   data() {

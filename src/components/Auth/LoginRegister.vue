@@ -78,8 +78,8 @@ export default {
       loading: false,
       formData: {
         name: "",
-        email: "mlab817@gmail.com",
-        password: "password"
+        email: "",
+        password: ""
       }
     };
   },

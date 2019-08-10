@@ -23,287 +23,7 @@
 
       <select-component
         label="Mode of Implementation/Procurement"
-      ></select-component>
-
-      <q-markup-table
-        class="my-sticky-column-table"
-        separator="cell"
-        flat
-        bordered
-      >
-        <thead>
-          <tr>
-            <th class="text-left">Year</th>
-            <th class="text-right">2016 and Prior</th>
-            <th class="text-right">2017</th>
-            <th class="text-right">2018</th>
-            <th class="text-right">2019</th>
-            <th class="text-right">2020</th>
-            <th class="text-right">2021</th>
-            <th class="text-right">2022</th>
-            <th class="text-right">2023 and Beyond</th>
-            <th class="text-right">Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="text-left">
-              NG-Local
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-          </tr>
-          <tr>
-            <td class="text-left">
-              NG-ODA Loan
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-          </tr>
-          <tr>
-            <td class="text-left">
-              NG-ODA Grant
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-          </tr>
-          <tr>
-            <td class="text-left">
-              GOCC/GFIs
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-          </tr>
-          <tr>
-            <td class="text-left">
-              LGUs
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-          </tr>
-          <tr>
-            <td class="text-left">
-              Private Sector
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-          </tr>
-          <tr>
-            <td class="text-left">
-              Others
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-          </tr>
-          <tr>
-            <td class="text-left">
-              Total
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-            <td class="text-right">
-              <table-input-component></table-input-component>
-            </td>
-          </tr>
-        </tbody>
-      </q-markup-table>
+        :options="implementation_modes"></select>
     </template>
   </card-component>
 </template>
@@ -311,7 +31,6 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import InputComponent from "../Form/InputComponent";
-import TableInputComponent from "../Form/TableInputComponent";
 import SelectComponent from "../Form/SelectComponent";
 import CardComponent from "../UI/CardComponent";
 
@@ -319,22 +38,22 @@ export default {
   components: {
     CardComponent,
     SelectComponent,
-    InputComponent,
-    TableInputComponent
+    InputComponent
   },
   name: "TotalCost",
   data() {
     return {};
   },
   computed: {
-    ...mapState("projects", ["project"]),
-    ...mapState("dropdown", ["funding_sources"])
+    ...mapState("projects",["project"]),
+    ...mapState("dropdown",["funding_sources","implementation_modes"])
   },
   methods: {
-    ...mapActions("dropdown", ["loadFundingSources"])
+    ...mapActions("dropdown",["loadFundingSources","loadImplementationModes"])
   },
   mounted() {
     this.loadFundingSources();
+    this.loadImplementationModes();
   }
 };
 </script>
