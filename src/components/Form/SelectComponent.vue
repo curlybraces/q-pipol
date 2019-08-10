@@ -10,8 +10,8 @@
         :readonly="readonly"
         :disabled="disabled"
         :options="options"
-        option-value="id"
-        option-label="name"
+        option-value="value"
+        option-label="label"
         emit-value
         :multiple="multiple"
         :hint="hint"

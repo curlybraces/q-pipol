@@ -6,7 +6,6 @@
     class="q-mb-md"
     clearable
     placeholder="Search in project titles..."
-    @keydown.enter="search"
     v-model="searchField"
   >
     <template v-slot:append>
