@@ -3,15 +3,18 @@
     <div class="q-pa-md absolute full-height full-width column">
       <p>View Projects</p>
 
-      <no-project v-if="projects.length == 0"/>
 
-      <div v-else>
-        <search-component />
 
-        <q-scroll-area class="q-scroll-area-projects" style="height:100px">
-          <list-component :items="projects" />
-        </q-scroll-area>
-      </div>
+      <search-component v-if="projects.length > 0" />
+
+      <q-scroll-area
+        v-if="projects.length > 0"
+        class="q-scroll-area-projects"
+        style="height:100px">
+        <list-component :items="projects" />
+      </q-scroll-area>
+
+      <no-project v-else/>
     </div>
 
     <fab-component link="/projects/add" />

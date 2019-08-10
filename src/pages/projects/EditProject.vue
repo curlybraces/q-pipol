@@ -63,8 +63,6 @@
 
         <total-cost></total-cost>
 
-        <infrastructure-cost></infrastructure-cost>
-
       </q-step>
 
       <q-step
@@ -103,11 +101,9 @@ import PreconstructionCost from "../../components/EditProject/PreconstructionCos
 import PhysicalAccomplishments from "../../components/EditProject/PhysicalAccomplishments";
 import ProjectPreparation from "../../components/EditProject/ProjectPreparation";
 import TotalCost from "../../components/EditProject/TotalCost";
-import InfrastructureCost from "../../components/EditProject/InfrastructureCost";
 
 export default {
   components: {
-    InfrastructureCost,
     TotalCost,
     ProjectPreparation,
     PhysicalAccomplishments,
