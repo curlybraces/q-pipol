@@ -30,7 +30,7 @@
           label="Login"
         />
 
-        <div class="row" v-else>
+        <div v-else>
           <q-btn
             dense
             flat
@@ -96,12 +96,53 @@
             </q-menu>
           </q-btn>
 
-          <q-btn
-            flat
-            @click="logoutUser"
-            icon-right="account_circle"
-            label="Logout"
-          />
+          <q-btn dense round flat color="white" icon="account_circle">
+            <q-menu
+              anchor="bottom right"
+              self="top right"
+              :offset="[0, 5]"
+              square>
+              <div class="row no-wrap q-pa-md">
+                <div class="column">
+                  <div class="text-h6 q-mb-md">Quick Settings</div>
+                  <q-toggle
+                    v-model="notifyUser"
+                    label="Notifications" />
+                  <q-toggle
+                    v-model="darkMode"
+                    label="Dark Mode" />
+                  <q-btn
+                    flat
+                    dense
+                    label="More Settings"
+                    to="/settings"
+                    v-close-popup />
+                </div>
+
+                <q-separator vertical inset class="q-mx-lg" />
+
+                <div class="column items-center">
+                  <q-avatar size="72px">
+                    <img src="https://cdn.quasar.dev/img/avatar4.jpg">
+                  </q-avatar>
+
+                  <div class="text-subtitle1 q-mt-md q-mb-xs">
+                    {{ user.name }}
+                  </div>
+
+                  <q-btn
+                    color="primary"
+                    label="Logout"
+                    @click="logoutUser"
+                    size="sm"
+                    square
+                    v-close-popup
+                  />
+                </div>
+              </div>
+            </q-menu>
+          </q-btn>
+
         </div>
       </q-toolbar>
     </q-header>
@@ -162,6 +203,8 @@ export default {
       copyright: "Made by Mark Lester A. Bolotaolo",
       leftDrawerOpen: this.$q.platform.is.desktop,
       expanded: false,
+      notifyUser: false,
+      darkMode: false,
       sidemenu: [
         {
           label: "Dashboard",
@@ -214,7 +257,8 @@ export default {
   computed: {
     ...mapState("auth", ["loggedIn"]),
     ...mapState("notifications",["notifications"]),
-    ...mapGetters("notifications", ["notificationsCount"])
+    ...mapGetters("notifications", ["notificationsCount"]),
+    ...mapGetters("auth",["user"])
   },
   methods: {
     openURL,
