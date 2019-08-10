@@ -18,7 +18,10 @@
 
       <options-component
         label="TRIP"
-        :options="[{ label: 'Infrastructure', value: 1 }, { label: 'Non-Infrastructure', value: 0 }]"
+        :options="[
+          { label: 'Infrastructure', value: 1 },
+          { label: 'Non-Infrastructure', value: 0 }
+        ]"
         v-model="trip"
       ></options-component>
 
@@ -89,7 +92,6 @@
         label="Categorization"
       >
       </select-component>
-
     </template>
   </card-component>
 </template>
@@ -119,14 +121,15 @@ export default {
   },
   computed: {
     ...mapState("projects", ["project"]),
-    ...mapState("dropdown",[
+    ...mapState("dropdown", [
       "implementation_bases",
       "implementation_periods",
       "spatial_coverages",
       "regions",
       "provinces",
       "city_municipalities",
-      "categorizations"]),
+      "categorizations"
+    ]),
     region_id: {
       get() {
         return this.project.regions;
@@ -154,7 +157,7 @@ export default {
       "loadCityMunicipalities",
       "loadCategorizations"
     ]),
-    ...mapMutations("projects",["setRegions","setSpatialCoverage"]),
+    ...mapMutations("projects", ["setRegions", "setSpatialCoverage"]),
     updateImplementationEnd(evt) {
       let filteredImplementationPeriods = [];
       var start = parseInt(evt);
@@ -173,7 +176,7 @@ export default {
     this.loadRegions();
     this.loadProvinces();
     this.loadCityMunicipalities();
-    this.loadCategorizations()
+    this.loadCategorizations();
   }
 };
 </script>

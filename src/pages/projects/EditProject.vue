@@ -1,16 +1,15 @@
 <template>
   <q-page padding>
-
     <div class="row">
       <p>Edit Project</p>
       <q-space />
       <div>
-        {{ (locked) ? 'Project is locked from editing.': '' }}
+        {{ locked ? "Project is locked from editing." : "" }}
         <q-btn
           flat
           round
           dense
-          :icon=" (locked) ? 'lock': 'lock_open' "
+          :icon="locked ? 'lock' : 'lock_open'"
           @click="locked = !locked"
         />
       </div>
@@ -18,49 +17,26 @@
 
     <q-separator />
 
-    <q-stepper
-      v-model="step"
-      header-nav
-      color="primary"
-      ref="stepper"
-      animated>
-
-      <q-step
-        :name="1"
-        :done="done1"
-        title="General Information"
-        >
-
+    <q-stepper v-model="step" header-nav color="primary" ref="stepper" animated>
+      <q-step :name="1" :done="done1" title="General Information">
         <general-information></general-information>
-
       </q-step>
 
-      <q-step
-        :name="2"
-        title="Strategic Alignment"
-        >
-
+      <q-step :name="2" title="Strategic Alignment">
         <programming-document></programming-document>
-
       </q-step>
 
       <q-step
         :name="3"
         title="Readiness"
         :disable="project.categorization !== 2"
-        >
-
+      >
         <project-preparation></project-preparation>
 
         <preconstruction-cost></preconstruction-cost>
-
       </q-step>
 
-      <q-step
-        :name="4"
-        title="Project Cost"
-        >
-
+      <q-step :name="4" title="Project Cost">
         <total-cost></total-cost>
 
       </q-step>
@@ -69,27 +45,30 @@
         :name="5"
         title="Accomplishments"
         :disable="project.categorization == 2"
-        >
-
+      >
         <physical-accomplishments></physical-accomplishments>
-
       </q-step>
 
-      <q-step
-        :name="6"
-        title="Submit">
-
-      </q-step>
+      <q-step :name="6" title="Submit"> </q-step>
 
       <template v-slot:navigation>
         <q-stepper-navigation>
-          <q-btn @click="$refs.stepper.next()" color="primary" :label="step === 6 ? 'Finish' : 'Continue'" />
-          <q-btn v-if="step > 1" flat color="primary" @click="$refs.stepper.previous()" label="Back" class="q-ml-sm" />
+          <q-btn
+            @click="$refs.stepper.next()"
+            color="primary"
+            :label="step === 6 ? 'Finish' : 'Continue'"
+          />
+          <q-btn
+            v-if="step > 1"
+            flat
+            color="primary"
+            @click="$refs.stepper.previous()"
+            label="Back"
+            class="q-ml-sm"
+          />
         </q-stepper-navigation>
       </template>
-
     </q-stepper>
-
   </q-page>
 </template>
 

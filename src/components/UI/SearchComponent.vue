@@ -15,26 +15,26 @@
 </template>
 
 <script>
-  import { mapState, mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 
-  export default {
-    name: "SearchComponent",
-    data() {
-      return {}
-    },
-    computed: {
-      ...mapState("projects", ["search"]),
-      searchField: {
-        get() {
-          return this.search;
-        },
-        set(value) {
-          this.setSearch(value);
-        }
+export default {
+  name: "SearchComponent",
+  data() {
+    return {};
+  },
+  computed: {
+    ...mapState("projects", ["search"]),
+    searchField: {
+      get() {
+        return this.search;
+      },
+      set(value) {
+        this.setSearch(value);
       }
-    },
-    methods: {
-      ...mapActions("projects", ["setSearch"])
     }
+  },
+  methods: {
+    ...mapActions("projects", ["setSearch"])
   }
+};
 </script>

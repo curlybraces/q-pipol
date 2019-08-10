@@ -18,8 +18,8 @@
 
     <list-component
       v-if="deletedProjects.length > 0"
-      :items="deletedProjects"></list-component>
-
+      :items="deletedProjects"
+    ></list-component>
   </q-page>
 </template>
 
@@ -31,14 +31,13 @@ export default {
   components: { ListComponent },
   name: "PageDeletedProjects",
   data() {
-    return {
-    }
+    return {};
   },
   computed: {
-    ...mapState("projects", ["deletedProjects","search"]),
+    ...mapState("projects", ["deletedProjects", "search"]),
     searchField: {
       get() {
-        return this.search
+        return this.search;
       },
       set(value) {
         this.setSearch(value);
@@ -46,7 +45,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("projects", ["loadDeletedProjects","setSearch"])
+    ...mapActions("projects", ["loadDeletedProjects", "setSearch"])
   },
   mounted() {
     this.loadDeletedProjects();

@@ -94,13 +94,13 @@ const actions = {
   },
   checkPassword({ commit }, payload) {
     axiosInstance
-      .post('/check_password', { password: payload })
+      .post("/check_password", { password: payload })
       .then(res => {
         commit("setPasswordChecked", res.data);
       })
       .catch(e => {
-        console.log("Error: ",e.message);
-      })
+        console.log("Error: ", e.message);
+      });
   }
 };
 

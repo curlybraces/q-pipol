@@ -70,7 +70,6 @@
         v-model="project.other_pdp_chapter"
       >
       </select-component>
-
     </template>
   </card-component>
 </template>
@@ -122,7 +121,7 @@ export default {
     },
     pip_type_id: {
       get() {
-        return this.project.pip_type_id
+        return this.project.pip_type_id;
       },
       set(val) {
         this.setPipType(val);
@@ -130,7 +129,7 @@ export default {
     },
     cip_type_id: {
       get() {
-        return this.project.cip_type_id
+        return this.project.cip_type_id;
       },
       set(val) {
         this.setCipType(val);
@@ -155,7 +154,12 @@ export default {
   },
   methods: {
     ...mapActions("dropdown", ["loadPipTypes", "loadCipTypes"]),
-    ...mapMutations("projects",["setPipType","setCipType","setTrip","setRdip"]),
+    ...mapMutations("projects", [
+      "setPipType",
+      "setCipType",
+      "setTrip",
+      "setRdip"
+    ]),
     ...mapActions("dropdown", [
       "loadTenPointAgenda",
       "loadSustainableDevelopmentGoals",

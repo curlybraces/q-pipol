@@ -5,29 +5,25 @@
         label="Main Funding Source"
         :options="funding_sources"
         v-model="project.funding_source"
-        ></select-component>
+      ></select-component>
 
       <select-component
         v-if="project.funding_source == 2 || project.funding_source == 3"
         label="ODA Funding Institutions"
         v-model="project.funding_institution"
-        ></select-component>
+      ></select-component>
 
       <input-component
-        v-if="(project.funding_source == 2 || project.funding_source == 3) && project.funding_institution == 99"
-        label="Others"></input-component>
+        v-if="
+          (project.funding_source == 2 || project.funding_source == 3) &&
+            project.funding_institution == 99
+        "
+        label="Others"
+      ></input-component>
 
       <select-component
         label="Mode of Implementation/Procurement"
-        :options="implementation_modes"
-        ></select-component>
-
-      <q-btn
-        color="primary"
-        @click="addFundingSource"
-        label="Add Funding Source"
-        icon="add"/>
-
+        :options="implementation_modes"></select>
     </template>
   </card-component>
 </template>

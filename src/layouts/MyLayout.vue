@@ -256,9 +256,8 @@ export default {
   },
   computed: {
     ...mapState("auth", ["loggedIn"]),
-    ...mapState("notifications",["notifications"]),
-    ...mapGetters("notifications", ["notificationsCount"]),
-    ...mapGetters("auth",["user"])
+    ...mapState("notifications", ["notifications"]),
+    ...mapGetters("notifications", ["notificationsCount"])
   },
   methods: {
     openURL,

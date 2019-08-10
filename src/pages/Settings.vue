@@ -9,9 +9,21 @@
         <q-item-section>
           <q-item-label>Content filtering</q-item-label>
           <q-item-label caption>
-            Set the content filtering level to restrict
-            apps that can be downloaded
+            Set the content filtering level to restrict apps that can be
+            downloaded
           </q-item-label>
+        </q-item-section>
+      </q-item>
+
+      <q-item tag="label" v-ripple>
+        <q-item-section>
+          <q-item-label>Welcome Message</q-item-label>
+          <q-item-label caption>
+            Show welcome message when you open the app.
+          </q-item-label>
+        </q-item-section>
+        <q-item-section side top>
+          <q-toggle color="primary" v-model="settings.welcomeMessage" />
         </q-item-section>
       </q-item>
 
@@ -59,10 +71,9 @@
           <q-item-label caption>Switch to dark mode</q-item-label>
         </q-item-section>
         <q-item-section side top>
-          <q-toggle color="black" v-model="settings.dark" />
+          <q-toggle color="primary" v-model="settings.dark" />
         </q-item-section>
       </q-item>
-
     </q-list>
 
     <q-dialog v-model="verifyPassword" persistent>
@@ -74,27 +85,36 @@
         <q-card-section class="q-col-gutter-y-md q-mt-xs">
           <q-input
             outlined
-            :type="(showOldPassword) ? 'text': 'password'"
+            :type="showOldPassword ? 'text' : 'password'"
             dense
             v-model="oldPassword"
             autofocus
             stack-label
             label="Current Password"
-            :rules="[ v => !!v || 'This field is required.' ]">
+            :rules="[v => !!v || 'This field is required.']"
+          >
             <template v-slot:append>
-              <q-icon :name=" (showOldPassword) ? 'visibility_off': 'visibility' " @click="showOldPassword = !showOldPassword" />
+              <q-icon
+                :name="showOldPassword ? 'visibility_off' : 'visibility'"
+                @click="showOldPassword = !showOldPassword"
+              />
             </template>
           </q-input>
         </q-card-section>
 
         <q-card-actions align="right" class="text-primary">
           <q-btn flat label="Cancel" v-close-popup />
-          <q-btn flat label="Confirm" v-close-popup @click="validatePassword"/>
+          <q-btn flat label="Confirm" v-close-popup @click="validatePassword" />
         </q-card-actions>
       </q-card>
     </q-dialog>
 
-    <q-dialog v-model="enterPassword" persistent transition-show="scale" transition-hide="scale">
+    <q-dialog
+      v-model="enterPassword"
+      persistent
+      transition-show="scale"
+      transition-hide="scale"
+    >
       <q-card class="bg-teal text-white" style="width: 300px">
         <q-card-section>
           <div class="text-h6">Persistent</div>
@@ -103,27 +123,37 @@
         <q-card-section>
           <q-input
             outlined
-            :type=" (showNewPassword) ? 'text': 'password' "
+            :type="showNewPassword ? 'text' : 'password'"
             dense
             v-model="newPassword"
             stack-label
             label="New Password"
-            :rules="[ v => v.length >= 8 || 'Password must be at least 8 characters.' ]"
-            lazy-rules>
+            :rules="[
+              v => v.length >= 8 || 'Password must be at least 8 characters.'
+            ]"
+            lazy-rules
+          >
             <template v-slot:append>
-              <q-icon :name=" (showNewPassword) ? 'visibility_off': 'visibility' " @click="showNewPassword = !showNewPassword" />
+              <q-icon
+                :name="showNewPassword ? 'visibility_off' : 'visibility'"
+                @click="showNewPassword = !showNewPassword"
+              />
             </template>
           </q-input>
           <q-input
             outlined
-            :type="(showConfirmPassword) ? 'text': 'password'"
+            :type="showConfirmPassword ? 'text' : 'password'"
             dense
             v-model="confirmPassword"
             stack-label
             label="Confirm New Password"
-            :rules="[ val => passwordMatched(val) || 'Password did not match.' ]">
+            :rules="[val => passwordMatched(val) || 'Password did not match.']"
+          >
             <template v-slot:append>
-              <q-icon :name=" (showConfirmPassword) ? 'visibility_off': 'visibility' " @click="showConfirmPassword = !showConfirmPassword" />
+              <q-icon
+                :name="showConfirmPassword ? 'visibility_off' : 'visibility'"
+                @click="showConfirmPassword = !showConfirmPassword"
+              />
             </template>
           </q-input>
         </q-card-section>
@@ -133,7 +163,6 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
-
   </q-page>
 </template>
 
@@ -154,12 +183,13 @@ export default {
       confirmPassword: "",
       changePassword: false,
       settings: {
-        dark: false
+        dark: false,
+        welcomeMessage: true
       }
-    }
+    };
   },
   methods: {
-    ...mapActions("auth",["checkPassword"]),
+    ...mapActions("auth", ["checkPassword"]),
     passwordMatched(val) {
       return this.newPassword === val;
     },
@@ -167,8 +197,7 @@ export default {
       console.log(this.checkPassword(this.oldPassword));
       if (this.checkPassword(this.oldPassword)) {
         this.enterPassword = true;
-      };
-
+      }
     }
   }
 };

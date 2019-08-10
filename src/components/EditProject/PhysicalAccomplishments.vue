@@ -1,13 +1,15 @@
 <template>
   <card-component title="Physical Accomplishments">
     <template v-slot:content>
-
       <input-component
-        v-if="project.categorization_id == 1
-          || project.categorization_id == 3
-          || project.categorization_id == 4 "
+        v-if="
+          project.categorization_id == 1 ||
+            project.categorization_id == 3 ||
+            project.categorization_id == 4
+        "
         label="UACS Code"
-        :value="project.uacs_code">
+        :value="project.uacs_code"
+      >
       </input-component>
 
       <input-component
@@ -16,10 +18,7 @@
         :value="project.updates"
       ></input-component>
 
-      <date-component
-        label="As of"
-        :value="project.as_of">
-      </date-component>
+      <date-component label="As of" :value="project.as_of"> </date-component>
 
       <q-markup-table
         class="my-sticky-column-table"
@@ -122,7 +121,6 @@
           </tr>
         </tbody>
       </q-markup-table>
-
     </template>
   </card-component>
 </template>

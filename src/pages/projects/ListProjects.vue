@@ -3,8 +3,6 @@
     <div class="q-pa-md absolute full-height full-width column">
       <p>View Projects</p>
 
-
-
       <search-component v-if="projects.length > 0" />
 
       <q-scroll-area
@@ -43,7 +41,7 @@ export default {
     ...mapGetters("projects", ["projects", "projectsFiltered"])
   },
   methods: {
-    ...mapActions("projects",["loadProjects"])
+    ...mapActions("projects", ["loadProjects"])
   },
   mounted() {
     this.loadProjects();
@@ -52,8 +50,8 @@ export default {
 </script>
 
 <style>
-  .q-scroll-area-projects {
-    display: flex;
-    flex-grow: 1;
-  }
+.q-scroll-area-projects {
+  display: flex;
+  flex-grow: 1;
+}
 </style>

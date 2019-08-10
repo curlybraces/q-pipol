@@ -107,7 +107,11 @@ module.exports = function (ctx) {
 	      'QTimelineEntry',
 
         'QSplitter',
-        'QScrollArea'
+        'QScrollArea',
+
+        'QCarousel',
+        'QCarouselControl',
+        'QCarouselSlide'
       ],
 
       directives: [
