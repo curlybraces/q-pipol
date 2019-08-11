@@ -23,7 +23,7 @@
 
       <select-component
         label="Mode of Implementation/Procurement"
-        :options="implementation_modes"></select>
+        :options="implementation_modes"></select-component>
     </template>
   </card-component>
 </template>

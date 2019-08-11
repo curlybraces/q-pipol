@@ -111,7 +111,7 @@ const getters = {
   getToken(state) {
     return state.token;
   },
-  user(state) {
+  getUser(state) {
     let user = JSON.parse(state.user);
     return user;
   }

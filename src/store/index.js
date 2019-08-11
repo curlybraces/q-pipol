@@ -7,6 +7,16 @@ import dropdown from "./store-dropdown";
 import projects from "./store-projects";
 import settings from "./store-settings";
 
+// Dropdown stores
+import approval_levels from "./store-approval-levels"
+import categorizations from "./store-categorizations"
+import cip_types from "./store-cip-types"
+import city_municipalities from "./store-city-municipalities"
+import contact_types from "./store-contact-types"
+
+import implementation_modes from "./store-implementation-modes"
+import implementation_periods from "./store-implementation-periods"
+
 Vue.use(Vuex);
 
 /*
@@ -21,7 +31,19 @@ export default function(/* { ssrContext } */) {
       notifications,
       dropdown,
       projects,
-      settings
+      settings,
+
+      approval_levels,
+      categorizations,
+      cip_types,
+      city_municipalities,
+      contact_types
+
+
+      implementation_modes,
+      implementation_periods,
+
+
     },
 
     // enable strict mode (adds overhead!)

@@ -1,17 +1,12 @@
 import { axiosInstance } from "boot/axios";
 
 const state = {
-  approval_levels: [], // localStorage.getItem("approval_levels") || [],
-  categorizations: [], // localStorage.getItem("categorizations") || [],
-  cip_types: [], // localStorage.getItem("cip_types") || [],
-  city_municipalities: [], //  localStorage.getItem("city_municipalities") || [],
   contact_types: [], // localStorage.getItem("contact_types") || [],
   funding_institutions: [], // localStorage.getItem("funding_institutions") || [],
   funding_sources: [], // localStorage.getItem("funding_sources") || [],
   gad_readinesses: [], // localStorage.getItem("gad_readinesses") || [],
   implementation_bases: [], // localStorage.getItem("implementation_bases") || [],
-  implementation_modes: [], // localStorage.getItem("implementation_modes") || [],
-  implementation_periods: [], // localStorage.getItem("implementation_periods") || [],
+
   implementation_readinesses: [], // localStorage.getItem("implementation_readinesses") || [],
   infrastructure_sectors: [], // localStorage.getItem("infrastructure_sectors") || [],
   infrastructure_subsectors: [], // localStorage.getItem("infrastructure_subsectors") || [],
@@ -36,9 +31,7 @@ const state = {
 };
 
 const mutations = {
-  setApprovalLevels(state, value) {
-    state.approval_levels = value;
-  },
+
   setCategorizations(state, value) {
     state.categorizations = value;
   },
@@ -62,12 +55,6 @@ const mutations = {
   },
   setImplementationBases(state, value) {
     state.implementation_bases = value;
-  },
-  setImplementationModes(state, value) {
-    state.implementation_modes = value;
-  },
-  setImplementationPeriods(state, value) {
-    state.implementation_periods = value;
   },
   setImplementationReadinesses(state, value) {
     state.implementation_readinesses = value;
@@ -129,17 +116,6 @@ const mutations = {
 };
 
 const actions = {
-  loadApprovalLevels({ commit }) {
-    axiosInstance
-      .get("/approval_levels")
-      .then(res => {
-        localStorage.setItem("approval_levels", JSON.stringify(res.data));
-        commit("setApprovalLevels", res.data);
-      })
-      .catch(e => {
-        console.log("Error: ", e.message);
-      });
-  },
   loadCategorizations({ commit }) {
     axiosInstance
       .get("/categorizations")
@@ -223,31 +199,6 @@ const actions = {
       .then(res => {
         localStorage.setItem("implementation_bases", JSON.stringify(res.data));
         commit("setImplementationBases", res.data);
-      })
-      .catch(e => {
-        console.log("Error: ", e.message);
-      });
-  },
-  loadImplementationModes({ commit }) {
-    axiosInstance
-      .get("/implementation_modes")
-      .then(res => {
-        localStorage.setItem("implementation_modes", JSON.stringify(res.data));
-        commit("setImplementationModes", res.data);
-      })
-      .catch(e => {
-        console.log("Error: ", e.message);
-      });
-  },
-  loadImplementationPeriods({ commit }) {
-    axiosInstance
-      .get("/implementation_periods")
-      .then(res => {
-        localStorage.setItem(
-          "implementation_periods",
-          JSON.stringify(res.data)
-        );
-        commit("setImplementationPeriods", res.data);
       })
       .catch(e => {
         console.log("Error: ", e.message);
