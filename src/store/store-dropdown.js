@@ -1,8 +1,7 @@
 import { axiosInstance } from "boot/axios";
 
 const state = {
-  contact_types: [], // localStorage.getItem("contact_types") || [],
-  funding_institutions: [], // localStorage.getItem("funding_institutions") || [],
+  
   funding_sources: [], // localStorage.getItem("funding_sources") || [],
   gad_readinesses: [], // localStorage.getItem("gad_readinesses") || [],
   implementation_bases: [], // localStorage.getItem("implementation_bases") || [],
@@ -32,18 +31,8 @@ const state = {
 
 const mutations = {
 
-  setCategorizations(state, value) {
-    state.categorizations = value;
-  },
-  setCipTypes(state, value) {
-    state.cip_types = value;
-  },
-  setCityMunicipalities(state, value) {
-    state.city_municipalities = value;
-  },
-  setContactTypes(state, value) {
-    state.contact_types = value;
-  },
+
+
   setFundingInstitutions(state, value) {
     state.funding_institutions = value;
   },
@@ -116,50 +105,8 @@ const mutations = {
 };
 
 const actions = {
-  loadCategorizations({ commit }) {
-    axiosInstance
-      .get("/categorizations")
-      .then(res => {
-        localStorage.setItem("categorizations", JSON.stringify(res.data));
-        commit("setCategorizations", res.data);
-      })
-      .catch(e => {
-        console.log("Error: ", e.message);
-      });
-  },
-  loadCipTypes({ commit }) {
-    axiosInstance
-      .get("/cip_types")
-      .then(res => {
-        localStorage.setItem("cip_types", JSON.stringify(res.data));
-        commit("setCipTypes", res.data);
-      })
-      .catch(e => {
-        console.log("Error: ", e.message);
-      });
-  },
-  loadCityMunicipalities({ commit }) {
-    axiosInstance
-      .get("/city_municipalities")
-      .then(res => {
-        localStorage.setItem("city_municipalities", JSON.stringify(res.data));
-        commit("setCityMunicipalities", res.data);
-      })
-      .catch(e => {
-        console.log("Error: ", e.message);
-      });
-  },
-  loadContactTypes({ commit }) {
-    axiosInstance
-      .get("/contact_types")
-      .then(res => {
-        localStorage.setItem("contact_types", JSON.stringify(res.data));
-        commit("setContactTypes", res.data);
-      })
-      .catch(e => {
-        console.log("Error: ", e.message);
-      });
-  },
+
+
   loadFundingInstitutions({ commit }) {
     axiosInstance
       .get("/funding_institutions")

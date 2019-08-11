@@ -13,6 +13,7 @@ import categorizations from "./store-categorizations"
 import cip_types from "./store-cip-types"
 import city_municipalities from "./store-city-municipalities"
 import contact_types from "./store-contact-types"
+import funding_institutions from "./store-funding-institutions"
 
 import implementation_modes from "./store-implementation-modes"
 import implementation_periods from "./store-implementation-periods"
@@ -37,7 +38,8 @@ export default function(/* { ssrContext } */) {
       categorizations,
       cip_types,
       city_municipalities,
-      contact_types
+      contact_types,
+      funding_institutions,
 
 
       implementation_modes,
