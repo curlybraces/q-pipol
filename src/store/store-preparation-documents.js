@@ -1,13 +1,13 @@
 import { axiosInstance } from "boot/axios";
 
 const state = {
-  preparation_documents: [], // localStorage.getItem("preparation_documents") || [],
+  preparation_documents: [] // localStorage.getItem("preparation_documents") || [],
 };
 
 const mutations = {
   setPreparationDocuments(state, value) {
     state.preparation_documents = value;
-  },
+  }
 };
 
 const actions = {
@@ -21,7 +21,7 @@ const actions = {
       .catch(e => {
         console.log("Error: ", e.message);
       });
-  },
+  }
 };
 
 const getters = {

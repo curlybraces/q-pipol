@@ -1,13 +1,13 @@
 import { axiosInstance } from "boot/axios";
 
 const state = {
-  pdp_indicators: [], // localStorage.getItem("pdp_indicators") || [],
+  pdp_indicators: [] // localStorage.getItem("pdp_indicators") || [],
 };
 
 const mutations = {
   setPdpIndicators(state, value) {
     state.pdp_indicators = value;
-  },
+  }
 };
 
 const actions = {
@@ -21,7 +21,7 @@ const actions = {
       .catch(e => {
         console.log("Error: ", e.message);
       });
-  },
+  }
 };
 
 const getters = {

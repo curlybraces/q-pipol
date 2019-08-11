@@ -1,13 +1,13 @@
 import { axiosInstance } from "boot/axios";
 
 const state = {
-  regions: [], //  localStorage.getItem("regions") || [],
+  regions: [] //  localStorage.getItem("regions") || [],
 };
 
 const mutations = {
   setRegions(state, value) {
     state.regions = value;
-  },
+  }
 };
 
 const actions = {
@@ -21,7 +21,7 @@ const actions = {
       .catch(e => {
         console.log("Error: ", e.message);
       });
-  },
+  }
 };
 
 const getters = {

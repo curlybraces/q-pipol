@@ -3,7 +3,7 @@ import Vuex from "vuex";
 
 import auth from "./store-auth";
 import notifications from "./store-notifications";
-import dropdown from "./store-dropdown";
+// import dropdown from "./store-dropdown";
 import projects from "./store-projects";
 import settings from "./store-settings";
 
@@ -35,6 +35,8 @@ import programming_documents from "./store-programming-documents";
 import provinces from "./store-provinces";
 import regions from "./store-regions";
 import roles from "./store-roles";
+import sustainable_development_goals from "./store-sustainable-development-goals";
+import ten_point_agenda from "./store-ten-point-agenda";
 
 Vue.use(Vuex);
 
@@ -48,7 +50,7 @@ export default function(/* { ssrContext } */) {
     modules: {
       auth,
       notifications,
-      dropdown,
+      // dropdown,
       projects,
       settings,
 
@@ -79,6 +81,8 @@ export default function(/* { ssrContext } */) {
       provinces,
       regions,
       roles,
+      sustainable_development_goals,
+      ten_point_agenda
     },
 
     // enable strict mode (adds overhead!)

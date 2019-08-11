@@ -1,13 +1,13 @@
 import { axiosInstance } from "boot/axios";
 
 const state = {
-  prexc_activities: [], // localStorage.getItem('prexc_activities') || [],
+  prexc_activities: [] // localStorage.getItem('prexc_activities') || [],
 };
 
 const mutations = {
   setPrexcActivities(state, value) {
     state.prexc_activities = value;
-  },
+  }
 };
 
 const actions = {
@@ -21,7 +21,7 @@ const actions = {
       .catch(e => {
         console.log("Error: ", e.message);
       });
-  },
+  }
 };
 
 const getters = {

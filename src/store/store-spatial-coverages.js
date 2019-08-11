@@ -1,13 +1,13 @@
 import { axiosInstance } from "boot/axios";
 
 const state = {
-  spatial_coverages: [], // localStorage.getItem("spatial_coverages") || [],
+  spatial_coverages: [] // localStorage.getItem("spatial_coverages") || [],
 };
 
 const mutations = {
   setSpatialCoverages(state, value) {
     state.spatial_coverages = value;
-  },
+  }
 };
 
 const actions = {
@@ -21,7 +21,7 @@ const actions = {
       .catch(e => {
         console.log("Error: ", e.message);
       });
-  },
+  }
 };
 
 const getters = {

@@ -1,13 +1,13 @@
 import { axiosInstance } from "boot/axios";
 
 const state = {
-  roles: [], // localStorage.getItem("roles") || [],
+  roles: [] // localStorage.getItem("roles") || [],
 };
 
 const mutations = {
   setRoles(state, value) {
     state.roles = value;
-  },
+  }
 };
 
 const actions = {
@@ -21,7 +21,7 @@ const actions = {
       .catch(e => {
         console.log("Error: ", e.message);
       });
-  },
+  }
 };
 
 const getters = {

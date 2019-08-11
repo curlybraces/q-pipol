@@ -20,7 +20,7 @@
         v-for="(item, index) in slides"
         :key="index"
       >
-        <q-icon :name="item.icon" :color="color" size="56px" />
+        <q-icon :name="item.icon" :color="color" size="128px" />
         <div class="q-mt-md text-center text-white text-h6">
           {{ item.message }}
         </div>

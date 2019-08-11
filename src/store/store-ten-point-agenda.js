@@ -1,22 +1,22 @@
 import { axiosInstance } from "boot/axios";
 
 const state = {
-  pdp_outputs: [] //  localStorage.getItem("pdp_outputs") || [],
+  ten_point_agenda: [] //  localStorage.getItem("ten_point_agenda") || []
 };
 
 const mutations = {
-  setPdpOutputs(state, value) {
-    state.pdp_outputs = value;
+  setTenPointAgenda(state, value) {
+    state.ten_point_agenda = value;
   }
 };
 
 const actions = {
-  loadPdpOutputs({ commit }) {
+  loadTenPointAgenda({ commit }) {
     axiosInstance
-      .get("/pdp_outputs")
+      .get("/ten_point_agenda")
       .then(res => {
-        localStorage.setItem("pdp_outputs", JSON.stringify(res.data));
-        commit("setPdpOutputs", res.data);
+        localStorage.setItem("ten_point_agenda", JSON.stringify(res.data));
+        commit("setTenPointAgenda", res.data);
       })
       .catch(e => {
         console.log("Error: ", e.message);

@@ -1,13 +1,13 @@
 import { axiosInstance } from "boot/axios";
 
 const state = {
-  programming_documents: [], // localStorage.getItem("programming_documents") || [],
+  programming_documents: [] // localStorage.getItem("programming_documents") || [],
 };
 
 const mutations = {
   setProgrammingDocuments(state, value) {
     state.programming_documents = value;
-  },
+  }
 };
 
 const actions = {
@@ -21,7 +21,7 @@ const actions = {
       .catch(e => {
         console.log("Error: ", e.message);
       });
-  },
+  }
 };
 
 const getters = {
