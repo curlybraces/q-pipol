@@ -25,6 +25,16 @@ import infrastructure_subsectors from "./store-infrastructure-subsectors";
 import operating_units from "./store-operating-units";
 import pap_types from "./store-pap-types";
 import pdp_chapters from "./store-pdp-chapters";
+import pdp_indicators from "./store-pdp-indicators";
+import pdp_outcomes from "./store-pdp-outcomes";
+import permissions from "./store-permissions";
+import pip_types from "./store-pip-types";
+import preparation_documents from "./store-preparation-documents";
+import prexc_activities from "./store-prexc-activities";
+import programming_documents from "./store-programming-documents";
+import provinces from "./store-provinces";
+import regions from "./store-regions";
+import roles from "./store-roles";
 
 Vue.use(Vuex);
 
@@ -58,7 +68,17 @@ export default function(/* { ssrContext } */) {
       infrastructure_subsectors,
       operating_units,
       pap_types,
-      pdp_chapters
+      pdp_chapters,
+      pdp_indicators,
+      pdp_outcomes,
+      permissions,
+      pip_types,
+      preparation_documents,
+      prexc_activities,
+      programming_documents,
+      provinces,
+      regions,
+      roles,
     },
 
     // enable strict mode (adds overhead!)
