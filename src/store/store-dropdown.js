@@ -1,4 +1,4 @@
-import { axiosInstance } from "boot/axios";
+// import { axiosInstance } from "boot/axios";
 
 const state = {
   pdp_chapter: null
@@ -11,6 +11,9 @@ const mutations = {
 };
 
 const actions = {
+
+
+
   setPdpChapter({ commit }, value) {
     commit("setPdpChapter", value);
   }
