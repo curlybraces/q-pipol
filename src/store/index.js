@@ -15,6 +15,7 @@ import city_municipalities from "./store-city-municipalities"
 import contact_types from "./store-contact-types"
 import funding_institutions from "./store-funding-institutions"
 import funding_sources from "./store-funding-sources"
+import gad_readinesses from "./store-gad-readinesses"
 
 import implementation_modes from "./store-implementation-modes"
 import implementation_periods from "./store-implementation-periods"
@@ -42,7 +43,7 @@ export default function(/* { ssrContext } */) {
       contact_types,
       funding_institutions,
       funding_sources,
-
+      gad_readinesses,
 
       implementation_modes,
       implementation_periods,

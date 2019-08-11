@@ -1,8 +1,8 @@
 import { axiosInstance } from "boot/axios";
 
 const state = {
-  
-  gad_readinesses: [], // localStorage.getItem("gad_readinesses") || [],
+
+
   implementation_bases: [], // localStorage.getItem("implementation_bases") || [],
 
   implementation_readinesses: [], // localStorage.getItem("implementation_readinesses") || [],
@@ -34,9 +34,7 @@ const mutations = {
 
 
 
-  setGadReadinesses(state, value) {
-    state.gad_readinesses = value;
-  },
+
   setImplementationBases(state, value) {
     state.implementation_bases = value;
   },
