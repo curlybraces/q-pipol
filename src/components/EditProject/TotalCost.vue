@@ -23,7 +23,8 @@
 
       <select-component
         label="Mode of Implementation/Procurement"
-        :options="implementation_modes"></select-component>
+        :options="implementation_modes"
+      ></select-component>
     </template>
   </card-component>
 </template>
@@ -45,11 +46,11 @@ export default {
     return {};
   },
   computed: {
-    ...mapState("projects",["project"]),
-    ...mapState("dropdown",["funding_sources","implementation_modes"])
+    ...mapState("projects", ["project"]),
+    ...mapState("dropdown", ["funding_sources", "implementation_modes"])
   },
   methods: {
-    ...mapActions("dropdown",["loadFundingSources","loadImplementationModes"])
+    ...mapActions("dropdown", ["loadFundingSources", "loadImplementationModes"])
   },
   mounted() {
     this.loadFundingSources();

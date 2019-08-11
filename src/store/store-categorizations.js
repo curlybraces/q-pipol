@@ -1,13 +1,13 @@
 import { axiosInstance } from "boot/axios";
 
 const state = {
-  categorizations: [], // localStorage.getItem("categorizations") || [],
+  categorizations: [] // localStorage.getItem("categorizations") || [],
 };
 
 const mutations = {
   setCategorizations(state, value) {
     state.categorizations = value;
-  },
+  }
 };
 
 const actions = {
@@ -21,7 +21,7 @@ const actions = {
       .catch(e => {
         console.log("Error: ", e.message);
       });
-  },
+  }
 };
 
 const getters = {

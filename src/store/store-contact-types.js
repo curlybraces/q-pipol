@@ -1,13 +1,13 @@
 import { axiosInstance } from "boot/axios";
 
 const state = {
-  contact_types: [], // localStorage.getItem("contact_types") || [],
+  contact_types: [] // localStorage.getItem("contact_types") || [],
 };
 
 const mutations = {
   setContactTypes(state, value) {
     state.contact_types = value;
-  },
+  }
 };
 
 const actions = {
@@ -21,7 +21,7 @@ const actions = {
       .catch(e => {
         console.log("Error: ", e.message);
       });
-  },
+  }
 };
 
 const getters = {

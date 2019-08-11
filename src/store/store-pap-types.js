@@ -1,22 +1,22 @@
 import { axiosInstance } from "boot/axios";
 
 const state = {
-  cip_types: [] // localStorage.getItem("cip_types") || [],
+  pap_types: [] // localStorage.getItem("pap_types") || [],
 };
 
 const mutations = {
-  setCipTypes(state, value) {
-    state.cip_types = value;
+  setPapTypes(state, value) {
+    state.pap_types = value;
   }
 };
 
 const actions = {
-  loadCipTypes({ commit }) {
+  loadPapTypes({ commit }) {
     axiosInstance
-      .get("/cip_types")
+      .get("/pap_types")
       .then(res => {
-        localStorage.setItem("cip_types", JSON.stringify(res.data));
-        commit("setCipTypes", res.data);
+        localStorage.setItem("pap_types", JSON.stringify(res.data));
+        commit("setPapTypes", res.data);
       })
       .catch(e => {
         console.log("Error: ", e.message);

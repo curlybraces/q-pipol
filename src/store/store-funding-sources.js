@@ -1,13 +1,13 @@
 import { axiosInstance } from "boot/axios";
 
 const state = {
-  funding_sources: [], // localStorage.getItem("funding_sources") || [],
+  funding_sources: [] // localStorage.getItem("funding_sources") || [],
 };
 
 const mutations = {
   setFundingSources(state, value) {
     state.funding_sources = value;
-  },
+  }
 };
 
 const actions = {
@@ -21,7 +21,7 @@ const actions = {
       .catch(e => {
         console.log("Error: ", e.message);
       });
-  },
+  }
 };
 
 const getters = {

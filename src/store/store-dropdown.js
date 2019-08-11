@@ -2,16 +2,6 @@ import { axiosInstance } from "boot/axios";
 
 const state = {
 
-
-  implementation_bases: [], // localStorage.getItem("implementation_bases") || [],
-
-  implementation_readinesses: [], // localStorage.getItem("implementation_readinesses") || [],
-  infrastructure_sectors: [], // localStorage.getItem("infrastructure_sectors") || [],
-  infrastructure_subsectors: [], // localStorage.getItem("infrastructure_subsectors") || [],
-  operating_units: [], // localStorage.getItem("operating_units") || [],
-  pap_types: [], // localStorage.getItem("pap_types") || [],
-  pdp_chapters: [], // localStorage.getItem("pdp_chapters") || [],
-  pdp_indicators: [], // localStorage.getItem("pdp_indicators") || [],
   pdp_outcomes: [], // localStorage.getItem("pdp_outcomes") || [],
   pdp_outputs: [], //  localStorage.getItem("pdp_outputs") || [],
   permissions: [], // localStorage.getItem("permissions") || [],
@@ -31,34 +21,6 @@ const state = {
 const mutations = {
 
 
-
-
-
-
-  setImplementationBases(state, value) {
-    state.implementation_bases = value;
-  },
-  setImplementationReadinesses(state, value) {
-    state.implementation_readinesses = value;
-  },
-  setInfrastructureSectors(state, value) {
-    state.infrastructure_sectors = value;
-  },
-  setInfrastructureSubsectors(state, value) {
-    state.infrastructure_subsectors = value;
-  },
-  setOperatingUnits(state, value) {
-    state.operating_units = value;
-  },
-  setPapTypes(state, value) {
-    state.pap_types = value;
-  },
-  setPdpChapters(state, value) {
-    state.pdp_chapters = value;
-  },
-  setPdpIndicators(state, value) {
-    state.pdp_indicators = value;
-  },
   setPdpOutcomes(state, value) {
     state.pdp_outcomes = value;
   },
@@ -98,118 +60,6 @@ const mutations = {
 };
 
 const actions = {
-
-
-
-
-  loadGadReadinesses({ commit }) {
-    axiosInstance
-      .get("/gad_readinesses")
-      .then(res => {
-        localStorage.setItem("gad_readinesses", JSON.stringify(res.data));
-        commit("setGadReadinesses", res.data);
-      })
-      .catch(e => {
-        console.log("Error: ", e.message);
-      });
-  },
-  loadImplementationBases({ commit }) {
-    axiosInstance
-      .get("/implementation_bases")
-      .then(res => {
-        localStorage.setItem("implementation_bases", JSON.stringify(res.data));
-        commit("setImplementationBases", res.data);
-      })
-      .catch(e => {
-        console.log("Error: ", e.message);
-      });
-  },
-  loadImplementationReadinesses({ commit }) {
-    axiosInstance
-      .get("/implementation_readinesses")
-      .then(res => {
-        localStorage.setItem(
-          "implementation_readinesses",
-          JSON.stringify(res.data)
-        );
-        commit("setImplementationReadinesses", res.data);
-      })
-      .catch(e => {
-        console.log("Error: ", e.message);
-      });
-  },
-  loadInfrastructureSectors({ commit }) {
-    axiosInstance
-      .get("/infrastructure_sectors")
-      .then(res => {
-        localStorage.setItem(
-          "infrastructure_sectors",
-          JSON.stringify(res.data)
-        );
-        commit("setInfrastructureSectors", res.data);
-      })
-      .catch(e => {
-        console.log("Error: ", e.message);
-      });
-  },
-  loadInfrastructureSubsectors({ commit }) {
-    axiosInstance
-      .get("/infrastructure_subsectors")
-      .then(res => {
-        localStorage.setItem(
-          "infrastructure_subsectors",
-          JSON.stringify(res.data)
-        );
-        commit("setInfrastructureSubsectors", res.data);
-      })
-      .catch(e => {
-        console.log("Error: ", e.message);
-      });
-  },
-  loadOperatingUnits({ commit }) {
-    axiosInstance
-      .get("/operating_units")
-      .then(res => {
-        localStorage.setItem("operating_units", JSON.stringify(res.data));
-        commit("setOperatingUnits", res.data);
-      })
-      .catch(e => {
-        console.log("Error: ", e.message);
-      });
-  },
-  loadPapTypes({ commit }) {
-    axiosInstance
-      .get("/pap_types")
-      .then(res => {
-        localStorage.setItem("pap_types", JSON.stringify(res.data));
-        commit("setPapTypes", res.data);
-      })
-      .catch(e => {
-        console.log("Error: ", e.message);
-      });
-  },
-  loadPdpChapters({ commit }) {
-    axiosInstance
-      .get("/pdp_chapters")
-      .then(res => {
-        localStorage.setItem("pdp_chapters", JSON.stringify(res.data));
-        commit("setPdpChapters", res.data);
-      })
-      .catch(e => {
-        console.log("Error: ", e.message);
-      });
-  },
-  loadPdpIndicators({ commit }) {
-    axiosInstance
-      .get("/pdp_indicators")
-      .then(res => {
-        localStorage.setItem("pdp_indicators", JSON.stringify(res.data));
-        commit("setPdpIndicators", res.data);
-      })
-      .catch(e => {
-        console.log("Error: ", e.message);
-      });
-  },
   loadPdpOutcomes({ commit }) {
     axiosInstance
       .get("/pdp_outcomes")

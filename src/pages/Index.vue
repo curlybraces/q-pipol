@@ -2,7 +2,7 @@
   <q-page padding>
     <p>Index</p>
 
-    <welcome-dialog/>
+    <welcome-dialog />
   </q-page>
 </template>
 

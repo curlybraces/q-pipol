@@ -1,22 +1,22 @@
 import { axiosInstance } from "boot/axios";
 
 const state = {
-  cip_types: [] // localStorage.getItem("cip_types") || [],
+  pdp_chapters: [] // localStorage.getItem("pdp_chapters") || [],
 };
 
 const mutations = {
-  setCipTypes(state, value) {
-    state.cip_types = value;
+  setPdpChapters(state, value) {
+    state.pdp_chapters = value;
   }
 };
 
 const actions = {
-  loadCipTypes({ commit }) {
+  loadPdpChapters({ commit }) {
     axiosInstance
-      .get("/cip_types")
+      .get("/pdp_chapters")
       .then(res => {
-        localStorage.setItem("cip_types", JSON.stringify(res.data));
-        commit("setCipTypes", res.data);
+        localStorage.setItem("pdp_chapters", JSON.stringify(res.data));
+        commit("setPdpChapters", res.data);
       })
       .catch(e => {
         console.log("Error: ", e.message);

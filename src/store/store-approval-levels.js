@@ -1,13 +1,13 @@
 import { axiosInstance } from "boot/axios";
 
 const state = {
-  approval_levels: [], // localStorage.getItem("approval_levels") || [],
+  approval_levels: [] // localStorage.getItem("approval_levels") || [],
 };
 
 const mutations = {
   setApprovalLevels(state, value) {
     state.approval_levels = value;
-  },
+  }
 };
 
 const actions = {
@@ -21,7 +21,7 @@ const actions = {
       .catch(e => {
         console.log("Error: ", e.message);
       });
-  },
+  }
 };
 
 const getters = {

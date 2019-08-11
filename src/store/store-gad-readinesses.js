@@ -1,13 +1,13 @@
 import { axiosInstance } from "boot/axios";
 
 const state = {
-  gad_readinesses: [], // localStorage.getItem("gad_readinesses") || [],
+  gad_readinesses: [] // localStorage.getItem("gad_readinesses") || [],
 };
 
 const mutations = {
   setGadReadinesses(state, value) {
     state.gad_readinesses = value;
-  },
+  }
 };
 
 const actions = {
@@ -21,7 +21,7 @@ const actions = {
       .catch(e => {
         console.log("Error: ", e.message);
       });
-  },
+  }
 };
 
 const getters = {

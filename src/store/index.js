@@ -8,17 +8,23 @@ import projects from "./store-projects";
 import settings from "./store-settings";
 
 // Dropdown stores
-import approval_levels from "./store-approval-levels"
-import categorizations from "./store-categorizations"
-import cip_types from "./store-cip-types"
-import city_municipalities from "./store-city-municipalities"
-import contact_types from "./store-contact-types"
-import funding_institutions from "./store-funding-institutions"
-import funding_sources from "./store-funding-sources"
-import gad_readinesses from "./store-gad-readinesses"
-
-import implementation_modes from "./store-implementation-modes"
-import implementation_periods from "./store-implementation-periods"
+import approval_levels from "./store-approval-levels";
+import categorizations from "./store-categorizations";
+import cip_types from "./store-cip-types";
+import city_municipalities from "./store-city-municipalities";
+import contact_types from "./store-contact-types";
+import funding_institutions from "./store-funding-institutions";
+import funding_sources from "./store-funding-sources";
+import gad_readinesses from "./store-gad-readinesses";
+import implementation_bases from "./store-implementation-bases";
+import implementation_modes from "./store-implementation-modes";
+import implementation_periods from "./store-implementation-periods";
+import implementation_readinesses from "./store-implementation-readinesses";
+import infrastructure_sectors from "./store-infrastructure-sectors";
+import infrastructure_subsectors from "./store-infrastructure-subsectors";
+import operating_units from "./store-operating-units";
+import pap_types from "./store-pap-types";
+import pdp_chapters from "./store-pdp-chapters";
 
 Vue.use(Vuex);
 
@@ -44,11 +50,15 @@ export default function(/* { ssrContext } */) {
       funding_institutions,
       funding_sources,
       gad_readinesses,
-
+      implementation_bases,
       implementation_modes,
       implementation_periods,
-
-
+      implementation_readinesses,
+      infrastructure_sectors,
+      infrastructure_subsectors,
+      operating_units,
+      pap_types,
+      pdp_chapters
     },
 
     // enable strict mode (adds overhead!)

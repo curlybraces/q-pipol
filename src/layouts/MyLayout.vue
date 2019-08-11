@@ -101,29 +101,27 @@
               anchor="bottom right"
               self="top right"
               :offset="[0, 5]"
-              square>
+              square
+            >
               <div class="row no-wrap q-pa-md">
                 <div class="column">
                   <div class="text-h6 q-mb-md">Quick Settings</div>
-                  <q-toggle
-                    v-model="notifyUser"
-                    label="Notifications" />
-                  <q-toggle
-                    v-model="darkMode"
-                    label="Dark Mode" />
+                  <q-toggle v-model="notifyUser" label="Notifications" />
+                  <q-toggle v-model="darkMode" label="Dark Mode" />
                   <q-btn
                     flat
                     dense
                     label="More Settings"
                     to="/settings"
-                    v-close-popup />
+                    v-close-popup
+                  />
                 </div>
 
                 <q-separator vertical inset class="q-mx-lg" />
 
                 <div class="column items-center">
                   <q-avatar size="72px">
-                    <img src="https://cdn.quasar.dev/img/avatar4.jpg">
+                    <img src="https://cdn.quasar.dev/img/avatar4.jpg" />
                   </q-avatar>
 
                   <div class="text-subtitle1 q-mt-md q-mb-xs">
@@ -142,7 +140,6 @@
               </div>
             </q-menu>
           </q-btn>
-
         </div>
       </q-toolbar>
     </q-header>
@@ -255,7 +252,7 @@ export default {
     };
   },
   computed: {
-    ...mapState("auth", ["loggedIn","user"]),
+    ...mapState("auth", ["loggedIn", "user"]),
     ...mapState("notifications", ["notifications"]),
     ...mapGetters("notifications", ["notificationsCount"])
   },

@@ -38,7 +38,6 @@
 
       <q-step :name="4" title="Project Cost">
         <total-cost></total-cost>
-
       </q-step>
 
       <q-step

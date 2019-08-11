@@ -8,11 +8,12 @@
       <q-scroll-area
         v-if="projects.length > 0"
         class="q-scroll-area-projects"
-        style="height:100px">
+        style="height:100px"
+      >
         <list-component :items="projects" />
       </q-scroll-area>
 
-      <no-project v-else/>
+      <no-project v-else />
     </div>
 
     <fab-component link="/projects/add" />

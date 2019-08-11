@@ -1,25 +1,25 @@
 import { axiosInstance } from "boot/axios";
 
 const state = {
-  implementation_periods: [] // localStorage.getItem("implementation_periods") || [],
+  infrastructure_subsectors: [] // localStorage.getItem("infrastructure_subsectors") || [],
 };
 
 const mutations = {
-  setImplementationPeriods(state, value) {
-    state.implementation_periods = value;
+  setInfrastructureSubsectors(state, value) {
+    state.infrastructure_subsectors = value;
   }
 };
 
 const actions = {
-  loadImplementationPeriods({ commit }) {
+  loadInfrastructureSubsectors({ commit }) {
     axiosInstance
-      .get("/implementation_periods")
+      .get("/infrastructure_subsectors")
       .then(res => {
         localStorage.setItem(
-          "implementation_periods",
+          "infrastructure_subsectors",
           JSON.stringify(res.data)
         );
-        commit("setImplementationPeriods", res.data);
+        commit("setInfrastructureSubsectors", res.data);
       })
       .catch(e => {
         console.log("Error: ", e.message);

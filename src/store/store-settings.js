@@ -4,17 +4,11 @@ const state = {
   dontShowAgain: false
 };
 
-const mutations = {
-  
-};
+const mutations = {};
 
-const actions = {
+const actions = {};
 
-};
-
-const getters = {
-
-};
+const getters = {};
 
 export default {
   namespaced: true,

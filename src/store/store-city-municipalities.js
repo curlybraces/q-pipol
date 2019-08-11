@@ -1,13 +1,13 @@
 import { axiosInstance } from "boot/axios";
 
 const state = {
-  city_municipalities: [], //  localStorage.getItem("city_municipalities") || [],
+  city_municipalities: [] //  localStorage.getItem("city_municipalities") || [],
 };
 
 const mutations = {
   setCityMunicipalities(state, value) {
     state.city_municipalities = value;
-  },
+  }
 };
 
 const actions = {
@@ -21,7 +21,7 @@ const actions = {
       .catch(e => {
         console.log("Error: ", e.message);
       });
-  },
+  }
 };
 
 const getters = {
