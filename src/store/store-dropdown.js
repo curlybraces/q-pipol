@@ -2,7 +2,6 @@ import { axiosInstance } from "boot/axios";
 
 const state = {
   
-  funding_sources: [], // localStorage.getItem("funding_sources") || [],
   gad_readinesses: [], // localStorage.getItem("gad_readinesses") || [],
   implementation_bases: [], // localStorage.getItem("implementation_bases") || [],
 
@@ -33,12 +32,8 @@ const mutations = {
 
 
 
-  setFundingInstitutions(state, value) {
-    state.funding_institutions = value;
-  },
-  setFundingSources(state, value) {
-    state.funding_sources = value;
-  },
+
+
   setGadReadinesses(state, value) {
     state.gad_readinesses = value;
   },
@@ -107,28 +102,8 @@ const mutations = {
 const actions = {
 
 
-  loadFundingInstitutions({ commit }) {
-    axiosInstance
-      .get("/funding_institutions")
-      .then(res => {
-        localStorage.setItem("funding_institutions", JSON.stringify(res.data));
-        commit("setFundingInstitutions", res.data);
-      })
-      .catch(e => {
-        console.log("Error: ", e.message);
-      });
-  },
-  loadFundingSources({ commit }) {
-    axiosInstance
-      .get("/funding_sources")
-      .then(res => {
-        localStorage.setItem("funding_sources", JSON.stringify(res.data));
-        commit("setFundingSources", res.data);
-      })
-      .catch(e => {
-        console.log("Error: ", e.message);
-      });
-  },
+
+
   loadGadReadinesses({ commit }) {
     axiosInstance
       .get("/gad_readinesses")

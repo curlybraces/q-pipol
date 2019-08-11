@@ -14,6 +14,7 @@ import cip_types from "./store-cip-types"
 import city_municipalities from "./store-city-municipalities"
 import contact_types from "./store-contact-types"
 import funding_institutions from "./store-funding-institutions"
+import funding_sources from "./store-funding-sources"
 
 import implementation_modes from "./store-implementation-modes"
 import implementation_periods from "./store-implementation-periods"
@@ -40,6 +41,7 @@ export default function(/* { ssrContext } */) {
       city_municipalities,
       contact_types,
       funding_institutions,
+      funding_sources,
 
 
       implementation_modes,
