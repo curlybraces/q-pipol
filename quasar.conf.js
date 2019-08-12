@@ -111,7 +111,9 @@ module.exports = function (ctx) {
 
         'QCarousel',
         'QCarouselControl',
-        'QCarouselSlide'
+        'QCarouselSlide',
+
+        'QBar'
       ],
 
       directives: [

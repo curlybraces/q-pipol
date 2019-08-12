@@ -4,22 +4,52 @@
 
     <welcome-dialog />
 
-    <infrastructure-sector/>
+    <q-btn v-model="dialog" label="Open Dialog" @click="dialog = !dialog"/>
+
+    <q-dialog
+      v-model="dialog"
+      transition-show="slide-up"
+      transition-hide="slide-down"
+      >
+      <q-card
+        class="bg-primary text-white"
+        >
+        <q-bar>
+          <q-space/>
+          <q-btn
+            round
+            dense
+            icon="close"
+            flat
+            v-close-popup/>
+        </q-bar>
+
+        <q-card-section class="bg-white"></q-card-section>
+
+        <q-card-actions>
+          <q-space/>
+          <q-btn
+            round
+            icon="save"
+            flat/>
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
 <script>
 import WelcomeDialog from "../components/Dashboard/WelcomeDialog";
-import InfrastructureSector from "../components/EditProject/InfrastructureSector";
 
 export default {
   name: "PageIndex",
   components: {
-    WelcomeDialog,
-    InfrastructureSector
+    WelcomeDialog
   },
   data() {
-    return {};
+    return {
+      dialog: true
+    };
   },
   mounted() {}
 };
