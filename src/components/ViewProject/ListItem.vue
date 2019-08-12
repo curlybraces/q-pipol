@@ -1,6 +1,6 @@
 <template>
-  <q-item>
-    <q-item-section class="col-2" top>
+  <q-item clickable @click="onClick">
+    <q-item-section class="col-3" top>
       <q-item-label>{{ label }}</q-item-label>
     </q-item-section>
     <q-item-section top>
@@ -15,8 +15,15 @@
 <script>
   export default {
     name: "ListItem",
-    props: [
-      "label", "value"
-    ]
+    props: {
+      label: String,
+      value: [String,Number,Array]
+    },
+    methods: {
+      onClick() {
+        console.log('clicked');
+        this.$emit('click')
+      }
+    }
   }
 </script>
