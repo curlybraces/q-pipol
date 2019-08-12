@@ -126,7 +126,8 @@ module.exports = function (ctx) {
         'Notify',
         'AppFullscreen',
         'Dialog',
-        'Loading'
+        'Loading',
+        'BottomSheet'
       ]
     },
 

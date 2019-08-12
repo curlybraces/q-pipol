@@ -4,8 +4,8 @@
 
     <q-list bordered separator class="rounded-borders">
       <q-item-label header>General Information</q-item-label>
-      <list-item label="Title" :value="project.title" />
-      <list-item label="Type" :value="papType" />
+      <list-item label="Title" :value="project.title" @click="editTitle"/>
+      <list-item label="Type" :value="papType" @click="changePapType" />
       <list-item label="Implementation Bases" :value="project.implementation_bases" />
       <list-item label="Description" :value="project.description" />
       <list-item label="Expected Outputs" :value="project.expected_outputs" />
@@ -53,6 +53,23 @@ export default {
   methods: {
     editTitle() {
       console.log('edit title');
+      this.$q.notify({
+        message: "I got clicked!",
+        position: "top"
+      });
+    },
+    changePapType() {
+      this.$q.bottomSheet({
+        message: "Program or Project",
+        actions: [
+          {
+            label: "Program"
+          },
+          {
+            label: "Project"
+          }
+        ]
+      });
     }
   },
   mounted() {

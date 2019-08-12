@@ -21,7 +21,6 @@
     },
     methods: {
       onClick() {
-        console.log('clicked');
         this.$emit('click')
       }
     }
