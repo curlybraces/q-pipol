@@ -4,22 +4,37 @@
 
     <welcome-dialog />
 
-    <infrastructure-sector/>
+    <div class="row q-col-gutter-md">
+      <div class="col-lg-3 col-md-6 col-sm-12">
+        <card-component icon="list"></card-component>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-12">
+        <card-component></card-component>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-12">
+        <card-component></card-component>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-12">
+        <card-component></card-component>
+      </div>
+    </div>
   </q-page>
 </template>
 
 <script>
 import WelcomeDialog from "../components/Dashboard/WelcomeDialog";
-import InfrastructureSector from "../components/EditProject/InfrastructureSector";
+import CardComponent from "../components/Dashboard/CardComponent";
 
 export default {
   name: "PageIndex",
   components: {
-    WelcomeDialog,
-    InfrastructureSector
+    CardComponent,
+    WelcomeDialog
   },
   data() {
-    return {};
+    return {
+      operating_unit: 1
+    };
   },
   mounted() {}
 };

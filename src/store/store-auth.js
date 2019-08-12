@@ -112,8 +112,7 @@ const getters = {
     return state.token;
   },
   getUser(state) {
-    let user = JSON.parse(state.user);
-    return user;
+    return state.user;
   }
 };
 
