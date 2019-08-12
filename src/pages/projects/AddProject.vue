@@ -165,7 +165,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapActions } from "vuex";
 import CardComponent from "../../components/UI/CardComponent";
 import InputComponent from "../../components/Form/InputComponent";
 import SelectComponent from "../../components/Form/SelectComponent";
@@ -205,18 +205,12 @@ export default {
     };
   },
   computed: {
-    ...mapState("dropdown", [
-      "categorizations",
-      "operating_units",
-      "implementation_bases",
-      "spatial_coverages",
-      "regions",
-      "implementation_periods",
-      "funding_sources",
-      "funding_institutions",
-      "preparation_documents"
-    ])
+    categorizations() {
+      return this.$store.state.categorizations.categorizations;
+    }
   },
+  // ...mapState("categorizations",["categorizations"]),
+  // ...mapState("operating_units",["operating_units"])
   methods: {
     ...mapActions("dropdown", [
       "loadCategorizations",

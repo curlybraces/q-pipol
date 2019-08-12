@@ -11,9 +11,6 @@ const mutations = {
 };
 
 const actions = {
-
-
-
   setPdpChapter({ commit }, value) {
     commit("setPdpChapter", value);
   }

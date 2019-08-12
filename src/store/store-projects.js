@@ -47,7 +47,7 @@ const actions = {
     axiosInstance
       .get("/projects")
       .then(res => {
-        commit("setProjects", res.data);
+        commit("setProjects", res.data.data);
         Loading.hide();
       })
       .catch(e => {
