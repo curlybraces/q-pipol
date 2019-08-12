@@ -117,107 +117,16 @@
           <template v-slot:content>
             <q-list bordered separator class="rounded-borders">
               <q-item-label header>General Information</q-item-label>
-              <q-item>
-                <q-item-section class="col-2">
-                  <q-item-label>Title</q-item-label>
-                </q-item-section>
-                <q-item-section>
-                  {{ project.title }}
-                </q-item-section>
-                <q-item-section side>
-                  <q-btn flat dense round icon="chevron_right"/>
-                </q-item-section>
-              </q-item>
-            <q-item>
-                <q-item-section class="col-2">
-                    <q-item-label>Type</q-item-label>
-                </q-item-section>
-                <q-item-section>
-                    {{ project.pap_type.name }}
-                </q-item-section>
-            </q-item>
-
-                  <div class="row items-start">
-                      <div class="col-sm-3">
-                          Implementation Bases:
-                      </div>
-                      <div class="col-sm-9 text-weight-bold">
-              <span
-                      v-for="item in project.implementation_bases"
-                      :key="item.label"
-              >
-                {{ item.name }}
-              </span>
-                      </div>
-                  </div>
-
-                  <div class="row items-start">
-                      <div class="col-sm-3">
-                          Description:
-                      </div>
-                      <div class="col-sm-9 text-weight-bold">
-                          {{ project.description }}
-                      </div>
-                  </div>
-
-                  <div class="row items-start">
-                      <div class="col-sm-3">
-                          Expected Outputs:
-                      </div>
-                      <div class="col-sm-9 text-weight-bold">
-                          {{ project.expected_outputs }}
-                      </div>
-                  </div>
-
-                  <div class="row items-start">
-                      <div class="col-sm-3">
-                          Implementation Period:
-                      </div>
-                      <div class="col-sm-9 text-weight-bold">
-                          {{
-                          project.implementation_start +
-                          " - " +
-                          project.implementation_end
-                          }}
-                      </div>
-                  </div>
-
-                  <div class="row items-start">
-                      <div class="col-sm-3">
-                          Funding Source:
-                      </div>
-                      <div class="col-sm-9 text-weight-bold">
-                          {{ project.funding_source.label }} > {{ project.funding_institution }}
-                      </div>
-                  </div>
-
-                  <div class="row items-start">
-                      <div class="col-sm-3">
-                          Spatial Coverage:
-                      </div>
-                      <div class="col-sm-9 text-weight-bold">
-                          {{ project.spatial_coverage.label }}
-                      </div>
-                  </div>
-
-                  <div class="row items-start">
-                      <div class="col-sm-3">
-                          Categorization:
-                      </div>
-                      <div class="col-sm-9 text-weight-bold">
-                          {{ project.categorization.label }}
-                      </div>
-                  </div>
-
-                  <div class="row items-start">
-                      <div class="col-sm-3">
-                          Total Cost:
-                      </div>
-                      <div class="col-sm-9 text-weight-bold">
-                          {{ project.total_cost | monetize }}
-                      </div>
-                  </div>
-
+              <list-item label="Title" :value="project.title" />
+              <list-item label="Type" :value="project.pap_type.name" />
+              <list-item label="Implementation Bases" :value="project.implementation_bases" />
+              <list-item label="Description" :value="project.description" />
+              <list-item label="Expected Outputs" :value="project.expected_outputs" />
+              <list-item label="Implementation Period" :value="implementation_period" />
+              <list-item label="Funding Source" :value="project_funder" />
+              <list-item label="Spatial Coverage" :value="spatialCoverage" />
+              <list-item label="Categorization" :value="categorization" />
+              <list-item label="Total Cost" :value="project.total_cost" />
             </q-list>
           </template>
       </card-component>
@@ -227,21 +136,36 @@
 <script>
 import { Notify } from "quasar";
 import CardComponent from "../../components/UI/CardComponent";
+import ListItem from "../../components/ViewProject/ListItem";
 
 export default {
-  components: { CardComponent },
+  components: { CardComponent, ListItem },
   name: "PageViewProject",
   data() {
     return {
       project: {}
     };
   },
+  computed: {
+    implementation_period() {
+      return this.project.implementation_start + ' - ' + this.project.implementation_end;
+    },
+    project_funder() {
+      return this.project.funding_source.label + ' > ' + this.project.funding_institution;
+    },
+    spatialCoverage() {
+      return this.project.spatial_coverage.label;
+    },
+    categorization() {
+      return this.project.categorization.label;
+    }
+  },
   filters: {
     monetize(val) {
       return Number(val).toLocaleString();
     }
   },
-  created() {
+  mounted() {
     this.$axios
       .get("/projects/" + this.$route.params.id)
       .then(res => {
