@@ -104,3 +104,7 @@ src/statics/icons/ms-icon-144x144.png
 
 
 .idea/workspace.xml
+
+src-cordova/
+src-electron/
+.quasar/

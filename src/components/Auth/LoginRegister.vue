@@ -23,10 +23,12 @@
     <q-select
       v-if="tab == 'register'"
       :options="operating_units"
-      option-label="name"
-      option-value="id"
+      label="Operating Unit"
+      option-label="label"
+      option-value="value"
       dense
       outlined
+      stack-label
       v-model="formData.operating_unit"
     >
     </q-select>
@@ -84,10 +86,10 @@ export default {
     };
   },
   computed: {
-    ...mapState("dropdown", ["operating_units"])
+    ...mapState("operating_units", ["operating_units"])
   },
   methods: {
-    ...mapActions("dropdown", ["loadOperatingUnits"]),
+    ...mapActions("operating_units", ["loadOperatingUnits"]),
     isValidEmailAddress(email) {
       var re = /\S+@\S+\.\S+/;
       return re.test(String(email).toLowerCase());
