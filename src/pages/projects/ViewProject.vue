@@ -61,14 +61,20 @@ export default {
     changePapType() {
       this.$q.bottomSheet({
         message: "Program or Project",
+        grid: true,
         actions: [
           {
-            label: "Program"
+            label: "Program",
+            icon: "brightness_high"
           },
           {
-            label: "Project"
+            label: "Project",
+            icon: "access_time"
           }
         ]
+      })
+      .onOk(action => {
+        console.log("Action chosen: ", action.label);
       });
     }
   },
