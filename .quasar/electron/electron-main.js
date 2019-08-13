@@ -94,7 +94,7 @@ module.exports =
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("/* WEBPACK VAR INJECTION */(function(__dirname) {var resolve = __webpack_require__(/*! path */ \"path\").resolve\nvar bin = __webpack_require__(/*! ./package */ \"./node_modules/7zip/package.json\").bin\n\nmodule.exports = map_obj(bin, function(v){\n  return resolve(__dirname, v)\n})\n\nfunction map_obj(obj, fn){\n  return Object.keys(obj).reduce(function(m, k){\n    m[k] = fn(obj[k])\n    return m\n  }, {})\n}\n\n/* WEBPACK VAR INJECTION */}.call(this, \"node_modules/7zip\"))\n\n//# sourceURL=webpack:///./node_modules/7zip/index.js?");
+eval("/* WEBPACK VAR INJECTION */(function(__dirname) {var resolve = __webpack_require__(/*! path */ \"path\").resolve\nvar bin = __webpack_require__(/*! ./package */ \"./node_modules/7zip/package.json\").bin\n\nmodule.exports = map_obj(bin, function(v){\n  return resolve(__dirname, v)\n})\n\nfunction map_obj(obj, fn){\n  return Object.keys(obj).reduce(function(m, k){\n    m[k] = fn(obj[k])\n    return m\n  }, {})\n}\n\n/* WEBPACK VAR INJECTION */}.call(this, \"node_modules\\\\7zip\"))\n\n//# sourceURL=webpack:///./node_modules/7zip/index.js?");
 
 /***/ }),
 
@@ -895,7 +895,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var core
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("module.exports = __webpack_require__(/*! /home/lester/Desktop/projects/q-pipol/src-electron/main-process/electron-main.dev.js */\"./src-electron/main-process/electron-main.dev.js\");\n\n\n//# sourceURL=webpack:///multi_./src-electron/main-process/electron-main.dev.js?");
+eval("module.exports = __webpack_require__(/*! C:\\Users\\DA\\Desktop\\projects\\q-pipol\\src-electron\\main-process\\electron-main.dev.js */\"./src-electron/main-process/electron-main.dev.js\");\n\n\n//# sourceURL=webpack:///multi_./src-electron/main-process/electron-main.dev.js?");
 
 /***/ }),
 

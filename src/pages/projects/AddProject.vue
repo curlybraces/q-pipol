@@ -165,7 +165,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 import CardComponent from "../../components/UI/CardComponent";
 import InputComponent from "../../components/Form/InputComponent";
 import SelectComponent from "../../components/Form/SelectComponent";
@@ -205,24 +205,26 @@ export default {
     };
   },
   computed: {
-    categorizations() {
-      return this.$store.state.categorizations.categorizations;
-    }
+    ...mapState("categorizations", ["categorizations"]),
+    ...mapState("funding_institutions", ["funding_institutions"]),
+    ...mapState("funding_sources", ["funding_sources"]),
+    ...mapState("implementation_bases", ["implementation_bases"]),
+    ...mapState("implementation_periods", ["implementation_periods"]),
+    ...mapState("operating_units", ["operating_units"]),
+    ...mapState("preparation_documents", ["preparation_documents"]),
+    ...mapState("regions", ["regions"]),
+    ...mapState("spatial_coverages", ["spatial_coverages"]),
   },
-  // ...mapState("categorizations",["categorizations"]),
-  // ...mapState("operating_units",["operating_units"])
   methods: {
-    ...mapActions("dropdown", [
-      "loadCategorizations",
-      "loadOperatingUnits",
-      "loadImplementationBases",
-      "loadSpatialCoverages",
-      "loadRegions",
-      "loadImplementationPeriods",
-      "loadFundingInstitutions",
-      "loadFundingSources",
-      "loadPreparationDocuments"
-    ]),
+    ...mapActions("categorizations", ["loadCategorizations"]),
+    ...mapActions("funding_institutions", ["loadFundingInstitutions"]),
+    ...mapActions("funding_sources", ["loadFundingSources"]),
+    ...mapActions("implementation_bases", ["loadImplementationBases"]),
+    ...mapActions("implementation_periods", ["loadImplementationPeriods"]),
+    ...mapActions("operating_units", ["loadOperatingUnits"]),
+    ...mapActions("preparation_documents", ["loadPreparationDocuments"]),
+    ...mapActions("regions", ["loadRegions"]),
+    ...mapActions("spatial_coverages", ["loadSpatialCoverages"]),
     ...mapActions("projects", ["addProject"]),
     init() {
       this.loadCategorizations();
@@ -255,7 +257,7 @@ export default {
           this.$router.push("/projects");
         })
         .catch(e => {
-          console.log(e.message);
+          console.log("Error: ",e.message);
         });
     },
     onSubmit() {
