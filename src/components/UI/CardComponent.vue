@@ -5,8 +5,8 @@
         <div class="text-weight-bold text-uppercase">
           {{ title }}
         </div>
-        <q-space/>
-        <slot name="action"/>
+        <q-space />
+        <slot name="action" />
       </div>
     </q-card-section>
 

@@ -35,6 +35,7 @@ import programming_documents from "./store-programming-documents";
 import provinces from "./store-provinces";
 import regions from "./store-regions";
 import roles from "./store-roles";
+import spatial_coverages from "./store-spatial-coverages";
 import sustainable_development_goals from "./store-sustainable-development-goals";
 import ten_point_agenda from "./store-ten-point-agenda";
 
@@ -81,6 +82,7 @@ export default function(/* { ssrContext } */) {
       provinces,
       regions,
       roles,
+      spatial_coverages,
       sustainable_development_goals,
       ten_point_agenda
     },

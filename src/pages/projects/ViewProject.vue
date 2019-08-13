@@ -4,9 +4,12 @@
 
     <q-list bordered separator class="rounded-borders">
       <q-item-label header>General Information</q-item-label>
-      <list-item label="Title" :value="project.title" @click="editTitle"/>
+      <list-item label="Title" :value="project.title" @click="editTitle" />
       <list-item label="Type" :value="papType" @click="changePapType" />
-      <list-item label="Implementation Bases" :value="project.implementation_bases" />
+      <list-item
+        label="Implementation Bases"
+        :value="project.implementation_bases"
+      />
       <list-item label="Description" :value="project.description" />
       <list-item label="Expected Outputs" :value="project.expected_outputs" />
       <list-item label="Implementation Period" :value="implementation_period" />
@@ -35,10 +38,18 @@ export default {
       return this.project.pap_type.name;
     },
     implementation_period() {
-      return this.project.implementation_start + ' - ' + this.project.implementation_end;
+      return (
+        this.project.implementation_start +
+        " - " +
+        this.project.implementation_end
+      );
     },
     project_funder() {
-      return this.project.funding_source.name + ' > ' + this.project.funding_institution;
+      return (
+        this.project.funding_source.name +
+        " > " +
+        this.project.funding_institution
+      );
     },
     spatialCoverage() {
       return this.project.spatial_coverage.name;
@@ -47,35 +58,36 @@ export default {
       return this.project.categorization.name;
     },
     totalCost() {
-      return 'PhP ' + Number(this.project.total_cost).toLocaleString();
+      return "PhP " + Number(this.project.total_cost).toLocaleString();
     }
   },
   methods: {
     editTitle() {
-      console.log('edit title');
+      console.log("edit title");
       this.$q.notify({
         message: "I got clicked!",
         position: "top"
       });
     },
     changePapType() {
-      this.$q.bottomSheet({
-        message: "Program or Project",
-        grid: true,
-        actions: [
-          {
-            label: "Program",
-            icon: "brightness_high"
-          },
-          {
-            label: "Project",
-            icon: "access_time"
-          }
-        ]
-      })
-      .onOk(action => {
-        console.log("Action chosen: ", action.label);
-      });
+      this.$q
+        .bottomSheet({
+          message: "Program or Project",
+          grid: true,
+          actions: [
+            {
+              label: "Program",
+              icon: "brightness_high"
+            },
+            {
+              label: "Project",
+              icon: "access_time"
+            }
+          ]
+        })
+        .onOk(action => {
+          console.log("Action chosen: ", action.label);
+        });
     }
   },
   mounted() {

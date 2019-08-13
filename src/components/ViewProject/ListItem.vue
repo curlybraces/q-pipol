@@ -13,16 +13,16 @@
 </template>
 
 <script>
-  export default {
-    name: "ListItem",
-    props: {
-      label: String,
-      value: [String,Number,Array]
-    },
-    methods: {
-      onClick() {
-        this.$emit('click')
-      }
+export default {
+  name: "ListItem",
+  props: {
+    label: String,
+    value: [String, Number, Array]
+  },
+  methods: {
+    onClick() {
+      this.$emit("click");
     }
   }
+};
 </script>
