@@ -111,8 +111,8 @@
                   <q-btn
                     flat
                     dense
-                    label="More Settings"
-                    to="/settings"
+                    label="Account"
+                    to="/account"
                     v-close-popup
                   />
                 </div>
