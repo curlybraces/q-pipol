@@ -69,7 +69,7 @@ export default {
   data() {
     return {
       color: "white",
-      dialog: false,
+      dialog: true,
       dontShowAgain: false,
       slide: 0,
       slides: [
