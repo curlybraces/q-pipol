@@ -39,10 +39,7 @@
             dark
             icon="close"
             color="white"
-            @click="
-              dialog = false;
-              updateDontShowAgain();
-            "
+            @click="closeDialog"
           />
         </q-carousel-control>
 
@@ -98,9 +95,17 @@ export default {
     };
   },
   methods: {
-    updateDontShowAgain() {
-      console.log(this.dontShowAgain);
+    closeDialog() {
+      this.dialog = false;
     }
+  },
+  watch: {
+    dontShowAgain(newDontShowAgain) {
+      localStorage.dontShowAgain = newDontShowAgain;
+    }
+  },
+  mounted() {
+    this.dialog = !localStorage.dontShowAgain;
   }
 };
 </script>
