@@ -12,7 +12,9 @@
           <div class="headline q-ml-md text-weight-bold">
             <span class="text-uppercase">Department of Agriculture</span>
             <br />
-            <span class="text-weight-light">Investment Programming & Management System</span>
+            <span class="text-weight-light"
+              >Investment Programming & Management System</span
+            >
           </div>
         </div>
       </q-card-section>

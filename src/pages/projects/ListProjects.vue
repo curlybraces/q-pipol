@@ -52,7 +52,7 @@ export default {
     };
   },
   computed: {
-    ...mapState("projects",["total_pages"]),
+    ...mapState("projects", ["total_pages"]),
     ...mapGetters("projects", ["projects", "projectsFiltered"])
   },
   methods: {

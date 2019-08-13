@@ -53,7 +53,7 @@ const actions = {
     Loading.show();
     var page = 1;
     if (payload) {
-      page = payload
+      page = payload;
     }
     axiosInstance
       .get("/projects?page=" + page)
