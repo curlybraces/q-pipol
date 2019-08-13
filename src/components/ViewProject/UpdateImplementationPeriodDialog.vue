@@ -4,18 +4,25 @@
       <q-card-section header>
         <div class="row">
           <div class="text-h6">
-            Implementation Bases
+            Implementation Period
           </div>
           <q-space />
           <q-btn round dense flat icon="close" @click="dialog = false" />
         </div>
       </q-card-section>
       <q-separator />
-      <q-option-group
-        v-model="implementation_basis_id"
-        :options="implementation_bases"
-        type="checkbox"
-      />
+      <q-card-section>
+        <q-select
+          v-model="implementation_start"
+          :options="implementation_periods"
+        >
+        </q-select>
+        <q-select
+          v-model="implementation_end"
+          :options="implementation_periods"
+        >
+        </q-select>
+      </q-card-section>
       <q-separator />
       <q-card-actions>
         <q-space />
@@ -29,21 +36,22 @@
 <script>
 import { mapState, mapActions } from "vuex";
 export default {
-  name: "UpdateImplementationBasesDialog",
+  name: "UpdateImplementationPeriod",
   data() {
     return {
-      implementation_basis_id: [],
-      dialog: true
+      dialog: true,
+      implementation_start: "",
+      implementation_end: ""
     };
   },
   computed: {
-    ...mapState("implementation_bases", ["implementation_bases"])
+    ...mapState("implementation_periods", ["implementation_periods"])
   },
   methods: {
-    ...mapActions("implementation_bases", ["loadImplementationBases"])
+    ...mapActions("implementation_periods", ["loadImplementationPeriods"])
   },
   mounted() {
-    this.loadImplementationBases();
+    this.loadImplementationPeriods();
   }
 };
 </script>

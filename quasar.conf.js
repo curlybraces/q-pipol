@@ -56,7 +56,7 @@ module.exports = function (ctx) {
         'QTab',
         'QRouteTab',
 
-	      'QTabPanels',
+	    'QTabPanels',
         'QTabPanel',
 
         'QInput',
@@ -67,28 +67,29 @@ module.exports = function (ctx) {
         'QForm',
         'QSlider',
         'QDate',
-	      'QOptionGroup',
+	    'QOptionGroup',
         'QBtnToggle',
 
         'QImg',
 
         'QTable',
-	      'QTh',
-	      'QTr',
-	      'QTd',
+	    'QTh',
+	    'QTr',
+	    'QTd',
         'QMarkupTable',
 
-	      'QSpinnerFacebook',
+	    'QSpinnerFacebook',
+	    'QSpinnerDots',
 
-	      'QStepper',
-	      'QStep',
-	      'QStepperNavigation',
+	    'QStepper',
+	    'QStep',
+	    'QStepperNavigation',
 
-	      'QInnerLoading',
+	    'QInnerLoading',
 
         'QCard',
-	      'QCardSection',
-	      'QCardActions',
+	    'QCardSection',
+	    'QCardActions',
 
         'QPopupProxy',
 
@@ -103,8 +104,8 @@ module.exports = function (ctx) {
         'QMenu',
         'QBadge',
 
-	      'QTimeline',
-	      'QTimelineEntry',
+	    'QTimeline',
+	    'QTimelineEntry',
 
         'QSplitter',
         'QScrollArea',
@@ -113,7 +114,9 @@ module.exports = function (ctx) {
         'QCarouselControl',
         'QCarouselSlide',
 
-        'QBar'
+        'QBar',
+        'QInfiniteScroll',
+        'QPagination'
       ],
 
       directives: [

@@ -3,8 +3,15 @@
     <p>View Project</p>
 
     <q-list bordered separator class="rounded-borders">
-      <q-item-label header class="bg-primary text-white">General Information</q-item-label>
-      <list-item label="Title" :value="project.title" @click="editTitle" :disabled="true"/>
+      <q-item-label header class="bg-primary text-white"
+        >General Information</q-item-label
+      >
+      <list-item
+        label="Title"
+        :value="project.title"
+        @click="editTitle"
+        :disabled="true"
+      />
       <list-item label="Type" :value="papType" @click="changePapType" />
       <list-item
         label="Implementation Bases"
@@ -21,20 +28,27 @@
     </q-list>
 
     <q-list bordered separator class="rounded-borders q-mt-md">
-      <q-item-label header class="bg-primary text-white">Financial Information</q-item-label>
-      <list-item label="Implementation Mode" :value="project.implementation_mode.name" />
+      <q-item-label header class="bg-primary text-white"
+        >Financial Information</q-item-label
+      >
+      <list-item
+        label="Implementation Mode"
+        :value="project.implementation_mode.name"
+      />
       <list-item label="" />
     </q-list>
 
     <q-list bordered separator class="rounded-borders q-mt-md">
-      <q-item-label header class="bg-primary text-white">Physical &amp; Financial Status</q-item-label>
+      <q-item-label header class="bg-primary text-white"
+        >Physical &amp; Financial Status</q-item-label
+      >
       <list-item label="Updates" :value="project_updates" />
       <list-item label="Financial Accomplishments" />
     </q-list>
 
-    <update-implementation-bases-dialog/>
+    <update-implementation-bases-dialog />
 
-    <update-implementation-period/>
+    <update-implementation-period-dialog />
   </q-page>
 </template>
 
@@ -42,13 +56,14 @@
 import { Notify } from "quasar";
 import ListItem from "../../components/ViewProject/ListItem";
 import UpdateImplementationBasesDialog from "../../components/ViewProject/UpdateImplementationBasesDialog";
-import UpdateImplementationPeriod from "../../components/ViewProject/UpdateImplementationPeriod";
+import UpdateImplementationPeriodDialog from "../../components/ViewProject/UpdateImplementationPeriodDialog";
 
 export default {
   components: {
     ListItem,
     UpdateImplementationBasesDialog,
-    UpdateImplementationPeriod },
+    UpdateImplementationPeriodDialog
+  },
   name: "PageViewProject",
   data() {
     return {
@@ -84,9 +99,9 @@ export default {
     },
     project_updates() {
       if (this.project.updates) {
-        return this.project.updates + " (as of " + this.project.as_of + " )"
+        return this.project.updates + " (as of " + this.project.as_of + " )";
       } else {
-        return "No updates yet."
+        return "No updates yet.";
       }
     }
   },

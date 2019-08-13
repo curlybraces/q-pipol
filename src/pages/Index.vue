@@ -3,7 +3,6 @@
     <p>Index</p>
 
     <welcome-dialog />
-
   </q-page>
 </template>
 
@@ -16,9 +15,7 @@ export default {
     WelcomeDialog
   },
   data() {
-    return {
-      
-    };
+    return {};
   },
   mounted() {}
 };

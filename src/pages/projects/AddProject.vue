@@ -213,7 +213,7 @@ export default {
     ...mapState("operating_units", ["operating_units"]),
     ...mapState("preparation_documents", ["preparation_documents"]),
     ...mapState("regions", ["regions"]),
-    ...mapState("spatial_coverages", ["spatial_coverages"]),
+    ...mapState("spatial_coverages", ["spatial_coverages"])
   },
   methods: {
     ...mapActions("categorizations", ["loadCategorizations"]),
@@ -257,7 +257,7 @@ export default {
           this.$router.push("/projects");
         })
         .catch(e => {
-          console.log("Error: ",e.message);
+          console.log("Error: ", e.message);
         });
     },
     onSubmit() {

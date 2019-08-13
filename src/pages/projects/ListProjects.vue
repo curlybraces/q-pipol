@@ -5,6 +5,17 @@
 
       <search-component v-if="projects.length > 0" />
 
+      <div class="q-mb-md flex flex-center">
+        <q-pagination
+          v-model="current_page"
+          color="primary"
+          :max="total_pages"
+          :boundary-links="true"
+          @input="loadProjects"
+        >
+        </q-pagination>
+      </div>
+
       <q-scroll-area
         v-if="projects.length > 0"
         class="q-scroll-area-projects"
@@ -21,7 +32,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapState, mapActions, mapGetters } from "vuex";
 import ListComponent from "../../components/ListProjects/ListComponent";
 import NoProject from "../../components/ListProjects/NoProject";
 import FabComponent from "../../components/UI/FabComponent";
@@ -36,9 +47,12 @@ export default {
   },
   name: "PageViewProjects",
   data() {
-    return {};
+    return {
+      current_page: 1
+    };
   },
   computed: {
+    ...mapState("projects",["total_pages"]),
     ...mapGetters("projects", ["projects", "projectsFiltered"])
   },
   methods: {

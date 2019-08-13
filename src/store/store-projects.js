@@ -4,6 +4,7 @@ import { Loading } from "quasar";
 const state = {
   project: {},
   projects: [],
+  total_pages: 0,
   deletedProjects: [],
   search: ""
 };
@@ -11,6 +12,12 @@ const state = {
 const mutations = {
   setProjects(state, value) {
     state.projects = value;
+  },
+  setMoreProjects(state, value) {
+    state.projects.concat(value);
+  },
+  setTotalPages(state, value) {
+    state.total_pages = value;
   },
   setProject(state, value) {
     state.project = value;
@@ -42,12 +49,17 @@ const mutations = {
 };
 
 const actions = {
-  loadProjects({ commit }) {
+  loadProjects({ commit }, payload) {
     Loading.show();
+    var page = 1;
+    if (payload) {
+      page = payload
+    }
     axiosInstance
-      .get("/projects")
+      .get("/projects?page=" + page)
       .then(res => {
         commit("setProjects", res.data.data);
+        commit("setTotalPages", res.data.last_page);
         Loading.hide();
       })
       .catch(e => {
