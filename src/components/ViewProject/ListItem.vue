@@ -1,5 +1,5 @@
 <template>
-  <q-item clickable @click="onClick">
+  <q-item clickable @click="onClick" :disable="disabled">
     <q-item-section class="col-3" top>
       <q-item-label>{{ label }}</q-item-label>
     </q-item-section>
@@ -17,7 +17,11 @@ export default {
   name: "ListItem",
   props: {
     label: String,
-    value: [String, Number, Array]
+    value: [String, Number, Array],
+    disabled: {
+      type: Boolean,
+      default: false
+    }
   },
   methods: {
     onClick() {
