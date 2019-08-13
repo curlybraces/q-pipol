@@ -11,16 +11,23 @@
             Implementation Period
           </div>
           <q-space/>
-          <q-btn round dense flat icon="close" @click="dialog = false"/>
+          <q-btn
+            round
+            dense
+            flat
+            icon="close"
+            @click="dialog = false" />
         </div>
       </q-card-section>
       <q-separator/>
       <q-card-section>
         <q-select
-          v-model="implementation_start">
+          v-model="implementation_start"
+          :options="implementation_periods">
         </q-select>
         <q-select
-          v-model="implementation_end">
+          v-model="implementation_end"
+          :options="implementation_periods">
         </q-select>
       </q-card-section>
       <q-separator/>
@@ -40,6 +47,7 @@
 <template>
 
 <script>
+  import { mapState, mapActions } from "vuex";
   export default {
     name: "UpdateImplementationPeriod",
     data() {
@@ -48,5 +56,14 @@
         implementation_end: ""
       }
     }
+  },
+  computed: {
+    ...mapState("implementation_periods",["implementation_periods"])
+  },
+  methods: {
+    ...mapActions("implementation_periods",["loadImplementationPeriods"])
+  },
+  mounted() {
+    this.loadImplementationPeriods();
   }
 </script>
