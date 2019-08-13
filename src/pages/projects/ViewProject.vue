@@ -33,6 +33,8 @@
     </q-list>
 
     <update-implementation-bases-dialog/>
+
+    <update-implementation-period/>
   </q-page>
 </template>
 
@@ -40,9 +42,13 @@
 import { Notify } from "quasar";
 import ListItem from "../../components/ViewProject/ListItem";
 import UpdateImplementationBasesDialog from "../../components/ViewProject/UpdateImplementationBasesDialog";
+import UpdateImplementationPeriod from "../../components/ViewProject/UpdateImplementationPeriod";
 
 export default {
-  components: { ListItem, UpdateImplementationBasesDialog },
+  components: {
+    ListItem,
+    UpdateImplementationBasesDialog,
+    UpdateImplementationPeriod },
   name: "PageViewProject",
   data() {
     return {

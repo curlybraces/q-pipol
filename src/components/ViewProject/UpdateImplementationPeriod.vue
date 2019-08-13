@@ -44,7 +44,7 @@
       </q-card-actions>
     </q-card>
   </q-dialog>
-<template>
+</template>
 
 <script>
   import { mapState, mapActions } from "vuex";
@@ -52,18 +52,19 @@
     name: "UpdateImplementationPeriod",
     data() {
       return {
+        dialog: true,
         implementation_start: "",
         implementation_end: ""
       }
+    },
+    computed: {
+      ...mapState("implementation_periods",["implementation_periods"])
+    },
+    methods: {
+      ...mapActions("implementation_periods",["loadImplementationPeriods"])
+    },
+    mounted() {
+      this.loadImplementationPeriods();
     }
-  },
-  computed: {
-    ...mapState("implementation_periods",["implementation_periods"])
-  },
-  methods: {
-    ...mapActions("implementation_periods",["loadImplementationPeriods"])
-  },
-  mounted() {
-    this.loadImplementationPeriods();
   }
 </script>
