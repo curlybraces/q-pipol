@@ -3,11 +3,13 @@
     <div class="q-pa-md absolute full-height full-width column">
       <p>View Projects</p>
 
+      <search-component />
+
       <no-project v-if="!projects.length && !search" />
 
-      <search-component v-if="projects.length > 0" />
-
-      <div class="q-mb-md flex flex-center">
+      <div
+        v-if="projects.length > 0"
+        class="q-mb-md flex flex-center">
         <q-pagination
           v-model="current_page"
           color="primary"
@@ -26,6 +28,7 @@
         <list-component :items="projects" />
       </q-scroll-area>
 
+      <p v-if="search && !projects.length">No search results found.</p>
 
     </div>
 
@@ -54,7 +57,7 @@ export default {
     };
   },
   computed: {
-    ...mapState("projects", ["total_pages"]),
+    ...mapState("projects", ["total_pages","search"]),
     ...mapGetters("projects", ["projects", "projectsFiltered"])
   },
   methods: {

@@ -1,6 +1,11 @@
 <template>
   <div>
     <q-list bordered separator class="rounded-borders">
+      <q-item class="bg-primary text-white" header>
+        <div class="text-h6 absolute-center">
+          Projects
+        </div>
+      </q-item>
       <q-item
         v-for="item in items"
         :key="item.id"
