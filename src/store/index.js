@@ -22,6 +22,7 @@ import implementation_periods from "./store-implementation-periods";
 import implementation_readinesses from "./store-implementation-readinesses";
 import infrastructure_sectors from "./store-infrastructure-sectors";
 import infrastructure_subsectors from "./store-infrastructure-subsectors";
+import new_thinkings from "./store-new-thinkings";
 import operating_units from "./store-operating-units";
 import pap_types from "./store-pap-types";
 import pdp_chapters from "./store-pdp-chapters";
@@ -69,6 +70,7 @@ export default function(/* { ssrContext } */) {
       implementation_readinesses,
       infrastructure_sectors,
       infrastructure_subsectors,
+      new_thinkings,
       operating_units,
       pap_types,
       pdp_chapters,

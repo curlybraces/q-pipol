@@ -4,7 +4,7 @@
     <q-btn
       color="negative"
       label="Cancel"
-      @click="closeDialog" />
+      @click="onClick" />
     <q-btn
       color="primary"
       label="Save"
@@ -14,6 +14,14 @@
 
 <script>
 export default {
-  name: "ModalActions"
+  name: "ModalActions",
+  methods: {
+    onClick() {
+      this.$emit("close");
+    },
+    saveData() {
+      this.$emit("save");
+    }
+  }
 };
 </script>

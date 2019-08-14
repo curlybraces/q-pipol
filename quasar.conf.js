@@ -116,7 +116,9 @@ module.exports = function (ctx) {
 
         'QBar',
         'QInfiniteScroll',
-        'QPagination'
+        'QPagination',
+
+        'QChatMessage'
       ],
 
       directives: [

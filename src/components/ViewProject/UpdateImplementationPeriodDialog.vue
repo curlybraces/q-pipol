@@ -1,18 +1,24 @@
 <template>
-  <modal>
+  <modal title="Implementation Period">
     <template v-slot:content>
-      <q-select
-        outlined
-        v-model="implementation_start"
-        :options="implementation_periods"
-      >
-      </q-select>
-      <q-select
-        outlined
-        v-model="implementation_end"
-        :options="implementation_periods"
-      >
-      </q-select>
+      <div class="column q-col-gutter-y-md">
+        <q-select
+          label="Implementation Start"
+          stack-label
+          outlined
+          v-model="implementation_start"
+          :options="implementation_periods"
+        >
+        </q-select>
+        <q-select
+          label="Implementation End"
+          stack-label
+          outlined
+          v-model="implementation_end"
+          :options="implementation_periods"
+        >
+        </q-select>
+      </div>
     </template>
   </modal>
 </template>

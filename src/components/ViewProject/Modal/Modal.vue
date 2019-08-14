@@ -1,7 +1,10 @@
 <template>
-  <q-dialog v-model="dialog" square persistent>
+  <q-dialog
+    v-model="dialog"
+    square
+    persistent>
     <q-card>
-      <modal-header>
+      <modal-header @close="closeDialog">
         {{ title }}
       </modal-header>
       <q-separator />
@@ -9,7 +12,7 @@
         <slot name="content"></slot>
       </q-card-section>
       <q-separator />
-      <modal-actions></modal-actions>
+      <modal-actions @close="closeDialog" @save="saveData"></modal-actions>
     </q-card>
   </q-dialog>
 </template>
@@ -30,6 +33,17 @@ export default {
     return {
       dialog: true
     };
+  },
+  methods: {
+    closeDialog() {
+      this.dialog = false;
+    },
+    saveData() {
+      console.log("save");
+      setTimeout(() => {
+        this.dialog = false
+      }, 1000);
+    }
   }
 };
 </script>

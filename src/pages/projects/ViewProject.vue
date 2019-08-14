@@ -21,9 +21,19 @@
       <list-item label="Description" :value="project.description" />
       <list-item label="Expected Outputs" :value="project.expected_outputs" />
       <list-item label="Implementation Period" :value="implementation_period" />
-      <list-item label="Funding Source" :value="project_funder" />
       <list-item label="Spatial Coverage" :value="spatialCoverage" />
       <list-item label="Categorization" :value="categorization" />
+    </q-list>
+
+    <q-list bordered separator class="rounded-borders q-mt-md">
+      <q-item-label header class="bg-primary text-white"
+        >Strategic Alignment</q-item-label
+      >
+      <list-item label="New Thinking" :value="project.new_thinking" />
+      <list-item
+        label="Implementation Mode"
+        :value="project.implementation_mode.name"
+      />
       <list-item label="Total Cost" :value="totalCost" />
     </q-list>
 
@@ -31,11 +41,12 @@
       <q-item-label header class="bg-primary text-white"
         >Financial Information</q-item-label
       >
+      <list-item label="Funding Source" :value="project_funder" />
       <list-item
         label="Implementation Mode"
         :value="project.implementation_mode.name"
       />
-      <list-item label="" />
+      <list-item label="Total Cost" :value="totalCost" />
     </q-list>
 
     <q-list bordered separator class="rounded-borders q-mt-md">
@@ -49,6 +60,12 @@
     <update-implementation-bases-dialog />
 
     <update-implementation-period-dialog />
+
+    <financial-accomplishment/>
+
+    <new-thinking/>
+
+    <funding-source/>
   </q-page>
 </template>
 
@@ -57,12 +74,18 @@ import { Notify } from "quasar";
 import ListItem from "../../components/ViewProject/ListItem";
 import UpdateImplementationBasesDialog from "../../components/ViewProject/UpdateImplementationBasesDialog";
 import UpdateImplementationPeriodDialog from "../../components/ViewProject/UpdateImplementationPeriodDialog";
+import FinancialAccomplishment from "../../components/ViewProject/FinancialAccomplishment";
+import NewThinking from "../../components/ViewProject/NewThinking";
+import FundingSource from "../../components/ViewProject/FundingSource";
 
 export default {
   components: {
     ListItem,
     UpdateImplementationBasesDialog,
-    UpdateImplementationPeriodDialog
+    UpdateImplementationPeriodDialog,
+    FinancialAccomplishment,
+    NewThinking,
+    FundingSource
   },
   name: "PageViewProject",
   data() {
