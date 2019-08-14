@@ -3,7 +3,7 @@
     v-model="dialog"
     square
     persistent>
-    <q-card>
+    <q-card style="width: 480px; max-width: 80vw;">
       <modal-header @close="closeDialog">
         {{ title }}
       </modal-header>
