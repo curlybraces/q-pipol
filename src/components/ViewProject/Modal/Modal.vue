@@ -1,8 +1,5 @@
 <template>
-  <q-dialog
-    v-model="dialog"
-    square
-    persistent>
+  <q-dialog v-model="dialog" square persistent>
     <q-card style="width: 480px; max-width: 80vw;">
       <modal-header @close="closeDialog">
         {{ title }}
@@ -29,8 +26,9 @@ import ModalActions from "./ModalComponents/ModalActions";
 
 export default {
   components: {
-	  ModalActions,
-	  ModalHeader },
+    ModalActions,
+    ModalHeader
+  },
   name: "Modal",
   props: {
     title: String
@@ -52,7 +50,7 @@ export default {
     saveData() {
       console.log("save");
       setTimeout(() => {
-        this.dialog = false
+        this.dialog = false;
       }, 1000);
     }
   }

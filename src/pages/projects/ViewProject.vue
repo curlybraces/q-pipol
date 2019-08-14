@@ -61,16 +61,15 @@
 
     <update-implementation-period-dialog />
 
-    <financial-accomplishment/>
+    <financial-accomplishment />
 
-    <infrastructure-sector/>
+    <infrastructure-sector />
 
-    <new-thinking/>
+    <new-thinking />
 
-    <funding-source/>
+    <funding-source />
 
-    <edit-description/>
-
+    <edit-description />
   </q-page>
 </template>
 

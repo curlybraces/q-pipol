@@ -1,15 +1,9 @@
 <template>
   <q-card-section class="bg-primary text-white">
     <div class="row">
-      <q-btn
-        flat
-        icon="chevron_left"
-        round
-        dense
-        @click="onClick"
-        />
+      <q-btn flat icon="chevron_left" round dense @click="onClick" />
       <div class="text-h6">
-        <slot/>
+        <slot />
       </div>
     </div>
   </q-card-section>

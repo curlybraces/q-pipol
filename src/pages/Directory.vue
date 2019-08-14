@@ -8,9 +8,8 @@
 
 <script>
 export default {
-  name: 'PageDirectory',
-}
+  name: "PageDirectory"
+};
 </script>
 
-<style>
-</style>
+<style></style>

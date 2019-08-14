@@ -31,12 +31,7 @@
         />
 
         <div v-else>
-          <q-btn
-            dense
-            flat
-            round
-            icon="mail_outline"
-            class="q-mr-xs"/>
+          <q-btn dense flat round icon="mail_outline" class="q-mr-xs" />
 
           <q-btn
             dense
@@ -71,11 +66,11 @@
                   :key="notif.id"
                   v-close-popup
                 >
-                <q-item-section avatar>
-                  <q-avatar color="white">
-                    <img src="statics/da-logo.png" />
-                  </q-avatar>
-                </q-item-section>
+                  <q-item-section avatar>
+                    <q-avatar color="white">
+                      <img src="statics/da-logo.png" />
+                    </q-avatar>
+                  </q-item-section>
                   <q-item-section avatar>
                     <q-avatar color="white">
                       <img src="statics/app-logo-128x128.png" />

@@ -7,9 +7,7 @@
 
       <no-project v-if="!projects.length && !search" />
 
-      <div
-        v-if="projects.length > 0"
-        class="q-mb-md flex flex-center">
+      <div v-if="projects.length > 0" class="q-mb-md flex flex-center">
         <q-pagination
           v-model="current_page"
           color="primary"
@@ -29,7 +27,6 @@
       </q-scroll-area>
 
       <p v-if="search && !projects.length">No search results found.</p>
-
     </div>
 
     <fab-component link="/projects/add" />
@@ -57,7 +54,7 @@ export default {
     };
   },
   computed: {
-    ...mapState("projects", ["total_pages","search"]),
+    ...mapState("projects", ["total_pages", "search"]),
     ...mapGetters("projects", ["projects", "projectsFiltered"])
   },
   methods: {

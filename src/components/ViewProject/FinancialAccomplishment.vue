@@ -5,8 +5,8 @@
         <template v-slot:avatar>
           <q-icon color="primary" name="info" />
         </template>
-        Applicable only to projects funded <strong>solely</strong> through GAA. Save before closing
-        this window to avoid data loss.
+        Applicable only to projects funded <strong>solely</strong> through GAA.
+        Save before closing this window to avoid data loss.
       </q-banner>
       <q-markup-table separator="cell" flat bordered dense>
         <thead>
@@ -109,23 +109,24 @@
 </template>
 
 <script>
-  import Modal from "../../components/ViewProject/Modal/Modal";
+import Modal from "../../components/ViewProject/Modal/Modal";
 
-  export default {
-    components: { Modal },
-    name: "FinancialAccomplishment",
-    data() {
-      return {
-        form: {}
-      }
-    }
+export default {
+  components: { Modal },
+  name: "FinancialAccomplishment",
+  data() {
+    return {
+      form: {}
+    };
   }
+};
 </script>
 
 <style scoped>
-  th, td {
-    width: 25%;
-    padding: 0;
-    margin: 0;
-  }
+th,
+td {
+  width: 25%;
+  padding: 0;
+  margin: 0;
+}
 </style>

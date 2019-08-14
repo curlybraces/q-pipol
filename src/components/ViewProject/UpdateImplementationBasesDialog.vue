@@ -1,7 +1,5 @@
 <template>
-  <modal
-    title="Implementation Bases"
-    >
+  <modal title="Implementation Bases">
     <template v-slot:information>
       Implementation bases
     </template>

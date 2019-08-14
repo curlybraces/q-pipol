@@ -9,19 +9,24 @@ const routes = [
         component: () => import("pages/Notifications.vue")
       },
       {
-        path: "directory", component: () => import("pages/Directory.vue")
+        path: "directory",
+        component: () => import("pages/Directory.vue")
       },
       {
-        path: "help", component: () => import("pages/Help.vue")
+        path: "help",
+        component: () => import("pages/Help.vue")
       },
       {
-        path: "settings", component: () => import("pages/Settings.vue")
+        path: "settings",
+        component: () => import("pages/Settings.vue")
       },
       {
-        path: "account", component: () => import("pages/Account.vue")
+        path: "account",
+        component: () => import("pages/Account.vue")
       },
       {
-        path: "about", component: () => import("pages/About.vue")
+        path: "about",
+        component: () => import("pages/About.vue")
       }
     ]
   },
@@ -30,7 +35,8 @@ const routes = [
     component: () => import("layouts/BasicLayout.vue"),
     children: [
       {
-        path: "", component: () => import("pages/Auth.vue")
+        path: "",
+        component: () => import("pages/Auth.vue")
       }
     ]
   },
@@ -39,10 +45,12 @@ const routes = [
     component: () => import("layouts/MyLayout.vue"),
     children: [
       {
-        path: "", component: () => import("pages/projects/ListProjects.vue")
+        path: "",
+        component: () => import("pages/projects/ListProjects.vue")
       },
       {
-        path: "add", component: () => import("pages/projects/AddProject.vue")
+        path: "add",
+        component: () => import("pages/projects/AddProject.vue")
       },
       {
         path: "recycle",

@@ -7,7 +7,8 @@
         tick-strategy="leaf"
         :ticked.sync="ticked"
       >
-      </q-tree>`
+      </q-tree
+      >`
     </template>
   </modal>
 </template>
