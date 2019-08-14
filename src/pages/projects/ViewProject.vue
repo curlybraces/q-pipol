@@ -34,7 +34,7 @@
         label="Implementation Mode"
         :value="project.implementation_mode.name"
       />
-      <list-item label="Total Cost" :value="totalCost" />
+      <list-item label="Infrastructure Cost" :value="infrastructureCost" />
     </q-list>
 
     <q-list bordered separator class="rounded-borders q-mt-md">
@@ -63,6 +63,8 @@
 
     <financial-accomplishment/>
 
+    <infrastructure-sector/>
+
     <new-thinking/>
 
     <funding-source/>
@@ -75,6 +77,7 @@ import ListItem from "../../components/ViewProject/ListItem";
 import UpdateImplementationBasesDialog from "../../components/ViewProject/UpdateImplementationBasesDialog";
 import UpdateImplementationPeriodDialog from "../../components/ViewProject/UpdateImplementationPeriodDialog";
 import FinancialAccomplishment from "../../components/ViewProject/FinancialAccomplishment";
+import InfrastructureSector from "../../components/ViewProject/InfrastructureSector";
 import NewThinking from "../../components/ViewProject/NewThinking";
 import FundingSource from "../../components/ViewProject/FundingSource";
 
@@ -84,6 +87,7 @@ export default {
     UpdateImplementationBasesDialog,
     UpdateImplementationPeriodDialog,
     FinancialAccomplishment,
+    InfrastructureSector,
     NewThinking,
     FundingSource
   },
@@ -116,6 +120,9 @@ export default {
     },
     categorization() {
       return this.project.categorization.name;
+    },
+    infrastructureCost() {
+      return null;
     },
     totalCost() {
       return "PhP " + Number(this.project.total_cost).toLocaleString();

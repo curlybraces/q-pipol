@@ -1,19 +1,23 @@
 <template>
-  <div>
-    <q-tree
-      :nodes="infrastructure_sectors"
-      node-key="value"
-      tick-strategy="leaf"
-      :ticked.sync="ticked"
-    >
-    </q-tree>
-  </div>
+  <modal title="Infrastructure Sector">
+    <template v-slot:content>
+      <q-tree
+        :nodes="infrastructure_sectors"
+        node-key="value"
+        tick-strategy="leaf"
+        :ticked.sync="ticked"
+      >
+      </q-tree>`
+    </template>
+  </modal>
 </template>
 
 <script>
 import { mapState, mapActions } from "vuex";
+import Modal from "../../components/ViewProject/Modal/Modal";
 
 export default {
+  components: { Modal },
   name: "InfrastructureSector",
   data() {
     return {
