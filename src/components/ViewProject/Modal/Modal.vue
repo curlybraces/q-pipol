@@ -9,6 +9,12 @@
       </modal-header>
       <q-separator />
       <q-card-section>
+        <q-banner class="bg-grey-3 q-mb-md" v-if="hasInformation">
+          <template v-slot:avatar>
+            <q-icon name="info" color="amber" />
+          </template>
+          <slot name="information"></slot>
+        </q-banner>
         <slot name="content"></slot>
       </q-card-section>
       <q-separator />
@@ -27,12 +33,17 @@ export default {
 	  ModalHeader },
   name: "Modal",
   props: {
-    title: String,
+    title: String
   },
   data() {
     return {
       dialog: true
     };
+  },
+  computed: {
+    hasInformation() {
+      return !!this.$slots.information;
+    }
   },
   methods: {
     closeDialog() {

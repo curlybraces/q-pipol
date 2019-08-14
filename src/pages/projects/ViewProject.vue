@@ -68,6 +68,9 @@
     <new-thinking/>
 
     <funding-source/>
+
+    <edit-description/>
+
   </q-page>
 </template>
 
@@ -80,6 +83,7 @@ import FinancialAccomplishment from "../../components/ViewProject/FinancialAccom
 import InfrastructureSector from "../../components/ViewProject/InfrastructureSector";
 import NewThinking from "../../components/ViewProject/NewThinking";
 import FundingSource from "../../components/ViewProject/FundingSource";
+import EditDescription from "../../components/ViewProject/EditDescription";
 
 export default {
   components: {
@@ -89,7 +93,8 @@ export default {
     FinancialAccomplishment,
     InfrastructureSector,
     NewThinking,
-    FundingSource
+    FundingSource,
+    EditDescription
   },
   name: "PageViewProject",
   data() {

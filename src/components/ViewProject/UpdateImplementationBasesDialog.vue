@@ -1,34 +1,26 @@
 <template>
-  <q-dialog v-model="dialog" position="bottom" square persistent>
-    <q-card>
-      <q-card-section header>
-        <div class="row">
-          <div class="text-h6">
-            Implementation Bases
-          </div>
-          <q-space />
-          <q-btn round dense flat icon="close" @click="dialog = false" />
-        </div>
-      </q-card-section>
-      <q-separator />
+  <modal
+    title="Implementation Bases"
+    >
+    <template v-slot:information>
+      Implementation bases
+    </template>
+    <template v-slot:content>
       <q-option-group
         v-model="implementation_basis_id"
         :options="implementation_bases"
         type="checkbox"
       />
-      <q-separator />
-      <q-card-actions>
-        <q-space />
-        <q-btn label="cancel" color="negative" />
-        <q-btn label="save" color="primary" />
-      </q-card-actions>
-    </q-card>
-  </q-dialog>
+    </template>
+  </modal>
 </template>
 
 <script>
 import { mapState, mapActions } from "vuex";
+import Modal from "../../components/ViewProject/Modal/Modal";
+
 export default {
+  components: { Modal },
   name: "UpdateImplementationBasesDialog",
   data() {
     return {
@@ -42,7 +34,7 @@ export default {
   methods: {
     ...mapActions("implementation_bases", ["loadImplementationBases"])
   },
-  mounted() {
+  created() {
     this.loadImplementationBases();
   }
 };
