@@ -3,6 +3,8 @@
     <div class="q-pa-md absolute full-height full-width column">
       <p>View Projects</p>
 
+      <no-project v-if="!projects.length && !search" />
+
       <search-component v-if="projects.length > 0" />
 
       <div class="q-mb-md flex flex-center">
@@ -24,7 +26,7 @@
         <list-component :items="projects" />
       </q-scroll-area>
 
-      <no-project v-else />
+
     </div>
 
     <fab-component link="/projects/add" />
