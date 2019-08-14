@@ -13,7 +13,7 @@
             <span class="text-uppercase">Department of Agriculture</span>
             <br />
             <span class="text-weight-light"
-              >Investment Programming & Management System</span
+              >Investment Programming &amp; Management System</span
             >
           </div>
         </div>

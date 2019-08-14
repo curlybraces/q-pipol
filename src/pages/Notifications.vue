@@ -51,7 +51,7 @@ export default {
   computed: {
     ...mapState("notifications", ["notifications"])
   },
-  mounted() {
+  created() {
     this.loadNotifications();
   }
 };

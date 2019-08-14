@@ -63,7 +63,7 @@ export default {
   methods: {
     ...mapActions("projects", ["loadProjects"])
   },
-  mounted() {
+  created() {
     this.loadProjects();
   }
 };

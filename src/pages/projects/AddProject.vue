@@ -264,7 +264,7 @@ export default {
       this.addProject(this.form);
     }
   },
-  mounted() {
+  created() {
     this.init();
   }
 };

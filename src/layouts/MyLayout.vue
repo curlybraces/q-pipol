@@ -293,7 +293,7 @@ export default {
       }
     }
   },
-  mounted() {
+  created() {
     if (this.loggedIn) {
       this.loadNotifications();
     }

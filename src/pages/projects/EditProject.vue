@@ -112,7 +112,7 @@ export default {
       console.log(this.project);
     }
   },
-  mounted() {
+  created() {
     // this.loadProject({ id: this.$route.params.id });
   }
 };

@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <p>Index</p>
+    <p>Dashboard</p>
 
     <welcome-dialog />
   </q-page>

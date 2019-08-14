@@ -170,7 +170,7 @@ export default {
       });
     }
   },
-  mounted() {
+  created() {
     this.$axios
       .get("/projects/" + this.$route.params.id)
       .then(res => {

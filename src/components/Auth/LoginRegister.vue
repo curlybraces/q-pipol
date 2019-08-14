@@ -116,7 +116,7 @@ export default {
       return value.charAt(0).toUpperCase() + value.slice(1);
     }
   },
-  mounted() {
+  created() {
     this.loadOperatingUnits();
   }
 };

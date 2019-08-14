@@ -1,12 +1,14 @@
 <template>
   <q-page padding>
-    <!-- content -->
+    <p>
+      Directory
+    </p>
   </q-page>
 </template>
 
 <script>
 export default {
-  // name: 'PageName',
+  name: 'PageDirectory',
 }
 </script>
 
