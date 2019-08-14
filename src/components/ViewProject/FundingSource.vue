@@ -12,6 +12,11 @@
           dense
           v-model="other_funding_source"
           />
+        <q-select
+          outlined
+          dense
+          v-model="funding_institution"
+          />
       </div>
     </template>
   </modal>
@@ -27,7 +32,8 @@
     data() {
       return {
         funding_source: "",
-        other_funding_source: ""
+        other_funding_source: "",
+        funding_institution: ""
       }
     }
   }
