@@ -9,17 +9,19 @@
         <slot name="content"></slot>
       </q-card-section>
       <q-separator />
-      <modal-actions />
+      <modal-actions></modal-actions>
     </q-card>
   </q-dialog>
 </template>
 
 <script>
-import ModalActions from "../../components/ViewProject/Modal/ModalComponents/ModalActions";
-import ModalHeader from "../../components/ViewProject/Modal/ModalComponents/ModalHeader";
+import ModalHeader from "./ModalComponents/ModalHeader";
+import ModalActions from "./ModalComponents/ModalActions";
 
 export default {
-  components: { ModalHeader, ModalActions },
+  components: {
+	  ModalActions,
+	  ModalHeader },
   name: "Modal",
   props: {
     title: String,
