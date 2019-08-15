@@ -16,7 +16,8 @@
 
       <list-item
         label="Type"
-        :value="papType" />
+        :value="papType"
+        @click="updatePapType = true" />
 
       <list-item
         label="Implementation Bases"
@@ -52,6 +53,7 @@
     </q-list>
 
     <q-list bordered separator class="rounded-borders q-mt-md">
+
       <q-item-label header class="bg-primary text-white"
         >Strategic Alignment</q-item-label
       >
@@ -60,6 +62,24 @@
         label="New Thinking"
         :value="project.new_thinking"
         @click="updateNewThinking = true"/>
+
+      <list-item
+        label="PDP Indicators"
+        @click="updatePdpIndicators = true" />
+
+      <q-dialog v-model="updatePdpIndicators">
+        <pdp-indicators @close="updatePdpIndicators = false" />
+      </q-dialog>
+
+      <list-item
+        label="0+10 Socioeconomic Agenda"
+        @click="updateTenAgenda = true"
+        />
+
+      <list-item
+        label="Sustainable Development Goals"
+        @click="updateSdgs = true"
+        />
 
     </q-list>
 
@@ -164,6 +184,18 @@
       <edit-categorization @close="updateCategorization = false" />
     </q-dialog>
 
+    <q-dialog v-model="updateUpdates">
+      <editUpdates @close="updateUpdates = false" />
+    </q-dialog>
+
+    <q-dialog v-model="updateSdgs">
+      <update-sdgs @close="updateSdgs = false" />
+    </q-dialog>
+
+    <q-dialog v-model="updateTenAgenda">
+      <update-ten-agenda @close="updateTenAgenda = false" />
+    </q-dialog>
+
   </q-page>
 </template>
 
@@ -184,6 +216,10 @@ import PapType from "../../components/ViewProject/PapType";
 import EditCategorization from "../../components/ViewProject/EditCategorization";
 import RegionalBreakdown from "../../components/ViewProject/RegionalBreakdown";
 import InfrastructureCost from "../../components/ViewProject/InfrastructureCost";
+import EditUpdates from "../../components/ViewProject/EditUpdates";
+import PdpIndicators from "../../components/ViewProject/PdpIndicators";
+import UpdateSdgs from "../../components/ViewProject/UpdateSdgs";
+import UpdateTenAgenda from "../../components/ViewProject/UpdateTenAgenda";
 
 export default {
   components: {
@@ -200,7 +236,11 @@ export default {
     PapType,
     EditCategorization,
     RegionalBreakdown,
-    InfrastructureCost
+    InfrastructureCost,
+    EditUpdates,
+    PdpIndicators,
+    UpdateSdgs,
+    UpdateTenAgenda
   },
   name: "PageViewProject",
   data() {
@@ -215,7 +255,11 @@ export default {
       updateCategorization: false,
       updateFinancialAccomplishments: false,
       updatePapType: false,
-      updateNewThinking: false
+      updateNewThinking: false,
+      updateUpdates: false,
+      updatePdpIndicators: false,
+      updateSdgs: false,
+      updateTenAgenda: false
     };
   },
   computed: {

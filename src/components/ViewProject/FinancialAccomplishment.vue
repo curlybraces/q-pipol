@@ -24,73 +24,73 @@
           <tr>
             <td class="text-left">2017</td>
             <td class="text-right">
-              <q-input dense v-model="form.gaa_2017" />
+              <q-input dense borderless v-model="form.gaa_2017" />
             </td>
             <td class="text-right">
-              <q-input dense flat />
+              <q-input dense borderless flat />
             </td>
             <td class="text-right">
-              <q-input dense flat />
+              <q-input dense borderless flat />
             </td>
           </tr>
           <tr>
             <td class="text-left">2018</td>
             <td class="text-right">
-              <q-input dense v-model="form.gaa_2018" />
+              <q-input dense borderless v-model="form.gaa_2018" />
             </td>
             <td class="text-right">
-              <q-input dense flat />
+              <q-input dense borderless flat />
             </td>
             <td class="text-right">
-              <q-input dense flat />
+              <q-input dense borderless flat />
             </td>
           </tr>
           <tr>
             <td class="text-left">2019</td>
             <td class="text-right">
-              <q-input dense v-model="form.gaa_2019" />
+              <q-input dense borderless v-model="form.gaa_2019" />
             </td>
             <td class="text-right">
-              <q-input dense flat />
+              <q-input dense borderless flat />
             </td>
             <td class="text-right">
-              <q-input dense flat />
+              <q-input dense borderless flat />
             </td>
           </tr>
           <tr>
             <td class="text-left">2020</td>
             <td class="text-right">
-              <q-input dense v-model="form.gaa_2020" />
+              <q-input dense borderless v-model="form.gaa_2020" />
             </td>
             <td class="text-right">
-              <q-input dense flat />
+              <q-input dense borderless flat />
             </td>
             <td class="text-right">
-              <q-input dense flat />
+              <q-input dense borderless flat />
             </td>
           </tr>
           <tr>
             <td class="text-left">2021</td>
             <td class="text-right">
-              <q-input dense v-model="form.gaa_2021" />
+              <q-input dense borderless v-model="form.gaa_2021" />
             </td>
             <td class="text-right">
-              <q-input dense flat />
+              <q-input dense borderless flat />
             </td>
             <td class="text-right">
-              <q-input dense flat />
+              <q-input dense borderless flat />
             </td>
           </tr>
           <tr>
             <td class="text-left">2022</td>
             <td class="text-right">
-              <q-input dense v-model="form.gaa_2022" />
+              <q-input dense borderless v-model="form.gaa_2022" />
             </td>
             <td class="text-right">
-              <q-input dense flat />
+              <q-input dense borderless flat />
             </td>
             <td class="text-right">
-              <q-input dense flat />
+              <q-input dense borderless flat />
             </td>
           </tr>
           <tr>
