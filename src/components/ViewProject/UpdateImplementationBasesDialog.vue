@@ -1,5 +1,8 @@
 <template>
-  <modal title="Implementation Bases">
+  <modal
+    title="Implementation Bases"
+    @close="closeDialog"
+    @save="saveData">
     <template v-slot:information>
       Implementation bases
     </template>
@@ -30,7 +33,13 @@ export default {
     ...mapState("implementation_bases", ["implementation_bases"])
   },
   methods: {
-    ...mapActions("implementation_bases", ["loadImplementationBases"])
+    ...mapActions("implementation_bases", ["loadImplementationBases"]),
+    closeDialog() {
+      this.$emit("close");
+    },
+    saveData() {
+      console.log(this.implementation_basis_id);
+    }
   },
   created() {
     this.loadImplementationBases();

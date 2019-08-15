@@ -1,5 +1,8 @@
 <template>
-  <modal title="New Thinkings in Agriculture">
+  <modal
+    title="New Thinkings in Agriculture"
+    @close="closeDialog"
+    @save="saveData">
     <template v-slot:content>
       <q-table
         square
@@ -39,7 +42,13 @@ export default {
     ...mapState("new_thinkings", ["new_thinkings"])
   },
   methods: {
-    ...mapActions("new_thinkings", ["loadNewThinkings"])
+    ...mapActions("new_thinkings", ["loadNewThinkings"]),
+    closeDialog() {
+      this.$emit("close");
+    },
+    saveData() {
+      console.log(this.description);
+    }
   },
   mounted() {
     this.loadNewThinkings();

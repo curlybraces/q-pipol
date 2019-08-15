@@ -1,5 +1,8 @@
 <template>
-  <modal title="Program or Project">
+  <modal
+    title="Program or Project"
+    @close="closeDialog"
+    @save="saveData">
     <template v-slot:content>
       <q-option-group
         outlined
@@ -31,6 +34,14 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    closeDialog() {
+      this.$emit("close");
+    },
+    saveData() {
+      console.log(this.description);
+    }
   }
 };
 </script>

@@ -1,8 +1,11 @@
 <template>
-  <modal title="Spatial Coverage">
+  <modal
+    title="Spatial Coverage"
+    @close="closeDialog"
+    @save="saveData">
     <template v-slot:content>
       <div class="q-col-gutter-y-md">
-        
+
         <q-select
           dense
           outlined
@@ -69,7 +72,13 @@ export default {
   methods: {
     ...mapActions("spatial_coverages",["loadSpatialCoverages"]),
     ...mapActions("regions",["loadRegions"]),
-    ...mapActions("provinces",["loadProvinces"])
+    ...mapActions("provinces",["loadProvinces"]),
+    closeDialog() {
+      this.$emit("close");
+    },
+    saveData() {
+      console.log(this.description);
+    }
   },
   created() {
     this.loadSpatialCoverages();

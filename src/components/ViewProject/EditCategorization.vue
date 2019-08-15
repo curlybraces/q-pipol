@@ -1,27 +1,44 @@
 <template>
-  <modal title="Description">
+  <modal
+    title="Categorization"
+    @close="closeDialog"
+    @save="saveData">
     <template v-slot:content>
-      <q-input
-        outlined
-        stack-label
-        type="textarea"
-        label="Description"
-        v-model="description"
+      <q-option-group
+        type="radio"
+        :options="categorizations"
+        v-model="categorization"
       />
     </template>
   </modal>
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
 import Modal from "../../components/ViewProject/Modal/Modal";
 
 export default {
   components: { Modal },
-  name: "EditDescription",
+  name: "EditCategorization",
   data() {
     return {
-      description: ""
+      categorization: ""
     };
+  },
+  computed: {
+    ...mapState("categorizations",["categorizations"])
+  },
+  methods: {
+    ...mapActions("categorizations",["loadCategorizations"]),
+    closeDialog() {
+      this.$emit("close");
+    },
+    saveData() {
+      console.log(this.categorization);
+    }
+  },
+  created() {
+    this.loadCategorizations();
   }
 };
 </script>

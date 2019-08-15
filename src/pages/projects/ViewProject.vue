@@ -6,47 +6,89 @@
       <q-item-label header class="bg-primary text-white"
         >General Information</q-item-label
       >
+
       <list-item
         label="Title"
         :value="project.title"
         @click="editTitle"
         :disabled="true"
       />
-      <list-item label="Type" :value="papType" />
+
+      <list-item
+        label="Type"
+        :value="papType" />
+
       <list-item
         label="Implementation Bases"
         :value="project.implementation_bases"
         @click="updateImplementationBases = true"
       />
-      <list-item label="Description" :value="project.description" />
-      <list-item label="Expected Outputs" :value="project.expected_outputs" />
-      <list-item label="Implementation Period" :value="implementation_period" />
-      <list-item label="Spatial Coverage" :value="spatialCoverage" />
-      <list-item label="Categorization" :value="categorization" />
+
+      <list-item
+        label="Description"
+        :value="project.description"
+        @click="updateDescription = true"/>
+
+      <list-item
+        label="Expected Outputs"
+        :value="project.expected_outputs"
+        @click="updateExpectedOutputs = true" />
+
+      <list-item
+        label="Implementation Period"
+        :value="implementation_period"
+        @click="updateImplementationPeriod = true"/>
+
+      <list-item
+        label="Spatial Coverage"
+        :value="spatialCoverage"
+        @click="updateSpatialCoverage = true" />
+
+      <list-item
+        label="Categorization"
+        :value="categorization"
+        @click="updateCategorization = true" />
+
     </q-list>
 
     <q-list bordered separator class="rounded-borders q-mt-md">
       <q-item-label header class="bg-primary text-white"
         >Strategic Alignment</q-item-label
       >
-      <list-item label="New Thinking" :value="project.new_thinking" />
+
       <list-item
-        label="Implementation Mode"
-        :value="project.implementation_mode.name"
-      />
-      <list-item label="Infrastructure Cost" :value="infrastructureCost" />
+        label="New Thinking"
+        :value="project.new_thinking"
+        @click="updateNewThinking = true"/>
+
     </q-list>
 
     <q-list bordered separator class="rounded-borders q-mt-md">
       <q-item-label header class="bg-primary text-white"
         >Financial Information</q-item-label
       >
-      <list-item label="Funding Source" :value="project_funder" />
+
+      <list-item
+        label="Funding Source"
+        :value="project_funder" @click="updateFinancialInformation = true"/>
+
       <list-item
         label="Implementation Mode"
         :value="project.implementation_mode.name"
+        @click="updateFinancialInformation = true"
       />
-      <list-item label="Total Cost" :value="totalCost" />
+
+      <q-expansion-item>
+        <template v-slot:header>
+          <q-item-section avatar>
+            <q-icon name="airplanemode_active" color="primary"/>
+          </q-item-section>
+          <q-item-section>
+            Infrastructure Cost
+          </q-item-section>
+        </template>
+        <infrastructure-cost/>
+      </q-expansion-item>
 
       <q-expansion-item>
         <template v-slot:header>
@@ -59,41 +101,69 @@
         </template>
         <regional-breakdown/>
       </q-expansion-item>
+
+
     </q-list>
 
     <q-list bordered separator class="rounded-borders q-mt-md">
       <q-item-label header class="bg-primary text-white"
         >Physical &amp; Financial Status</q-item-label
       >
-      <list-item label="Updates" :value="project_updates" />
-      <list-item label="Financial Accomplishments" />
+      <list-item
+        label="Updates"
+        :value="project_updates"
+        @click="updateUpdates = true" />
+
+      <list-item
+        label="Financial Accomplishments"
+        @click="updateFinancialAccomplishments = true"/>
+
     </q-list>
 
     <q-dialog v-model="updateImplementationBases">
-      <update-implementation-bases-dialog />
+      <update-implementation-bases-dialog @close="updateImplementationBases = false" />
     </q-dialog>
 
-    <update-implementation-period-dialog />
+    <q-dialog v-model="updateImplementationPeriod">
+      <update-implementation-period-dialog @close="updateImplementationPeriod = false"/>
+    </q-dialog>
 
-    <financial-accomplishment />
+    <q-dialog v-model="updateFinancialAccomplishments">
+      <financial-accomplishment @close="updateFinancialAccomplishments = false"/>
+    </q-dialog>
 
-    <infrastructure-sector />
+    <q-dialog v-model="updateInfrastructureSector">
+      <infrastructure-sector @close="updateInfrastructureSector = false"/>
+    </q-dialog>
 
-    <new-thinking />
+    <q-dialog v-model="updateNewThinking">
+      <new-thinking @close="updateNewThinking = false" />
+    </q-dialog>
 
-    <funding-source />
+    <q-dialog v-model="updateFinancialInformation">
+      <funding-source @close="updateFinancialInformation = false" />
+    </q-dialog>
 
-    <edit-description />
+    <q-dialog v-model="updateDescription">
+      <edit-description @close="updateDescription = false" />
+    </q-dialog>
 
-    <edit-output />
+    <q-dialog v-model="updateExpectedOutputs">
+      <edit-output @close="updateExpectedOutputs = false" />
+    </q-dialog>
 
-    <spatial-coverage />
+    <q-dialog v-model="updateSpatialCoverage">
+      <spatial-coverage @close="updateSpatialCoverage = false" />
+    </q-dialog>
 
-    <pap-type/>
+    <q-dialog v-model="updatePapType">
+      <pap-type @close="updatePapType = false" />
+    </q-dialog>
 
-    <edit-categorization />
+    <q-dialog v-model="updateCategorization">
+      <edit-categorization @close="updateCategorization = false" />
+    </q-dialog>
 
-    <regional-breakdown />
   </q-page>
 </template>
 
@@ -113,6 +183,7 @@ import SpatialCoverage from "../../components/ViewProject/SpatialCoverage";
 import PapType from "../../components/ViewProject/PapType";
 import EditCategorization from "../../components/ViewProject/EditCategorization";
 import RegionalBreakdown from "../../components/ViewProject/RegionalBreakdown";
+import InfrastructureCost from "../../components/ViewProject/InfrastructureCost";
 
 export default {
   components: {
@@ -128,12 +199,23 @@ export default {
     SpatialCoverage,
     PapType,
     EditCategorization,
-    RegionalBreakdown
+    RegionalBreakdown,
+    InfrastructureCost
   },
   name: "PageViewProject",
   data() {
     return {
       updateImplementationBases: false,
+      updateImplementationPeriod: false,
+      updateInfrastructureSector: false,
+      updateFinancialInformation: false,
+      updateDescription: false,
+      updateExpectedOutputs: false,
+      updateSpatialCoverage: false,
+      updateCategorization: false,
+      updateFinancialAccomplishments: false,
+      updatePapType: false,
+      updateNewThinking: false
     };
   },
   computed: {

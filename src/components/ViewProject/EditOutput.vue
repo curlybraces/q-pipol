@@ -1,5 +1,8 @@
 <template>
-  <modal title="Expected Outputs">
+  <modal
+    title="Expected Outputs"
+    @close="closeDialog"
+    @save="saveData">
     <template v-slot:content>
       <q-input
         outlined
@@ -22,6 +25,14 @@ export default {
     return {
       expected_output: ""
     };
+  },
+  methods: {
+    closeDialog() {
+      this.$emit("close");
+    },
+    saveData() {
+      console.log(this.expected_output);
+    }
   }
 };
 </script>

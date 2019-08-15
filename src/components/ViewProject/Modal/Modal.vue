@@ -2,7 +2,12 @@
   <q-card :class=" maximized ? '': 'my-card' ">
     <q-card-section class="bg-primary text-white">
       <div class="row">
-        <q-btn flat icon="chevron_left" round dense @click="onClick" />
+        <q-btn
+          flat
+          icon="chevron_left"
+          round
+          dense
+          @click="closeDialog" />
         <div class="text-h6">
           {{ title }}
         </div>
@@ -21,7 +26,7 @@
     <q-separator />
     <q-card-actions>
       <q-space />
-      <q-btn color="negative" label="Cancel" @click="onClick" />
+      <q-btn color="negative" label="Cancel" @click="closeDialog" />
       <q-btn color="primary" label="Save" @click="saveData" />
     </q-card-actions>
   </q-card>
@@ -31,15 +36,14 @@
 export default {
   name: "Modal",
   props: {
-    title: String,
     maximized: {
       type: Boolean,
       default: false
-    }
+    },
+    title: String
   },
   data() {
     return {
-      dialog: false
     };
   },
   computed: {
@@ -48,7 +52,7 @@ export default {
     }
   },
   methods: {
-    onClick() {
+    closeDialog() {
       this.$emit("close");
     },
     saveData() {

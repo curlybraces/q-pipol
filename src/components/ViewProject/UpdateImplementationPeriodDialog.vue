@@ -1,8 +1,13 @@
 <template>
-  <modal title="Implementation Period">
+  <modal
+    title="Implementation Period"
+    @close="closeDialog"
+    @save="saveData">
     <template v-slot:content>
       <div class="column q-col-gutter-y-md">
+
         <q-select
+          dense
           label="Implementation Start"
           stack-label
           outlined
@@ -10,7 +15,9 @@
           :options="implementation_periods"
         >
         </q-select>
+
         <q-select
+          dense
           label="Implementation End"
           stack-label
           outlined
@@ -18,6 +25,7 @@
           :options="implementation_periods"
         >
         </q-select>
+
       </div>
     </template>
   </modal>
@@ -41,7 +49,13 @@ export default {
     ...mapState("implementation_periods", ["implementation_periods"])
   },
   methods: {
-    ...mapActions("implementation_periods", ["loadImplementationPeriods"])
+    ...mapActions("implementation_periods", ["loadImplementationPeriods"]),
+    closeDialog() {
+      this.$emit("close");
+    },
+    saveData() {
+      console.log(this.implementation_start, this.implementation_end);
+    }
   },
   mounted() {
     this.loadImplementationPeriods();

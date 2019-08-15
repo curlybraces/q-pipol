@@ -1,5 +1,8 @@
 <template>
-  <modal title="Financial Accomplishment">
+  <modal
+    title="Financial Accomplishment"
+    @close="closeDialog"
+    @save="saveData">
     <template v-slot:content>
       <q-banner dense class="bg-grey-3 q-mb-md">
         <template v-slot:avatar>
@@ -118,6 +121,14 @@ export default {
     return {
       form: {}
     };
+  },
+  methods: {
+    closeDialog() {
+      this.$emit("close");
+    },
+    saveData() {
+      console.log(this.description);
+    }
   }
 };
 </script>
