@@ -10,8 +10,10 @@ import settings from "./store-settings";
 // Dropdown stores
 import approval_levels from "./store-approval-levels";
 import categorizations from "./store-categorizations";
+import challenges from "./store-challenges";
 import cip_types from "./store-cip-types";
 import city_municipalities from "./store-city-municipalities";
+import commodities from "./store-commodities";
 import contact_types from "./store-contact-types";
 import funding_institutions from "./store-funding-institutions";
 import funding_sources from "./store-funding-sources";
@@ -32,6 +34,7 @@ import permissions from "./store-permissions";
 import pip_types from "./store-pip-types";
 import preparation_documents from "./store-preparation-documents";
 import prexc_activities from "./store-prexc-activities";
+import priority_concerns from "./store-priority-concerns";
 import programming_documents from "./store-programming-documents";
 import provinces from "./store-provinces";
 import regions from "./store-regions";
@@ -58,8 +61,10 @@ export default function(/* { ssrContext } */) {
 
       approval_levels,
       categorizations,
+      challenges,
       cip_types,
       city_municipalities,
+      commodities,
       contact_types,
       funding_institutions,
       funding_sources,
@@ -80,6 +85,7 @@ export default function(/* { ssrContext } */) {
       pip_types,
       preparation_documents,
       prexc_activities,
+      priority_concerns,
       programming_documents,
       provinces,
       regions,

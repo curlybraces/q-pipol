@@ -63,47 +63,47 @@ export default {
           field: row => row.region.label
         },
         {
-          name: '_2016',
+          name: 'investment_2016',
           label: '2016 & Prior',
           field: 'investment_2016'
         },
         {
-          name: '_2017',
+          name: 'investment_2017',
           label: '2017',
           field: 'investment_2017'
         },
         {
-          name: '_2018',
+          name: 'investment_2018',
           label: '2018',
           field: 'investment_2018'
         },
         {
-          name: '_2019',
+          name: 'investment_2019',
           label: '2019',
           field: 'investment_2019'
         },
         {
-          name: '_2020',
+          name: 'investment_2020',
           label: '2020',
           field: 'investment_2020'
         },
         {
-          name: '_2021',
+          name: 'investment_2021',
           label: '2021',
           field: 'investment_2021'
         },
         {
-          name: '_2022',
+          name: 'investment_2022',
           label: '2022',
           field: 'investment_2022'
         },
         {
-          name: '_2023',
+          name: 'investment_2023',
           label: '2023 & Beyond',
           field: 'investment_2023'
         },
         {
-          name: 'total',
+          name: 'investment_total',
           label: "Total",
           field: 'investment_total'
         },
