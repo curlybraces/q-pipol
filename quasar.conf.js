@@ -92,6 +92,7 @@ module.exports = function (ctx) {
 	    'QCardActions',
 
         'QPopupProxy',
+        'QPopupEdit',
 
         'QAvatar',
 

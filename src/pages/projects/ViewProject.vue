@@ -16,6 +16,7 @@
       <list-item
         label="Implementation Bases"
         :value="project.implementation_bases"
+        @click="updateImplementationBases = true"
       />
       <list-item label="Description" :value="project.description" />
       <list-item label="Expected Outputs" :value="project.expected_outputs" />
@@ -68,7 +69,9 @@
       <list-item label="Financial Accomplishments" />
     </q-list>
 
-    <update-implementation-bases-dialog />
+    <q-dialog v-model="updateImplementationBases">
+      <update-implementation-bases-dialog />
+    </q-dialog>
 
     <update-implementation-period-dialog />
 
@@ -130,6 +133,7 @@ export default {
   name: "PageViewProject",
   data() {
     return {
+      updateImplementationBases: false,
     };
   },
   computed: {
@@ -137,8 +141,10 @@ export default {
     project_id() {
       return this.$route.params.id;
     },
-    papType() {
-      return this.project.pap_type.name;
+    papType: {
+      get() {
+        return this.project.pap_type.name;
+      }
     },
     implementation_period() {
       return (
