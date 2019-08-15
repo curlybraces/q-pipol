@@ -1,6 +1,9 @@
 <template>
-  <q-dialog v-model="dialog" square persistent>
-    <q-card style="width: 480px; max-width: 80vw;">
+  <q-dialog
+    v-model="dialog"
+    square persistent
+    :maximized="maximized">
+    <q-card :class=" maximized ? '': 'my-card' ">
       <modal-header @close="closeDialog">
         {{ title }}
       </modal-header>
@@ -31,11 +34,15 @@ export default {
   },
   name: "Modal",
   props: {
-    title: String
+    title: String,
+    maximized: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
-      dialog: true
+      dialog: false
     };
   },
   computed: {
@@ -56,3 +63,10 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+  .my-card {
+    width: 480px;
+    max-width: 80vw;
+  }
+</style>

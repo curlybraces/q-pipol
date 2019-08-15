@@ -1,7 +1,7 @@
 import { axiosInstance } from "boot/axios";
 
 const state = {
-  provinces: [] // localStorage.getItem("provinces") || [],
+  provinces: []
 };
 
 const mutations = {

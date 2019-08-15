@@ -13,6 +13,10 @@
           <q-icon name="menu" />
         </q-btn>
 
+        <q-avatar color="white" class="q-mr-xs">
+          <img src="statics/da-logo.png" />
+        </q-avatar>
+
         <q-avatar color="white">
           <img src="statics/app-logo-128x128.png" />
         </q-avatar>
@@ -31,7 +35,7 @@
         />
 
         <div v-else>
-          <q-btn dense flat round icon="mail_outline" class="q-mr-xs" />
+          <q-btn dense flat round icon="email" class="q-mr-xs" color="grey-9"/>
 
           <q-btn
             dense
@@ -66,11 +70,6 @@
                   :key="notif.id"
                   v-close-popup
                 >
-                  <q-item-section avatar>
-                    <q-avatar color="white">
-                      <img src="statics/da-logo.png" />
-                    </q-avatar>
-                  </q-item-section>
                   <q-item-section avatar>
                     <q-avatar color="white">
                       <img src="statics/app-logo-128x128.png" />

@@ -12,11 +12,10 @@
         @click="editTitle"
         :disabled="true"
       />
-      <list-item label="Type" :value="papType" @click="changePapType" />
+      <list-item label="Type" :value="papType" />
       <list-item
         label="Implementation Bases"
         :value="project.implementation_bases"
-        @click="updateImplementationBases"
       />
       <list-item label="Description" :value="project.description" />
       <list-item label="Expected Outputs" :value="project.expected_outputs" />
@@ -47,6 +46,18 @@
         :value="project.implementation_mode.name"
       />
       <list-item label="Total Cost" :value="totalCost" />
+
+      <q-expansion-item>
+        <template v-slot:header>
+          <q-item-section avatar>
+            <q-icon name="map" color="primary"/>
+          </q-item-section>
+          <q-item-section>
+            Investment Target by Region
+          </q-item-section>
+        </template>
+        <regional-breakdown/>
+      </q-expansion-item>
     </q-list>
 
     <q-list bordered separator class="rounded-borders q-mt-md">
@@ -70,11 +81,22 @@
     <funding-source />
 
     <edit-description />
+
+    <edit-output />
+
+    <spatial-coverage />
+
+    <pap-type/>
+
+    <edit-categorization />
+
+    <regional-breakdown />
   </q-page>
 </template>
 
 <script>
-import { Notify } from "quasar";
+// import { Notify } from "quasar";
+import { mapState, mapActions } from "vuex";
 import ListItem from "../../components/ViewProject/ListItem";
 import UpdateImplementationBasesDialog from "../../components/ViewProject/UpdateImplementationBasesDialog";
 import UpdateImplementationPeriodDialog from "../../components/ViewProject/UpdateImplementationPeriodDialog";
@@ -83,6 +105,11 @@ import InfrastructureSector from "../../components/ViewProject/InfrastructureSec
 import NewThinking from "../../components/ViewProject/NewThinking";
 import FundingSource from "../../components/ViewProject/FundingSource";
 import EditDescription from "../../components/ViewProject/EditDescription";
+import EditOutput from "../../components/ViewProject/EditOutput";
+import SpatialCoverage from "../../components/ViewProject/SpatialCoverage";
+import PapType from "../../components/ViewProject/PapType";
+import EditCategorization from "../../components/ViewProject/EditCategorization";
+import RegionalBreakdown from "../../components/ViewProject/RegionalBreakdown";
 
 export default {
   components: {
@@ -93,15 +120,23 @@ export default {
     InfrastructureSector,
     NewThinking,
     FundingSource,
-    EditDescription
+    EditDescription,
+    EditOutput,
+    SpatialCoverage,
+    PapType,
+    EditCategorization,
+    RegionalBreakdown
   },
   name: "PageViewProject",
   data() {
     return {
-      project: {}
     };
   },
   computed: {
+    ...mapState("projects",["project"]),
+    project_id() {
+      return this.$route.params.id;
+    },
     papType() {
       return this.project.pap_type.name;
     },
@@ -140,53 +175,17 @@ export default {
     }
   },
   methods: {
+    ...mapActions("projects",["loadProject"]),
     editTitle() {
       console.log("edit title");
       this.$q.notify({
         message: "I got clicked!",
         position: "top"
       });
-    },
-    changePapType() {
-      this.$q
-        .bottomSheet({
-          message: "Program or Project",
-          grid: true,
-          actions: [
-            {
-              label: "Program",
-              icon: "brightness_high"
-            },
-            {
-              label: "Project",
-              icon: "access_time"
-            }
-          ]
-        })
-        .onOk(action => {
-          console.log("Action chosen: ", action.label);
-        });
-    },
-    updateImplementationBases() {
-      this.$q.dialog({
-        message: "Implementation Bases",
-        persistent: true
-      });
     }
   },
-  created() {
-    this.$axios
-      .get("/projects/" + this.$route.params.id)
-      .then(res => {
-        this.project = res.data;
-      })
-      .catch(e => {
-        Notify.create({
-          message: e.message,
-          color: "negative",
-          position: "top"
-        });
-      });
+  mounted() {
+    this.loadProject({ id: this.project_id });
   }
 };
 </script>
