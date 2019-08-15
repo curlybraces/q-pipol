@@ -1,12 +1,20 @@
 <template>
-  <modal title="Description" @close="closeDialog" @save="saveData">
+  <modal
+    title="Returns on Investment"
+    @close="closeDialog"
+    @save="saveData">
     <template v-slot:content>
       <q-input
         outlined
         stack-label
-        type="textarea"
-        label="Description"
-        v-model="description"
+        label="Returns on Investment"
+        type="number"
+        v-model="roi"
+        suffix="%"
+        mask="#.##"
+        reverse-fill-mask
+        fill-mask="0"
+        input-class="text-right"
       />
     </template>
   </modal>
@@ -17,10 +25,10 @@ import Modal from "../../components/ViewProject/Modal/Modal";
 
 export default {
   components: { Modal },
-  name: "EditDescription",
+  name: "ReturnInvestment",
   data() {
     return {
-      description: ""
+      roi: 0
     };
   },
   methods: {
@@ -28,7 +36,7 @@ export default {
       this.$emit("close");
     },
     saveData() {
-      console.log(this.description);
+      console.log(this.roi);
     }
   }
 };

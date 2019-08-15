@@ -2,7 +2,8 @@
   <modal
     title="Sustainable Development Goals"
     @close="closeDialog"
-    @save="saveData">
+    @save="saveData"
+  >
     <template v-slot:content>
       <q-option-group
         v-model="sustainable_development_goal"
@@ -26,10 +27,14 @@ export default {
     };
   },
   computed: {
-    ...mapState("sustainable_development_goals", ["sustainable_development_goals"])
+    ...mapState("sustainable_development_goals", [
+      "sustainable_development_goals"
+    ])
   },
   methods: {
-    ...mapActions("sustainable_development_goals", ["loadSustainableDevelopmentGoals"]),
+    ...mapActions("sustainable_development_goals", [
+      "loadSustainableDevelopmentGoals"
+    ]),
     closeDialog() {
       this.$emit("close");
     },

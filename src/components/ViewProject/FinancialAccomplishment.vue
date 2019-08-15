@@ -1,8 +1,5 @@
 <template>
-  <modal
-    title="Financial Accomplishment"
-    @close="closeDialog"
-    @save="saveData">
+  <modal title="Financial Accomplishment" @close="closeDialog" @save="saveData">
     <template v-slot:content>
       <q-banner dense class="bg-grey-3 q-mb-md">
         <template v-slot:avatar>

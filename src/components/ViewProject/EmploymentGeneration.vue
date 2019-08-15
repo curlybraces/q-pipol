@@ -1,12 +1,16 @@
 <template>
-  <modal title="Description" @close="closeDialog" @save="saveData">
+  <modal
+    title="Employment Generation"
+    @close="closeDialog"
+    @save="saveData">
     <template v-slot:content>
       <q-input
         outlined
         stack-label
-        type="textarea"
-        label="Description"
-        v-model="description"
+        label="Employment Generation"
+        type="number"
+        v-model="employment_generation"
+        input-class="text-right"
       />
     </template>
   </modal>
@@ -17,10 +21,10 @@ import Modal from "../../components/ViewProject/Modal/Modal";
 
 export default {
   components: { Modal },
-  name: "EditDescription",
+  name: "EmploymentGeneration",
   data() {
     return {
-      description: ""
+      employment_generation: 0
     };
   },
   methods: {
@@ -28,7 +32,7 @@ export default {
       this.$emit("close");
     },
     saveData() {
-      console.log(this.description);
+      console.log(this.employment_generation);
     }
   }
 };

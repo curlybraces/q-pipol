@@ -1,9 +1,5 @@
 <template>
-  <modal
-    title="Updates"
-    @close="closeDialog"
-    @save="saveData">
-
+  <modal title="Updates" @close="closeDialog" @save="saveData">
     <template v-slot:content>
       <div class="q-col-gutter-y-md">
         <q-input
@@ -21,7 +17,8 @@
           stack-label
           type="date"
           label="As of"
-          v-model="as_of"/>
+          v-model="as_of"
+        />
       </div>
     </template>
   </modal>

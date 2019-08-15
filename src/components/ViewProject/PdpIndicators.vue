@@ -1,8 +1,5 @@
 <template>
-  <modal
-    title="PDP Indicators"
-    @close="closeDialog"
-    @save="saveData">
+  <modal title="PDP Indicators" @close="closeDialog" @save="saveData">
     <template v-slot:content>
       <div class="q-col-gutter-y-md">
         <q-select
@@ -11,7 +8,8 @@
           dense
           outlined
           :options="pdp_chapters"
-          v-model="pdp_chapter"/>
+          v-model="pdp_chapter"
+        />
 
         <q-select
           stack-label
@@ -19,7 +17,8 @@
           dense
           outlined
           :options="pdp_chapters"
-          v-model="other_pdp_chapter"/>
+          v-model="other_pdp_chapter"
+        />
 
         <q-tree
           :nodes="pdp_outcomes"
@@ -28,8 +27,7 @@
           :ticked.sync="ticked"
           default-expand-all
         >
-        </q-tree
-        >
+        </q-tree>
       </div>
     </template>
   </modal>
@@ -50,11 +48,11 @@ export default {
     };
   },
   computed: {
-    ...mapState("pdp_chapters",["pdp_chapters"]),
+    ...mapState("pdp_chapters", ["pdp_chapters"]),
     ...mapState("pdp_outcomes", ["pdp_outcomes"])
   },
   methods: {
-    ...mapActions("pdp_chapters",["loadPdpChapters"]),
+    ...mapActions("pdp_chapters", ["loadPdpChapters"]),
     ...mapActions("pdp_outcomes", ["loadPdpOutcomes"]),
     closeDialog() {
       this.$emit("close");

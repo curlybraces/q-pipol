@@ -2,7 +2,8 @@
   <modal
     title="New Thinkings in Agriculture"
     @close="closeDialog"
-    @save="saveData">
+    @save="saveData"
+  >
     <template v-slot:content>
       <q-table
         square

@@ -1,8 +1,5 @@
 <template>
-  <modal
-    title="Expected Outputs"
-    @close="closeDialog"
-    @save="saveData">
+  <modal title="Expected Outputs" @close="closeDialog" @save="saveData">
     <template v-slot:content>
       <q-input
         outlined
