@@ -89,7 +89,6 @@
 
       <list-item
         label="Infrastructure Sector"
-        :value="infrastructureSector"
         @click="updateInfrastructureSector = true"
       />
 

@@ -37,7 +37,7 @@ export default {
       this.$emit("close");
     },
     saveData() {
-      console.log(this.description);
+      console.log(this.ticked);
     }
   },
   created() {

@@ -199,6 +199,7 @@ export default {
   name: "InvestmentCost",
   data() {
     return {
+      loading: false,
       columns: [
         {
           name: "funding_source",
@@ -256,10 +257,27 @@ export default {
   },
   computed: {
     ...mapState("projects",["project"]),
-    ...mapState("funding_sources",["funding_sources"])
+    ...mapState("funding_sources",["funding_sources"]),
+    project_investments() {
+      return this.project.project_investments;
+    }
   },
   methods: {
     ...mapActions("funding_sources", ["loadFundingSources"]),
+    addRow() {
+      this.project.project_investments.push({
+        funding_source: "",
+        investment_2016: 0,
+        investment_2017: 0,
+        investment_2018: 0,
+        investment_2019: 0,
+        investment_2020: 0,
+        investment_2021: 0,
+        investment_2022: 0,
+        investment_2023: 0,
+        investment_total: 0
+      });
+    }
   },
   created() {
     this.loadFundingSources();
