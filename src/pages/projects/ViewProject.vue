@@ -19,11 +19,21 @@
         :value="papType"
         @click="updatePapType = true" />
 
+      <q-dialog v-model="updatePapType">
+        <pap-type @close="updatePapType = false" />
+      </q-dialog>
+
       <list-item
         label="Implementation Bases"
         :value="project.implementation_bases"
         @click="updateImplementationBases = true"
       />
+
+      <q-dialog v-model="updateImplementationBases">
+        <update-implementation-bases-dialog
+          @close="updateImplementationBases = false"
+        />
+      </q-dialog>
 
       <list-item
         label="Description"
@@ -31,11 +41,19 @@
         @click="updateDescription = true"
       />
 
+      <q-dialog v-model="updateDescription">
+        <edit-description @close="updateDescription = false" />
+      </q-dialog>
+
       <list-item
         label="Expected Outputs"
         :value="project.expected_outputs"
         @click="updateExpectedOutputs = true"
       />
+
+      <q-dialog v-model="updateExpectedOutputs">
+        <edit-output @close="updateExpectedOutputs = false" />
+      </q-dialog>
 
       <list-item
         label="Implementation Period"
@@ -43,17 +61,42 @@
         @click="updateImplementationPeriod = true"
       />
 
+      <q-dialog v-model="updateImplementationPeriod">
+        <update-implementation-period-dialog
+          @close="updateImplementationPeriod = false"
+        />
+      </q-dialog>
+
       <list-item
         label="Spatial Coverage"
         :value="spatialCoverage"
         @click="updateSpatialCoverage = true"
       />
 
+      <q-dialog v-model="updateSpatialCoverage">
+        <spatial-coverage @close="updateSpatialCoverage = false" />
+      </q-dialog>
+
       <list-item
         label="Categorization"
         :value="categorization"
         @click="updateCategorization = true"
       />
+
+      <q-dialog v-model="updateCategorization">
+        <edit-categorization @close="updateCategorization = false" />
+      </q-dialog>
+
+      <list-item
+        label="Infrastructure Sector"
+        :value="infrastructureSector"
+        @click="updateInfrastructureSector = true"
+      />
+
+      <q-dialog v-model="updateInfrastructureSector">
+        <infrastructure-sector @close="updateInfrastructureSector = false" />
+      </q-dialog>
+
     </q-list>
 
     <q-list bordered separator class="rounded-borders q-mt-md">
@@ -67,7 +110,14 @@
         @click="updateNewThinking = true"
       />
 
-      <list-item label="PDP Indicators" @click="updatePdpIndicators = true" />
+      <q-dialog
+        v-model="updateNewThinking">
+        <new-thinking @close="updateNewThinking = false" />
+      </q-dialog>
+
+      <list-item
+        label="PDP Indicators"
+        @click="updatePdpIndicators = true" />
 
       <q-dialog v-model="updatePdpIndicators">
         <pdp-indicators @close="updatePdpIndicators = false" />
@@ -78,10 +128,19 @@
         @click="updateTenAgenda = true"
       />
 
+      <q-dialog v-model="updateTenAgenda">
+        <update-ten-agenda @close="updateTenAgenda = false" />
+      </q-dialog>
+
       <list-item
         label="Sustainable Development Goals"
         @click="updateSdgs = true"
       />
+
+      <q-dialog v-model="updateSdgs">
+        <update-sdgs @close="updateSdgs = false" />
+      </q-dialog>
+
     </q-list>
 
     <q-list bordered separator class="rounded-borders q-mt-md">
@@ -112,7 +171,7 @@
       <list-item
         label="Employment Generation"
         :value="project.employment_generation"
-        caption="Jobs that will be employed during and for the project."
+        caption="No. of persons that will be employed during the implementation of the project."
         @click="updateEmploymentGeneration = true"
       />
 
@@ -161,6 +220,22 @@
         @click="updateFinancialInformation = true"
       />
 
+      <q-dialog v-model="updateFinancialInformation">
+        <funding-source @close="updateFinancialInformation = false" />
+      </q-dialog>
+
+      <q-expansion-item>
+        <template v-slot:header>
+          <q-item-section avatar>
+            <q-icon name="money" color="primary" />
+          </q-item-section>
+          <q-item-section>
+            Total Investment Cost
+          </q-item-section>
+        </template>
+        <investment-cost />
+      </q-expansion-item>
+
       <q-expansion-item>
         <template v-slot:header>
           <q-item-section avatar>
@@ -198,74 +273,24 @@
         caption="Latest updates on the project."
       />
 
+      <q-dialog v-model="updateUpdates">
+        <editUpdates @close="updateUpdates = false" />
+      </q-dialog>
+
       <list-item
         label="Financial Accomplishments"
         @click="updateFinancialAccomplishments = true"
         caption="Information on the financial accomplishments of the project including NEP, GAA, and disbursement status."
       />
+
+      <q-dialog v-model="updateFinancialAccomplishments">
+        <financial-accomplishment
+          @close="updateFinancialAccomplishments = false"
+        />
+      </q-dialog>
+
     </q-list>
 
-    <q-dialog v-model="updateImplementationBases">
-      <update-implementation-bases-dialog
-        @close="updateImplementationBases = false"
-      />
-    </q-dialog>
-
-    <q-dialog v-model="updateImplementationPeriod">
-      <update-implementation-period-dialog
-        @close="updateImplementationPeriod = false"
-      />
-    </q-dialog>
-
-    <q-dialog v-model="updateFinancialAccomplishments">
-      <financial-accomplishment
-        @close="updateFinancialAccomplishments = false"
-      />
-    </q-dialog>
-
-    <q-dialog v-model="updateInfrastructureSector">
-      <infrastructure-sector @close="updateInfrastructureSector = false" />
-    </q-dialog>
-
-    <q-dialog v-model="updateNewThinking">
-      <new-thinking @close="updateNewThinking = false" />
-    </q-dialog>
-
-    <q-dialog v-model="updateFinancialInformation">
-      <funding-source @close="updateFinancialInformation = false" />
-    </q-dialog>
-
-    <q-dialog v-model="updateDescription">
-      <edit-description @close="updateDescription = false" />
-    </q-dialog>
-
-    <q-dialog v-model="updateExpectedOutputs">
-      <edit-output @close="updateExpectedOutputs = false" />
-    </q-dialog>
-
-    <q-dialog v-model="updateSpatialCoverage">
-      <spatial-coverage @close="updateSpatialCoverage = false" />
-    </q-dialog>
-
-    <q-dialog v-model="updatePapType">
-      <pap-type @close="updatePapType = false" />
-    </q-dialog>
-
-    <q-dialog v-model="updateCategorization">
-      <edit-categorization @close="updateCategorization = false" />
-    </q-dialog>
-
-    <q-dialog v-model="updateUpdates">
-      <editUpdates @close="updateUpdates = false" />
-    </q-dialog>
-
-    <q-dialog v-model="updateSdgs">
-      <update-sdgs @close="updateSdgs = false" />
-    </q-dialog>
-
-    <q-dialog v-model="updateTenAgenda">
-      <update-ten-agenda @close="updateTenAgenda = false" />
-    </q-dialog>
   </q-page>
 </template>
 
@@ -293,6 +318,7 @@ import UpdateTenAgenda from "../../components/ViewProject/UpdateTenAgenda";
 import EmploymentGeneration from "../../components/ViewProject/EmploymentGeneration";
 import ExpectedBenefits from "../../components/ViewProject/ExpectedBenefits";
 import ReturnInvestment from "../../components/ViewProject/ReturnInvestment";
+import InvestmentCost from "../../components/ViewProject/InvestmentCost";
 
 export default {
   components: {
@@ -316,7 +342,8 @@ export default {
     EditUpdates,
     PdpIndicators,
     UpdateSdgs,
-    UpdateTenAgenda
+    UpdateTenAgenda,
+    InvestmentCost
   },
   name: "PageViewProject",
   data() {
@@ -338,7 +365,8 @@ export default {
       updateTenAgenda: false,
       updateEmploymentGeneration: false,
       updateExpectedBenefits: false,
-      updateReturnInvestment: false
+      updateReturnInvestment: false,
+      infrastructureSector: false
     };
   },
   computed: {
