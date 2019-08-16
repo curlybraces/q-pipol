@@ -14,7 +14,10 @@
         :disabled="true"
       />
 
-      <list-item label="Type" :value="papType" @click="updatePapType = true" />
+      <list-item
+        label="Type"
+        :value="papType"
+        @click="updatePapType = true" />
 
       <list-item
         label="Implementation Bases"
@@ -79,6 +82,25 @@
         label="Sustainable Development Goals"
         @click="updateSdgs = true"
       />
+    </q-list>
+
+    <q-list bordered separator class="rounded-borders q-mt-md">
+      <q-item-label header class="bg-primary text-white">
+        Implementation Readiness
+        <q-item-label caption class="text-grey-5"></q-item-label>
+      </q-item-label>
+
+      <list-item
+        label="Employment Generation"
+        :value="project.employment_generation"
+        caption="Jobs that will be employed during and for the project."
+        @click="updateEmploymentGeneration = true"
+      />
+
+      <q-dialog v-model="updateEmploymentGeneration">
+          <employment-generation @close="updateEmploymentGeneration = false"></employment-generation>
+      </q-dialog>
+
     </q-list>
 
     <q-list bordered separator class="rounded-borders q-mt-md">
