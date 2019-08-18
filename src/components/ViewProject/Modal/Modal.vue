@@ -1,13 +1,8 @@
 <template>
-  <q-card :class=" maximized ? '': 'my-card' ">
+  <q-card :class="maximized ? '' : 'my-card'">
     <q-card-section class="bg-primary text-white">
       <div class="row">
-        <q-btn
-          flat
-          icon="chevron_left"
-          round
-          dense
-          @click="closeDialog" />
+        <q-btn flat icon="chevron_left" round dense @click="closeDialog" />
         <div class="text-h6">
           {{ title }}
         </div>
@@ -43,8 +38,7 @@ export default {
     title: String
   },
   data() {
-    return {
-    };
+    return {};
   },
   computed: {
     hasInformation() {
@@ -63,8 +57,8 @@ export default {
 </script>
 
 <style scoped>
-  .my-card {
-    width: 480px;
-    max-width: 80vw;
-  }
+.my-card {
+  width: 480px;
+  max-width: 80vw;
+}
 </style>

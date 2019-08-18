@@ -1,8 +1,5 @@
 <template>
-  <modal
-    title="Ten Point Agenda"
-    @close="closeDialog"
-    @save="saveData">
+  <modal title="Ten Point Agenda" @close="closeDialog" @save="saveData">
     <template v-slot:content>
       <q-option-group
         v-model="agenda"

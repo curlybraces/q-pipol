@@ -1,8 +1,5 @@
 <template>
-  <modal
-    title="Categorization"
-    @close="closeDialog"
-    @save="saveData">
+  <modal title="Categorization" @close="closeDialog" @save="saveData">
     <template v-slot:content>
       <q-option-group
         type="radio"
@@ -26,10 +23,10 @@ export default {
     };
   },
   computed: {
-    ...mapState("categorizations",["categorizations"])
+    ...mapState("categorizations", ["categorizations"])
   },
   methods: {
-    ...mapActions("categorizations",["loadCategorizations"]),
+    ...mapActions("categorizations", ["loadCategorizations"]),
     closeDialog() {
       this.$emit("close");
     },

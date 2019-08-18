@@ -1,11 +1,7 @@
 <template>
-  <modal
-    title="Implementation Period"
-    @close="closeDialog"
-    @save="saveData">
+  <modal title="Implementation Period" @close="closeDialog" @save="saveData">
     <template v-slot:content>
       <div class="column q-col-gutter-y-md">
-
         <q-select
           dense
           label="Implementation Start"
@@ -25,7 +21,6 @@
           :options="implementation_periods"
         >
         </q-select>
-
       </div>
     </template>
   </modal>

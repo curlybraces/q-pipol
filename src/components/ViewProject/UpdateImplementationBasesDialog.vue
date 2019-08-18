@@ -1,8 +1,5 @@
 <template>
-  <modal
-    title="Implementation Bases"
-    @close="closeDialog"
-    @save="saveData">
+  <modal title="Implementation Bases" @close="closeDialog" @save="saveData">
     <template v-slot:information>
       Implementation bases
     </template>

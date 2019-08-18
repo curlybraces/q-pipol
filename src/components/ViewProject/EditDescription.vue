@@ -1,8 +1,5 @@
 <template>
-  <modal
-    title="Description"
-    @close="closeDialog"
-    @save="saveData">
+  <modal title="Description" @close="closeDialog" @save="saveData">
     <template v-slot:content>
       <q-input
         outlined
@@ -16,15 +13,22 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import Modal from "../../components/ViewProject/Modal/Modal";
 
 export default {
   components: { Modal },
   name: "EditDescription",
-  data() {
-    return {
-      description: ""
-    };
+  computed: {
+    ...mapState("projects",["project"]),
+    description: {
+      get() {
+        return this.project.description;
+      },
+      set(value) {
+        console.log(value);
+      }
+    }
   },
   methods: {
     closeDialog() {

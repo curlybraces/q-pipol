@@ -2,6 +2,7 @@
   <q-item clickable @click="onClick" :disable="disabled">
     <q-item-section class="col-3" top>
       <q-item-label>{{ label }}</q-item-label>
+      <q-item-label caption>{{ caption }}</q-item-label>
     </q-item-section>
     <q-item-section top>
       {{ value }}
@@ -18,6 +19,9 @@ export default {
   props: {
     label: String,
     value: [String, Number, Array],
+    caption: {
+      type: String
+    },
     disabled: {
       type: Boolean,
       default: false

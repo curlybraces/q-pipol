@@ -1,5 +1,8 @@
 <template>
-  <modal title="Infrastructure Sector">
+  <modal
+    title="Infrastructure Sector"
+    @close="closeDialog"
+    @save="saveData">
     <template v-slot:content>
       <q-tree
         :nodes="infrastructure_sectors"
@@ -29,7 +32,13 @@ export default {
     ...mapState("infrastructure_sectors", ["infrastructure_sectors"])
   },
   methods: {
-    ...mapActions("infrastructure_sectors", ["loadInfrastructureSectors"])
+    ...mapActions("infrastructure_sectors", ["loadInfrastructureSectors"]),
+    closeDialog() {
+      this.$emit("close");
+    },
+    saveData() {
+      console.log(this.ticked);
+    }
   },
   created() {
     this.loadInfrastructureSectors();

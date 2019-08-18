@@ -1,12 +1,15 @@
 <template>
-  <modal title="Expected Outputs" @close="closeDialog" @save="saveData">
+  <modal
+    title="Expected Benefits"
+    @close="closeDialog"
+    @save="saveData">
     <template v-slot:content>
       <q-input
         outlined
         stack-label
+        label="Expected Benefits"
         type="textarea"
-        label="Expected Outputs"
-        v-model="expected_output"
+        v-model="expected_benefits"
       />
     </template>
   </modal>
@@ -17,10 +20,10 @@ import Modal from "../../components/ViewProject/Modal/Modal";
 
 export default {
   components: { Modal },
-  name: "EditOutput",
+  name: "ExpectedBenefits",
   data() {
     return {
-      expected_output: ""
+      expected_benefits: ""
     };
   },
   methods: {
@@ -28,7 +31,7 @@ export default {
       this.$emit("close");
     },
     saveData() {
-      console.log(this.expected_output);
+      console.log(this.expected_benefits);
     }
   }
 };

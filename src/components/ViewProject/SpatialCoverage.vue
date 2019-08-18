@@ -1,11 +1,7 @@
 <template>
-  <modal
-    title="Spatial Coverage"
-    @close="closeDialog"
-    @save="saveData">
+  <modal title="Spatial Coverage" @close="closeDialog" @save="saveData">
     <template v-slot:content>
       <div class="q-col-gutter-y-md">
-
         <q-select
           dense
           outlined
@@ -13,7 +9,7 @@
           label="Spatial Coverage"
           :options="spatial_coverages"
           v-model="spatial_coverage"
-          />
+        />
 
         <p>Regions</p>
         <q-scroll-area class="scroll-area">
@@ -22,7 +18,7 @@
             v-model="selectedRegions"
             type="checkbox"
             :options="regions"
-            ></q-option-group>
+          ></q-option-group>
         </q-scroll-area>
 
         <p>Provinces</p>
@@ -32,7 +28,7 @@
             v-model="selectedProvinces"
             type="checkbox"
             :options="provinces"
-            ></q-option-group>
+          ></q-option-group>
         </q-scroll-area>
 
         <q-input
@@ -43,7 +39,6 @@
           label="City/Municipalities"
           v-model="city_municipalities"
         />
-
       </div>
     </template>
   </modal>
@@ -65,14 +60,14 @@ export default {
     };
   },
   computed: {
-    ...mapState("spatial_coverages",["spatial_coverages"]),
-    ...mapState("regions",["regions"]),
-    ...mapState("provinces",["provinces"])
+    ...mapState("spatial_coverages", ["spatial_coverages"]),
+    ...mapState("regions", ["regions"]),
+    ...mapState("provinces", ["provinces"])
   },
   methods: {
-    ...mapActions("spatial_coverages",["loadSpatialCoverages"]),
-    ...mapActions("regions",["loadRegions"]),
-    ...mapActions("provinces",["loadProvinces"]),
+    ...mapActions("spatial_coverages", ["loadSpatialCoverages"]),
+    ...mapActions("regions", ["loadRegions"]),
+    ...mapActions("provinces", ["loadProvinces"]),
     closeDialog() {
       this.$emit("close");
     },
@@ -89,10 +84,10 @@ export default {
 </script>
 
 <style scoped>
-  .scroll-area {
-    height: 120px;
-    border: 1px solid lightgrey;
-    border-radius: 5px;
-    padding: 5px;
-  }
+.scroll-area {
+  height: 120px;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  padding: 5px;
+}
 </style>

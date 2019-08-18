@@ -1,15 +1,7 @@
 <template>
-  <modal
-    title="Program or Project"
-    @close="closeDialog"
-    @save="saveData">
+  <modal title="Program or Project" @close="closeDialog" @save="saveData">
     <template v-slot:content>
-      <q-option-group
-        outlined
-        type="radio"
-        :options="pap"
-        v-model="pap_type"
-      />
+      <q-option-group outlined type="radio" :options="pap" v-model="pap_type" />
     </template>
   </modal>
 </template>

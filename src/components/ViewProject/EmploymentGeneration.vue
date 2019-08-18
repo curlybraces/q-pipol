@@ -1,12 +1,16 @@
 <template>
-  <modal title="Expected Outputs" @close="closeDialog" @save="saveData">
+  <modal
+    title="Employment Generation"
+    @close="closeDialog"
+    @save="saveData">
     <template v-slot:content>
       <q-input
         outlined
         stack-label
-        type="textarea"
-        label="Expected Outputs"
-        v-model="expected_output"
+        label="Employment Generation"
+        type="number"
+        v-model="employment_generation"
+        input-class="text-right"
       />
     </template>
   </modal>
@@ -17,10 +21,10 @@ import Modal from "../../components/ViewProject/Modal/Modal";
 
 export default {
   components: { Modal },
-  name: "EditOutput",
+  name: "EmploymentGeneration",
   data() {
     return {
-      expected_output: ""
+      employment_generation: 0
     };
   },
   methods: {
@@ -28,7 +32,7 @@ export default {
       this.$emit("close");
     },
     saveData() {
-      console.log(this.expected_output);
+      console.log(this.employment_generation);
     }
   }
 };
