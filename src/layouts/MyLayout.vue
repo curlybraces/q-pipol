@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+    <q-header elevated class="glossy">
       <q-toolbar>
         <q-btn
           flat
@@ -129,7 +129,7 @@
       </q-list>
     </q-drawer>
 
-    <q-footer class="bg-primary text-white" elevated>
+    <q-footer class="bg-primary text-white glossy" elevated>
       <q-toolbar>
         <small>&copy; {{ copyright }}</small>
         <q-space />

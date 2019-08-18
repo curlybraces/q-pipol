@@ -26,11 +26,6 @@
 <script>
   export default {
     name: "DrawerComponent",
-    data() {
-      return {
-
-      }
-    },
     props: {
       sidemenu: Array
     }
