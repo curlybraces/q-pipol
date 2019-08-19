@@ -20,7 +20,7 @@ export default {
   components: { Modal },
   name: "EditDescription",
   computed: {
-    ...mapState("projects",["project"]),
+    ...mapState("projects", ["project"]),
     description: {
       get() {
         return this.project.description;

@@ -147,7 +147,9 @@
       transition-hide="slide-right"
       maximized
     >
-      <notifications-modal @close="showNotifications = false"></notifications-modal>
+      <notifications-modal
+        @close="showNotifications = false"
+      ></notifications-modal>
     </q-dialog>
   </q-layout>
 </template>

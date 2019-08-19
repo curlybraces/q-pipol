@@ -1,8 +1,5 @@
 <template>
-  <modal
-    title="Infrastructure Sector"
-    @close="closeDialog"
-    @save="saveData">
+  <modal title="Infrastructure Sector" @close="closeDialog" @save="saveData">
     <template v-slot:content>
       <q-tree
         :nodes="infrastructure_sectors"

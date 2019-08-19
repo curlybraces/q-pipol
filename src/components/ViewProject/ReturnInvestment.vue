@@ -1,8 +1,5 @@
 <template>
-  <modal
-    title="Returns on Investment"
-    @close="closeDialog"
-    @save="saveData">
+  <modal title="Returns on Investment" @close="closeDialog" @save="saveData">
     <template v-slot:content>
       <q-input
         outlined

@@ -14,10 +14,7 @@
         :disabled="true"
       />
 
-      <list-item
-        label="Type"
-        :value="papType"
-        @click="updatePapType = true" />
+      <list-item label="Type" :value="papType" @click="updatePapType = true" />
 
       <q-dialog v-model="updatePapType">
         <pap-type @close="updatePapType = false" />
@@ -95,7 +92,6 @@
       <q-dialog v-model="updateInfrastructureSector">
         <infrastructure-sector @close="updateInfrastructureSector = false" />
       </q-dialog>
-
     </q-list>
 
     <q-list bordered separator class="rounded-borders q-mt-md">
@@ -109,14 +105,11 @@
         @click="updateNewThinking = true"
       />
 
-      <q-dialog
-        v-model="updateNewThinking">
+      <q-dialog v-model="updateNewThinking">
         <new-thinking @close="updateNewThinking = false" />
       </q-dialog>
 
-      <list-item
-        label="PDP Indicators"
-        @click="updatePdpIndicators = true" />
+      <list-item label="PDP Indicators" @click="updatePdpIndicators = true" />
 
       <q-dialog v-model="updatePdpIndicators">
         <pdp-indicators @close="updatePdpIndicators = false" />
@@ -139,7 +132,6 @@
       <q-dialog v-model="updateSdgs">
         <update-sdgs @close="updateSdgs = false" />
       </q-dialog>
-
     </q-list>
 
     <q-list bordered separator class="rounded-borders q-mt-md">
@@ -156,15 +148,17 @@
       />
 
       <q-dialog v-model="updateEmploymentGeneration">
-          <employment-generation @close="updateEmploymentGeneration = false"></employment-generation>
+        <employment-generation @close="updateEmploymentGeneration = false">
+        </employment-generation>
       </q-dialog>
-
     </q-list>
 
     <q-list bordered separator class="rounded-borders q-mt-md">
       <q-item-label header class="bg-primary text-white">
         Project Benefits
-        <q-item-label caption class="text-grey-5">Benefits that can be derived from the project.</q-item-label>
+        <q-item-label caption class="text-grey-5"
+          >Benefits that can be derived from the project.
+        </q-item-label>
       </q-item-label>
 
       <list-item
@@ -175,7 +169,7 @@
       />
 
       <q-dialog v-model="updateEmploymentGeneration">
-          <employment-generation @close="updateEmploymentGeneration = false"></employment-generation>
+        <employment-generation @close="updateEmploymentGeneration = false" />
       </q-dialog>
 
       <list-item
@@ -186,7 +180,7 @@
       />
 
       <q-dialog v-model="updateExpectedBenefits">
-          <expected-benefits @close="updateExpectedBenefits = false"></expected-benefits>
+        <expected-benefits @close="updateExpectedBenefits = false" />
       </q-dialog>
 
       <list-item
@@ -197,9 +191,10 @@
       />
 
       <q-dialog v-model="updateReturnInvestment">
-        <return-investment @close="updateReturnInvestment = false"></return-investment>
+        <return-investment
+          @close="updateReturnInvestment = false"
+        ></return-investment>
       </q-dialog>
-
     </q-list>
 
     <q-list bordered separator class="rounded-borders q-mt-md">
@@ -287,9 +282,7 @@
           @close="updateFinancialAccomplishments = false"
         />
       </q-dialog>
-
     </q-list>
-
   </q-page>
 </template>
 

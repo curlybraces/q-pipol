@@ -253,11 +253,11 @@ export default {
           field: "investment_total"
         }
       ]
-    }
+    };
   },
   computed: {
-    ...mapState("projects",["project"]),
-    ...mapState("funding_sources",["funding_sources"]),
+    ...mapState("projects", ["project"]),
+    ...mapState("funding_sources", ["funding_sources"]),
     project_investments() {
       return this.project.project_investments;
     }

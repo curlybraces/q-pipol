@@ -1,8 +1,5 @@
 <template>
-  <modal
-    title="Implementation Readiness"
-    @close="closeDialog"
-    @save="saveData">
+  <modal title="Implementation Readiness" @close="closeDialog" @save="saveData">
     <template v-slot:content>
       <q-select
         outlined
@@ -22,16 +19,16 @@ import Modal from "../../components/ViewProject/Modal/Modal";
 export default {
   components: { Modal },
   name: "ImplementationReadiness",
-  data () {
+  data() {
     return {
       preparation_document: ""
-    }
+    };
   },
   computed: {
-    ...mapState("preparation_documents",["preparation_documents"])
+    ...mapState("preparation_documents", ["preparation_documents"])
   },
   methods: {
-    ...mapActions("preparation_documents",["loadPreparationDocuments"]),
+    ...mapActions("preparation_documents", ["loadPreparationDocuments"]),
     closeDialog() {
       this.$emit("close");
     },
@@ -42,5 +39,5 @@ export default {
   created() {
     this.loadPreparationDocuments();
   }
-}
+};
 </script>

@@ -10,23 +10,23 @@
             <div class="text-h6">Notifications</div>
           </q-item-section>
           <q-item-section side>
-            <q-btn icon="close" flat round dense class="text-white" @click="$emit('close')" />
+            <q-btn
+              icon="close"
+              flat
+              round
+              dense
+              class="text-white"
+              @click="$emit('close')"
+            />
           </q-item-section>
         </q-item>
 
         <!-- Notifications go here -->
-        <q-item
-          v-if="notifications.length == 0"
-          >
+        <q-item v-if="notifications.length == 0">
           No notifications.
         </q-item>
 
-        <q-item
-          v-else
-          clickable
-          v-for="notif in notifications"
-          :key="notif.id"
-        >
+        <q-item v-else clickable v-for="notif in notifications" :key="notif.id">
           <q-item-section avatar>
             <q-avatar color="white">
               <img src="statics/app-logo-128x128.png" />
@@ -48,13 +48,7 @@
 </template>
 
 <script>
-<<<<<<< HEAD
-  export default {
-    name: "NotificationsModal"
-  }
-</script>
-=======
-    import { date } from "quasar";
+import { date } from "quasar";
 import { mapState } from "vuex";
 
 export default {
@@ -62,32 +56,31 @@ export default {
   computed: {
     ...mapState("notifications", ["notifications"])
   },
-    filters: {
-        dateDiff(val) {
-            const newDate = new Date();
-            let notifDate = new Date(val);
-            return date.getDateDiff(newDate, notifDate, "hours") + " hrs ago";
-        },
-        notifType(type) {
-            if (type == "App\\Notifications\\ProjectCreated") {
-                return "Project Created";
-            } else if (type == "App\\Notifications\\ProjectUpdated") {
-                return "Project Updated";
-            } else if (type == "App\\Notifications\\ProjectDeleted") {
-                return "Project Deleted";
-            } else if (type == "App\\Notifications\\ProjectFinalized") {
-                return "Project Finalized";
-            } else {
-                return "Others";
-            }
-        }
+  filters: {
+    dateDiff(val) {
+      const newDate = new Date();
+      let notifDate = new Date(val);
+      return date.getDateDiff(newDate, notifDate, "hours") + " hrs ago";
     },
+    notifType(type) {
+      if (type == "App\\Notifications\\ProjectCreated") {
+        return "Project Created";
+      } else if (type == "App\\Notifications\\ProjectUpdated") {
+        return "Project Updated";
+      } else if (type == "App\\Notifications\\ProjectDeleted") {
+        return "Project Deleted";
+      } else if (type == "App\\Notifications\\ProjectFinalized") {
+        return "Project Finalized";
+      } else {
+        return "Others";
+      }
+    }
+  }
 };
 </script>
 
 <style scoped>
-    .q-card__section {
-        padding: 0px !important;
-    }
+.q-card__section {
+  padding: 0px !important;
+}
 </style>
->>>>>>> a08af2ee738d66029382aef1b53b500517dd4b54

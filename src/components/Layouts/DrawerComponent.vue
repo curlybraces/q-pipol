@@ -24,12 +24,12 @@
 </template>
 
 <script>
-  export default {
-    name: "DrawerComponent",
-    props: {
-      sidemenu: Array
-    }
+export default {
+  name: "DrawerComponent",
+  props: {
+    sidemenu: Array
   }
+};
 </script>
 
 <style scoped>
