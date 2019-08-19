@@ -1,6 +1,11 @@
 <template>
   <div>
     <q-list bordered separator class="rounded-borders">
+      <q-item class="bg-primary text-white" header>
+        <div class="text-h6 absolute-center">
+          Projects
+        </div>
+      </q-item>
       <q-item
         v-for="item in items"
         :key="item.id"
@@ -9,16 +14,15 @@
       >
         <q-item-section class="col-2 gt-sm">
           <q-item-label class="q-mt-sm">
-            {{
-              item.operating_unit.name
-            }}
+            {{ item.operating_unit.name }}
           </q-item-label>
         </q-item-section>
 
         <q-item-section>
           <q-item-label
             lines="1"
-            v-html="$options.filters.searchHighlight(item.title, search)">
+            v-html="$options.filters.searchHighlight(item.title, search)"
+          >
           </q-item-label>
           <q-item-label caption lines="2">
             {{ item.description }}
@@ -79,7 +83,7 @@ export default {
     };
   },
   computed: {
-    ...mapState("projects",["search"]),
+    ...mapState("projects", ["search"]),
     required() {
       return this.changes.trim() !== "";
     }
@@ -109,9 +113,9 @@ export default {
   filters: {
     searchHighlight(value, search) {
       if (search) {
-        let searchRegExp = new RegExp(search,'ig');
-        return value.replace(searchRegExp, (match) => {
-          return "<span class='bg-yellow-6'>" + match + "</span>"
+        let searchRegExp = new RegExp(search, "ig");
+        return value.replace(searchRegExp, match => {
+          return "<span class='bg-yellow-6'>" + match + "</span>";
         });
       }
       return value;

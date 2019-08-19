@@ -38,7 +38,6 @@
 
       <q-step :name="4" title="Project Cost">
         <total-cost></total-cost>
-
       </q-step>
 
       <q-step
@@ -113,7 +112,7 @@ export default {
       console.log(this.project);
     }
   },
-  mounted() {
+  created() {
     // this.loadProject({ id: this.$route.params.id });
   }
 };

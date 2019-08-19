@@ -1,46 +1,49 @@
 <template>
-  <q-dialog
-    v-model="dialog"
-    persistent
+  <q-dialog v-model="dialog" persistent>
+    <q-carousel
+      transition-prev="slide-right"
+      transition-next="slide-left"
+      swipeable
+      animated
+      arrows
+      :control-color="color"
+      navigation-icon="radio_button_unchecked"
+      navigation
+      padding
+      v-model="slide"
+      class="bg-primary"
+      :fullscreen="true"
     >
-      <q-carousel
-        transition-prev="slide-right"
-        transition-next="slide-left"
-        swipeable
-        animated
-        arrows
-        :control-color="color"
-        navigation-icon="radio_button_unchecked"
-        navigation
-        padding
-        v-model="slide"
-        class="bg-primary"
-        :fullscreen="true">
+      <q-carousel-slide
+        :name="index"
+        class="column no-wrap flex-center"
+        v-for="(item, index) in slides"
+        :key="index"
+      >
+        <q-icon :name="item.icon" :color="color" size="128px" />
+        <div class="q-mt-md text-center text-white text-h6">
+          {{ item.message }}
+        </div>
+      </q-carousel-slide>
 
-        <q-carousel-slide :name="index" class="column no-wrap flex-center" v-for="(item, index) in slides" :key="index">
-          <q-icon :name="item.icon" :color="color" size="56px" />
-          <div class="q-mt-md text-center text-white text-h6">
-            {{ item.message }}
-          </div>
-        </q-carousel-slide>
+      <template v-slot:control>
+        <q-carousel-control
+          position="top-right"
+          :offset="[18, 18]"
+          class="text-white"
+        >
+          <q-btn
+            flat
+            round
+            dense
+            dark
+            icon="close"
+            color="white"
+            @click="closeDialog"
+          />
+        </q-carousel-control>
 
-        <template v-slot:control>
-          <q-carousel-control
-            position="top-right"
-            :offset="[18, 18]"
-            class="text-white"
-          >
-            <q-btn
-              flat
-              round
-              dense
-              dark
-              icon="close"
-              color="white"
-              @click="dialog = false; updateDontShowAgain()" />
-          </q-carousel-control>
-
-          <q-carousel-control
+        <q-carousel-control
           position="bottom-right"
           :offset="[18, 18]"
           class="q-gutter-xs"
@@ -50,10 +53,10 @@
             text-color="white"
             v-model="dontShowAgain"
             label="Don't show this again"
-            />
-          </q-carousel-control>
-        </template>
-      </q-carousel>
+          />
+        </q-carousel-control>
+      </template>
+    </q-carousel>
   </q-dialog>
 </template>
 
@@ -89,12 +92,20 @@ export default {
         }
       ],
       carousel: true
-    }
+    };
   },
   methods: {
-    updateDontShowAgain() {
-      console.log(this.dontShowAgain);
+    closeDialog() {
+      this.dialog = false;
     }
+  },
+  watch: {
+    dontShowAgain(newDontShowAgain) {
+      localStorage.dontShowAgain = newDontShowAgain;
+    }
+  },
+  mounted() {
+    this.dialog = !localStorage.dontShowAgain;
   }
-}
+};
 </script>

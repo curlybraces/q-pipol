@@ -1,10 +1,8 @@
 <template>
   <q-dialog>
-
     <q-form ref="form">
-
       <select-component
-        :options="(financialType == 'region') ? regions: funding_sources"
+        :options="financialType == 'region' ? regions : funding_sources"
       >
       </select-component>
 
@@ -24,13 +22,8 @@
 
       <input-component></input-component>
 
-      <q-btn
-        color="primary"
-        label="Add"
-        />
-
+      <q-btn color="primary" label="Add" />
     </q-form>
-
   </q-dialog>
 </template>
 
@@ -51,14 +44,12 @@ export default {
       default: "region"
     }
   },
-  data() {
-
-  },
+  data() {},
   computed: {
-    ...mapState("dropdown",["funding_sources","regions"])
+    ...mapState("dropdown", ["funding_sources", "regions"])
   },
   methods: {
-    ...mapActions("dropdown",["loadRegions","loadFundingSources"])
+    ...mapActions("dropdown", ["loadRegions", "loadFundingSources"])
   },
   mounted() {
     if (this.financialType == "region") {
@@ -67,5 +58,5 @@ export default {
       this.loadFundingSources();
     }
   }
-}
+};
 </script>

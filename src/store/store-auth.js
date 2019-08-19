@@ -5,7 +5,7 @@ import { Loading, QSpinnerFacebook } from "quasar";
 const state = {
   loggedIn: localStorage.getItem("loggedIn") || false,
   token: localStorage.getItem("token") || "",
-  user: localStorage.getItem("user") || {},
+  user: JSON.parse(localStorage.getItem("user")) || {},
   passwordChecked: false
 };
 
@@ -111,9 +111,8 @@ const getters = {
   getToken(state) {
     return state.token;
   },
-  user(state) {
-    let user = JSON.parse(state.user);
-    return user;
+  getUser(state) {
+    return state.user;
   }
 };
 

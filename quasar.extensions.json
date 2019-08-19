@@ -11,9 +11,25 @@
       "dev": {
         "spa": {
           "iconHash": "e9d9c7a5475c4c2975c8226dfab9b12f"
+        },
+        "cordova": {
+          "iconHash": "e9d9c7a5475c4c2975c8226dfab9b12f",
+          "splashscreenHash": false,
+          "splashscreenType": "generate",
+          "backgroundColor": "#344955"
+        },
+        "electron": {
+          "iconHash": "e9d9c7a5475c4c2975c8226dfab9b12f"
         }
       },
-      "build": {}
+      "build": {
+        "spa": {
+          "iconHash": "e9d9c7a5475c4c2975c8226dfab9b12f"
+        },
+        "electron": {
+          "iconHash": "e9d9c7a5475c4c2975c8226dfab9b12f"
+        }
+      }
     }
   }
 }

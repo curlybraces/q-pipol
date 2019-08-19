@@ -3,16 +3,30 @@
     <div class="q-pa-md absolute full-height full-width column">
       <p>View Projects</p>
 
-      <search-component v-if="projects.length > 0" />
+      <search-component />
+
+      <no-project v-if="!projects.length && !search" />
+
+      <div v-if="projects.length > 0" class="q-mb-md flex flex-center">
+        <q-pagination
+          v-model="current_page"
+          color="primary"
+          :max="total_pages"
+          :boundary-links="true"
+          @input="loadProjects"
+        >
+        </q-pagination>
+      </div>
 
       <q-scroll-area
         v-if="projects.length > 0"
         class="q-scroll-area-projects"
-        style="height:100px">
+        style="height:100px"
+      >
         <list-component :items="projects" />
       </q-scroll-area>
 
-      <no-project v-else/>
+      <p v-if="search && !projects.length">No search results found.</p>
     </div>
 
     <fab-component link="/projects/add" />
@@ -20,7 +34,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapState, mapActions, mapGetters } from "vuex";
 import ListComponent from "../../components/ListProjects/ListComponent";
 import NoProject from "../../components/ListProjects/NoProject";
 import FabComponent from "../../components/UI/FabComponent";
@@ -35,15 +49,18 @@ export default {
   },
   name: "PageViewProjects",
   data() {
-    return {};
+    return {
+      current_page: 1
+    };
   },
   computed: {
+    ...mapState("projects", ["total_pages", "search"]),
     ...mapGetters("projects", ["projects", "projectsFiltered"])
   },
   methods: {
     ...mapActions("projects", ["loadProjects"])
   },
-  mounted() {
+  created() {
     this.loadProjects();
   }
 };
