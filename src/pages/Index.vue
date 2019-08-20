@@ -94,8 +94,7 @@ export default {
     WelcomeDialog
   },
   data() {
-    return {
-    };
+    return {};
   },
   mounted() {}
 };
