@@ -1,5 +1,5 @@
 <template>
-  <q-page padding>
+  <q-page padding class="flex flex-center">
     <q-card class="auth-tabs align-center" square>
       <q-card-section class="bg-primary text-secondary">
         <div class="row items-center">

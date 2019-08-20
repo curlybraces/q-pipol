@@ -110,7 +110,7 @@
 </template>
 
 <script>
-    import { mapState, mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 import WelcomeDialog from "../components/Dashboard/WelcomeDialog";
 
 export default {

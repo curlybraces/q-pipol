@@ -32,7 +32,7 @@ const routes = [
   },
   {
     path: "/login",
-    component: () => import("layouts/BasicLayout.vue"),
+    component: () => import("layouts/AuthLayout.vue"),
     children: [
       {
         path: "",
