@@ -1,6 +1,5 @@
 <template>
   <div class="row q-col-gutter-sm">
-
     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
       <q-card class="col bg-primary" dark>
         <q-card-section>
@@ -80,12 +79,11 @@
         </q-card-section>
       </q-card>
     </div>
-
   </div>
 </template>
 
 <script>
-  export default {
-    name: "CardGroup"
-  }
+export default {
+  name: "CardGroup"
+};
 </script>

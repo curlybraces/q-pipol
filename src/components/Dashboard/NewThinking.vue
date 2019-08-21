@@ -54,7 +54,7 @@ export default {
       newThinkings: newThinkings
     };
   }
-}
+};
 </script>
 
 <style lang="stylus" scoped>

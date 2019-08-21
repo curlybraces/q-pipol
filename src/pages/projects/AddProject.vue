@@ -1,10 +1,9 @@
 <template>
   <q-page padding>
-
     <div class="row">
       <q-breadcrumbs separator=">">
-        <q-breadcrumbs-el icon="list" label="Projects" to="/projects"/>
-        <q-breadcrumbs-el label="Add"/>
+        <q-breadcrumbs-el icon="list" label="Projects" to="/projects" />
+        <q-breadcrumbs-el label="Add" />
       </q-breadcrumbs>
       <q-space />
       <q-btn

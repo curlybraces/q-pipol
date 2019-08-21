@@ -2,7 +2,7 @@
   <q-page>
     <div class="q-pa-md absolute full-height full-width column">
       <q-breadcrumbs separator=">" class="q-my-md">
-        <q-breadcrumbs-el icon="list" label="Projects"/>
+        <q-breadcrumbs-el icon="list" label="Projects" />
       </q-breadcrumbs>
 
       <search-component />

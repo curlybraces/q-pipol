@@ -34,6 +34,8 @@ import Vue from 'vue'
 import createApp from './app.js'
 
 
+import 'app/src-pwa/register-service-worker.js'
+
 
 
 import qboot_Bootaxios from 'boot/axios'
@@ -48,21 +50,26 @@ import qboot_Bootaddressbarcolor from 'boot/addressbar-color'
 
 
 
+import FastClick from 'fastclick'
 
 
 
 
-Vue.config.devtools = true
-Vue.config.productionTip = false
 
-
-
-console.info('[Quasar] Running SPA.')
 
 
 
 const { app, store, router } = createApp()
 
+
+
+// Needed only for iOS PWAs
+if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream && window.navigator.standalone) {
+
+  document.addEventListener('DOMContentLoaded', () => {
+    FastClick.attach(document.body)
+  }, false)
+}
 
 
 async function start () {
