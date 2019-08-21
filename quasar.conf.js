@@ -183,7 +183,7 @@ module.exports = function (ctx) {
         short_name: 'iPMS',
         description: 'A Quasar Framework App for iPMS',
         display: 'standalone',
-        orientation: 'landscape',
+        orientation: 'portrait',
         background_color: '#ffffff',
         theme_color: '#095437',
         icons: [

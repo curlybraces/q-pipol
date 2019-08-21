@@ -5,11 +5,19 @@
     <welcome-dialog />
 
     <q-card square>
-      <q-card-section
-        class="bg-primary text-white text-uppercase"
-        style="padding:5px"
-      >
-        <div class="text-h6">New Thinking in Agriculture</div>
+      <q-card-section class="bg-primary" style="padding:5px">
+        <q-item class="text-white text-center">
+          <q-item-section>
+            <q-item-label>
+              <div class="text-h5">The "New Thinking" for Agriculture</div>
+            </q-item-label>
+            <q-item-label>
+              <div class="text-h6">
+                8 Paradigms for a Food-Secure Philippines
+              </div>
+            </q-item-label>
+          </q-item-section>
+        </q-item>
       </q-card-section>
       <q-carousel
         animated
@@ -22,7 +30,7 @@
         class="q-mb-md"
       >
         <q-carousel-slide
-          v-for="item in new_thinkings"
+          v-for="item in newThinkings"
           :name="item.id"
           :img-src="'statics/' + item.image"
           :key="item.id"
@@ -117,7 +125,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import newThinkings from "../statics/json/new_thinkings.json";
 import WelcomeDialog from "../components/Dashboard/WelcomeDialog";
 
 export default {
@@ -127,17 +135,9 @@ export default {
   },
   data() {
     return {
-      slide: 1
+      slide: 1,
+      newThinkings: newThinkings
     };
-  },
-  computed: {
-    ...mapState("new_thinkings", ["new_thinkings"])
-  },
-  methods: {
-    ...mapActions("new_thinkings", ["loadNewThinkings"])
-  },
-  mounted() {
-    this.loadNewThinkings();
   }
 };
 </script>

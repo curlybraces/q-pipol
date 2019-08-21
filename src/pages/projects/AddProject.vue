@@ -2,19 +2,27 @@
   <q-page padding>
     <div class="row">
       <p>Add Project</p>
-      <q-space/>
-      <q-btn flat round dense icon="help" @click="showHelp = true"></q-btn>
+      <q-space />
+      <q-btn
+        flat
+        round
+        dense
+        icon="help"
+        color="primary"
+        @click="showHelp = true"
+      ></q-btn>
     </div>
 
     <q-dialog
       maximized
       v-model="showHelp"
       transition-show="slide-left"
-      transition-hide="slide-right">
+      transition-hide="slide-right"
+    >
       <help-dialog @close="showHelp = false"></help-dialog>
     </q-dialog>
 
-    <card-component title="Add Project" :onClick="addProject">
+    <card-component title="Add Project">
       <template v-slot:content>
         <q-banner class="bg-grey-3">
           <template v-slot:avatar>
@@ -44,18 +52,24 @@
             type="number"
             label="Priority Ranking No."
             v-model="form.rank"
-            />
+          />
 
           <options-component
             label="Categorization"
             v-model="form.categorization"
-            :options="[ { value: 2, label: 'New' }, { value: 3, label: 'Expanded/Revised'}]"
+            :options="[
+              { value: 2, label: 'New' },
+              { value: 3, label: 'Expanded/Revised' }
+            ]"
           ></options-component>
 
           <options-component
             label="Infrastructure"
             v-model="form.infrastructure"
-            :options="[ { value: 0, label: 'Non-Infrastructure' }, { value: 1, label: 'Infrastructure'}]"
+            :options="[
+              { value: 0, label: 'Non-Infrastructure' },
+              { value: 1, label: 'Infrastructure' }
+            ]"
           ></options-component>
 
           <input-component
@@ -71,6 +85,14 @@
             label="Description"
             hint="Overview, Purpose, and/or Rationale of the Undertaking, Sub-programs/Components"
             v-model="form.description"
+            :rules="rules.required"
+          ></input-component>
+
+          <input-component
+            type="textarea"
+            label="Expected Outputs"
+            hint="Actual Deliverables, i.e. 100km of paved roads"
+            v-model="form.expected_outputs"
             :rules="rules.required"
           ></input-component>
 
@@ -112,15 +134,6 @@
               ></select-component>
             </div>
           </div>
-
-
-          <input-component
-            type="textarea"
-            label="Expected Outputs"
-            hint="Actual Deliverables, i.e. 100km of paved roads"
-            v-model="form.expected_outputs"
-            :rules="rules.required"
-          ></input-component>
 
           <select-component
             label="Spatial Coverage"
@@ -171,13 +184,13 @@
             :rules="rules.required"
           ></input-component>
 
-          <select-component
+          <!-- <select-component
             label="Categorization"
             v-model="form.categorization"
             hint="Indicate the status of the PAP."
             :options="categorizations"
             :rules="rules.required"
-          ></select-component>
+          ></select-component> -->
 
           <select-component
             v-if="form.categorization == 2"
@@ -195,7 +208,11 @@
             :rules="rules.required"
           ></input-component>
 
-
+          <div class="q-my-md">
+            <regional-breakdown
+              :regionalBreakdown="form.regional_breakdown"
+            ></regional-breakdown>
+          </div>
 
           <div class="text-center">
             <q-btn icon="save" color="primary" type="submit">
@@ -216,6 +233,7 @@ import SelectComponent from "../../components/Form/SelectComponent";
 import MultiSelectComponent from "../../components/Form/MultiSelectComponent";
 import OptionsComponent from "../../components/Form/OptionsComponent";
 import HelpDialog from "../../components/AddProject/HelpDialog";
+import RegionalBreakdown from "../../components/AddProject/RegionalBreakdown";
 
 export default {
   components: {
@@ -224,6 +242,7 @@ export default {
     CardComponent,
     InputComponent,
     OptionsComponent,
+    RegionalBreakdown,
     HelpDialog
   },
   name: "PageAddProject",
@@ -247,7 +266,8 @@ export default {
         categorization: null,
         uacs_code: null,
         preparation_document: null,
-        total_cost: null
+        total_cost: null,
+        regional_breakdown: []
       },
       rules: {
         required: [v => !!v || "This field is required."],
@@ -312,7 +332,8 @@ export default {
         });
     },
     onSubmit() {
-      this.addProject(this.form);
+      // this.addProject(this.form);
+      console.log(this.form);
     }
   },
   created() {
