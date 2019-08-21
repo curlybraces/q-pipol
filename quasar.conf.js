@@ -120,7 +120,10 @@ module.exports = function (ctx) {
         'QInfiniteScroll',
         'QPagination',
 
-        'QChatMessage'
+        'QChatMessage',
+
+        'QBreadcrumbs',
+        'QBreadcrumbsEl'
       ],
 
       directives: [

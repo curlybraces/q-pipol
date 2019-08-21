@@ -1,7 +1,11 @@
 <template>
   <q-page padding>
+
     <div class="row">
-      <p>Add Project</p>
+      <q-breadcrumbs separator=">">
+        <q-breadcrumbs-el icon="list" label="Projects" to="/projects"/>
+        <q-breadcrumbs-el label="Add"/>
+      </q-breadcrumbs>
       <q-space />
       <q-btn
         flat
@@ -12,6 +16,8 @@
         @click="showHelp = true"
       ></q-btn>
     </div>
+
+    <q-separator></q-separator>
 
     <q-dialog
       maximized

@@ -1,6 +1,10 @@
 <template>
   <q-page padding>
-    <p>Home</p>
+    <div class="row">
+      <q-breadcrumbs separator=">">
+        <q-breadcrumbs-el icon="home" label="Home"/>
+      </q-breadcrumbs>
+    </div>
 
     <div class="q-col-gutter-y-md">
 
