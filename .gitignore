@@ -107,4 +107,5 @@ src/statics/icons/ms-icon-144x144.png
 
 src-cordova/
 src-electron/
+src-pwa/
 .quasar/

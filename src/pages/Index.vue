@@ -63,7 +63,7 @@
                 <q-icon name="list" />
               </q-item-section>
               <q-item-section>
-                <q-item-label>Total Projects</q-item-label>
+                <q-item-label>My Projects</q-item-label>
               </q-item-section>
               <q-item-section side>
                 <div class="text-h2">
