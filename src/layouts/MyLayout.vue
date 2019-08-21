@@ -184,21 +184,6 @@ export default {
           icon: "list",
           caption: "View all projects"
         },
-        /*
-        {
-          label: "Recycle Bin",
-          href: "/projects/recycle",
-          icon: "delete",
-          caption: "View deleted projects"
-        },
-
-        {
-          label: "Programs",
-          href: "/programs",
-          icon: "list",
-          caption: "View all programs"
-        },
-        */
         {
           label: "Help",
           href: "/help",
