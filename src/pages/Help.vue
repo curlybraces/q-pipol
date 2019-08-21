@@ -1,6 +1,10 @@
 <template>
   <q-page padding>
-    <p>Help</p>
+    <q-breadcrumbs separator=">">
+      <q-breadcrumbs-el icon="help" label="Help" />
+    </q-breadcrumbs>
+
+    <q-separator></q-separator>
 
     <q-input
       outlined

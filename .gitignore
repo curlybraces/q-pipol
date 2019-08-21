@@ -86,7 +86,8 @@ typings/
 
 # DynamoDB Local files
 .dynamodb/
-dist/spa
+dist/spa/
+dist/pwa/
 src/statics/app-logo-128x128.png
 src/statics/icons/apple-icon-120x120.png
 src/statics/icons/apple-icon-152x152.png
@@ -107,4 +108,5 @@ src/statics/icons/ms-icon-144x144.png
 
 src-cordova/
 src-electron/
+src-pwa/
 .quasar/

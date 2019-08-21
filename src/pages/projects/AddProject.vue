@@ -1,10 +1,33 @@
 <template>
   <q-page padding>
     <div class="row">
-      <p>Add Project</p>
+      <q-breadcrumbs separator=">">
+        <q-breadcrumbs-el icon="list" label="Projects" to="/projects" />
+        <q-breadcrumbs-el label="Add" />
+      </q-breadcrumbs>
+      <q-space />
+      <q-btn
+        flat
+        round
+        dense
+        icon="help"
+        color="primary"
+        @click="showHelp = true"
+      ></q-btn>
     </div>
 
-    <card-component title="Add Project" :onClick="addProject">
+    <q-separator></q-separator>
+
+    <q-dialog
+      maximized
+      v-model="showHelp"
+      transition-show="slide-left"
+      transition-hide="slide-right"
+    >
+      <help-dialog @close="showHelp = false"></help-dialog>
+    </q-dialog>
+
+    <card-component title="Add Project">
       <template v-slot:content>
         <q-banner class="bg-grey-3">
           <template v-slot:avatar>
@@ -16,27 +39,51 @@
         </q-banner>
 
         <q-form ref="form" @submit="onSubmit" autofocus>
+          <input-component
+            label="Proposal/Project Name"
+            hint="Project title must match title in budget proposal"
+            v-model="form.title"
+            :rules="rules.required"
+          ></input-component>
+
           <select-component
-            label="Implementing Unit"
+            label="Implementing Department/Agency"
             :options="operating_units"
             v-model="form.operating_unit"
             :rules="rules.required"
           ></select-component>
 
           <input-component
-            label="Project Title"
-            hint="Project title must match title in budget proposal"
-            v-model="form.title"
-            :rules="rules.required"
-          ></input-component>
+            type="number"
+            label="Priority Ranking No."
+            v-model="form.rank"
+          />
 
-          <multi-select-component
-            label="Basis for Implementation"
-            hint="Included in any of the following documents"
-            :options="implementation_bases"
-            v-model="form.implementation_bases"
+          <options-component
+            label="Categorization"
+            v-model="form.categorization"
+            :options="[
+              { value: 2, label: 'New' },
+              { value: 3, label: 'Expanded/Revised' }
+            ]"
+          ></options-component>
+
+          <options-component
+            label="Infrastructure"
+            v-model="form.infrastructure"
+            :options="[
+              { value: 0, label: 'Non-Infrastructure' },
+              { value: 1, label: 'Infrastructure' }
+            ]"
+          ></options-component>
+
+          <input-component
+            type="number"
+            label="Total Project Cost (in PhP)"
+            hint="Total cost of the project in absolute terms"
+            v-model="form.total_cost"
             :rules="rules.required"
-          ></multi-select-component>
+          />
 
           <input-component
             type="textarea"
@@ -53,6 +100,45 @@
             v-model="form.expected_outputs"
             :rules="rules.required"
           ></input-component>
+
+          <input-component
+            type="textarea"
+            label="Purpose"
+            v-model="form.purpose"
+            :rules="rules.required"
+          ></input-component>
+
+          <input-component
+            type="textarea"
+            label="Beneficiaries"
+            v-model="form.beneficiaries"
+            :rules="rules.required"
+          ></input-component>
+
+          <div class="row">
+            <div class="col-sm-3 text-weight-bold text-primary">
+              Implementation Period
+            </div>
+            <div class="col-sm-9">
+              <select-component
+                label="Implementation Start"
+                hint="Target year of start of implementation"
+                :options="implementation_periods"
+                v-model="form.implementation_start"
+                @input="updateImplementationEnd"
+                :rules="rules.required"
+              ></select-component>
+
+              <select-component
+                label="Implementation End"
+                hint="Target year of project completion"
+                :options="filteredImplementationPeriods"
+                v-model="form.implementation_end"
+                :readonly="!form.implementation_start"
+                :rules="rules.required"
+              ></select-component>
+            </div>
+          </div>
 
           <select-component
             label="Spatial Coverage"
@@ -81,24 +167,6 @@
           ></select-component>
 
           <select-component
-            label="Implementation Start"
-            hint="Target year of start of implementation"
-            :options="implementation_periods"
-            v-model="form.implementation_start"
-            @input="updateImplementationEnd"
-            :rules="rules.required"
-          ></select-component>
-
-          <select-component
-            label="Implementation End"
-            hint="Target year of project completion"
-            :options="filteredImplementationPeriods"
-            v-model="form.implementation_end"
-            :readonly="!form.implementation_start"
-            :rules="rules.required"
-          ></select-component>
-
-          <select-component
             label="Main Funding Source"
             v-model="form.funding_source"
             hint="Choose the major type of funding source for the PAP."
@@ -121,13 +189,13 @@
             :rules="rules.required"
           ></input-component>
 
-          <select-component
+          <!-- <select-component
             label="Categorization"
             v-model="form.categorization"
             hint="Indicate the status of the PAP."
             :options="categorizations"
             :rules="rules.required"
-          ></select-component>
+          ></select-component> -->
 
           <select-component
             v-if="form.categorization == 2"
@@ -145,13 +213,11 @@
             :rules="rules.required"
           ></input-component>
 
-          <input-component
-            type="number"
-            label="Total Project Cost (in PhP)"
-            hint="Total cost of the project in absolute terms"
-            v-model="form.total_cost"
-            :rules="rules.required"
-          />
+          <div class="q-my-md">
+            <regional-breakdown
+              :regionalBreakdown="form.regional_breakdown"
+            ></regional-breakdown>
+          </div>
 
           <div class="text-center">
             <q-btn icon="save" color="primary" type="submit">
@@ -170,21 +236,30 @@ import CardComponent from "../../components/UI/CardComponent";
 import InputComponent from "../../components/Form/InputComponent";
 import SelectComponent from "../../components/Form/SelectComponent";
 import MultiSelectComponent from "../../components/Form/MultiSelectComponent";
+import OptionsComponent from "../../components/Form/OptionsComponent";
+import HelpDialog from "../../components/AddProject/HelpDialog";
+import RegionalBreakdown from "../../components/AddProject/RegionalBreakdown";
 
 export default {
   components: {
     SelectComponent,
     MultiSelectComponent,
     CardComponent,
-    InputComponent
+    InputComponent,
+    OptionsComponent,
+    RegionalBreakdown,
+    HelpDialog
   },
   name: "PageAddProject",
   data() {
     return {
       filteredImplementationPeriods: [],
+      showHelp: false,
       form: {
         operating_unit: null,
         title: null,
+        ranking: null,
+        key_result_area: null,
         expected_outputs: null,
         implementation_bases: [],
         description: null,
@@ -196,7 +271,8 @@ export default {
         categorization: null,
         uacs_code: null,
         preparation_document: null,
-        total_cost: null
+        total_cost: null,
+        regional_breakdown: []
       },
       rules: {
         required: [v => !!v || "This field is required."],
@@ -261,7 +337,8 @@ export default {
         });
     },
     onSubmit() {
-      this.addProject(this.form);
+      // this.addProject(this.form);
+      console.log(this.form);
     }
   },
   created() {

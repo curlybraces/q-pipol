@@ -1,0 +1,49 @@
+[
+  {
+    "id":1,
+    "name":"Modernization of Agriculture",
+    "description":"Modernization and the use of modern technology must also cover all crops, including those with export potential in processed or value-added form like coffee, cacao, cassava, tropical fruits, rubber, among others. Relative to that, there is a need to diversify crop production in the Philippines as about 80 percent of the country\u2019s farmlands are devoted to only three crops: rice, corn, and coconut.\n\nAgripreneurship should also form part of the paradigm to modernize Philippine agriculture, as farming and fisheries should be treated as business undertakings or industries. Agripreneurship is also one of the components to industrialize Philippine agriculture.",
+    "image":"new_thinkings\/new_thinking_1.jpg"
+    },
+  {
+    "id":2,
+    "name":"Industrialization of Agriculture",
+    "description":"Agriculture must be treated as an industry, with the objective of industrializing the value chain of every agricultural commodity. While productivity increase is a major objective, it is equally important to produce more income by value adding, processing, manufacturing, and developing markets for both raw and processed agricultural products.\n                              \n\nThere is also a need to engage the private sector in investing and setting up of more agri-based industries in the countryside and developing markets for agriculture products.\n                              \n\nRelative to the industrialization of Philippine agriculture is creating the framework for the digitization of farming and agribusiness activities in the country where credit is made available, affordable and accessible.",
+    "image":"new_thinkings\/new_thinking_2.jpg"
+  },{
+    "id":3,
+    "name":"Promotion of Exports",
+    "description":"The country should have a systematic and long-term strategy in developing and promoting exports of raw and processed agricultural products. This would require achieving economies of scale in on-farm production that would generate sustained quantity and quality of export products.\n                              \n\nThe private sector\u2019s role will be essential in developing and promoting agricultural products. At present, the Philippines only has two agricultural products that earn at least $1 billion per year in export receipts: bananas; and coconut products (mostly in oil form). Thailand has 13 types of farm exports earning over $1 billion each year, Indonesia has five, and Vietnam has seven.\n                              \n\nA convergence of efforts of the Department of Agriculture, and the Department of Trade and Industry including other departments will be necessary.",
+    "image":"new_thinkings\/new_thinking_3.jpg"
+  },
+  {
+    "id":4,
+    "name":"Farm Consolidation",
+    "description":"The government must promote and support farm consolidation arrangements to bring about economies of scale, particularly for crops that require mechanization and massive use of technology. These schemes include block farming, trust farming, contract farming, and corporative farming that will make farming more efficient, where technology is used, where cost of production is reduced, and farm productivity and incomes are increased.",
+    "image":"new_thinkings\/new_thinking_4.png"
+  },
+  {
+    "id":5,
+    "name":"Roadmap Development",
+    "description":"The government, through the Department of Agriculture, should take the lead in generating the \u201cbig ideas\u201d for the roadmap, and should solicit inputs from the private sector and other stakeholders.\n                              \n\nThe roadmap should also actively involve the private sector, which may have more access to the export markets and funding for research for development.\n                              \n\nA value-chain approach to level up Philippine agriculture, while making sure the smallholders also earn their fair share of the fruits of production along the value chain.",
+    "image":"new_thinkings\/new_thinking_5.jpg"
+  },
+  {
+    "id":6,
+    "name":"Infrastructure Development",
+    "description":"Agricultural areas need infrastructure development and logistics to improve their linkages to the urban\/domestic and export markets. Thus, a \u201cBuild, Build, Build\u201d program is also a must for agriculture.\n                  \n\nThere is also a need to engage the private sector in a \u201cbuild and transfer\u201d scheme to accelerate the development of national irrigation systems.",
+    "image":"new_thinkings\/new_thinking_6.jpg"
+  },
+  {
+    "id":7,
+    "name":"Higher Budget and Investments for Agriculture",
+    "description":"The government and the private sector with the strong and popular support from the citizenry, must provide the necessary budget and investment to grow and develop Philippine agriculture. The increased budget will help unlock the bigger potential contribution of agriculture and agribusiness to the economy, including more employment opportunities.",
+    "image":"new_thinkings\/new_thinking_7.jpg"
+  },
+  {
+    "id":8,
+    "name":"Legislative Support",
+    "description":"The country\u2019s agriculture sector needs the help of both the Senate and the House of Representatives, for policy and structural reforms that need to be legislated and institutionalized.",
+    "image":"new_thinkings\/new_thinking_8.jpg"
+  }
+]
