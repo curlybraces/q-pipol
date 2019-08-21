@@ -64,7 +64,8 @@
     <div class="row">
       <q-space />
       <q-btn flat type="reset" label="Reset" />
-      <q-btn type="submit" color="primary" :label="tab"> </q-btn>
+      <q-btn type="submit" color="primary" :label="tab" class="q-ml-sm">
+      </q-btn>
     </div>
   </q-form>
 </template>

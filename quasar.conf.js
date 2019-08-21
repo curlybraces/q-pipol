@@ -8,7 +8,8 @@ module.exports = function (ctx) {
     boot: [
       'axios',
       'router-auth',
-      'loading-defaults'
+      'loading-defaults',
+      'addressbar-color'
     ],
 
     css: [
@@ -133,7 +134,9 @@ module.exports = function (ctx) {
         'AppFullscreen',
         'Dialog',
         'Loading',
-        'BottomSheet'
+        'BottomSheet',
+
+        'AddressbarColor'
       ]
     },
 
@@ -176,13 +179,13 @@ module.exports = function (ctx) {
       // workboxPluginMode: 'InjectManifest',
       // workboxOptions: {}, // only for NON InjectManifest
       manifest: {
-        // name: 'PIPOL',
-        // short_name: 'PIPOL',
-        // description: 'A Quasar Framework App for PIPOL',
+        name: 'Investment Programming and Monitoring System',
+        short_name: 'iPMS',
+        description: 'A Quasar Framework App for iPMS',
         display: 'standalone',
-        orientation: 'portrait',
+        orientation: 'landscape',
         background_color: '#ffffff',
-        theme_color: '#027be3',
+        theme_color: '#095437',
         icons: [
           {
             'src': 'statics/icons/icon-128x128.png',
