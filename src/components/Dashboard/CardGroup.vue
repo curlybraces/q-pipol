@@ -1,7 +1,7 @@
 <template>
   <div class="row q-col-gutter-sm">
     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-      <q-card class="col bg-primary" dark>
+      <q-card class="col bg-positive" dark>
         <q-card-section>
           <q-item dense>
             <q-item-section avatar>
