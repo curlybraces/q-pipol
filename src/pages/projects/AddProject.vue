@@ -63,6 +63,7 @@
             label="Categorization"
             v-model="form.categorization"
             :options="[
+              { value: 1, label: 'Ongoing' },
               { value: 2, label: 'New' },
               { value: 3, label: 'Expanded/Revised' }
             ]"
@@ -95,16 +96,16 @@
 
           <input-component
             type="textarea"
-            label="Expected Outputs"
-            hint="Actual Deliverables, i.e. 100km of paved roads"
-            v-model="form.expected_outputs"
+            label="Purpose"
+            v-model="form.purpose"
             :rules="rules.required"
           ></input-component>
 
           <input-component
             type="textarea"
-            label="Purpose"
-            v-model="form.purpose"
+            label="Expected Outputs"
+            hint="Actual Deliverables, i.e. 100km of paved roads"
+            v-model="form.expected_outputs"
             :rules="rules.required"
           ></input-component>
 
@@ -139,6 +140,10 @@
               ></select-component>
             </div>
           </div>
+
+          <p>
+            Pre-requisites
+          </p>
 
           <select-component
             label="Spatial Coverage"

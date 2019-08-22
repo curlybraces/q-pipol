@@ -2,7 +2,7 @@
   <q-page padding>
     <div class="row">
       <q-breadcrumbs separator=">">
-        <q-breadcrumbs-el icon="home" label="Home"/>
+        <q-breadcrumbs-el icon="home" label="Home" />
       </q-breadcrumbs>
     </div>
 
