@@ -3,8 +3,9 @@
  
 ## Requirements
  
-1. Yarn must be installed.
-2. Quasar CLI must be installed. Run `npm install @quasar/cli`
+1. NPM must be installed.
+2. Yarn must be installed.
+3. Quasar CLI must be installed. Run `npm install @quasar/cli`
 
 ## Framework used
 
