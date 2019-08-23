@@ -1,5 +1,5 @@
 # i-PMS
- A Quasar framework-based version of the Investment Programming and Management System for the frontend.
+ A Quasar framework-based version of the Investment Programming and Management System for the frontend. It uses quasar v.1.0.4 and @quasar/app v1.0.5.
  
 ## Requirements
  
