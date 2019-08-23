@@ -6,6 +6,10 @@
 1. Yarn must be installed.
 2. Quasar CLI must be installed. Run `npm install @quasar/cli`
 
+## Framework used
+
+Quasar Framework: https://github.com/quasarframework/quasar
+
 ## How to Use
 
 1. Open your command prompt or terminal.
