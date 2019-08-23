@@ -1,8 +1,10 @@
 <template>
   <q-page padding>
-    <p>About the System</p>
+    <q-breadcrumbs separator=">" class="q-my-md">
+      <q-breadcrumbs-el icon="info" label="About" />
+    </q-breadcrumbs>
+
     <q-separator />
-    <p />
     <h6>Investment Programming Division</h6>
     <p>
       <q-img src="statics/ipd.png" />
