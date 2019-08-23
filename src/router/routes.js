@@ -63,6 +63,20 @@ const routes = [
     ]
   },
   {
+    path: "/review",
+    component: () => import("layouts/MyLayout.vue"),
+    children: [
+      {
+        path: "ranked",
+        component: () => import("pages/review/RankedProjects")
+      },
+      {
+        path: "programmed",
+        component: () => import("pages/review/ProgrammedProjects")
+      }
+    ]
+  },
+  {
     path: "/programs",
     component: () => import("layouts/MyLayout.vue"),
     children: [
