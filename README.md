@@ -10,7 +10,7 @@
 
 Quasar Framework: https://github.com/quasarframework/quasar
 
-## How to Use
+## Running on Dev Server
 
 1. Open your command prompt or terminal.
 2. Clone the repository `git clone https://github.com/mlab817/q-pipol`
