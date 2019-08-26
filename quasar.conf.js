@@ -139,7 +139,8 @@ module.exports = function (ctx) {
         'Loading',
         'BottomSheet',
 
-        'AddressbarColor'
+        'AddressbarColor',
+        'LocalStorage'
       ]
     },
 

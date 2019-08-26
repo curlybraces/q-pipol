@@ -37,7 +37,7 @@
         <div v-else>
           <q-btn dense flat round icon="email" class="q-mr-xs" color="grey-9" />
 
-          <q-btn
+          <!-- <q-btn
             dense
             flat
             :color="notificationsCount > 0 ? 'white' : 'grey-9'"
@@ -49,7 +49,7 @@
             <q-badge color="red" floating v-if="notificationsCount > 0">
               {{ notificationsCount }}
             </q-badge>
-          </q-btn>
+          </q-btn> -->
 
           <q-btn dense round flat color="white" icon="account_circle">
             <q-menu
@@ -80,7 +80,7 @@
                   </q-avatar>
 
                   <div class="text-subtitle1 q-mt-md q-mb-xs">
-                    {{ user.name }}
+                    Username
                   </div>
 
                   <q-btn
@@ -156,7 +156,7 @@
 
 <script>
 import { openURL } from "quasar";
-import { mapState, mapActions, mapGetters } from "vuex";
+import { mapState, mapActions } from "vuex";
 import NotificationsModal from "../components/Notifications/NotificationsModal";
 
 export default {
@@ -184,12 +184,6 @@ export default {
           icon: "list",
           caption: "View all projects"
         },
-        // {
-        //   label: "Help",
-        //   href: "/help",
-        //   icon: "help",
-        //   caption: "Understand how the system works"
-        // },
         {
           label: "Settings",
           href: "/settings",
@@ -206,19 +200,11 @@ export default {
     };
   },
   computed: {
-    ...mapState("auth", ["loggedIn", "user"]),
-    ...mapState("notifications", ["notifications"]),
-    ...mapGetters("notifications", ["notificationsCount"])
+    ...mapState("auth", ["loggedIn"])
   },
   methods: {
     openURL,
-    ...mapActions("auth", ["logoutUser"]),
-    ...mapActions("notifications", ["loadNotifications"])
-  },
-  created() {
-    if (this.loggedIn) {
-      this.loadNotifications();
-    }
+    ...mapActions("auth", ["logoutUser"])
   }
 };
 </script>

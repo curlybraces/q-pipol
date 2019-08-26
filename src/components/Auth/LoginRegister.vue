@@ -8,32 +8,6 @@
     </q-banner>
 
     <q-input
-      v-if="tab == 'register'"
-      dense
-      label="Name"
-      type="text"
-      ref="name"
-      :rules="[val => !!val || 'Please enter your name.']"
-      lazy-rules
-      outlined
-      stack-label
-      v-model="formData.name"
-    ></q-input>
-
-    <q-select
-      v-if="tab == 'register'"
-      :options="operating_units"
-      label="Operating Unit"
-      option-label="label"
-      option-value="value"
-      dense
-      outlined
-      stack-label
-      v-model="formData.operating_unit"
-    >
-    </q-select>
-
-    <q-input
       dense
       label="Email"
       type="email"
@@ -71,7 +45,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   name: "LoginRegister",
@@ -80,14 +54,10 @@ export default {
     return {
       loading: false,
       formData: {
-        name: "",
         email: "",
         password: ""
       }
     };
-  },
-  computed: {
-    ...mapState("operating_units", ["operating_units"])
   },
   methods: {
     ...mapActions("operating_units", ["loadOperatingUnits"]),
@@ -102,7 +72,6 @@ export default {
         if (this.tab == "login") {
           this.loginUser(this.formData);
         } else {
-          this.$refs.name.validate();
           this.registerUser(this.formData);
         }
       }
@@ -116,9 +85,6 @@ export default {
     titleCase(value) {
       return value.charAt(0).toUpperCase() + value.slice(1);
     }
-  },
-  created() {
-    this.loadOperatingUnits();
   }
 };
 </script>
