@@ -97,7 +97,7 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapMutations } from "vuex";
+import { mapState, mapMutations } from "vuex";
 import CardComponent from "../../components/UI/CardComponent";
 import SelectComponent from "../../components/Form/SelectComponent";
 import InputComponent from "../../components/Form/InputComponent";

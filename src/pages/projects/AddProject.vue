@@ -209,54 +209,94 @@
             :rules="rules.required"
           ></input-component>
 
-          <div class="row q-mb-md">
-            <div class="col-sm-3 text-weight-bold text-primary">
-              Budget by Fund Source
-            </div>
-            <div class="col-sm-9 text-center">
-              <q-table
-                title="Breakdown by Fund Source"
-                :data="form.fsbd"
-                :columns="columns"
-                class="my-sticky-column-table"
-                :row-key="fsbd.fundingSource"
-                separator="cell">
-                <template v-slot:top-right>
-                  <q-btn flat dense color="primary" :disable="loading" label="Add row" @click="addRow" />
-                </template>
-                <template v-slot:body="props">
-                  <q-tr :props="props">
-                    <q-td key="fundingSource" :props="props">
-                      <q-select
-                        :options="fundingSources"
-                        v-model="props.row.fundingSource"
-                        dense
-                        emit-value
-                        map-options
-                      />
-                    </q-td>
-                    <q-td key="y1" :props="props">
-                      <q-input flat dense type="number" v-model="props.row.y1" input-class="text-right"/>
-                    </q-td>
-                    <q-td key="y2" :props="props">
-                      <q-input flat dense type="number" v-model="props.row.y2" input-class="text-right"/>
-                    </q-td>
-                    <q-td key="y3" :props="props">
-                      <q-input flat dense type="number" v-model="props.row.y3" input-class="text-right"/>
-                    </q-td>
-                    <q-td key="y4" :props="props">
-                      <q-input flat dense type="number" v-model="props.row.y4" input-class="text-right"/>
-                    </q-td>
-                    <q-td key="y5" :props="props">
-                      <q-input flat dense type="number" v-model="props.row.y5" input-class="text-right"/>
-                    </q-td>
-                    <q-td key="y6" :props="props">
-                      <q-input flat dense type="number" v-model="props.row.y6" input-class="text-right"/>
-                    </q-td>
-                  </q-tr>
-                </template>
-              </q-table>
-            </div>
+          <div class="col q-mb-md">
+            <q-table
+              flat
+              title="Breakdown by Fund Source"
+              :data="form.fsbd"
+              :columns="columns"
+              class="my-sticky-column-table"
+              :row-key="form.fsbd.fundingSource"
+              separator="cell"
+            >
+              <template v-slot:top-right>
+                <q-btn
+                  flat
+                  dense
+                  color="primary"
+                  :disable="loading"
+                  label="Add row"
+                  @click="addRow"
+                />
+              </template>
+              <template v-slot:body="props">
+                <q-tr :props="props">
+                  <q-td key="fundingSource" :props="props">
+                    <q-select
+                      :options="fundingSources"
+                      v-model="props.row.fundingSource"
+                      dense
+                      emit-value
+                      map-options
+                    />
+                  </q-td>
+                  <q-td key="y1" :props="props">
+                    <q-input
+                      flat
+                      dense
+                      type="number"
+                      v-model="props.row.y1"
+                      input-class="text-right"
+                    />
+                  </q-td>
+                  <q-td key="y2" :props="props">
+                    <q-input
+                      flat
+                      dense
+                      type="number"
+                      v-model="props.row.y2"
+                      input-class="text-right"
+                    />
+                  </q-td>
+                  <q-td key="y3" :props="props">
+                    <q-input
+                      flat
+                      dense
+                      type="number"
+                      v-model="props.row.y3"
+                      input-class="text-right"
+                    />
+                  </q-td>
+                  <q-td key="y4" :props="props">
+                    <q-input
+                      flat
+                      dense
+                      type="number"
+                      v-model="props.row.y4"
+                      input-class="text-right"
+                    />
+                  </q-td>
+                  <q-td key="y5" :props="props">
+                    <q-input
+                      flat
+                      dense
+                      type="number"
+                      v-model="props.row.y5"
+                      input-class="text-right"
+                    />
+                  </q-td>
+                  <q-td key="y6" :props="props">
+                    <q-input
+                      flat
+                      dense
+                      type="number"
+                      v-model="props.row.y6"
+                      input-class="text-right"
+                    />
+                  </q-td>
+                </q-tr>
+              </template>
+            </q-table>
           </div>
 
           <div class="text-center">
@@ -329,7 +369,7 @@ export default {
           name: "y6",
           label: "2022",
           field: "y6"
-        },
+        }
       ],
       loading: false,
       form: {
@@ -393,8 +433,7 @@ export default {
         }
       );
       this.filteredImplementationPeriods = filteredImplementationPeriods;
-    },
-
+    }
   }
 };
 </script>
