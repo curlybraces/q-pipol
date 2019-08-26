@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from "vuex";
+import { mapState, mapGetters } from "vuex";
 import ListComponent from "../../components/ListProjects/ListComponent";
 import NoProject from "../../components/ListProjects/NoProject";
 import FabComponent from "../../components/UI/FabComponent";
@@ -56,14 +56,8 @@ export default {
     };
   },
   computed: {
-    ...mapState("projects", ["total_pages", "search"]),
+    ...mapState("projects", ["search"]),
     ...mapGetters("projects", ["projects", "projectsFiltered"])
-  },
-  methods: {
-    ...mapActions("projects", ["loadProjects"])
-  },
-  created() {
-    this.loadProjects();
   }
 };
 </script>
