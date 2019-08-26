@@ -288,7 +288,7 @@
 
 <script>
 // import { Notify } from "quasar";
-import { mapState, mapActions } from "vuex";
+// import { mapState, mapActions } from "vuex";
 import ListItem from "../../components/ViewProject/ListItem";
 import UpdateImplementationBasesDialog from "../../components/ViewProject/UpdateImplementationBasesDialog";
 import UpdateImplementationPeriodDialog from "../../components/ViewProject/UpdateImplementationPeriodDialog";
@@ -362,61 +362,10 @@ export default {
     };
   },
   computed: {
-    ...mapState("projects", ["project"]),
-    project_id() {
-      return this.$route.params.id;
-    },
-    papType: {
-      get() {
-        return this.project.pap_type.name;
-      }
-    },
-    implementation_period() {
-      return (
-        this.project.implementation_start +
-        " - " +
-        this.project.implementation_end
-      );
-    },
-    project_funder() {
-      return (
-        this.project.funding_source.name +
-        " > " +
-        this.project.funding_institution
-      );
-    },
-    spatialCoverage() {
-      return this.project.spatial_coverage.name;
-    },
-    categorization() {
-      return this.project.categorization.name;
-    },
-    infrastructureCost() {
-      return null;
-    },
-    totalCost() {
-      return "PhP " + Number(this.project.total_cost).toLocaleString();
-    },
-    project_updates() {
-      if (this.project.updates) {
-        return this.project.updates + " (as of " + this.project.as_of + " )";
-      } else {
-        return "No updates yet.";
-      }
-    }
+
   },
   methods: {
-    ...mapActions("projects", ["loadProject"]),
-    editTitle() {
-      console.log("edit title");
-      this.$q.notify({
-        message: "I got clicked!",
-        position: "top"
-      });
-    }
-  },
-  mounted() {
-    this.loadProject({ id: this.project_id });
+
   }
 };
 </script>

@@ -24,7 +24,9 @@
       transition-show="slide-left"
       transition-hide="slide-right"
     >
-      <help-dialog @close="showHelp = false"></help-dialog>
+      <help-dialog
+        @close="showHelp = false">
+      </help-dialog>
     </q-dialog>
 
     <card-component title="Add Project">
@@ -38,39 +40,42 @@
           complete and finalize your submission.
         </q-banner>
 
-        <q-form ref="form" @submit="onSubmit" autofocus>
+        <q-form
+          ref="form"
+          @submit="addProject(form)"
+          autofocus>
           <input-component
             label="Proposal/Project Name"
             hint="Project title must match title in budget proposal"
-            v-model="form.title"
+            v-model="form.t"
             :rules="rules.required"
           ></input-component>
 
           <select-component
             label="Implementing Department/Agency"
             :options="operatingUnits"
-            v-model="form.implementing_unit"
+            v-model="form.iu"
             :rules="rules.required"
           ></select-component>
 
           <input-component
             type="number"
             label="Priority Ranking No."
-            v-model="form.rank"
+            v-model="form.rnk"
           />
 
           <options-component
             label="Categorization"
-            v-model="form.categorization"
+            v-model="form.cat"
             :options="categorizations"
           ></options-component>
 
           <options-component
             label="Infrastructure"
-            v-model="form.infrastructure"
+            v-model="form.if"
             :options="[
-              { value: 0, label: 'Non-Infrastructure' },
-              { value: 1, label: 'Infrastructure' }
+              { value: false, label: 'Non-Infrastructure' },
+              { value: true, label: 'Infrastructure' }
             ]"
           ></options-component>
 
@@ -78,7 +83,7 @@
             type="number"
             label="Total Project Cost (in PhP)"
             hint="Total cost of the project in absolute terms"
-            v-model="form.total_cost"
+            v-model="form.tc"
             :rules="rules.required"
           />
 
@@ -86,14 +91,14 @@
             type="textarea"
             label="Description"
             hint="Overview, Purpose, and/or Rationale of the Undertaking, Sub-programs/Components"
-            v-model="form.description"
+            v-model="form.d"
             :rules="rules.required"
           ></input-component>
 
           <input-component
             type="textarea"
             label="Purpose"
-            v-model="form.purpose"
+            v-model="form.p"
             :rules="rules.required"
           ></input-component>
 
@@ -101,14 +106,14 @@
             type="textarea"
             label="Expected Outputs"
             hint="Actual Deliverables, i.e. 100km of paved roads"
-            v-model="form.expected_outputs"
+            v-model="form.eo"
             :rules="rules.required"
           ></input-component>
 
           <input-component
             type="textarea"
             label="Beneficiaries"
-            v-model="form.beneficiaries"
+            v-model="form.b"
             :rules="rules.required"
           ></input-component>
 
@@ -124,7 +129,7 @@
                   label="Implementation Start"
                   hint="Target year of start of implementation"
                   :options="implementationPeriods"
-                  v-model="form.implementation_start"
+                  v-model="form.is"
                   @input="updateImplementationEnd"
                   :rules="rules.required"
                 ></q-select>
@@ -136,8 +141,8 @@
                   label="Implementation End"
                   hint="Target year of project completion"
                   :options="filteredImplementationPeriods"
-                  v-model="form.implementation_end"
-                  :readonly="!form.implementation_start"
+                  v-model="form.ie"
+                  :readonly="!form.is"
                   :rules="rules.required"
                 ></q-select>
               </div>
@@ -147,17 +152,17 @@
           <select-component
             label="Spatial Coverage"
             :options="spatialCoverages"
-            v-model="form.spatial_coverage"
+            v-model="form.sc"
             hint="Choose where your project will be implemented."
             :rules="rules.required"
           ></select-component>
 
           <multi-select-component
-            v-if="form.spatial_coverage == 2"
+            v-if="form.sc == 2"
             label="Regions"
             :options="regions"
             hint="Select the regions where the project will be implemented."
-            v-model="form.regions"
+            v-model="form.r"
             :rules="rules.required"
           ></multi-select-component>
 
@@ -165,14 +170,14 @@
             v-else-if="form.spatial_coverage == 3"
             label="Region"
             :options="regions"
-            v-model="form.regions"
+            v-model="form.r"
             hint="Select the region where the project will be implemented."
             :rules="rules.required"
           ></select-component>
 
           <select-component
             label="Main Funding Source"
-            v-model="form.funding_source"
+            v-model="form.mfs"
             hint="Choose the major type of funding source for the PAP."
             :options="fundingSources"
             :rules="rules.required"
@@ -181,7 +186,7 @@
           <select-component
             label="ODA Funding Institutions"
             v-if="form.funding_source == 2 || form.funding_source == 3"
-            v-model="form.funding_institution"
+            v-model="form.mfi"
             :options="fundingInstitutions"
             :rules="rules.required"
           ></select-component>
@@ -189,14 +194,14 @@
           <input-component
             label="Other Funding Institution"
             v-if="form.funding_institution == 99"
-            v-model="form.other_funding_institution"
+            v-model="form.ofi"
             :rules="rules.required"
           ></input-component>
 
           <select-component
             v-if="form.categorization == 2"
             label="Project Preparation Document"
-            v-model="form.preparation_document"
+            v-model="form.pd"
             :options="preparationDocuments"
             :rules="rules.required"
           ></select-component>
@@ -204,13 +209,16 @@
           <input-component
             v-if="form.categorization == 1 || form.categorization == 3"
             label="UACS Code"
-            v-model="form.uacs_code"
+            v-model="form.uacs"
             hint="UACS code is optional for new PAPs."
             :rules="rules.required"
           ></input-component>
 
           <div class="text-center">
-            <q-btn icon="save" color="primary" type="submit">
+            <q-btn
+              icon="save"
+              color="primary"
+              type="submit">
               Save
             </q-btn>
           </div>
@@ -221,7 +229,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapState, mapGetters, mapActions } from "vuex";
 import CardComponent from "../../components/UI/CardComponent";
 import InputComponent from "../../components/Form/InputComponent";
 import SelectComponent from "../../components/Form/SelectComponent";
@@ -244,23 +252,25 @@ export default {
       filteredImplementationPeriods: [],
       showHelp: false,
       form: {
-        operating_unit: null,
-        title: null,
-        ranking: null,
-        key_result_area: null,
-        expected_outputs: null,
-        implementation_bases: [],
-        description: null,
-        spatial_coverage: null,
-        regions: [],
-        implementation_start: null,
-        implementation_end: null,
-        funding_source: null,
-        categorization: null,
-        uacs_code: null,
-        preparation_document: null,
-        total_cost: null,
-        regional_breakdown: []
+        iu: "1",
+        t: "Title",
+        rnk: 1,
+        eo: "outputs",
+        cat: 1,
+        ib: [1,2,3],
+        d: "description",
+        if: false,
+        p: "purpose",
+        b: "beneficiaries",
+        sc: 2,
+        r: [1,2,3],
+        is: 1,
+        ie: 1,
+        mfs: 1,
+        mfi: 1,
+        ofi: "Other",
+        uacs: 100001000,
+        tc: 100000000,
       },
       rules: {
         required: [v => !!v || "This field is required."],
@@ -280,32 +290,16 @@ export default {
     ...mapGetters("regions", ["regions"])
   },
   methods: {
+    ...mapActions("projects",["addProject"]),
     updateImplementationEnd(evt) {
       let filteredImplementationPeriods = [];
       var start = parseInt(evt);
-      filteredImplementationPeriods = this.implementation_periods.filter(
+      filteredImplementationPeriods = this.implementationPeriods.filter(
         period => {
           return parseInt(period.value) >= start;
         }
       );
       this.filteredImplementationPeriods = filteredImplementationPeriods;
-    },
-    addProject(payload) {
-      this.$q.loading.show();
-      this.$axios
-        .post("/projects", payload)
-        .then(() => {
-          this.$q.loading.hide();
-
-          this.$router.push("/projects");
-        })
-        .catch(e => {
-          console.log("Error: ", e.message);
-        });
-    },
-    onSubmit() {
-      // this.addProject(this.form);
-      console.log(this.form);
     }
   }
 };

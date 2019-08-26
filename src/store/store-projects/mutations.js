@@ -1,7 +1,6 @@
 import Vue from "vue";
 
 export function addProject(state, payload) {
-  // state.project = payload;
   Vue.set(state.projects, payload.id, payload.project);
 }
 

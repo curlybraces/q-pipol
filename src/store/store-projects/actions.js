@@ -1,13 +1,22 @@
 import { uid } from "quasar";
 import { firebaseAuth, firebaseDb } from "boot/firebase";
 
-export function addProject({ commit }, project) {
+export function addProject({ dispatch }, project) {
   let projectId = uid();
   let payload = {
     id: projectId,
     project: project
   };
-  commit("addProject", payload);
+
+  dispatch("fbAddProject", payload);
+}
+
+export function updateProject({ dispatch }, payload) {
+  dispatch("fbUpdateProject", payload);
+}
+
+export function deleteProject({ dispatch }, payload) {
+  dispatch("fbDeleteProject", payload.id);
 }
 
 export function fbReadData({ commit }) {
@@ -44,4 +53,22 @@ export function fbReadData({ commit }) {
     commit("deleteProject", projectId);
   });
 
+}
+
+export function fbAddProject({}, payload) {
+  let userId = firebaseAuth.currentUser.uid;
+  let projectRef = firebaseDb.ref("projects/" + userId + "/" + payload.id);
+  projectRef.set(payload.project);
+}
+
+export function fbUpdateProject({}, payload) {
+  let userId = firebaseAuth.currentUser.uid;
+  let projectRef = firebaseDb.ref("projects/" + userId + "/" + payload.id);
+  projectRef.update(payload.updates);
+}
+
+export function fbDeleteProject({}, projectId) {
+  let userId = firebaseAuth.currentUser.uid;
+  let projectRef = firebaseDb.ref("projects/" + userId + "/" + projectId);
+  projectRef.remove();
 }

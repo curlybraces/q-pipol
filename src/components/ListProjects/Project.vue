@@ -71,6 +71,7 @@ export default {
   methods: {
     ...mapActions("projects", ["deleteProject"]),
     promptToDelete(id) {
+      console.log(id);
       this.$q
         .dialog({
           title: "Confirm delete",
