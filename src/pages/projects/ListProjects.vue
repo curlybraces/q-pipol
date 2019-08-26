@@ -25,10 +25,7 @@
 
       <template v-else>
         <span class="absolute-center">
-          <q-spinner
-            color="primary"
-            size="3em"
-          ></q-spinner>
+          <q-spinner color="primary" size="3em"></q-spinner>
         </span>
       </template>
     </div>
@@ -53,7 +50,7 @@ export default {
   },
   name: "PageViewProjects",
   computed: {
-    ...mapState("projects", ["search","projectsDownloaded"]),
+    ...mapState("projects", ["search", "projectsDownloaded"]),
     ...mapGetters("projects", ["projects"])
   }
 };

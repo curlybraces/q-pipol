@@ -57,7 +57,6 @@ export function fbReadData({ commit }) {
     let projectId = snapshot.key;
     commit("deleteProject", projectId);
   });
-
 }
 
 export function fbAddProject({}, payload) {

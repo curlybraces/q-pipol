@@ -40,6 +40,7 @@ export function handleAuthStateChange({ commit, dispatch }) {
       this.$router.push("/");
       dispatch("projects/fbReadData", null, { root: true });
     } else {
+      commit("projects/setProjectsDownloaded", false, { root: true });
       commit("setLoggedIn", false);
       LocalStorage.set("loggedIn", false);
       this.$router.replace("/login");

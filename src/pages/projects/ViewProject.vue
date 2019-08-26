@@ -361,11 +361,7 @@ export default {
       infrastructureSector: false
     };
   },
-  computed: {
-
-  },
-  methods: {
-
-  }
+  computed: {},
+  methods: {}
 };
 </script>

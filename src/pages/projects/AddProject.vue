@@ -24,9 +24,7 @@
       transition-show="slide-left"
       transition-hide="slide-right"
     >
-      <help-dialog
-        @close="showHelp = false">
-      </help-dialog>
+      <help-dialog @close="showHelp = false"> </help-dialog>
     </q-dialog>
 
     <card-component title="Add Project">
@@ -40,10 +38,7 @@
           complete and finalize your submission.
         </q-banner>
 
-        <q-form
-          ref="form"
-          @submit="addProject(form)"
-          autofocus>
+        <q-form ref="form" @submit="addProject(form)" autofocus>
           <input-component
             label="Proposal/Project Name"
             hint="Project title must match title in budget proposal"
@@ -214,11 +209,58 @@
             :rules="rules.required"
           ></input-component>
 
+          <div class="row q-mb-md">
+            <div class="col-sm-3 text-weight-bold text-primary">
+              Budget by Fund Source
+            </div>
+            <div class="col-sm-9 text-center">
+              <q-table
+                title="Breakdown by Fund Source"
+                :data="form.fsbd"
+                :columns="columns"
+                class="my-sticky-column-table"
+                :row-key="fsbd.fundingSource"
+                separator="cell">
+                <template v-slot:top-right>
+                  <q-btn flat dense color="primary" :disable="loading" label="Add row" @click="addRow" />
+                </template>
+                <template v-slot:body="props">
+                  <q-tr :props="props">
+                    <q-td key="fundingSource" :props="props">
+                      <q-select
+                        :options="fundingSources"
+                        v-model="props.row.fundingSource"
+                        dense
+                        emit-value
+                        map-options
+                      />
+                    </q-td>
+                    <q-td key="y1" :props="props">
+                      <q-input flat dense type="number" v-model="props.row.y1" input-class="text-right"/>
+                    </q-td>
+                    <q-td key="y2" :props="props">
+                      <q-input flat dense type="number" v-model="props.row.y2" input-class="text-right"/>
+                    </q-td>
+                    <q-td key="y3" :props="props">
+                      <q-input flat dense type="number" v-model="props.row.y3" input-class="text-right"/>
+                    </q-td>
+                    <q-td key="y4" :props="props">
+                      <q-input flat dense type="number" v-model="props.row.y4" input-class="text-right"/>
+                    </q-td>
+                    <q-td key="y5" :props="props">
+                      <q-input flat dense type="number" v-model="props.row.y5" input-class="text-right"/>
+                    </q-td>
+                    <q-td key="y6" :props="props">
+                      <q-input flat dense type="number" v-model="props.row.y6" input-class="text-right"/>
+                    </q-td>
+                  </q-tr>
+                </template>
+              </q-table>
+            </div>
+          </div>
+
           <div class="text-center">
-            <q-btn
-              icon="save"
-              color="primary"
-              type="submit">
+            <q-btn icon="save" color="primary" type="submit">
               Save
             </q-btn>
           </div>
@@ -251,19 +293,58 @@ export default {
     return {
       filteredImplementationPeriods: [],
       showHelp: false,
+      showAddFundSource: true,
+      columns: [
+        {
+          name: "fundingSource",
+          label: "Funding Source",
+          field: "fundingSource"
+        },
+        {
+          name: "y1",
+          label: "2017",
+          field: "y1"
+        },
+        {
+          name: "y2",
+          label: "2018",
+          field: "y2"
+        },
+        {
+          name: "y3",
+          label: "2019",
+          field: "y3"
+        },
+        {
+          name: "y4",
+          label: "2020",
+          field: "y4"
+        },
+        {
+          name: "y5",
+          label: "2021",
+          field: "y5"
+        },
+        {
+          name: "y6",
+          label: "2022",
+          field: "y6"
+        },
+      ],
+      loading: false,
       form: {
         iu: "1",
         t: "Title",
         rnk: 1,
         eo: "outputs",
         cat: 1,
-        ib: [1,2,3],
+        ib: [1, 2, 3],
         d: "description",
         if: false,
         p: "purpose",
         b: "beneficiaries",
         sc: 2,
-        r: [1,2,3],
+        r: [1, 2, 3],
         is: 1,
         ie: 1,
         mfs: 1,
@@ -271,6 +352,7 @@ export default {
         ofi: "Other",
         uacs: 100001000,
         tc: 100000000,
+        fsbd: []
       },
       rules: {
         required: [v => !!v || "This field is required."],
@@ -290,7 +372,18 @@ export default {
     ...mapState("regions", ["regions"])
   },
   methods: {
-    ...mapActions("projects",["addProject"]),
+    ...mapActions("projects", ["addProject"]),
+    addRow() {
+      this.form.fsbd.push({
+        fundingSource: "",
+        y1: 0,
+        y2: 0,
+        y3: 0,
+        y4: 0,
+        y5: 0,
+        y6: 0
+      });
+    },
     updateImplementationEnd(evt) {
       let filteredImplementationPeriods = [];
       var start = parseInt(evt);
@@ -300,25 +393,8 @@ export default {
         }
       );
       this.filteredImplementationPeriods = filteredImplementationPeriods;
-    }
+    },
+
   }
 };
 </script>
-
-<style lang="stylus">
-.my-sticky-column-table
-  /* bg color is important for th; just specify one */
-  thead tr:first-child th:first-child
-    background-color #344955
-    opacity 1
-
-  td:first-child
-    background-color #344955
-
-  thead tr:first-child th:first-child,
-  td:first-child
-    position sticky
-    left 0
-    z-index 1
-    color: #FFF
-</style>
