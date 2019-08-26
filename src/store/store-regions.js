@@ -99,7 +99,9 @@ const state = {
 };
 
 const mutations = {
-
+  sortRegions(state, value) {
+    state.regions = value;
+  }
 };
 
 const actions = {
@@ -107,11 +109,10 @@ const actions = {
 };
 
 const getters = {
-  regions(state) {
-    let sortedRegions = state.regions.sort( function(a, b) {
+  regions: (state) => {
+    return state.regions.sort( function(a, b) {
       return parseInt(a.order) > parseInt(b.order) ? 1: -1;
-    }.bind(this));
-    return sortedRegions;
+    });
   }
 };
 

@@ -229,7 +229,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 import CardComponent from "../../components/UI/CardComponent";
 import InputComponent from "../../components/Form/InputComponent";
 import SelectComponent from "../../components/Form/SelectComponent";
@@ -287,7 +287,7 @@ export default {
     ...mapState("operating_units", ["operatingUnits"]),
     ...mapState("preparation_documents", ["preparationDocuments"]),
     ...mapState("spatial_coverages", ["spatialCoverages"]),
-    ...mapGetters("regions", ["regions"])
+    ...mapState("regions", ["regions"])
   },
   methods: {
     ...mapActions("projects",["addProject"]),

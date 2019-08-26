@@ -23,6 +23,11 @@ export function fbReadData({ commit }) {
   let userId = firebaseAuth.currentUser.uid;
   let userProjects = firebaseDb.ref("projects/" + userId);
 
+  // initial check for data
+  userProjects.once("value", () => {
+    commit("setProjectsDownloaded", true);
+  });
+
   // child added
   userProjects.on("child_added", snapshot => {
     let project = snapshot.val();

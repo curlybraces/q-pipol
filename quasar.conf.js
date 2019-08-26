@@ -81,6 +81,7 @@ module.exports = function (ctx) {
 
 	    'QSpinnerFacebook',
 	    'QSpinnerDots',
+      'QSpinner',
 
 	    'QStepper',
 	    'QStep',

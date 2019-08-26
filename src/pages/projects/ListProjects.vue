@@ -5,21 +5,32 @@
         <q-breadcrumbs-el icon="list" label="Projects" />
       </q-breadcrumbs>
 
-      <search-component />
+      <template v-if="projectsDownloaded">
+        <search-component />
 
-      <no-project v-if="!Object.keys(projects).length && !search" />
+        <no-project v-if="!Object.keys(projects).length && !search" />
 
-      <q-scroll-area
-        v-if="Object.keys(projects).length"
-        class="q-scroll-area-projects"
-        style="height:100px"
-      >
-        <list-component :items="projects" />
-      </q-scroll-area>
+        <q-scroll-area
+          v-if="Object.keys(projects).length"
+          class="q-scroll-area-projects"
+          style="height:100px"
+        >
+          <list-component :items="projects" />
+        </q-scroll-area>
 
-      <p v-if="!Object.keys(projects).length && search">
-        No search results found.
-      </p>
+        <p v-if="!Object.keys(projects).length && search">
+          No search results found.
+        </p>
+      </template>
+
+      <template v-else>
+        <span class="absolute-center">
+          <q-spinner
+            color="primary"
+            size="3em"
+          ></q-spinner>
+        </span>
+      </template>
     </div>
 
     <fab-component link="/projects/add" />
@@ -42,7 +53,7 @@ export default {
   },
   name: "PageViewProjects",
   computed: {
-    ...mapState("projects", ["search"]),
+    ...mapState("projects", ["search","projectsDownloaded"]),
     ...mapGetters("projects", ["projects"])
   }
 };

@@ -12,10 +12,10 @@ export function deleteProject(state, id) {
   Vue.delete(state.projects, id);
 }
 
-export function setProjects(state, value) {
-  state.projects = value;
-}
-
 export function setSearch(state, value) {
   state.search = value;
+}
+
+export function setProjectsDownloaded(state, value) {
+  state.projectsDownloaded = value;
 }
