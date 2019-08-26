@@ -1,28 +1,27 @@
-import { axiosInstance } from "boot/axios";
-
 const state = {
-  spatial_coverages: [] // localStorage.getItem("spatial_coverages") || [],
+  spatialCoverages: [
+    {
+      label: "Nationwide",
+      value: 1
+    },
+    {
+      label: "Inter-regional",
+      value: 2
+    },
+    {
+      label: "Region-Specific",
+      value: 3
+    },
+    {
+      label: "Abroad",
+      value: 4
+    }
+  ]
 };
 
-const mutations = {
-  setSpatialCoverages(state, value) {
-    state.spatial_coverages = value;
-  }
-};
+const mutations = {};
 
-const actions = {
-  loadSpatialCoverages({ commit }) {
-    axiosInstance
-      .get("/spatial_coverages")
-      .then(res => {
-        localStorage.setItem("spatial_coverages", JSON.stringify(res.data));
-        commit("setSpatialCoverages", res.data);
-      })
-      .catch(e => {
-        console.log("Error: ", e.message);
-      });
-  }
-};
+const actions = {};
 
 const getters = {
   //

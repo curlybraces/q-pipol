@@ -7,28 +7,19 @@
 
       <search-component />
 
-      <no-project v-if="!projects.length && !search" />
-
-      <div v-if="projects.length > 0" class="q-mb-md flex flex-center">
-        <q-pagination
-          v-model="current_page"
-          color="primary"
-          :max="total_pages"
-          :boundary-links="true"
-          @input="loadProjects"
-        >
-        </q-pagination>
-      </div>
+      <no-project v-if="!Object.keys(projects).length && !search" />
 
       <q-scroll-area
-        v-if="projects.length > 0"
+        v-if="Object.keys(projects).length"
         class="q-scroll-area-projects"
         style="height:100px"
       >
         <list-component :items="projects" />
       </q-scroll-area>
 
-      <p v-if="search && !projects.length">No search results found.</p>
+      <p v-if="!Object.keys(projects).length && search">
+        No search results found.
+      </p>
     </div>
 
     <fab-component link="/projects/add" />
@@ -50,14 +41,9 @@ export default {
     NoProject
   },
   name: "PageViewProjects",
-  data() {
-    return {
-      current_page: 1
-    };
-  },
   computed: {
     ...mapState("projects", ["search"]),
-    ...mapGetters("projects", ["projects", "projectsFiltered"])
+    ...mapGetters("projects", ["projects"])
   }
 };
 </script>

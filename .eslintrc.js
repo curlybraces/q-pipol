@@ -31,6 +31,7 @@ module.exports = {
 
   // add your custom rules here
   rules: {
+    'no-empty-pattern': 'off',
     'prefer-promise-reject-errors': 'off',
 
     // allow console.log during development only

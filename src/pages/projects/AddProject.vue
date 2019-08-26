@@ -48,8 +48,8 @@
 
           <select-component
             label="Implementing Department/Agency"
-            :options="operating_units"
-            v-model="form.operating_unit"
+            :options="operatingUnits"
+            v-model="form.implementing_unit"
             :rules="rules.required"
           ></select-component>
 
@@ -62,11 +62,7 @@
           <options-component
             label="Categorization"
             v-model="form.categorization"
-            :options="[
-              { value: 1, label: 'Ongoing' },
-              { value: 2, label: 'New' },
-              { value: 3, label: 'Expanded/Revised' }
-            ]"
+            :options="categorizations"
           ></options-component>
 
           <options-component
@@ -120,34 +116,37 @@
             <div class="col-sm-3 text-weight-bold text-primary">
               Implementation Period
             </div>
-            <div class="col-sm-9">
-              <select-component
-                label="Implementation Start"
-                hint="Target year of start of implementation"
-                :options="implementation_periods"
-                v-model="form.implementation_start"
-                @input="updateImplementationEnd"
-                :rules="rules.required"
-              ></select-component>
-
-              <select-component
-                label="Implementation End"
-                hint="Target year of project completion"
-                :options="filteredImplementationPeriods"
-                v-model="form.implementation_end"
-                :readonly="!form.implementation_start"
-                :rules="rules.required"
-              ></select-component>
+            <div class="row col-sm-9 q-col-gutter-x-md">
+              <div class="col-xs-6">
+                <q-select
+                  outlined
+                  dense
+                  label="Implementation Start"
+                  hint="Target year of start of implementation"
+                  :options="implementationPeriods"
+                  v-model="form.implementation_start"
+                  @input="updateImplementationEnd"
+                  :rules="rules.required"
+                ></q-select>
+              </div>
+              <div class="col-xs-6">
+                <q-select
+                  outlined
+                  dense
+                  label="Implementation End"
+                  hint="Target year of project completion"
+                  :options="filteredImplementationPeriods"
+                  v-model="form.implementation_end"
+                  :readonly="!form.implementation_start"
+                  :rules="rules.required"
+                ></q-select>
+              </div>
             </div>
           </div>
 
-          <p>
-            Pre-requisites
-          </p>
-
           <select-component
             label="Spatial Coverage"
-            :options="spatial_coverages"
+            :options="spatialCoverages"
             v-model="form.spatial_coverage"
             hint="Choose where your project will be implemented."
             :rules="rules.required"
@@ -175,7 +174,7 @@
             label="Main Funding Source"
             v-model="form.funding_source"
             hint="Choose the major type of funding source for the PAP."
-            :options="funding_sources"
+            :options="fundingSources"
             :rules="rules.required"
           ></select-component>
 
@@ -183,7 +182,7 @@
             label="ODA Funding Institutions"
             v-if="form.funding_source == 2 || form.funding_source == 3"
             v-model="form.funding_institution"
-            :options="funding_institutions"
+            :options="fundingInstitutions"
             :rules="rules.required"
           ></select-component>
 
@@ -194,19 +193,11 @@
             :rules="rules.required"
           ></input-component>
 
-          <!-- <select-component
-            label="Categorization"
-            v-model="form.categorization"
-            hint="Indicate the status of the PAP."
-            :options="categorizations"
-            :rules="rules.required"
-          ></select-component> -->
-
           <select-component
             v-if="form.categorization == 2"
             label="Project Preparation Document"
             v-model="form.preparation_document"
-            :options="preparation_documents"
+            :options="preparationDocuments"
             :rules="rules.required"
           ></select-component>
 
@@ -217,12 +208,6 @@
             hint="UACS code is optional for new PAPs."
             :rules="rules.required"
           ></input-component>
-
-          <div class="q-my-md">
-            <regional-breakdown
-              :regionalBreakdown="form.regional_breakdown"
-            ></regional-breakdown>
-          </div>
 
           <div class="text-center">
             <q-btn icon="save" color="primary" type="submit">
@@ -236,14 +221,13 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapGetters } from "vuex";
 import CardComponent from "../../components/UI/CardComponent";
 import InputComponent from "../../components/Form/InputComponent";
 import SelectComponent from "../../components/Form/SelectComponent";
 import MultiSelectComponent from "../../components/Form/MultiSelectComponent";
 import OptionsComponent from "../../components/Form/OptionsComponent";
 import HelpDialog from "../../components/AddProject/HelpDialog";
-import RegionalBreakdown from "../../components/AddProject/RegionalBreakdown";
 
 export default {
   components: {
@@ -252,7 +236,6 @@ export default {
     CardComponent,
     InputComponent,
     OptionsComponent,
-    RegionalBreakdown,
     HelpDialog
   },
   name: "PageAddProject",
@@ -287,37 +270,16 @@ export default {
   },
   computed: {
     ...mapState("categorizations", ["categorizations"]),
-    ...mapState("funding_institutions", ["funding_institutions"]),
-    ...mapState("funding_sources", ["funding_sources"]),
-    ...mapState("implementation_bases", ["implementation_bases"]),
-    ...mapState("implementation_periods", ["implementation_periods"]),
-    ...mapState("operating_units", ["operating_units"]),
-    ...mapState("preparation_documents", ["preparation_documents"]),
-    ...mapState("regions", ["regions"]),
-    ...mapState("spatial_coverages", ["spatial_coverages"])
+    ...mapState("funding_institutions", ["fundingInstitutions"]),
+    ...mapState("funding_sources", ["fundingSources"]),
+    ...mapState("implementation_bases", ["implementationBases"]),
+    ...mapState("implementation_periods", ["implementationPeriods"]),
+    ...mapState("operating_units", ["operatingUnits"]),
+    ...mapState("preparation_documents", ["preparationDocuments"]),
+    ...mapState("spatial_coverages", ["spatialCoverages"]),
+    ...mapGetters("regions", ["regions"])
   },
   methods: {
-    ...mapActions("categorizations", ["loadCategorizations"]),
-    ...mapActions("funding_institutions", ["loadFundingInstitutions"]),
-    ...mapActions("funding_sources", ["loadFundingSources"]),
-    ...mapActions("implementation_bases", ["loadImplementationBases"]),
-    ...mapActions("implementation_periods", ["loadImplementationPeriods"]),
-    ...mapActions("operating_units", ["loadOperatingUnits"]),
-    ...mapActions("preparation_documents", ["loadPreparationDocuments"]),
-    ...mapActions("regions", ["loadRegions"]),
-    ...mapActions("spatial_coverages", ["loadSpatialCoverages"]),
-    ...mapActions("projects", ["addProject"]),
-    init() {
-      this.loadCategorizations();
-      this.loadOperatingUnits();
-      this.loadImplementationBases();
-      this.loadSpatialCoverages();
-      this.loadRegions();
-      this.loadImplementationPeriods();
-      this.loadFundingInstitutions();
-      this.loadFundingSources();
-      this.loadPreparationDocuments();
-    },
     updateImplementationEnd(evt) {
       let filteredImplementationPeriods = [];
       var start = parseInt(evt);
@@ -345,9 +307,6 @@ export default {
       // this.addProject(this.form);
       console.log(this.form);
     }
-  },
-  created() {
-    this.init();
   }
 };
 </script>

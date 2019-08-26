@@ -1,11 +1,7 @@
 <template>
   <q-page padding>
     <p>Programmed Projects</p>
-    <q-table
-      :data="data"
-      :columns="columns"
-      row-key="id">
-    </q-table>
+    <q-table :data="data" :columns="columns" row-key="id"> </q-table>
   </q-page>
 </template>
 
@@ -67,7 +63,7 @@ export default {
           2020: 15000000,
           2021: 0,
           2022: 0,
-          2023: 0,
+          2023: 0
         },
         {
           id: "2",
@@ -76,10 +72,10 @@ export default {
           2020: 1000000000,
           2021: 1000000000,
           2022: 1000000000,
-          2023: 0,
+          2023: 0
         }
       ]
-    }
+    };
   }
-}
+};
 </script>

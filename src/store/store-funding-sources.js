@@ -1,27 +1,42 @@
-import { axiosInstance } from "boot/axios";
-
 const state = {
-  funding_sources: [] // localStorage.getItem("funding_sources") || [],
+  fundingSources: [
+    {
+        "label": "NG-Local",
+        "value": 1
+    },
+    {
+        "label": "NG-ODA Loan",
+        "value": 2
+    },
+    {
+        "label": "NG-ODA Grant",
+        "value": 3
+    },
+    {
+        "label": "GOCC/GFIs",
+        "value": 4
+    },
+    {
+        "label": "LGUs",
+        "value": 5
+    },
+    {
+        "label": "Private Sector",
+        "value": 6
+    },
+    {
+        "label": "Others",
+        "value": 7
+    }
+  ]
 };
 
 const mutations = {
-  setFundingSources(state, value) {
-    state.funding_sources = value;
-  }
+
 };
 
 const actions = {
-  loadFundingSources({ commit }) {
-    axiosInstance
-      .get("/funding_sources")
-      .then(res => {
-        localStorage.setItem("funding_sources", JSON.stringify(res.data));
-        commit("setFundingSources", res.data);
-      })
-      .catch(e => {
-        console.log("Error: ", e.message);
-      });
-  }
+
 };
 
 const getters = {

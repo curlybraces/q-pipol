@@ -1,27 +1,31 @@
-import { axiosInstance } from "boot/axios";
-
 const state = {
-  pip_types: [] // localStorage.getItem("preparation_documents") || [],
+  pipTypes:
+  [
+    {
+        "label": "Capital Investment Program and Project",
+        "value": 1
+    },
+    {
+        "label": "Technical Assistance Program/Project (such as Research and Development, Institutional Development, Human Resource Capacity Building, or System/Process Improvement PAPs)",
+        "value": 2
+    },
+    {
+        "label": "Relending Program/Project of GFIs to LGUs and Targets Beneficiary",
+        "value": 3
+    },
+    {
+        "label": "Government Buildings",
+        "value": 4
+    }
+  ]
 };
 
 const mutations = {
-  setPipTypes(state, value) {
-    state.pip_types = value;
-  }
+
 };
 
 const actions = {
-  loadPipTypes({ commit }) {
-    axiosInstance
-      .get("/pip_types")
-      .then(res => {
-        localStorage.setItem("pip_types", JSON.stringify(res.data));
-        commit("setPreparationDocuments", res.data);
-      })
-      .catch(e => {
-        console.log("Error: ", e.message);
-      });
-  }
+
 };
 
 const getters = {

@@ -1,28 +1,31 @@
-import { axiosInstance } from "boot/axios";
-
 const state = {
-  categorizations: [] // localStorage.getItem("categorizations") || [],
+  categorizations: [
+    {
+      label: "Tier 1",
+      value: 1
+    },
+    {
+      label: "Tier 2 New",
+      value: 2
+    },
+    {
+      label: "Tier 2 Expanded",
+      value: 3
+    },
+    {
+      label: "Completed",
+      value: 4
+    },
+    {
+      label: "Dropped",
+      value: 5
+    }
+  ]
 };
 
-const mutations = {
-  setCategorizations(state, value) {
-    state.categorizations = value;
-  }
-};
+const mutations = {};
 
-const actions = {
-  loadCategorizations({ commit }) {
-    axiosInstance
-      .get("/categorizations")
-      .then(res => {
-        localStorage.setItem("categorizations", JSON.stringify(res.data));
-        commit("setCategorizations", res.data);
-      })
-      .catch(e => {
-        console.log("Error: ", e.message);
-      });
-  }
-};
+const actions = {};
 
 const getters = {
   //
