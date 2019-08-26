@@ -1,5 +1,5 @@
 const state = {
-  categorizations: [
+  challenges: [
     {
       value: 1,
       label: "Low farm productivity"

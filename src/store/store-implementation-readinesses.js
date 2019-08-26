@@ -1,31 +1,47 @@
-import { axiosInstance } from "boot/axios";
-
 const state = {
-  implementation_readinesses: [] // localStorage.getItem("implementation_readinesses") || [],
+  implementationReadinesses: [
+    {
+      label: "Pre-FeasibilityStudy Study/Business Case",
+      value: 1
+    },
+    {
+      label: "FeasibilityStudy Study",
+      value: 2
+    },
+    {
+      label: "Level of Approval",
+      value: 3
+    },
+    {
+      label: "Right-of-Way Acquisition",
+      value: 4
+    },
+    {
+      label: "Resettlement Action Plan",
+      value: 5
+    },
+    {
+      label: "Environmental Compliance Certificate",
+      value: 6
+    },
+    {
+      label: "RDC Endorsement",
+      value: 7
+    },
+    {
+      label: "Detailed Engineering Design",
+      value: 8
+    },
+    {
+      label: "Other Pre-Investment Activities",
+      value: 9
+    }
+  ]
 };
 
-const mutations = {
-  setImplementationReadinesses(state, value) {
-    state.implementation_readinesses = value;
-  }
-};
+const mutations = {};
 
-const actions = {
-  loadImplementationReadinesses({ commit }) {
-    axiosInstance
-      .get("/implementation_readinesses")
-      .then(res => {
-        localStorage.setItem(
-          "implementation_readinesses",
-          JSON.stringify(res.data)
-        );
-        commit("setImplementationReadinesses", res.data);
-      })
-      .catch(e => {
-        console.log("Error: ", e.message);
-      });
-  }
-};
+const actions = {};
 
 const getters = {
   //

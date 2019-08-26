@@ -1,6 +1,5 @@
 const state = {
-  // approval_levels: [] // localStorage.getItem("approval_levels") || [],
-  approval_levels: [
+  approvalLevels: [
     {
       label: "Yet to be submitted to the NEDA Secretariat",
       value: 1
