@@ -1,5 +1,6 @@
-import { uid } from "quasar";
+import { uid, Notify } from "quasar";
 import { firebaseAuth, firebaseDb } from "boot/firebase";
+import { showErrorMessage } from "src/functions/function-show-error-message";
 
 export function addProject({ dispatch }, project) {
   let projectId = uid();
@@ -62,17 +63,35 @@ export function fbReadData({ commit }) {
 export function fbAddProject({}, payload) {
   let userId = firebaseAuth.currentUser.uid;
   let projectRef = firebaseDb.ref("projects/" + userId + "/" + payload.id);
-  projectRef.set(payload.project);
+  projectRef.set(payload.project, error => {
+    if (error) {
+      showErrorMessage(error.message);
+    } else {
+      Notify.create("Project Added");
+    }
+  });
 }
 
 export function fbUpdateProject({}, payload) {
   let userId = firebaseAuth.currentUser.uid;
   let projectRef = firebaseDb.ref("projects/" + userId + "/" + payload.id);
-  projectRef.update(payload.updates);
+  projectRef.update(payload.updates, error => {
+    if (error) {
+      showErrorMessage(error.message);
+    } else {
+      Notify.create("Project Updated");
+    }
+  });
 }
 
 export function fbDeleteProject({}, projectId) {
   let userId = firebaseAuth.currentUser.uid;
   let projectRef = firebaseDb.ref("projects/" + userId + "/" + projectId);
-  projectRef.remove();
+  projectRef.remove(error => {
+    if (error) {
+      showErrorMessage(error.message);
+    } else {
+      Notify.create("Project Deleted");
+    }
+  });
 }

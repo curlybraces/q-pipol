@@ -1,13 +1,19 @@
-// import { axiosInstance } from "boot/axios";
-
 const state = {
   dontShowAgain: false,
-  dark: false
+  dark: true
 };
 
-const mutations = {};
+const mutations = {
+  setDark(state, value) {
+    state.dark = value;
+  }
+};
 
-const actions = {};
+const actions = {
+  setDark({ commit }, payload) {
+    commit("setDark", payload);
+  }
+};
 
 const getters = {};
 

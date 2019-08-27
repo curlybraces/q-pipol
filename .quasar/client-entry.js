@@ -20,6 +20,10 @@ import '@quasar/extras/material-icons/material-icons.css'
 
 
 
+import '@quasar/extras/animate/zoomIn.css'
+
+import '@quasar/extras/animate/zoomOut.css'
+
 
 // We load Quasar stylus files
 import 'quasar/dist/quasar.styl'
@@ -44,6 +48,8 @@ import qboot_Bootloadingdefaults from 'boot/loading-defaults'
 
 import qboot_Bootaddressbarcolor from 'boot/addressbar-color'
 
+import qboot_Bootnotifydefaults from 'boot/notify-defaults'
+
 
 
 
@@ -67,7 +73,7 @@ const { app, store, router } = createApp()
 
 async function start () {
   
-  const bootFiles = [qboot_Bootaxios,qboot_Bootrouterauth,qboot_Bootloadingdefaults,qboot_Bootaddressbarcolor]
+  const bootFiles = [qboot_Bootaxios,qboot_Bootrouterauth,qboot_Bootloadingdefaults,qboot_Bootaddressbarcolor,qboot_Bootnotifydefaults]
   for (let i = 0; i < bootFiles.length; i++) {
     if (typeof bootFiles[i] !== 'function') {
       continue

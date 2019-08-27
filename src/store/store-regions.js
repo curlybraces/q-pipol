@@ -1,15 +1,15 @@
 const state = {
   regions: [
-    {
-      label: "Nationwide",
-      order: 1,
-      value: 999
-    },
-    {
-      label: "Inter-Regional",
-      order: 2,
-      value: 998
-    },
+    // {
+    //   label: "Nationwide",
+    //   order: 1,
+    //   value: 999
+    // },
+    // {
+    //   label: "Inter-Regional",
+    //   order: 2,
+    //   value: 998
+    // },
     {
       label: "NCR",
       order: 3,

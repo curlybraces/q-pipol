@@ -19,3 +19,7 @@ export function setSearch(state, value) {
 export function setProjectsDownloaded(state, value) {
   state.projectsDownloaded = value;
 }
+
+export function clearProjects(state) {
+  state.projects = {};
+}

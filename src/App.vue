@@ -1,14 +1,17 @@
 <template>
-  <div id="q-app">
+  <div id="q-app" :class=" (dark) ? 'bg-accent': 'bg-white' ">
     <router-view />
   </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "App",
+  computed: {
+    ...mapState("settings",["dark"])
+  },
   methods: {
     ...mapActions("auth", ["handleAuthStateChange"])
   },

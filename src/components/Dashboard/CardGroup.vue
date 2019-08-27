@@ -61,7 +61,7 @@
     </div>
 
     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-      <q-card class="col bg-accent" dark>
+      <q-card class="col bg-warning" dark>
         <q-card-section>
           <q-item dense>
             <q-item-section avatar>

@@ -1,5 +1,5 @@
 const state = {
-  ten_point_agenda: [
+  tenPointAgenda: [
     {
       label:
         "Continue and maintain the current macroeconomic policies, including fiscal, monetary and trade policy",

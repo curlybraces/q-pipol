@@ -1,6 +1,8 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated class="glossy">
+    <q-header
+      elevated
+      :class=" (dark) ? 'bg-grey-10': 'glossy bg-primary' ">
       <q-toolbar>
         <q-btn
           flat
@@ -61,8 +63,16 @@
               <div class="row no-wrap q-pa-md">
                 <div class="column">
                   <div class="text-h6 q-mb-md">Quick Settings</div>
-                  <q-toggle v-model="notifyUser" label="Notifications" />
-                  <q-toggle v-model="darkMode" label="Dark Mode" />
+
+                  <q-toggle
+                    v-model="notifyUser"
+                    label="Notifications" />
+
+                  <q-toggle
+                    label="Dark Mode"
+                    v-model="settingsDark"
+                    @toggle="setDark(val)" />
+
                   <q-btn
                     flat
                     dense
@@ -70,6 +80,7 @@
                     to="/account"
                     v-close-popup
                   />
+
                 </div>
 
                 <q-separator vertical inset class="q-mx-lg" />
@@ -91,10 +102,21 @@
                     square
                     v-close-popup
                   />
+
                 </div>
               </div>
             </q-menu>
           </q-btn>
+
+          <q-btn
+            flat
+            dense
+            round
+            color="white"
+            :icon=" (settingsDark) ? 'brightness_high': 'brightness_low' "
+            v-model="settingsDark"
+            @click="settingsDark = !settingsDark"
+          />
         </div>
       </q-toolbar>
     </q-header>
@@ -103,7 +125,7 @@
       v-if="loggedIn"
       v-model="leftDrawerOpen"
       bordered
-      content-class="bg-primary"
+      :content-class=" (dark) ? 'bg-grey-10': 'bg-primary' "
     >
       <q-list separator padding dark>
         <q-item-label header>NAVIGATION</q-item-label>
@@ -129,7 +151,10 @@
       </q-list>
     </q-drawer>
 
-    <q-footer class="bg-primary text-white glossy" elevated>
+    <q-footer
+      :class=" (dark) ? 'bg-grey-10': 'glossy bg-primary' "
+      :dark="dark"
+      elevated>
       <q-toolbar>
         <small>&copy; {{ copyright }}</small>
         <q-space />
@@ -200,11 +225,21 @@ export default {
     };
   },
   computed: {
-    ...mapState("auth", ["loggedIn"])
+    ...mapState("auth", ["loggedIn"]),
+    ...mapState("settings",["dark"]),
+    settingsDark: {
+      get() {
+        return this.dark;
+      },
+      set(val) {
+        this.setDark(val);
+      }
+    }
   },
   methods: {
     openURL,
-    ...mapActions("auth", ["logoutUser"])
+    ...mapActions("auth", ["logoutUser"]),
+    ...mapActions("settings",["setDark"])
   }
 };
 </script>

@@ -9,7 +9,8 @@ module.exports = function (ctx) {
       'axios',
       'router-auth',
       'loading-defaults',
-      'addressbar-color'
+      'addressbar-color',
+      'notify-defaults'
     ],
 
     css: [
@@ -174,7 +175,10 @@ module.exports = function (ctx) {
     },
 
     // animations: 'all', // --- includes all animations
-    animations: [],
+    animations: [
+      "zoomIn",
+      "zoomOut"
+    ],
 
     ssr: {
       pwa: false

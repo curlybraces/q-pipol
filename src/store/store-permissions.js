@@ -1,28 +1,10 @@
-import { axiosInstance } from "boot/axios";
-
 const state = {
-  permissions: [] // localStorage.getItem("permissions") || [],
+  permissions: []
 };
 
-const mutations = {
-  setPermissions(state, value) {
-    state.permissions = value;
-  }
-};
+const mutations = {};
 
-const actions = {
-  loadPermissions({ commit }) {
-    axiosInstance
-      .get("/permissions")
-      .then(res => {
-        localStorage.setItem("permissions", JSON.stringify(res.data));
-        commit("setPermissions", res.data);
-      })
-      .catch(e => {
-        console.log("Error: ", e.message);
-      });
-  }
-};
+const actions = {};
 
 const getters = {
   //

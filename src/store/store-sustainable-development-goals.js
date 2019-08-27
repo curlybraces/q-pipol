@@ -1,5 +1,5 @@
 const state = {
-  sustainable_development_goals: [
+  sustainableDevelopmentGoals: [
     {
       label: "End poverty in all its forms everywhere",
       value: 1

@@ -1,5 +1,6 @@
 <template>
-  <q-item clickable>
+  <q-item
+    clickable>
     <q-item-section class="col-2 gt-sm">
       <q-item-label class="q-mt-sm">
         {{ project.implementing_unit }}
@@ -66,7 +67,7 @@ export default {
     id: String
   },
   computed: {
-    ...mapState("projects", ["search"])
+    ...mapState("projects", ["search"]),
   },
   methods: {
     ...mapActions("projects", ["deleteProject"]),
