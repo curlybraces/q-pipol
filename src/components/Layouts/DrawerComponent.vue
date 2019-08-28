@@ -1,11 +1,6 @@
 <template>
-  <q-list
-    separator
-    padding
-    dark>
-    <q-item-label
-      header>NAVIGATION
-    </q-item-label>
+  <q-list separator padding dark>
+    <q-item-label header>NAVIGATION </q-item-label>
 
     <template v-for="item in sidemenu">
       <q-item
@@ -21,7 +16,7 @@
 
         <q-item-section>
           <q-item-label>
-              {{ item.label }}
+            {{ item.label }}
           </q-item-label>
           <q-item-label caption>
             {{ item.caption }}
@@ -29,7 +24,6 @@
         </q-item-section>
       </q-item>
     </template>
-
   </q-list>
 </template>
 
@@ -42,7 +36,7 @@ export default {
     sidemenu: Array
   },
   computed: {
-    ...mapState("settings",["dark"])
+    ...mapState("settings", ["dark"])
   }
 };
 </script>

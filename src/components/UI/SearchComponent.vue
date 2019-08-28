@@ -25,7 +25,7 @@ export default {
   },
   computed: {
     ...mapState("projects", ["search"]),
-    ...mapState("settings",["dark"]),
+    ...mapState("settings", ["dark"]),
     searchField: {
       get() {
         return this.search;

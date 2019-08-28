@@ -1,19 +1,15 @@
 <template>
-  <q-card
-    :class="(dark) ? 'bg-grey-10' : 'bg-white' ">
-    <q-toolbar
-      :class=" (dark) ? 'bg-info text-white': 'bg-primary text-white' ">
+  <q-card :class="dark ? 'bg-grey-10' : 'bg-white'">
+    <q-toolbar :class="dark ? 'bg-info text-white' : 'bg-primary text-white'">
       <q-avatar>
         <q-icon name="help" />
       </q-avatar>
       <q-toolbar-title>Help</q-toolbar-title>
-      <q-btn round flat dense @click="$emit('close')" icon="close"/>
+      <q-btn round flat dense @click="$emit('close')" icon="close" />
     </q-toolbar>
 
     <q-card-section>
-      <q-list
-        :dark="dark"
-        :class="(dark) ? 'bg-grey-10' : 'bg-white' ">
+      <q-list :dark="dark" :class="dark ? 'bg-grey-10' : 'bg-white'">
         <q-expansion-item
           v-for="item in help"
           :key="item.title"
@@ -21,8 +17,7 @@
           :group="item.group"
           :default-opened="item.default"
         >
-          <q-card
-            :class="(dark) ? 'bg-grey-10' : 'bg-white' ">
+          <q-card :class="dark ? 'bg-grey-10' : 'bg-white'">
             <div class="q-px-lg q-py-sm">
               {{ item.description }}
             </div>
@@ -87,7 +82,7 @@ export default {
     };
   },
   computed: {
-    ...mapState("settings",["dark"])
+    ...mapState("settings", ["dark"])
   }
 };
 </script>

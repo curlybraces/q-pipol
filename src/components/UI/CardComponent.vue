@@ -1,9 +1,6 @@
 <template>
-  <q-card
-    :class="cardClass"
-    :dark="dark">
-    <q-card-section
-      :class=" (dark) ? 'bg-grey-10': 'bg-primary' ">
+  <q-card :class="cardClass" :dark="dark">
+    <q-card-section :class="dark ? 'bg-grey-10' : 'bg-primary'">
       <div class="row align-center">
         <div class="text-weight-bold text-uppercase text-white">
           {{ title }}
@@ -28,13 +25,12 @@ export default {
     title: String
   },
   computed: {
-    ...mapState("settings",["dark"]),
+    ...mapState("settings", ["dark"]),
     cardClass() {
       if (this.dark) {
-        return 'bg-grey-10 q-my-md';
-      }
-      else {
-        return 'q-my-md';
+        return "bg-grey-10 q-my-md";
+      } else {
+        return "q-my-md";
       }
     }
   }

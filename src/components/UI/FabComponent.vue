@@ -3,10 +3,11 @@
     <q-btn
       fab
       icon="note_add"
-      :color=" (dark) ? 'info': 'secondary' "
+      :color="dark ? 'info' : 'secondary'"
       :to="link"
       size="25px"
-      :dark="dark"/>
+      :dark="dark"
+    />
   </q-page-sticky>
 </template>
 
@@ -21,7 +22,7 @@ export default {
     }
   },
   computed: {
-    ...mapState("settings",["dark"])
+    ...mapState("settings", ["dark"])
   }
 };
 </script>

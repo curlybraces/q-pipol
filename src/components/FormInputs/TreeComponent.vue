@@ -14,41 +14,41 @@
 </template>
 
 <script>
-  import { mapState } from "vuex";
+import { mapState } from "vuex";
 
-  export default {
-    name: "TreeComponent",
-    props: {
-      options: Array,
-      label: String,
-      tickStrategy: {
-        type: String,
-        default: "strict"
-      },
-      noNodesLabel: {
-        type: String,
-        default: "No data to show"
-      },
-      selected: {
-        type: Array
-      },
-      ticked: {
-        type: Array
-      },
-      expanded: {
-        type: Array
-      }
+export default {
+  name: "TreeComponent",
+  props: {
+    options: Array,
+    label: String,
+    tickStrategy: {
+      type: String,
+      default: "strict"
     },
-    data() {
-      return {};
+    noNodesLabel: {
+      type: String,
+      default: "No data to show"
     },
-    computed: {
-      ...mapState("settings",["dark"])
+    selected: {
+      type: Array
     },
-    methods: {
-      onUpdate() {
-        this.$emit("input", this.ticked);
-      }
+    ticked: {
+      type: Array
+    },
+    expanded: {
+      type: Array
+    }
+  },
+  data() {
+    return {};
+  },
+  computed: {
+    ...mapState("settings", ["dark"])
+  },
+  methods: {
+    onUpdate() {
+      this.$emit("input", this.ticked);
     }
   }
+};
 </script>

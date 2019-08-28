@@ -4,15 +4,9 @@
     enter-active-class="animated zoomIn"
     leave-active-class="animated zoomOut"
   >
-    <q-list
-      bordered
-      separator
-      class="rounded-borders"
-      :dark="dark">
-      <q-item
-        :class="(dark) ? 'bg-info' : 'bg-primary' " header>
-        <div
-          class="text-h6 absolute-center text-white">
+    <q-list bordered separator class="rounded-borders" :dark="dark">
+      <q-item :class="dark ? 'bg-info' : 'bg-primary'" header>
+        <div class="text-h6 absolute-center text-white">
           Projects
         </div>
       </q-item>
@@ -38,7 +32,7 @@ export default {
   },
   computed: {
     ...mapState("projects", ["search"]),
-    ...mapState("settings",["dark"]),
+    ...mapState("settings", ["dark"]),
     ...mapGetters("projects", ["projects"])
   }
 };

@@ -24,19 +24,31 @@ const state = {
     { label: "BAI - Bureau of Animal Industry", value: 19 },
     { label: "BAR - Bureau of Agricultural Research", value: 20 },
     { label: "BPI - Bureau of Plant Industry", value: 21 },
-    { label: "BAFE - Bureau of Agricultural and Fisheries Engineering", value: 22 },
+    {
+      label: "BAFE - Bureau of Agricultural and Fisheries Engineering",
+      value: 22
+    },
     { label: "BAFS - Bureau of Agriculture and Fisheries Standard", value: 23 },
     { label: "BSWM - Bureau of Soils and Water Management", value: 24 },
     // Attached Agencies
     { label: "ACPC - Agricultural Credit Policy Council ", value: 25 },
     { label: "BFAR - Bureau of Fisheries and Aquatic Resources", value: 26 },
     { label: "FPA - Fertilizer and Pesticide Authority", value: 27 },
-    { label: "PhilFIDA - Philippine Fiber Industry Development Authority ", value: 28 },
+    {
+      label: "PhilFIDA - Philippine Fiber Industry Development Authority ",
+      value: 28
+    },
     { label: "NMIS - National Meat Inspection Service ", value: 29 },
     { label: "PCC - Philippine Carabao Center ", value: 30 },
-    { label: "PhilMech - Philippine Center for Post-Harvest Development and Mechanization",
-      value: 31 },
-    { label: "PCAF - Philippine Council for Agriculture and Fisheries", value: 32 },
+    {
+      label:
+        "PhilMech - Philippine Center for Post-Harvest Development and Mechanization",
+      value: 31
+    },
+    {
+      label: "PCAF - Philippine Council for Agriculture and Fisheries",
+      value: 32
+    },
     { label: "PRRI - Philippine Rubber Research Institute", value: 33 },
     // Corporations
     { label: "NDA - National Dairy Authority", value: 34 },
@@ -46,9 +58,11 @@ const state = {
     { label: "PCIC Philippine Crop Insurance Corporation", value: 38 },
     { label: "PFDA - Philippine Fisheries Development Authority", value: 39 },
     { label: "PhilRice - Philippine Rice Research Institute", value: 40 },
-    { label: "QuedanCor - Quedan and Rural Credit Guarantee Corporation", value: 41 },
-    { label: "SRA - Sugar Regulatory Administration", value: 42 },
-
+    {
+      label: "QuedanCor - Quedan and Rural Credit Guarantee Corporation",
+      value: 41
+    },
+    { label: "SRA - Sugar Regulatory Administration", value: 42 }
   ]
 };
 

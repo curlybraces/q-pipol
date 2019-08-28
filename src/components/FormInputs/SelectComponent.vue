@@ -3,14 +3,14 @@
     dense
     :outlined="outlined"
     :dark="dark"
-    :label=" ($q.screen.lt.md) ? label: void 0 "
+    :label="$q.screen.lt.md ? label : void 0"
     :stack-label="$q.screen.lt.md"
     :readonly="readonly"
     :disabled="disabled"
     :options="options"
     :multiple="multiple"
     :hint="hint"
-    :color=" (dark) ? 'white': 'primary' "
+    :color="dark ? 'white' : 'primary'"
     :rules="rules"
     @input="onInput"
     :use-chips="multiple"
@@ -24,45 +24,45 @@
 </template>
 
 <script>
-  import { mapState } from "vuex";
+import { mapState } from "vuex";
 
-  export default {
-    name: "SelectComponent",
-    props: {
-      label: {
-        type: String,
-        required: true
-      },
-      options: Array,
-      multiple: {
-        type: Boolean,
-        default: false
-      },
-      readonly: {
-        type: Boolean,
-        default: false
-      },
-      disabled: {
-        type: Boolean,
-        default: false
-      },
-      outlined: {
-        type: Boolean,
-        default: true
-      },
-      hint: String,
-      rules: Array,
-      value: {
-        type: [Number, String, Array]
-      }
+export default {
+  name: "SelectComponent",
+  props: {
+    label: {
+      type: String,
+      required: true
     },
-    computed: {
-      ...mapState("settings",["dark"])
+    options: Array,
+    multiple: {
+      type: Boolean,
+      default: false
     },
-    methods: {
-      onInput(evt) {
-        this.$emit("input", evt);
-      }
+    readonly: {
+      type: Boolean,
+      default: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    outlined: {
+      type: Boolean,
+      default: true
+    },
+    hint: String,
+    rules: Array,
+    value: {
+      type: [Number, String, Array]
+    }
+  },
+  computed: {
+    ...mapState("settings", ["dark"])
+  },
+  methods: {
+    onInput(evt) {
+      this.$emit("input", evt);
     }
   }
+};
 </script>
