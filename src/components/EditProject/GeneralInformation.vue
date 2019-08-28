@@ -97,7 +97,7 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapMutations } from "vuex";
+import { mapState, mapMutations } from "vuex";
 import CardComponent from "../../components/UI/CardComponent";
 import SelectComponent from "../../components/Form/SelectComponent";
 import InputComponent from "../../components/Form/InputComponent";
@@ -148,15 +148,6 @@ export default {
     }
   },
   methods: {
-    ...mapActions("dropdown", [
-      "loadImplementationBases",
-      "loadImplementationPeriods",
-      "loadSpatialCoverages",
-      "loadRegions",
-      "loadProvinces",
-      "loadCityMunicipalities",
-      "loadCategorizations"
-    ]),
     ...mapMutations("projects", ["setRegions", "setSpatialCoverage"]),
     updateImplementationEnd(evt) {
       let filteredImplementationPeriods = [];
@@ -168,15 +159,6 @@ export default {
       );
       this.filteredImplementationPeriods = filteredImplementationPeriods;
     }
-  },
-  mounted() {
-    this.loadImplementationBases();
-    this.loadImplementationPeriods();
-    this.loadSpatialCoverages();
-    this.loadRegions();
-    this.loadProvinces();
-    this.loadCityMunicipalities();
-    this.loadCategorizations();
   }
 };
 </script>

@@ -1,28 +1,32 @@
-import { axiosInstance } from "boot/axios";
-
 const state = {
-  implementation_modes: []
+  implementationModes: [
+    {
+      label:
+        "Through Local Funds in accordance with RA 9184 or the Government Procurement Act",
+      value: 1
+    },
+    {
+      label: "Through ODA pursuant to RA 8182 or the ODA Act of 1996",
+      value: 2
+    },
+    {
+      label: "Through PPP under the Amended BOT Law and Its IRR",
+      value: 3
+    },
+    {
+      label: "Through Joint Venture Arrangement",
+      value: 4
+    },
+    {
+      label: "Others",
+      value: 5
+    }
+  ]
 };
 
-const mutations = {
-  setImplementationModes(state, value) {
-    state.implementation_modes = value;
-  }
-};
+const mutations = {};
 
-const actions = {
-  loadImplementationModes({ commit }) {
-    axiosInstance
-      .get("/implementation_modes")
-      .then(res => {
-        localStorage.setItem("implementation_modes", JSON.stringify(res.data));
-        commit("setImplementationModes", res.data);
-      })
-      .catch(e => {
-        console.log("Error: ", e.message);
-      });
-  }
-};
+const actions = {};
 
 const getters = {
   //

@@ -1,28 +1,43 @@
-import { axiosInstance } from "boot/axios";
-
 const state = {
-  new_thinkings: [] // localStorage.getItem("approval_levels") || [],
+  newThinkings: [
+    {
+      value: 1,
+      label: "Modernization of Agriculture"
+    },
+    {
+      value: 2,
+      label: "Industrialization of Agriculture"
+    },
+    {
+      value: 3,
+      label: "Promotion of Exports"
+    },
+    {
+      value: 4,
+      label: "Farm Consolidation"
+    },
+    {
+      value: 5,
+      label: "Roadmap Development"
+    },
+    {
+      value: 6,
+      label: "Infrastructure Development"
+    },
+    {
+      value: 7,
+      label: "Higher Budget and Investments for Agriculture"
+    },
+    {
+      value: 8,
+      label: "Legislative Support"
+    }
+  ]
 };
 
-const mutations = {
-  setNewThinkings(state, value) {
-    state.new_thinkings = value;
-  }
-};
+const mutations = {};
 
-const actions = {
-  loadNewThinkings({ commit }) {
-    axiosInstance
-      .get("/new_thinkings")
-      .then(res => {
-        localStorage.setItem("new_thinkings", JSON.stringify(res.data));
-        commit("setNewThinkings", res.data);
-      })
-      .catch(e => {
-        console.log("Error: ", e.message);
-      });
-  }
-};
+const actions = {};
 
 const getters = {
   //

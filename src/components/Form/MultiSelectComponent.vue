@@ -10,8 +10,6 @@
         :readonly="readonly"
         :disabled="disabled"
         :options="options"
-        option-value="id"
-        option-label="name"
         emit-value
         @input="onInput"
         :value="value"

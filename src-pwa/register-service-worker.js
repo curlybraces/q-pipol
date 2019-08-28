@@ -1,4 +1,5 @@
 import { register } from 'register-service-worker'
+import { Dialog, Notify } from 'quasar'
 
 // The ready(), registered(), cached(), updatefound() and updated()
 // events passes a ServiceWorkerRegistration instance in their arguments.
@@ -28,11 +29,27 @@ register(process.env.SERVICE_WORKER_FILE, {
   },
 
   updated (registration) {
-    console.log('New content is available; please refresh.',registration)
+    console.log('New content is available; please refresh.',registration);
+    Dialog.create({
+      title: "Update available",
+      message: "New contents are available. Please refresh by clicking OK. You may also refresh the app by pressing CTRL+F5 in your keyboard.",
+      persistent: true,
+      ok: {
+        color: "primary",
+        flat: false
+      },
+      cancel: true
+    })
+    .onOk(() => {
+      window.location.reload(true);
+    });
   },
 
   offline () {
     console.log('No internet connection found. App is running in offline mode.')
+    Notify.create({
+      message: "No internet connection found. App is running in offline mode. You do not have access to the latest data while offline."
+    })
   },
 
   error (err) {

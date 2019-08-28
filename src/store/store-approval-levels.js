@@ -1,28 +1,35 @@
-import { axiosInstance } from "boot/axios";
-
 const state = {
-  approval_levels: [] // localStorage.getItem("approval_levels") || [],
+  approvalLevels: [
+    {
+      label: "Yet to be submitted to the NEDA Secretariat",
+      value: 1
+    },
+    {
+      label: "Under the NEDA Secretariat Review",
+      value: 2
+    },
+    {
+      label: "ICC-TB Endorsed ",
+      value: 3
+    },
+    {
+      label: "ICC-CC Approved",
+      value: 4
+    },
+    {
+      label: "NEDA Board Confirmed",
+      value: 5
+    },
+    {
+      label: "Not Applicable",
+      value: 6
+    }
+  ]
 };
 
-const mutations = {
-  setApprovalLevels(state, value) {
-    state.approval_levels = value;
-  }
-};
+const mutations = {};
 
-const actions = {
-  loadApprovalLevels({ commit }) {
-    axiosInstance
-      .get("/approval_levels")
-      .then(res => {
-        localStorage.setItem("approval_levels", JSON.stringify(res.data));
-        commit("setApprovalLevels", res.data);
-      })
-      .catch(e => {
-        console.log("Error: ", e.message);
-      });
-  }
-};
+const actions = {};
 
 const getters = {
   //

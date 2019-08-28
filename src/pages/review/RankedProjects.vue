@@ -9,7 +9,8 @@
       bordered
       :data="data"
       :columns="columns"
-      row-key="id">
+      row-key="id"
+    >
     </q-table>
   </q-page>
 </template>
@@ -100,7 +101,7 @@ export default {
           criteria_1: 20
         }
       ]
-    }
+    };
   }
-}
+};
 </script>

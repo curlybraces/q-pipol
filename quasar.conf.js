@@ -9,7 +9,8 @@ module.exports = function (ctx) {
       'axios',
       'router-auth',
       'loading-defaults',
-      'addressbar-color'
+      'addressbar-color',
+      'notify-defaults'
     ],
 
     css: [
@@ -81,6 +82,7 @@ module.exports = function (ctx) {
 
 	    'QSpinnerFacebook',
 	    'QSpinnerDots',
+      'QSpinner',
 
 	    'QStepper',
 	    'QStep',
@@ -139,7 +141,8 @@ module.exports = function (ctx) {
         'Loading',
         'BottomSheet',
 
-        'AddressbarColor'
+        'AddressbarColor',
+        'LocalStorage'
       ]
     },
 
@@ -172,7 +175,10 @@ module.exports = function (ctx) {
     },
 
     // animations: 'all', // --- includes all animations
-    animations: [],
+    animations: [
+      "zoomIn",
+      "zoomOut"
+    ],
 
     ssr: {
       pwa: false
@@ -180,7 +186,7 @@ module.exports = function (ctx) {
 
     pwa: {
       // workboxPluginMode: 'InjectManifest',
-      // workboxOptions: {}, // only for NON InjectManifest
+      workboxOptions: { skipWaiting: true }, // only for NON InjectManifest
       manifest: {
         name: 'Investment Programming and Monitoring System',
         short_name: 'iPMS',

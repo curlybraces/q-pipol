@@ -1,28 +1,27 @@
-import { axiosInstance } from "boot/axios";
-
 const state = {
-  gad_readinesses: [] // localStorage.getItem("gad_readinesses") || [],
+  gad_readinesses: [
+    {
+      label: "GAD is invisible",
+      value: 1
+    },
+    {
+      label: "Program/Project has promising GAD prospects",
+      value: 2
+    },
+    {
+      label: "Program/Project is gender-sensitive",
+      value: 3
+    },
+    {
+      label: "Program/Project is gender-responsive",
+      value: 4
+    }
+  ]
 };
 
-const mutations = {
-  setGadReadinesses(state, value) {
-    state.gad_readinesses = value;
-  }
-};
+const mutations = {};
 
-const actions = {
-  loadGadReadinesses({ commit }) {
-    axiosInstance
-      .get("/gad_readinesses")
-      .then(res => {
-        localStorage.setItem("gad_readinesses", JSON.stringify(res.data));
-        commit("setGadReadinesses", res.data);
-      })
-      .catch(e => {
-        console.log("Error: ", e.message);
-      });
-  }
-};
+const actions = {};
 
 const getters = {
   //

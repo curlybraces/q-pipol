@@ -3,6 +3,7 @@
     outlined
     dense
     rounded
+    :dark="dark"
     class="q-mb-md"
     clearable
     placeholder="Search in project titles..."
@@ -24,6 +25,7 @@ export default {
   },
   computed: {
     ...mapState("projects", ["search"]),
+    ...mapState("settings",["dark"]),
     searchField: {
       get() {
         return this.search;

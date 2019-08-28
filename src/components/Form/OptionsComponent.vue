@@ -21,7 +21,7 @@ export default {
   props: {
     label: String,
     options: Array,
-    value: [Number, String],
+    value: [Number, String, Boolean],
     inline: {
       default: false,
       type: Boolean

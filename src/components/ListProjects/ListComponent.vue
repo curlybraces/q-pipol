@@ -1,125 +1,45 @@
 <template>
-  <div>
-    <q-list bordered separator class="rounded-borders">
-      <q-item class="bg-primary text-white" header>
-        <div class="text-h6 absolute-center">
+  <transition
+    appear
+    enter-active-class="animated zoomIn"
+    leave-active-class="animated zoomOut"
+  >
+    <q-list
+      bordered
+      separator
+      class="rounded-borders"
+      :dark="dark">
+      <q-item
+        :class="(dark) ? 'bg-info' : 'bg-primary' " header>
+        <div
+          class="text-h6 absolute-center text-white">
           Projects
         </div>
       </q-item>
-      <q-item
-        v-for="item in items"
-        :key="item.id"
-        @click="goTo(item.id)"
-        clickable
-      >
-        <q-item-section class="col-2 gt-sm">
-          <q-item-label class="q-mt-sm">
-            {{ item.operating_unit.name }}
-          </q-item-label>
-        </q-item-section>
-
-        <q-item-section>
-          <q-item-label
-            lines="1"
-            v-html="$options.filters.searchHighlight(item.title, search)"
-          >
-          </q-item-label>
-          <q-item-label caption lines="2">
-            {{ item.description }}
-          </q-item-label>
-          <q-item-label caption lines="1">
-            [
-            {{ item.implementation_start + " - " + item.implementation_end }} ]
-          </q-item-label>
-        </q-item-section>
-
-        <q-item-section side>
-          <q-item-label>
-            PhP {{ Number(item.total_cost).toLocaleString() }}
-          </q-item-label>
-        </q-item-section>
-
-        <q-item-section side>
-          <div class="text-grey-8 q-gutter-xs">
-            <q-btn
-              class="gt-xs"
-              size="12px"
-              flat
-              dense
-              round
-              icon="edit"
-              color="green"
-              :to="'/projects/' + item.id"
-            />
-            <q-btn
-              class="gt-xs"
-              size="12px"
-              flat
-              dense
-              round
-              icon="delete"
-              color="red"
-              @click.stop="promptToDelete(item.id)"
-            />
-          </div>
-        </q-item-section>
-      </q-item>
+      <project
+        v-for="(project, key) in projects"
+        :key="key"
+        :project="project"
+        :id="key"
+      ></project>
     </q-list>
-  </div>
+  </transition>
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapGetters } from "vuex";
+import Project from "./Project";
 
 export default {
+  components: { Project },
   name: "ListComponent",
   props: {
-    items: Array
-  },
-  data() {
-    return {
-      prompt: false,
-      changes: ""
-    };
+    project: Object
   },
   computed: {
     ...mapState("projects", ["search"]),
-    required() {
-      return this.changes.trim() !== "";
-    }
-  },
-  methods: {
-    ...mapActions("projects", ["deleteProject"]),
-    goTo(id) {
-      this.$router.push("/projects/" + id);
-    },
-    promptToDelete(id) {
-      this.$q
-        .dialog({
-          title: "Confirm delete",
-          message: "Are you sure you want to delete this project?",
-          persistent: true,
-          ok: {
-            color: "primary",
-            flat: false
-          },
-          cancel: true
-        })
-        .onOk(() => {
-          this.deleteProject({ id: id });
-        });
-    }
-  },
-  filters: {
-    searchHighlight(value, search) {
-      if (search) {
-        let searchRegExp = new RegExp(search, "ig");
-        return value.replace(searchRegExp, match => {
-          return "<span class='bg-yellow-6'>" + match + "</span>";
-        });
-      }
-      return value;
-    }
+    ...mapState("settings",["dark"]),
+    ...mapGetters("projects", ["projects"])
   }
 };
 </script>

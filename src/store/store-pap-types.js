@@ -1,28 +1,23 @@
-import { axiosInstance } from "boot/axios";
-
 const state = {
-  pap_types: [] // localStorage.getItem("pap_types") || [],
+  papTypes: [
+    {
+      label: "Program",
+      value: 1
+    },
+    {
+      label: "Project",
+      value: 2
+    },
+    {
+      label: "Subproject",
+      value: 3
+    }
+  ]
 };
 
-const mutations = {
-  setPapTypes(state, value) {
-    state.pap_types = value;
-  }
-};
+const mutations = {};
 
-const actions = {
-  loadPapTypes({ commit }) {
-    axiosInstance
-      .get("/pap_types")
-      .then(res => {
-        localStorage.setItem("pap_types", JSON.stringify(res.data));
-        commit("setPapTypes", res.data);
-      })
-      .catch(e => {
-        console.log("Error: ", e.message);
-      });
-  }
-};
+const actions = {};
 
 const getters = {
   //

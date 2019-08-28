@@ -1,6 +1,8 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated class="glossy">
+    <q-header
+      elevated
+      :class=" (dark) ? 'bg-grey-10': 'glossy bg-primary' ">
       <q-toolbar>
         <q-btn
           flat
@@ -37,7 +39,7 @@
         <div v-else>
           <q-btn dense flat round icon="email" class="q-mr-xs" color="grey-9" />
 
-          <q-btn
+          <!-- <q-btn
             dense
             flat
             :color="notificationsCount > 0 ? 'white' : 'grey-9'"
@@ -49,7 +51,7 @@
             <q-badge color="red" floating v-if="notificationsCount > 0">
               {{ notificationsCount }}
             </q-badge>
-          </q-btn>
+          </q-btn> -->
 
           <q-btn dense round flat color="white" icon="account_circle">
             <q-menu
@@ -61,8 +63,16 @@
               <div class="row no-wrap q-pa-md">
                 <div class="column">
                   <div class="text-h6 q-mb-md">Quick Settings</div>
-                  <q-toggle v-model="notifyUser" label="Notifications" />
-                  <q-toggle v-model="darkMode" label="Dark Mode" />
+
+                  <q-toggle
+                    v-model="notifyUser"
+                    label="Notifications" />
+
+                  <q-toggle
+                    label="Dark Mode"
+                    v-model="settingsDark"
+                    @toggle="setDark(val)" />
+
                   <q-btn
                     flat
                     dense
@@ -70,6 +80,7 @@
                     to="/account"
                     v-close-popup
                   />
+
                 </div>
 
                 <q-separator vertical inset class="q-mx-lg" />
@@ -80,7 +91,7 @@
                   </q-avatar>
 
                   <div class="text-subtitle1 q-mt-md q-mb-xs">
-                    {{ user.name }}
+                    Username
                   </div>
 
                   <q-btn
@@ -91,10 +102,21 @@
                     square
                     v-close-popup
                   />
+
                 </div>
               </div>
             </q-menu>
           </q-btn>
+
+          <q-btn
+            flat
+            dense
+            round
+            color="white"
+            :icon=" (settingsDark) ? 'brightness_high': 'brightness_low' "
+            v-model="settingsDark"
+            @click="settingsDark = !settingsDark"
+          />
         </div>
       </q-toolbar>
     </q-header>
@@ -103,7 +125,7 @@
       v-if="loggedIn"
       v-model="leftDrawerOpen"
       bordered
-      content-class="bg-primary"
+      :content-class=" (dark) ? 'bg-grey-10': 'bg-primary' "
     >
       <q-list separator padding dark>
         <q-item-label header>NAVIGATION</q-item-label>
@@ -129,7 +151,10 @@
       </q-list>
     </q-drawer>
 
-    <q-footer class="bg-primary text-white glossy" elevated>
+    <q-footer
+      :class=" (dark) ? 'bg-grey-10': 'glossy bg-primary' "
+      :dark="dark"
+      elevated>
       <q-toolbar>
         <small>&copy; {{ copyright }}</small>
         <q-space />
@@ -156,7 +181,7 @@
 
 <script>
 import { openURL } from "quasar";
-import { mapState, mapActions, mapGetters } from "vuex";
+import { mapState, mapActions } from "vuex";
 import NotificationsModal from "../components/Notifications/NotificationsModal";
 
 export default {
@@ -184,12 +209,6 @@ export default {
           icon: "list",
           caption: "View all projects"
         },
-        // {
-        //   label: "Help",
-        //   href: "/help",
-        //   icon: "help",
-        //   caption: "Understand how the system works"
-        // },
         {
           label: "Settings",
           href: "/settings",
@@ -206,19 +225,21 @@ export default {
     };
   },
   computed: {
-    ...mapState("auth", ["loggedIn", "user"]),
-    ...mapState("notifications", ["notifications"]),
-    ...mapGetters("notifications", ["notificationsCount"])
+    ...mapState("auth", ["loggedIn"]),
+    ...mapState("settings",["dark"]),
+    settingsDark: {
+      get() {
+        return this.dark;
+      },
+      set(val) {
+        this.setDark(val);
+      }
+    }
   },
   methods: {
     openURL,
     ...mapActions("auth", ["logoutUser"]),
-    ...mapActions("notifications", ["loadNotifications"])
-  },
-  created() {
-    if (this.loggedIn) {
-      this.loadNotifications();
-    }
+    ...mapActions("settings",["setDark"])
   }
 };
 </script>

@@ -1,28 +1,47 @@
-import { axiosInstance } from "boot/axios";
-
 const state = {
-  challenges: [] // localStorage.getItem("categorizations") || [],
+  challenges: [
+    {
+      value: 1,
+      label: "Low farm productivity"
+    },
+    {
+      value: 2,
+      label: "Lack of labor"
+    },
+    {
+      value: 3,
+      label: "Unaffordable and inaccessible credit"
+    },
+    {
+      value: 4,
+      label: "Limited use of technology"
+    },
+    {
+      value: 5,
+      label: "Limited farmland diversification"
+    },
+    {
+      value: 6,
+      label: "Undeveloped agri-manufacturing and export"
+    },
+    {
+      value: 7,
+      label: "Severe deforestation/land degradation"
+    },
+    {
+      value: 8,
+      label: "Aging farmers and fisherfolk"
+    },
+    {
+      value: 9,
+      label: "Climate change"
+    }
+  ]
 };
 
-const mutations = {
-  setChallenges(state, value) {
-    state.challenges = value;
-  }
-};
+const mutations = {};
 
-const actions = {
-  loadChallenges({ commit }) {
-    axiosInstance
-      .get("/challenges")
-      .then(res => {
-        localStorage.setItem("challenges", JSON.stringify(res.data));
-        commit("setChallenges", res.data);
-      })
-      .catch(e => {
-        console.log("Error: ", e.message);
-      });
-  }
-};
+const actions = {};
 
 const getters = {
   //

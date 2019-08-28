@@ -5,30 +5,29 @@
         <q-breadcrumbs-el icon="list" label="Projects" />
       </q-breadcrumbs>
 
-      <search-component />
+      <template v-if="projectsDownloaded">
+        <search-component />
 
-      <no-project v-if="!projects.length && !search" />
+        <no-project v-if="!Object.keys(projects).length && !search" />
 
-      <div v-if="projects.length > 0" class="q-mb-md flex flex-center">
-        <q-pagination
-          v-model="current_page"
-          color="primary"
-          :max="total_pages"
-          :boundary-links="true"
-          @input="loadProjects"
+        <q-scroll-area
+          v-if="Object.keys(projects).length"
+          class="q-scroll-area-projects"
+          style="height:100px"
         >
-        </q-pagination>
-      </div>
+          <list-component :items="projects" />
+        </q-scroll-area>
 
-      <q-scroll-area
-        v-if="projects.length > 0"
-        class="q-scroll-area-projects"
-        style="height:100px"
-      >
-        <list-component :items="projects" />
-      </q-scroll-area>
+        <p v-if="!Object.keys(projects).length && search">
+          No search results found.
+        </p>
+      </template>
 
-      <p v-if="search && !projects.length">No search results found.</p>
+      <template v-else>
+        <span class="absolute-center">
+          <q-spinner color="primary" size="3em"></q-spinner>
+        </span>
+      </template>
     </div>
 
     <fab-component link="/projects/add" />
@@ -36,7 +35,7 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from "vuex";
+import { mapState, mapGetters } from "vuex";
 import ListComponent from "../../components/ListProjects/ListComponent";
 import NoProject from "../../components/ListProjects/NoProject";
 import FabComponent from "../../components/UI/FabComponent";
@@ -50,20 +49,9 @@ export default {
     NoProject
   },
   name: "PageViewProjects",
-  data() {
-    return {
-      current_page: 1
-    };
-  },
   computed: {
-    ...mapState("projects", ["total_pages", "search"]),
-    ...mapGetters("projects", ["projects", "projectsFiltered"])
-  },
-  methods: {
-    ...mapActions("projects", ["loadProjects"])
-  },
-  created() {
-    this.loadProjects();
+    ...mapState("projects", ["search", "projectsDownloaded"]),
+    ...mapGetters("projects", ["projects"])
   }
 };
 </script>

@@ -1,28 +1,12 @@
-import { axiosInstance } from "boot/axios";
+import pdpChapters from "../statics/json/pdp_chapters.json";
 
 const state = {
-  pdp_chapters: [] // localStorage.getItem("pdp_chapters") || [],
+  pdpChapters: pdpChapters
 };
 
-const mutations = {
-  setPdpChapters(state, value) {
-    state.pdp_chapters = value;
-  }
-};
+const mutations = {};
 
-const actions = {
-  loadPdpChapters({ commit }) {
-    axiosInstance
-      .get("/pdp_chapters")
-      .then(res => {
-        localStorage.setItem("pdp_chapters", JSON.stringify(res.data));
-        commit("setPdpChapters", res.data);
-      })
-      .catch(e => {
-        console.log("Error: ", e.message);
-      });
-  }
-};
+const actions = {};
 
 const getters = {
   //

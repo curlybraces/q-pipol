@@ -1,28 +1,27 @@
-import { axiosInstance } from "boot/axios";
-
 const state = {
-  roles: [] // localStorage.getItem("roles") || [],
+  roles: [
+    {
+      label: "Admin",
+      value: "admin"
+    },
+    {
+      label: "Reviewer",
+      value: "reviewer"
+    },
+    {
+      label: "Encoder",
+      value: "encoder"
+    },
+    {
+      label: "Viewer",
+      value: "viewer"
+    }
+  ]
 };
 
-const mutations = {
-  setRoles(state, value) {
-    state.roles = value;
-  }
-};
+const mutations = {};
 
-const actions = {
-  loadRoles({ commit }) {
-    axiosInstance
-      .get("/roles")
-      .then(res => {
-        localStorage.setItem("roles", JSON.stringify(res.data));
-        commit("setRoles", res.data);
-      })
-      .catch(e => {
-        console.log("Error: ", e.message);
-      });
-  }
-};
+const actions = {};
 
 const getters = {
   //
