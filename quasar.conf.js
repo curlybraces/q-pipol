@@ -186,7 +186,7 @@ module.exports = function (ctx) {
 
     pwa: {
       // workboxPluginMode: 'InjectManifest',
-      // workboxOptions: {}, // only for NON InjectManifest
+      workboxOptions: { skipWaiting: true }, // only for NON InjectManifest
       manifest: {
         name: 'Investment Programming and Monitoring System',
         short_name: 'iPMS',

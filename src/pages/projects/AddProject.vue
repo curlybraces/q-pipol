@@ -347,6 +347,7 @@
               class="my-sticky-column-table"
               :row-key="form.fsbd.fundingSource"
               separator="cell"
+              grid
             >
               <template v-slot:top-right>
                 <button-component
