@@ -1,7 +1,7 @@
 <template>
   <q-option-group
     :dense="dense"
-    :color=" (dark) ? 'white': 'primary' "
+    :color=" (dark) ? 'info': 'primary' "
     :options="options"
     @input="onInput"
     :value="value"

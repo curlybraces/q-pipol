@@ -1,31 +1,19 @@
 <template>
-  <q-card>
-    <q-card-section>
-      <q-list separator>
-        <q-item class="bg-primary text-white">
-          <q-item-section avatar>
-            <q-icon name="help" color="white" />
-          </q-item-section>
-          <q-item-section>
-            <div class="text-h6">Help</div>
-          </q-item-section>
-          <q-item-section side>
-            <q-btn
-              flat
-              round
-              dense
-              icon="close"
-              @click="$emit('close')"
-              class="text-white"
-            />
-          </q-item-section>
-        </q-item>
-      </q-list>
-    </q-card-section>
-    <q-separator />
+  <q-card
+    :class="(dark) ? 'bg-grey-10' : 'bg-white' ">
+    <q-toolbar
+      :class=" (dark) ? 'bg-info text-white': 'bg-primary text-white' ">
+      <q-avatar>
+        <q-icon name="help" />
+      </q-avatar>
+      <q-toolbar-title>Help</q-toolbar-title>
+      <q-btn round flat dense @click="$emit('close')" icon="close"/>
+    </q-toolbar>
 
     <q-card-section>
-      <q-list bordered>
+      <q-list
+        :dark="dark"
+        :class="(dark) ? 'bg-grey-10' : 'bg-white' ">
         <q-expansion-item
           v-for="item in help"
           :key="item.title"
@@ -33,10 +21,11 @@
           :group="item.group"
           :default-opened="item.default"
         >
-          <q-card class="q-py-sm q-px-lg">
-            <q-card-section>
+          <q-card
+            :class="(dark) ? 'bg-grey-10' : 'bg-white' ">
+            <div class="q-px-lg q-py-sm">
               {{ item.description }}
-            </q-card-section>
+            </div>
           </q-card>
         </q-expansion-item>
       </q-list>
@@ -45,6 +34,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "HelpDialog",
   data() {
@@ -94,6 +85,9 @@ export default {
         // },
       ]
     };
+  },
+  computed: {
+    ...mapState("settings",["dark"])
   }
 };
 </script>

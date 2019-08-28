@@ -23,8 +23,6 @@
       ></q-btn>
     </div>
 
-    <q-separator></q-separator>
-
     <q-dialog
       maximized
       v-model="showHelp"
@@ -51,7 +49,11 @@
 
         <q-form ref="form" @submit="addProject(form)" autofocus>
 
-          <div class="text-h6 q-my-md">General Information</div>
+        <q-list
+          separator
+          :dark="dark">
+
+          <q-item-label header class="text-uppercase">General Information</q-item-label>
 
           <form-element
             label="Proposal/Project Name">
@@ -223,7 +225,7 @@
             />
           </form-element>
 
-          <div class="text-h6 q-my-md">Implementation Readiness</div>
+          <q-item-label header class="text-uppercase">Implementation Readiness</q-item-label>
 
           <form-element
             label="Pre-requisites"
@@ -234,8 +236,6 @@
               v-model="form.pr"></options-component>
           </form-element>
 
-          <q-separator :dark="dark"/>
-
           <form-element
             label="Technical Readiness"
           >
@@ -245,7 +245,7 @@
               v-model="form.tr"></options-component>
           </form-element>
 
-          <div class="text-h6 q-my-md">Strategic Alignment</div>
+          <q-item-label header class="text-uppercase">Strategic Alignment</q-item-label>
 
           <form-element
             label="New Thinking for Agriculture (Eight Paradigms for a Food-Secure Philippines)">
@@ -256,8 +256,6 @@
               ></options-component>
           </form-element>
 
-          <q-separator :dark="dark" />
-
           <form-element
             label="Philippine Development Plan">
             <tree-component
@@ -265,8 +263,6 @@
               :ticked.sync="form.pdp"
               ></tree-component>
           </form-element>
-
-          <q-separator :dark="dark" />
 
           <form-element
             label="Sustainable Development Goals">
@@ -277,8 +273,6 @@
               ></options-component>
           </form-element>
 
-          <q-separator :dark="dark" />
-
           <form-element
             label="0 + 10 Socioeconomic Agenda">
             <options-component
@@ -288,7 +282,7 @@
               ></options-component>
           </form-element>
 
-          <div class="text-h6 q-my-md">Project Costing</div>
+          <q-item-label header>Project Costing</q-item-label>
 
           <form-element
             label="ODA Funding Institution"
@@ -421,6 +415,7 @@
               type="submit"
               label="Save"></button-component>
           </div>
+          </q-list>
         </q-form>
       </template>
     </card-component>

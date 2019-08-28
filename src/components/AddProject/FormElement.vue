@@ -7,9 +7,10 @@
   </div> -->
   <q-item
     >
-    <q-item-section class="col-2 gt-sm">
+    <q-item-section class="col-3 gt-sm" top>
       <q-item-label>
-        <label-component>{{ label}}</label-component>
+        <!-- <label-component>{{ label}}</label-component> -->
+        {{ label }}
       </q-item-label>
     </q-item-section>
     <q-item-section>
@@ -19,11 +20,11 @@
 </template>
 
 <script>
-  import LabelComponent from "../../components/FormInputs/LabelComponent";
+  // import LabelComponent from "../../components/FormInputs/LabelComponent";
 
   export default {
     components: {
-      LabelComponent
+      // LabelComponent
     },
     name: "FormElement",
     props: {
