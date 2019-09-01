@@ -142,7 +142,6 @@
 
             <q-item-section>
               <q-item-label>{{ item.label }}</q-item-label>
-              <q-item-label caption>{{ item.caption }}</q-item-label>
             </q-item-section>
           </q-item>
         </template>
@@ -166,11 +165,6 @@
           :key="item.label"
         ></q-route-tab>
       </q-tabs>
-      <!-- <q-toolbar>
-        <small>&copy; {{ copyright }}</small>
-        <q-space />
-        v.0.0.1-beta
-      </q-toolbar> -->
     </q-footer>
 
     <q-page-container>
