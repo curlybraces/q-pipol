@@ -1,5 +1,3 @@
-import Vue from "vue";
-
 export function addProject(state, payload) {
   state.projects.push(payload);
 }
@@ -9,7 +7,9 @@ export function updateProject(state, payload) {
 }
 
 export function deleteProject(state, id) {
-  Vue.delete(state.projects, id);
+  state.projects = state.projects.filter(project => {
+    return project.id != id;
+  })
 }
 
 export function setSearch(state, value) {
