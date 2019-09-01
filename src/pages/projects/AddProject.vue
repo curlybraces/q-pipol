@@ -1,21 +1,24 @@
 <template>
   <q-page padding>
-    <card-component title="Add Project">
-      <template v-slot:content>
-        <q-banner :class="dark ? 'bg-grey-9' : 'bg-grey-3'">
-          <template v-slot:avatar>
-            <q-icon name="info" :color="dark ? 'white' : 'primary'" />
-          </template>
-          This module is <strong>only</strong> for adding new projects. Once
-          added, you may view your projects in the project list and edit to
-          complete and finalize your submission.
-        </q-banner>
-
-        <q-form ref="form" @submit="addProject(form)" autofocus>
-          <q-list separator :dark="dark">
-            <q-item-label header class="text-uppercase"
-              >General Information</q-item-label
-            >
+    <q-card>
+      <q-toolbar class="bg-primary text-white">
+        <q-avatar icon="note_add" />
+        <q-toolbar-title>Add Project</q-toolbar-title>
+      </q-toolbar>
+      <q-card-section>
+        <q-form
+          ref="form"
+          @submit="addProject(form)"
+          autofocus
+        >
+          <q-list
+            separator
+            :dark="dark"
+          >
+            <q-item-label
+              header
+              class="text-uppercase"
+            >General Information</q-item-label>
 
             <form-element label="Proposal/Project Name">
               <input-component
@@ -83,7 +86,10 @@
               ></select-component>
             </form-element>
 
-            <form-element label="Regions" v-if="form.sc == 2 || form.sc == 3">
+            <form-element
+              label="Regions"
+              v-if="form.sc == 2 || form.sc == 3"
+            >
               <select-component
                 v-if="form.sc == 2"
                 label="Regions"
@@ -175,9 +181,10 @@
               />
             </form-element>
 
-            <q-item-label header class="text-uppercase"
-              >Implementation Readiness</q-item-label
-            >
+            <q-item-label
+              header
+              class="text-uppercase"
+            >Implementation Readiness</q-item-label>
 
             <form-element label="Pre-requisites">
               <options-component
@@ -195,13 +202,12 @@
               ></options-component>
             </form-element>
 
-            <q-item-label header class="text-uppercase"
-              >Strategic Alignment</q-item-label
-            >
+            <q-item-label
+              header
+              class="text-uppercase"
+            >Strategic Alignment</q-item-label>
 
-            <form-element
-              label="New Thinking for Agriculture (Eight Paradigms for a Food-Secure Philippines)"
-            >
+            <form-element label="New Thinking for Agriculture (Eight Paradigms for a Food-Secure Philippines)">
               <options-component
                 type="checkbox"
                 :options="newThinkings"
@@ -295,7 +301,6 @@
                 class="my-sticky-column-table"
                 :row-key="form.fsbd.fundingSource"
                 separator="cell"
-                grid
               >
                 <template v-slot:top-right>
                   <button-component
@@ -308,7 +313,10 @@
                 </template>
                 <template v-slot:body="props">
                   <q-tr :props="props">
-                    <q-td key="fundingSource" :props="props">
+                    <q-td
+                      key="fundingSource"
+                      :props="props"
+                    >
                       <select-component
                         :outlined="false"
                         :options="fundingSources"
@@ -316,42 +324,60 @@
                         dense
                       />
                     </q-td>
-                    <q-td key="y1" :props="props">
+                    <q-td
+                      key="y1"
+                      :props="props"
+                    >
                       <input-component
                         :outlined="false"
                         type="number"
                         v-model="props.row.y1"
                       />
                     </q-td>
-                    <q-td key="y2" :props="props">
+                    <q-td
+                      key="y2"
+                      :props="props"
+                    >
                       <input-component
                         :outlined="false"
                         type="number"
                         v-model="props.row.y2"
                       />
                     </q-td>
-                    <q-td key="y3" :props="props">
+                    <q-td
+                      key="y3"
+                      :props="props"
+                    >
                       <input-component
                         :outlined="false"
                         type="number"
                         v-model="props.row.y3"
                       />
                     </q-td>
-                    <q-td key="y4" :props="props">
+                    <q-td
+                      key="y4"
+                      :props="props"
+                    >
                       <input-component
                         :outlined="false"
                         type="number"
                         v-model="props.row.y4"
                       />
                     </q-td>
-                    <q-td key="y5" :props="props">
+                    <q-td
+                      key="y5"
+                      :props="props"
+                    >
                       <input-component
                         :outlined="false"
                         type="number"
                         v-model="props.row.y5"
                       />
                     </q-td>
-                    <q-td key="y6" :props="props">
+                    <q-td
+                      key="y6"
+                      :props="props"
+                    >
                       <input-component
                         :outlined="false"
                         type="number"
@@ -372,14 +398,13 @@
             </div>
           </q-list>
         </q-form>
-      </template>
-    </card-component>
+      </q-card-section>
+    </q-card>
   </q-page>
 </template>
 
 <script>
 import { mapState, mapActions } from "vuex";
-import CardComponent from "../../components/UI/CardComponent";
 import ButtonComponent from "../../components/UI/ButtonComponent";
 import InputComponent from "../../components/FormInputs/InputComponent";
 import SelectComponent from "../../components/FormInputs/SelectComponent";
@@ -391,14 +416,13 @@ export default {
   components: {
     SelectComponent,
     FormElement,
-    CardComponent,
     ButtonComponent,
     InputComponent,
     OptionsComponent,
     TreeComponent
   },
   name: "PageAddProject",
-  data() {
+  data () {
     return {
       filteredImplementationPeriods: [],
       showHelp: false,
@@ -496,8 +520,8 @@ export default {
     ...mapState("settings", ["dark"])
   },
   methods: {
-    ...mapActions("projects", ["addProject"]),
-    addRow() {
+    ...mapActions("projects", ["addProject", "loadProject"]),
+    addRow () {
       this.form.fsbd.push({
         fundingSource: "",
         y1: 0,
@@ -508,7 +532,7 @@ export default {
         y6: 0
       });
     },
-    updateImplementationEnd(evt) {
+    updateImplementationEnd (evt) {
       let filteredImplementationPeriods = [];
       var start = parseInt(evt);
       filteredImplementationPeriods = this.implementationPeriods.filter(

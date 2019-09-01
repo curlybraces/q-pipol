@@ -31,6 +31,10 @@ const routes = [
       {
         path: "add",
         component: () => import("pages/projects/AddProject.vue")
+      },
+      {
+        path: ":id",
+        component: () => import("pages/projects/EditProject.vue")
       }
     ]
   },
@@ -59,10 +63,6 @@ const routes = [
       {
         path: "recycle",
         component: () => import("pages/projects/DeletedProjects.vue")
-      },
-      {
-        path: ":id",
-        component: () => import("pages/projects/ViewProject.vue")
       }
     ]
   },

@@ -1,5 +1,8 @@
 <template>
-  <q-page-sticky position="bottom-right" :offset="[18, 18]">
+  <q-page-sticky
+    position="bottom-right"
+    :offset="[18, 18]"
+  >
     <q-btn
       fab
       icon="note_add"
@@ -15,16 +18,10 @@
 import { mapState } from "vuex";
 export default {
   name: "FabComponent",
-  // props: {
-  //   link: {
-  //     type: String,
-  //     default: "#"
-  //   }
-  // },
-  data() {
+  data () {
     return {
       link: "/add"
-    }
+    };
   },
   computed: {
     ...mapState("settings", ["dark"])

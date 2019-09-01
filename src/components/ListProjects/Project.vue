@@ -1,5 +1,5 @@
 <template>
-  <q-item clickable>
+  <q-item>
     <q-item-section class="col-2 gt-sm">
       <q-item-label class="q-mt-sm">
         {{ project.implementingAgency }}
@@ -12,10 +12,16 @@
         v-html="$options.filters.searchHighlight(project.title, search)"
       >
       </q-item-label>
-      <q-item-label caption lines="2">
+      <q-item-label
+        caption
+        lines="2"
+      >
         {{ project.description }}
       </q-item-label>
-      <q-item-label caption lines="1">
+      <q-item-label
+        caption
+        lines="1"
+      >
         [
         {{ project.implementationStart + " - " + project.implementationEnd }}
         ]
@@ -38,7 +44,7 @@
           round
           icon="edit"
           color="green"
-          :to="'/projects/' + project.id"
+          @click="showEditProject = true"
         />
 
         <q-btn
@@ -53,24 +59,44 @@
         />
       </div>
     </q-item-section>
+
+    <q-dialog
+      v-model="showEditProject"
+      maximized
+      persistent
+      transition-show="slide-up"
+      transition-hide="slide-down"
+    >
+      <edit-project
+        :project="project"
+        @close="showEditProject = false"
+      ></edit-project>
+    </q-dialog>
   </q-item>
 </template>
 
 <script>
 import { mapState, mapActions } from "vuex";
+import EditProject from "../../components/EditProject";
 
 export default {
+  components: { EditProject },
   name: "Project",
   props: {
     project: Object,
     id: String
+  },
+  data () {
+    return {
+      showEditProject: false
+    }
   },
   computed: {
     ...mapState("projects", ["search"])
   },
   methods: {
     ...mapActions("projects", ["deleteProject"]),
-    promptToDelete(id) {
+    promptToDelete (id) {
       this.$q
         .dialog({
           title: "Confirm delete",
@@ -88,7 +114,7 @@ export default {
     }
   },
   filters: {
-    searchHighlight(value, search) {
+    searchHighlight (value, search) {
       if (search) {
         let searchRegExp = new RegExp(search, "ig");
         return value.replace(searchRegExp, match => {

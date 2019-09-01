@@ -9,11 +9,15 @@ export function updateProject(state, payload) {
 export function deleteProject(state, id) {
   state.projects = state.projects.filter(project => {
     return project.id != id;
-  })
+  });
 }
 
 export function setSearch(state, value) {
   state.search = value;
+}
+
+export function setProject(state, value) {
+  state.project = value;
 }
 
 export function setProjectsDownloaded(state, value) {

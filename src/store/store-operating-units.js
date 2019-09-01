@@ -55,7 +55,7 @@ const state = {
     { label: "NFA - National Food Authority", value: 35 },
     { label: "NTA - National Tobacco Administration", value: 36 },
     { label: "PCA - Philippine Coconut Authority", value: 37 },
-    { label: "PCIC Philippine Crop Insurance Corporation", value: 38 },
+    { label: "PCIC - Philippine Crop Insurance Corporation", value: 38 },
     { label: "PFDA - Philippine Fisheries Development Authority", value: 39 },
     { label: "PhilRice - Philippine Rice Research Institute", value: 40 },
     {

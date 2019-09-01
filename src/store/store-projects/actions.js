@@ -15,18 +15,21 @@ export function deleteProject({ dispatch }, id) {
 }
 
 export function fbReadData({ commit }) {
-  firebaseDb.collection("projects")
-    .get()
-    .then(snapshot => {
-      snapshot.forEach(doc => {
-        let project = doc.data();
-        project.id = doc.id;
-        commit("addProject", project);
-      })
-    })
-    .catch(err => {
-      console.log(err)
-    });
+  let ref = firebaseDb.collection("projects");
+
+  // ref
+  //   .get()
+  //   .then(snapshot => {
+  //     commit("setProjectsDownloaded", true);
+  //     snapshot.forEach(doc => {
+  //       let project = doc.data();
+  //       project.id = doc.id;
+  //       commit("addProject", project);
+  //     });
+  //   })
+  //   .catch(err => {
+  //     console.log(err);
+  //   });
   // let userId = firebaseAuth.currentUser.uid;
   // let userProjects = firebaseDb.ref("projects/" + userId);
   //
@@ -34,7 +37,19 @@ export function fbReadData({ commit }) {
   // userProjects.once("value", () => {
   //   commit("setProjectsDownloaded", true);
   // });
-  //
+
+  ref.onSnapshot(snapshot => {
+    commit("setProjectsDownloaded", true);
+    snapshot.docChanges().forEach(change => {
+      if (change.type == "added") {
+        let project = change.doc.data();
+        project.id = change.doc.id;
+        commit("addProject", project);
+      } else if (change.type == "removed") {
+        commit("deleteProject", change.doc.id);
+      }
+    });
+  });
   // // child added
   // userProjects.on("child_added", snapshot => {
   //   let project = snapshot.val();
@@ -68,14 +83,19 @@ export function fbReadData({ commit }) {
 
 export function fbAddProject({}, payload) {
   let userId = firebaseAuth.currentUser.uid;
-  let projectRef = firebaseDb.ref("projects/" + userId + "/" + payload.id);
-  projectRef.set(payload.project, error => {
-    if (error) {
-      showErrorMessage(error.message);
-    } else {
+
+  let ref = firebaseDb.collection("projects");
+  let project = payload;
+  project.addedBy = userId;
+
+  ref
+    .add(project)
+    .then(() => {
       Notify.create("Project Added");
-    }
-  });
+    })
+    .catch(err => {
+      showErrorMessage(err.message);
+    });
 }
 
 export function fbUpdateProject({}, payload) {

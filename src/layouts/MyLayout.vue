@@ -132,21 +132,15 @@
       </q-list>
     </q-drawer>
 
-    <q-footer
-      :class="dark ? 'bg-grey-10' : 'bg-primary'"
-      :dark="dark"
-      elevated
-    >
-      <q-tabs
-        align="justify"
-        switch-indicator>
+    <q-footer :class="dark ? 'bg-grey-10' : 'bg-primary'" :dark="dark" elevated>
+      <q-tabs align="justify" switch-indicator>
         <q-route-tab
           v-for="item in sidemenu"
           :to="item.href"
           :label="item.label"
           :icon="item.icon"
           :key="item.label"
-          ></q-route-tab>
+        ></q-route-tab>
       </q-tabs>
       <!-- <q-toolbar>
         <small>&copy; {{ copyright }}</small>

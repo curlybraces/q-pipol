@@ -26,9 +26,6 @@ import Project from "./Project";
 export default {
   components: { Project },
   name: "ListComponent",
-  props: {
-    project: Object
-  },
   computed: {
     ...mapState("projects", ["search"]),
     ...mapState("settings", ["dark"]),
