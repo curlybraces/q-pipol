@@ -1,32 +1,29 @@
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
 
-module.exports = function (ctx) {
+module.exports = function(ctx) {
   return {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     boot: [
-      'axios',
-      'router-auth',
-      'loading-defaults',
-      'addressbar-color',
-      'notify-defaults'
+      "router-auth",
+      "loading-defaults",
+      "addressbar-color",
+      "notify-defaults"
     ],
 
-    css: [
-      'app.styl'
-    ],
+    css: ["app.styl"],
 
     extras: [
       // 'ionicons-v4',
       // 'mdi-v3',
-      'fontawesome-v5', // disable after removing from Github
+      "fontawesome-v5", // disable after removing from Github
       // 'eva-icons',
       // 'themify',
       // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
 
-      'roboto-font', // optional, you are not bound to it
-      'material-icons' // optional, you are not bound to it
+      "roboto-font", // optional, you are not bound to it
+      "material-icons" // optional, you are not bound to it
     ],
 
     framework: {
@@ -36,113 +33,110 @@ module.exports = function (ctx) {
       // all: true, // --- includes everything; for dev only!
 
       components: [
-        'QLayout',
-        'QHeader',
-        'QFooter',
-        'QDrawer',
-        'QPageContainer',
-        'QPage',
-        'QToolbar',
-        'QToolbarTitle',
-        'QBtn',
-        'QIcon',
-        'QList',
-        'QExpansionItem',
-        'QItem',
-        'QItemSection',
-        'QItemLabel',
-        'QSpace',
-        'QSeparator',
+        "QLayout",
+        "QHeader",
+        "QFooter",
+        "QDrawer",
+        "QPageContainer",
+        "QPage",
+        "QToolbar",
+        "QToolbarTitle",
+        "QBtn",
+        "QIcon",
+        "QList",
+        "QExpansionItem",
+        "QItem",
+        "QItemSection",
+        "QItemLabel",
+        "QSpace",
+        "QSeparator",
 
-        'QTabs',
-        'QTab',
-        'QRouteTab',
+        "QTabs",
+        "QTab",
+        "QRouteTab",
 
-	    'QTabPanels',
-        'QTabPanel',
+        "QTabPanels",
+        "QTabPanel",
 
-        'QInput',
-        'QSelect',
-        'QCheckbox',
-        'QToggle',
-        'QRadio',
-        'QForm',
-        'QSlider',
-        'QDate',
-	    'QOptionGroup',
-        'QBtnToggle',
+        "QInput",
+        "QSelect",
+        "QCheckbox",
+        "QToggle",
+        "QRadio",
+        "QForm",
+        "QSlider",
+        "QDate",
+        "QOptionGroup",
+        "QBtnToggle",
 
-        'QImg',
+        "QImg",
 
-        'QTable',
-	    'QTh',
-	    'QTr',
-	    'QTd',
-        'QMarkupTable',
+        "QTable",
+        "QTh",
+        "QTr",
+        "QTd",
+        "QMarkupTable",
 
-	    'QSpinnerFacebook',
-	    'QSpinnerDots',
-      'QSpinner',
+        "QSpinnerFacebook",
+        "QSpinnerDots",
+        "QSpinner",
 
-	    'QStepper',
-	    'QStep',
-	    'QStepperNavigation',
+        "QStepper",
+        "QStep",
+        "QStepperNavigation",
 
-	    'QInnerLoading',
+        "QInnerLoading",
 
-        'QCard',
-	    'QCardSection',
-	    'QCardActions',
+        "QCard",
+        "QCardSection",
+        "QCardActions",
 
-        'QPopupProxy',
-        'QPopupEdit',
+        "QPopupProxy",
+        "QPopupEdit",
 
-        'QAvatar',
+        "QAvatar",
 
-        'QTree',
+        "QTree",
 
-        'QBanner',
+        "QBanner",
 
-        'QPageSticky',
-        'QDialog',
-        'QMenu',
-        'QBadge',
+        "QPageSticky",
+        "QDialog",
+        "QMenu",
+        "QBadge",
 
-	    'QTimeline',
-	    'QTimelineEntry',
+        "QTimeline",
+        "QTimelineEntry",
 
-        'QSplitter',
-        'QScrollArea',
+        "QSplitter",
+        "QScrollArea",
 
-        'QCarousel',
-        'QCarouselControl',
-        'QCarouselSlide',
+        "QCarousel",
+        "QCarouselControl",
+        "QCarouselSlide",
 
-        'QBar',
-        'QInfiniteScroll',
-        'QPagination',
+        "QBar",
+        "QInfiniteScroll",
+        "QPagination",
 
-        'QChatMessage',
+        "QChatMessage",
 
-        'QBreadcrumbs',
-        'QBreadcrumbsEl'
+        "QBreadcrumbs",
+        "QBreadcrumbsEl"
       ],
 
-      directives: [
-        'Ripple',
-        'ClosePopup'
-      ],
+      directives: ["Ripple", "ClosePopup"],
 
       // Quasar plugins
       plugins: [
-        'Notify',
-        'AppFullscreen',
-        'Dialog',
-        'Loading',
-        'BottomSheet',
+        "Notify",
+        "AppFullscreen",
+        "Dialog",
+        "Loading",
+        "BottomSheet",
 
-        'AddressbarColor',
-        'LocalStorage'
+        "AddressbarColor",
+        "LocalStorage"
       ]
     },
 
@@ -155,16 +149,16 @@ module.exports = function (ctx) {
       // gzip: true,
       // analyze: true,
       // extractCSS: false,
-      extendWebpack (cfg) {
+      extendWebpack(cfg) {
         cfg.module.rules.push({
-          enforce: 'pre',
+          enforce: "pre",
           test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
+          loader: "eslint-loader",
           exclude: /node_modules/,
           options: {
-            formatter: require('eslint').CLIEngine.getFormatter('stylish')
+            formatter: require("eslint").CLIEngine.getFormatter("stylish")
           }
-        })
+        });
       }
     },
 
@@ -175,10 +169,7 @@ module.exports = function (ctx) {
     },
 
     // animations: 'all', // --- includes all animations
-    animations: [
-      "zoomIn",
-      "zoomOut"
-    ],
+    animations: ["zoomIn", "zoomOut"],
 
     ssr: {
       pwa: false
@@ -188,38 +179,38 @@ module.exports = function (ctx) {
       // workboxPluginMode: 'InjectManifest',
       workboxOptions: { skipWaiting: true }, // only for NON InjectManifest
       manifest: {
-        name: 'Investment Programming and Monitoring System',
-        short_name: 'iPMS',
-        description: 'A Quasar Framework App for iPMS',
-        display: 'standalone',
-        orientation: 'portrait',
-        background_color: '#ffffff',
-        theme_color: '#095437',
+        name: "Investment Programming and Monitoring System",
+        short_name: "iPMS",
+        description: "A Quasar Framework App for iPMS",
+        display: "standalone",
+        orientation: "portrait",
+        background_color: "#ffffff",
+        theme_color: "#095437",
         icons: [
           {
-            'src': 'statics/icons/icon-128x128.png',
-            'sizes': '128x128',
-            'type': 'image/png'
+            src: "statics/icons/icon-128x128.png",
+            sizes: "128x128",
+            type: "image/png"
           },
           {
-            'src': 'statics/icons/icon-192x192.png',
-            'sizes': '192x192',
-            'type': 'image/png'
+            src: "statics/icons/icon-192x192.png",
+            sizes: "192x192",
+            type: "image/png"
           },
           {
-            'src': 'statics/icons/icon-256x256.png',
-            'sizes': '256x256',
-            'type': 'image/png'
+            src: "statics/icons/icon-256x256.png",
+            sizes: "256x256",
+            type: "image/png"
           },
           {
-            'src': 'statics/icons/icon-384x384.png',
-            'sizes': '384x384',
-            'type': 'image/png'
+            src: "statics/icons/icon-384x384.png",
+            sizes: "384x384",
+            type: "image/png"
           },
           {
-            'src': 'statics/icons/icon-512x512.png',
-            'sizes': '512x512',
-            'type': 'image/png'
+            src: "statics/icons/icon-512x512.png",
+            sizes: "512x512",
+            type: "image/png"
           }
         ]
       }
@@ -233,29 +224,26 @@ module.exports = function (ctx) {
     electron: {
       // bundler: 'builder', // or 'packager'
 
-      extendWebpack (cfg) {
+      extendWebpack(cfg) {
         // do something with Electron main process Webpack cfg
         // chainWebpack also available besides this extendWebpack
       },
 
       packager: {
         // https://github.com/electron-userland/electron-packager/blob/master/docs/api.md#options
-
         // OS X / Mac App Store
         // appBundleId: '',
         // appCategoryType: '',
         // osxSign: '',
         // protocol: 'myapp://path',
-
         // Windows only
         // win32metadata: { ... }
       },
 
       builder: {
         // https://www.electron.build/configuration/configuration
-
         // appId: 'q-pipol'
       }
     }
-  }
-}
+  };
+};

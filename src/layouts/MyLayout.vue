@@ -1,6 +1,9 @@
 <template>
   <q-layout view="hHh Lpr lFf">
-    <q-header elevated :class="dark ? 'bg-grey-10' : 'glossy bg-primary'">
+    <q-header
+      elevated
+      :class="dark ? 'bg-grey-10' : 'glossy bg-primary'"
+    >
       <q-toolbar>
         <q-btn
           flat
@@ -13,7 +16,10 @@
           <q-icon name="menu" />
         </q-btn>
 
-        <q-avatar color="white" class="q-mr-xs">
+        <q-avatar
+          color="white"
+          class="q-mr-xs"
+        >
           <img src="statics/da-logo.png" />
         </q-avatar>
 
@@ -22,7 +28,7 @@
         </q-avatar>
 
         <q-toolbar-title>
-          {{ appTitle }}
+          <span class="app-title">{{ appTitle }}</span>
         </q-toolbar-title>
 
         <q-btn
@@ -35,9 +41,22 @@
         />
 
         <div v-else>
-          <q-btn dense flat round icon="email" class="q-mr-xs" color="grey-9" />
+          <q-btn
+            dense
+            flat
+            round
+            icon="email"
+            class="q-mr-xs"
+            color="grey-9"
+          />
 
-          <q-btn dense round flat color="white" icon="account_circle">
+          <q-btn
+            dense
+            round
+            flat
+            color="white"
+            icon="account_circle"
+          >
             <q-menu
               anchor="bottom right"
               self="top right"
@@ -48,7 +67,10 @@
                 <div class="column">
                   <div class="text-h6 q-mb-md">Quick Settings</div>
 
-                  <q-toggle v-model="notifyUser" label="Notifications" />
+                  <q-toggle
+                    v-model="notifyUser"
+                    label="Notifications"
+                  />
 
                   <q-toggle
                     label="Dark Mode"
@@ -65,7 +87,11 @@
                   />
                 </div>
 
-                <q-separator vertical inset class="q-mx-lg" />
+                <q-separator
+                  vertical
+                  inset
+                  class="q-mx-lg"
+                />
 
                 <div class="column items-center">
                   <q-avatar size="72px">
@@ -108,7 +134,11 @@
       bordered
       :content-class="dark ? 'bg-grey-10' : 'bg-primary'"
     >
-      <q-list separator padding dark>
+      <q-list
+        separator
+        padding
+        dark
+      >
         <q-item-label header>NAVIGATION</q-item-label>
 
         <template v-for="item in sidemenu">
@@ -132,8 +162,15 @@
       </q-list>
     </q-drawer>
 
-    <q-footer :class="dark ? 'bg-grey-10' : 'bg-primary'" :dark="dark" elevated>
-      <q-tabs align="justify" switch-indicator>
+    <q-footer
+      :class="dark ? 'bg-grey-10' : 'bg-primary'"
+      :dark="dark"
+      elevated
+    >
+      <q-tabs
+        align="justify"
+        switch-indicator
+      >
         <q-route-tab
           v-for="item in sidemenu"
           :to="item.href"
@@ -161,7 +198,7 @@ import { mapState, mapActions } from "vuex";
 
 export default {
   name: "MyLayout",
-  data() {
+  data () {
     return {
       appTitle: "iPMS",
       copyright: "Made by Mark Lester A. Bolotaolo",
@@ -195,10 +232,10 @@ export default {
     ...mapState("auth", ["loggedIn"]),
     ...mapState("settings", ["dark"]),
     settingsDark: {
-      get() {
+      get () {
         return this.dark;
       },
-      set(val) {
+      set (val) {
         this.setDark(val);
       }
     }
@@ -212,6 +249,10 @@ export default {
 </script>
 
 <style scoped>
+.app-title {
+  font-family: PrimeTime;
+}
+
 .my-menu-link .q-item__label {
   color: #f9aa33;
 }

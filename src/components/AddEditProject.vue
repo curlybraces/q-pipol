@@ -4,7 +4,6 @@
     @submit="addProject(project)"
     autofocus
   >
-    <pre>{{ project }}</pre>
     <q-list
       separator
       :dark="dark"
@@ -46,7 +45,7 @@
         <input-component
           type="number"
           label="Priority Ranking No."
-          v-model="project.rnk"
+          v-model="project.priorityRanking"
         ></input-component>
       </form-element>
 
@@ -95,10 +94,10 @@
         ></select-component>
 
         <select-component
-          v-else-if="project.sc == 3"
+          v-else-if="project.spatialCoverage == 3"
           label="Region"
           :options="regions"
-          v-model="project.r"
+          v-model="project.regions"
           hint="Select the region where the project will be implemented."
           :rules="rules.required"
         ></select-component>
@@ -109,7 +108,7 @@
           type="number"
           label="Total Project Cost (in PhP)"
           hint="Total cost of the project in absolute terms"
-          v-model="project.tc"
+          v-model="project.totalProjectCost"
           :rules="rules.required"
         ></input-component>
       </form-element>
@@ -119,7 +118,7 @@
           type="textarea"
           label="Description"
           hint="Overview, Purpose, and/or Rationale of the Undertaking, Sub-programs/Components"
-          v-model="project.d"
+          v-model="project.description"
           :rules="rules.required"
         ></input-component>
       </form-element>
@@ -128,7 +127,7 @@
         <input-component
           type="textarea"
           label="Purpose"
-          v-model="project.p"
+          v-model="project.purpose"
           :rules="rules.required"
         ></input-component>
       </form-element>
@@ -138,7 +137,7 @@
           type="textarea"
           label="Expected Outputs"
           hint="Actual Deliverables, i.e. 100km of paved roads"
-          v-model="project.eo"
+          v-model="project.expectedOutputs"
           :rules="rules.required"
         ></input-component>
       </form-element>
@@ -147,7 +146,7 @@
         <input-component
           type="textarea"
           label="Beneficiaries"
-          v-model="project.b"
+          v-model="project.beneficiaries"
           :rules="rules.required"
         ></input-component>
       </form-element>
@@ -159,7 +158,7 @@
           label="Implementation Start"
           hint="Target year of start of implementation"
           :options="implementationPeriods"
-          v-model="project.is"
+          v-model="project.implementationStart"
           @input="updateImplementationEnd"
           :rules="rules.required"
         />
@@ -169,8 +168,8 @@
           label="Implementation End"
           hint="Target year of project completion"
           :options="filteredImplementationPeriods"
-          v-model="project.ie"
-          :readonly="!project.is"
+          v-model="project.implementationEnd"
+          :readonly="!project.implementationStart"
           :rules="rules.required"
         />
       </form-element>
@@ -205,7 +204,7 @@
         <options-component
           type="checkbox"
           :options="newThinkings"
-          v-model="project.nt"
+          v-model="project.newThinkings"
         ></options-component>
       </form-element>
 
@@ -220,7 +219,7 @@
         <options-component
           type="checkbox"
           :options="sustainableDevelopmentGoals"
-          v-model="project.sdg"
+          v-model="project.sustainableDevelopmentGoals"
         ></options-component>
       </form-element>
 
@@ -228,7 +227,7 @@
         <options-component
           type="checkbox"
           :options="tenPointAgenda"
-          v-model="project.tpa"
+          v-model="project.tenPointAgenda"
         ></options-component>
       </form-element>
 
@@ -236,12 +235,12 @@
 
       <form-element
         label="ODA Funding Institution"
-        v-if="project.mfs == 2 || project.mfs == 3"
+        v-if="project.mainFundingSource == 2 || project.mainFundingSource == 3"
       >
         <select-component
           label="ODA Funding Institution"
-          v-if="form.mfs == 2 || form.mfs == 3"
-          v-model="project.mfi"
+          v-if="project.mainFundingSource == 2 || project.mainFundingSource == 3"
+          v-model="project.mainFundingInstitution"
           :options="fundingInstitutions"
           :rules="rules.required"
         ></select-component>
@@ -249,24 +248,24 @@
 
       <form-element
         label="Other Funding Institution"
-        v-if="project.mfs == 99"
+        v-if="project.mainFundingSource == 99"
       >
         <input-component
           label="Other Funding Institution"
           v-if="project.mfs == 99"
-          v-model="project.ofi"
+          v-model="project.otherFundingInstitution"
           :rules="rules.required"
         ></input-component>
       </form-element>
 
       <form-element
         label="Other Funding Institution"
-        v-if="project.cat == 2"
+        v-if="project.categorization == 2"
       >
         <select-component
-          v-if="project.cat == 2"
+          v-if="project.categorization == 2"
           label="Project Preparation Document"
-          v-model="project.pd"
+          v-model="project.preparationDocument"
           :options="preparationDocuments"
           :rules="rules.required"
         ></select-component>
@@ -274,114 +273,16 @@
 
       <form-element
         label="PAP UACS Code"
-        v-if="project.cat == 1 || project.cat == 3"
+        v-if="project.categorization == 1 || project.categorization == 3"
       >
         <input-component
-          v-if="project.cat == 1 || project.cat == 3"
+          v-if="project.categorization == 1 || project.categorization == 3"
           label="PAP UACS Code"
-          v-model="project.uacs"
+          v-model="project.uacsCode"
           hint="UACS code is optional for new PAPs."
           :rules="rules.required"
         ></input-component>
       </form-element>
-
-      <div class="col q-mb-md">
-        <q-table
-          :dark="dark"
-          flat
-          title="Breakdown by Fund Source"
-          :data="project.fundingSourceBreakdown"
-          :columns="columns"
-          class="my-sticky-column-table"
-          :row-key="project.fundingSourceBreakdown.fundingSource"
-          separator="cell"
-        >
-          <template v-slot:top-right>
-            <button-component
-              flat
-              dense
-              :disable="loading"
-              label="Add row"
-              @click="addRow"
-            />
-          </template>
-          <template v-slot:body="props">
-            <q-tr :props="props">
-              <q-td
-                key="fundingSource"
-                :props="props"
-              >
-                <select-component
-                  :outlined="false"
-                  :options="fundingSources"
-                  v-model="props.row.fundingSource"
-                  dense
-                />
-              </q-td>
-              <q-td
-                key="y1"
-                :props="props"
-              >
-                <input-component
-                  :outlined="false"
-                  type="number"
-                  v-model="props.row.y1"
-                />
-              </q-td>
-              <q-td
-                key="y2"
-                :props="props"
-              >
-                <input-component
-                  :outlined="false"
-                  type="number"
-                  v-model="props.row.y2"
-                />
-              </q-td>
-              <q-td
-                key="y3"
-                :props="props"
-              >
-                <input-component
-                  :outlined="false"
-                  type="number"
-                  v-model="props.row.y3"
-                />
-              </q-td>
-              <q-td
-                key="y4"
-                :props="props"
-              >
-                <input-component
-                  :outlined="false"
-                  type="number"
-                  v-model="props.row.y4"
-                />
-              </q-td>
-              <q-td
-                key="y5"
-                :props="props"
-              >
-                <input-component
-                  :outlined="false"
-                  type="number"
-                  v-model="props.row.y5"
-                />
-              </q-td>
-              <q-td
-                key="y6"
-                :props="props"
-              >
-                <input-component
-                  :outlined="false"
-                  type="number"
-                  v-model="props.row.y6"
-                />
-              </q-td>
-            </q-tr>
-          </template>
-        </q-table>
-      </div>
 
       <div class="text-center">
         <button-component
