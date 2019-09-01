@@ -10,8 +10,8 @@ export function updateProject({ dispatch }, payload) {
   dispatch("fbUpdateProject", payload);
 }
 
-export function deleteProject({ dispatch }, payload) {
-  dispatch("fbDeleteProject", payload.id);
+export function deleteProject({ dispatch }, id) {
+  dispatch("fbDeleteProject", id);
 }
 
 export function fbReadData({ commit }) {
@@ -90,16 +90,27 @@ export function fbUpdateProject({}, payload) {
   });
 }
 
-export function fbDeleteProject({}, projectId) {
-  let userId = firebaseAuth.currentUser.uid;
-  let projectRef = firebaseDb.ref("projects/" + userId + "/" + projectId);
-  projectRef.remove(error => {
-    if (error) {
-      showErrorMessage(error.message);
-    } else {
-      Notify.create("Project Deleted");
-    }
-  });
+export function fbDeleteProject({ commit }, projectId) {
+  firebaseDb
+    .collection("projects")
+    .doc(projectId)
+    .delete()
+    .then(() => {
+      Notify.create("Project deleted");
+      commit("deleteProject", projectId);
+    })
+    .catch(err => {
+      showErrorMessage(err.message);
+    });
+  // let userId = firebaseAuth.currentUser.uid;
+  // let projectRef = firebaseDb.ref("projects/" + userId + "/" + projectId);
+  // projectRef.remove(error => {
+  //   if (error) {
+  //     showErrorMessage(error.message);
+  //   } else {
+  //     Notify.create("Project Deleted");
+  //   }
+  // });
 }
 
 export function setSearch({ commit }, value) {

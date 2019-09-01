@@ -83,7 +83,7 @@ export default {
           cancel: true
         })
         .onOk(() => {
-          this.deleteProject({ id: id });
+          this.deleteProject(id);
         });
     }
   },

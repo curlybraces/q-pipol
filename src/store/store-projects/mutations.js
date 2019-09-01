@@ -21,5 +21,5 @@ export function setProjectsDownloaded(state, value) {
 }
 
 export function clearProjects(state) {
-  state.projects = {};
+  state.projects = [];
 }
