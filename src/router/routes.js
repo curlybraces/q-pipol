@@ -31,10 +31,6 @@ const routes = [
       {
         path: "add",
         component: () => import("pages/projects/AddProject.vue")
-      },
-      {
-        path: ":id",
-        component: () => import("pages/projects/EditProject.vue")
       }
     ]
   },
@@ -77,20 +73,6 @@ const routes = [
       {
         path: "programmed",
         component: () => import("pages/review/ProgrammedProjects")
-      }
-    ]
-  },
-  {
-    path: "/programs",
-    component: () => import("layouts/MyLayout.vue"),
-    children: [
-      {
-        path: "",
-        component: () => import("pages/programs/ViewActivities.vue")
-      },
-      {
-        path: "add-activities",
-        component: () => import("pages/programs/AddActivity.vue")
       }
     ]
   }

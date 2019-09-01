@@ -1,21 +1,7 @@
 <template>
   <q-layout view="hHh Lpr lFf">
-    <q-header
-      elevated
-      :class="dark ? 'bg-grey-10' : 'glossy bg-primary'"
-    >
+    <q-header :class="dark ? 'bg-grey-10' : 'bg-primary'">
       <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          @click="leftDrawerOpen = !leftDrawerOpen"
-          aria-label="Menu"
-          v-if="loggedIn"
-        >
-          <q-icon name="menu" />
-        </q-btn>
-
         <q-avatar
           color="white"
           class="q-mr-xs"
@@ -133,6 +119,7 @@
       v-model="leftDrawerOpen"
       bordered
       :content-class="dark ? 'bg-grey-10' : 'bg-primary'"
+      :breakpoint="767"
     >
       <q-list
         separator
@@ -202,7 +189,7 @@ export default {
     return {
       appTitle: "iPMS",
       copyright: "Made by Mark Lester A. Bolotaolo",
-      leftDrawerOpen: this.$q.platform.is.desktop,
+      leftDrawerOpen: true,
       expanded: false,
       notifyUser: false,
       darkMode: false,
@@ -259,5 +246,11 @@ export default {
 
 .my-menu-link .material-icons {
   color: #f9aa33;
+}
+
+@media screen and (min-width: 768px) {
+  .q-footer {
+    display: none;
+  }
 }
 </style>
