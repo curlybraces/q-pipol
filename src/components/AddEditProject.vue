@@ -50,6 +50,9 @@
       </form-element>
 
       <form-element label="Categorization">
+        <p class="lt-md">
+          Categorization
+        </p>
         <options-component
           label="Categorization"
           v-model="project.categorization"
@@ -58,6 +61,9 @@
       </form-element>
 
       <form-element label="Infrastructure">
+        <p class="lt-md">
+          Infrastructure
+        </p>
         <options-component
           inline
           label="Infrastructure"
@@ -180,6 +186,9 @@
       >Implementation Readiness</q-item-label>
 
       <form-element label="Pre-requisites">
+        <p class="lt-md">
+          Prerequisites
+        </p>
         <options-component
           type="toggle"
           :options="prerequisites"
@@ -188,6 +197,9 @@
       </form-element>
 
       <form-element label="Technical Readiness">
+        <p class="lt-md">
+          Technical Readiness
+        </p>
         <options-component
           type="toggle"
           :options="preparationDocuments"
@@ -201,6 +213,9 @@
       >Strategic Alignment</q-item-label>
 
       <form-element label="New Thinking for Agriculture (Eight Paradigms for a Food-Secure Philippines)">
+        <p class="lt-md">
+          New Thinking in Agriculture
+        </p>
         <options-component
           type="checkbox"
           :options="newThinkings"
@@ -209,6 +224,9 @@
       </form-element>
 
       <form-element label="Philippine Development Plan">
+        <p class="lt-md">
+          Philippine Development Plan
+        </p>
         <tree-component
           :options="pdpChapters"
           :ticked.sync="project.pdp"
@@ -216,6 +234,9 @@
       </form-element>
 
       <form-element label="Sustainable Development Goals">
+        <p class="lt-md">
+          Sustainable Development Goals
+        </p>
         <options-component
           type="checkbox"
           :options="sustainableDevelopmentGoals"
@@ -224,6 +245,9 @@
       </form-element>
 
       <form-element label="0 + 10 Socioeconomic Agenda">
+        <p class="lt-md">
+          0+10 Socioeconomic Agenda
+        </p>
         <options-component
           type="checkbox"
           :options="tenPointAgenda"
