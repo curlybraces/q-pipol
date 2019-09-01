@@ -1,5 +1,6 @@
 export default {
-  projects: {},
+  // projects: {},
+  projects: [],
   search: "",
-  projectsDownloaded: false
+  projectsDownloaded: true
 };

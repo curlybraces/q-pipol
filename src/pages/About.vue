@@ -1,10 +1,5 @@
 <template>
   <q-page padding>
-    <q-breadcrumbs separator=">" class="q-my-md">
-      <q-breadcrumbs-el icon="info" label="About" />
-    </q-breadcrumbs>
-
-    <q-separator />
     <h6>Investment Programming Division</h6>
     <p>
       <q-img src="statics/ipd.png" />

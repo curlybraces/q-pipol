@@ -2,14 +2,14 @@
   <q-item clickable>
     <q-item-section class="col-2 gt-sm">
       <q-item-label class="q-mt-sm">
-        {{ project.implementing_unit }}
+        {{ project.implementingAgency }}
       </q-item-label>
     </q-item-section>
 
     <q-item-section>
       <q-item-label
         lines="1"
-        v-html="$options.filters.searchHighlight(project.t, search)"
+        v-html="$options.filters.searchHighlight(project.title, search)"
       >
       </q-item-label>
       <q-item-label caption lines="2">
@@ -17,14 +17,14 @@
       </q-item-label>
       <q-item-label caption lines="1">
         [
-        {{ project.is + " - " + project.ie }}
+        {{ project.implementationStart + " - " + project.implementationEnd }}
         ]
       </q-item-label>
     </q-item-section>
 
     <q-item-section side>
       <q-item-label>
-        PhP {{ Number(project.tc).toLocaleString() }}
+        PhP {{ Number(project.totalProjectCost).toLocaleString() }}
       </q-item-label>
     </q-item-section>
 
@@ -38,7 +38,7 @@
           round
           icon="edit"
           color="green"
-          :to="'/projects/' + id"
+          :to="'/projects/' + project.id"
         />
 
         <q-btn
@@ -49,7 +49,7 @@
           round
           icon="delete"
           color="red"
-          @click.stop="promptToDelete(id)"
+          @click.stop="promptToDelete(project.id)"
         />
       </div>
     </q-item-section>

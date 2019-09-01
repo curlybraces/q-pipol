@@ -11,10 +11,9 @@
         </div>
       </q-item>
       <project
-        v-for="(project, key) in projects"
-        :key="key"
+        v-for="project in projects"
+        :key="project.id"
         :project="project"
-        :id="key"
       ></project>
     </q-list>
   </transition>

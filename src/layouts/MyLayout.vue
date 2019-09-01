@@ -37,20 +37,6 @@
         <div v-else>
           <q-btn dense flat round icon="email" class="q-mr-xs" color="grey-9" />
 
-          <!-- <q-btn
-            dense
-            flat
-            :color="notificationsCount > 0 ? 'white' : 'grey-9'"
-            round
-            icon="notifications"
-            class="q-mr-xs"
-            @click="showNotifications = true"
-          >
-            <q-badge color="red" floating v-if="notificationsCount > 0">
-              {{ notificationsCount }}
-            </q-badge>
-          </q-btn> -->
-
           <q-btn dense round flat color="white" icon="account_circle">
             <q-menu
               anchor="bottom right"
@@ -147,41 +133,39 @@
     </q-drawer>
 
     <q-footer
-      :class="dark ? 'bg-grey-10' : 'glossy bg-primary'"
+      :class="dark ? 'bg-grey-10' : 'bg-primary'"
       :dark="dark"
       elevated
     >
-      <q-toolbar>
+      <q-tabs
+        align="justify"
+        switch-indicator>
+        <q-route-tab
+          v-for="item in sidemenu"
+          :to="item.href"
+          :label="item.label"
+          :icon="item.icon"
+          :key="item.label"
+          ></q-route-tab>
+      </q-tabs>
+      <!-- <q-toolbar>
         <small>&copy; {{ copyright }}</small>
         <q-space />
         v.0.0.1-beta
-      </q-toolbar>
+      </q-toolbar> -->
     </q-footer>
 
     <q-page-container>
       <router-view />
     </q-page-container>
-
-    <q-dialog
-      v-model="showNotifications"
-      transition-show="slide-left"
-      transition-hide="slide-right"
-      maximized
-    >
-      <notifications-modal
-        @close="showNotifications = false"
-      ></notifications-modal>
-    </q-dialog>
   </q-layout>
 </template>
 
 <script>
 import { openURL } from "quasar";
 import { mapState, mapActions } from "vuex";
-import NotificationsModal from "../components/Notifications/NotificationsModal";
 
 export default {
-  components: { NotificationsModal },
   name: "MyLayout",
   data() {
     return {
@@ -191,17 +175,10 @@ export default {
       expanded: false,
       notifyUser: false,
       darkMode: false,
-      showNotifications: false,
       sidemenu: [
         {
-          label: "Home",
-          href: "/",
-          icon: "home",
-          caption: "Go to dashboard"
-        },
-        {
           label: "Projects",
-          href: "/projects",
+          href: "/",
           icon: "list",
           caption: "View all projects"
         },

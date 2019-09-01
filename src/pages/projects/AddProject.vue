@@ -1,38 +1,5 @@
 <template>
   <q-page padding>
-    <div class="row">
-      <breadcrumb-component
-        :breadcrumbs="[
-          {
-            icon: 'list',
-            label: 'Projects',
-            link: '/projects'
-          },
-          {
-            label: 'Add'
-          }
-        ]"
-      ></breadcrumb-component>
-      <q-space />
-      <q-btn
-        flat
-        round
-        dense
-        icon="help"
-        :color="dark ? 'info' : 'primary'"
-        @click="showHelp = true"
-      ></q-btn>
-    </div>
-
-    <q-dialog
-      maximized
-      v-model="showHelp"
-      transition-show="slide-left"
-      transition-hide="slide-right"
-    >
-      <help-dialog @close="showHelp = false"> </help-dialog>
-    </q-dialog>
-
     <card-component title="Add Project">
       <template v-slot:content>
         <q-banner :class="dark ? 'bg-grey-9' : 'bg-grey-3'">
@@ -414,14 +381,11 @@
 import { mapState, mapActions } from "vuex";
 import CardComponent from "../../components/UI/CardComponent";
 import ButtonComponent from "../../components/UI/ButtonComponent";
-// import InputComponent from "../../components/Form/InputComponent";
 import InputComponent from "../../components/FormInputs/InputComponent";
 import SelectComponent from "../../components/FormInputs/SelectComponent";
 import OptionsComponent from "../../components/FormInputs/OptionsComponent";
 import TreeComponent from "../../components/FormInputs/TreeComponent";
-import HelpDialog from "../../components/AddProject/HelpDialog";
 import FormElement from "../../components/AddProject/FormElement";
-import BreadcrumbComponent from "../../components/BreadcrumbComponent";
 
 export default {
   components: {
@@ -431,8 +395,6 @@ export default {
     ButtonComponent,
     InputComponent,
     OptionsComponent,
-    HelpDialog,
-    BreadcrumbComponent,
     TreeComponent
   },
   name: "PageAddProject",

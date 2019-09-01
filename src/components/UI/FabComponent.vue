@@ -15,10 +15,15 @@
 import { mapState } from "vuex";
 export default {
   name: "FabComponent",
-  props: {
-    link: {
-      type: String,
-      default: "#"
+  // props: {
+  //   link: {
+  //     type: String,
+  //     default: "#"
+  //   }
+  // },
+  data() {
+    return {
+      link: "/add"
     }
   },
   computed: {

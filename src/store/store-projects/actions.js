@@ -1,15 +1,9 @@
-import { uid, Notify } from "quasar";
+import { Notify } from "quasar";
 import { firebaseAuth, firebaseDb } from "boot/firebase";
 import { showErrorMessage } from "src/functions/function-show-error-message";
 
 export function addProject({ dispatch }, project) {
-  let projectId = uid();
-  let payload = {
-    id: projectId,
-    project: project
-  };
-
-  dispatch("fbAddProject", payload);
+  dispatch("fbAddProject", project);
 }
 
 export function updateProject({ dispatch }, payload) {
@@ -21,43 +15,55 @@ export function deleteProject({ dispatch }, payload) {
 }
 
 export function fbReadData({ commit }) {
-  let userId = firebaseAuth.currentUser.uid;
-  let userProjects = firebaseDb.ref("projects/" + userId);
-
-  // initial check for data
-  userProjects.once("value", () => {
-    commit("setProjectsDownloaded", true);
-  });
-
-  // child added
-  userProjects.on("child_added", snapshot => {
-    let project = snapshot.val();
-
-    let payload = {
-      id: snapshot.key,
-      project: project
-    };
-
-    commit("addProject", payload);
-  });
-
-  // child updated
-  userProjects.on("child_changed", snapshot => {
-    let project = snapshot.val();
-
-    let payload = {
-      id: snapshot.key,
-      updates: project
-    };
-
-    commit("updateProject", payload);
-  });
-
-  // child removed
-  userProjects.on("child_removed", snapshot => {
-    let projectId = snapshot.key;
-    commit("deleteProject", projectId);
-  });
+  firebaseDb.collection("projects")
+    .get()
+    .then(snapshot => {
+      snapshot.forEach(doc => {
+        let project = doc.data();
+        project.id = doc.id;
+        commit("addProject", project);
+      })
+    })
+    .catch(err => {
+      console.log(err)
+    });
+  // let userId = firebaseAuth.currentUser.uid;
+  // let userProjects = firebaseDb.ref("projects/" + userId);
+  //
+  // // initial check for data
+  // userProjects.once("value", () => {
+  //   commit("setProjectsDownloaded", true);
+  // });
+  //
+  // // child added
+  // userProjects.on("child_added", snapshot => {
+  //   let project = snapshot.val();
+  //
+  //   let payload = {
+  //     id: snapshot.key,
+  //     project: project
+  //   };
+  //
+  //   commit("addProject", payload);
+  // });
+  //
+  // // child updated
+  // userProjects.on("child_changed", snapshot => {
+  //   let project = snapshot.val();
+  //
+  //   let payload = {
+  //     id: snapshot.key,
+  //     updates: project
+  //   };
+  //
+  //   commit("updateProject", payload);
+  // });
+  //
+  // // child removed
+  // userProjects.on("child_removed", snapshot => {
+  //   let projectId = snapshot.key;
+  //   commit("deleteProject", projectId);
+  // });
 }
 
 export function fbAddProject({}, payload) {
@@ -94,4 +100,8 @@ export function fbDeleteProject({}, projectId) {
       Notify.create("Project Deleted");
     }
   });
+}
+
+export function setSearch({ commit }, value) {
+  commit("setSearch", value);
 }

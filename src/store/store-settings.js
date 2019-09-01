@@ -1,6 +1,6 @@
 const state = {
   dontShowAgain: false,
-  dark: true
+  dark: false
 };
 
 const mutations = {
