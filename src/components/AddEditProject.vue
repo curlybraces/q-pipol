@@ -302,7 +302,7 @@ import InputComponent from "./FormInputs/InputComponent";
 import SelectComponent from "./FormInputs/SelectComponent";
 import OptionsComponent from "./FormInputs/OptionsComponent";
 import TreeComponent from "./FormInputs/TreeComponent";
-import FormElement from "./AddProject/FormElement";
+import FormElement from "./FormInputs/FormElement";
 
 export default {
   components: {
