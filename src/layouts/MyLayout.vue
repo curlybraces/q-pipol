@@ -115,14 +115,11 @@
     </q-header>
 
     <q-drawer
-      v-if="loggedIn"
       v-model="leftDrawerOpen"
-      bordered
       :content-class="dark ? 'bg-grey-10' : 'bg-primary'"
       :breakpoint="767"
     >
       <q-list
-        separator
         padding
         dark
       >
