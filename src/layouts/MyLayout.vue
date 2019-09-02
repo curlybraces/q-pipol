@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="hHh Lpr lFf">
+  <q-layout view="lHh Lpr lFf">
     <q-header :class="dark ? 'bg-grey-10' : 'bg-primary'">
       <q-toolbar>
         <q-avatar
@@ -27,15 +27,6 @@
         />
 
         <div v-else>
-          <q-btn
-            dense
-            flat
-            round
-            icon="email"
-            class="q-mr-xs"
-            color="grey-9"
-          />
-
           <q-btn
             dense
             round

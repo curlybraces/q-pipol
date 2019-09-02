@@ -61,9 +61,6 @@
       </form-element>
 
       <form-element label="Infrastructure">
-        <p class="lt-md">
-          Infrastructure
-        </p>
         <options-component
           inline
           label="Infrastructure"
@@ -185,25 +182,175 @@
         class="text-uppercase"
       >Implementation Readiness</q-item-label>
 
-      <form-element label="Pre-requisites">
-        <p class="lt-md">
-          Prerequisites
-        </p>
+      <q-item-label
+        header
+        class="text-uppercase"
+      >Prerequisites</q-item-label>
+
+      <form-element label="NEDA Board">
         <options-component
-          type="toggle"
-          :options="prerequisites"
-          v-model="project.pr"
+          inline
+          label="NEDA Board"
+          v-model="project.nedaBoard"
+          :options="yesNoNotApplicable"
         ></options-component>
       </form-element>
 
-      <form-element label="Technical Readiness">
-        <p class="lt-md">
-          Technical Readiness
-        </p>
+      <form-element label="NEDA Board-ICC">
         <options-component
-          type="toggle"
-          :options="preparationDocuments"
-          v-model="project.tr"
+          inline
+          label="NEDA Board-ICC"
+          v-model="project.nedaBoardIcc"
+          :options="yesNoNotApplicable"
+        ></options-component>
+      </form-element>
+
+      <form-element label="DPWH Certification">
+        <options-component
+          inline
+          label="DPWH Certification"
+          v-model="project.dpwhCertification"
+          :options="yesNoNotApplicable"
+        ></options-component>
+      </form-element>
+
+      <form-element label="DPWH MOA">
+        <options-component
+          inline
+          label="DPWH MOA"
+          v-model="project.dpwhMoa"
+          :options="yesNoNotApplicable"
+        ></options-component>
+      </form-element>
+
+      <form-element label="DPWH Costing">
+        <options-component
+          inline
+          label="DPWH Costing"
+          v-model="project.dpwhCosting"
+          :options="yesNoNotApplicable"
+        ></options-component>
+      </form-element>
+
+      <form-element label="DENR Clearance">
+        <options-component
+          inline
+          label="DENR Clearance"
+          v-model="project.denrClearance"
+          :options="yesNoNotApplicable"
+        ></options-component>
+      </form-element>
+
+      <form-element label="RDC Consultation">
+        <options-component
+          inline
+          label="RDC Consultation"
+          v-model="project.rdcConsultation"
+          :options="yesNoNotApplicable"
+        ></options-component>
+      </form-element>
+
+      <form-element label="CSO Consultation">
+        <options-component
+          inline
+          label="CSO Consultation"
+          v-model="project.csoConsultation"
+          :options="yesNoNotApplicable"
+        ></options-component>
+      </form-element>
+
+      <form-element label="List of Locations">
+        <options-component
+          inline
+          label="List of Locations"
+          v-model="project.listLocations"
+          :options="yesNoNotApplicable"
+        ></options-component>
+      </form-element>
+
+      <form-element label="List of Beneficiaries">
+        <options-component
+          inline
+          label="List of Beneficiaries"
+          v-model="project.listBeneficiaries"
+          :options="yesNoNotApplicable"
+        ></options-component>
+      </form-element>
+
+      <form-element label="Evaluated and endorsed by DA Clearinghouse Committee">
+        <options-component
+          inline
+          label="Evaluated and endorsed by DA Clearinghouse Committee"
+          v-model="project.daClearingHouse"
+          :options="yesNoNotApplicable"
+        ></options-component>
+      </form-element>
+
+      <q-item-label
+        header
+        class="text-uppercase"
+      >Technical Readiness</q-item-label>
+
+      <form-element label="Concept Note">
+        <options-component
+          inline
+          label="Concept Note"
+          v-model="project.conceptNote"
+          :options="yesNoNotApplicable"
+        ></options-component>
+      </form-element>
+
+      <form-element label="Feasibility Study">
+        <options-component
+          inline
+          label="Feasibility Study"
+          v-model="project.feasibilityStudy"
+          :options="yesNoNotApplicable"
+        ></options-component>
+      </form-element>
+
+      <form-element label="Detailed Engineering Design">
+        <options-component
+          inline
+          label="Detailed Engineering Design"
+          v-model="project.detailedEngineeringDesign"
+          :options="yesNoNotApplicable"
+        ></options-component>
+      </form-element>
+
+      <form-element label="Business Plan">
+        <options-component
+          inline
+          label="Business Plan"
+          v-model="project.businessPlan"
+          :options="yesNoNotApplicable"
+        ></options-component>
+      </form-element>
+
+      <form-element label="Right of Way">
+        <options-component
+          inline
+          label="Right of Way"
+          v-model="project.rightOfWay"
+          :options="yesNoNotApplicable"
+        ></options-component>
+      </form-element>
+
+      <form-element label="Resettlement Plan">
+        <options-component
+          inline
+          label="Resettlement Plan"
+          v-model="project.resettlementPlan"
+          :options="yesNoNotApplicable"
+        ></options-component>
+      </form-element>
+
+      <form-element label="Others">
+        <options-component
+          inline
+          label="Others"
+          v-model="project.otherTechnicalReadiness"
+          :options="yesNoNotApplicable"
         ></options-component>
       </form-element>
 
@@ -346,6 +493,20 @@ export default {
       filteredImplementationPeriods: [],
       showHelp: false,
       showAddFundSource: true,
+      yesNoNotApplicable: [
+        {
+          label: "Yes",
+          value: true
+        },
+        {
+          label: "No",
+          value: false
+        },
+        {
+          label: "Not Applicable",
+          value: null
+        }
+      ],
       columns: [
         {
           name: "fundingSource",
