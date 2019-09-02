@@ -374,10 +374,14 @@
         <p class="lt-md">
           Philippine Development Plan
         </p>
-        <tree-component
-          :options="pdpChapters"
+        <q-tree
+          :nodes="pdpChapters"
+          node-key="value"
+          tick-strategy="strict"
+          label-key="label"
           :ticked.sync="project.pdp"
-        ></tree-component>
+          :dark="dark"
+        />
       </form-element>
 
       <form-element label="Sustainable Development Goals">
@@ -472,7 +476,6 @@ import ButtonComponent from "./UI/ButtonComponent";
 import InputComponent from "./FormInputs/InputComponent";
 import SelectComponent from "./FormInputs/SelectComponent";
 import OptionsComponent from "./FormInputs/OptionsComponent";
-import TreeComponent from "./FormInputs/TreeComponent";
 import FormElement from "./FormInputs/FormElement";
 
 export default {
@@ -481,8 +484,7 @@ export default {
     FormElement,
     ButtonComponent,
     InputComponent,
-    OptionsComponent,
-    TreeComponent
+    OptionsComponent
   },
   name: "AddEditProject",
   props: {

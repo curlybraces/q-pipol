@@ -21,7 +21,12 @@ export default {
   name: "PageAddProject",
   data () {
     return {
-      project: {}
+      project: {
+        pdp: [],
+        newThinkings: [],
+        sustainableDevelopmentGoals: [],
+        tenPointAgenda: []
+      }
     }
   },
   computed: {

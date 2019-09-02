@@ -30,7 +30,7 @@ export default {
   props: {
     label: String,
     options: Array,
-    value: [Number, String, Boolean, Array],
+    value: [Array, Number, String, Boolean],
     inline: {
       default: false,
       type: Boolean
