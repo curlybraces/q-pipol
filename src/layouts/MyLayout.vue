@@ -2,10 +2,7 @@
   <q-layout view="lHh Lpr lFf">
     <q-header :class="dark ? 'bg-grey-10' : 'bg-primary'">
       <q-toolbar>
-        <q-avatar
-          color="white"
-          class="q-mr-xs"
-        >
+        <q-avatar color="white" class="q-mr-xs">
           <img src="statics/da-logo.png" />
         </q-avatar>
 
@@ -27,13 +24,7 @@
         />
 
         <div v-else>
-          <q-btn
-            dense
-            round
-            flat
-            color="white"
-            icon="account_circle"
-          >
+          <q-btn dense round flat color="white" icon="account_circle">
             <q-menu
               anchor="bottom right"
               self="top right"
@@ -44,10 +35,7 @@
                 <div class="column">
                   <div class="text-h6 q-mb-md">Quick Settings</div>
 
-                  <q-toggle
-                    v-model="notifyUser"
-                    label="Notifications"
-                  />
+                  <q-toggle v-model="notifyUser" label="Notifications" />
 
                   <q-toggle
                     label="Dark Mode"
@@ -64,11 +52,7 @@
                   />
                 </div>
 
-                <q-separator
-                  vertical
-                  inset
-                  class="q-mx-lg"
-                />
+                <q-separator vertical inset class="q-mx-lg" />
 
                 <div class="column items-center">
                   <q-avatar size="72px">
@@ -110,10 +94,7 @@
       :content-class="dark ? 'bg-grey-10' : 'bg-primary'"
       :breakpoint="767"
     >
-      <q-list
-        padding
-        dark
-      >
+      <q-list padding dark>
         <q-item-label header>NAVIGATION</q-item-label>
 
         <template v-for="item in sidemenu">
@@ -136,15 +117,8 @@
       </q-list>
     </q-drawer>
 
-    <q-footer
-      :class="dark ? 'bg-grey-10' : 'bg-primary'"
-      :dark="dark"
-      elevated
-    >
-      <q-tabs
-        align="justify"
-        switch-indicator
-      >
+    <q-footer :class="dark ? 'bg-grey-10' : 'bg-primary'" :dark="dark" elevated>
+      <q-tabs align="justify" switch-indicator>
         <q-route-tab
           v-for="item in sidemenu"
           :to="item.href"
@@ -167,7 +141,7 @@ import { mapState, mapActions } from "vuex";
 
 export default {
   name: "MyLayout",
-  data () {
+  data() {
     return {
       appTitle: "iPMS",
       copyright: "Made by Mark Lester A. Bolotaolo",
@@ -201,10 +175,10 @@ export default {
     ...mapState("auth", ["loggedIn"]),
     ...mapState("settings", ["dark"]),
     settingsDark: {
-      get () {
+      get() {
         return this.dark;
       },
-      set (val) {
+      set(val) {
         this.setDark(val);
       }
     }

@@ -1,17 +1,9 @@
 <template>
-  <q-form
-    ref="form"
-    @submit="addProject(project)"
-    autofocus
-  >
-    <q-list
-      separator
-      :dark="dark"
-    >
-      <q-item-label
-        header
-        class="text-uppercase"
-      >General Information</q-item-label>
+  <q-form ref="form" @submit="addProject(project)" autofocus>
+    <q-list separator :dark="dark">
+      <q-item-label header class="text-uppercase"
+        >General Information</q-item-label
+      >
 
       <form-element label="Proposal/Project Name">
         <input-component
@@ -66,9 +58,9 @@
           label="Infrastructure"
           v-model="project.infrastructure"
           :options="[
-                  { value: false, label: 'Non-Infrastructure' },
-                  { value: true, label: 'Infrastructure' }
-                ]"
+            { value: false, label: 'Non-Infrastructure' },
+            { value: true, label: 'Infrastructure' }
+          ]"
         ></options-component>
       </form-element>
 
@@ -177,15 +169,11 @@
         />
       </form-element>
 
-      <q-item-label
-        header
-        class="text-uppercase"
-      >Implementation Readiness</q-item-label>
+      <q-item-label header class="text-uppercase"
+        >Implementation Readiness</q-item-label
+      >
 
-      <q-item-label
-        header
-        class="text-uppercase"
-      >Prerequisites</q-item-label>
+      <q-item-label header class="text-uppercase">Prerequisites</q-item-label>
 
       <form-element label="NEDA Board">
         <options-component
@@ -277,7 +265,9 @@
         ></options-component>
       </form-element>
 
-      <form-element label="Evaluated and endorsed by DA Clearinghouse Committee">
+      <form-element
+        label="Evaluated and endorsed by DA Clearinghouse Committee"
+      >
         <options-component
           inline
           label="Evaluated and endorsed by DA Clearinghouse Committee"
@@ -286,10 +276,9 @@
         ></options-component>
       </form-element>
 
-      <q-item-label
-        header
-        class="text-uppercase"
-      >Technical Readiness</q-item-label>
+      <q-item-label header class="text-uppercase"
+        >Technical Readiness</q-item-label
+      >
 
       <form-element label="Concept Note">
         <options-component
@@ -354,12 +343,13 @@
         ></options-component>
       </form-element>
 
-      <q-item-label
-        header
-        class="text-uppercase"
-      >Strategic Alignment</q-item-label>
+      <q-item-label header class="text-uppercase"
+        >Strategic Alignment</q-item-label
+      >
 
-      <form-element label="New Thinking for Agriculture (Eight Paradigms for a Food-Secure Philippines)">
+      <form-element
+        label="New Thinking for Agriculture (Eight Paradigms for a Food-Secure Philippines)"
+      >
         <p class="lt-md">
           New Thinking in Agriculture
         </p>
@@ -414,7 +404,9 @@
       >
         <select-component
           label="ODA Funding Institution"
-          v-if="project.mainFundingSource == 2 || project.mainFundingSource == 3"
+          v-if="
+            project.mainFundingSource == 2 || project.mainFundingSource == 3
+          "
           v-model="project.mainFundingInstitution"
           :options="fundingInstitutions"
           :rules="rules.required"
@@ -490,7 +482,7 @@ export default {
   props: {
     project: Object
   },
-  data () {
+  data() {
     return {
       filteredImplementationPeriods: [],
       showHelp: false,
@@ -575,7 +567,7 @@ export default {
   },
   methods: {
     ...mapActions("projects", ["addProject", "loadProject"]),
-    addRow () {
+    addRow() {
       this.form.fsbd.push({
         fundingSource: "",
         y1: 0,
@@ -586,7 +578,7 @@ export default {
         y6: 0
       });
     },
-    updateImplementationEnd (evt) {
+    updateImplementationEnd(evt) {
       let filteredImplementationPeriods = [];
       var start = parseInt(evt);
       filteredImplementationPeriods = this.implementationPeriods.filter(

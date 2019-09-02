@@ -1,9 +1,6 @@
- <template>
+<template>
   <q-item>
-    <q-item-section
-      class="col-3 gt-sm"
-      top
-    >
+    <q-item-section class="col-3 gt-sm" top>
       <q-item-label>
         {{ label }}
       </q-item-label>

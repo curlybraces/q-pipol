@@ -1,9 +1,6 @@
 <template>
   <div>
-    <div
-      class="col-3 lt-md"
-      v-if="inline"
-    >
+    <div class="col-3 lt-md" v-if="inline">
       {{ label }}
     </div>
     <div class="col">
@@ -52,7 +49,7 @@ export default {
     ...mapState("settings", ["dark"])
   },
   methods: {
-    onInput (evt) {
+    onInput(evt) {
       this.$emit("input", evt);
     }
   }

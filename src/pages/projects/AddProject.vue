@@ -19,7 +19,7 @@ export default {
     AddEditProject
   },
   name: "PageAddProject",
-  data () {
+  data() {
     return {
       project: {
         pdp: [],
@@ -27,7 +27,7 @@ export default {
         sustainableDevelopmentGoals: [],
         tenPointAgenda: []
       }
-    }
+    };
   },
   computed: {
     ...mapState("settings", ["dark"])
@@ -35,5 +35,5 @@ export default {
   methods: {
     ...mapActions("projects", ["addProject"])
   }
-}
+};
 </script>

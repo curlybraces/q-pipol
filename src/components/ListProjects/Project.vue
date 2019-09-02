@@ -12,16 +12,10 @@
         v-html="$options.filters.searchHighlight(project.title, search)"
       >
       </q-item-label>
-      <q-item-label
-        caption
-        lines="2"
-      >
+      <q-item-label caption lines="2">
         {{ project.description }}
       </q-item-label>
-      <q-item-label
-        caption
-        lines="1"
-      >
+      <q-item-label caption lines="1">
         [
         {{ project.implementationStart + " - " + project.implementationEnd }}
         ]
@@ -86,17 +80,17 @@ export default {
     project: Object,
     id: String
   },
-  data () {
+  data() {
     return {
       showEditProject: false
-    }
+    };
   },
   computed: {
     ...mapState("projects", ["search"])
   },
   methods: {
     ...mapActions("projects", ["deleteProject"]),
-    promptToDelete (id) {
+    promptToDelete(id) {
       this.$q
         .dialog({
           title: "Confirm delete",
@@ -114,7 +108,7 @@ export default {
     }
   },
   filters: {
-    searchHighlight (value, search) {
+    searchHighlight(value, search) {
       if (search) {
         let searchRegExp = new RegExp(search, "ig");
         return value.replace(searchRegExp, match => {
