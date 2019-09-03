@@ -2,31 +2,31 @@ const state = {
   fundingSources: [
     {
       label: "NG-Local",
-      value: 1
+      value: "NG-Local"
     },
     {
       label: "NG-ODA Loan",
-      value: 2
+      value: "NG-ODA Loan"
     },
     {
       label: "NG-ODA Grant",
-      value: 3
+      value: "NG-ODA Grant"
     },
     {
       label: "GOCC/GFIs",
-      value: 4
+      value: "GOCC/GFIs"
     },
     {
       label: "LGUs",
-      value: 5
+      value: "LGUs"
     },
     {
       label: "Private Sector",
-      value: 6
+      value: "Private Sector"
     },
     {
       label: "Others",
-      value: 7
+      value: "Others"
     }
   ]
 };

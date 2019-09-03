@@ -452,48 +452,77 @@
       </form-element>
 
       <form-element label="Costing by Fund Source">
+        <template v-if="fundingSourceBreakdown">
+          <div class="row q-col-gutter-x-sm q-pa-md" v-for="(fs, index) in fundingSourceBreakdown" :key="index">
+            <costing-component></costing-component>
+            <q-btn
+              flat
+              dense
+              round
+              icon="delete"
+              @click="deleteFundingSource(index)"/>
+          </div>
+        </template>
+
         <div class="row q-col-gutter-x-sm q-pa-md">
           <select-component
             class="col"
             :options="fundingSources"
             v-model="fundingSource"></select-component>
           <input-component
+            label="2016 &amp; Prior"
             class="col"
             type="number"
+            v-if="project.implementationStart < 2017"
             v-model="investment2016"></input-component>
           <input-component
+            label="2017"
             class="col"
             type="number"
             v-model="investment2017"></input-component>
           <input-component
+            label="2018"
             class="col"
             type="number"
             v-model="investment2018"></input-component>
           <input-component
+            label="2019"
             class="col"
             type="number"
             v-model="investment2019"></input-component>
           <input-component
+            label="2020"
             class="col"
             type="number"
             v-model="investment2020"></input-component>
           <input-component
+            label="2021"
             class="col"
             type="number"
             v-model="investment2021"></input-component>
           <input-component
+            label="2022"
             class="col"
             type="number"
             v-model="investment2022"></input-component>
           <input-component
+            label="2023 &amp; Beyond"
             class="col"
             type="number"
+            v-if="project.implementationEnd > 2022"
             v-model="investment2023"></input-component>
           <input-component
+            label="Total"
             class="col"
             type="number"
             :readonly="true"
             :value="investmentTotal"></input-component>
+          <q-btn
+            flat
+            dense
+            round
+            icon="add"
+            @click="addFundingSource()"/>
         </div>
       </form-element>
 
@@ -515,6 +544,7 @@ import InputComponent from "./FormInputs/InputComponent";
 import SelectComponent from "./FormInputs/SelectComponent";
 import OptionsComponent from "./FormInputs/OptionsComponent";
 import FormElement from "./FormInputs/FormElement";
+import CostingComponent from "./CostingComponent";
 
 export default {
   components: {
@@ -522,7 +552,8 @@ export default {
     FormElement,
     ButtonComponent,
     InputComponent,
-    OptionsComponent
+    OptionsComponent,
+    CostingComponent
   },
   name: "AddEditProject",
   props: {
@@ -552,6 +583,7 @@ export default {
         required: [v => !!v || "This field is required."],
         select: [v => v.length > 0 || "This field is required"]
       },
+      fundingSourceBreakdown: [],
       fundingSource: null,
       investment2016: 0,
       investment2017: 0,
@@ -582,30 +614,47 @@ export default {
     ]),
     ...mapState("ten_point_agenda", ["tenPointAgenda"]),
     ...mapState("settings", ["dark"]),
-    investmentTotal() {
-      var y1 = parseFloat(this.investment2016) || 0;
-      var y2 = parseFloat(this.investment2017) || 0;
-      var y3 = parseFloat(this.investment2018) || 0;
-      var y4 = parseFloat(this.investment2019) || 0;
-      var y5 = parseFloat(this.investment2020) || 0;
-      var y6 = parseFloat(this.investment2021) || 0;
-      var y7 = parseFloat(this.investment2022) || 0;
-      var y8 = parseFloat(this.investment2023) || 0;
-      return  y1 + y2 + y3 + y4 + y5 + y6 + y7 + y8;
+    investmentTotal: {
+      get() {
+        var y1 = parseFloat(this.investment2016) || 0;
+        var y2 = parseFloat(this.investment2017) || 0;
+        var y3 = parseFloat(this.investment2018) || 0;
+        var y4 = parseFloat(this.investment2019) || 0;
+        var y5 = parseFloat(this.investment2020) || 0;
+        var y6 = parseFloat(this.investment2021) || 0;
+        var y7 = parseFloat(this.investment2022) || 0;
+        var y8 = parseFloat(this.investment2023) || 0;
+        return  y1 + y2 + y3 + y4 + y5 + y6 + y7 + y8;
+      }
     }
   },
   methods: {
     ...mapActions("projects", ["addProject", "loadProject"]),
-    addRow() {
-      this.form.fsbd.push({
-        fundingSource: "",
-        y1: 0,
-        y2: 0,
-        y3: 0,
-        y4: 0,
-        y5: 0,
-        y6: 0
+    addFundingSource() {
+      this.fundingSourceBreakdown.push({
+        fundingSource: this.fundingSource,
+        investment2016: this.investment2016,
+        investment2017: this.investment2017,
+        investment2018: this.investment2018,
+        investment2019: this.investment2019,
+        investment2020: this.investment2020,
+        investment2021: this.investment2021,
+        investment2022: this.investment2022,
+        investment2023: this.investment2023,
+        investmentTotal: this.investmentTotal
       });
+      this.fundingSource = null;
+      this.investment2016 = 0;
+      this.investment2017 = 0;
+      this.investment2018 = 0;
+      this.investment2019 = 0;
+      this.investment2020 = 0;
+      this.investment2021 = 0;
+      this.investment2022 = 0;
+      this.investment2023 = 0;
+    },
+    deleteFundingSource(index) {
+      this.fundingSourceBreakdown.splice(index,1);
     },
     updateImplementationEnd(evt) {
       let filteredImplementationPeriods = [];
