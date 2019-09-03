@@ -1,28 +1,10 @@
-import { axiosInstance } from "boot/axios";
-
 const state = {
-  prexc_activities: [] // localStorage.getItem('prexc_activities') || [],
+  prexcActivities: [] // localStorage.getItem('prexc_activities') || [],
 };
 
-const mutations = {
-  setPrexcActivities(state, value) {
-    state.prexc_activities = value;
-  }
-};
+const mutations = {};
 
-const actions = {
-  loadPrexcActivities({ commit }) {
-    axiosInstance
-      .get("/prexc_activities")
-      .then(res => {
-        localStorage.setItem("prexc_activities", JSON.stringify(res.data));
-        commit("setPrexcActivities", res.data);
-      })
-      .catch(e => {
-        console.log("Error: ", e.message);
-      });
-  }
-};
+const actions = {};
 
 const getters = {
   //

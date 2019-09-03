@@ -5,5 +5,5 @@ Notify.setDefaults({
   timeout: 2500,
   textColor: "white",
   color: "secondary",
-  actions: [{ icon: "close", color: "white" }]
+  actions: [{ icon: "close", color: "white", round: true }]
 });

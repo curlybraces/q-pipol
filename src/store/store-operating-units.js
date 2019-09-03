@@ -1,68 +1,80 @@
 const state = {
   // operating_units: [] // localStorage.getItem("operating_units") || [],
   operatingUnits: [
-    { label: "DA Central Office", value: 1 },
+    { label: "DA Central Office", value: "DA CO" },
     // RFOs
-    { label: "RFO - CAR", value: 2 },
-    { label: "RFO - I", value: 3 },
-    { label: "RFO - II", value: 4 },
-    { label: "RFO - III", value: 5 },
-    { label: "RFO - IVA", value: 6 },
-    { label: "RFO - IVB", value: 7 },
-    { label: "RFO - V", value: 8 },
-    { label: "RFO - VI", value: 9 },
-    { label: "RFO - VII", value: 10 },
-    { label: "RFO - VIII", value: 11 },
-    { label: "RFO - IX", value: 12 },
-    { label: "RFO - X", value: 13 },
-    { label: "RFO - XI", value: 14 },
-    { label: "RFO - XII", value: 15 },
-    { label: "RFO - CARAGA", value: 16 },
-    { label: "DAF-ARMM", value: 17 },
+    { label: "RFO - CAR", value: "RFO CAR" },
+    { label: "RFO - I", value: "RFO 1" },
+    { label: "RFO - II", value: "RFO 2" },
+    { label: "RFO - III", value: "RFO 3" },
+    { label: "RFO - IVA", value: "RFO 4A" },
+    { label: "RFO - IVB", value: "RFO 4B" },
+    { label: "RFO - V", value: "RFO 5" },
+    { label: "RFO - VI", value: "RFO 6" },
+    { label: "RFO - VII", value: "RFO 7" },
+    { label: "RFO - VIII", value: "RFO 8" },
+    { label: "RFO - IX", value: "RFO 9" },
+    { label: "RFO - X", value: "RFO 10" },
+    { label: "RFO - XI", value: "RFO 11" },
+    { label: "RFO - XII", value: "RFO 12" },
+    { label: "RFO - CARAGA", value: "RFO CARAGA" },
+    { label: "DAF-ARMM", value: "DAF-ARMM" },
     // Bureaus
-    { label: "ATI - Agricultural Training Institute", value: 18 },
-    { label: "BAI - Bureau of Animal Industry", value: 19 },
-    { label: "BAR - Bureau of Agricultural Research", value: 20 },
-    { label: "BPI - Bureau of Plant Industry", value: 21 },
+    { label: "ATI - Agricultural Training Institute", value: "ATI" },
+    { label: "BAI - Bureau of Animal Industry", value: "BAI" },
+    { label: "BAR - Bureau of Agricultural Research", value: "BAR" },
+    { label: "BPI - Bureau of Plant Industry", value: "BPI" },
     {
       label: "BAFE - Bureau of Agricultural and Fisheries Engineering",
-      value: 22
+      value: "BAFE"
     },
-    { label: "BAFS - Bureau of Agriculture and Fisheries Standard", value: 23 },
-    { label: "BSWM - Bureau of Soils and Water Management", value: 24 },
+    {
+      label: "BAFS - Bureau of Agriculture and Fisheries Standard",
+      value: "BAFE"
+    },
+    { label: "BSWM - Bureau of Soils and Water Management", value: "BSWM" },
     // Attached Agencies
-    { label: "ACPC - Agricultural Credit Policy Council ", value: 25 },
-    { label: "BFAR - Bureau of Fisheries and Aquatic Resources", value: 26 },
-    { label: "FPA - Fertilizer and Pesticide Authority", value: 27 },
+    { label: "ACPC - Agricultural Credit Policy Council ", value: "ACPC" },
+    {
+      label: "BFAR - Bureau of Fisheries and Aquatic Resources",
+      value: "BFAR"
+    },
+    { label: "FPA - Fertilizer and Pesticide Authority", value: "PFA" },
     {
       label: "PhilFIDA - Philippine Fiber Industry Development Authority ",
-      value: 28
+      value: "PhilFIDA"
     },
-    { label: "NMIS - National Meat Inspection Service ", value: 29 },
-    { label: "PCC - Philippine Carabao Center ", value: 30 },
+    { label: "NMIS - National Meat Inspection Service ", value: "NMIS" },
+    { label: "PCC - Philippine Carabao Center ", value: "PCC" },
     {
       label:
         "PhilMech - Philippine Center for Post-Harvest Development and Mechanization",
-      value: 31
+      value: "PHilMech"
     },
     {
       label: "PCAF - Philippine Council for Agriculture and Fisheries",
-      value: 32
+      value: "PCAF"
     },
-    { label: "PRRI - Philippine Rubber Research Institute", value: 33 },
+    { label: "PRRI - Philippine Rubber Research Institute", value: "PRRI" },
     // Corporations
-    { label: "NDA - National Dairy Authority", value: 34 },
-    { label: "NFA - National Food Authority", value: 35 },
-    { label: "NTA - National Tobacco Administration", value: 36 },
-    { label: "PCA - Philippine Coconut Authority", value: 37 },
-    { label: "PCIC Philippine Crop Insurance Corporation", value: 38 },
-    { label: "PFDA - Philippine Fisheries Development Authority", value: 39 },
-    { label: "PhilRice - Philippine Rice Research Institute", value: 40 },
+    { label: "NDA - National Dairy Authority", value: "NDA" },
+    { label: "NFA - National Food Authority", value: "NFA" },
+    { label: "NTA - National Tobacco Administration", value: "NTA" },
+    { label: "PCA - Philippine Coconut Authority", value: "PCA" },
+    { label: "PCIC - Philippine Crop Insurance Corporation", value: "PCIC" },
+    {
+      label: "PFDA - Philippine Fisheries Development Authority",
+      value: "PFDA"
+    },
+    {
+      label: "PhilRice - Philippine Rice Research Institute",
+      value: "PhilRice"
+    },
     {
       label: "QuedanCor - Quedan and Rural Credit Guarantee Corporation",
-      value: 41
+      value: "QuedanCor"
     },
-    { label: "SRA - Sugar Regulatory Administration", value: 42 }
+    { label: "SRA - Sugar Regulatory Administration", value: "SRA" }
   ]
 };
 

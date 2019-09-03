@@ -1,15 +1,22 @@
 <template>
-  <q-option-group
-    :dense="dense"
-    :color="dark ? 'info' : 'primary'"
-    :options="options"
-    @input="onInput"
-    :value="value"
-    :inline="inline"
-    :dark="dark"
-    :type="type"
-    :disable="disable"
-  ></q-option-group>
+  <div>
+    <div class="col-3 lt-md" v-if="inline">
+      {{ label }}
+    </div>
+    <div class="col">
+      <q-option-group
+        :dense="dense"
+        :color="dark ? 'info' : 'primary'"
+        :options="options"
+        @input="onInput"
+        :value="value"
+        :inline="inline"
+        :dark="dark"
+        :type="type"
+        :disable="disable"
+      ></q-option-group>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -20,7 +27,7 @@ export default {
   props: {
     label: String,
     options: Array,
-    value: [Number, String, Boolean, Array],
+    value: [Array, Number, String, Boolean],
     inline: {
       default: false,
       type: Boolean

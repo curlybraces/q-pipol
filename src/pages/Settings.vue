@@ -1,11 +1,5 @@
 <template>
   <q-page padding>
-    <q-breadcrumbs separator=">" class="q-my-md">
-      <q-breadcrumbs-el icon="settings" label="Settings" />
-    </q-breadcrumbs>
-
-    <q-separator />
-
     <q-list bordered padding>
       <q-item-label header>User Controls</q-item-label>
 

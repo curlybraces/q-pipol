@@ -2,47 +2,35 @@ const state = {
   preparationDocuments: [
     {
       label: "Concept Note",
-      value: 4
+      value: "Concept Note"
     },
     {
       label: "Project Proposal",
-      value: 3
+      value: "Project Proposal"
     },
     {
       label: "Feasibility Study",
-      value: 1
+      value: "Feasibility Study"
     },
     {
       label: "Detailed Engineering Design",
-      value: 6
+      value: "Detailed Engineering Design"
     },
     {
       label: "Business Plan/Case",
-      value: 2
+      value: "Business Plan/Case"
     },
     {
       label: "Right of Way",
-      value: 7
+      value: "Right of Way"
     },
     {
-      label: "RDIP",
-      value: 8
-    },
-    {
-      label: "PCIP",
-      value: 9
-    },
-    {
-      label: "eVSA",
-      value: 10
-    },
-    {
-      label: "M&E Plan",
-      value: 11
+      label: "Resettlement Plan",
+      value: "Resettlement Plan"
     },
     {
       label: "Others",
-      value: 99
+      value: "Others"
     }
   ]
 };

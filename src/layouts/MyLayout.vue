@@ -1,18 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated :class="dark ? 'bg-grey-10' : 'glossy bg-primary'">
+    <q-header :class="dark ? 'bg-grey-10' : 'bg-primary'">
       <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          @click="leftDrawerOpen = !leftDrawerOpen"
-          aria-label="Menu"
-          v-if="loggedIn"
-        >
-          <q-icon name="menu" />
-        </q-btn>
-
         <q-avatar color="white" class="q-mr-xs">
           <img src="statics/da-logo.png" />
         </q-avatar>
@@ -22,7 +11,7 @@
         </q-avatar>
 
         <q-toolbar-title>
-          {{ appTitle }}
+          <span class="app-title">{{ appTitle }}</span>
         </q-toolbar-title>
 
         <q-btn
@@ -35,22 +24,6 @@
         />
 
         <div v-else>
-          <q-btn dense flat round icon="email" class="q-mr-xs" color="grey-9" />
-
-          <!-- <q-btn
-            dense
-            flat
-            :color="notificationsCount > 0 ? 'white' : 'grey-9'"
-            round
-            icon="notifications"
-            class="q-mr-xs"
-            @click="showNotifications = true"
-          >
-            <q-badge color="red" floating v-if="notificationsCount > 0">
-              {{ notificationsCount }}
-            </q-badge>
-          </q-btn> -->
-
           <q-btn dense round flat color="white" icon="account_circle">
             <q-menu
               anchor="bottom right"
@@ -117,12 +90,11 @@
     </q-header>
 
     <q-drawer
-      v-if="loggedIn"
       v-model="leftDrawerOpen"
-      bordered
       :content-class="dark ? 'bg-grey-10' : 'bg-primary'"
+      :breakpoint="767"
     >
-      <q-list separator padding dark>
+      <q-list padding dark>
         <q-item-label header>NAVIGATION</q-item-label>
 
         <template v-for="item in sidemenu">
@@ -139,69 +111,48 @@
 
             <q-item-section>
               <q-item-label>{{ item.label }}</q-item-label>
-              <q-item-label caption>{{ item.caption }}</q-item-label>
             </q-item-section>
           </q-item>
         </template>
       </q-list>
     </q-drawer>
 
-    <q-footer
-      :class="dark ? 'bg-grey-10' : 'glossy bg-primary'"
-      :dark="dark"
-      elevated
-    >
-      <q-toolbar>
-        <small>&copy; {{ copyright }}</small>
-        <q-space />
-        v.0.0.1-beta
-      </q-toolbar>
+    <q-footer :class="dark ? 'bg-grey-10' : 'bg-primary'" :dark="dark" elevated>
+      <q-tabs align="justify" switch-indicator>
+        <q-route-tab
+          v-for="item in sidemenu"
+          :to="item.href"
+          :label="item.label"
+          :icon="item.icon"
+          :key="item.label"
+        ></q-route-tab>
+      </q-tabs>
     </q-footer>
 
     <q-page-container>
       <router-view />
     </q-page-container>
-
-    <q-dialog
-      v-model="showNotifications"
-      transition-show="slide-left"
-      transition-hide="slide-right"
-      maximized
-    >
-      <notifications-modal
-        @close="showNotifications = false"
-      ></notifications-modal>
-    </q-dialog>
   </q-layout>
 </template>
 
 <script>
 import { openURL } from "quasar";
 import { mapState, mapActions } from "vuex";
-import NotificationsModal from "../components/Notifications/NotificationsModal";
 
 export default {
-  components: { NotificationsModal },
   name: "MyLayout",
   data() {
     return {
       appTitle: "iPMS",
       copyright: "Made by Mark Lester A. Bolotaolo",
-      leftDrawerOpen: this.$q.platform.is.desktop,
+      leftDrawerOpen: true,
       expanded: false,
       notifyUser: false,
       darkMode: false,
-      showNotifications: false,
       sidemenu: [
         {
-          label: "Home",
-          href: "/",
-          icon: "home",
-          caption: "Go to dashboard"
-        },
-        {
           label: "Projects",
-          href: "/projects",
+          href: "/",
           icon: "list",
           caption: "View all projects"
         },
@@ -241,11 +192,21 @@ export default {
 </script>
 
 <style scoped>
+.app-title {
+  font-family: PrimeTime;
+}
+
 .my-menu-link .q-item__label {
   color: #f9aa33;
 }
 
 .my-menu-link .material-icons {
   color: #f9aa33;
+}
+
+@media screen and (min-width: 768px) {
+  .q-footer {
+    display: none;
+  }
 }
 </style>

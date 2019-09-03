@@ -1,15 +1,15 @@
 <template>
-  <q-item clickable>
+  <q-item>
     <q-item-section class="col-2 gt-sm">
       <q-item-label class="q-mt-sm">
-        {{ project.implementing_unit }}
+        {{ project.implementingAgency }}
       </q-item-label>
     </q-item-section>
 
     <q-item-section>
       <q-item-label
         lines="1"
-        v-html="$options.filters.searchHighlight(project.t, search)"
+        v-html="$options.filters.searchHighlight(project.title, search)"
       >
       </q-item-label>
       <q-item-label caption lines="2">
@@ -17,14 +17,14 @@
       </q-item-label>
       <q-item-label caption lines="1">
         [
-        {{ project.is + " - " + project.ie }}
+        {{ project.implementationStart + " - " + project.implementationEnd }}
         ]
       </q-item-label>
     </q-item-section>
 
     <q-item-section side>
       <q-item-label>
-        PhP {{ Number(project.tc).toLocaleString() }}
+        PhP {{ Number(project.totalProjectCost).toLocaleString() }}
       </q-item-label>
     </q-item-section>
 
@@ -38,7 +38,7 @@
           round
           icon="edit"
           color="green"
-          :to="'/projects/' + id"
+          @click="showEditProject = true"
         />
 
         <q-btn
@@ -49,21 +49,41 @@
           round
           icon="delete"
           color="red"
-          @click.stop="promptToDelete(id)"
+          @click.stop="promptToDelete(project.id)"
         />
       </div>
     </q-item-section>
+
+    <q-dialog
+      v-model="showEditProject"
+      maximized
+      persistent
+      transition-show="slide-up"
+      transition-hide="slide-down"
+    >
+      <edit-project
+        :project="project"
+        @close="showEditProject = false"
+      ></edit-project>
+    </q-dialog>
   </q-item>
 </template>
 
 <script>
 import { mapState, mapActions } from "vuex";
+import EditProject from "../../components/EditProject";
 
 export default {
+  components: { EditProject },
   name: "Project",
   props: {
     project: Object,
     id: String
+  },
+  data() {
+    return {
+      showEditProject: false
+    };
   },
   computed: {
     ...mapState("projects", ["search"])
@@ -83,7 +103,7 @@ export default {
           cancel: true
         })
         .onOk(() => {
-          this.deleteProject({ id: id });
+          this.deleteProject(id);
         });
     }
   },
