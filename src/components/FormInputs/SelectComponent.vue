@@ -30,8 +30,7 @@ export default {
   name: "SelectComponent",
   props: {
     label: {
-      type: String,
-      required: true
+      type: String
     },
     options: Array,
     multiple: {

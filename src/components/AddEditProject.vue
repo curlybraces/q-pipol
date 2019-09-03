@@ -396,7 +396,7 @@
         ></options-component>
       </form-element>
 
-      <q-item-label header>Project Costing</q-item-label>
+      <q-item-label header>PROJECT COSTING</q-item-label>
 
       <form-element
         label="ODA Funding Institution"
@@ -419,7 +419,7 @@
       >
         <input-component
           label="Other Funding Institution"
-          v-if="project.mfs == 99"
+          v-if="project.mainFundingSource == 99"
           v-model="project.otherFundingInstitution"
           :rules="rules.required"
         ></input-component>
@@ -449,6 +449,52 @@
           hint="UACS code is optional for new PAPs."
           :rules="rules.required"
         ></input-component>
+      </form-element>
+
+      <form-element label="Costing by Fund Source">
+        <div class="row q-col-gutter-x-sm q-pa-md">
+          <select-component
+            class="col"
+            :options="fundingSources"
+            v-model="fundingSource"></select-component>
+          <input-component
+            class="col"
+            type="number"
+            v-model="investment2016"></input-component>
+          <input-component
+            class="col"
+            type="number"
+            v-model="investment2017"></input-component>
+          <input-component
+            class="col"
+            type="number"
+            v-model="investment2018"></input-component>
+          <input-component
+            class="col"
+            type="number"
+            v-model="investment2019"></input-component>
+          <input-component
+            class="col"
+            type="number"
+            v-model="investment2020"></input-component>
+          <input-component
+            class="col"
+            type="number"
+            v-model="investment2021"></input-component>
+          <input-component
+            class="col"
+            type="number"
+            v-model="investment2022"></input-component>
+          <input-component
+            class="col"
+            type="number"
+            v-model="investment2023"></input-component>
+          <input-component
+            class="col"
+            type="number"
+            :readonly="true"
+            :value="investmentTotal"></input-component>
+        </div>
       </form-element>
 
       <div class="text-center">
@@ -501,48 +547,20 @@ export default {
           value: null
         }
       ],
-      columns: [
-        {
-          name: "fundingSource",
-          label: "Funding Source",
-          field: "fundingSource"
-        },
-        {
-          name: "y1",
-          label: "2017",
-          field: "y1"
-        },
-        {
-          name: "y2",
-          label: "2018",
-          field: "y2"
-        },
-        {
-          name: "y3",
-          label: "2019",
-          field: "y3"
-        },
-        {
-          name: "y4",
-          label: "2020",
-          field: "y4"
-        },
-        {
-          name: "y5",
-          label: "2021",
-          field: "y5"
-        },
-        {
-          name: "y6",
-          label: "2022",
-          field: "y6"
-        }
-      ],
       loading: false,
       rules: {
         required: [v => !!v || "This field is required."],
         select: [v => v.length > 0 || "This field is required"]
-      }
+      },
+      fundingSource: null,
+      investment2016: 0,
+      investment2017: 0,
+      investment2018: 0,
+      investment2019: 0,
+      investment2020: 0,
+      investment2021: 0,
+      investment2022: 0,
+      investment2023: 0
     };
   },
   computed: {
@@ -563,7 +581,18 @@ export default {
       "sustainableDevelopmentGoals"
     ]),
     ...mapState("ten_point_agenda", ["tenPointAgenda"]),
-    ...mapState("settings", ["dark"])
+    ...mapState("settings", ["dark"]),
+    investmentTotal() {
+      var y1 = parseFloat(this.investment2016) || 0;
+      var y2 = parseFloat(this.investment2017) || 0;
+      var y3 = parseFloat(this.investment2018) || 0;
+      var y4 = parseFloat(this.investment2019) || 0;
+      var y5 = parseFloat(this.investment2020) || 0;
+      var y6 = parseFloat(this.investment2021) || 0;
+      var y7 = parseFloat(this.investment2022) || 0;
+      var y8 = parseFloat(this.investment2023) || 0;
+      return  y1 + y2 + y3 + y4 + y5 + y6 + y7 + y8;
+    }
   },
   methods: {
     ...mapActions("projects", ["addProject", "loadProject"]),
