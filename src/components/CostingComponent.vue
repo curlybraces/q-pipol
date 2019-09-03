@@ -51,7 +51,7 @@
       class="col"
       type="number"
       :readonly="true"
-      :value="fs.investmentTotal"></input-component>
+      :value="investmentTotal"></input-component>
     <q-btn
       flat
       dense
@@ -80,10 +80,23 @@ export default {
   },
   computed: {
     ...mapState("funding_sources",["fundingSources"]),
-    'fs.investmentTotal': {
+    investmentTotal: {
       get() {
-        return this.fs.investment2017 + this.fs.investment2018;
+        var y1 = parseFloat(this.fs.investment2016) || 0;
+        var y2 = parseFloat(this.fs.investment2017) || 0;
+        var y3 = parseFloat(this.fs.investment2018) || 0;
+        var y4 = parseFloat(this.fs.investment2019) || 0;
+        var y5 = parseFloat(this.fs.investment2020) || 0;
+        var y6 = parseFloat(this.fs.investment2021) || 0;
+        var y7 = parseFloat(this.fs.investment2022) || 0;
+        var y8 = parseFloat(this.fs.investment2023) || 0;
+        return  y1 + y2 + y3 + y4 + y5 + y6 + y7 + y8;
       }
+    }
+  },
+  watch: {
+    investmentTotal() {
+      this.fs.investmentTotal = this.investmentTotal;
     }
   }
 }
