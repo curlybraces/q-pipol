@@ -80,12 +80,9 @@ export default {
   },
   computed: {
     ...mapState("funding_sources",["fundingSources"]),
-    investmentTotal: {
+    'fs.investmentTotal': {
       get() {
-        return this.fs.investment2017 + this.investment2018;
-      },
-      set(val) {
-        this.fs.investmentTotal = val;
+        return this.fs.investment2017 + this.fs.investment2018;
       }
     }
   }
