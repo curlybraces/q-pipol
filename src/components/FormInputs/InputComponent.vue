@@ -13,7 +13,7 @@
     :stack-label="$q.screen.lt.md"
     :color="dark ? 'white' : 'primary'"
     :rules="rules"
-    :clearable=" type != 'number' "
+    :clearable="type != 'number'"
     lazy-rules
     :input-class="type == 'number' ? 'text-right' : void 0"
   />
@@ -55,9 +55,9 @@ export default {
 </script>
 
 <style scoped>
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
--webkit-appearance: none;
-margin: 0;
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 </style>

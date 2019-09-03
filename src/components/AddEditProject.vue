@@ -453,13 +453,18 @@
 
       <form-element label="Costing by Fund Source">
         <template v-if="fundingSourceBreakdown">
-          <div class="row" v-for="(fs, index) in fundingSourceBreakdown" :key="index">
+          <div
+            class="row"
+            v-for="(fs, index) in fundingSourceBreakdown"
+            :key="index"
+          >
             <costing-component
               :fs="fs"
               :key="index"
               :implementationStart="project.implementationStart"
               :implementationEnd="project.implementationEnd"
-              @delete="deleteFundingSource(index)">
+              @delete="deleteFundingSource(index)"
+            >
             </costing-component>
           </div>
         </template>
@@ -468,62 +473,73 @@
           <select-component
             class="col"
             :options="fundingSources"
-            v-model="fundingSource"></select-component>
+            v-model="fundingSource"
+          ></select-component>
           <input-component
             label="2016 &amp; Prior"
             class="col"
             type="number"
             v-if="project.implementationStart < 2017"
-            v-model="investment2016"></input-component>
+            v-model="investment2016"
+          ></input-component>
           <input-component
             label="2017"
             class="col"
             type="number"
-            v-model="investment2017"></input-component>
+            v-model="investment2017"
+          ></input-component>
           <input-component
             label="2018"
             class="col"
             type="number"
-            v-model="investment2018"></input-component>
+            v-model="investment2018"
+          ></input-component>
           <input-component
             label="2019"
             class="col"
             type="number"
-            v-model="investment2019"></input-component>
+            v-model="investment2019"
+          ></input-component>
           <input-component
             label="2020"
             class="col"
             type="number"
-            v-model="investment2020"></input-component>
+            v-model="investment2020"
+          ></input-component>
           <input-component
             label="2021"
             class="col"
             type="number"
-            v-model="investment2021"></input-component>
+            v-model="investment2021"
+          ></input-component>
           <input-component
             label="2022"
             class="col"
             type="number"
-            v-model="investment2022"></input-component>
+            v-model="investment2022"
+          ></input-component>
           <input-component
             label="2023 &amp; Beyond"
             class="col"
             type="number"
             v-if="project.implementationEnd > 2022"
-            v-model="investment2023"></input-component>
+            v-model="investment2023"
+          ></input-component>
           <input-component
             label="Total"
             class="col"
             type="number"
             :readonly="true"
-            :value="investmentTotal"></input-component>
+            :value="investmentTotal"
+          ></input-component>
           <q-btn
             flat
             dense
             round
             color="green"
             icon="add_box"
-            @click="addFundingSource()"/>
+            @click="addFundingSource()"
+          />
         </div>
       </form-element>
 
@@ -625,7 +641,7 @@ export default {
         var y6 = parseFloat(this.investment2021) || 0;
         var y7 = parseFloat(this.investment2022) || 0;
         var y8 = parseFloat(this.investment2023) || 0;
-        return  y1 + y2 + y3 + y4 + y5 + y6 + y7 + y8;
+        return y1 + y2 + y3 + y4 + y5 + y6 + y7 + y8;
       }
     }
   },
@@ -655,7 +671,7 @@ export default {
       this.investment2023 = 0;
     },
     deleteFundingSource(index) {
-      this.fundingSourceBreakdown.splice(index,1);
+      this.fundingSourceBreakdown.splice(index, 1);
     },
     updateImplementationEnd(evt) {
       let filteredImplementationPeriods = [];

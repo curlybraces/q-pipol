@@ -3,62 +3,73 @@
     <select-component
       class="col"
       :options="fundingSources"
-      v-model="fs.fundingSource"></select-component>
+      v-model="fs.fundingSource"
+    ></select-component>
     <input-component
       label="2016 &amp; Prior"
       class="col"
       type="number"
       v-if="implementationStart < 2017"
-      v-model="fs.investment2016"></input-component>
+      v-model="fs.investment2016"
+    ></input-component>
     <input-component
       label="2017"
       class="col"
       type="number"
-      v-model="fs.investment2017"></input-component>
+      v-model="fs.investment2017"
+    ></input-component>
     <input-component
       label="2018"
       class="col"
       type="number"
-      v-model="fs.investment2018"></input-component>
+      v-model="fs.investment2018"
+    ></input-component>
     <input-component
       label="2019"
       class="col"
       type="number"
-      v-model="fs.investment2019"></input-component>
+      v-model="fs.investment2019"
+    ></input-component>
     <input-component
       label="2020"
       class="col"
       type="number"
-      v-model="fs.investment2020"></input-component>
+      v-model="fs.investment2020"
+    ></input-component>
     <input-component
       label="2021"
       class="col"
       type="number"
-      v-model="fs.investment2021"></input-component>
+      v-model="fs.investment2021"
+    ></input-component>
     <input-component
       label="2022"
       class="col"
       type="number"
-      v-model="fs.investment2022"></input-component>
+      v-model="fs.investment2022"
+    ></input-component>
     <input-component
       label="2023 &amp; Beyond"
       class="col"
       type="number"
       v-if="implementationEnd > 2022"
-      v-model="fs.investment2023"></input-component>
+      v-model="fs.investment2023"
+    ></input-component>
     <input-component
       label="Total"
       class="col"
       type="number"
       :readonly="true"
-      :value="investmentTotal"></input-component>
+      :value="investmentTotal"
+    ></input-component>
     <q-btn
       flat
       dense
       round
       icon="delete"
       color="red"
-      @click="$emit('delete')"/>
+      @click="$emit('delete')"
+    />
   </div>
 </template>
 
@@ -79,7 +90,7 @@ export default {
     implementationEnd: Number
   },
   computed: {
-    ...mapState("funding_sources",["fundingSources"]),
+    ...mapState("funding_sources", ["fundingSources"]),
     investmentTotal: {
       get() {
         var y1 = parseFloat(this.fs.investment2016) || 0;
@@ -90,7 +101,7 @@ export default {
         var y6 = parseFloat(this.fs.investment2021) || 0;
         var y7 = parseFloat(this.fs.investment2022) || 0;
         var y8 = parseFloat(this.fs.investment2023) || 0;
-        return  y1 + y2 + y3 + y4 + y5 + y6 + y7 + y8;
+        return y1 + y2 + y3 + y4 + y5 + y6 + y7 + y8;
       }
     }
   },
@@ -99,5 +110,5 @@ export default {
       this.fs.investmentTotal = this.investmentTotal;
     }
   }
-}
+};
 </script>
