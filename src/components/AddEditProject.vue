@@ -453,14 +453,14 @@
 
       <form-element label="Costing by Fund Source">
         <template v-if="fundingSourceBreakdown">
-          <div class="row q-col-gutter-x-sm q-pa-md" v-for="(fs, index) in fundingSourceBreakdown" :key="index">
-            <costing-component></costing-component>
-            <q-btn
-              flat
-              dense
-              round
-              icon="delete"
-              @click="deleteFundingSource(index)"/>
+          <div class="row" v-for="(fs, index) in fundingSourceBreakdown" :key="index">
+            <costing-component
+              :fs="fs"
+              :key="index"
+              :implementationStart="project.implementationStart"
+              :implementationEnd="project.implementationEnd"
+              @delete="deleteFundingSource(index)">
+            </costing-component>
           </div>
         </template>
 
@@ -521,7 +521,8 @@
             flat
             dense
             round
-            icon="add"
+            color="green"
+            icon="add_box"
             @click="addFundingSource()"/>
         </div>
       </form-element>

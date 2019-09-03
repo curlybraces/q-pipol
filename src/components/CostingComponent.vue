@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="row q-pa-md q-col-gutter-x-sm">
     <select-component
       class="col"
       :options="fundingSources"
@@ -8,7 +8,7 @@
       label="2016 &amp; Prior"
       class="col"
       type="number"
-      v-if="project.implementationStart < 2017"
+      v-if="implementationStart < 2017"
       v-model="fs.investment2016"></input-component>
     <input-component
       label="2017"
@@ -44,7 +44,7 @@
       label="2023 &amp; Beyond"
       class="col"
       type="number"
-      v-if="project.implementationEnd > 2022"
+      v-if="implementationEnd > 2022"
       v-model="fs.investment2023"></input-component>
     <input-component
       label="Total"
@@ -52,17 +52,42 @@
       type="number"
       :readonly="true"
       :value="fs.investmentTotal"></input-component>
+    <q-btn
+      flat
+      dense
+      round
+      icon="delete"
+      color="red"
+      @click="$emit('delete')"/>
   </div>
 </template>
 
 <script>
-  import InputComponent from "../FormInputs/InputComponent";
-  import SelectComponent from "../FormInputs/SelectComponent";
+import { mapState } from "vuex";
+import InputComponent from "./FormInputs/InputComponent";
+import SelectComponent from "./FormInputs/SelectComponent";
 
-  export default {
-    components: {
-      InputComponent, SelectComponent
-    },
-    name: "CostingComponent"
+export default {
+  components: {
+    InputComponent,
+    SelectComponent
+  },
+  name: "CostingComponent",
+  props: {
+    fs: Object,
+    implementationStart: Number,
+    implementationEnd: Number
+  },
+  computed: {
+    ...mapState("funding_sources",["fundingSources"]),
+    investmentTotal: {
+      get() {
+        return this.fs.investment2017 + this.investment2018;
+      },
+      set(val) {
+        this.fs.investmentTotal = val;
+      }
+    }
   }
+}
 </script>
