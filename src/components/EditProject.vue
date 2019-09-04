@@ -1,5 +1,5 @@
 <template>
-  <q-card>
+  <q-card :class=" dark ? 'bg-primary-10': 'bg-white' ">
     <q-toolbar class="bg-primary text-white">
       <q-avatar icon="edit" />
       <q-toolbar-title>Edit Project</q-toolbar-title>
@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import AddEditProject from "./AddEditProject";
 
 export default {
@@ -17,6 +18,9 @@ export default {
   name: "EditProject",
   props: {
     project: Object
+  },
+  computed: {
+    ...mapState("settings",["dark"])
   }
 };
 </script>

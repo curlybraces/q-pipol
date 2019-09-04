@@ -469,65 +469,65 @@
           </div>
         </template>
 
-        <div class="row q-col-gutter-x-sm q-pa-md">
+        <div class="row q-col-gutter-sm q-pa-md">
           <select-component
-            class="col"
+            class="col-12 col-md"
             :options="fundingSources"
             v-model="fundingSource"
           ></select-component>
           <input-component
             label="2016 &amp; Prior"
-            class="col"
+            class="col-12 col-md"
             type="number"
             v-if="project.implementationStart < 2017"
             v-model="investment2016"
           ></input-component>
           <input-component
             label="2017"
-            class="col"
+            class="col-12 col-md"
             type="number"
             v-model="investment2017"
           ></input-component>
           <input-component
             label="2018"
-            class="col"
+            class="col-12 col-md"
             type="number"
             v-model="investment2018"
           ></input-component>
           <input-component
             label="2019"
-            class="col"
+            class="col-12 col-md"
             type="number"
             v-model="investment2019"
           ></input-component>
           <input-component
             label="2020"
-            class="col"
+            class="col-12 col-md"
             type="number"
             v-model="investment2020"
           ></input-component>
           <input-component
             label="2021"
-            class="col"
+            class="col-12 col-md"
             type="number"
             v-model="investment2021"
           ></input-component>
           <input-component
             label="2022"
-            class="col"
+            class="col-12 col-md"
             type="number"
             v-model="investment2022"
           ></input-component>
           <input-component
             label="2023 &amp; Beyond"
-            class="col"
+            class="col-12 col-md"
             type="number"
             v-if="project.implementationEnd > 2022"
             v-model="investment2023"
           ></input-component>
           <input-component
             label="Total"
-            class="col"
+            class="col-12 col-md"
             type="number"
             :readonly="true"
             :value="investmentTotal"
