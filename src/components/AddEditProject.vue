@@ -1,5 +1,5 @@
 <template>
-  <q-form ref="form" @submit="addProject(project)" autofocus>
+  <q-form ref="form" @submit="submitProject" autofocus>
     <q-list separator :dark="dark">
       <q-item-label header class="text-uppercase"
         >General Information</q-item-label
@@ -452,10 +452,10 @@
       </form-element>
 
       <form-element label="Costing by Fund Source">
-        <template v-if="fundingSourceBreakdown">
+        <template v-if="project.fundingSourceBreakdown">
           <div
             class="row"
-            v-for="(fs, index) in fundingSourceBreakdown"
+            v-for="(fs, index) in project.fundingSourceBreakdown"
             :key="index"
           >
             <costing-component
@@ -647,8 +647,12 @@ export default {
   },
   methods: {
     ...mapActions("projects", ["addProject", "loadProject"]),
+    submitProject() {
+      this.addProject(this.project);
+
+    },
     addFundingSource() {
-      this.fundingSourceBreakdown.push({
+      this.project.fundingSourceBreakdown.push({
         fundingSource: this.fundingSource,
         investment2016: this.investment2016,
         investment2017: this.investment2017,

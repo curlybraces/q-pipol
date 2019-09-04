@@ -1,6 +1,6 @@
 <template>
-  <q-card :class=" dark ? 'bg-primary-10': 'bg-white' ">
-    <q-toolbar class="bg-primary text-white">
+  <q-card :class=" dark ? 'bg-grey-10': 'bg-white' ">
+    <q-toolbar :class="(dark ? 'bg-info': 'bg-primary' ) + ' text-white'">
       <q-avatar icon="edit" />
       <q-toolbar-title>Edit Project</q-toolbar-title>
       <q-btn dense flat round icon="close" @click="$emit('close')" />

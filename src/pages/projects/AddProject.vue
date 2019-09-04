@@ -25,7 +25,8 @@ export default {
         pdp: [],
         newThinkings: [],
         sustainableDevelopmentGoals: [],
-        tenPointAgenda: []
+        tenPointAgenda: [],
+        fundingSourceBreakdown: []
       }
     };
   },
