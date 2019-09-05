@@ -15,12 +15,13 @@ import commodities from "./store-commodities";
 import contact_types from "./store-contact-types";
 import funding_institutions from "./store-funding-institutions";
 import funding_sources from "./store-funding-sources";
-import gad_readinesses from "./store-gad-readinesses";
+import gad_responsiveness from "./store-gad-responsiveness";
 import implementation_bases from "./store-implementation-bases";
 import implementation_modes from "./store-implementation-modes";
 import implementation_periods from "./store-implementation-periods";
 import implementation_readinesses from "./store-implementation-readinesses";
 import infrastructure_sectors from "./store-infrastructure-sectors";
+import neda_processing from "./store-neda-processing";
 import new_thinkings from "./store-new-thinkings";
 import operating_units from "./store-operating-units";
 import pap_types from "./store-pap-types";
@@ -36,8 +37,10 @@ import provinces from "./store-provinces";
 import regions from "./store-regions";
 import roles from "./store-roles";
 import spatial_coverages from "./store-spatial-coverages";
+import statuses from "./store-statuses";
 import sustainable_development_goals from "./store-sustainable-development-goals";
 import ten_point_agenda from "./store-ten-point-agenda";
+import typologies from "./store-typologies";
 
 Vue.use(Vuex);
 
@@ -62,12 +65,13 @@ export default function(/* { ssrContext } */) {
       contact_types,
       funding_institutions,
       funding_sources,
-      gad_readinesses,
+      gad_responsiveness,
       implementation_bases,
       implementation_modes,
       implementation_periods,
       implementation_readinesses,
       infrastructure_sectors,
+      neda_processing,
       new_thinkings,
       operating_units,
       pap_types,
@@ -83,8 +87,10 @@ export default function(/* { ssrContext } */) {
       regions,
       roles,
       spatial_coverages,
+      statuses,
       sustainable_development_goals,
-      ten_point_agenda
+      ten_point_agenda,
+      typologies
     },
 
     // enable strict mode (adds overhead!)

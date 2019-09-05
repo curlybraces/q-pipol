@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
-    <q-card :class=" dark ? 'bg-grey-10': 'bg-white' ">
-      <q-toolbar :class="(dark ? 'bg-info': 'bg-primary') + ' text-white'">
+    <q-card :class="dark ? 'bg-grey-10' : 'bg-white'">
+      <q-toolbar :class="(dark ? 'bg-info' : 'bg-primary') + ' text-white'">
         <q-avatar icon="note_add" />
         <q-toolbar-title>Add Project</q-toolbar-title>
       </q-toolbar>
@@ -22,11 +22,14 @@ export default {
   data() {
     return {
       project: {
+        implementationBases: [],
         pdp: [],
         newThinkings: [],
         sustainableDevelopmentGoals: [],
         tenPointAgenda: [],
-        fundingSourceBreakdown: []
+        fundingSourceBreakdown: [],
+        challenges: [],
+        infrastructureSectors: []
       }
     };
   },

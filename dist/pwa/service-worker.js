@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "precache-manifest.169bee1f46dcba21e2a37fd5fc68212a.js"
+  "precache-manifest.b40e594b05ad06c6d82e237a99672686.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "i-pms"});

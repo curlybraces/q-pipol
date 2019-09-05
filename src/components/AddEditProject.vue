@@ -31,6 +31,21 @@
           :options="fundingSources"
           :rules="rules.required"
         ></select-component>
+        <p v-if="project.mainFundingSource == 'NG-Local'">PREXC Activity</p>
+        <input-component
+          v-if="project.mainFundingSource == 'NG-Local'"
+          label="PREXC Activity"
+          v-model="project.prexcActivity"
+        ></input-component>
+      </form-element>
+
+      <form-element label="Mode of Implementation">
+        <select-component
+          label="Mode of Implementation"
+          v-model="project.implementationMode"
+          :options="implementationModes"
+          :rules="rules.required"
+        ></select-component>
       </form-element>
 
       <form-element label="Priority Ranking No.">
@@ -41,14 +56,16 @@
         ></input-component>
       </form-element>
 
-      <form-element label="Categorization">
+      <q-item-label header class="text-uppercase">Categorization</q-item-label>
+
+      <form-element label="Status">
         <p class="lt-md">
-          Categorization
+          Status
         </p>
         <options-component
-          label="Categorization"
-          v-model="project.categorization"
-          :options="categorizations"
+          label="Status"
+          v-model="project.status"
+          :options="statuses"
         ></options-component>
       </form-element>
 
@@ -58,9 +75,21 @@
           label="Infrastructure"
           v-model="project.infrastructure"
           :options="[
-            { value: false, label: 'Non-Infrastructure' },
-            { value: true, label: 'Infrastructure' }
+            { value: 'Infrastructure', label: 'Infrastructure' },
+            { value: 'Non-Infrastructure', label: 'Non-Infrastructure' },
+            { value: 'Mixed', label: 'Mixed' }
           ]"
+        ></options-component>
+      </form-element>
+
+      <form-element label="Typology">
+        <p class="lt-md">
+          Typology
+        </p>
+        <options-component
+          label="Typology"
+          v-model="project.typology"
+          :options="typologies"
         ></options-component>
       </form-element>
 
@@ -108,6 +137,54 @@
         ></input-component>
       </form-element>
 
+      <form-element label="Bases for Implementation">
+        <p class="lt-md">
+          Bases for Implementation
+        </p>
+        <options-component
+          label="Bases for Implementation"
+          type="checkbox"
+          v-model="project.implementationBases"
+          :options="implementationBases"
+        ></options-component>
+      </form-element>
+
+      <form-element label="RDIP Inclusion">
+        <p class="lt-md">
+          RDIP Inclusion
+        </p>
+        <options-component
+          inline
+          v-model="project.rdipInclusion"
+          :options="yesNoNotApplicable"
+        ></options-component>
+      </form-element>
+
+      <form-element label="PCIP Inclusion">
+        <p class="lt-md">
+          PCIP Inclusion
+        </p>
+        <options-component
+          inline
+          v-model="project.pcipInclusion"
+          :options="yesNoNotApplicable"
+        ></options-component>
+      </form-element>
+
+      <form-element label="Status of ICC/NEDA Board Processing">
+        <select-component
+          label="Status of ICC/NEDA Board Processing"
+          v-model="project.nedaProcessing"
+          :options="nedaProcessing"
+        >
+        </select-component>
+        <input-component
+          class="q-mt-md"
+          type="date"
+          v-model="project.dateNedaProcessing"
+        ></input-component>
+      </form-element>
+
       <form-element label="Description">
         <input-component
           type="textarea"
@@ -127,6 +204,16 @@
         ></input-component>
       </form-element>
 
+      <form-element label="Challenges being addressed">
+        <options-component
+          type="checkbox"
+          label="Challenges being addressed"
+          v-model="project.challenges"
+          :options="challenges"
+          :rules="rules.required"
+        ></options-component>
+      </form-element>
+
       <form-element label="Expected Outputs">
         <input-component
           type="textarea"
@@ -143,6 +230,14 @@
           label="Beneficiaries"
           v-model="project.beneficiaries"
           :rules="rules.required"
+        ></input-component>
+      </form-element>
+
+      <form-element label="Estimated number of persons to be employed">
+        <input-component
+          label="Estimated number of persons to be employed"
+          v-model="project.employmentGeneration"
+          type="number"
         ></input-component>
       </form-element>
 
@@ -167,6 +262,14 @@
           :readonly="!project.implementationStart"
           :rules="rules.required"
         />
+      </form-element>
+
+      <form-element label="Update on physical accomplishments">
+        <input-component
+          label="Update on physical accomplishments"
+          type="textarea"
+          v-model="project.updates"
+        ></input-component>
       </form-element>
 
       <q-item-label header class="text-uppercase"
@@ -343,6 +446,22 @@
         ></options-component>
       </form-element>
 
+      <form-element label="Implementation Risks">
+        <input-component
+          label="Implementation Risks"
+          type="textarea"
+          v-model="project.implementationRisks"
+        ></input-component>
+      </form-element>
+
+      <form-element label="Mitigation Strategies">
+        <input-component
+          label="Mitigation Strategies"
+          type="textarea"
+          v-model="project.mitigationStrategies"
+        ></input-component>
+      </form-element>
+
       <q-item-label header class="text-uppercase"
         >Strategic Alignment</q-item-label
       >
@@ -394,6 +513,72 @@
           :options="tenPointAgenda"
           v-model="project.tenPointAgenda"
         ></options-component>
+      </form-element>
+
+      <form-element label="Level of GAD Responsiveness">
+        <p class="lt-md">
+          Level of GAD Responsiveness
+        </p>
+        <options-component
+          :options="gadResponsiveness"
+          v-model="project.gadResponsiveness"
+        ></options-component>
+      </form-element>
+
+      <form-element label="Infrastructure Sector">
+        <p class="lt-md">
+          Infrastructure Sector
+        </p>
+        <q-tree
+          :nodes="infrastructureSectors"
+          node-key="value"
+          tick-strategy="leaf"
+          label-key="label"
+          :ticked.sync="project.infrastructureSectors"
+          :dark="dark"
+          default-expand-all
+        >
+        </q-tree>
+      </form-element>
+
+      <q-item-label header>
+        FINANCIAL AND ECONOMIC BENEFITS
+      </q-item-label>
+
+      <form-element
+        label="Estimated Project Life (in years)">
+        <input-component
+          label="Estimated Project Life (in years)"
+          type="number"
+          v-model="project.projectLife">
+        </input-component>
+      </form-element>
+
+      <form-element
+        label="Benefit-Cost Ratio">
+        <input-component
+          label="Benefit-Cost Ratio"
+          type="number"
+          v-model="project.bcr">
+        </input-component>
+      </form-element>
+
+      <form-element
+        label="Internal Rate of Return (in %)">
+        <input-component
+          label="Internal Rate of Return (in %)"
+          type="number"
+          v-model="project.irr">
+        </input-component>
+      </form-element>
+
+      <form-element
+        label="Return on Investment (in %)">
+        <input-component
+          label="Return on Investment (in %)"
+          type="number"
+          v-model="project.roi">
+        </input-component>
       </form-element>
 
       <q-item-label header>PROJECT COSTING</q-item-label>
@@ -543,7 +728,7 @@
         </div>
       </form-element>
 
-      <div class="text-center">
+      <div class="text-center q-py-md">
         <button-component
           icon="save"
           type="submit"
@@ -614,10 +799,15 @@ export default {
   },
   computed: {
     ...mapState("categorizations", ["categorizations"]),
+    ...mapState("challenges", ["challenges"]),
     ...mapState("funding_institutions", ["fundingInstitutions"]),
     ...mapState("funding_sources", ["fundingSources"]),
+    ...mapState("gad_responsiveness", ["gadResponsiveness"]),
     ...mapState("implementation_bases", ["implementationBases"]),
+    ...mapState("implementation_modes", ["implementationModes"]),
     ...mapState("implementation_periods", ["implementationPeriods"]),
+    ...mapState("infrastructure_sectors", ["infrastructureSectors"]),
+    ...mapState("neda_processing", ["nedaProcessing"]),
     ...mapState("operating_units", ["operatingUnits"]),
     ...mapState("preparation_documents", ["preparationDocuments"]),
     ...mapState("spatial_coverages", ["spatialCoverages"]),
@@ -631,6 +821,8 @@ export default {
     ]),
     ...mapState("ten_point_agenda", ["tenPointAgenda"]),
     ...mapState("settings", ["dark"]),
+    ...mapState("statuses", ["statuses"]),
+    ...mapState("typologies", ["typologies"]),
     investmentTotal: {
       get() {
         var y1 = parseFloat(this.investment2016) || 0;
@@ -649,7 +841,6 @@ export default {
     ...mapActions("projects", ["addProject", "loadProject"]),
     submitProject() {
       this.addProject(this.project);
-
     },
     addFundingSource() {
       this.project.fundingSourceBreakdown.push({
@@ -675,7 +866,7 @@ export default {
       this.investment2023 = 0;
     },
     deleteFundingSource(index) {
-      this.fundingSourceBreakdown.splice(index, 1);
+      this.project.fundingSourceBreakdown.splice(index, 1);
     },
     updateImplementationEnd(evt) {
       let filteredImplementationPeriods = [];

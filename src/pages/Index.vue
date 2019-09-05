@@ -27,11 +27,15 @@
     </div>
 
     <fab-component />
+
+    <welcome-dialog/>
+
   </q-page>
 </template>
 
 <script>
 import { mapState, mapGetters } from "vuex";
+import WelcomeDialog from "../components/ListProjects/WelcomeDialog";
 import ListComponent from "../components/ListProjects/ListComponent";
 import NoProject from "../components/ListProjects/NoProject";
 import FabComponent from "../components/UI/FabComponent";
@@ -39,6 +43,7 @@ import SearchComponent from "../components/UI/SearchComponent";
 
 export default {
   components: {
+    WelcomeDialog,
     FabComponent,
     ListComponent,
     SearchComponent,

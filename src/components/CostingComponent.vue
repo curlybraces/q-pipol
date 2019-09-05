@@ -1,5 +1,5 @@
 <template>
-  <div :class=" dark? 'bg-grey-10': 'bg-white' ">
+  <div :class="dark ? 'bg-grey-10' : 'bg-white'">
     <div class="row q-pa-md q-col-gutter-sm">
       <select-component
         class="col-12 col-md"
@@ -70,7 +70,8 @@
         icon="delete"
         color="red"
         class="text-right"
-        @click="$emit('delete')"/>
+        @click="$emit('delete')"
+      />
     </div>
   </div>
 </template>
@@ -92,7 +93,7 @@ export default {
     implementationEnd: Number
   },
   computed: {
-    ...mapState("settings",["dark"]),
+    ...mapState("settings", ["dark"]),
     ...mapState("funding_sources", ["fundingSources"]),
     investmentTotal: {
       get() {
@@ -117,9 +118,9 @@ export default {
 </script>
 
 <style scoped>
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
--webkit-appearance: none;
-margin: 0;
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 </style>

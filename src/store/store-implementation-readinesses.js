@@ -1,11 +1,11 @@
 const state = {
   implementationReadinesses: [
     {
-      label: "Pre-FeasibilityStudy Study/Business Case",
+      label: "Pre-Feasibility Study/Business Case",
       value: 1
     },
     {
-      label: "FeasibilityStudy Study",
+      label: "Feasibility Study",
       value: 2
     },
     {

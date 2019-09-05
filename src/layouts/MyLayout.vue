@@ -93,6 +93,7 @@
       v-model="leftDrawerOpen"
       :content-class="dark ? 'bg-grey-10' : 'bg-primary'"
       :breakpoint="767"
+      :width="250"
     >
       <q-list padding dark>
         <q-item-label header>NAVIGATION</q-item-label>

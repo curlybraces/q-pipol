@@ -1,20 +1,20 @@
 const state = {
-  gad_readinesses: [
+  gadResponsiveness: [
     {
       label: "GAD is invisible",
-      value: 1
+      value: "GAD is invisible"
     },
     {
       label: "Program/Project has promising GAD prospects",
-      value: 2
+      value: "Program/Project has promising GAD prospects"
     },
     {
       label: "Program/Project is gender-sensitive",
-      value: 3
+      value: "Program/Project is gender-sensitive"
     },
     {
       label: "Program/Project is gender-responsive",
-      value: 4
+      value: "Program/Project is gender-responsive"
     }
   ]
 };
