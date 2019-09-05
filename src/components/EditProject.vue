@@ -5,7 +5,9 @@
       <q-toolbar-title>Edit Project</q-toolbar-title>
       <q-btn dense flat round icon="close" @click="$emit('close')" />
     </q-toolbar>
-    <add-edit-project :project="projectToUpdate"></add-edit-project>
+    <add-edit-project
+      :project="projectToUpdate">
+    </add-edit-project>
   </q-card>
 </template>
 
