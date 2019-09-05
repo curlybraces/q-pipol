@@ -561,39 +561,39 @@
         FINANCIAL AND ECONOMIC BENEFITS
       </q-item-label>
 
-      <form-element
-        label="Estimated Project Life (in years)">
+      <form-element label="Estimated Project Life (in years)">
         <input-component
           label="Estimated Project Life (in years)"
           type="number"
-          v-model="project.projectLife">
+          v-model="project.projectLife"
+        >
         </input-component>
       </form-element>
 
-      <form-element
-        label="Benefit-Cost Ratio">
+      <form-element label="Benefit-Cost Ratio">
         <input-component
           label="Benefit-Cost Ratio"
           type="number"
-          v-model="project.bcr">
+          v-model="project.bcr"
+        >
         </input-component>
       </form-element>
 
-      <form-element
-        label="Internal Rate of Return (in %)">
+      <form-element label="Internal Rate of Return (in %)">
         <input-component
           label="Internal Rate of Return (in %)"
           type="number"
-          v-model="project.irr">
+          v-model="project.irr"
+        >
         </input-component>
       </form-element>
 
-      <form-element
-        label="Return on Investment (in %)">
+      <form-element label="Return on Investment (in %)">
         <input-component
           label="Return on Investment (in %)"
           type="number"
-          v-model="project.roi">
+          v-model="project.roi"
+        >
         </input-component>
       </form-element>
 
@@ -747,9 +747,7 @@
         </div>
       </form-element>
 
-      <form-element
-        v-if="project.components"
-        label="Costing by Component">
+      <form-element v-if="project.components" label="Costing by Component">
         <p class="lt-md">
           Costing by Component
         </p>
@@ -825,7 +823,7 @@
         </template>
         <template v-else>
           <p class="text-red">
-            <q-icon name="error"/>
+            <q-icon name="error" />
             No components added.
           </p>
         </template>
@@ -943,12 +941,13 @@ export default {
     }
   },
   methods: {
-    ...mapActions("projects", ["addProject", "loadProject","updateProject"]),
+    ...mapActions("projects", ["addProject", "loadProject", "updateProject"]),
     submitProject() {
       if (!this.project.id) {
         this.addProject(this.project);
       } else {
         this.updateProject(this.project);
+        this.$emit("close");
       }
     },
     addComponent(val, done) {

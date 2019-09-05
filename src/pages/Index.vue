@@ -28,8 +28,7 @@
 
     <fab-component />
 
-    <welcome-dialog/>
-
+    <welcome-dialog />
   </q-page>
 </template>
 

@@ -103,7 +103,7 @@ export default {
   },
   watch: {
     dontShowAgain(newDontShowAgain) {
-      LocalStorage.set("dontShowAgain",newDontShowAgain);
+      LocalStorage.set("dontShowAgain", newDontShowAgain);
     }
   }
 };

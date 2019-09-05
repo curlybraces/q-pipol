@@ -22,16 +22,53 @@ export default {
   data() {
     return {
       project: {
+        addedBy: "",
+        beneficiaries: "",
+        businessPlan: false,
+        categorization: "",
+        conceptNote: false,
+        csoConsultation: false,
+        daClearingHouse: false,
+        description: "",
+        detailedEngineeringDesign: false,
         implementationBases: [],
         pdp: [],
         newThinkings: [],
         sustainableDevelopmentGoals: [],
         tenPointAgenda: [],
-        fundingSourceBreakdown: [],
+        priorityRanking: 0,
+        implementationStart: 0,
+        implementationEnd: 0,
+        totalProjectCost: 0,
+        fundingSourceBreakdown: [
+          {
+            fundingSource: "",
+            investment2016: 0,
+            investment2017: 0,
+            investment2018: 0,
+            investment2019: 0,
+            investment2020: 0,
+            investment2021: 0,
+            investment2022: 0,
+            investmentTotal: 0
+          }
+        ],
         challenges: [],
         infrastructureSectors: [],
         components: [],
-        componentBreakdown: []
+        componentBreakdown: [
+          {
+            component: "",
+            investment2016: 0,
+            investment2017: 0,
+            investment2018: 0,
+            investment2019: 0,
+            investment2020: 0,
+            investment2021: 0,
+            investment2022: 0,
+            investmentTotal: 0
+          }
+        ]
       }
     };
   },

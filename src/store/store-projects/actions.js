@@ -17,27 +17,6 @@ export function deleteProject({ dispatch }, id) {
 export function fbReadData({ commit }) {
   let ref = firebaseDb.collection("projects");
 
-  // ref
-  //   .get()
-  //   .then(snapshot => {
-  //     commit("setProjectsDownloaded", true);
-  //     snapshot.forEach(doc => {
-  //       let project = doc.data();
-  //       project.id = doc.id;
-  //       commit("addProject", project);
-  //     });
-  //   })
-  //   .catch(err => {
-  //     console.log(err);
-  //   });
-  // let userId = firebaseAuth.currentUser.uid;
-  // let userProjects = firebaseDb.ref("projects/" + userId);
-  //
-  // // initial check for data
-  // userProjects.once("value", () => {
-  //   commit("setProjectsDownloaded", true);
-  // });
-
   ref.onSnapshot(snapshot => {
     commit("setProjectsDownloaded", true);
     snapshot.docChanges().forEach(change => {
@@ -50,35 +29,6 @@ export function fbReadData({ commit }) {
       }
     });
   });
-  // // child added
-  // userProjects.on("child_added", snapshot => {
-  //   let project = snapshot.val();
-  //
-  //   let payload = {
-  //     id: snapshot.key,
-  //     project: project
-  //   };
-  //
-  //   commit("addProject", payload);
-  // });
-  //
-  // // child updated
-  // userProjects.on("child_changed", snapshot => {
-  //   let project = snapshot.val();
-  //
-  //   let payload = {
-  //     id: snapshot.key,
-  //     updates: project
-  //   };
-  //
-  //   commit("updateProject", payload);
-  // });
-  //
-  // // child removed
-  // userProjects.on("child_removed", snapshot => {
-  //   let projectId = snapshot.key;
-  //   commit("deleteProject", projectId);
-  // });
 }
 
 export function fbAddProject({}, payload) {
@@ -92,6 +42,7 @@ export function fbAddProject({}, payload) {
     .add(project)
     .then(() => {
       Notify.create("Project Added");
+      this.$router.push("/");
     })
     .catch(err => {
       showErrorMessage(err.message);
@@ -101,11 +52,11 @@ export function fbAddProject({}, payload) {
 export function fbUpdateProject({}, payload) {
   let userId = firebaseAuth.currentUser.uid;
   payload.updatedBy = userId;
-  console.log(userId, payload.id);
   let projectRef = firebaseDb.collection("projects").doc(payload.id);
-  projectRef.update(payload)
+  projectRef
+    .update(payload)
     .then(() => {
-      Notify.create("Project updated.")
+      Notify.create("Project updated.");
     })
     .catch(err => {
       Notify.create(err.message);

@@ -2,19 +2,19 @@ const state = {
   spatialCoverages: [
     {
       label: "Nationwide",
-      value: 1
+      value: "Nationwide"
     },
     {
       label: "Inter-regional",
-      value: 2
+      value: "Inter-regional"
     },
     {
       label: "Region-Specific",
-      value: 3
+      value: "Region-Specific"
     },
     {
       label: "Abroad",
-      value: 4
+      value: "Abroad"
     }
   ]
 };
