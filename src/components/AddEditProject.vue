@@ -653,6 +653,9 @@
       </form-element>
 
       <form-element label="Costing by Fund Source">
+        <p class="lt-md">
+          Costing by Funding Source
+        </p>
         <template v-if="project.fundingSourceBreakdown">
           <div
             class="row"
@@ -744,6 +747,90 @@
         </div>
       </form-element>
 
+      <form-element
+        v-if="project.components"
+        label="Costing by Component">
+        <p class="lt-md">
+          Costing by Component
+        </p>
+        <template v-if="project.components.length">
+          <div
+            class="row q-pa-md q-col-gutter-sm"
+            v-for="(comp, index) in project.componentBreakdown"
+            :key="index"
+          >
+            <select-component
+              class="col-12 col-md"
+              :options="project.components"
+              v-model="comp.component"
+            ></select-component>
+            <input-component
+              label="2016 &amp; Prior"
+              class="col-12 col-md"
+              type="number"
+              v-if="project.implementationStart < 2017"
+              v-model="comp.investment2016"
+            ></input-component>
+            <input-component
+              label="2017"
+              class="col-12 col-md"
+              type="number"
+              v-model="comp.investment2017"
+            ></input-component>
+            <input-component
+              label="2018"
+              class="col-12 col-md"
+              type="number"
+              v-model="comp.investment2018"
+            ></input-component>
+            <input-component
+              label="2019"
+              class="col-12 col-md"
+              type="number"
+              v-model="comp.investment2019"
+            ></input-component>
+            <input-component
+              label="2020"
+              class="col-12 col-md"
+              type="number"
+              v-model="comp.investment2020"
+            ></input-component>
+            <input-component
+              label="2021"
+              class="col-12 col-md"
+              type="number"
+              v-model="comp.investment2021"
+            ></input-component>
+            <input-component
+              label="2022"
+              class="col-12 col-md"
+              type="number"
+              v-model="comp.investment2022"
+            ></input-component>
+            <input-component
+              label="2023 &amp; Beyond"
+              class="col-12 col-md"
+              type="number"
+              v-if="project.implementationEnd > 2022"
+              v-model="comp.investment2023"
+            ></input-component>
+            <input-component
+              label="Total"
+              class="col-12 col-md"
+              type="number"
+              :readonly="true"
+              :value="comp.investmentTotal"
+            ></input-component>
+          </div>
+        </template>
+        <template v-else>
+          <p class="text-red">
+            <q-icon name="error"/>
+            No components added.
+          </p>
+        </template>
+      </form-element>
+
       <div class="text-center q-py-md">
         <button-component
           icon="save"
@@ -798,8 +885,10 @@ export default {
       ],
       loading: false,
       rules: {
-        required: [v => !!v || "This field is required."],
-        select: [v => v.length > 0 || "This field is required"]
+        // required: [v => !!v || "This field is required."],
+        // select: [v => v.length > 0 || "This field is required"]
+        required: [],
+        select: []
       },
       fundingSourceBreakdown: [],
       fundingSource: null,
@@ -854,12 +943,19 @@ export default {
     }
   },
   methods: {
-    ...mapActions("projects", ["addProject", "loadProject"]),
+    ...mapActions("projects", ["addProject", "loadProject","updateProject"]),
     submitProject() {
-      this.addProject(this.project);
+      if (!this.project) {
+        this.addProject(this.project);
+      } else {
+        this.updateProject(this.project);
+      }
     },
     addComponent(val, done) {
       done(val, "add-unique");
+      this.project.componentBreakdown.push({
+        component: val
+      });
     },
     addFundingSource() {
       this.project.fundingSourceBreakdown.push({

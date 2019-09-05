@@ -30,7 +30,8 @@ export default {
         fundingSourceBreakdown: [],
         challenges: [],
         infrastructureSectors: [],
-        components: []
+        components: [],
+        componentBreakdown: []
       }
     };
   },

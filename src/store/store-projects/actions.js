@@ -100,14 +100,16 @@ export function fbAddProject({}, payload) {
 
 export function fbUpdateProject({}, payload) {
   let userId = firebaseAuth.currentUser.uid;
-  let projectRef = firebaseDb.ref("projects/" + userId + "/" + payload.id);
-  projectRef.update(payload.updates, error => {
-    if (error) {
-      showErrorMessage(error.message);
-    } else {
-      Notify.create("Project Updated");
-    }
-  });
+  payload.updatedBy = userId;
+  console.log(userId, payload.id);
+  let projectRef = firebaseDb.collection("projects").doc(payload.id);
+  projectRef.update(payload)
+    .then(() => {
+      Notify.create("Project updated.")
+    })
+    .catch(err => {
+      Notify.create(err.message);
+    });
 }
 
 export function fbDeleteProject({ commit }, projectId) {
