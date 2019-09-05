@@ -29,7 +29,6 @@ export default {
   },
   mounted() {
     this.projectToUpdate = Object.assign({}, this.project)
-    console.log(this.projectToUpdate)
   }
 };
 </script>
