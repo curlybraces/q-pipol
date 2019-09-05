@@ -195,6 +195,22 @@
         ></input-component>
       </form-element>
 
+      <form-element label="Components">
+        <q-select
+          label="Add component"
+          outlined
+          dense
+          v-model="project.components"
+          hint="Press enter once you are done typing component to add item."
+          use-input
+          use-chips
+          multiple
+          hide-dropdown-icon
+          input-debounce="0"
+          @new-value="addComponent"
+        />
+      </form-element>
+
       <form-element label="Purpose">
         <input-component
           type="textarea"
@@ -841,6 +857,9 @@ export default {
     ...mapActions("projects", ["addProject", "loadProject"]),
     submitProject() {
       this.addProject(this.project);
+    },
+    addComponent(val, done) {
+      done(val, "add-unique");
     },
     addFundingSource() {
       this.project.fundingSourceBreakdown.push({

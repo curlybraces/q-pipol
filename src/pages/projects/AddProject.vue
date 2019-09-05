@@ -29,7 +29,8 @@ export default {
         tenPointAgenda: [],
         fundingSourceBreakdown: [],
         challenges: [],
-        infrastructureSectors: []
+        infrastructureSectors: [],
+        components: []
       }
     };
   },
