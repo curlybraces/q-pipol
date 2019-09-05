@@ -945,7 +945,7 @@ export default {
   methods: {
     ...mapActions("projects", ["addProject", "loadProject","updateProject"]),
     submitProject() {
-      if (!this.project) {
+      if (!this.project.id) {
         this.addProject(this.project);
       } else {
         this.updateProject(this.project);
