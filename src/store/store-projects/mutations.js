@@ -3,7 +3,7 @@ export function addProject(state, payload) {
 }
 
 export function updateProject(state, payload) {
-  Object.assign(state.projects[payload.id], payload.updates);
+  Object.assign(state.projects[payload.id], payload);
 }
 
 export function deleteProject(state, id) {

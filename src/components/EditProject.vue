@@ -5,7 +5,7 @@
       <q-toolbar-title>Edit Project</q-toolbar-title>
       <q-btn dense flat round icon="close" @click="$emit('close')" />
     </q-toolbar>
-    <add-edit-project :project="project"></add-edit-project>
+    <add-edit-project :project="projectToUpdate"></add-edit-project>
   </q-card>
 </template>
 
@@ -19,8 +19,17 @@ export default {
   props: {
     project: Object
   },
+  data() {
+    return {
+      projectToUpdate: {}
+    }
+  },
   computed: {
     ...mapState("settings", ["dark"])
+  },
+  mounted() {
+    this.projectToUpdate = Object.assign({}, this.project)
+    console.log(this.projectToUpdate)
   }
 };
 </script>
