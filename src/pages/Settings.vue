@@ -25,7 +25,7 @@
         </q-item-section>
       </q-item>
 
-      <q-item clickable v-ripple @click="changePassword = true">
+      <q-item clickable v-ripple @click="changePasswordDialog = true">
         <q-item-section>
           <q-item-label>Change Password</q-item-label>
           <q-item-label caption>
@@ -75,7 +75,7 @@
     </q-list>
 
     <q-dialog
-      v-model="changePassword"
+      v-model="changePasswordDialog"
       persistent
       transition-show="scale"
       transition-hide="scale">
@@ -127,7 +127,7 @@ export default {
   data() {
     return {
       newPassword: "",
-      changePassword: false,
+      changePasswordDialog: false,
       settings: {
         dark: false,
         welcomeMessage: true
