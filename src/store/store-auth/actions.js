@@ -1,4 +1,4 @@
-import { LocalStorage, Loading } from "quasar";
+import { LocalStorage, Loading, Notify } from "quasar";
 import { firebaseAuth } from "boot/firebase";
 import { showErrorMessage } from "src/functions/function-show-error-message";
 
@@ -31,9 +31,23 @@ export function logoutUser() {
   firebaseAuth.signOut();
 }
 
+export function changePassword({}, payload) {
+  var user = firebaseAuth.currentUser;
+  var newPassword = payload.password;
+
+  user.updatePassword(newPassword)
+    .then(() => {
+      Notify.create("Successfully updated password.")
+    })
+    .catch(err => {
+      showErrorMessage(err.message);
+    })
+}
+
 export function handleAuthStateChange({ commit, dispatch }) {
   firebaseAuth.onAuthStateChanged(user => {
     if (user) {
+      console.log(user);
       Loading.hide();
       commit("setLoggedIn", true);
       LocalStorage.set("loggedIn", true);

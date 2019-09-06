@@ -25,11 +25,11 @@
         </q-item-section>
       </q-item>
 
-      <q-item clickable v-ripple @click="verifyPassword = !verifyPassword">
+      <q-item clickable v-ripple @click="changePassword = true">
         <q-item-section>
           <q-item-label>Change Password</q-item-label>
           <q-item-label caption>
-            Changing your password will log you out from the app.
+            Change your password regularly to ensure security of your account.
           </q-item-label>
         </q-item-section>
       </q-item>
@@ -74,44 +74,51 @@
       </q-item>
     </q-list>
 
-    <q-dialog v-model="verifyPassword" persistent>
+    <q-dialog
+      v-model="changePassword"
+      persistent
+      transition-show="scale"
+      transition-hide="scale">
       <q-card style="min-width: 400px">
         <q-card-section class="bg-primary text-white">
           <div class="text-h6">Change Password</div>
         </q-card-section>
 
-        <q-card-section class="q-col-gutter-y-md q-mt-xs">
+        <q-card-section>
           <q-input
+            v-model="password"
             outlined
-            :type="showOldPassword ? 'text' : 'password'"
+            type="password"
+            label="Enter new password"
             dense
-            v-model="oldPassword"
-            autofocus
-            stack-label
-            label="Current Password"
-            :rules="[v => !!v || 'This field is required.']"
-          >
+            class="q-py-md"
+            :rules="[
+              v => v.length >= 8 || 'Password must be at least 8 characters.'
+            ]"
+            >
             <template v-slot:append>
-              <q-icon
-                :name="showOldPassword ? 'visibility_off' : 'visibility'"
-                @click="showOldPassword = !showOldPassword"
-              />
+              <q-icon name="lock"/>
             </template>
           </q-input>
         </q-card-section>
 
         <q-card-actions align="right" class="text-primary">
-          <q-btn flat label="Cancel" v-close-popup />
-          <q-btn flat label="Confirm" v-close-popup @click="validatePassword" />
+          <q-btn
+            flat
+            label="Cancel"
+            v-close-popup />
+          <q-btn
+            label="Confirm"
+            v-close-popup
+            color="primary"
+            @click="changePassword" />
         </q-card-actions>
       </q-card>
     </q-dialog>
 
     <q-dialog
       v-model="enterPassword"
-      persistent
-      transition-show="scale"
-      transition-hide="scale"
+
     >
       <q-card class="bg-teal text-white" style="width: 300px">
         <q-card-section>
@@ -171,31 +178,21 @@ export default {
   name: "PageSettings",
   data() {
     return {
-      verifyPassword: false,
-      enterPassword: false,
-      showOldPassword: false,
-      showNewPassword: false,
-      showConfirmPassword: false,
-      oldPassword: "",
       newPassword: "",
-      confirmPassword: "",
       changePassword: false,
       settings: {
         dark: false,
         welcomeMessage: true
+      },
+      rules: {
+        password: [ v => v.length >= 8 || "Password must be at least 8 characters."],
       }
     };
   },
   methods: {
-    ...mapActions("auth", ["checkPassword"]),
-    passwordMatched(val) {
-      return this.newPassword === val;
-    },
+    ...mapActions("auth", ["changePassword"]),
     validatePassword() {
-      console.log(this.checkPassword(this.oldPassword));
-      if (this.checkPassword(this.oldPassword)) {
-        this.enterPassword = true;
-      }
+
     }
   }
 };
