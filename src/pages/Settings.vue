@@ -21,7 +21,10 @@
           </q-item-label>
         </q-item-section>
         <q-item-section side top>
-          <q-toggle color="primary" v-model="settings.welcomeMessage" />
+          <q-toggle
+            color="primary"
+            v-model="welcomeMessage"
+            />
         </q-item-section>
       </q-item>
 
@@ -121,6 +124,7 @@
 
 <script>
 import { mapActions } from "vuex";
+import { LocalStorage } from "quasar";
 
 export default {
   name: "PageSettings",
@@ -130,12 +134,21 @@ export default {
       changePasswordDialog: false,
       settings: {
         dark: false,
-        welcomeMessage: true
       },
       rules: {
         password: [ v => v.length >= 8 || "Password must be at least 8 characters."],
       }
     };
+  },
+  computed: {
+    welcomeMessage: {
+      get() {
+        return LocalStorage.getItem("dontShowAgain");
+      },
+      set(val) {
+        LocalStorage.set("dontShowAgain",val);
+      }
+    }
   },
   methods: {
     ...mapActions("auth", ["changePassword"]),
