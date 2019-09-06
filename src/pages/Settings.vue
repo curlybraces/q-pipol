@@ -86,7 +86,7 @@
 
         <q-card-section>
           <q-input
-            v-model="password"
+            v-model="newPassword"
             outlined
             type="password"
             label="Enter new password"
@@ -111,63 +111,11 @@
             label="Confirm"
             v-close-popup
             color="primary"
-            @click="changePassword" />
+            @click="submitPassword" />
         </q-card-actions>
       </q-card>
     </q-dialog>
 
-    <q-dialog
-      v-model="enterPassword"
-
-    >
-      <q-card class="bg-teal text-white" style="width: 300px">
-        <q-card-section>
-          <div class="text-h6">Persistent</div>
-        </q-card-section>
-
-        <q-card-section>
-          <q-input
-            outlined
-            :type="showNewPassword ? 'text' : 'password'"
-            dense
-            v-model="newPassword"
-            stack-label
-            label="New Password"
-            :rules="[
-              v => v.length >= 8 || 'Password must be at least 8 characters.'
-            ]"
-            lazy-rules
-          >
-            <template v-slot:append>
-              <q-icon
-                :name="showNewPassword ? 'visibility_off' : 'visibility'"
-                @click="showNewPassword = !showNewPassword"
-              />
-            </template>
-          </q-input>
-          <q-input
-            outlined
-            :type="showConfirmPassword ? 'text' : 'password'"
-            dense
-            v-model="confirmPassword"
-            stack-label
-            label="Confirm New Password"
-            :rules="[val => passwordMatched(val) || 'Password did not match.']"
-          >
-            <template v-slot:append>
-              <q-icon
-                :name="showConfirmPassword ? 'visibility_off' : 'visibility'"
-                @click="showConfirmPassword = !showConfirmPassword"
-              />
-            </template>
-          </q-input>
-        </q-card-section>
-
-        <q-card-actions align="right" class="bg-white text-teal">
-          <q-btn flat label="OK" v-close-popup />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
   </q-page>
 </template>
 
@@ -191,8 +139,8 @@ export default {
   },
   methods: {
     ...mapActions("auth", ["changePassword"]),
-    validatePassword() {
-
+    submitPassword() {
+      
     }
   }
 };
