@@ -140,7 +140,7 @@ export default {
   methods: {
     ...mapActions("auth", ["changePassword"]),
     submitPassword() {
-      
+      this.changePassword({ password: this.newPassword });
     }
   }
 };
