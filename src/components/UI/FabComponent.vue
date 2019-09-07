@@ -2,7 +2,7 @@
   <q-page-sticky 
     position="bottom-right" 
     :offset="[18, 18]" 
-    v-if="roles.includes('encoder')">
+    v-if="isEncoder">
     <q-btn
       fab
       icon="note_add"
@@ -25,9 +25,7 @@ export default {
   },
   computed: {
     ...mapState("settings", ["dark"]),
-    ...mapState("auth",["roles"])
+    ...mapState("auth",["isEncoder"])
   }
 };
 </script>
-
-<style></style>

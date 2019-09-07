@@ -2,5 +2,8 @@ export default {
   loggedIn: false,
   user: {},
   emailVerified: false,
-  roles: []
+  isAdmin: false,
+  isReviewer: false,
+  isEncoder: false,
+  isViewer: false
 };

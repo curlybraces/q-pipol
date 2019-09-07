@@ -12,7 +12,11 @@ export function registerUser({ context }, payload) {
       ref.doc(
         user.user.uid
       ).set({
-        email: payload.email
+        email: payload.email,
+        admin: false,
+        reviewer: false,
+        encoder: false,
+        viewer: true
       });
     })
     .catch(error => {
@@ -50,6 +54,9 @@ export function changePassword({}, payload) {
     });
 }
 
+/*
+ * Send email to user for verification
+ */
 export function sendEmailVerification() {
   var user = firebaseAuth.currentUser;
   user.sendEmailVerification().then(() => {
@@ -62,13 +69,19 @@ export function sendEmailVerification() {
   })
 }
 
+/*
+ * Set roles of user
+ */
 export function setRoles({ commit }) {
   let userId = firebaseAuth.currentUser.uid;
   let ref = firebaseDb.collection("users");
   let userRef = ref.doc(userId)
   
   userRef.get().then(doc => {
-    commit("setRoles", doc.data().roles)
+    commit("setAdmin", doc.data().admin)
+    commit("setEncoder", doc.data().encoder)
+    commit("setReviewer", doc.data().reviewer)
+    commit("setViewer", doc.data().viewer)
   })
 }
 

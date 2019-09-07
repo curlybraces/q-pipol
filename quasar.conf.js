@@ -121,7 +121,8 @@ module.exports = function(ctx) {
 
         "QChatMessage",
         
-        "QUploader"
+        "QUploader",
+        "QRating"
       ],
 
       directives: ["Ripple", "ClosePopup"],

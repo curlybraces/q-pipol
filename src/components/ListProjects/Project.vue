@@ -30,6 +30,7 @@
 
     <q-item-section side>
       <div class="text-grey-8 q-gutter-xs">
+
         <q-btn
           size="12px"
           flat
@@ -38,6 +39,16 @@
           icon="edit"
           color="green"
           @click="showEditProject = true"
+        />
+
+        <q-btn
+          size="12px"
+          flat
+          dense
+          round
+          icon="rate_review"
+          color="green"
+          @click="showReviewProject = true"
         />
 
         <q-btn
@@ -64,15 +75,29 @@
         @close="showEditProject = false"
       ></edit-project>
     </q-dialog>
+
+    <q-dialog
+      v-model="showReviewProject"
+      maximized
+      persistent
+      transition-show="slide-up"
+      transition-hide="slide-down"> 
+      <review-project
+        :project="project"
+        @close="showReviewProject = false">
+        </review-project>
+      />
+    </q-dialog>
   </q-item>
 </template>
 
 <script>
 import { mapState, mapActions } from "vuex";
 import EditProject from "../../components/EditProject";
+import ReviewProject from "../../components/ReviewProject";
 
 export default {
-  components: { EditProject },
+  components: { EditProject, ReviewProject },
   name: "Project",
   props: {
     project: Object,
@@ -80,7 +105,8 @@ export default {
   },
   data() {
     return {
-      showEditProject: false
+      showEditProject: false,
+      showReviewProject: true
     };
   },
   computed: {
