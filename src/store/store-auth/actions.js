@@ -1,4 +1,4 @@
-import { LocalStorage, Loading, Notify } from "quasar";
+import { LocalStorage, Loading, Notify, Dialog } from "quasar";
 import { firebaseAuth, firebaseDb } from "boot/firebase";
 import { showErrorMessage } from "src/functions/function-show-error-message";
 
@@ -48,6 +48,18 @@ export function changePassword({}, payload) {
     .catch(err => {
       showErrorMessage(err.message);
     });
+}
+
+export function sendEmailVerification() {
+  var user = firebaseAuth.currentUser;
+  user.sendEmailVerification().then(() => {
+    Dialog.create({
+      message: "A verification link has been sent your registered email address."
+    })
+  })
+  .catch(err => {
+    Dialog.create(err.message);
+  })
 }
 
 export function handleAuthStateChange({ commit, dispatch }) {

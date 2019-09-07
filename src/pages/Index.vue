@@ -11,7 +11,11 @@
         Your email is not verified. You can only view projects. Click the link
           below to verify your email to add/update projects.
         <template v-slot:action>
-          <q-btn flat color="red" label="VERIFY EMAIL"/>
+          <q-btn
+            flat
+            color="red"
+            label="VERIFY EMAIL"
+            @click="sendEmailVerification"/>
         </template>
       </q-banner>
       <template v-if="projectsDownloaded">
@@ -46,7 +50,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapState, mapActions, mapGetters } from "vuex";
 import WelcomeDialog from "../components/ListProjects/WelcomeDialog";
 import ListComponent from "../components/ListProjects/ListComponent";
 import NoProject from "../components/ListProjects/NoProject";
@@ -66,6 +70,9 @@ export default {
     ...mapState("projects", ["search", "projectsDownloaded"]),
     ...mapState("auth",["emailVerified"]),
     ...mapGetters("projects", ["projects"])
+  },
+  methods: {
+    ...mapActions("auth",["sendEmailVerification"])
   }
 };
 </script>
