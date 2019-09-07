@@ -85,7 +85,7 @@ export default {
     },
     ...mapActions("auth", ["registerUser", "loginUser"]),
     resetPassword() {
-      this.$emit("resetPassword")
+      this.$emit("resetPassword");
     }
   },
   filters: {

@@ -96,10 +96,10 @@ export default {
     };
   },
   computed: {
-    ...mapState("settings",["showWelcome"])
+    ...mapState("settings", ["showWelcome"])
   },
   methods: {
-    ...mapActions("settings",["setShowWelcome"]),
+    ...mapActions("settings", ["setShowWelcome"]),
     closeDialog() {
       this.dialog = false;
     }

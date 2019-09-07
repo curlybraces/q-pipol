@@ -30,7 +30,6 @@
 
     <q-item-section side>
       <div class="text-grey-8 q-gutter-xs">
-
         <q-btn
           size="12px"
           flat
@@ -47,7 +46,7 @@
           dense
           round
           icon="rate_review"
-          color="green"
+          color="secondary"
           @click="showReviewProject = true"
         />
 
@@ -81,11 +80,10 @@
       maximized
       persistent
       transition-show="slide-up"
-      transition-hide="slide-down"> 
-      <review-project
-        :project="project"
-        @close="showReviewProject = false">
-        </review-project>
+      transition-hide="slide-down"
+    >
+      <review-project :project="project" @close="showReviewProject = false">
+      </review-project>
       />
     </q-dialog>
   </q-item>
@@ -106,7 +104,7 @@ export default {
   data() {
     return {
       showEditProject: false,
-      showReviewProject: true
+      showReviewProject: false
     };
   },
   computed: {

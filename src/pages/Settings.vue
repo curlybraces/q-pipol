@@ -11,7 +11,11 @@
           </q-item-label>
         </q-item-section>
         <q-item-section side top>
-          <q-toggle color="primary" :value="showWelcome" @input="setShowWelcome" />
+          <q-toggle
+            color="primary"
+            :value="showWelcome"
+            @input="setShowWelcome"
+          />
         </q-item-section>
       </q-item>
 
@@ -112,10 +116,10 @@ export default {
     };
   },
   computed: {
-    ...mapState("settings",["dark","showWelcome"])
+    ...mapState("settings", ["dark", "showWelcome"])
   },
   methods: {
-    ...mapActions("settings", ["setDark","setShowWelcome"]),
+    ...mapActions("settings", ["setDark", "setShowWelcome"]),
     ...mapActions("auth", ["changePassword"]),
     submitPassword() {
       this.changePassword({ password: this.newPassword });

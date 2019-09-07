@@ -18,7 +18,7 @@ const actions = {
   },
   setShowWelcome({ commit }, payload) {
     commit("setShowWelcome", payload);
-  },
+  }
 };
 
 const getters = {};

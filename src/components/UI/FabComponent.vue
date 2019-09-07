@@ -1,8 +1,5 @@
 <template>
-  <q-page-sticky 
-    position="bottom-right" 
-    :offset="[18, 18]" 
-    v-if="isEncoder">
+  <q-page-sticky position="bottom-right" :offset="[18, 18]" v-if="isEncoder">
     <q-btn
       fab
       icon="note_add"
@@ -25,7 +22,7 @@ export default {
   },
   computed: {
     ...mapState("settings", ["dark"]),
-    ...mapState("auth",["isEncoder"])
+    ...mapState("auth", ["isEncoder"])
   }
 };
 </script>
