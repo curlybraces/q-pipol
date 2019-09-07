@@ -55,19 +55,6 @@
 
       <q-item tag="label" v-ripple>
         <q-item-section>
-          <q-item-label>Notifications</q-item-label>
-          <q-item-label caption>
-            Notify me about updates to apps or games that I downloaded
-          </q-item-label>
-        </q-item-section>
-
-        <q-item-section side top>
-          <q-toggle color="red" />
-        </q-item-section>
-      </q-item>
-
-      <q-item tag="label" v-ripple>
-        <q-item-section>
           <q-item-label>Dark Mode</q-item-label>
           <q-item-label caption>Switch to dark mode</q-item-label>
         </q-item-section>
