@@ -31,6 +31,10 @@ const routes = [
       {
         path: "add",
         component: () => import("pages/projects/AddProject.vue")
+      },
+      {
+        path: "ranked",
+        component: () => import("pages/RankedProjects.vue")
       }
     ]
   },

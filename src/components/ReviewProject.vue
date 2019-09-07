@@ -1,7 +1,6 @@
 <template>
-  <q-card :dark="dark" :class="dark ? 'bg-grey-10': 'bg-white' ">
-    <q-toolbar 
-      :class=" dark ? 'bg-info': 'bg-primary' + ' text-white'">
+  <q-card :dark="dark" :class="dark ? 'bg-grey-10' : 'bg-white'">
+    <q-toolbar :class="dark ? 'bg-info' : 'bg-primary' + ' text-white'">
       <q-toolbar-title>
         Evaluate Project
       </q-toolbar-title>
@@ -11,14 +10,16 @@
       <q-list>
         <q-item>
           <q-item-section avatar top>
-            <q-icon :name=" locked ? 'lock': 'lock_open' " />
+            <q-icon :name="locked ? 'lock' : 'lock_open'" />
           </q-item-section>
           <q-item-section>
             <q-item-label>
               <span class="text-weight-bold">{{ project.title }}</span>
             </q-item-label>
-            <q-item-label caption  v-if="locked">
-              <span class="text-red text-weight-light text-caption">(Project already evaluated.)</span>
+            <q-item-label caption v-if="locked">
+              <span class="text-red text-weight-light text-caption"
+                >(Project already evaluated.)</span
+              >
             </q-item-label>
           </q-item-section>
         </q-item>
@@ -32,7 +33,12 @@
             </q-item-label>
           </q-item-section>
           <q-item-section side>
-            <q-rating size="md" v-model="rating.criteria1" :max="max" :readonly="locked" />
+            <q-rating
+              size="md"
+              v-model="rating.criteria1"
+              :max="max"
+              :readonly="locked"
+            />
           </q-item-section>
         </q-item>
         <q-separator :dark="dark" />
@@ -46,7 +52,12 @@
             </q-item-label>
           </q-item-section>
           <q-item-section side>
-            <q-rating size="md" v-model="rating.criteria2" :max="max" :readonly="locked" />
+            <q-rating
+              size="md"
+              v-model="rating.criteria2"
+              :max="max"
+              :readonly="locked"
+            />
           </q-item-section>
         </q-item>
         <q-separator :dark="dark" />
@@ -61,7 +72,12 @@
             </q-item-label>
           </q-item-section>
           <q-item-section side>
-            <q-rating size="md" v-model="rating.criteria3" :max="max" :readonly="locked"  />
+            <q-rating
+              size="md"
+              v-model="rating.criteria3"
+              :max="max"
+              :readonly="locked"
+            />
           </q-item-section>
         </q-item>
         <q-separator :dark="dark" />
@@ -76,7 +92,12 @@
             </q-item-label>
           </q-item-section>
           <q-item-section side>
-            <q-rating size="md" v-model="rating.criteria4" :max="max" :readonly="locked" />
+            <q-rating
+              size="md"
+              v-model="rating.criteria4"
+              :max="max"
+              :readonly="locked"
+            />
           </q-item-section>
         </q-item>
         <q-separator :dark="dark" />
@@ -90,7 +111,12 @@
             </q-item-label>
           </q-item-section>
           <q-item-section side>
-            <q-rating size="md" v-model="rating.criteria5" :max="max" :readonly="locked"  />
+            <q-rating
+              size="md"
+              v-model="rating.criteria5"
+              :max="max"
+              :readonly="locked"
+            />
           </q-item-section>
         </q-item>
         <q-separator :dark="dark" />
@@ -104,7 +130,12 @@
             </q-item-label>
           </q-item-section>
           <q-item-section side>
-            <q-rating size="md" v-model="rating.criteria6" :max="max" :readonly="locked"  />
+            <q-rating
+              size="md"
+              v-model="rating.criteria6"
+              :max="max"
+              :readonly="locked"
+            />
           </q-item-section>
         </q-item>
         <q-separator :dark="dark" />
@@ -118,7 +149,12 @@
             </q-item-label>
           </q-item-section>
           <q-item-section side>
-            <q-rating size="md" v-model="rating.criteria7" :max="max" :readonly="locked"  />
+            <q-rating
+              size="md"
+              v-model="rating.criteria7"
+              :max="max"
+              :readonly="locked"
+            />
           </q-item-section>
         </q-item>
         <q-separator :dark="dark" />
@@ -136,7 +172,7 @@
               size="md"
               readonly
               v-model="overall"
-              :color=" dark ? 'info': 'primary' "
+              :color="dark ? 'info' : 'primary'"
               :max="max"
             />
           </q-item-section>
@@ -144,7 +180,12 @@
       </q-list>
     </q-card-section>
     <q-card-actions align="right" class="q-pa-md">
-      <q-btn icon="save" label="Save" :color=" dark ? 'info': 'primary' " @click="saveRating" />
+      <q-btn
+        icon="save"
+        label="Save"
+        :color="dark ? 'info' : 'primary'"
+        @click="saveRating"
+      />
     </q-card-actions>
   </q-card>
 </template>
@@ -178,7 +219,7 @@ export default {
     };
   },
   computed: {
-    ...mapState("settings",["dark"]),
+    ...mapState("settings", ["dark"]),
     overall() {
       let val1 = parseInt(this.rating.criteria1) || 0;
       let val2 = parseInt(this.rating.criteria2) || 0;
@@ -194,15 +235,16 @@ export default {
   },
   methods: {
     closeDialog() {
-      this.$emit('close');
+      this.$emit("close");
     },
     saveRating() {
-      let userId = firebaseAuth.currentUser.uid;
+      let userName = firebaseAuth.currentUser.displayName;
       let ref = firebaseDb.collection("ratings").doc(this.project.id);
       let rating = this.rating;
-      rating.projecTitle = this.project.title;
+      rating.projectTitle = this.project.title;
       rating.overall = this.overall;
-      rating.addedBy = userId;
+      rating.ratedBy = userName;
+      rating.ratedOn = Date.now();
       ref
         .set({
           rating
@@ -218,11 +260,12 @@ export default {
         });
     },
     loadRating() {
-      let ratingRef = firebaseDb.collection("ratings").doc(this.project.id)
-      ratingRef.get()
+      let ratingRef = firebaseDb.collection("ratings").doc(this.project.id);
+      ratingRef
+        .get()
         .then(doc => {
           if (doc.exists) {
-            this.rating = doc.data().rating
+            this.rating = doc.data().rating;
             this.locked = true;
           } else {
             console.log("No rating yet");
@@ -230,7 +273,7 @@ export default {
         })
         .catch(err => {
           Notify.catch(err.message);
-        })
+        });
     }
   },
   created() {
