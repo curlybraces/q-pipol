@@ -9,3 +9,7 @@ export function setUser(state, value) {
 export function setEmailVerified(state, value) {
   state.emailVerified = value;
 }
+
+export function setRoles(state, value) {
+  state.roles = value
+}

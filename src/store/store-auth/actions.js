@@ -62,9 +62,20 @@ export function sendEmailVerification() {
   })
 }
 
+export function setRoles({ commit }) {
+  let userId = firebaseAuth.currentUser.uid;
+  let ref = firebaseDb.collection("users");
+  let userRef = ref.doc(userId)
+  
+  userRef.get().then(doc => {
+    commit("setRoles", doc.data().roles)
+  })
+}
+
 export function handleAuthStateChange({ commit, dispatch }) {
   firebaseAuth.onAuthStateChanged(user => {
     if (user) {
+      dispatch("setRoles",null)
       commit("setEmailVerified",user.emailVerified);
       Loading.hide();
       commit("setLoggedIn", true);

@@ -1,5 +1,8 @@
 <template>
-  <q-page-sticky position="bottom-right" :offset="[18, 18]">
+  <q-page-sticky 
+    position="bottom-right" 
+    :offset="[18, 18]" 
+    v-if="roles.includes('encoder')">
     <q-btn
       fab
       icon="note_add"
@@ -21,7 +24,8 @@ export default {
     };
   },
   computed: {
-    ...mapState("settings", ["dark"])
+    ...mapState("settings", ["dark"]),
+    ...mapState("auth",["roles"])
   }
 };
 </script>
