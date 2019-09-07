@@ -1,5 +1,5 @@
 <template>
-  <q-dialog v-model="dialog" persistent>
+  <q-dialog v-model="showWelcome" persistent>
     <q-carousel
       transition-prev="slide-right"
       transition-next="slide-left"
@@ -51,8 +51,9 @@
           <q-checkbox
             dense
             text-color="white"
-            v-model="dontShowAgain"
-            label="Don't show this again"
+            :value="showWelcome"
+            @input="setShowWelcome"
+            label="Show this message again"
           />
         </q-carousel-control>
       </template>
@@ -61,15 +62,13 @@
 </template>
 
 <script>
-import { LocalStorage } from "quasar";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "WelcomeDialog",
   data() {
     return {
       color: "white",
-      dialog: !LocalStorage.getItem("dontShowAgain"),
-      dontShowAgain: false,
       slide: 0,
       slides: [
         {
@@ -96,14 +95,13 @@ export default {
       carousel: true
     };
   },
+  computed: {
+    ...mapState("settings",["showWelcome"])
+  },
   methods: {
+    ...mapActions("settings",["setShowWelcome"]),
     closeDialog() {
       this.dialog = false;
-    }
-  },
-  watch: {
-    dontShowAgain(newDontShowAgain) {
-      LocalStorage.set("dontShowAgain", newDontShowAgain);
     }
   }
 };

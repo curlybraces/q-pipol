@@ -1,17 +1,7 @@
 <template>
   <q-page padding>
-    <q-list bordered padding>
+    <q-list bordered padding :dark="dark">
       <q-item-label header>User Controls</q-item-label>
-
-      <q-item clickable v-ripple>
-        <q-item-section>
-          <q-item-label>Content filtering</q-item-label>
-          <q-item-label caption>
-            Set the content filtering level to restrict apps that can be
-            downloaded
-          </q-item-label>
-        </q-item-section>
-      </q-item>
 
       <q-item tag="label" v-ripple>
         <q-item-section>
@@ -21,10 +11,7 @@
           </q-item-label>
         </q-item-section>
         <q-item-section side top>
-          <q-toggle
-            color="primary"
-            v-model="welcomeMessage"
-            />
+          <q-toggle color="primary" :value="showWelcome" @input="setShowWelcome" />
         </q-item-section>
       </q-item>
 
@@ -37,21 +24,18 @@
         </q-item-section>
       </q-item>
 
-      <q-separator spaced />
-      <q-item-label header>General</q-item-label>
-
-      <q-item tag="label" v-ripple>
-        <q-item-section side top>
-          <q-checkbox />
-        </q-item-section>
-
+      <q-item clickable v-ripple @click="changeProfilePicture = true">
         <q-item-section>
-          <q-item-label>Notifications</q-item-label>
+          <q-item-label>Change Profile Picture</q-item-label>
           <q-item-label caption>
-            Notify me about updates to apps or games that I downloaded
+            Change your profile picture to appear more decent.
           </q-item-label>
         </q-item-section>
       </q-item>
+
+      <q-separator spaced />
+
+      <q-item-label header>General</q-item-label>
 
       <q-item tag="label" v-ripple>
         <q-item-section>
@@ -59,7 +43,7 @@
           <q-item-label caption>Switch to dark mode</q-item-label>
         </q-item-section>
         <q-item-section side top>
-          <q-toggle color="primary" v-model="settings.dark" />
+          <q-toggle color="primary" :value="dark" @input="setDark" />
         </q-item-section>
       </q-item>
     </q-list>
@@ -68,7 +52,8 @@
       v-model="changePasswordDialog"
       persistent
       transition-show="scale"
-      transition-hide="scale">
+      transition-hide="scale"
+    >
       <q-card style="min-width: 400px">
         <q-card-section class="bg-primary text-white">
           <div class="text-h6">Change Password</div>
@@ -85,33 +70,29 @@
             :rules="[
               v => v.length >= 8 || 'Password must be at least 8 characters.'
             ]"
-            >
+          >
             <template v-slot:append>
-              <q-icon name="lock"/>
+              <q-icon name="lock" />
             </template>
           </q-input>
         </q-card-section>
 
         <q-card-actions align="right" class="text-primary">
-          <q-btn
-            flat
-            label="Cancel"
-            v-close-popup />
+          <q-btn flat label="Cancel" v-close-popup />
           <q-btn
             label="Confirm"
             v-close-popup
             color="primary"
-            @click="submitPassword" />
+            @click="submitPassword"
+          />
         </q-card-actions>
       </q-card>
     </q-dialog>
-
   </q-page>
 </template>
 
 <script>
-import { mapActions } from "vuex";
-import { LocalStorage } from "quasar";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "PageSettings",
@@ -119,25 +100,22 @@ export default {
     return {
       newPassword: "",
       changePasswordDialog: false,
+      profilePicture: null,
       settings: {
-        dark: false,
+        dark: false
       },
       rules: {
-        password: [ v => v.length >= 8 || "Password must be at least 8 characters."],
+        password: [
+          v => v.length >= 8 || "Password must be at least 8 characters."
+        ]
       }
     };
   },
   computed: {
-    welcomeMessage: {
-      get() {
-        return LocalStorage.getItem("dontShowAgain");
-      },
-      set(val) {
-        LocalStorage.set("dontShowAgain",val);
-      }
-    }
+    ...mapState("settings",["dark","showWelcome"])
   },
   methods: {
+    ...mapActions("settings", ["setDark","setShowWelcome"]),
     ...mapActions("auth", ["changePassword"]),
     submitPassword() {
       this.changePassword({ password: this.newPassword });

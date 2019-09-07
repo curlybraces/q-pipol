@@ -1,8 +1,10 @@
+import { Notify, Dialog } from "quasar";
 import * as firebase from "firebase/app";
 
 import "firebase/auth";
 // import "firebase/database";
 import "firebase/firestore";
+import "firebase/storage";
 
 var firebaseConfig = {
   apiKey: "AIzaSyBxZzA8LBTNqfnTqK3Befo4TWCSJrBfoQE",
@@ -17,6 +19,26 @@ var firebaseConfig = {
 let firebaseApp = firebase.initializeApp(firebaseConfig);
 let firebaseAuth = firebaseApp.auth();
 // let firebaseDb = firebaseApp.database();
-let firebaseDb = firebaseApp.firestore();
 
-export { firebaseAuth, firebaseDb };
+firebaseApp.firestore().enablePersistence()
+  .then(() => {
+    Notify.create({
+      message: "Offline capabilities are enabled."
+    });
+  })
+  .catch(err => {
+    if (err.code == 'failed-precondition') {
+      Dialog.create({
+        message: "Offline capabilities does not support multiple tabs."
+      })
+    } else if (err.code == 'unimplemented') {
+      Dialog.create({
+        message: "Your browser does not support offline capabilities."
+      })
+    }
+  });
+
+let firebaseDb = firebaseApp.firestore();
+let firebaseStorage = firebaseApp.storage();
+
+export { firebaseAuth, firebaseDb, firebaseStorage };

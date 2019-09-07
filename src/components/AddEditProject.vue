@@ -105,10 +105,10 @@
 
       <form-element
         label="Regions"
-        v-if="project.spatialCoverage == 2 || project.spatialCoverage == 3"
+        v-if="project.spatialCoverage == 'Inter-regional' || project.spatialCoverage == 'Region-specific'"
       >
         <select-component
-          v-if="project.spatialCoverage == 2"
+          v-if="project.spatialCoverage == 'Inter-regional'"
           label="Regions"
           :options="regions"
           :multiple="true"
@@ -118,7 +118,7 @@
         ></select-component>
 
         <select-component
-          v-else-if="project.spatialCoverage == 3"
+          v-else-if="project.spatialCoverage == 'Region-specific'"
           label="Region"
           :options="regions"
           v-model="project.regions"
@@ -197,6 +197,8 @@
 
       <form-element label="Components">
         <q-select
+          :dark="dark"
+          :color=" dark ? 'info': 'primary' "
           label="Add component"
           outlined
           dense

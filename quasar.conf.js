@@ -120,9 +120,8 @@ module.exports = function(ctx) {
         "QPagination",
 
         "QChatMessage",
-
-        "QBreadcrumbs",
-        "QBreadcrumbsEl"
+        
+        "QUploader"
       ],
 
       directives: ["Ripple", "ClosePopup"],

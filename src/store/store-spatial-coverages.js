@@ -10,7 +10,7 @@ const state = {
     },
     {
       label: "Region-Specific",
-      value: "Region-Specific"
+      value: "Region-specific"
     },
     {
       label: "Abroad",
