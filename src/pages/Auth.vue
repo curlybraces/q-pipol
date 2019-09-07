@@ -34,7 +34,7 @@
 
       <q-tab-panels v-model="tab" animated>
         <q-tab-panel name="login">
-          <login-register :tab="tab"></login-register>
+          <login-register :tab="tab" @resetPassword="resetPassword = true"></login-register>
         </q-tab-panel>
 
         <q-tab-panel name="register">
@@ -45,18 +45,39 @@
       <q-card-section class="bg-primary">
         <q-list dense>
           <q-item class="items-center">
-            <q-item-section avatar>
-              <q-icon name="fab fa-github" color="white" size="34px" />
-            </q-item-section>
-            <span class="text-white">Hosted at Github.io</span>
+            <q-avatar>
+              <img src="statics/firebase.png"/>
+            </q-avatar>
+            <span class="text-white">Powered by Google Firebase</span>
           </q-item>
         </q-list>
       </q-card-section>
     </q-card>
+
+    <q-dialog
+      v-model="resetPassword"
+      >
+      <q-card class="q-pa-md" style="min-width: 400px">
+        <div class="column q-gutter-y-md">
+          <span class="text-center">Reset Password</span>
+          <q-input
+            outlined
+            dense
+            v-model="email"></q-input>
+          <q-btn
+            label="Send Password Reset Link"
+            @click="sendResetPasswordEmail"
+            >
+          </q-btn>
+        </div>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
 <script>
+import { firebaseAuth } from "boot/firebase";
+import { Dialog } from "quasar";
 import LoginRegister from "../components/Auth/LoginRegister";
 export default {
   components: {
@@ -65,8 +86,25 @@ export default {
   name: "PageLogin",
   data() {
     return {
-      tab: "login"
+      tab: "login",
+      resetPassword: false,
+      email: ""
     };
+  },
+  methods: {
+    sendResetPasswordEmail() {
+      firebaseAuth.sendPasswordResetEmail(this.email)
+        .then(() => {
+          Dialog.create({
+            message: "We have sent a password reset link to the email provided."
+          });
+          this.resetPassword = false;
+        })
+        .catch(err => {
+          Dialog.create(err.message);
+        });
+
+    }
   }
 };
 </script>

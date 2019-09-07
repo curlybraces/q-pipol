@@ -35,6 +35,10 @@
       v-model="formData.password"
     ></q-input>
 
+    <span @click="resetPassword">
+      Click here to reset your password.
+    </span>
+
     <div class="row">
       <q-space />
       <q-btn flat type="reset" label="Reset" />
@@ -79,7 +83,10 @@ export default {
     onReset() {
       this.formData = {};
     },
-    ...mapActions("auth", ["registerUser", "loginUser"])
+    ...mapActions("auth", ["registerUser", "loginUser"]),
+    resetPassword() {
+      this.$emit("resetPassword")
+    }
   },
   filters: {
     titleCase(value) {

@@ -1,5 +1,5 @@
 import { LocalStorage, Loading, Notify } from "quasar";
-import { firebaseAuth, firebaseStorage } from "boot/firebase";
+import { firebaseAuth, firebaseDb } from "boot/firebase";
 import { showErrorMessage } from "src/functions/function-show-error-message";
 
 export function registerUser({ context }, payload) {
@@ -7,8 +7,13 @@ export function registerUser({ context }, payload) {
   Loading.show();
   firebaseAuth
     .createUserWithEmailAndPassword(payload.email, payload.password)
-    .then(response => {
-      console.log(response);
+    .then(user => {
+      let ref = firebaseDb.collection("users");
+      ref.doc(
+        user.user.uid
+      ).set({
+        email: payload.email
+      });
     })
     .catch(error => {
       showErrorMessage(error.message);
@@ -43,14 +48,6 @@ export function changePassword({}, payload) {
     .catch(err => {
       showErrorMessage(err.message);
     });
-}
-
-export function uploadPicture({}, payload) {
-  console.log( payload.files, firebaseStorage )
-  let user = firebaseAuth.currentUser.uid;
-  let storageRef = firebaseStorage.ref(user + '/profile-picture/profilepicture')
-  // storageRef.put(payload)
-  console.log(storageRef)
 }
 
 export function handleAuthStateChange({ commit, dispatch }) {
