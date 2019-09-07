@@ -53,6 +53,7 @@ export function changePassword({}, payload) {
 export function handleAuthStateChange({ commit, dispatch }) {
   firebaseAuth.onAuthStateChanged(user => {
     if (user) {
+      commit("setEmailVerified",user.emailVerified);
       Loading.hide();
       commit("setLoggedIn", true);
       LocalStorage.set("loggedIn", true);

@@ -5,3 +5,7 @@ export function setLoggedIn(state, value) {
 export function setUser(state, value) {
   state.user = value;
 }
+
+export function setEmailVerified(state, value) {
+  state.emailVerified = value;
+}

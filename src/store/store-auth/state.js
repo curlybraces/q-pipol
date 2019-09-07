@@ -1,4 +1,5 @@
 export default {
   loggedIn: false,
-  user: {}
+  user: {},
+  emailVerified: false
 };
