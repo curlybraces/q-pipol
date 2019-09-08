@@ -105,21 +105,7 @@ module.exports = function(ctx) {
         "QMenu",
         "QBadge",
 
-        "QTimeline",
-        "QTimelineEntry",
-
-        "QSplitter",
         "QScrollArea",
-
-        "QCarousel",
-        "QCarouselControl",
-        "QCarouselSlide",
-
-        "QBar",
-        "QInfiniteScroll",
-        "QPagination",
-
-        "QChatMessage",
 
         "QUploader",
         "QRating"
@@ -130,10 +116,8 @@ module.exports = function(ctx) {
       // Quasar plugins
       plugins: [
         "Notify",
-        "AppFullscreen",
         "Dialog",
         "Loading",
-        "BottomSheet",
 
         "AddressbarColor",
         "LocalStorage"
