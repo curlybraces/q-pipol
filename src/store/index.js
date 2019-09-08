@@ -34,6 +34,7 @@ import prerequisites from "./store-prerequisites";
 import prexc_activities from "./store-prexc-activities";
 import priority_concerns from "./store-priority-concerns";
 import provinces from "./store-provinces";
+import ratings from "./store-ratings"
 import regions from "./store-regions";
 import roles from "./store-roles";
 import spatial_coverages from "./store-spatial-coverages";
@@ -84,6 +85,7 @@ export default function(/* { ssrContext } */) {
       prexc_activities,
       priority_concerns,
       provinces,
+      ratings,
       regions,
       roles,
       spatial_coverages,

@@ -2,7 +2,6 @@ import { Notify, Dialog } from "quasar";
 import * as firebase from "firebase/app";
 
 import "firebase/auth";
-// import "firebase/database";
 import "firebase/firestore";
 import "firebase/storage";
 
@@ -18,7 +17,6 @@ var firebaseConfig = {
 
 let firebaseApp = firebase.initializeApp(firebaseConfig);
 let firebaseAuth = firebaseApp.auth();
-// let firebaseDb = firebaseApp.database();
 
 firebaseApp
   .firestore()
@@ -43,4 +41,4 @@ firebaseApp
 let firebaseDb = firebaseApp.firestore();
 let firebaseStorage = firebaseApp.storage();
 
-export { firebaseAuth, firebaseDb, firebaseStorage };
+export { firebase, firebaseAuth, firebaseDb, firebaseStorage };
