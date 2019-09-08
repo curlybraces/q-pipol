@@ -17,7 +17,7 @@ module.exports = function(ctx) {
     extras: [
       // 'ionicons-v4',
       // 'mdi-v3',
-      "fontawesome-v5", // disable after removing from Github
+      // "fontawesome-v5", // disable after removing from Github
       // 'eva-icons',
       // 'themify',
       // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
@@ -120,7 +120,7 @@ module.exports = function(ctx) {
         "QPagination",
 
         "QChatMessage",
-        
+
         "QUploader",
         "QRating"
       ],
@@ -146,8 +146,8 @@ module.exports = function(ctx) {
       scopeHoisting: true,
       // vueRouterMode: 'history',
       // vueCompiler: true,
-      // gzip: true,
-      // analyze: true,
+      gzip: true,
+      // analyze: true, // analyze after build
       // extractCSS: false,
       extendWebpack(cfg) {
         cfg.module.rules.push({
