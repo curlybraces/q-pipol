@@ -26,8 +26,9 @@ export function loginUser({}, payload) {
   Loading.show();
   firebaseAuth
     .signInWithEmailAndPassword(payload.email, payload.password)
-    .then(response => {
-      console.log(response);
+    .then(() => {
+      // console.log(response);
+      Notify.create("Welcome back!");
     })
     .catch(error => {
       showErrorMessage(error.message);
@@ -40,10 +41,9 @@ export function logoutUser() {
 
 export function changePassword({}, payload) {
   var user = firebaseAuth.currentUser;
-  var newPassword = payload.password;
 
   user
-    .updatePassword(newPassword)
+    .updatePassword(payload.password)
     .then(() => {
       Notify.create("Successfully updated password.");
     })
