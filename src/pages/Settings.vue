@@ -164,7 +164,7 @@ export default {
   },
   methods: {
     ...mapActions("settings", ["setDark", "setShowWelcome"]),
-    ...mapActions("auth",["changePassword"]),
+    ...mapActions("auth", ["changePassword"]),
     confirmUserPassword() {
       let user = firebaseAuth.currentUser;
       let cred = firebase.auth.EmailAuthProvider.credential(

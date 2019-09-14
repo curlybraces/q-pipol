@@ -27,7 +27,6 @@ export function loginUser({}, payload) {
   firebaseAuth
     .signInWithEmailAndPassword(payload.email, payload.password)
     .then(() => {
-      // console.log(response);
       Notify.create("Welcome back!");
     })
     .catch(error => {

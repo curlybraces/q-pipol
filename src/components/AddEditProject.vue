@@ -1,31 +1,64 @@
 <template>
   <q-form ref="form" @submit="submitProject" autofocus>
     <q-list separator :dark="dark">
-      <q-item-label header class="text-uppercase"
-        >General Information</q-item-label
-      >
+      <q-item-label header class="text-uppercase">General Information</q-item-label>
 
-      <form-element label="Proposal/Project Name">
+      <form-element label="Commodity/ies">
         <input-component
-          label="Proposal/Project Name"
+          label="Commodity/ies"
+          v-model="project.commodities"
+          :rules="rules.required"
+        ></input-component>
+      </form-element>
+
+      <form-element label="Program/Functional Classification">
+        <input-component
+          label="Program/Functional Classification"
+          v-model="project.program"
+          :rules="rules.required"
+        ></input-component>
+      </form-element>
+
+      <form-element label="1. Proposal/Project Name">
+        <input-component
+          label="1. Proposal/Project Name"
           hint="Project title must match title in budget proposal"
           v-model="project.title"
           :rules="rules.required"
         ></input-component>
       </form-element>
 
-      <form-element label="Implementing Department/Agency">
+      <form-element label="2. Implementing Department/Agency">
         <select-component
-          label="Implementing Department/Agency"
+          label="2. Implementing Department/Agency"
           :options="operatingUnits"
           v-model="project.implementingAgency"
           :rules="rules.required"
         ></select-component>
       </form-element>
 
-      <form-element label="Main Funding Source">
+      <form-element label="3. Program or Project">
+        <options-component
+          label="3. Program or Project"
+          :options="[
+            {
+              label: 'Program',
+              value: 'Program'
+            },
+            {
+              label: 'Project',
+              value: 'Project'
+            }
+          ]"
+          type="radio"
+          v-model="project.classification"
+          :rules="rules.required"
+        ></options-component>
+      </form-element>
+
+      <form-element label="4. Main Funding Source">
         <select-component
-          label="Main Funding Source"
+          label="4. Main Funding Source"
           v-model="project.mainFundingSource"
           hint="Choose the major type of funding source for the PAP."
           :options="fundingSources"
@@ -39,40 +72,35 @@
         ></input-component>
       </form-element>
 
-      <form-element label="Mode of Implementation">
+      <form-element label="4a. Mode of Implementation">
         <select-component
-          label="Mode of Implementation"
+          label="4a. Mode of Implementation"
           v-model="project.implementationMode"
           :options="implementationModes"
           :rules="rules.required"
         ></select-component>
       </form-element>
 
-      <form-element label="Priority Ranking No.">
+      <form-element label="5. Priority Ranking No.">
         <input-component
           type="number"
-          label="Priority Ranking No."
+          label="5. Priority Ranking No."
           v-model="project.priorityRanking"
+          disable
         ></input-component>
       </form-element>
 
       <q-item-label header class="text-uppercase">Categorization</q-item-label>
 
-      <form-element label="Status">
-        <p class="lt-md">
-          Status
-        </p>
-        <options-component
-          label="Status"
-          v-model="project.status"
-          :options="statuses"
-        ></options-component>
+      <form-element label="6a. Status">
+        <p class="lt-md">6a. Status</p>
+        <options-component label="Status" v-model="project.status" :options="statuses"></options-component>
       </form-element>
 
-      <form-element label="Infrastructure">
+      <form-element label="6b. Infrastructure">
         <options-component
           inline
-          label="Infrastructure"
+          label="6b. Infrastructure"
           v-model="project.infrastructure"
           :options="[
             { value: 'Infrastructure', label: 'Infrastructure' },
@@ -82,20 +110,32 @@
         ></options-component>
       </form-element>
 
-      <form-element label="Typology">
-        <p class="lt-md">
-          Typology
-        </p>
+      <form-element label="6c. Typology">
+        <p class="lt-md">6c. Typology</p>
+        <options-component label="Typology" v-model="project.typology" :options="typologies"></options-component>
+      </form-element>
+
+      <form-element label="6d. Budget Tier">
+        <p class="lt-md">6d. Budget Tier</p>
         <options-component
-          label="Typology"
-          v-model="project.typology"
-          :options="typologies"
+          label="Budget Tier"
+          v-model="project.budgetTier"
+          :options="[
+            {
+              label: 'Tier 1',
+              value: 'Tier 1'
+            },
+            {
+              label: 'Tier 2',
+              value: 'Tier 2'
+            }
+          ]"
         ></options-component>
       </form-element>
 
-      <form-element label="Spatial Coverage">
+      <form-element label="7a. Spatial Coverage">
         <select-component
-          label="Spatial Coverage"
+          label="7a. Spatial Coverage"
           :options="spatialCoverages"
           v-model="project.spatialCoverage"
           hint="Choose where your project will be implemented."
@@ -104,7 +144,7 @@
       </form-element>
 
       <form-element
-        label="Regions"
+        label="7b. Regions"
         v-if="
           project.spatialCoverage == 'Inter-regional' ||
             project.spatialCoverage == 'Region-specific'
@@ -112,7 +152,7 @@
       >
         <select-component
           v-if="project.spatialCoverage == 'Inter-regional'"
-          label="Regions"
+          label="7b. Regions"
           :options="regions"
           :multiple="true"
           hint="Select the regions where the project will be implemented."
@@ -122,7 +162,7 @@
 
         <select-component
           v-else-if="project.spatialCoverage == 'Region-specific'"
-          label="Region"
+          label="7b. Region"
           :options="regions"
           v-model="project.regions"
           hint="Select the region where the project will be implemented."
@@ -130,68 +170,61 @@
         ></select-component>
       </form-element>
 
-      <form-element label="Total Project Cost (in PhP)">
+      <form-element label="7c. Province/s">
+        <input-component label="7c. Province/s" v-model="project.provinces" :rules="rules.required"></input-component>
+      </form-element>
+
+      <form-element label="7d. City/Municipality/ies">
+        <input-component
+          label="7d. City/Municipality/ies"
+          v-model="project.cityMunicipalities"
+          :rules="rules.required"
+        ></input-component>
+      </form-element>
+
+      <form-element label="8. Total Project Cost (in PhP)">
         <input-component
           type="number"
-          label="Total Project Cost (in PhP)"
+          label="8. Total Project Cost (in PhP)"
           hint="Total cost of the project in absolute terms"
           v-model="project.totalProjectCost"
           :rules="rules.required"
         ></input-component>
       </form-element>
 
-      <form-element label="Bases for Implementation">
-        <p class="lt-md">
-          Bases for Implementation
-        </p>
+      <form-element label="9. Bases for Implementation">
+        <p class="lt-md">9. Bases for Implementation</p>
         <options-component
-          label="Bases for Implementation"
+          label="9. Bases for Implementation"
           type="checkbox"
           v-model="project.implementationBases"
           :options="implementationBases"
         ></options-component>
       </form-element>
 
-      <form-element label="RDIP Inclusion">
-        <p class="lt-md">
-          RDIP Inclusion
-        </p>
-        <options-component
-          inline
-          v-model="project.rdipInclusion"
-          :options="yesNoNotApplicable"
-        ></options-component>
+      <form-element label="10. RDIP Inclusion">
+        <p class="lt-md">10. RDIP Inclusion</p>
+        <options-component inline v-model="project.rdipInclusion" :options="yesNo"></options-component>
       </form-element>
 
-      <form-element label="PCIP Inclusion">
-        <p class="lt-md">
-          PCIP Inclusion
-        </p>
-        <options-component
-          inline
-          v-model="project.pcipInclusion"
-          :options="yesNoNotApplicable"
-        ></options-component>
+      <form-element label="11. PCIP Inclusion">
+        <p class="lt-md">11. PCIP Inclusion</p>
+        <options-component inline v-model="project.pcipInclusion" :options="yesNo"></options-component>
       </form-element>
 
-      <form-element label="Status of ICC/NEDA Board Processing">
+      <form-element label="12. Status of ICC/NEDA Board Processing">
         <select-component
-          label="Status of ICC/NEDA Board Processing"
+          label="12. Status of ICC/NEDA Board Processing"
           v-model="project.nedaProcessing"
           :options="nedaProcessing"
-        >
-        </select-component>
-        <input-component
-          class="q-mt-md"
-          type="date"
-          v-model="project.dateNedaProcessing"
-        ></input-component>
+        ></select-component>
+        <input-component class="q-mt-md" type="date" v-model="project.dateNedaProcessing"></input-component>
       </form-element>
 
-      <form-element label="Description">
+      <form-element label="13. Description">
         <input-component
           type="textarea"
-          label="Description"
+          label="13. Description"
           hint="Overview, Purpose, and/or Rationale of the Undertaking, Sub-programs/Components"
           v-model="project.description"
           :rules="rules.required"
@@ -216,57 +249,57 @@
         />
       </form-element>
 
-      <form-element label="Purpose">
+      <form-element label="14. Purpose">
         <input-component
           type="textarea"
-          label="Purpose"
+          label="14. Purpose"
           v-model="project.purpose"
           :rules="rules.required"
         ></input-component>
       </form-element>
 
-      <form-element label="Challenges being addressed">
+      <form-element label="15. Challenges being addressed">
         <options-component
           type="checkbox"
-          label="Challenges being addressed"
+          label="15. Challenges being addressed"
           v-model="project.challenges"
           :options="challenges"
           :rules="rules.required"
         ></options-component>
       </form-element>
 
-      <form-element label="Expected Outputs">
+      <form-element label="16. Expected Outputs">
         <input-component
           type="textarea"
-          label="Expected Outputs"
+          label="16. Expected Outputs"
           hint="Actual Deliverables, i.e. 100km of paved roads"
           v-model="project.expectedOutputs"
           :rules="rules.required"
         ></input-component>
       </form-element>
 
-      <form-element label="Beneficiaries">
+      <form-element label="17. Beneficiaries">
         <input-component
           type="textarea"
-          label="Beneficiaries"
+          label="17. Beneficiaries"
           v-model="project.beneficiaries"
           :rules="rules.required"
         ></input-component>
       </form-element>
 
-      <form-element label="Estimated number of persons to be employed">
+      <form-element label="18. Estimated number of persons to be employed">
         <input-component
-          label="Estimated number of persons to be employed"
+          label="18. Estimated number of persons to be employed"
           v-model="project.employmentGeneration"
           type="number"
         ></input-component>
       </form-element>
 
-      <form-element label="Implementation Period">
+      <form-element label="19. Implementation Period">
         <select-component
           outlined
           dense
-          label="Implementation Start"
+          label="19a. Implementation Start"
           hint="Target year of start of implementation"
           :options="implementationPeriods"
           v-model="project.implementationStart"
@@ -276,7 +309,7 @@
         <select-component
           outlined
           dense
-          label="Implementation End"
+          label="19b. Implementation End"
           hint="Target year of project completion"
           :options="filteredImplementationPeriods"
           v-model="project.implementationEnd"
@@ -285,19 +318,17 @@
         />
       </form-element>
 
-      <form-element label="Update on physical accomplishments">
+      <form-element label="20. Physical Status Update/Accomplishment">
         <input-component
-          label="Update on physical accomplishments"
+          label="20. Physical Status Update/Accomplishment"
           type="textarea"
           v-model="project.updates"
         ></input-component>
       </form-element>
 
-      <q-item-label header class="text-uppercase"
-        >Implementation Readiness</q-item-label
-      >
+      <q-item-label header class="text-uppercase">Implementation Readiness</q-item-label>
 
-      <q-item-label header class="text-uppercase">Prerequisites</q-item-label>
+      <q-item-label header>21. Prerequisites</q-item-label>
 
       <form-element label="NEDA Board">
         <options-component
@@ -389,9 +420,7 @@
         ></options-component>
       </form-element>
 
-      <form-element
-        label="Evaluated and endorsed by DA Clearinghouse Committee"
-      >
+      <form-element label="Evaluated and endorsed by DA Clearinghouse Committee">
         <options-component
           inline
           label="Evaluated and endorsed by DA Clearinghouse Committee"
@@ -400,9 +429,7 @@
         ></options-component>
       </form-element>
 
-      <q-item-label header class="text-uppercase"
-        >Technical Readiness</q-item-label
-      >
+      <q-item-label header>22. Technical Readiness</q-item-label>
 
       <form-element label="Concept Note">
         <options-component
@@ -467,43 +494,41 @@
         ></options-component>
       </form-element>
 
-      <form-element label="Implementation Risks">
+      <form-element label="23. Level of Readiness">
         <input-component
-          label="Implementation Risks"
+          label="23. Level of Readiness"
+          type="textarea"
+          v-model="project.readinessLevel"
+        ></input-component>
+      </form-element>
+
+      <form-element label="24. Implementation Risks">
+        <input-component
+          label="24. Implementation Risks"
           type="textarea"
           v-model="project.implementationRisks"
         ></input-component>
       </form-element>
 
-      <form-element label="Mitigation Strategies">
+      <form-element label="25. Mitigation Strategies">
         <input-component
-          label="Mitigation Strategies"
+          label="25. Mitigation Strategies"
           type="textarea"
           v-model="project.mitigationStrategies"
         ></input-component>
       </form-element>
 
-      <q-item-label header class="text-uppercase"
-        >Strategic Alignment</q-item-label
-      >
+      <q-item-label header class="text-uppercase">Strategic Alignment</q-item-label>
 
       <form-element
-        label="New Thinking for Agriculture (Eight Paradigms for a Food-Secure Philippines)"
+        label="26. New Thinking for Agriculture (Eight Paradigms for a Food-Secure Philippines)"
       >
-        <p class="lt-md">
-          New Thinking in Agriculture
-        </p>
-        <options-component
-          type="checkbox"
-          :options="newThinkings"
-          v-model="project.newThinkings"
-        ></options-component>
+        <p class="lt-md">26. New Thinking in Agriculture</p>
+        <options-component type="checkbox" :options="newThinkings" v-model="project.newThinkings"></options-component>
       </form-element>
 
       <form-element label="Philippine Development Plan">
-        <p class="lt-md">
-          Philippine Development Plan
-        </p>
+        <p class="lt-md">Philippine Development Plan</p>
         <q-tree
           :nodes="pdpChapters"
           node-key="value"
@@ -515,9 +540,7 @@
       </form-element>
 
       <form-element label="Sustainable Development Goals">
-        <p class="lt-md">
-          Sustainable Development Goals
-        </p>
+        <p class="lt-md">Sustainable Development Goals</p>
         <options-component
           type="checkbox"
           :options="sustainableDevelopmentGoals"
@@ -526,9 +549,7 @@
       </form-element>
 
       <form-element label="0 + 10 Socioeconomic Agenda">
-        <p class="lt-md">
-          0+10 Socioeconomic Agenda
-        </p>
+        <p class="lt-md">0+10 Socioeconomic Agenda</p>
         <options-component
           type="checkbox"
           :options="tenPointAgenda"
@@ -537,19 +558,12 @@
       </form-element>
 
       <form-element label="Level of GAD Responsiveness">
-        <p class="lt-md">
-          Level of GAD Responsiveness
-        </p>
-        <options-component
-          :options="gadResponsiveness"
-          v-model="project.gadResponsiveness"
-        ></options-component>
+        <p class="lt-md">Level of GAD Responsiveness</p>
+        <options-component :options="gadResponsiveness" v-model="project.gadResponsiveness"></options-component>
       </form-element>
 
       <form-element label="Infrastructure Sector">
-        <p class="lt-md">
-          Infrastructure Sector
-        </p>
+        <p class="lt-md">Infrastructure Sector</p>
         <q-tree
           :nodes="infrastructureSectors"
           node-key="value"
@@ -558,48 +572,29 @@
           :ticked.sync="project.infrastructureSectors"
           :dark="dark"
           default-expand-all
-        >
-        </q-tree>
+        ></q-tree>
       </form-element>
 
-      <q-item-label header>
-        FINANCIAL AND ECONOMIC BENEFITS
-      </q-item-label>
+      <q-item-label header>FINANCIAL AND ECONOMIC BENEFITS</q-item-label>
 
       <form-element label="Estimated Project Life (in years)">
         <input-component
           label="Estimated Project Life (in years)"
           type="number"
           v-model="project.projectLife"
-        >
-        </input-component>
+        ></input-component>
       </form-element>
 
       <form-element label="Benefit-Cost Ratio">
-        <input-component
-          label="Benefit-Cost Ratio"
-          type="number"
-          v-model="project.bcr"
-        >
-        </input-component>
+        <input-component label="Benefit-Cost Ratio" type="number" v-model="project.bcr"></input-component>
       </form-element>
 
       <form-element label="Internal Rate of Return (in %)">
-        <input-component
-          label="Internal Rate of Return (in %)"
-          type="number"
-          v-model="project.irr"
-        >
-        </input-component>
+        <input-component label="Internal Rate of Return (in %)" type="number" v-model="project.irr"></input-component>
       </form-element>
 
       <form-element label="Return on Investment (in %)">
-        <input-component
-          label="Return on Investment (in %)"
-          type="number"
-          v-model="project.roi"
-        >
-        </input-component>
+        <input-component label="Return on Investment (in %)" type="number" v-model="project.roi"></input-component>
       </form-element>
 
       <q-item-label header>PROJECT COSTING</q-item-label>
@@ -619,10 +614,7 @@
         ></select-component>
       </form-element>
 
-      <form-element
-        label="Other Funding Institution"
-        v-if="project.mainFundingSource == 99"
-      >
+      <form-element label="Other Funding Institution" v-if="project.mainFundingSource == 99">
         <input-component
           label="Other Funding Institution"
           v-if="project.mainFundingSource == 99"
@@ -631,10 +623,7 @@
         ></input-component>
       </form-element>
 
-      <form-element
-        label="Other Funding Institution"
-        v-if="project.categorization == 2"
-      >
+      <form-element label="Other Funding Institution" v-if="project.categorization == 2">
         <select-component
           v-if="project.categorization == 2"
           label="Project Preparation Document"
@@ -658,32 +647,21 @@
       </form-element>
 
       <form-element label="Costing by Fund Source">
-        <p class="lt-md">
-          Costing by Funding Source
-        </p>
+        <p class="lt-md">Costing by Funding Source</p>
         <template v-if="project.fundingSourceBreakdown">
-          <div
-            class="row"
-            v-for="(fs, index) in project.fundingSourceBreakdown"
-            :key="index"
-          >
+          <div class="row" v-for="(fs, index) in project.fundingSourceBreakdown" :key="index">
             <costing-component
               :fs="fs"
               :key="index"
               :implementationStart="project.implementationStart"
               :implementationEnd="project.implementationEnd"
               @delete="deleteFundingSource(index)"
-            >
-            </costing-component>
+            ></costing-component>
           </div>
         </template>
 
         <div class="row q-col-gutter-sm q-pa-md">
-          <select-component
-            class="col-12 col-md"
-            :options="fundingSources"
-            v-model="fundingSource"
-          ></select-component>
+          <select-component class="col-12 col-md" :options="fundingSources" v-model="fundingSource"></select-component>
           <input-component
             label="2016 &amp; Prior"
             class="col-12 col-md"
@@ -741,21 +719,12 @@
             :readonly="true"
             :value="investmentTotal"
           ></input-component>
-          <q-btn
-            flat
-            dense
-            round
-            color="green"
-            icon="add_box"
-            @click="addFundingSource()"
-          />
+          <q-btn flat dense round color="green" icon="add_box" @click="addFundingSource()" />
         </div>
       </form-element>
 
       <form-element v-if="project.components" label="Costing by Component">
-        <p class="lt-md">
-          Costing by Component
-        </p>
+        <p class="lt-md">Costing by Component</p>
         <template v-if="project.components.length">
           <div
             class="row q-pa-md q-col-gutter-sm"
@@ -828,18 +797,13 @@
         </template>
         <template v-else>
           <p class="text-red">
-            <q-icon name="error" />
-            No components added.
+            <q-icon name="error" />No components added.
           </p>
         </template>
       </form-element>
 
       <div class="text-center q-py-md">
-        <button-component
-          icon="save"
-          type="submit"
-          label="Save"
-        ></button-component>
+        <button-component icon="save" type="submit" label="Save"></button-component>
       </div>
     </q-list>
   </q-form>
@@ -872,6 +836,16 @@ export default {
       filteredImplementationPeriods: [],
       showHelp: false,
       showAddFundSource: true,
+      yesNo: [
+        {
+          label: "Yes",
+          value: true
+        },
+        {
+          label: "No",
+          value: false
+        }
+      ],
       yesNoNotApplicable: [
         {
           label: "Yes",

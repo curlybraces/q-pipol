@@ -6,7 +6,7 @@ export function addRating() {
 
 export function fbReadData({ commit }) {
   let userId = firebaseAuth.currentUser.uid;
-  let ref = firebaseDb.collection("ratings").where("ratedBy","==",userId);
+  let ref = firebaseDb.collection("ratings").where("ratedBy", "==", userId);
   ref.onSnapshot(snapshot => {
     commit("setRatingsDownloaded", true);
     snapshot.docChanges().forEach(change => {
