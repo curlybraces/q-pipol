@@ -1,6 +1,10 @@
 const state = {
   showWelcome: false,
-  dark: false
+  dark: false,
+  userName: "",
+  ipFocal: "",
+  planningHead: "",
+  agencyHead: ""
 };
 
 const mutations = {
