@@ -1,9 +1,8 @@
-// import something here
 import { Loading, QSpinner } from "quasar";
 
 Loading.setDefaults({
   message: "Processing your request",
-  messageColor: "secondary",
+  messageColor: "primary",
   spinner: QSpinner,
-  spinnerColor: "secondary"
+  spinnerColor: "primary"
 });

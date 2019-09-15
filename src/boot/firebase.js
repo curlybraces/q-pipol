@@ -1,4 +1,4 @@
-import { Notify, Dialog } from "quasar";
+import { Dialog } from "quasar";
 import * as firebase from "firebase/app";
 
 import "firebase/auth";
@@ -22,9 +22,7 @@ firebaseApp
   .firestore()
   .enablePersistence()
   .then(() => {
-    Notify.create({
-      message: "Offline capabilities are enabled."
-    });
+    console.log("Message: Offline capabilities are enabled.")
   })
   .catch(err => {
     if (err.code == "failed-precondition") {

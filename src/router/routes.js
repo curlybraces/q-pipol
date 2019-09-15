@@ -35,6 +35,10 @@ const routes = [
       {
         path: "ranked",
         component: () => import("pages/RankedProjects.vue")
+      },
+      {
+        path: "projects/:id",
+        component: () => import("pages/projects/ViewProject.vue")
       }
     ]
   },

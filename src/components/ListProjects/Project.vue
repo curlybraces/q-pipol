@@ -1,20 +1,12 @@
 <template>
   <q-item>
     <q-item-section class="col-2 gt-sm">
-      <q-item-label class="q-mt-sm">
-        {{ project.implementingAgency }}
-      </q-item-label>
+      <q-item-label class="q-mt-sm">{{ project.implementingAgency }}</q-item-label>
     </q-item-section>
 
     <q-item-section>
-      <q-item-label
-        lines="1"
-        v-html="$options.filters.searchHighlight(project.title, search)"
-      >
-      </q-item-label>
-      <q-item-label caption lines="2">
-        {{ project.description }}
-      </q-item-label>
+      <q-item-label lines="1" v-html="$options.filters.searchHighlight(project.title, search)"></q-item-label>
+      <q-item-label caption lines="2">{{ project.description }}</q-item-label>
       <q-item-label caption lines="1">
         [
         {{ project.implementationStart + " - " + project.implementationEnd }}
@@ -23,13 +15,13 @@
     </q-item-section>
 
     <q-item-section side>
-      <q-item-label>
-        PhP {{ Number(project.totalProjectCost).toLocaleString() }}
-      </q-item-label>
+      <q-item-label>PhP {{ Number(project.totalProjectCost).toLocaleString() }}</q-item-label>
     </q-item-section>
 
     <q-item-section side>
       <div class="text-grey-8 q-gutter-xs">
+        <q-btn size="12px" flat dense round icon="visibility" :to="'projects/' + project.id"/>
+
         <q-btn
           size="12px"
           flat
@@ -69,10 +61,7 @@
       transition-show="slide-up"
       transition-hide="slide-down"
     >
-      <edit-project
-        :project="project"
-        @close="showEditProject = false"
-      ></edit-project>
+      <edit-project :project="project" @close="showEditProject = false"></edit-project>
     </q-dialog>
 
     <q-dialog
@@ -82,9 +71,7 @@
       transition-show="slide-up"
       transition-hide="slide-down"
     >
-      <review-project :project="project" @close="showReviewProject = false">
-      </review-project>
-      />
+      <review-project :project="project" @close="showReviewProject = false"></review-project>/>
     </q-dialog>
   </q-item>
 </template>
