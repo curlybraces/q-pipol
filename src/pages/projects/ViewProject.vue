@@ -172,165 +172,9 @@
 
         <label-value label="Other Funding Institution" :value="project.preparationDocument" />
 
-        <form-element label="Costing by Fund Source">
-          <p class="lt-md">Costing by Funding Source</p>
-          <template v-if="project.fundingSourceBreakdown">
-            <div class="row" v-for="(fs, index) in project.fundingSourceBreakdown" :key="index">
-              <costing-component
-                :fs="fs"
-                :key="index"
-                :implementationStart="project.implementationStart"
-                :implementationEnd="project.implementationEnd"
-                @delete="deleteFundingSource(index)"
-              ></costing-component>
-            </div>
-          </template>
+        <q-markup-table></q-markup-table>
 
-          <div class="row q-col-gutter-sm q-pa-md">
-            <select-component
-              class="col-12 col-md"
-              :options="fundingSources"
-              v-model="fundingSource"
-            ></select-component>
-            <input-component
-              label="2016 &amp; Prior"
-              class="col-12 col-md"
-              type="number"
-              v-if="project.implementationStart < 2017"
-              v-model="investment2016"
-            ></input-component>
-            <input-component
-              label="2017"
-              class="col-12 col-md"
-              type="number"
-              v-model="investment2017"
-            ></input-component>
-            <input-component
-              label="2018"
-              class="col-12 col-md"
-              type="number"
-              v-model="investment2018"
-            ></input-component>
-            <input-component
-              label="2019"
-              class="col-12 col-md"
-              type="number"
-              v-model="investment2019"
-            ></input-component>
-            <input-component
-              label="2020"
-              class="col-12 col-md"
-              type="number"
-              v-model="investment2020"
-            ></input-component>
-            <input-component
-              label="2021"
-              class="col-12 col-md"
-              type="number"
-              v-model="investment2021"
-            ></input-component>
-            <input-component
-              label="2022"
-              class="col-12 col-md"
-              type="number"
-              v-model="investment2022"
-            ></input-component>
-            <input-component
-              label="2023 &amp; Beyond"
-              class="col-12 col-md"
-              type="number"
-              v-if="project.implementationEnd > 2022"
-              v-model="investment2023"
-            ></input-component>
-            <input-component
-              label="Total"
-              class="col-12 col-md"
-              type="number"
-              :readonly="true"
-              :value="investmentTotal"
-            ></input-component>
-            <q-btn flat dense round color="green" icon="add_box" @click="addFundingSource()" />
-          </div>
-        </form-element>
-
-        <form-element v-if="project.components" label="Costing by Component">
-          <p class="lt-md">Costing by Component</p>
-          <template v-if="project.components.length">
-            <div
-              class="row q-pa-md q-col-gutter-sm"
-              v-for="(comp, index) in project.componentBreakdown"
-              :key="index"
-            >
-              <select-component
-                class="col-12 col-md"
-                :options="project.components"
-                v-model="comp.component"
-              ></select-component>
-              <input-component
-                label="2016 &amp; Prior"
-                class="col-12 col-md"
-                type="number"
-                v-if="project.implementationStart < 2017"
-                v-model="comp.investment2016"
-              ></input-component>
-              <input-component
-                label="2017"
-                class="col-12 col-md"
-                type="number"
-                v-model="comp.investment2017"
-              ></input-component>
-              <input-component
-                label="2018"
-                class="col-12 col-md"
-                type="number"
-                v-model="comp.investment2018"
-              ></input-component>
-              <input-component
-                label="2019"
-                class="col-12 col-md"
-                type="number"
-                v-model="comp.investment2019"
-              ></input-component>
-              <input-component
-                label="2020"
-                class="col-12 col-md"
-                type="number"
-                v-model="comp.investment2020"
-              ></input-component>
-              <input-component
-                label="2021"
-                class="col-12 col-md"
-                type="number"
-                v-model="comp.investment2021"
-              ></input-component>
-              <input-component
-                label="2022"
-                class="col-12 col-md"
-                type="number"
-                v-model="comp.investment2022"
-              ></input-component>
-              <input-component
-                label="2023 &amp; Beyond"
-                class="col-12 col-md"
-                type="number"
-                v-if="project.implementationEnd > 2022"
-                v-model="comp.investment2023"
-              ></input-component>
-              <input-component
-                label="Total"
-                class="col-12 col-md"
-                type="number"
-                :readonly="true"
-                :value="comp.investmentTotal"
-              ></input-component>
-            </div>
-          </template>
-          <template v-else>
-            <p class="text-red">
-              <q-icon name="error" />No components added.
-            </p>
-          </template>
-        </form-element>
+        <q-markup-table></q-markup-table>
       </q-list>
     </q-card>
   </q-page>
@@ -340,22 +184,28 @@
 import { firebaseDb } from "boot/firebase";
 import { mapState, mapGetters } from "vuex";
 import { Notify, Loading } from "quasar";
-import InputComponent from "../../components/FormInputs/InputComponent";
-import SelectComponent from "../../components/FormInputs/SelectComponent";
-import FormElement from "../../components/FormInputs/FormElement";
-import CostingComponent from "../../components/CostingComponent";
 
 const LabelValue = () => import("../../components/LabelValue");
 
-// import { saveAs } from "file-saver";
-import * as docx from "docx";
+import { saveAs } from "file-saver";
+import {
+  Document,
+  Packer,
+  Table,
+  Paragraph,
+  WidthType,
+  TableAnchorType,
+  Header,
+  HeadingLevel,
+  // Footer,
+  TextRun,
+  VerticalAlign,
+  BorderStyle,
+  AlignmentType
+} from "docx";
 
 export default {
   components: {
-    SelectComponent,
-    FormElement,
-    InputComponent,
-    CostingComponent,
     LabelValue
   },
   name: "PageViewProject",
@@ -370,42 +220,71 @@ export default {
   },
   methods: {
     printProject() {
-      const doc = new docx.Document({
+      const doc = new Document({
         creator: "DA-IPMS"
       });
 
-      const table = new docx.Table({
+      const table = new Table({
         rows: 100,
-        columns: 2
+        columns: 2,
+        float: {
+          horizontalAnchor: TableAnchorType.MARGIN,
+          verticalAnchor: TableAnchorType.MARGIN
+        },
+        width: 9070,
+        widthUnitType: WidthType.DXA,
+        layout: TableLayoutType.FIXED,
+        margins: {
+          top: 100,
+          bottom: 100,
+          right: 100,
+          left: 100
+        }
       });
 
-      let i = -1;
-      Object.entries(this.project).forEach(([key, value]) => {
-        console.log(++i, "=>", key, "=>", value);
-        table.getCell(++i, 1).add(new docx.Paragraph(key));
-        table.getCell(i, 1).add(new docx.Paragraph(value));
-      });
+      const cell = table.getCell(0, 0);
+      cell.Properties.setWidth("30%", WidthType.PCT);
+      cell.add(new Paragraph("1. Proposal/Project Name"));
+
+      const cell2 = table.getCell(0, 1);
+      cell2.Properties.setWidth("70%", WidthType.PCT);
+      cell2.add(new Paragraph(this.project.title));
+
+      table
+        .getCell(1, 0)
+        .add(new Paragraph("2.	Implementing Department/ Agency (or Agencies)"));
 
       doc.addSection({
         properties: {},
         headers: {
-          default: new docx.Header({
+          default: new Header({
             children: [
-              new docx.Paragraph("Project Title: " + this.project.title)
+              new Paragraph({
+                text: "BP 202",
+                alignment: AlignmentType.CENTER
+              }),
+              new Paragraph({
+                text:
+                  "New/Expanded Locally or Foreign Assisted Program/Project",
+                alignment: AlignmentType.CENTER
+              })
             ]
           })
         },
         children: [
-          new docx.Paragraph({
+          new Paragraph({
             text: this.project.title,
-            heading: docx.HeadingLevel.HEADING_1
+            heading: HeadingLevel.HEADING_1,
+            spacing: {
+              after: 200
+            }
           }),
           table
         ]
       });
 
       Loading.show();
-      docx.Packer.toBlob(doc).then(blob => {
+      Packer.toBlob(doc).then(blob => {
         saveAs(blob, "mydoc.docx");
         Loading.hide();
       });
