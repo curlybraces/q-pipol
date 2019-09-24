@@ -22,7 +22,7 @@ firebaseApp
   .firestore()
   .enablePersistence()
   .then(() => {
-    console.log("Message: Offline capabilities are enabled.")
+    console.log("Message: Offline capabilities are enabled.");
   })
   .catch(err => {
     if (err.code == "failed-precondition") {
