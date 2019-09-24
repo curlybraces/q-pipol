@@ -19,6 +19,8 @@
 
         <label-value label="2. Implementing Department/Agency" :value="project.implementingAgency" />
 
+        <label-value label="3. Priority Ranking No." :value="project.priorityRanking" />
+
         <label-value label="4. Main Funding Source" :value="project.mainFundingSource" />
 
         <label-value label="4a. Mode of Implementation" :value="project.implementationMode" />
@@ -197,10 +199,11 @@ import {
   TableAnchorType,
   Header,
   HeadingLevel,
+  TableLayoutType,
   // Footer,
-  TextRun,
-  VerticalAlign,
-  BorderStyle,
+  // TextRun,
+  // VerticalAlign,
+  // BorderStyle,
   AlignmentType
 } from "docx";
 
@@ -225,7 +228,7 @@ export default {
       });
 
       const table = new Table({
-        rows: 100,
+        rows: 50,
         columns: 2,
         float: {
           horizontalAnchor: TableAnchorType.MARGIN,
@@ -253,6 +256,8 @@ export default {
       table
         .getCell(1, 0)
         .add(new Paragraph("2.	Implementing Department/ Agency (or Agencies)"));
+
+      table.getCell(1, 1).add(new Paragraph(this.project.implementingAgency));
 
       doc.addSection({
         properties: {},
