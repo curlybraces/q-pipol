@@ -4,7 +4,7 @@
       <q-toolbar :class="(dark ? 'bg-info' : 'bg-primary') + ' text-white'">
         <q-avatar icon="note_add" />
         <q-toolbar-title>View Project</q-toolbar-title>
-        <q-btn @click="printProject" icon="print" flat round dense />
+        <q-btn @click="printProject" icon="save" flat round dense />
       </q-toolbar>
       <q-list separator :dark="dark">
         <label-value label="PAP UACS Code" :value="project.uacsCode" />
@@ -339,7 +339,7 @@
 <script>
 import { firebaseDb } from "boot/firebase";
 import { mapState, mapGetters } from "vuex";
-import { Notify } from "quasar";
+import { Notify, Loading } from "quasar";
 import InputComponent from "../../components/FormInputs/InputComponent";
 import SelectComponent from "../../components/FormInputs/SelectComponent";
 import FormElement from "../../components/FormInputs/FormElement";
@@ -347,7 +347,7 @@ import CostingComponent from "../../components/CostingComponent";
 
 const LabelValue = () => import("../../components/LabelValue");
 
-import * as fs from "fs";
+// import { saveAs } from "file-saver";
 import * as docx from "docx";
 
 export default {
@@ -372,6 +372,42 @@ export default {
     printProject() {
       const doc = new docx.Document({
         creator: "DA-IPMS"
+      });
+
+      const table = new docx.Table({
+        rows: 100,
+        columns: 2
+      });
+
+      let i = -1;
+      Object.entries(this.project).forEach(([key, value]) => {
+        console.log(++i, "=>", key, "=>", value);
+        table.getCell(++i, 1).add(new docx.Paragraph(key));
+        table.getCell(i, 1).add(new docx.Paragraph(value));
+      });
+
+      doc.addSection({
+        properties: {},
+        headers: {
+          default: new docx.Header({
+            children: [
+              new docx.Paragraph("Project Title: " + this.project.title)
+            ]
+          })
+        },
+        children: [
+          new docx.Paragraph({
+            text: this.project.title,
+            heading: docx.HeadingLevel.HEADING_1
+          }),
+          table
+        ]
+      });
+
+      Loading.show();
+      docx.Packer.toBlob(doc).then(blob => {
+        saveAs(blob, "mydoc.docx");
+        Loading.hide();
       });
     }
   },
