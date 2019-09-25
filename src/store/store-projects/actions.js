@@ -1,6 +1,7 @@
 import { Notify } from "quasar";
 import { firebaseAuth, firebaseDb } from "boot/firebase";
 import { showErrorMessage } from "src/functions/function-show-error-message";
+import slugify from "slugify";
 
 export function addProject({ dispatch }, project) {
   dispatch("fbAddProject", project);
@@ -31,15 +32,18 @@ export function fbReadData({ commit }) {
   });
 }
 
-export function fbAddProject({}, payload) {
+export function fbAddProject({ }, payload) {
   let userId = firebaseAuth.currentUser.uid;
 
   let ref = firebaseDb.collection("projects");
   let project = payload;
+  let slug = slugify(project.implementingAgency + ' - ' + project.title, {
+    lower: true
+  });
   project.addedBy = userId;
 
-  ref
-    .add(project)
+  let docRef = ref.doc(slug);
+  docRef.set(project)
     .then(() => {
       Notify.create("Project Added");
       this.$router.push("/");
@@ -49,7 +53,7 @@ export function fbAddProject({}, payload) {
     });
 }
 
-export function fbUpdateProject({}, payload) {
+export function fbUpdateProject({ }, payload) {
   let userId = firebaseAuth.currentUser.uid;
   payload.updatedBy = userId;
   let projectRef = firebaseDb.collection("projects").doc(payload.id);
@@ -75,15 +79,6 @@ export function fbDeleteProject({ commit }, projectId) {
     .catch(err => {
       showErrorMessage(err.message);
     });
-  // let userId = firebaseAuth.currentUser.uid;
-  // let projectRef = firebaseDb.ref("projects/" + userId + "/" + projectId);
-  // projectRef.remove(error => {
-  //   if (error) {
-  //     showErrorMessage(error.message);
-  //   } else {
-  //     Notify.create("Project Deleted");
-  //   }
-  // });
 }
 
 export function setSearch({ commit }, value) {

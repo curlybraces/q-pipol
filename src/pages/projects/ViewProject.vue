@@ -65,7 +65,9 @@
 
         <label-value label="14. Purpose" :value="project.purpose" />
 
-        <label-value label="15. Challenges being addressed" :value="project.challenges" />
+        <label-value
+          label="15. Challenges being addressed"
+          :value="project.challenges" />
 
         <label-value label="16. Expected Outputs" :value="project.expectedOutputs" />
 

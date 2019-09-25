@@ -4,7 +4,7 @@
       <q-item-label>{{ label }}</q-item-label>
     </q-item-section>
     <q-item-section>
-      <q-item-label>{{ value }}</q-item-label>
+      <q-item-label>{{ value | showValue }}</q-item-label>
     </q-item-section>
   </q-item>
 </template>
@@ -12,6 +12,15 @@
 <script>
 export default {
   name: "LabelValue",
-  props: ["label", "value"]
+  props: ["label", "value"],
+  filters: {
+    showValue(val) {
+      if (Array.isArray(val)) {
+        return val.join(", ");
+      } else {
+        return val;
+      }
+    }
+  }
 };
 </script>
