@@ -1,11 +1,12 @@
 <template>
-  <q-page padding>
+  <q-page>
     <q-card :class="dark ? 'bg-grey-10' : 'bg-white'">
       <q-toolbar :class="(dark ? 'bg-info' : 'bg-primary') + ' text-white'">
         <q-avatar icon="note_add" />
         <q-toolbar-title>View Project</q-toolbar-title>
         <q-btn @click="printProject" icon="save" flat round dense />
       </q-toolbar>
+
       <q-list separator :dark="dark">
         <label-value label="PAP UACS Code" :value="project.uacsCode" />
 

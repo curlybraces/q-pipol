@@ -1,5 +1,5 @@
 <template>
-  <q-page padding>
+  <q-page>
     <q-card :class="dark ? 'bg-grey-10' : 'bg-white'">
       <q-toolbar :class="(dark ? 'bg-info' : 'bg-primary') + ' text-white'">
         <q-avatar icon="note_add" />
