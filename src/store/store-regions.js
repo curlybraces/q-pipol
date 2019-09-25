@@ -13,87 +13,87 @@ const state = {
     {
       label: "NCR",
       order: 3,
-      value: 13
+      value: "NCR"
     },
     {
       label: "CAR",
       order: 4,
-      value: 14
+      value: "CAR"
     },
     {
       label: "Region I",
       order: 5,
-      value: 1
+      value: "Region I"
     },
     {
       label: "Region II",
       order: 6,
-      value: 2
+      value: "Region II"
     },
     {
       label: "Region III",
       order: 7,
-      value: 3
+      value: "Region III"
     },
     {
       label: "Region IV-A",
       order: 8,
-      value: 4
+      value: "Region IV-A"
     },
     {
       label: "Region IV-B",
       order: 9,
-      value: 17
+      value: "Region IV-B"
     },
     {
       label: "Region V",
       order: 10,
-      value: 5
+      value: "Region V"
     },
     {
       label: "Region VI",
       order: 11,
-      value: 6
+      value: "Region VI"
     },
     {
       label: "Region VII",
       order: 12,
-      value: 7
+      value: "Region VII"
     },
     {
       label: "Region VIII",
       order: 13,
-      value: 8
+      value: "Region VIII"
     },
     {
       label: "Region IX",
       order: 14,
-      value: 9
+      value: "Region IX"
     },
     {
       label: "Region X",
       order: 15,
-      value: 10
+      value: "Region X"
     },
     {
       label: "Region XI",
       order: 16,
-      value: 11
+      value: "Region XI"
     },
     {
       label: "Region XII",
       order: 17,
-      value: 12
+      value: "Region XII"
     },
     {
       label: "Region XIII",
       order: 18,
-      value: 16
+      value: "Region XIII"
     },
     {
       label: "ARMM",
       order: 19,
-      value: 15
+      value: "ARMM"
     }
   ]
 };
@@ -108,7 +108,7 @@ const actions = {};
 
 const getters = {
   regions: state => {
-    return state.regions.sort(function(a, b) {
+    return state.regions.sort(function (a, b) {
       return parseInt(a.order) > parseInt(b.order) ? 1 : -1;
     });
   }

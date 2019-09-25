@@ -2,35 +2,35 @@ const state = {
   prerequisites: [
     {
       label: "NEDA Board",
-      value: 1
+      value: "NEDA Board"
     },
     {
       label: "NEDA Board - ICC",
-      value: 2
+      value: "NEDA Board - ICC"
     },
     {
       label: "DPWH Certification",
-      value: 3
+      value: "DPWH Certification"
     },
     {
       label: "DPWH MOA",
-      value: 4
+      value: "DPWH MOA"
     },
     {
       label: "DPWH Costing",
-      value: 5
+      value: "DPWH Costing"
     },
     {
       label: "DENR Clearance",
-      value: 6
+      value: "DENR Clearance"
     },
     {
       label: "RDC Consultation",
-      value: 7
+      value: "RDC Consultation"
     },
     {
       label: "CSO Consultation",
-      value: 8
+      value: "CSO Consultation"
     },
     {
       label: "List of Locations",
@@ -38,11 +38,11 @@ const state = {
     },
     {
       label: "List of Beneficiaries",
-      value: 10
+      value: "List of Beneficiaries"
     },
     {
       label: "Evaluated and Endorsed by the DA Clearing House",
-      value: 11
+      value: "Evaluated and Endorsed by the DA Clearing House"
     }
   ]
 };

@@ -1,39 +1,39 @@
 const state = {
   challenges: [
     {
-      value: 1,
+      value: "Low farm productivity",
       label: "Low farm productivity"
     },
     {
-      value: 2,
+      value: "Lack of labor",
       label: "Lack of labor"
     },
     {
-      value: 3,
+      value: "Unaffordable and inaccessible credit",
       label: "Unaffordable and inaccessible credit"
     },
     {
-      value: 4,
+      value: "Limited use of technology",
       label: "Limited use of technology"
     },
     {
-      value: 5,
+      value: "Limited farmland diversification",
       label: "Limited farmland diversification"
     },
     {
-      value: 6,
+      value: "Undeveloped agri-manufacturing and export",
       label: "Undeveloped agri-manufacturing and export"
     },
     {
-      value: 7,
+      value: "Severe deforestation/land degradation",
       label: "Severe deforestation/land degradation"
     },
     {
-      value: 8,
+      value: "Aging farmers and fisherfolk",
       label: "Aging farmers and fisherfolk"
     },
     {
-      value: 9,
+      value: "Climate change",
       label: "Climate change"
     }
   ]

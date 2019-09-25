@@ -2,82 +2,82 @@ const state = {
   sustainableDevelopmentGoals: [
     {
       label: "End poverty in all its forms everywhere",
-      value: 1
+      value: "End poverty in all its forms everywhere"
     },
     {
       label:
         "End hunger, achieve food security and improved nutrition and promote sustainable agriculture",
-      value: 2
+      value: "End hunger, achieve food security and improved nutrition and promote sustainable agriculture",
     },
     {
       label: "Ensure healthy lives and promote well-being for all at all ages",
-      value: 3
+      value: "Ensure healthy lives and promote well-being for all at all ages"
     },
     {
       label:
         "Ensure inclusive and equitable quality education and promote lifelong learning opportunities for all",
-      value: 4
+      value: "Ensure inclusive and equitable quality education and promote lifelong learning opportunities for all"
     },
     {
       label: "Achieve gender equality and empower all women and girls",
-      value: 5
+      value: "Achieve gender equality and empower all women and girls"
     },
     {
       label:
         "Ensure availability and sustainable management of water and sanitation for all",
-      value: 6
+      value: "Ensure availability and sustainable management of water and sanitation for all"
     },
     {
       label:
         "Ensure access to affordable, reliable, sustainable and modern energy for all",
-      value: 7
+      value: "Ensure access to affordable, reliable, sustainable and modern energy for all"
     },
     {
       label:
         "Promote sustained, inclusive and sustainable economic growth, full and productive employment and decent work for all",
-      value: 8
+      value: "Promote sustained, inclusive and sustainable economic growth, full and productive employment and decent work for all"
     },
     {
       label:
         "Build resilient infrastructure, promote inclusive and sustainable industrialization and foster innovation",
-      value: 9
+      value: "Build resilient infrastructure, promote inclusive and sustainable industrialization and foster innovation",
     },
     {
       label: "Reduce inequality within and among countries",
-      value: 10
+      value: "Reduce inequality within and among countries"
     },
     {
       label:
         "Make cities and human settlements inclusive, safe, resilient and sustainable",
-      value: 11
+      value: "Make cities and human settlements inclusive, safe, resilient and sustainable"
     },
     {
       label: "Ensure sustainable consumption and production patterns",
-      value: 12
+      value: "Ensure sustainable consumption and production patterns"
     },
     {
       label: "Take urgent action to combat climate change and its impacts",
-      value: 13
+      value: "Take urgent action to combat climate change and its impacts"
     },
     {
       label:
         "Conserve and sustainably use the oceans, seas and marine resources for sustainable development",
-      value: 14
+      value: "Conserve and sustainably use the oceans, seas and marine resources for sustainable development"
     },
     {
       label:
         "Protect, restore and promote sustainable use of terrestrial ecosystems, sustainably manage forests, combat desertification, and halt and reverse land degradation and halt biodiversity loss",
-      value: 15
+      value: "Protect, restore and promote sustainable use of terrestrial ecosystems, sustainably manage forests, combat desertification, and halt and reverse land degradation and halt biodiversity loss"
     },
     {
       label:
         "Promote peaceful and inclusive societies for sustainable development, provide access to justice for all and build effective, accountable and inclusive institutions at all levels",
-      value: 16
+      value: "Promote peaceful and inclusive societies for sustainable development, provide access to justice for all and build effective, accountable and inclusive institutions at all levels"
     },
     {
       label:
         "Strengthen the means of implementation and revitalize the global partnership for sustainable development",
-      value: 17
+      value: "Strengthen the means of implementation and revitalize the global partnership for sustainable development"
     }
   ]
 };

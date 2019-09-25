@@ -3,23 +3,23 @@ const state = {
     {
       label:
         "Through Local Funds in accordance with RA 9184 or the Government Procurement Act",
-      value: 1
+      value: "Through Local Funds in accordance with RA 9184 or the Government Procurement Act"
     },
     {
       label: "Through ODA pursuant to RA 8182 or the ODA Act of 1996",
-      value: 2
+      value: "Through ODA pursuant to RA 8182 or the ODA Act of 1996"
     },
     {
       label: "Through PPP under the Amended BOT Law and Its IRR",
-      value: 3
+      value: "Through PPP under the Amended BOT Law and Its IRR"
     },
     {
       label: "Through Joint Venture Arrangement",
-      value: 4
+      value: "Through Joint Venture Arrangement"
     },
     {
       label: "Others",
-      value: 5
+      value: "Others"
     }
   ]
 };

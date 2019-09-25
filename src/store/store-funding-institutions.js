@@ -2,208 +2,208 @@ const state = {
   fundingInstitutions: [
     {
       label: "Australia",
-      value: 1
+      value: "Australia"
     },
     {
       label: "Austria",
-      value: 2
+      value: "Austria"
     },
     {
       label: "China",
-      value: 3
+      value: "China"
     },
     {
       label: "Japan",
-      value: 4
+      value: "Japan"
     },
     {
       label: "Japan International Cooperation Agency ",
-      value: 5
+      value: "Japan International Cooperation Agency "
     },
     {
       label: "Korea",
-      value: 6
+      value: "Korea"
     },
     {
       label: "Korea International Cooperation Agency ",
-      value: 7
+      value: "Korea International Cooperation Agency "
     },
     {
       label:
-        "Korea Eximbank Resident Mission / Economic Development Cooperation Fund ",
-      value: 8
+        "Korea Eximbank Resident Mission / Economic Development Cooperation Fund",
+      value: "Korea Eximbank Resident Mission / Economic Development Cooperation Fund"
     },
     {
       label: "New Zealand",
-      value: 9
+      value: "New Zealand"
     },
     {
       label: "Saudi Arabia",
-      value: 10
+      value: "Saudi Arabia"
     },
     {
       label: "Saudi Fund for Development",
-      value: 11
+      value: "Saudi Fund for Development"
     },
     {
       label: "Belgium",
-      value: 12
+      value: "Belgium"
     },
     {
       label: "Canada",
-      value: 13
+      value: "Canada"
     },
     {
       label: "Denmark",
-      value: 14
+      value: "Denmark"
     },
     {
       label: "European Union",
-      value: 15
+      value: "European Union"
     },
     {
       label: "European Investment Bank",
-      value: 16
+      value: "European Investment Bank"
     },
     {
       label: "France",
-      value: 17
+      value: "France"
     },
     {
       label: "French Development Agency Philippines",
-      value: 18
+      value: "French Development Agency Philippines"
     },
     {
       label: "Germary",
-      value: 19
+      value: "Germary"
     },
     {
       label: "Germany Agency for International Cooperation",
-      value: 20
+      value: "Germany Agency for International Cooperation"
     },
     {
       label: "German Development Bank",
-      value: 21
+      value: "German Development Bank"
     },
     {
-      label: "Federal Ministry for Economic Cooperation and Development ",
-      value: 22
+      label: "Federal Ministry for Economic Cooperation and Development",
+      value: "Federal Ministry for Economic Cooperation and Development"
     },
     {
       label: "Hungary",
-      value: 23
+      value: "Hungary"
     },
     {
       label: "Italy",
-      value: 24
+      value: "Italy"
     },
     {
       label: "Netherlands",
-      value: 25
+      value: "Netherlands"
     },
     {
       label: "Norway",
-      value: 26
+      value: "Norway"
     },
     {
       label: "Nordic Investment Bank",
-      value: 27
+      value: "Nordic Investment Bank"
     },
     {
       label: "Poland",
-      value: 28
+      value: "Poland"
     },
     {
       label: "Spain",
-      value: 29
+      value: "Spain"
     },
     {
-      label: "Agencia Espanola de Cooperation International para el Desarollo ",
-      value: 30
+      label: "Agencia Espanola de Cooperation International para el Desarollo",
+      value: "Agencia Espanola de Cooperation International para el Desarollo"
     },
     {
-      label: "Sweden / Swedish International Development Cooperation Agency ",
-      value: 31
+      label: "Sweden/Swedish International Development Cooperation Agency",
+      value: "Sweden/Swedish International Development Cooperation Agency"
     },
     {
       label: "Switzerland",
-      value: 32
+      value: "Switzerland"
     },
     {
       label: "United Kingdom",
-      value: 33
+      value: "United Kingdom"
     },
     {
       label: "United States",
-      value: 34
+      value: "United States"
     },
     {
-      label: "United States Agency for International Development ",
-      value: 35
+      label: "United States Agency for International Development",
+      value: "United States Agency for International Development"
     },
     {
-      label: "Asian Development Bank ",
-      value: 36
+      label: "Asian Development Bank",
+      value: "Asian Development Bank"
     },
     {
       label: "World Bank",
-      value: 37
+      value: "World Bank"
     },
     {
-      label: "United Nations Coordination Office ",
-      value: 38
+      label: "United Nations Coordination Office",
+      value: "United Nations Coordination Office",
     },
     {
-      label: "Food and Agriculture Organization ",
-      value: 39
+      label: "Food and Agriculture Organization",
+      value: "Food and Agriculture Organization",
     },
     {
-      label: "United Nations Development Programme ",
-      value: 40
+      label: "United Nations Development Programme",
+      value: "United Nations Development Programme"
     },
     {
       label: "United Nations Industrial Development Organization",
-      value: 41
+      value: "United Nations Industrial Development Organization"
     },
     {
-      label: "United Nations Population Fund ",
-      value: 42
+      label: "United Nations Population Fund",
+      value: "United Nations Population Fund"
     },
     {
-      label: "International Fund for Agricultural Development ",
-      value: 43
+      label: "International Fund for Agricultural Development",
+      value: "International Fund for Agricultural Development"
     },
     {
-      label: "International Labor Organization ",
-      value: 44
+      label: "International Labor Organization",
+      value: "International Labor Organization"
     },
     {
-      label: "United Nations Children&#039;s Fund ",
-      value: 45
+      label: "United Nations Children's Fund",
+      value: "United Nations Children's Fund"
     },
     {
-      label: "International Atomic Energy Agency ",
-      value: 46
+      label: "International Atomic Energy Agency",
+      value: "International Atomic Energy Agency"
     },
     {
-      label: "OPEC Fund for International Development ",
-      value: 47
+      label: "OPEC Fund for International Development",
+      value: "OPEC Fund for International Development"
     },
     {
-      label: "World Food Programme ",
-      value: 48
+      label: "World Food Programme",
+      value: "World Food Programme"
     },
     {
-      label: "World Health Organization ",
-      value: 49
+      label: "World Health Organization",
+      value: "World Health Organization"
     },
     {
       label: "To be detemined",
-      value: 98
+      value: "To be detemined"
     },
     {
       label: "Others",
-      value: 99
+      value: "Others"
     }
   ]
 };

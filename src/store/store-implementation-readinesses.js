@@ -2,39 +2,39 @@ const state = {
   implementationReadinesses: [
     {
       label: "Pre-Feasibility Study/Business Case",
-      value: 1
+      value: "Pre-Feasibility Study/Business Case"
     },
     {
       label: "Feasibility Study",
-      value: 2
+      value: "Feasibility Study"
     },
     {
       label: "Level of Approval",
-      value: 3
+      value: "Level of Approval"
     },
     {
       label: "Right-of-Way Acquisition",
-      value: 4
+      value: "Right-of-Way Acquisition"
     },
     {
       label: "Resettlement Action Plan",
-      value: 5
+      value: "Resettlement Action Plan"
     },
     {
       label: "Environmental Compliance Certificate",
-      value: 6
+      value: "Environmental Compliance Certificate"
     },
     {
       label: "RDC Endorsement",
-      value: 7
+      value: "RDC Endorsement"
     },
     {
       label: "Detailed Engineering Design",
-      value: 8
+      value: "Detailed Engineering Design"
     },
     {
       label: "Other Pre-Investment Activities",
-      value: 9
+      value: "Other Pre-Investment Activities"
     }
   ]
 };

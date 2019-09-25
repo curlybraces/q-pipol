@@ -2,27 +2,27 @@ const state = {
   approvalLevels: [
     {
       label: "Yet to be submitted to the NEDA Secretariat",
-      value: 1
+      value: "Yet to be submitted to the NEDA Secretariat"
     },
     {
       label: "Under the NEDA Secretariat Review",
-      value: 2
+      value: "Under the NEDA Secretariat Review"
     },
     {
-      label: "ICC-TB Endorsed ",
-      value: 3
+      label: "ICC-TB Endorsed",
+      value: "ICC-TB Endorsed"
     },
     {
       label: "ICC-CC Approved",
-      value: 4
+      value: "ICC-CC Approved"
     },
     {
       label: "NEDA Board Confirmed",
-      value: 5
+      value: "NEDA Board Confirmed"
     },
     {
       label: "Not Applicable",
-      value: 6
+      value: "Not Applicable"
     }
   ]
 };

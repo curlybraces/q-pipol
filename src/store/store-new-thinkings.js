@@ -1,35 +1,35 @@
 const state = {
   newThinkings: [
     {
-      value: 1,
+      value: "Modernization of Agriculture",
       label: "Modernization of Agriculture"
     },
     {
-      value: 2,
+      value: "Industrialization of Agriculture",
       label: "Industrialization of Agriculture"
     },
     {
-      value: 3,
+      value: "Promotion of Exports",
       label: "Promotion of Exports"
     },
     {
-      value: 4,
+      value: "Farm Consolidation",
       label: "Farm Consolidation"
     },
     {
-      value: 5,
+      value: "Roadmap Development",
       label: "Roadmap Development"
     },
     {
-      value: 6,
+      value: "Infrastructure Development",
       label: "Infrastructure Development"
     },
     {
-      value: 7,
+      value: "Higher Budget and Investments for Agriculture",
       label: "Higher Budget and Investments for Agriculture"
     },
     {
-      value: 8,
+      value: "Legislative Support",
       label: "Legislative Support"
     }
   ]

@@ -2,23 +2,23 @@ const state = {
   categorizations: [
     {
       label: "Tier 1",
-      value: 1
+      value: "Tier 1"
     },
     {
       label: "Tier 2 New",
-      value: 2
+      value: "Tier 2 New"
     },
     {
       label: "Tier 2 Expanded",
-      value: 3
+      value: "Tier 2 Expanded"
     },
     {
       label: "Completed",
-      value: 4
+      value: "Completed"
     },
     {
       label: "Dropped",
-      value: 5
+      value: "Dropped"
     }
   ]
 };

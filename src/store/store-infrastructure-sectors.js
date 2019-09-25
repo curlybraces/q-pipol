@@ -2,111 +2,111 @@ const state = {
   infrastructureSectors: [
     {
       label: "Social Infrastructure",
-      value: 1,
+      value: "Social Infrastructure",
       children: [
         {
           label: "Health",
-          value: 11
+          value: "Health"
         },
         {
           label: "Education",
-          value: 12
+          value: "Education"
         },
         {
           label: "Solid Waste Management",
-          value: 13
+          value: "Solid Waste Management"
         },
         {
           label: "Housing",
-          value: 14
+          value: "Housing"
         },
         {
           label: "Public Safety/Security",
-          value: 15
+          value: "Public Safety/Security"
         },
         {
           label: "Urban/Heritage Renewal",
-          value: 16
+          value: "Urban/Heritage Renewal"
         }
       ]
     },
     {
       label: "Power - Electrification",
-      value: 2,
+      value: "Power - Electrification",
       children: []
     },
     {
       label: "Transportation",
-      value: 3,
+      value: "Transportation",
       children: [
         {
           label: "Roads and Bridges",
-          value: 31
+          value: "Roads and Bridges"
         },
         {
           label: "Water Transportation",
-          value: 32
+          value: "Water Transportation"
         },
         {
           label: "Air Transportation",
-          value: 33
+          value: "Air Transportation"
         },
         {
           label: "Rail Transportation",
-          value: 34
+          value: "Rail Transportation"
         },
         {
           label: "Urban Transportation",
-          value: 35
+          value: "Urban Transportation"
         }
       ]
     },
     {
       label: "Water Resources",
-      value: 4,
+      value: "Water Resources",
       children: [
         {
           label: "Irrigation",
-          value: 41
+          value: "Irrigation"
         },
         {
           label: "Water Supply",
-          value: 42
+          value: "Water Supply"
         },
         {
           label: "Flood Management",
-          value: 43
+          value: "Flood Management"
         },
         {
           label: "Sanitation/Sewerage/Septage",
-          value: 44
+          value: "Sanitation/Sewerage/Septage"
         }
       ]
     },
     {
       label: "Information and Communications Technology",
-      value: 5,
+      value: "Information and Communications Technology",
       children: []
     },
     {
       label: "Others",
-      value: 6,
+      value: "Others",
       children: [
         {
           label: "Reclamation",
-          value: 61
+          value: "Reclamation"
         },
         {
           label: "Government Building",
-          value: 62
+          value: "Government Building"
         },
         {
           label: "Multipurpose Facilities",
-          value: 63
+          value: "Multipurpose Facilities"
         },
         {
           label: "Others",
-          value: 64
+          value: "Others"
         }
       ]
     }

@@ -2,15 +2,15 @@ const state = {
   papTypes: [
     {
       label: "Program",
-      value: 1
+      value: "Program"
     },
     {
       label: "Project",
-      value: 2
+      value: "Project"
     },
     {
       label: "Subproject",
-      value: 3
+      value: "Subproject"
     }
   ]
 };
