@@ -2,630 +2,181 @@
   <q-page padding>
     <q-card :class="dark ? 'bg-grey-10' : 'bg-white'">
       <q-toolbar :class="(dark ? 'bg-info' : 'bg-primary') + ' text-white'">
-        <q-avatar icon="note_add"/>
+        <q-avatar icon="note_add" />
         <q-toolbar-title>View Project</q-toolbar-title>
+        <q-btn @click="printProject" icon="save" flat round dense />
       </q-toolbar>
       <q-list separator :dark="dark">
-        <form-element
-          label="PAP UACS Code"
-          v-if="project.categorization == 1 || project.categorization == 3"
-        >
-          <p>{{ project.uacsCode }}</p>
-        </form-element>
+        <label-value label="PAP UACS Code" :value="project.uacsCode" />
 
         <q-item-label header class="text-uppercase">General Information</q-item-label>
 
-        <form-element label="Commodity/ies">
-          <input-component label="Commodity/ies" v-model="project.commodities"></input-component>
-        </form-element>
+        <label-value label="Commodity/ies" :value="project.commodities" />
 
-        <form-element label="Program/Functional Classification">
-          <input-component label="Program/Functional Classification" v-model="project.program"></input-component>
-        </form-element>
+        <label-value label="Program/Functional Classification" :value="project.program" />
 
-        <q-item>
-          <q-item-section>
-            <q-item-label caption>1. Proposal/Project Name</q-item-label>
-            <q-item-label>{{ project.title }}</q-item-label>
-          </q-item-section>
-        </q-item>
+        <label-value label="1. Proposal/Project Name" :value="project.title" />
 
-        <q-item>
-          <q-item-section>
-            <q-item-label caption>2. Implementing Department/Agency</q-item-label>
-            <q-item-label>{{ project.implementingAgency }}</q-item-label>
-          </q-item-section>
-        </q-item>
+        <label-value label="2. Implementing Department/Agency" :value="project.implementingAgency" />
 
-        <q-item>
-          <q-item-section>
-            <q-item-label caption>3. Program or Project</q-item-label>
-            <q-item-label>{{ project.classification }}</q-item-label>
-          </q-item-section>
-        </q-item>
+        <label-value label="3. Priority Ranking No." :value="project.priorityRanking" />
 
-        <q-item>
-          <q-item-section>
-            <q-item-label caption>4. Main Funding Source</q-item-label>
-            <q-item-label>{{ project.mainFundingSource }}</q-item-label>
-          </q-item-section>
-        </q-item>
+        <label-value label="4. Main Funding Source" :value="project.mainFundingSource" />
 
-        <q-item>
-          <q-item-section>
-            <q-item-label caption>4a. Mode of Implementation</q-item-label>
-            <q-item-label>{{ project.implementationMode }}</q-item-label>
-          </q-item-section>
-        </q-item>
+        <label-value label="4a. Mode of Implementation" :value="project.implementationMode" />
 
-        <q-item>
-          <q-item-section>
-            <q-item-label caption>5. Priority Ranking No.</q-item-label>
-            <q-item-label>{{ project.priorityRanking }}</q-item-label>
-          </q-item-section>
-        </q-item>
+        <label-value label="5. Priority Ranking No." :value="project.priorityRanking" />
 
         <q-item-label header class="text-uppercase">Categorization</q-item-label>
 
-        <form-element label="6a. Status">
-          <p class="lt-md">6a. Status</p>
-          <options-component label="Status" v-model="project.status"></options-component>
-        </form-element>
+        <label-value label="6a. Status" :value="project.status"></label-value>
 
-        <form-element label="6b. Infrastructure">
-          <options-component label="6b. Infrastructure" v-model="project.infrastructure"></options-component>
-        </form-element>
+        <label-value label="6b. Infrastructure" :value="project.infrastructure"></label-value>
 
-        <form-element label="6c. Typology">
-          <p class="lt-md">6c. Typology</p>
-          <options-component label="Typology" v-model="project.typology"></options-component>
-        </form-element>
+        <label-value label="6c. Typology" :value="project.typology" />
 
-        <form-element label="6d. Budget Tier">
-          <p class="lt-md">6d. Budget Tier</p>
-          <options-component label="Budget Tier" v-model="project.budgetTier"></options-component>
-        </form-element>
+        <label-value label="6d. Budget Tier" :value="project.budgetTier" />
 
-        <form-element label="7a. Spatial Coverage">
-          <select-component label="7a. Spatial Coverage" v-model="project.spatialCoverage"></select-component>
-        </form-element>
+        <label-value label="7a. Spatial Coverage" :value="project.spatialCoverage" />
 
-        <form-element
-          label="7b. Regions"
-          v-if="
-          project.spatialCoverage == 'Inter-regional' ||
-            project.spatialCoverage == 'Region-specific'
-        "
-        >
-          <select-component
-            v-if="project.spatialCoverage == 'Inter-regional'"
-            label="7b. Regions"
-            v-model="project.regions"
-          ></select-component>
+        <label-value label="7b. Regions" :value="project.regions" />
 
-          <select-component
-            v-else-if="project.spatialCoverage == 'Region-specific'"
-            label="7b. Region"
-            v-model="project.regions"
-          ></select-component>
-        </form-element>
+        <label-value label="7c. Province/s" :value="project.provinces" />
 
-        <form-element label="7c. Province/s">
-          <input-component label="7c. Province/s" v-model="project.provinces"></input-component>
-        </form-element>
+        <label-value label="7d. City/Municipality/ies" :value="project.cityMunicipalities" />
 
-        <form-element label="7d. City/Municipality/ies">
-          <input-component label="7d. City/Municipality/ies" v-model="project.cityMunicipalities"></input-component>
-        </form-element>
+        <label-value label="8. Total Project Cost (in PhP)" :value="project.totalProjectCost" />
 
-        <form-element label="8. Total Project Cost (in PhP)">
-          <input-component
-            type="number"
-            label="8. Total Project Cost (in PhP)"
-            hint="Total cost of the project in absolute terms"
-            v-model="project.totalProjectCost"
-          ></input-component>
-        </form-element>
+        <label-value label="9. Bases for Implementation" :value="project.implementationBases" />
 
-        <form-element label="9. Bases for Implementation">
-          <p class="lt-md">9. Bases for Implementation</p>
-          <options-component
-            label="9. Bases for Implementation"
-            type="checkbox"
-            v-model="project.implementationBases"
-            :options="implementationBases"
-          ></options-component>
-        </form-element>
+        <label-value label="10. RDIP Inclusion" :value="project.rdipInclusion" />
 
-        <form-element label="10. RDIP Inclusion">
-          <p class="lt-md">10. RDIP Inclusion</p>
-          <options-component inline v-model="project.rdipInclusion" :options="yesNo"></options-component>
-        </form-element>
+        <label-value label="11. PCIP Inclusion" :value="project.pcipInclusion" />
 
-        <form-element label="11. PCIP Inclusion">
-          <p class="lt-md">11. PCIP Inclusion</p>
-          <options-component inline v-model="project.pcipInclusion" :options="yesNo"></options-component>
-        </form-element>
+        <label-value
+          label="12. Status of ICC/NEDA Board Processing"
+          :value="project.nedaProcessing + ' on ' + project.dateNedaProcessing"
+        />
 
-        <form-element label="12. Status of ICC/NEDA Board Processing">
-          <select-component
-            label="12. Status of ICC/NEDA Board Processing"
-            v-model="project.nedaProcessing"
-          ></select-component>
-          <input-component class="q-mt-md" type="date" v-model="project.dateNedaProcessing"></input-component>
-        </form-element>
+        <label-value label="13. Description" :value="project.description" />
 
-        <form-element label="13. Description">
-          <input-component label="13. Description" v-model="project.description"></input-component>
-        </form-element>
+        <label-value label="Add component" :value="project.components" />
 
-        <form-element label="Components">
-          <q-select
-            :dark="dark"
-            :color="dark ? 'info' : 'primary'"
-            label="Add component"
-            v-model="project.components"
-          />
-        </form-element>
+        <label-value label="14. Purpose" :value="project.purpose" />
 
-        <form-element label="14. Purpose">
-          <input-component label="14. Purpose" v-model="project.purpose"></input-component>
-        </form-element>
+        <label-value label="15. Challenges being addressed" :value="project.challenges" />
 
-        <form-element label="15. Challenges being addressed">
-          <options-component label="15. Challenges being addressed" v-model="project.challenges"></options-component>
-        </form-element>
+        <label-value label="16. Expected Outputs" :value="project.expectedOutputs" />
 
-        <form-element label="16. Expected Outputs">
-          <input-component label="16. Expected Outputs" v-model="project.expectedOutputs"></input-component>
-        </form-element>
+        <label-value label="17. Beneficiaries" :value="project.beneficiaries" />
 
-        <form-element label="17. Beneficiaries">
-          <input-component label="17. Beneficiaries" v-model="project.beneficiaries"></input-component>
-        </form-element>
+        <label-value
+          label="18. Estimated number of persons to be employed"
+          :value="project.employmentGeneration"
+        />
 
-        <form-element label="18. Estimated number of persons to be employed">
-          <input-component
-            label="18. Estimated number of persons to be employed"
-            v-model="project.employmentGeneration"
-          ></input-component>
-        </form-element>
+        <label-value
+          label="19. Implementation Period"
+          :value="project.implementationStart + '-' + project.implementationEnd"
+        />
 
-        <form-element label="19. Implementation Period">
-          <select-component
-            label="19a. Implementation Start"
-            v-model="project.implementationStart"
-          />
-          <select-component label="19b. Implementation End" v-model="project.implementationEnd"/>
-        </form-element>
-
-        <form-element label="20. Physical Status Update/Accomplishment">
-          <input-component
-            label="20. Physical Status Update/Accomplishment"
-            type="textarea"
-            v-model="project.updates"
-          ></input-component>
-        </form-element>
+        <label-value label="20. Physical Status Update/Accomplishment" :value="project.updates" />
 
         <q-item-label header class="text-uppercase">Implementation Readiness</q-item-label>
 
         <q-item-label header>21. Prerequisites</q-item-label>
 
-        <form-element label="NEDA Board">
-          <options-component label="NEDA Board" v-model="project.nedaBoard"></options-component>
-        </form-element>
+        <label-value label="NEDA Board" :value="project.nedaBoard" />
 
-        <form-element label="NEDA Board-ICC">
-          <options-component label="NEDA Board-ICC" v-model="project.nedaBoardIcc"></options-component>
-        </form-element>
+        <label-value label="NEDA Board-ICC" :value="project.nedaBoardIcc" />
 
-        <form-element label="DPWH Certification">
-          <options-component
-            inline
-            label="DPWH Certification"
-            v-model="project.dpwhCertification"
-            :options="yesNoNotApplicable"
-          ></options-component>
-        </form-element>
+        <label-value label="DPWH Certification" :value="project.dpwhCertification" />
 
-        <form-element label="DPWH MOA">
-          <options-component
-            inline
-            label="DPWH MOA"
-            v-model="project.dpwhMoa"
-            :options="yesNoNotApplicable"
-          ></options-component>
-        </form-element>
+        <label-value label="DPWH MOA" :value="project.dpwhMoa" />
 
-        <form-element label="DPWH Costing">
-          <options-component label="DPWH Costing" v-model="project.dpwhCosting"></options-component>
-        </form-element>
+        <label-value label="DPWH Costing" :value="project.dpwhCosting" />
 
-        <form-element label="DENR Clearance">
-          <options-component label="DENR Clearance" v-model="project.denrClearance"></options-component>
-        </form-element>
+        <label-value label="DENR Clearance" :value="project.denrClearance" />
 
-        <form-element label="RDC Consultation">
-          <options-component label="RDC Consultation" v-model="project.rdcConsultation"></options-component>
-        </form-element>
+        <label-value label="RDC Consultation" :value="project.rdcConsultation" />
 
-        <form-element label="CSO Consultation">
-          <options-component
-            inline
-            label="CSO Consultation"
-            v-model="project.csoConsultation"
-            :options="yesNoNotApplicable"
-          ></options-component>
-        </form-element>
+        <label-value label="CSO Consultation" :value="project.csoConsultation" />
 
-        <form-element label="List of Locations">
-          <options-component label="List of Locations" v-model="project.listLocations"></options-component>
-        </form-element>
+        <label-value label="List of Locations" :value="project.listLocations" />
 
-        <form-element label="List of Beneficiaries">
-          <options-component label="List of Beneficiaries" v-model="project.listBeneficiaries"></options-component>
-        </form-element>
+        <label-value label="List of Beneficiaries" :value="project.listBeneficiaries" />
 
-        <form-element label="Evaluated and endorsed by DA Clearinghouse Committee">
-          <options-component
-            label="Evaluated and endorsed by DA Clearinghouse Committee"
-            v-model="project.daClearingHouse"
-          ></options-component>
-        </form-element>
+        <label-value
+          label="Evaluated and endorsed by DA Clearinghouse Committee"
+          :value="project.daClearingHouse"
+        />
 
         <q-item-label header>22. Technical Readiness</q-item-label>
 
-        <form-element label="Concept Note">
-          <options-component label="Concept Note" v-model="project.conceptNote"></options-component>
-        </form-element>
+        <label-value label="Concept Note" :value="project.conceptNote" />
 
-        <form-element label="Feasibility Study">
-          <options-component label="Feasibility Study" v-model="project.feasibilityStudy"></options-component>
-        </form-element>
+        <label-value label="Feasibility Study" :value="project.feasibilityStudy" />
 
-        <form-element label="Detailed Engineering Design">
-          <options-component
-            inline
-            label="Detailed Engineering Design"
-            v-model="project.detailedEngineeringDesign"
-          ></options-component>
-        </form-element>
+        <label-value
+          label="Detailed Engineering Design"
+          :value="project.detailedEngineeringDesign"
+        />
 
-        <form-element label="Business Plan">
-          <options-component inline label="Business Plan" v-model="project.businessPlan"></options-component>
-        </form-element>
+        <label-value label="Business Plan" :value="project.businessPlan" />
 
-        <form-element label="Right of Way">
-          <options-component
-            inline
-            label="Right of Way"
-            v-model="project.rightOfWay"
-            :options="yesNoNotApplicable"
-          ></options-component>
-        </form-element>
+        <label-value label="Right of Way" :value="project.rightOfWay" />
 
-        <form-element label="Resettlement Plan">
-          <options-component
-            inline
-            label="Resettlement Plan"
-            v-model="project.resettlementPlan"
-            :options="yesNoNotApplicable"
-          ></options-component>
-        </form-element>
+        <label-value label="Resettlement Plan" :value="project.resettlementPlan" />
 
-        <form-element label="Others">
-          <options-component
-            inline
-            label="Others"
-            v-model="project.otherTechnicalReadiness"
-            :options="yesNoNotApplicable"
-          ></options-component>
-        </form-element>
+        <label-value label="Others" :value="project.otherTechnicalReadiness" />
 
-        <form-element label="23. Level of Readiness">
-          <input-component
-            label="23. Level of Readiness"
-            type="textarea"
-            v-model="project.readinessLevel"
-          ></input-component>
-        </form-element>
+        <label-value label="23. Level of Readiness" :value="project.readinessLevel" />
 
-        <form-element label="24. Implementation Risks">
-          <input-component
-            label="24. Implementation Risks"
-            type="textarea"
-            v-model="project.implementationRisks"
-          ></input-component>
-        </form-element>
+        <label-value label="24. Implementation Risks" :value="project.implementationRisks" />
 
-        <form-element label="25. Mitigation Strategies">
-          <input-component
-            label="25. Mitigation Strategies"
-            type="textarea"
-            v-model="project.mitigationStrategies"
-          ></input-component>
-        </form-element>
+        <label-value label="25. Mitigation Strategies" :value="project.mitigationStrategies" />
 
         <q-item-label header class="text-uppercase">Strategic Alignment</q-item-label>
 
-        <form-element
+        <label-value
           label="26. New Thinking for Agriculture (Eight Paradigms for a Food-Secure Philippines)"
-        >
-          <p class="lt-md">26. New Thinking in Agriculture</p>
-          <options-component type="checkbox" :options="newThinkings" v-model="project.newThinkings"></options-component>
-        </form-element>
+          :value="project.newThinkings"
+        />
 
-        <form-element label="Philippine Development Plan">
-          <p class="lt-md">Philippine Development Plan</p>
-          <q-tree
-            :nodes="pdpChapters"
-            node-key="value"
-            tick-strategy="strict"
-            label-key="label"
-            :ticked.sync="project.pdp"
-            :dark="dark"
-          />
-        </form-element>
+        <label-value label="Philippine Development Plan" :value="project.pdp" />
 
-        <form-element label="29. Sustainable Development Goals">
-          <p class="lt-md">29. Sustainable Development Goals</p>
-          <options-component
-            type="checkbox"
-            :options="sustainableDevelopmentGoals"
-            v-model="project.sustainableDevelopmentGoals"
-          ></options-component>
-        </form-element>
+        <label-value
+          label="29. Sustainable Development Goals"
+          :value="project.sustainableDevelopmentGoals"
+        />
 
-        <form-element label="30. 0-10 Socioeconomic Agenda">
-          <p class="lt-md">30. 0-10 Socioeconomic Agenda</p>
-          <options-component
-            type="checkbox"
-            :options="tenPointAgenda"
-            v-model="project.tenPointAgenda"
-          ></options-component>
-        </form-element>
+        <label-value label="30. 0-10 Socioeconomic Agenda" :value="project.tenPointAgenda" />
 
-        <form-element label="31. Level of GAD Responsiveness">
-          <p class="lt-md">31. Level of GAD Responsiveness</p>
-          <options-component :options="gadResponsiveness" v-model="project.gadResponsiveness"></options-component>
-        </form-element>
+        <label-value label="31. Level of GAD Responsiveness" :value="project.gadResponsiveness" />
 
-        <form-element label="32. Infrastructure Sector">
-          <p class="lt-md">32. Infrastructure Sector</p>
-          <q-tree
-            :nodes="infrastructureSectors"
-            node-key="value"
-            tick-strategy="leaf"
-            label-key="label"
-            :ticked.sync="project.infrastructureSectors"
-            :dark="dark"
-            default-expand-all
-          ></q-tree>
-        </form-element>
+        <label-value label="32. Infrastructure Sector" :value="project.infrastructureSectors" />
 
         <q-item-label header class="text-uppercase">FINANCIAL AND ECONOMIC BENEFITS</q-item-label>
 
-        <form-element label="33. Estimated Project Life (in years)">
-          <input-component
-            label="33. Estimated Project Life (in years)"
-            type="number"
-            v-model="project.projectLife"
-          ></input-component>
-        </form-element>
+        <label-value label="33. Estimated Project Life (in years)" :value="project.projectLife" />
 
-        <form-element label="34. Benefit-Cost Ratio">
-          <input-component label="34. Benefit-Cost Ratio" type="number" v-model="project.bcr"></input-component>
-        </form-element>
+        <label-value label="34. Benefit-Cost Ratio" :value="project.bcr" />
 
-        <form-element label="35. Internal Rate of Return (in %)">
-          <input-component
-            label="35. Internal Rate of Return (in %)"
-            type="number"
-            v-model="project.irr"
-          ></input-component>
-        </form-element>
+        <label-value label="35. Internal Rate of Return (in %)" :value="project.irr" />
 
-        <form-element label="36. Return on Investment (in %)">
-          <input-component
-            label="36. Return on Investment (in %)"
-            type="number"
-            v-model="project.roi"
-          ></input-component>
-        </form-element>
+        <label-value label="36. Return on Investment (in %)" :value="project.roi" />
 
         <q-item-label header>PROJECT COSTING</q-item-label>
 
-        <form-element
-          label="ODA Funding Institution"
-          v-if="project.mainFundingSource == 2 || project.mainFundingSource == 3"
-        >
-          <select-component
-            label="ODA Funding Institution"
-            v-if="
-            project.mainFundingSource == 2 || project.mainFundingSource == 3
-          "
-            v-model="project.mainFundingInstitution"
-          ></select-component>
-        </form-element>
+        <label-value label="ODA Funding Institution" :value="project.mainFundingInstitution" />
 
-        <form-element label="Other Funding Institution" v-if="project.mainFundingSource == 99">
-          <input-component
-            label="Other Funding Institution"
-            v-if="project.mainFundingSource == 99"
-            v-model="project.otherFundingInstitution"
-            :rules="rules.required"
-          ></input-component>
-        </form-element>
+        <label-value label="Other Funding Institution" :value="project.otherFundingInstitution" />
 
-        <form-element label="Other Funding Institution" v-if="project.categorization == 2">
-          <select-component
-            v-if="project.categorization == 2"
-            label="Project Preparation Document"
-            v-model="project.preparationDocument"
-            :options="preparationDocuments"
-            :rules="rules.required"
-          ></select-component>
-        </form-element>
+        <label-value label="Other Funding Institution" :value="project.preparationDocument" />
 
-        <form-element label="Costing by Fund Source">
-          <p class="lt-md">Costing by Funding Source</p>
-          <template v-if="project.fundingSourceBreakdown">
-            <div class="row" v-for="(fs, index) in project.fundingSourceBreakdown" :key="index">
-              <costing-component
-                :fs="fs"
-                :key="index"
-                :implementationStart="project.implementationStart"
-                :implementationEnd="project.implementationEnd"
-                @delete="deleteFundingSource(index)"
-              ></costing-component>
-            </div>
-          </template>
+        <q-markup-table></q-markup-table>
 
-          <div class="row q-col-gutter-sm q-pa-md">
-            <select-component
-              class="col-12 col-md"
-              :options="fundingSources"
-              v-model="fundingSource"
-            ></select-component>
-            <input-component
-              label="2016 &amp; Prior"
-              class="col-12 col-md"
-              type="number"
-              v-if="project.implementationStart < 2017"
-              v-model="investment2016"
-            ></input-component>
-            <input-component
-              label="2017"
-              class="col-12 col-md"
-              type="number"
-              v-model="investment2017"
-            ></input-component>
-            <input-component
-              label="2018"
-              class="col-12 col-md"
-              type="number"
-              v-model="investment2018"
-            ></input-component>
-            <input-component
-              label="2019"
-              class="col-12 col-md"
-              type="number"
-              v-model="investment2019"
-            ></input-component>
-            <input-component
-              label="2020"
-              class="col-12 col-md"
-              type="number"
-              v-model="investment2020"
-            ></input-component>
-            <input-component
-              label="2021"
-              class="col-12 col-md"
-              type="number"
-              v-model="investment2021"
-            ></input-component>
-            <input-component
-              label="2022"
-              class="col-12 col-md"
-              type="number"
-              v-model="investment2022"
-            ></input-component>
-            <input-component
-              label="2023 &amp; Beyond"
-              class="col-12 col-md"
-              type="number"
-              v-if="project.implementationEnd > 2022"
-              v-model="investment2023"
-            ></input-component>
-            <input-component
-              label="Total"
-              class="col-12 col-md"
-              type="number"
-              :readonly="true"
-              :value="investmentTotal"
-            ></input-component>
-            <q-btn flat dense round color="green" icon="add_box" @click="addFundingSource()"/>
-          </div>
-        </form-element>
-
-        <form-element v-if="project.components" label="Costing by Component">
-          <p class="lt-md">Costing by Component</p>
-          <template v-if="project.components.length">
-            <div
-              class="row q-pa-md q-col-gutter-sm"
-              v-for="(comp, index) in project.componentBreakdown"
-              :key="index"
-            >
-              <select-component
-                class="col-12 col-md"
-                :options="project.components"
-                v-model="comp.component"
-              ></select-component>
-              <input-component
-                label="2016 &amp; Prior"
-                class="col-12 col-md"
-                type="number"
-                v-if="project.implementationStart < 2017"
-                v-model="comp.investment2016"
-              ></input-component>
-              <input-component
-                label="2017"
-                class="col-12 col-md"
-                type="number"
-                v-model="comp.investment2017"
-              ></input-component>
-              <input-component
-                label="2018"
-                class="col-12 col-md"
-                type="number"
-                v-model="comp.investment2018"
-              ></input-component>
-              <input-component
-                label="2019"
-                class="col-12 col-md"
-                type="number"
-                v-model="comp.investment2019"
-              ></input-component>
-              <input-component
-                label="2020"
-                class="col-12 col-md"
-                type="number"
-                v-model="comp.investment2020"
-              ></input-component>
-              <input-component
-                label="2021"
-                class="col-12 col-md"
-                type="number"
-                v-model="comp.investment2021"
-              ></input-component>
-              <input-component
-                label="2022"
-                class="col-12 col-md"
-                type="number"
-                v-model="comp.investment2022"
-              ></input-component>
-              <input-component
-                label="2023 &amp; Beyond"
-                class="col-12 col-md"
-                type="number"
-                v-if="project.implementationEnd > 2022"
-                v-model="comp.investment2023"
-              ></input-component>
-              <input-component
-                label="Total"
-                class="col-12 col-md"
-                type="number"
-                :readonly="true"
-                :value="comp.investmentTotal"
-              ></input-component>
-            </div>
-          </template>
-          <template v-else>
-            <p class="text-red">
-              <q-icon name="error"/>No components added.
-            </p>
-          </template>
-        </form-element>
+        <q-markup-table></q-markup-table>
       </q-list>
     </q-card>
   </q-page>
@@ -634,20 +185,32 @@
 <script>
 import { firebaseDb } from "boot/firebase";
 import { mapState, mapGetters } from "vuex";
-import { Notify } from "quasar";
-import InputComponent from "../../components/FormInputs/InputComponent";
-import SelectComponent from "../../components/FormInputs/SelectComponent";
-import OptionsComponent from "../../components/FormInputs/OptionsComponent";
-import FormElement from "../../components/FormInputs/FormElement";
-import CostingComponent from "../../components/CostingComponent";
+import { Notify, Loading } from "quasar";
+
+const LabelValue = () => import("../../components/LabelValue");
+
+import { saveAs } from "file-saver";
+import {
+  Document,
+  Packer,
+  Table,
+  Paragraph,
+  WidthType,
+  TableAnchorType,
+  Header,
+  HeadingLevel,
+  TableLayoutType,
+  // Footer,
+  // TextRun,
+  // VerticalAlign,
+  // BorderStyle,
+  AlignmentType,
+  VerticalAlign
+} from "docx";
 
 export default {
   components: {
-    SelectComponent,
-    FormElement,
-    InputComponent,
-    OptionsComponent,
-    CostingComponent
+    LabelValue
   },
   name: "PageViewProject",
   data() {
@@ -658,6 +221,467 @@ export default {
   computed: {
     ...mapState("settings", ["dark"]),
     ...mapGetters("projects", ["getProject"])
+  },
+  methods: {
+    printProject() {
+      const doc = new Document({
+        creator: "DA-IPMS"
+      });
+
+      const table = new Table({
+        rows: 11,
+        columns: 2,
+        float: {
+          horizontalAnchor: TableAnchorType.MARGIN,
+          verticalAnchor: TableAnchorType.MARGIN
+        },
+        width: 9070,
+        widthUnitType: WidthType.DXA,
+        layout: TableLayoutType.FIXED,
+        margins: {
+          top: 100,
+          bottom: 100,
+          right: 100,
+          left: 100
+        }
+      });
+
+      const cell = table.getCell(0, 0);
+      cell.Properties.setWidth("30%", WidthType.PCT);
+      cell.add(new Paragraph("1. Proposal/Project Name"));
+
+      const cell2 = table.getCell(0, 1);
+      cell2.Properties.setWidth("70%", WidthType.PCT);
+      cell2.add(new Paragraph(this.project.title));
+
+      table
+        .getCell(1, 0)
+        .add(new Paragraph("2.	Implementing Department/ Agency (or Agencies)"));
+
+      table.getCell(1, 1).add(new Paragraph(this.project.implementingAgency));
+      table.getCell(2, 0).add(new Paragraph("3. Priority Ranking No."));
+      table.getCell(2, 1).add(new Paragraph(this.project.priorityRanking));
+      table.getCell(3, 0).add(new Paragraph("4. Categorization"));
+      table.getCell(3, 1).add(new Paragraph(this.project.categorization));
+      table.getCell(4, 0).add(new Paragraph("5. NEDA Project ID"));
+      table.getCell(4, 1).add(new Paragraph(this.project.nedaProjectId));
+      table.getCell(5, 0).add(new Paragraph("6. Total Project Cost"));
+      table.getCell(5, 1).add(new Paragraph(this.project.totalProjectCost));
+      table.getCell(6, 0).add(new Paragraph("7. Description"));
+      table.getCell(6, 1).add(new Paragraph(this.project.description));
+      table.getCell(7, 0).add(new Paragraph("8. Purpose"));
+      table.getCell(7, 1).add(new Paragraph(this.project.purpose));
+      table.getCell(8, 0).add(new Paragraph("9. Beneficiaries"));
+      table.getCell(8, 1).add(new Paragraph(this.project.beneficiaries));
+      table.getCell(9, 0).add(new Paragraph("10. Implementation Period"));
+      table
+        .getCell(9, 1)
+        .add(new Paragraph("Start Date: " + this.project.implementationStart));
+      table
+        .getCell(10, 1)
+        .add(new Paragraph("End Date: " + this.project.implementationEnd));
+
+      const table2 = new Table({
+        rows: 13,
+        columns: 6,
+        float: {
+          horizontalAnchor: TableAnchorType.MARGIN,
+          verticalAnchor: TableAnchorType.MARGIN
+        },
+        width: 9070,
+        widthUnitType: WidthType.DXA,
+        layout: TableLayoutType.FIXED,
+        margins: {
+          top: 100,
+          bottom: 100,
+          right: 100,
+          left: 100
+        }
+      });
+
+      table2.getCell(0, 0).add(new Paragraph("11. Pre-requisites"));
+      table2.getCell(0, 0).Properties.setWidth("30%", WidthType.PCT);
+      table2
+        .getRow(0)
+        .mergeCells(1, 5)
+        .add(
+          new Paragraph({
+            text: "Reviewed/Approved",
+            alignment: AlignmentType.CENTER
+          })
+        )
+        .setVerticalAlign(VerticalAlign.CENTER);
+
+      table2.getCell(1, 1).add(new Paragraph("Approving Authorities"));
+      table2.getCell(1, 2).add(new Paragraph("Yes"));
+      table2.getCell(1, 3).add(new Paragraph("No"));
+      table2.getCell(1, 4).add(new Paragraph("Not Applicable"));
+      table2.getCell(1, 5).add(new Paragraph("Remark"));
+      table2.getCell(2, 1).add(new Paragraph("NEDA Board"));
+      table2.getCell(2, 2).add(new Paragraph(""));
+      table2.getCell(2, 3).add(new Paragraph(""));
+      table2.getCell(2, 4).add(new Paragraph(""));
+      table2.getCell(2, 5).add(new Paragraph(""));
+      table2.getCell(3, 1).add(new Paragraph("NEDA Board-ICC"));
+      table2.getCell(3, 2).add(new Paragraph(""));
+      table2.getCell(3, 3).add(new Paragraph(""));
+      table2.getCell(3, 4).add(new Paragraph(""));
+      table2.getCell(3, 5).add(new Paragraph(""));
+      table2.getCell(4, 1).add(new Paragraph("DPWH Certification"));
+      table2.getCell(4, 2).add(new Paragraph(""));
+      table2.getCell(4, 3).add(new Paragraph(""));
+      table2.getCell(4, 4).add(new Paragraph(""));
+      table2.getCell(4, 5).add(new Paragraph(""));
+      table2.getCell(5, 1).add(new Paragraph("DPWH MOA"));
+      table2.getCell(5, 2).add(new Paragraph(""));
+      table2.getCell(5, 3).add(new Paragraph(""));
+      table2.getCell(5, 4).add(new Paragraph(""));
+      table2.getCell(5, 5).add(new Paragraph(""));
+      table2.getCell(6, 1).add(new Paragraph("DPWH Costing"));
+      table2.getCell(6, 2).add(new Paragraph(""));
+      table2.getCell(6, 3).add(new Paragraph(""));
+      table2.getCell(6, 4).add(new Paragraph(""));
+      table2.getCell(6, 5).add(new Paragraph(""));
+      table2.getCell(7, 1).add(new Paragraph("DENR Clearance"));
+      table2.getCell(7, 2).add(new Paragraph(""));
+      table2.getCell(7, 3).add(new Paragraph(""));
+      table2.getCell(7, 4).add(new Paragraph(""));
+      table2.getCell(7, 5).add(new Paragraph(""));
+      table2.getCell(8, 1).add(new Paragraph("RDC Consultation"));
+      table2.getCell(8, 2).add(new Paragraph(""));
+      table2.getCell(8, 3).add(new Paragraph(""));
+      table2.getCell(8, 4).add(new Paragraph(""));
+      table2.getCell(8, 5).add(new Paragraph(""));
+      table2.getCell(9, 1).add(new Paragraph("CSO Consultation"));
+      table2.getCell(9, 2).add(new Paragraph(""));
+      table2.getCell(9, 3).add(new Paragraph(""));
+      table2.getCell(9, 4).add(new Paragraph(""));
+      table2.getCell(9, 5).add(new Paragraph(""));
+      table2.getCell(10, 1).add(new Paragraph("List of Locations"));
+      table2.getCell(10, 2).add(new Paragraph(""));
+      table2.getCell(10, 3).add(new Paragraph(""));
+      table2.getCell(10, 4).add(new Paragraph(""));
+      table2.getCell(10, 5).add(new Paragraph(""));
+      table2.getCell(11, 1).add(new Paragraph("List of Beneficiaries"));
+      table2.getCell(11, 2).add(new Paragraph(""));
+      table2.getCell(11, 3).add(new Paragraph(""));
+      table2.getCell(11, 4).add(new Paragraph(""));
+      table2.getCell(11, 5).add(new Paragraph(""));
+      table2.getCell(12, 1).add(new Paragraph("Others (please specify)"));
+      table2.getCell(12, 2).add(new Paragraph(""));
+      table2.getCell(12, 3).add(new Paragraph(""));
+      table2.getCell(12, 4).add(new Paragraph(""));
+      table2.getCell(12, 5).add(new Paragraph(""));
+
+      const table3 = new Table({
+        rows: 3,
+        columns: 4,
+        float: {
+          horizontalAnchor: TableAnchorType.MARGIN,
+          verticalAnchor: TableAnchorType.MARGIN
+        },
+        width: 9070,
+        widthUnitType: WidthType.DXA,
+        layout: TableLayoutType.FIXED,
+        margins: {
+          top: 100,
+          bottom: 100,
+          right: 100,
+          left: 100
+        }
+      });
+      table3.getCell(0, 0).Properties.setWidth("30%", WidthType.PCT);
+      table3.getCell(0, 0).add(new Paragraph("PAP (A)"));
+      table3.getCell(0, 1).add(new Paragraph("FY 2021 Tier 2 (B)"));
+      table3.getCell(0, 2).add(new Paragraph("2022 (C)"));
+      table3.getCell(0, 3).add(new Paragraph("2023 (D)"));
+
+      table3.getCell(2, 0).add(new Paragraph("GRAND TOTAL"));
+
+      const table4 = new Table({
+        rows: 3,
+        columns: 4,
+        float: {
+          horizontalAnchor: TableAnchorType.MARGIN,
+          verticalAnchor: TableAnchorType.MARGIN
+        },
+        width: 9070,
+        widthUnitType: WidthType.DXA,
+        layout: TableLayoutType.FIXED,
+        margins: {
+          top: 100,
+          bottom: 100,
+          right: 100,
+          left: 100
+        }
+      });
+
+      table4.getCell(0, 0).add(new Paragraph("Physical Accomplishments (A)"));
+      table4.getCell(0, 0).Properties.setWidth("30%", WidthType.PCT);
+      table4
+        .getRow(0)
+        .mergeCells(1, 3)
+        .add(new Paragraph("Targets"));
+      table4.getCell(1, 1).add(new Paragraph("FY 2020 Tier 2 (B)"));
+      table4.getCell(1, 2).add(new Paragraph("2021 (C)"));
+      table4.getCell(1, 3).add(new Paragraph("2022 (D)"));
+
+      const table5 = new Table({
+        rows: 6,
+        columns: 2,
+        float: {
+          horizontalAnchor: TableAnchorType.MARGIN,
+          verticalAnchor: TableAnchorType.MARGIN
+        },
+        width: 9070,
+        widthUnitType: WidthType.DXA,
+        layout: TableLayoutType.FIXED,
+        margins: {
+          top: 100,
+          bottom: 100,
+          right: 100,
+          left: 100
+        }
+      });
+
+      table5.getCell(0, 0).add(new Paragraph("Expense Class"));
+      table5.getCell(0, 0).Properties.setWidth("30%", WidthType.PCT);
+      table5.getCell(0, 1).add(new Paragraph("Total Project Cost"));
+      table5.getCell(1, 0).add(new Paragraph("Personnel Services (PS)"));
+      table5
+        .getCell(2, 0)
+        .add(new Paragraph("Maintenance and Other Operating Expenses (MOOE)"));
+      table5.getCell(3, 0).add(new Paragraph("Financial Expenses (FINEX)"));
+      table5.getCell(4, 0).add(new Paragraph("Capital Outlay (CO)"));
+      table5.getCell(5, 0).add(new Paragraph("GRAND TOTAL"));
+      table5.getCell(5, 1).add(new Paragraph(this.project.totalProjectCost));
+
+      const table6 = new Table({
+        rows: 3,
+        columns: 3,
+        float: {
+          horizontalAnchor: TableAnchorType.MARGIN,
+          verticalAnchor: TableAnchorType.MARGIN
+        },
+        width: 9070,
+        widthUnitType: WidthType.DXA,
+        layout: TableLayoutType.FIXED,
+        margins: {
+          top: 100,
+          bottom: 100,
+          right: 100,
+          left: 100
+        }
+      });
+
+      table6.getCell(0, 0).add(new Paragraph("PAP (A)"));
+      table6.getCell(0, 0).Properties.setWidth("30%", WidthType.PCT);
+      table6.getCell(0, 1).add(new Paragraph("2021 (B)"));
+      table6.getCell(0, 2).add(new Paragraph("2022 (C)"));
+      table6.getCell(2, 0).add(new Paragraph("GRAND TOTAL"));
+
+      const table7 = new Table({
+        rows: 3,
+        columns: 6,
+        float: {
+          horizontalAnchor: TableAnchorType.MARGIN,
+          verticalAnchor: TableAnchorType.MARGIN
+        },
+        width: 9070,
+        widthUnitType: WidthType.DXA,
+        layout: TableLayoutType.FIXED,
+        margins: {
+          top: 100,
+          bottom: 100,
+          right: 100,
+          left: 100
+        }
+      });
+
+      table7.getCell(0, 0).add(new Paragraph("Components (A)"));
+      table7.getCell(0, 0).Properties.setWidth("30%", WidthType.PCT);
+      table7.getCell(0, 1).add(new Paragraph("PS (B)"));
+      table7.getCell(0, 2).add(new Paragraph("MOOE (C)"));
+      table7.getCell(0, 3).add(new Paragraph("CO (D)"));
+      table7.getCell(0, 4).add(new Paragraph("FINEX (E)"));
+      table7.getCell(0, 5).add(new Paragraph("Total (F)"));
+      table7.getCell(2, 0).add(new Paragraph("GRAND TOTAL"));
+
+      const table8 = new Table({
+        rows: 3,
+        columns: 6,
+        float: {
+          horizontalAnchor: TableAnchorType.MARGIN,
+          verticalAnchor: TableAnchorType.MARGIN
+        },
+        width: 9070,
+        widthUnitType: WidthType.DXA,
+        layout: TableLayoutType.FIXED,
+        margins: {
+          top: 100,
+          bottom: 100,
+          right: 100,
+          left: 100
+        }
+      });
+
+      table8.getCell(0, 0).add(new Paragraph("Location (A)"));
+      table8.getCell(0, 0).Properties.setWidth("30%", WidthType.PCT);
+      table8.getCell(0, 1).add(new Paragraph("PS (B)"));
+      table8.getCell(0, 2).add(new Paragraph("MOOE (C)"));
+      table8.getCell(0, 3).add(new Paragraph("CO (D)"));
+      table8.getCell(0, 4).add(new Paragraph("FINEX (E)"));
+      table8.getCell(0, 5).add(new Paragraph("Total (F)"));
+      table8.getCell(2, 0).add(new Paragraph("GRAND TOTAL"));
+
+      const table9 = new Table({
+        rows: 3,
+        columns: 5,
+        float: {
+          horizontalAnchor: TableAnchorType.MARGIN,
+          verticalAnchor: TableAnchorType.MARGIN
+        },
+        width: 9070,
+        widthUnitType: WidthType.DXA,
+        layout: TableLayoutType.FIXED,
+        margins: {
+          top: 100,
+          bottom: 100,
+          right: 100,
+          left: 100
+        }
+      });
+
+      table9.getCell(1, 0).Properties.setWidth("20%", WidthType.PCT);
+      table9.getCell(1, 1).Properties.setWidth("20%", WidthType.PCT);
+      table9.getCell(1, 2).Properties.setWidth("20%", WidthType.PCT);
+      table9.getCell(1, 3).Properties.setWidth("20%", WidthType.PCT);
+      table9.getCell(1, 4).Properties.setWidth("20%", WidthType.PCT);
+
+      table9
+        .getRow(0)
+        .mergeCells(0, 1)
+        .add(new Paragraph("Prepared by:"));
+      table9.getCell(0, 1).add(new Paragraph("Certified Correct:"));
+      table9.getCell(0, 2).add(new Paragraph("Approved:"));
+      table9.getCell(0, 3).add(new Paragraph("Date:"));
+      table9.getCell(2, 0).add(new Paragraph("Budget Officer"));
+      table9.getCell(2, 1).add(new Paragraph("Planning Officer"));
+      table9.getCell(2, 2).add(new Paragraph("Chief Accountant"));
+      table9.getCell(2, 3).add(new Paragraph("Head of Agency"));
+      table9.getCell(2, 4).add(new Paragraph("Date"));
+
+      doc.addSection({
+        properties: {},
+        headers: {
+          default: new Header({
+            children: [
+              new Paragraph({
+                text: "Revised BP Form 202 (2021 Budget Tier 2)",
+                alignment: AlignmentType.RIGHT,
+                bold: true
+              })
+            ]
+          })
+        },
+        children: [
+          new Paragraph({
+            text: "PROPOSAL FOR NEW OR EXPANDED LOCALLY FUNDED PROJECT",
+            alignment: AlignmentType.CENTER,
+            bold: true,
+            spacing: {
+              after: 200
+            }
+          }),
+          table,
+          new Paragraph({
+            text: "Pre-Requisites",
+            heading: HeadingLevel.HEADING_4,
+            spacing: {
+              after: 200,
+              before: 200
+            }
+          }),
+          table2,
+          new Paragraph({
+            text: "12. Financial (in P'000) and Physical Details",
+            heading: HeadingLevel.HEADING_4,
+            spacing: {
+              after: 200,
+              before: 200
+            }
+          }),
+          new Paragraph({
+            text: "12.1 PAP ATTRIBUTION BY EXPENSE CLASS",
+            heading: HeadingLevel.HEADING_5,
+            spacing: {
+              after: 200,
+              before: 200
+            }
+          }),
+          table3,
+          new Paragraph({
+            text: "12.2 PHYSICAL ACCOMPLISHMENTS &amp; TARGETS",
+            heading: HeadingLevel.HEADING_5,
+            spacing: {
+              after: 200,
+              before: 200
+            }
+          }),
+          table4,
+          new Paragraph({
+            text: "12.3 TOTAL PROJECT COST",
+            heading: HeadingLevel.HEADING_5,
+            spacing: {
+              after: 200,
+              before: 200
+            }
+          }),
+          table5,
+          new Paragraph({
+            text:
+              "12.4 REQUIREMENTS FOR OPERATING COST OF INFRASTRUCTURE PROJECT",
+            heading: HeadingLevel.HEADING_5,
+            spacing: {
+              after: 200,
+              before: 200
+            }
+          }),
+          table6,
+          new Paragraph({
+            text: "12.5 COSTING BY COMPONENT(S)",
+            heading: HeadingLevel.HEADING_5,
+            spacing: {
+              after: 200,
+              before: 200
+            }
+          }),
+          table7,
+          new Paragraph({
+            text: "12.6 LOCATION OF IMPLEMENTATION",
+            heading: HeadingLevel.HEADING_5,
+            spacing: {
+              after: 200,
+              before: 200
+            }
+          }),
+          table8,
+          new Paragraph({
+            spacing: {
+              after: 200,
+              before: 200
+            }
+          }),
+          table9
+        ]
+      });
+
+      Loading.show();
+      Packer.toBlob(doc).then(blob => {
+        saveAs(blob, "mydoc.docx");
+        Loading.hide();
+      });
+    }
   },
   created() {
     let ref = firebaseDb.collection("projects");
