@@ -204,7 +204,8 @@ import {
   // TextRun,
   // VerticalAlign,
   // BorderStyle,
-  AlignmentType
+  AlignmentType,
+  VerticalAlign
 } from "docx";
 
 export default {
@@ -228,7 +229,7 @@ export default {
       });
 
       const table = new Table({
-        rows: 50,
+        rows: 11,
         columns: 2,
         float: {
           horizontalAnchor: TableAnchorType.MARGIN,
@@ -258,6 +259,317 @@ export default {
         .add(new Paragraph("2.	Implementing Department/ Agency (or Agencies)"));
 
       table.getCell(1, 1).add(new Paragraph(this.project.implementingAgency));
+      table.getCell(2, 0).add(new Paragraph("3. Priority Ranking No."));
+      table.getCell(2, 1).add(new Paragraph(this.project.priorityRanking));
+      table.getCell(3, 0).add(new Paragraph("4. Categorization"));
+      table.getCell(3, 1).add(new Paragraph(this.project.categorization));
+      table.getCell(4, 0).add(new Paragraph("5. NEDA Project ID"));
+      table.getCell(4, 1).add(new Paragraph(this.project.nedaProjectId));
+      table.getCell(5, 0).add(new Paragraph("6. Total Project Cost"));
+      table.getCell(5, 1).add(new Paragraph(this.project.totalProjectCost));
+      table.getCell(6, 0).add(new Paragraph("7. Description"));
+      table.getCell(6, 1).add(new Paragraph(this.project.description));
+      table.getCell(7, 0).add(new Paragraph("8. Purpose"));
+      table.getCell(7, 1).add(new Paragraph(this.project.purpose));
+      table.getCell(8, 0).add(new Paragraph("9. Beneficiaries"));
+      table.getCell(8, 1).add(new Paragraph(this.project.beneficiaries));
+      table.getCell(9, 0).add(new Paragraph("10. Implementation Period"));
+      table
+        .getCell(9, 1)
+        .add(new Paragraph("Start Date: " + this.project.implementationStart));
+      table
+        .getCell(10, 1)
+        .add(new Paragraph("End Date: " + this.project.implementationEnd));
+
+      const table2 = new Table({
+        rows: 13,
+        columns: 6,
+        float: {
+          horizontalAnchor: TableAnchorType.MARGIN,
+          verticalAnchor: TableAnchorType.MARGIN
+        },
+        width: 9070,
+        widthUnitType: WidthType.DXA,
+        layout: TableLayoutType.FIXED,
+        margins: {
+          top: 100,
+          bottom: 100,
+          right: 100,
+          left: 100
+        }
+      });
+
+      table2.getCell(0, 0).add(new Paragraph("11. Pre-requisites"));
+      table2.getCell(0, 0).Properties.setWidth("30%", WidthType.PCT);
+      table2
+        .getRow(0)
+        .mergeCells(1, 5)
+        .add(
+          new Paragraph({
+            text: "Reviewed/Approved",
+            alignment: AlignmentType.CENTER
+          })
+        )
+        .setVerticalAlign(VerticalAlign.CENTER);
+
+      table2.getCell(1, 1).add(new Paragraph("Approving Authorities"));
+      table2.getCell(1, 2).add(new Paragraph("Yes"));
+      table2.getCell(1, 3).add(new Paragraph("No"));
+      table2.getCell(1, 4).add(new Paragraph("Not Applicable"));
+      table2.getCell(1, 5).add(new Paragraph("Remark"));
+      table2.getCell(2, 1).add(new Paragraph("NEDA Board"));
+      table2.getCell(2, 2).add(new Paragraph(""));
+      table2.getCell(2, 3).add(new Paragraph(""));
+      table2.getCell(2, 4).add(new Paragraph(""));
+      table2.getCell(2, 5).add(new Paragraph(""));
+      table2.getCell(3, 1).add(new Paragraph("NEDA Board-ICC"));
+      table2.getCell(3, 2).add(new Paragraph(""));
+      table2.getCell(3, 3).add(new Paragraph(""));
+      table2.getCell(3, 4).add(new Paragraph(""));
+      table2.getCell(3, 5).add(new Paragraph(""));
+      table2.getCell(4, 1).add(new Paragraph("DPWH Certification"));
+      table2.getCell(4, 2).add(new Paragraph(""));
+      table2.getCell(4, 3).add(new Paragraph(""));
+      table2.getCell(4, 4).add(new Paragraph(""));
+      table2.getCell(4, 5).add(new Paragraph(""));
+      table2.getCell(5, 1).add(new Paragraph("DPWH MOA"));
+      table2.getCell(5, 2).add(new Paragraph(""));
+      table2.getCell(5, 3).add(new Paragraph(""));
+      table2.getCell(5, 4).add(new Paragraph(""));
+      table2.getCell(5, 5).add(new Paragraph(""));
+      table2.getCell(6, 1).add(new Paragraph("DPWH Costing"));
+      table2.getCell(6, 2).add(new Paragraph(""));
+      table2.getCell(6, 3).add(new Paragraph(""));
+      table2.getCell(6, 4).add(new Paragraph(""));
+      table2.getCell(6, 5).add(new Paragraph(""));
+      table2.getCell(7, 1).add(new Paragraph("DENR Clearance"));
+      table2.getCell(7, 2).add(new Paragraph(""));
+      table2.getCell(7, 3).add(new Paragraph(""));
+      table2.getCell(7, 4).add(new Paragraph(""));
+      table2.getCell(7, 5).add(new Paragraph(""));
+      table2.getCell(8, 1).add(new Paragraph("RDC Consultation"));
+      table2.getCell(8, 2).add(new Paragraph(""));
+      table2.getCell(8, 3).add(new Paragraph(""));
+      table2.getCell(8, 4).add(new Paragraph(""));
+      table2.getCell(8, 5).add(new Paragraph(""));
+      table2.getCell(9, 1).add(new Paragraph("CSO Consultation"));
+      table2.getCell(9, 2).add(new Paragraph(""));
+      table2.getCell(9, 3).add(new Paragraph(""));
+      table2.getCell(9, 4).add(new Paragraph(""));
+      table2.getCell(9, 5).add(new Paragraph(""));
+      table2.getCell(10, 1).add(new Paragraph("List of Locations"));
+      table2.getCell(10, 2).add(new Paragraph(""));
+      table2.getCell(10, 3).add(new Paragraph(""));
+      table2.getCell(10, 4).add(new Paragraph(""));
+      table2.getCell(10, 5).add(new Paragraph(""));
+      table2.getCell(11, 1).add(new Paragraph("List of Beneficiaries"));
+      table2.getCell(11, 2).add(new Paragraph(""));
+      table2.getCell(11, 3).add(new Paragraph(""));
+      table2.getCell(11, 4).add(new Paragraph(""));
+      table2.getCell(11, 5).add(new Paragraph(""));
+      table2.getCell(12, 1).add(new Paragraph("Others (please specify)"));
+      table2.getCell(12, 2).add(new Paragraph(""));
+      table2.getCell(12, 3).add(new Paragraph(""));
+      table2.getCell(12, 4).add(new Paragraph(""));
+      table2.getCell(12, 5).add(new Paragraph(""));
+
+      const table3 = new Table({
+        rows: 3,
+        columns: 4,
+        float: {
+          horizontalAnchor: TableAnchorType.MARGIN,
+          verticalAnchor: TableAnchorType.MARGIN
+        },
+        width: 9070,
+        widthUnitType: WidthType.DXA,
+        layout: TableLayoutType.FIXED,
+        margins: {
+          top: 100,
+          bottom: 100,
+          right: 100,
+          left: 100
+        }
+      });
+      table3.getCell(0, 0).Properties.setWidth("30%", WidthType.PCT);
+      table3.getCell(0, 0).add(new Paragraph("PAP (A)"));
+      table3.getCell(0, 1).add(new Paragraph("FY 2021 Tier 2 (B)"));
+      table3.getCell(0, 2).add(new Paragraph("2022 (C)"));
+      table3.getCell(0, 3).add(new Paragraph("2023 (D)"));
+
+      table3.getCell(2, 0).add(new Paragraph("GRAND TOTAL"));
+
+      const table4 = new Table({
+        rows: 3,
+        columns: 4,
+        float: {
+          horizontalAnchor: TableAnchorType.MARGIN,
+          verticalAnchor: TableAnchorType.MARGIN
+        },
+        width: 9070,
+        widthUnitType: WidthType.DXA,
+        layout: TableLayoutType.FIXED,
+        margins: {
+          top: 100,
+          bottom: 100,
+          right: 100,
+          left: 100
+        }
+      });
+
+      table4.getCell(0, 0).add(new Paragraph("Physical Accomplishments (A)"));
+      table4.getCell(0, 0).Properties.setWidth("30%", WidthType.PCT);
+      table4
+        .getRow(0)
+        .mergeCells(1, 3)
+        .add(new Paragraph("Targets"));
+      table4.getCell(1, 1).add(new Paragraph("FY 2020 Tier 2 (B)"));
+      table4.getCell(1, 2).add(new Paragraph("2021 (C)"));
+      table4.getCell(1, 3).add(new Paragraph("2022 (D)"));
+
+      const table5 = new Table({
+        rows: 6,
+        columns: 2,
+        float: {
+          horizontalAnchor: TableAnchorType.MARGIN,
+          verticalAnchor: TableAnchorType.MARGIN
+        },
+        width: 9070,
+        widthUnitType: WidthType.DXA,
+        layout: TableLayoutType.FIXED,
+        margins: {
+          top: 100,
+          bottom: 100,
+          right: 100,
+          left: 100
+        }
+      });
+
+      table5.getCell(0, 0).add(new Paragraph("Expense Class"));
+      table5.getCell(0, 0).Properties.setWidth("30%", WidthType.PCT);
+      table5.getCell(0, 1).add(new Paragraph("Total Project Cost"));
+      table5.getCell(1, 0).add(new Paragraph("Personnel Services (PS)"));
+      table5
+        .getCell(2, 0)
+        .add(new Paragraph("Maintenance and Other Operating Expenses (MOOE)"));
+      table5.getCell(3, 0).add(new Paragraph("Financial Expenses (FINEX)"));
+      table5.getCell(4, 0).add(new Paragraph("Capital Outlay (CO)"));
+      table5.getCell(5, 0).add(new Paragraph("GRAND TOTAL"));
+      table5.getCell(5, 1).add(new Paragraph(this.project.totalProjectCost));
+
+      const table6 = new Table({
+        rows: 3,
+        columns: 3,
+        float: {
+          horizontalAnchor: TableAnchorType.MARGIN,
+          verticalAnchor: TableAnchorType.MARGIN
+        },
+        width: 9070,
+        widthUnitType: WidthType.DXA,
+        layout: TableLayoutType.FIXED,
+        margins: {
+          top: 100,
+          bottom: 100,
+          right: 100,
+          left: 100
+        }
+      });
+
+      table6.getCell(0, 0).add(new Paragraph("PAP (A)"));
+      table6.getCell(0, 0).Properties.setWidth("30%", WidthType.PCT);
+      table6.getCell(0, 1).add(new Paragraph("2021 (B)"));
+      table6.getCell(0, 2).add(new Paragraph("2022 (C)"));
+      table6.getCell(2, 0).add(new Paragraph("GRAND TOTAL"));
+
+      const table7 = new Table({
+        rows: 3,
+        columns: 6,
+        float: {
+          horizontalAnchor: TableAnchorType.MARGIN,
+          verticalAnchor: TableAnchorType.MARGIN
+        },
+        width: 9070,
+        widthUnitType: WidthType.DXA,
+        layout: TableLayoutType.FIXED,
+        margins: {
+          top: 100,
+          bottom: 100,
+          right: 100,
+          left: 100
+        }
+      });
+
+      table7.getCell(0, 0).add(new Paragraph("Components (A)"));
+      table7.getCell(0, 0).Properties.setWidth("30%", WidthType.PCT);
+      table7.getCell(0, 1).add(new Paragraph("PS (B)"));
+      table7.getCell(0, 2).add(new Paragraph("MOOE (C)"));
+      table7.getCell(0, 3).add(new Paragraph("CO (D)"));
+      table7.getCell(0, 4).add(new Paragraph("FINEX (E)"));
+      table7.getCell(0, 5).add(new Paragraph("Total (F)"));
+      table7.getCell(2, 0).add(new Paragraph("GRAND TOTAL"));
+
+      const table8 = new Table({
+        rows: 3,
+        columns: 6,
+        float: {
+          horizontalAnchor: TableAnchorType.MARGIN,
+          verticalAnchor: TableAnchorType.MARGIN
+        },
+        width: 9070,
+        widthUnitType: WidthType.DXA,
+        layout: TableLayoutType.FIXED,
+        margins: {
+          top: 100,
+          bottom: 100,
+          right: 100,
+          left: 100
+        }
+      });
+
+      table8.getCell(0, 0).add(new Paragraph("Location (A)"));
+      table8.getCell(0, 0).Properties.setWidth("30%", WidthType.PCT);
+      table8.getCell(0, 1).add(new Paragraph("PS (B)"));
+      table8.getCell(0, 2).add(new Paragraph("MOOE (C)"));
+      table8.getCell(0, 3).add(new Paragraph("CO (D)"));
+      table8.getCell(0, 4).add(new Paragraph("FINEX (E)"));
+      table8.getCell(0, 5).add(new Paragraph("Total (F)"));
+      table8.getCell(2, 0).add(new Paragraph("GRAND TOTAL"));
+
+      const table9 = new Table({
+        rows: 3,
+        columns: 5,
+        float: {
+          horizontalAnchor: TableAnchorType.MARGIN,
+          verticalAnchor: TableAnchorType.MARGIN
+        },
+        width: 9070,
+        widthUnitType: WidthType.DXA,
+        layout: TableLayoutType.FIXED,
+        margins: {
+          top: 100,
+          bottom: 100,
+          right: 100,
+          left: 100
+        }
+      });
+
+      table9.getCell(1, 0).Properties.setWidth("20%", WidthType.PCT);
+      table9.getCell(1, 1).Properties.setWidth("20%", WidthType.PCT);
+      table9.getCell(1, 2).Properties.setWidth("20%", WidthType.PCT);
+      table9.getCell(1, 3).Properties.setWidth("20%", WidthType.PCT);
+      table9.getCell(1, 4).Properties.setWidth("20%", WidthType.PCT);
+
+      table9
+        .getRow(0)
+        .mergeCells(0, 1)
+        .add(new Paragraph("Prepared by:"));
+      table9.getCell(0, 1).add(new Paragraph("Certified Correct:"));
+      table9.getCell(0, 2).add(new Paragraph("Approved:"));
+      table9.getCell(0, 3).add(new Paragraph("Date:"));
+      table9.getCell(2, 0).add(new Paragraph("Budget Officer"));
+      table9.getCell(2, 1).add(new Paragraph("Planning Officer"));
+      table9.getCell(2, 2).add(new Paragraph("Chief Accountant"));
+      table9.getCell(2, 3).add(new Paragraph("Head of Agency"));
+      table9.getCell(2, 4).add(new Paragraph("Date"));
 
       doc.addSection({
         properties: {},
@@ -265,26 +577,102 @@ export default {
           default: new Header({
             children: [
               new Paragraph({
-                text: "BP 202",
-                alignment: AlignmentType.CENTER
-              }),
-              new Paragraph({
-                text:
-                  "New/Expanded Locally or Foreign Assisted Program/Project",
-                alignment: AlignmentType.CENTER
+                text: "Revised BP Form 202 (2020 Budget Tier 2)",
+                alignment: AlignmentType.RIGHT,
+                bold: true
               })
             ]
           })
         },
         children: [
           new Paragraph({
-            text: this.project.title,
-            heading: HeadingLevel.HEADING_1,
+            text: "PROPOSAL FOR NEW OR EXPANDED LOCALLY FUNDED PROJECT",
+            alignment: AlignmentType.CENTER,
+            bold: true,
             spacing: {
               after: 200
             }
           }),
-          table
+          table,
+          new Paragraph({
+            text: "Pre-Requisites",
+            heading: HeadingLevel.HEADING_4,
+            spacing: {
+              after: 200,
+              before: 200
+            }
+          }),
+          table2,
+          new Paragraph({
+            text: "12. Financial (in P'000) and Physical Details",
+            heading: HeadingLevel.HEADING_4,
+            spacing: {
+              after: 200,
+              before: 200
+            }
+          }),
+          new Paragraph({
+            text: "12.1 PAP ATTRIBUTION BY EXPENSE CLASS",
+            heading: HeadingLevel.HEADING_5,
+            spacing: {
+              after: 200,
+              before: 200
+            }
+          }),
+          table3,
+          new Paragraph({
+            text: "12.2 PHYSICAL ACCOMPLISHMENTS &amp; TARGETS",
+            heading: HeadingLevel.HEADING_5,
+            spacing: {
+              after: 200,
+              before: 200
+            }
+          }),
+          table4,
+          new Paragraph({
+            text: "12.3 TOTAL PROJECT COST",
+            heading: HeadingLevel.HEADING_5,
+            spacing: {
+              after: 200,
+              before: 200
+            }
+          }),
+          table5,
+          new Paragraph({
+            text:
+              "12.4 REQUIREMENTS FOR OPERATING COST OF INFRASTRUCTURE PROJECT",
+            heading: HeadingLevel.HEADING_5,
+            spacing: {
+              after: 200,
+              before: 200
+            }
+          }),
+          table6,
+          new Paragraph({
+            text: "12.5 COSTING BY COMPONENT(S)",
+            heading: HeadingLevel.HEADING_5,
+            spacing: {
+              after: 200,
+              before: 200
+            }
+          }),
+          table7,
+          new Paragraph({
+            text: "12.6 LOCATION OF IMPLEMENTATION",
+            heading: HeadingLevel.HEADING_5,
+            spacing: {
+              after: 200,
+              before: 200
+            }
+          }),
+          table8,
+          new Paragraph({
+            spacing: {
+              after: 200,
+              before: 200
+            }
+          }),
+          table9
         ]
       });
 
