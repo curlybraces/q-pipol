@@ -7,7 +7,8 @@ const state = {
     {
       label:
         "Technical Assistance Program/Project (such as Research and Development, Institutional Development, Human Resource Capacity Building, or System/Process Improvement PAPs)",
-      value: "Technical Assistance Program/Project (such as Research and Development, Institutional Development, Human Resource Capacity Building, or System/Process Improvement PAPs)",
+      value:
+        "Technical Assistance Program/Project (such as Research and Development, Institutional Development, Human Resource Capacity Building, or System/Process Improvement PAPs)"
     },
     {
       label:

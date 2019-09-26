@@ -1,9 +1,7 @@
 <template>
   <q-card :dark="dark" :class="dark ? 'bg-grey-10' : 'bg-white'">
     <q-toolbar :class="dark ? 'bg-info' : 'bg-primary' + ' text-white'">
-      <q-toolbar-title>
-        Evaluate Project
-      </q-toolbar-title>
+      <q-toolbar-title>Evaluate Project</q-toolbar-title>
       <q-btn flat round dense @click="closeDialog" icon="close" />
     </q-toolbar>
     <q-card-section>
@@ -28,9 +26,7 @@
             <q-icon name="local_atm" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>
-              Financial and Economic Benefits
-            </q-item-label>
+            <q-item-label>Financial and Economic Benefits</q-item-label>
           </q-item-section>
           <q-item-section side>
             <q-rating
@@ -47,9 +43,10 @@
             <q-icon name="my_location" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>
-              Degree of importance in strengthening the value chain
-            </q-item-label>
+            <q-item-label
+              >Degree of importance in strengthening the value
+              chain</q-item-label
+            >
           </q-item-section>
           <q-item-section side>
             <q-rating
@@ -106,9 +103,7 @@
             <q-icon name="map" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>
-              Extent of Coverage
-            </q-item-label>
+            <q-item-label>Extent of Coverage</q-item-label>
           </q-item-section>
           <q-item-section side>
             <q-rating
@@ -125,9 +120,9 @@
             <q-icon name="security" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>
-              Expanded Vulnerability and Suitability Assessment
-            </q-item-label>
+            <q-item-label
+              >Expanded Vulnerability and Suitability Assessment</q-item-label
+            >
           </q-item-section>
           <q-item-section side>
             <q-rating
@@ -144,9 +139,7 @@
             <q-icon name="schedule" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>
-              Urgency
-            </q-item-label>
+            <q-item-label>Urgency</q-item-label>
           </q-item-section>
           <q-item-section side>
             <q-rating
@@ -163,9 +156,9 @@
             <q-icon name="poll" />
           </q-item-section>
           <q-item-section>
-            <q-item-label class="text-uppercase text-weight-bold">
-              Overall
-            </q-item-label>
+            <q-item-label class="text-uppercase text-weight-bold"
+              >Overall</q-item-label
+            >
           </q-item-section>
           <q-item-section side>
             <q-rating
@@ -267,8 +260,6 @@ export default {
           if (doc.exists) {
             this.rating = doc.data().rating;
             this.locked = true;
-          } else {
-            console.log("No rating yet");
           }
         })
         .catch(err => {

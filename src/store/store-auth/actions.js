@@ -2,8 +2,7 @@ import { LocalStorage, Loading, Notify, Dialog } from "quasar";
 import { firebaseAuth, firebaseDb } from "boot/firebase";
 import { showErrorMessage } from "src/functions/function-show-error-message";
 
-export function registerUser({ context }, payload) {
-  console.log(context);
+export function registerUser({}, payload) {
   Loading.show();
   firebaseAuth
     .createUserWithEmailAndPassword(payload.email, payload.password)

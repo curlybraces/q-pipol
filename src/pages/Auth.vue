@@ -65,8 +65,7 @@
           <q-btn
             label="Send Password Reset Link"
             @click="sendResetPasswordEmail"
-          >
-          </q-btn>
+          ></q-btn>
         </div>
       </q-card>
     </q-dialog>
@@ -76,7 +75,8 @@
 <script>
 import { firebaseAuth } from "boot/firebase";
 import { Dialog } from "quasar";
-import LoginRegister from "../components/Auth/LoginRegister";
+const LoginRegister = () => import("../components/Auth/LoginRegister");
+
 export default {
   components: {
     LoginRegister

@@ -1,4 +1,4 @@
-import { Dialog } from "quasar";
+import { Dialog, Notify } from "quasar";
 import * as firebase from "firebase/app";
 
 import "firebase/auth";
@@ -22,7 +22,9 @@ firebaseApp
   .firestore()
   .enablePersistence()
   .then(() => {
-    console.log("Message: Offline capabilities are enabled.");
+    Notify.create({
+      message: "Message: Offline capabilities are enabled."
+    });
   })
   .catch(err => {
     if (err.code == "failed-precondition") {
@@ -39,4 +41,6 @@ firebaseApp
 let firebaseDb = firebaseApp.firestore();
 let firebaseStorage = firebaseApp.storage();
 
-export { firebase, firebaseAuth, firebaseDb, firebaseStorage };
+let projectRef = firebaseDb.collection("projects");
+
+export { firebase, firebaseAuth, firebaseDb, firebaseStorage, projectRef };

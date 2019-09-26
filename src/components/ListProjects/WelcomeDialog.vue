@@ -84,10 +84,6 @@ export default {
           message: "Access your projects anywhere, anytime."
         },
         {
-          icon: "notifications",
-          message: "Be notified when projects are added, updated or deleted."
-        },
-        {
           icon: "send",
           message: "Ready?"
         }

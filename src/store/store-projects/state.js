@@ -1,5 +1,7 @@
 export default {
   projects: [],
+  projectsDownloaded: false,
   search: "",
-  projectsDownloaded: false
+  sort: "title",
+  filter: ""
 };

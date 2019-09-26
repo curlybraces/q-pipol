@@ -38,12 +38,11 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapState } from "vuex";
+
 export default {
   name: "Notifications",
   methods: {
-    ...mapActions("notifications", ["loadNotifications"]),
-    ...mapActions("notifications", ["readNotification"]),
     goTo(id) {
       this.$router.push("/projects/" + id);
     }

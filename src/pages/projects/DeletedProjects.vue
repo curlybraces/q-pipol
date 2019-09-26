@@ -16,7 +16,10 @@
       </template>
     </q-input>
 
-    <list-component v-if="deletedProjects.length > 0" :items="deletedProjects"></list-component>
+    <list-component
+      v-if="deletedProjects.length > 0"
+      :items="deletedProjects"
+    ></list-component>
   </q-page>
 </template>
 

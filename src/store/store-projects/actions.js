@@ -1,5 +1,5 @@
 import { Notify } from "quasar";
-import { firebaseAuth, firebaseDb } from "boot/firebase";
+import { firebaseAuth, projectRef } from "boot/firebase";
 import { showErrorMessage } from "src/functions/function-show-error-message";
 import slugify from "slugify";
 
@@ -16,9 +16,7 @@ export function deleteProject({ dispatch }, id) {
 }
 
 export function fbReadData({ commit }) {
-  let ref = firebaseDb.collection("projects");
-
-  ref.onSnapshot(snapshot => {
+  projectRef.onSnapshot(snapshot => {
     commit("setProjectsDownloaded", true);
     snapshot.docChanges().forEach(change => {
       if (change.type == "added") {
@@ -27,24 +25,28 @@ export function fbReadData({ commit }) {
         commit("addProject", project);
       } else if (change.type == "removed") {
         commit("deleteProject", change.doc.id);
+      } else if (change.type == "modified") {
+        let project = change.doc.data();
+        project.id = change.doc.id;
+        commit("updateProject", project);
       }
     });
   });
 }
 
-export function fbAddProject({ }, payload) {
+export function fbAddProject({}, payload) {
   let userId = firebaseAuth.currentUser.uid;
 
-  let ref = firebaseDb.collection("projects");
   let project = payload;
-  let slug = slugify(project.implementingAgency + ' - ' + project.title, {
+  let slug = slugify(project.implementingAgency + " - " + project.title, {
     lower: true,
     remove: /[*+~.()'"!:@]/g
   });
   project.addedBy = userId;
 
-  let docRef = ref.doc(slug);
-  docRef.set(project)
+  projectRef
+    .doc(slug)
+    .set(project)
     .then(() => {
       Notify.create("Project Added");
       this.$router.push("/");
@@ -54,10 +56,10 @@ export function fbAddProject({ }, payload) {
     });
 }
 
-export function fbUpdateProject({ }, payload) {
+export function fbUpdateProject({}, payload) {
   let userId = firebaseAuth.currentUser.uid;
   payload.updatedBy = userId;
-  let projectRef = firebaseDb.collection("projects").doc(payload.id);
+  let projectRef = projectRef.doc(payload.id);
   projectRef
     .update(payload)
     .then(() => {
@@ -69,8 +71,7 @@ export function fbUpdateProject({ }, payload) {
 }
 
 export function fbDeleteProject({ commit }, projectId) {
-  firebaseDb
-    .collection("projects")
+  projectRef
     .doc(projectId)
     .delete()
     .then(() => {

@@ -3,7 +3,11 @@ const routes = [
     path: "/",
     component: () => import("layouts/MyLayout.vue"),
     children: [
-      { path: "", component: () => import("pages/Index.vue") },
+      {
+        path: "",
+        component: () =>
+          import(/* webpackChunkName: 'Index' */ "pages/Index.vue")
+      },
       {
         path: "notifications",
         component: () => import("pages/Notifications.vue")
@@ -18,7 +22,8 @@ const routes = [
       },
       {
         path: "settings",
-        component: () => import("pages/Settings.vue")
+        component: () =>
+          import(/* webpackChunkName: 'Settings' */ "pages/Settings.vue")
       },
       {
         path: "account",
@@ -30,7 +35,10 @@ const routes = [
       },
       {
         path: "add",
-        component: () => import("pages/projects/AddProject.vue")
+        component: () =>
+          import(
+            /* webpackChunkName: 'AddProject' */ "pages/projects/AddProject.vue"
+          )
       },
       {
         path: "ranked",
@@ -38,7 +46,10 @@ const routes = [
       },
       {
         path: "projects/:id",
-        component: () => import("pages/projects/ViewProject.vue")
+        component: () =>
+          import(
+            /* webpackChunkName: 'ViewProject' */ "pages/projects/ViewProject.vue"
+          )
       }
     ]
   },
@@ -48,39 +59,7 @@ const routes = [
     children: [
       {
         path: "",
-        component: () => import("pages/Auth.vue")
-      }
-    ]
-  },
-  {
-    path: "/projects",
-    component: () => import("layouts/MyLayout.vue"),
-    children: [
-      {
-        path: "",
-        component: () => import("pages/projects/ListProjects.vue")
-      },
-      {
-        path: "add",
-        component: () => import("pages/projects/AddProject.vue")
-      },
-      {
-        path: "recycle",
-        component: () => import("pages/projects/DeletedProjects.vue")
-      }
-    ]
-  },
-  {
-    path: "/review",
-    component: () => import("layouts/MyLayout.vue"),
-    children: [
-      {
-        path: "ranked",
-        component: () => import("pages/review/RankedProjects")
-      },
-      {
-        path: "programmed",
-        component: () => import("pages/review/ProgrammedProjects")
+        component: () => import(/* webpackChunkName: 'Auth' */ "pages/Auth.vue")
       }
     ]
   }

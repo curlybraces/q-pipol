@@ -31,7 +31,8 @@ const state = {
     {
       label:
         "Korea Eximbank Resident Mission / Economic Development Cooperation Fund",
-      value: "Korea Eximbank Resident Mission / Economic Development Cooperation Fund"
+      value:
+        "Korea Eximbank Resident Mission / Economic Development Cooperation Fund"
     },
     {
       label: "New Zealand",
@@ -151,11 +152,11 @@ const state = {
     },
     {
       label: "United Nations Coordination Office",
-      value: "United Nations Coordination Office",
+      value: "United Nations Coordination Office"
     },
     {
       label: "Food and Agriculture Organization",
-      value: "Food and Agriculture Organization",
+      value: "Food and Agriculture Organization"
     },
     {
       label: "United Nations Development Programme",

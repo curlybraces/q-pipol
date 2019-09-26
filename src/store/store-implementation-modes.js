@@ -3,7 +3,8 @@ const state = {
     {
       label:
         "Through Local Funds in accordance with RA 9184 or the Government Procurement Act",
-      value: "Through Local Funds in accordance with RA 9184 or the Government Procurement Act"
+      value:
+        "Through Local Funds in accordance with RA 9184 or the Government Procurement Act"
     },
     {
       label: "Through ODA pursuant to RA 8182 or the ODA Act of 1996",
