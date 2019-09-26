@@ -19,6 +19,10 @@ const state = {
     {
       label: "NEDA Board Confirmed",
       value: "NEDA Board Confirmed"
+    },
+    {
+      label: "Not Applicable",
+      value: "Not Applicable"
     }
   ]
 };

@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <q-card :class="dark ? 'bg-grey-10' : 'bg-white'">
+    <q-card square :class="dark ? 'bg-grey-10' : 'bg-white'">
       <q-toolbar :class="(dark ? 'bg-info' : 'bg-primary') + ' text-white'">
         <q-avatar icon="note_add" />
         <q-toolbar-title>Add Project</q-toolbar-title>

@@ -38,7 +38,8 @@ export function fbAddProject({ }, payload) {
   let ref = firebaseDb.collection("projects");
   let project = payload;
   let slug = slugify(project.implementingAgency + ' - ' + project.title, {
-    lower: true
+    lower: true,
+    remove: /[*+~.()'"!:@]/g
   });
   project.addedBy = userId;
 
