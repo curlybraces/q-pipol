@@ -90,7 +90,6 @@
             @click="settingsDark = !settingsDark"
           />
         </div>
-
       </q-toolbar>
     </q-header>
 
