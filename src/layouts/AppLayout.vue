@@ -43,8 +43,6 @@
                 <div class="column">
                   <div class="text-h6 q-mb-md">Quick Settings</div>
 
-                  <q-toggle v-model="notifyUser" label="Notifications" />
-
                   <q-toggle
                     label="Dark Mode"
                     v-model="settingsDark"
@@ -55,7 +53,7 @@
                     flat
                     dense
                     label="Account"
-                    to="/account"
+                    @click="editProfile = !editProfile"
                     v-close-popup
                   />
                 </div>
@@ -92,6 +90,7 @@
             @click="settingsDark = !settingsDark"
           />
         </div>
+
       </q-toolbar>
     </q-header>
 
@@ -153,6 +152,7 @@ export default {
       appTitle: "iPMS",
       copyright: "Made by Mark Lester A. Bolotaolo",
       leftDrawerOpen: false,
+      editProfile: false,
       expanded: false,
       notifyUser: false,
       darkMode: false,
