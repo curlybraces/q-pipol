@@ -707,7 +707,86 @@
         ></select-component>
       </form-element>
 
-      <form-element label="Costing by Fund Source">
+      <form-element v-if="project.components" label="38. Costing by Component">
+        <p class="lt-md">38. Costing by Component</p>
+        <template v-if="project.components.length">
+          <div
+            class="row q-pa-md q-col-gutter-sm"
+            v-for="(comp, index) in project.componentBreakdown"
+            :key="index"
+          >
+            <select-component
+              class="col-12 col-md"
+              :options="project.components"
+              v-model="comp.component"
+            ></select-component>
+            <input-component
+              label="2016 &amp; Prior"
+              class="col-12 col-md"
+              type="number"
+              v-if="project.implementationStart < 2017"
+              v-model="comp.investment2016"
+            ></input-component>
+            <input-component
+              label="2017"
+              class="col-12 col-md"
+              type="number"
+              v-model="comp.investment2017"
+            ></input-component>
+            <input-component
+              label="2018"
+              class="col-12 col-md"
+              type="number"
+              v-model="comp.investment2018"
+            ></input-component>
+            <input-component
+              label="2019"
+              class="col-12 col-md"
+              type="number"
+              v-model="comp.investment2019"
+            ></input-component>
+            <input-component
+              label="2020"
+              class="col-12 col-md"
+              type="number"
+              v-model="comp.investment2020"
+            ></input-component>
+            <input-component
+              label="2021"
+              class="col-12 col-md"
+              type="number"
+              v-model="comp.investment2021"
+            ></input-component>
+            <input-component
+              label="2022"
+              class="col-12 col-md"
+              type="number"
+              v-model="comp.investment2022"
+            ></input-component>
+            <input-component
+              label="2023 &amp; Beyond"
+              class="col-12 col-md"
+              type="number"
+              v-if="project.implementationEnd > 2022"
+              v-model="comp.investment2023"
+            ></input-component>
+            <input-component
+              label="Total"
+              class="col-12 col-md"
+              type="number"
+              :readonly="true"
+              :value="comp.investmentTotal"
+            ></input-component>
+          </div>
+        </template>
+        <template v-else>
+          <p class="text-red"><q-icon name="error" />No components added.</p>
+        </template>
+      </form-element>
+
+      <form-element label="39. Cost of Infrastructure Component"></form-element>
+
+      <form-element label="40. Costing by Fund Source">
         <p class="lt-md">Costing by Funding Source</p>
         <template v-if="project.fundingSourceBreakdown">
           <div
@@ -799,82 +878,13 @@
         </div>
       </form-element>
 
-      <form-element v-if="project.components" label="Costing by Component">
-        <p class="lt-md">Costing by Component</p>
-        <template v-if="project.components.length">
-          <div
-            class="row q-pa-md q-col-gutter-sm"
-            v-for="(comp, index) in project.componentBreakdown"
-            :key="index"
-          >
-            <select-component
-              class="col-12 col-md"
-              :options="project.components"
-              v-model="comp.component"
-            ></select-component>
-            <input-component
-              label="2016 &amp; Prior"
-              class="col-12 col-md"
-              type="number"
-              v-if="project.implementationStart < 2017"
-              v-model="comp.investment2016"
-            ></input-component>
-            <input-component
-              label="2017"
-              class="col-12 col-md"
-              type="number"
-              v-model="comp.investment2017"
-            ></input-component>
-            <input-component
-              label="2018"
-              class="col-12 col-md"
-              type="number"
-              v-model="comp.investment2018"
-            ></input-component>
-            <input-component
-              label="2019"
-              class="col-12 col-md"
-              type="number"
-              v-model="comp.investment2019"
-            ></input-component>
-            <input-component
-              label="2020"
-              class="col-12 col-md"
-              type="number"
-              v-model="comp.investment2020"
-            ></input-component>
-            <input-component
-              label="2021"
-              class="col-12 col-md"
-              type="number"
-              v-model="comp.investment2021"
-            ></input-component>
-            <input-component
-              label="2022"
-              class="col-12 col-md"
-              type="number"
-              v-model="comp.investment2022"
-            ></input-component>
-            <input-component
-              label="2023 &amp; Beyond"
-              class="col-12 col-md"
-              type="number"
-              v-if="project.implementationEnd > 2022"
-              v-model="comp.investment2023"
-            ></input-component>
-            <input-component
-              label="Total"
-              class="col-12 col-md"
-              type="number"
-              :readonly="true"
-              :value="comp.investmentTotal"
-            ></input-component>
-          </div>
-        </template>
-        <template v-else>
-          <p class="text-red"><q-icon name="error" />No components added.</p>
-        </template>
-      </form-element>
+      <form-element
+        label="41. Cost by Location of Implementation"
+      ></form-element>
+
+      <form-element
+        label="42. Financial Accomplishment (only for locally funded projects)"
+      ></form-element>
 
       <div class="text-center q-py-md">
         <button-component
