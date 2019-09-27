@@ -14,7 +14,9 @@
         ></input-component>
       </form-element>
 
-      <q-item-label header class="text-uppercase">General Information</q-item-label>
+      <q-item-label header class="text-uppercase"
+        >General Information</q-item-label
+      >
 
       <form-element label="Commodity/ies">
         <input-component
@@ -107,7 +109,11 @@
 
       <form-element label="6a. Status">
         <p class="lt-md">6a. Status</p>
-        <options-component label="Status" v-model="project.status" :options="statuses"></options-component>
+        <options-component
+          label="Status"
+          v-model="project.status"
+          :options="statuses"
+        ></options-component>
       </form-element>
 
       <form-element label="6b. Infrastructure">
@@ -125,7 +131,11 @@
 
       <form-element label="6c. Typology">
         <p class="lt-md">6c. Typology</p>
-        <options-component label="Typology" v-model="project.typology" :options="typologies"></options-component>
+        <options-component
+          label="Typology"
+          v-model="project.typology"
+          :options="typologies"
+        ></options-component>
       </form-element>
 
       <form-element label="6d. Budget Tier">
@@ -184,7 +194,11 @@
       </form-element>
 
       <form-element label="7c. Province/s">
-        <input-component label="7c. Province/s" v-model="project.provinces" :rules="rules.required"></input-component>
+        <input-component
+          label="7c. Province/s"
+          v-model="project.provinces"
+          :rules="rules.required"
+        ></input-component>
       </form-element>
 
       <form-element label="7d. City/Municipality/ies">
@@ -217,12 +231,20 @@
 
       <form-element label="10. RDIP Inclusion">
         <p class="lt-md">10. RDIP Inclusion</p>
-        <options-component inline v-model="project.rdipInclusion" :options="yesNo"></options-component>
+        <options-component
+          inline
+          v-model="project.rdipInclusion"
+          :options="yesNo"
+        ></options-component>
       </form-element>
 
       <form-element label="11. PCIP Inclusion">
         <p class="lt-md">11. PCIP Inclusion</p>
-        <options-component inline v-model="project.pcipInclusion" :options="yesNo"></options-component>
+        <options-component
+          inline
+          v-model="project.pcipInclusion"
+          :options="yesNo"
+        ></options-component>
       </form-element>
 
       <form-element label="12. Status of ICC/NEDA Board Processing">
@@ -345,7 +367,9 @@
         ></input-component>
       </form-element>
 
-      <q-item-label header class="text-uppercase">Implementation Readiness</q-item-label>
+      <q-item-label header class="text-uppercase"
+        >Implementation Readiness</q-item-label
+      >
 
       <q-item-label header>21. Prerequisites</q-item-label>
 
@@ -439,7 +463,9 @@
         ></options-component>
       </form-element>
 
-      <form-element label="Evaluated and endorsed by DA Clearinghouse Committee">
+      <form-element
+        label="Evaluated and endorsed by DA Clearinghouse Committee"
+      >
         <options-component
           inline
           label="Evaluated and endorsed by DA Clearinghouse Committee"
@@ -537,13 +563,19 @@
         ></input-component>
       </form-element>
 
-      <q-item-label header class="text-uppercase">Strategic Alignment</q-item-label>
+      <q-item-label header class="text-uppercase"
+        >Strategic Alignment</q-item-label
+      >
 
       <form-element
         label="26. New Thinking for Agriculture (Eight Paradigms for a Food-Secure Philippines)"
       >
         <p class="lt-md">26. New Thinking in Agriculture</p>
-        <options-component type="checkbox" :options="newThinkings" v-model="project.newThinkings"></options-component>
+        <options-component
+          type="checkbox"
+          :options="newThinkings"
+          v-model="project.newThinkings"
+        ></options-component>
       </form-element>
 
       <form-element label="Philippine Development Plan">
@@ -578,7 +610,10 @@
 
       <form-element label="31. Level of GAD Responsiveness">
         <p class="lt-md">31. Level of GAD Responsiveness</p>
-        <options-component :options="gadResponsiveness" v-model="project.gadResponsiveness"></options-component>
+        <options-component
+          :options="gadResponsiveness"
+          v-model="project.gadResponsiveness"
+        ></options-component>
       </form-element>
 
       <form-element label="32. Infrastructure Sector">
@@ -594,7 +629,9 @@
         ></q-tree>
       </form-element>
 
-      <q-item-label header class="text-uppercase">FINANCIAL AND ECONOMIC BENEFITS</q-item-label>
+      <q-item-label header class="text-uppercase"
+        >FINANCIAL AND ECONOMIC BENEFITS</q-item-label
+      >
 
       <form-element label="33. Estimated Project Life (in years)">
         <input-component
@@ -605,7 +642,11 @@
       </form-element>
 
       <form-element label="34. Benefit-Cost Ratio">
-        <input-component label="34. Benefit-Cost Ratio" type="number" v-model="project.bcr"></input-component>
+        <input-component
+          label="34. Benefit-Cost Ratio"
+          type="number"
+          v-model="project.bcr"
+        ></input-component>
       </form-element>
 
       <form-element label="35. Internal Rate of Return (in %)">
@@ -641,7 +682,10 @@
         ></select-component>
       </form-element>
 
-      <form-element label="Other Funding Institution" v-if="project.mainFundingSource == 99">
+      <form-element
+        label="Other Funding Institution"
+        v-if="project.mainFundingSource == 99"
+      >
         <input-component
           label="Other Funding Institution"
           v-if="project.mainFundingSource == 99"
@@ -650,7 +694,10 @@
         ></input-component>
       </form-element>
 
-      <form-element label="Other Funding Institution" v-if="project.categorization == 2">
+      <form-element
+        label="Other Funding Institution"
+        v-if="project.categorization == 2"
+      >
         <select-component
           v-if="project.categorization == 2"
           label="Project Preparation Document"
@@ -663,7 +710,11 @@
       <form-element label="Costing by Fund Source">
         <p class="lt-md">Costing by Funding Source</p>
         <template v-if="project.fundingSourceBreakdown">
-          <div class="row" v-for="(fs, index) in project.fundingSourceBreakdown" :key="index">
+          <div
+            class="row"
+            v-for="(fs, index) in project.fundingSourceBreakdown"
+            :key="index"
+          >
             <costing-component
               :fs="fs"
               :key="index"
@@ -675,7 +726,11 @@
         </template>
 
         <div class="row q-col-gutter-sm q-pa-md">
-          <select-component class="col-12 col-md" :options="fundingSources" v-model="fundingSource"></select-component>
+          <select-component
+            class="col-12 col-md"
+            :options="fundingSources"
+            v-model="fundingSource"
+          ></select-component>
           <input-component
             label="2016 &amp; Prior"
             class="col-12 col-md"
@@ -733,7 +788,14 @@
             :readonly="true"
             :value="investmentTotal"
           ></input-component>
-          <q-btn flat dense round color="green" icon="add_box" @click="addFundingSource()" />
+          <q-btn
+            flat
+            dense
+            round
+            color="green"
+            icon="add_box"
+            @click="addFundingSource()"
+          />
         </div>
       </form-element>
 
@@ -810,14 +872,16 @@
           </div>
         </template>
         <template v-else>
-          <p class="text-red">
-            <q-icon name="error" />No components added.
-          </p>
+          <p class="text-red"><q-icon name="error" />No components added.</p>
         </template>
       </form-element>
 
       <div class="text-center q-py-md">
-        <button-component icon="save" type="submit" label="Save"></button-component>
+        <button-component
+          icon="save"
+          type="submit"
+          label="Save"
+        ></button-component>
       </div>
     </q-list>
   </q-form>

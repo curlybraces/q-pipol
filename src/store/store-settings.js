@@ -1,7 +1,6 @@
 const state = {
   showWelcome: false,
   dark: false,
-  view: "list",
   userName: "",
   ipFocal: "",
   planningHead: "",

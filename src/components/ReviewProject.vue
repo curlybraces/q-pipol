@@ -15,7 +15,9 @@
               <span class="text-weight-bold">{{ project.title }}</span>
             </q-item-label>
             <q-item-label caption v-if="locked">
-              <span class="text-red text-weight-light text-caption">(Project already evaluated.)</span>
+              <span class="text-red text-weight-light text-caption"
+                >(Project already evaluated.)</span
+              >
             </q-item-label>
           </q-item-section>
         </q-item>
@@ -27,7 +29,12 @@
             <q-item-label>Financial and Economic Benefits</q-item-label>
           </q-item-section>
           <q-item-section side>
-            <q-rating size="md" v-model="rating.criteria1" :max="max" :readonly="locked" />
+            <q-rating
+              size="md"
+              v-model="rating.criteria1"
+              :max="max"
+              :readonly="locked"
+            />
           </q-item-section>
         </q-item>
         <q-separator :dark="dark" />
@@ -37,12 +44,16 @@
           </q-item-section>
           <q-item-section>
             <q-item-label>
-              Degree of importance in strengthening the value
-              chain
+              Degree of importance in strengthening the value chain
             </q-item-label>
           </q-item-section>
           <q-item-section side>
-            <q-rating size="md" v-model="rating.criteria2" :max="max" :readonly="locked" />
+            <q-rating
+              size="md"
+              v-model="rating.criteria2"
+              :max="max"
+              :readonly="locked"
+            />
           </q-item-section>
         </q-item>
         <q-separator :dark="dark" />
@@ -57,7 +68,12 @@
             </q-item-label>
           </q-item-section>
           <q-item-section side>
-            <q-rating size="md" v-model="rating.criteria3" :max="max" :readonly="locked" />
+            <q-rating
+              size="md"
+              v-model="rating.criteria3"
+              :max="max"
+              :readonly="locked"
+            />
           </q-item-section>
         </q-item>
         <q-separator :dark="dark" />
@@ -72,7 +88,12 @@
             </q-item-label>
           </q-item-section>
           <q-item-section side>
-            <q-rating size="md" v-model="rating.criteria4" :max="max" :readonly="locked" />
+            <q-rating
+              size="md"
+              v-model="rating.criteria4"
+              :max="max"
+              :readonly="locked"
+            />
           </q-item-section>
         </q-item>
         <q-separator :dark="dark" />
@@ -84,7 +105,12 @@
             <q-item-label>Extent of Coverage</q-item-label>
           </q-item-section>
           <q-item-section side>
-            <q-rating size="md" v-model="rating.criteria5" :max="max" :readonly="locked" />
+            <q-rating
+              size="md"
+              v-model="rating.criteria5"
+              :max="max"
+              :readonly="locked"
+            />
           </q-item-section>
         </q-item>
         <q-separator :dark="dark" />
@@ -93,10 +119,17 @@
             <q-icon name="security" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>Expanded Vulnerability and Suitability Assessment</q-item-label>
+            <q-item-label
+              >Expanded Vulnerability and Suitability Assessment</q-item-label
+            >
           </q-item-section>
           <q-item-section side>
-            <q-rating size="md" v-model="rating.criteria6" :max="max" :readonly="locked" />
+            <q-rating
+              size="md"
+              v-model="rating.criteria6"
+              :max="max"
+              :readonly="locked"
+            />
           </q-item-section>
         </q-item>
         <q-separator :dark="dark" />
@@ -108,7 +141,12 @@
             <q-item-label>Urgency</q-item-label>
           </q-item-section>
           <q-item-section side>
-            <q-rating size="md" v-model="rating.criteria7" :max="max" :readonly="locked" />
+            <q-rating
+              size="md"
+              v-model="rating.criteria7"
+              :max="max"
+              :readonly="locked"
+            />
           </q-item-section>
         </q-item>
         <q-separator :dark="dark" />
@@ -117,7 +155,9 @@
             <q-icon name="poll" />
           </q-item-section>
           <q-item-section>
-            <q-item-label class="text-uppercase text-weight-bold">Overall</q-item-label>
+            <q-item-label class="text-uppercase text-weight-bold"
+              >Overall</q-item-label
+            >
           </q-item-section>
           <q-item-section side>
             <q-rating
@@ -132,7 +172,12 @@
       </q-list>
     </q-card-section>
     <q-card-actions align="right" class="q-pa-md">
-      <q-btn icon="save" label="Save" :color="dark ? 'info' : 'primary'" @click="saveRating" />
+      <q-btn
+        icon="save"
+        label="Save"
+        :color="dark ? 'info' : 'primary'"
+        @click="saveRating"
+      />
     </q-card-actions>
   </q-card>
 </template>

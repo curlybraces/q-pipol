@@ -8,7 +8,7 @@
   "prettier.disableLanguages": [],
   "eslint.autoFixOnSave": true,
   "editor.insertSpaces": true,
-  "editor.formatOnSave": true, // only if you want auto      //fomattting on saving the file
+  // "editor.formatOnSave": true, // only if you want auto      //fomattting on saving the file
   "editor.detectIndentation": true,
   "editor.tabSize": 2,
   "editor.formatOnPaste": false,

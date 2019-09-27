@@ -8,10 +8,13 @@
           </template>
           Your email is not verified. You can only view projects. Click the link
           below to verify your email to add/update projects.
-          <template
-            v-slot:action
-          >
-            <q-btn flat color="red" label="VERIFY EMAIL" @click="sendEmailVerification" />
+          <template v-slot:action>
+            <q-btn
+              flat
+              color="red"
+              label="VERIFY EMAIL"
+              @click="sendEmailVerification"
+            />
           </template>
         </q-banner>
 
@@ -19,7 +22,11 @@
 
         <no-project v-if="!projects.length && !search" />
 
-        <q-scroll-area v-if="projects.length" class="q-scroll-area-projects" style="height:100px">
+        <q-scroll-area
+          v-if="projects.length"
+          class="q-scroll-area-projects"
+          style="height:100px"
+        >
           <list-component :items="projects" />
         </q-scroll-area>
 

@@ -2,7 +2,13 @@
   <q-layout view="hHh lpR fFf">
     <q-header :class="dark ? 'bg-grey-10' : 'bg-primary'">
       <q-toolbar>
-        <q-btn dense flat round icon="menu" @click="leftDrawerOpen = !leftDrawerOpen" />
+        <q-btn
+          dense
+          flat
+          round
+          icon="menu"
+          @click="leftDrawerOpen = !leftDrawerOpen"
+        />
 
         <q-avatar color="white" class="q-mr-xs">
           <img src="statics/da-logo.png" />
@@ -27,16 +33,31 @@
 
         <div v-else>
           <q-btn dense round flat color="white" icon="account_circle">
-            <q-menu anchor="bottom right" self="top right" :offset="[0, 5]" square>
+            <q-menu
+              anchor="bottom right"
+              self="top right"
+              :offset="[0, 5]"
+              square
+            >
               <div class="row no-wrap q-pa-md">
                 <div class="column">
                   <div class="text-h6 q-mb-md">Quick Settings</div>
 
                   <q-toggle v-model="notifyUser" label="Notifications" />
 
-                  <q-toggle label="Dark Mode" v-model="settingsDark" @toggle="setDark(val)" />
+                  <q-toggle
+                    label="Dark Mode"
+                    v-model="settingsDark"
+                    @toggle="setDark(val)"
+                  />
 
-                  <q-btn flat dense label="Account" to="/account" v-close-popup />
+                  <q-btn
+                    flat
+                    dense
+                    label="Account"
+                    to="/account"
+                    v-close-popup
+                  />
                 </div>
 
                 <q-separator vertical inset class="q-mx-lg" />

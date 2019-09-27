@@ -19,7 +19,10 @@
           transition-show="slide-up"
           transition-hide="slide-down"
         >
-          <edit-project :project="project" @close="showEditProject = false"></edit-project>
+          <edit-project
+            :project="project"
+            @close="showEditProject = false"
+          ></edit-project>
         </q-dialog>
 
         <q-dialog
@@ -29,13 +32,24 @@
           transition-show="slide-up"
           transition-hide="slide-down"
         >
-          <review-project :project="project" @close="showReviewProject = false"></review-project>/>
+          <review-project
+            :project="project"
+            @close="showReviewProject = false"
+          ></review-project
+          >/>
         </q-dialog>
       </div>
     </q-img>
     <q-separator />
     <q-card-actions align="around">
-      <q-btn size="12px" flat dense round icon="visibility" :to="'projects/' + project.id" />
+      <q-btn
+        size="12px"
+        flat
+        dense
+        round
+        icon="visibility"
+        :to="'projects/' + project.id"
+      />
 
       <q-btn
         size="12px"

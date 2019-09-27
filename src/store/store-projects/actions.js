@@ -33,7 +33,7 @@ export function fbReadData({ commit }) {
   });
 }
 
-export function fbAddProject({ }, payload) {
+export function fbAddProject({}, payload) {
   let userId = firebaseAuth.currentUser.uid;
 
   let project = payload;
@@ -51,7 +51,7 @@ export function fbAddProject({ }, payload) {
     });
 }
 
-export function fbUpdateProject({ }, payload) {
+export function fbUpdateProject({}, payload) {
   let userId = firebaseAuth.currentUser.uid;
   payload.updatedBy = userId;
   let projectRef = projectRef.doc(payload.id);

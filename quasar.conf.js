@@ -108,7 +108,8 @@ module.exports = function (ctx) {
         "QScrollArea",
 
         "QUploader",
-        "QRating"
+        "QRating",
+        "QSlideTransition"
       ],
 
       directives: ["Ripple", "ClosePopup"],

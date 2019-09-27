@@ -36,9 +36,7 @@ const routes = [
       {
         path: "add",
         component: () =>
-          import(
-            /* webpackChunkName: 'AddProject' */ "pages/AddProject.vue"
-          )
+          import(/* webpackChunkName: 'AddProject' */ "pages/AddProject.vue")
       },
       {
         path: "ranked",
@@ -47,9 +45,7 @@ const routes = [
       {
         path: "projects/:id",
         component: () =>
-          import(
-            /* webpackChunkName: 'ViewProject' */ "pages/ViewProject.vue"
-          )
+          import(/* webpackChunkName: 'ViewProject' */ "pages/ViewProject.vue")
       }
     ]
   },
