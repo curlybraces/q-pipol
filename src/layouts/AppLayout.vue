@@ -1,7 +1,9 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="hHh lpR fFf">
     <q-header :class="dark ? 'bg-grey-10' : 'bg-primary'">
       <q-toolbar>
+        <q-btn dense flat round icon="menu" @click="leftDrawerOpen = !leftDrawerOpen" />
+
         <q-avatar color="white" class="q-mr-xs">
           <img src="statics/da-logo.png" />
         </q-avatar>
@@ -25,31 +27,16 @@
 
         <div v-else>
           <q-btn dense round flat color="white" icon="account_circle">
-            <q-menu
-              anchor="bottom right"
-              self="top right"
-              :offset="[0, 5]"
-              square
-            >
+            <q-menu anchor="bottom right" self="top right" :offset="[0, 5]" square>
               <div class="row no-wrap q-pa-md">
                 <div class="column">
                   <div class="text-h6 q-mb-md">Quick Settings</div>
 
                   <q-toggle v-model="notifyUser" label="Notifications" />
 
-                  <q-toggle
-                    label="Dark Mode"
-                    v-model="settingsDark"
-                    @toggle="setDark(val)"
-                  />
+                  <q-toggle label="Dark Mode" v-model="settingsDark" @toggle="setDark(val)" />
 
-                  <q-btn
-                    flat
-                    dense
-                    label="Account"
-                    to="/account"
-                    v-close-popup
-                  />
+                  <q-btn flat dense label="Account" to="/account" v-close-popup />
                 </div>
 
                 <q-separator vertical inset class="q-mx-lg" />
@@ -59,9 +46,7 @@
                     <img src="https://cdn.quasar.dev/img/avatar4.jpg" />
                   </q-avatar>
 
-                  <div class="text-subtitle1 q-mt-md q-mb-xs">
-                    Username
-                  </div>
+                  <div class="text-subtitle1 q-mt-md q-mb-xs">Username</div>
 
                   <q-btn
                     color="primary"
@@ -91,8 +76,8 @@
 
     <q-drawer
       v-model="leftDrawerOpen"
+      bordered
       :content-class="dark ? 'bg-grey-10' : 'bg-primary'"
-      :breakpoint="767"
       :width="250"
     >
       <q-list padding dark>
@@ -146,7 +131,7 @@ export default {
     return {
       appTitle: "iPMS",
       copyright: "Made by Mark Lester A. Bolotaolo",
-      leftDrawerOpen: true,
+      leftDrawerOpen: false,
       expanded: false,
       notifyUser: false,
       darkMode: false,

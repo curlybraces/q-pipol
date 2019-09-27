@@ -1,7 +1,7 @@
 const routes = [
   {
     path: "/",
-    component: () => import("layouts/MyLayout.vue"),
+    component: () => import("layouts/AppLayout.vue"),
     children: [
       {
         path: "",
@@ -37,7 +37,7 @@ const routes = [
         path: "add",
         component: () =>
           import(
-            /* webpackChunkName: 'AddProject' */ "pages/projects/AddProject.vue"
+            /* webpackChunkName: 'AddProject' */ "pages/AddProject.vue"
           )
       },
       {
@@ -48,7 +48,7 @@ const routes = [
         path: "projects/:id",
         component: () =>
           import(
-            /* webpackChunkName: 'ViewProject' */ "pages/projects/ViewProject.vue"
+            /* webpackChunkName: 'ViewProject' */ "pages/ViewProject.vue"
           )
       }
     ]

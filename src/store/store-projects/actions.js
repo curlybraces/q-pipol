@@ -1,7 +1,6 @@
 import { Notify } from "quasar";
 import { firebaseAuth, projectRef } from "boot/firebase";
 import { showErrorMessage } from "src/functions/function-show-error-message";
-import slugify from "slugify";
 
 export function addProject({ dispatch }, project) {
   dispatch("fbAddProject", project);
@@ -34,18 +33,14 @@ export function fbReadData({ commit }) {
   });
 }
 
-export function fbAddProject({}, payload) {
+export function fbAddProject({ }, payload) {
   let userId = firebaseAuth.currentUser.uid;
 
   let project = payload;
-  let slug = slugify(project.implementingAgency + " - " + project.title, {
-    lower: true,
-    remove: /[*+~.()'"!:@]/g
-  });
   project.addedBy = userId;
 
   projectRef
-    .doc(slug)
+    .doc()
     .set(project)
     .then(() => {
       Notify.create("Project Added");
@@ -56,7 +51,7 @@ export function fbAddProject({}, payload) {
     });
 }
 
-export function fbUpdateProject({}, payload) {
+export function fbUpdateProject({ }, payload) {
   let userId = firebaseAuth.currentUser.uid;
   payload.updatedBy = userId;
   let projectRef = projectRef.doc(payload.id);

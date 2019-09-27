@@ -1,18 +1,21 @@
 <template>
-  <q-input
-    outlined
-    dense
-    rounded
-    :dark="dark"
-    class="q-mb-md"
-    clearable
-    placeholder="Search in project titles..."
-    v-model="searchField"
-  >
-    <template v-slot:append>
-      <q-icon name="search" />
-    </template>
-  </q-input>
+  <div class="row full-width align-center">
+    <q-input
+      outlined
+      dense
+      rounded
+      :dark="dark"
+      class="col q-mb-md"
+      clearable
+      placeholder="Search in project titles..."
+      v-model="searchField"
+    >
+      <template v-slot:append>
+        <q-icon name="search" />
+      </template>
+    </q-input>
+    <q-btn flat round dense color="grey-8" icon="filter_list"></q-btn>
+  </div>
 </template>
 
 <script>

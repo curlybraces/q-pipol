@@ -12,7 +12,7 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
-import AddEditProject from "../../components/AddEditProject";
+import AddEditProject from "../components/AddEditProject";
 
 export default {
   components: {

@@ -1,21 +1,5 @@
 <template>
-  <transition
-    appear
-    enter-active-class="animated zoomIn"
-    leave-active-class="animated zoomOut"
-  >
-    <!-- <q-list bordered separator class="rounded-borders" :dark="dark">
-      <q-item :class="dark ? 'bg-info' : 'bg-primary'" header>
-        <div class="text-h6 absolute-center text-white">
-          Projects
-        </div>
-      </q-item>
-      <project
-        v-for="project in projects"
-        :key="project.id"
-        :project="project"
-      ></project>
-    </q-list>-->
+  <transition appear enter-active-class="animated zoomIn" leave-active-class="animated zoomOut">
     <div class="row q-col-gutter-sm justify-start align-start">
       <div
         class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12 flex"
@@ -37,7 +21,6 @@ export default {
   name: "ListComponent",
   computed: {
     ...mapState("projects", ["search"]),
-    ...mapState("settings", ["dark"]),
     ...mapGetters("projects", ["projects"])
   }
 };

@@ -2,11 +2,16 @@
   <q-card class="fit" bordered flat square>
     <q-img src="statics/masaganang-ani-mataas-na-kita.png">
       <div class="absolute-bottom">
-        <div
-          class="text-h6"
-          v-html="$options.filters.searchHighlight(project.title, search)"
-        ></div>
-        <div class="text-subtitle2">{{ project.implementingAgency }}</div>
+        <q-list>
+          <q-item>
+            <q-item-label>
+              <div
+                class="text-white"
+                v-html="$options.filters.searchHighlight(project.title, search)"
+              ></div>
+            </q-item-label>
+          </q-item>
+        </q-list>
         <q-dialog
           v-model="showEditProject"
           maximized
@@ -14,10 +19,7 @@
           transition-show="slide-up"
           transition-hide="slide-down"
         >
-          <edit-project
-            :project="project"
-            @close="showEditProject = false"
-          ></edit-project>
+          <edit-project :project="project" @close="showEditProject = false"></edit-project>
         </q-dialog>
 
         <q-dialog
@@ -27,24 +29,13 @@
           transition-show="slide-up"
           transition-hide="slide-down"
         >
-          <review-project
-            :project="project"
-            @close="showReviewProject = false"
-          ></review-project
-          >/>
+          <review-project :project="project" @close="showReviewProject = false"></review-project>/>
         </q-dialog>
       </div>
     </q-img>
     <q-separator />
     <q-card-actions align="around">
-      <q-btn
-        size="12px"
-        flat
-        dense
-        round
-        icon="visibility"
-        :to="'projects/' + project.id"
-      />
+      <q-btn size="12px" flat dense round icon="visibility" :to="'projects/' + project.id" />
 
       <q-btn
         size="12px"
@@ -106,7 +97,7 @@ export default {
       this.$q
         .dialog({
           title: "Confirm delete",
-          message: "Are you sure you want to delete this project?",
+          message: "Are you sure you want to permanently delete this project?",
           persistent: true,
           ok: {
             color: "primary",
