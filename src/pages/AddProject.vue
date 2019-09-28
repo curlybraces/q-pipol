@@ -37,6 +37,7 @@ export default {
         sustainableDevelopmentGoals: [],
         tenPointAgenda: [],
         priorityRanking: 0,
+        pdpIndicators: [],
         implementationStart: null,
         implementationEnd: null,
         totalProjectCost: 0,

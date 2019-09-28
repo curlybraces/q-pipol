@@ -108,7 +108,7 @@ const actions = {};
 
 const getters = {
   regions: state => {
-    return state.regions.sort(function(a, b) {
+    return [...state.regions].sort(function(a, b) {
       return parseInt(a.order) > parseInt(b.order) ? 1 : -1;
     });
   }

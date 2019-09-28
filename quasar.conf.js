@@ -109,7 +109,9 @@ module.exports = function (ctx) {
 
         "QUploader",
         "QRating",
-        "QSlideTransition"
+        "QSlideTransition",
+        "QInfiniteScroll",
+        "QSpinnerDots"
       ],
 
       directives: ["Ripple", "ClosePopup"],

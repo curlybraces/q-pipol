@@ -6,6 +6,7 @@
       </q-item-label>
     </q-item-section>
     <q-item-section>
+      <p class="lt-md">{{ label }}</p>
       <slot></slot>
     </q-item-section>
   </q-item>

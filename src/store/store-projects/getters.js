@@ -26,7 +26,7 @@ export function projectsFiltered(state, getters) {
 export function projectsSorted(state) {
   let projectsSorted = [];
 
-  projectsSorted = state.projects.sort((a, b) => {
+  projectsSorted = [...state.projects].sort((a, b) => {
     let aProp = a[state.sort].toLowerCase(),
       bProp = b[state.sort].toLowerCase();
     if (aProp > bProp) {

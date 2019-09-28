@@ -79,7 +79,6 @@
           :options="fundingSources"
           :rules="rules.required"
         ></select-component>
-        <p v-if="project.mainFundingSource == 'NG-Local'">PREXC Activity</p>
         <input-component
           v-if="project.mainFundingSource == 'NG-Local'"
           label="PREXC Activity"
@@ -108,7 +107,6 @@
       <q-item-label header class="text-uppercase">Categorization</q-item-label>
 
       <form-element label="6a. Status">
-        <p class="lt-md">6a. Status</p>
         <options-component
           label="Status"
           v-model="project.status"
@@ -119,7 +117,6 @@
       <form-element label="6b. Infrastructure">
         <options-component
           inline
-          label="6b. Infrastructure"
           v-model="project.infrastructure"
           :options="[
             { value: 'Infrastructure', label: 'Infrastructure' },
@@ -130,7 +127,6 @@
       </form-element>
 
       <form-element label="6c. Typology">
-        <p class="lt-md">6c. Typology</p>
         <options-component
           label="Typology"
           v-model="project.typology"
@@ -139,7 +135,6 @@
       </form-element>
 
       <form-element label="6d. Budget Tier">
-        <p class="lt-md">6d. Budget Tier</p>
         <options-component
           label="Budget Tier"
           v-model="project.budgetTier"
@@ -193,7 +188,11 @@
         ></select-component>
       </form-element>
 
-      <form-element label="7c. Province/s">
+      <form-element label="7c. Province/s"
+        v-if="
+          project.spatialCoverage == 'Inter-regional' ||
+            project.spatialCoverage == 'Region-specific'
+        ">
         <input-component
           label="7c. Province/s"
           v-model="project.provinces"
@@ -201,7 +200,12 @@
         ></input-component>
       </form-element>
 
-      <form-element label="7d. City/Municipality/ies">
+      <form-element
+        label="7d. City/Municipality/ies"
+        v-if="
+          project.spatialCoverage == 'Inter-regional' ||
+            project.spatialCoverage == 'Region-specific'
+        ">
         <input-component
           label="7d. City/Municipality/ies"
           v-model="project.cityMunicipalities"
@@ -220,7 +224,6 @@
       </form-element>
 
       <form-element label="9. Bases for Implementation">
-        <p class="lt-md">9. Bases for Implementation</p>
         <options-component
           label="9. Bases for Implementation"
           type="checkbox"
@@ -230,7 +233,6 @@
       </form-element>
 
       <form-element label="10. RDIP Inclusion">
-        <p class="lt-md">10. RDIP Inclusion</p>
         <options-component
           inline
           v-model="project.rdipInclusion"
@@ -239,7 +241,6 @@
       </form-element>
 
       <form-element label="11. PCIP Inclusion">
-        <p class="lt-md">11. PCIP Inclusion</p>
         <options-component
           inline
           v-model="project.pcipInclusion"
@@ -249,7 +250,6 @@
 
       <form-element label="12. Status of ICC/NEDA Board Processing">
         <select-component
-          label="12. Status of ICC/NEDA Board Processing"
           v-model="project.nedaProcessing"
           :options="nedaProcessing"
         ></select-component>
@@ -271,24 +271,6 @@
         ></input-component>
       </form-element>
 
-      <form-element label="Components">
-        <q-select
-          :dark="dark"
-          :color="dark ? 'info' : 'primary'"
-          label="Add component"
-          outlined
-          dense
-          v-model="project.components"
-          hint="Press enter once you are done typing component to add item."
-          use-input
-          use-chips
-          multiple
-          hide-dropdown-icon
-          input-debounce="0"
-          @new-value="addComponent"
-        />
-      </form-element>
-
       <form-element label="14. Purpose">
         <input-component
           type="textarea"
@@ -299,10 +281,8 @@
       </form-element>
 
       <form-element label="15. Challenges being addressed">
-        <p class="lt-md">15. Challenges being addressed</p>
         <options-component
           type="checkbox"
-          label="15. Challenges being addressed"
           v-model="project.challenges"
           :options="challenges"
           :rules="rules.required"
@@ -376,7 +356,6 @@
       <form-element label="NEDA Board">
         <options-component
           inline
-          label="NEDA Board"
           v-model="project.nedaBoard"
           :options="yesNoNotApplicable"
         ></options-component>
@@ -385,7 +364,6 @@
       <form-element label="NEDA Board-ICC">
         <options-component
           inline
-          label="NEDA Board-ICC"
           v-model="project.nedaBoardIcc"
           :options="yesNoNotApplicable"
         ></options-component>
@@ -394,7 +372,6 @@
       <form-element label="DPWH Certification">
         <options-component
           inline
-          label="DPWH Certification"
           v-model="project.dpwhCertification"
           :options="yesNoNotApplicable"
         ></options-component>
@@ -403,7 +380,6 @@
       <form-element label="DPWH MOA">
         <options-component
           inline
-          label="DPWH MOA"
           v-model="project.dpwhMoa"
           :options="yesNoNotApplicable"
         ></options-component>
@@ -412,7 +388,6 @@
       <form-element label="DPWH Costing">
         <options-component
           inline
-          label="DPWH Costing"
           v-model="project.dpwhCosting"
           :options="yesNoNotApplicable"
         ></options-component>
@@ -421,7 +396,6 @@
       <form-element label="DENR Clearance">
         <options-component
           inline
-          label="DENR Clearance"
           v-model="project.denrClearance"
           :options="yesNoNotApplicable"
         ></options-component>
@@ -430,7 +404,6 @@
       <form-element label="RDC Consultation">
         <options-component
           inline
-          label="RDC Consultation"
           v-model="project.rdcConsultation"
           :options="yesNoNotApplicable"
         ></options-component>
@@ -439,7 +412,6 @@
       <form-element label="CSO Consultation">
         <options-component
           inline
-          label="CSO Consultation"
           v-model="project.csoConsultation"
           :options="yesNoNotApplicable"
         ></options-component>
@@ -448,7 +420,6 @@
       <form-element label="List of Locations">
         <options-component
           inline
-          label="List of Locations"
           v-model="project.listLocations"
           :options="yesNoNotApplicable"
         ></options-component>
@@ -457,7 +428,6 @@
       <form-element label="List of Beneficiaries">
         <options-component
           inline
-          label="List of Beneficiaries"
           v-model="project.listBeneficiaries"
           :options="yesNoNotApplicable"
         ></options-component>
@@ -468,7 +438,6 @@
       >
         <options-component
           inline
-          label="Evaluated and endorsed by DA Clearinghouse Committee"
           v-model="project.daClearingHouse"
           :options="yesNoNotApplicable"
         ></options-component>
@@ -479,7 +448,6 @@
       <form-element label="Concept Note">
         <options-component
           inline
-          label="Concept Note"
           v-model="project.conceptNote"
           :options="yesNoNotApplicable"
         ></options-component>
@@ -488,7 +456,6 @@
       <form-element label="Feasibility Study">
         <options-component
           inline
-          label="Feasibility Study"
           v-model="project.feasibilityStudy"
           :options="yesNoNotApplicable"
         ></options-component>
@@ -497,7 +464,6 @@
       <form-element label="Detailed Engineering Design">
         <options-component
           inline
-          label="Detailed Engineering Design"
           v-model="project.detailedEngineeringDesign"
           :options="yesNoNotApplicable"
         ></options-component>
@@ -506,7 +472,6 @@
       <form-element label="Business Plan">
         <options-component
           inline
-          label="Business Plan"
           v-model="project.businessPlan"
           :options="yesNoNotApplicable"
         ></options-component>
@@ -515,7 +480,6 @@
       <form-element label="Right of Way">
         <options-component
           inline
-          label="Right of Way"
           v-model="project.rightOfWay"
           :options="yesNoNotApplicable"
         ></options-component>
@@ -524,7 +488,6 @@
       <form-element label="Resettlement Plan">
         <options-component
           inline
-          label="Resettlement Plan"
           v-model="project.resettlementPlan"
           :options="yesNoNotApplicable"
         ></options-component>
@@ -533,7 +496,6 @@
       <form-element label="Others">
         <options-component
           inline
-          label="Others"
           v-model="project.otherTechnicalReadiness"
           :options="yesNoNotApplicable"
         ></options-component>
@@ -570,7 +532,6 @@
       <form-element
         label="26. New Thinking for Agriculture (Eight Paradigms for a Food-Secure Philippines)"
       >
-        <p class="lt-md">26. New Thinking in Agriculture</p>
         <options-component
           type="checkbox"
           :options="newThinkings"
@@ -578,20 +539,28 @@
         ></options-component>
       </form-element>
 
-      <form-element label="Philippine Development Plan">
-        <p class="lt-md">Philippine Development Plan</p>
+      <form-element label="27a. Philippine Development Plan Chapters">
+        <select-component
+          :options="pdpChapters"
+          node-key="value"
+          v-model="project.pdp"
+          multiple
+        />
+      </form-element>
+
+      <form-element label="27b. Philippine Development Plan Indicators">
         <q-tree
-          :nodes="pdpChapters"
+          :nodes="pdpChaptersFiltered"
           node-key="value"
           tick-strategy="strict"
           label-key="label"
-          :ticked.sync="project.pdp"
+          :ticked.sync="project.pdpIndicators"
+          :expanded="project.pdp"
           :dark="dark"
         />
       </form-element>
 
       <form-element label="29. Sustainable Development Goals">
-        <p class="lt-md">29. Sustainable Development Goals</p>
         <options-component
           type="checkbox"
           :options="sustainableDevelopmentGoals"
@@ -600,7 +569,6 @@
       </form-element>
 
       <form-element label="30. 0-10 Socioeconomic Agenda">
-        <p class="lt-md">30. 0-10 Socioeconomic Agenda</p>
         <options-component
           type="checkbox"
           :options="tenPointAgenda"
@@ -609,7 +577,6 @@
       </form-element>
 
       <form-element label="31. Level of GAD Responsiveness">
-        <p class="lt-md">31. Level of GAD Responsiveness</p>
         <options-component
           :options="gadResponsiveness"
           v-model="project.gadResponsiveness"
@@ -617,7 +584,6 @@
       </form-element>
 
       <form-element label="32. Infrastructure Sector">
-        <p class="lt-md">32. Infrastructure Sector</p>
         <q-tree
           :nodes="infrastructureSectors"
           node-key="value"
@@ -708,7 +674,6 @@
       </form-element>
 
       <form-element v-if="project.components" label="38. Costing by Component">
-        <p class="lt-md">38. Costing by Component</p>
         <template v-if="project.components.length">
           <div
             class="row q-pa-md q-col-gutter-sm"
@@ -780,14 +745,15 @@
           </div>
         </template>
         <template v-else>
-          <p class="text-red"><q-icon name="error" />No components added.</p>
+          <p class="text-red">
+            <q-icon name="error" />No components added.
+          </p>
         </template>
       </form-element>
 
       <form-element label="39. Cost of Infrastructure Component"></form-element>
 
       <form-element label="40. Costing by Fund Source">
-        <p class="lt-md">Costing by Funding Source</p>
         <template v-if="project.fundingSourceBreakdown">
           <div
             class="row"
@@ -1005,6 +971,16 @@ export default {
         var y8 = parseFloat(this.investment2023) || 0;
         return y1 + y2 + y3 + y4 + y5 + y6 + y7 + y8;
       }
+    },
+    pdpChaptersFiltered() {
+      let pdpChaptersFiltered = []
+      if (this.project.pdp.length > 0) {
+        pdpChaptersFiltered = this.pdpChapters.filter(chapter => {
+          return this.project.pdp.includes(chapter.value)
+        })
+        return pdpChaptersFiltered
+      }
+      return this.pdpChapters;
     }
   },
   methods: {
