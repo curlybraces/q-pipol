@@ -27,24 +27,45 @@
           <q-tab-panel name="new">
             <q-list bordered separator>
               <template
-                v-for="project in projects"
+                v-if="newProjects.length"
                 >
                 <project
+                  :key="project.id"
+                  v-for="project in newProjects"
+                  id="project.id"
+                  :project="project"></project>
+              </template>
+              <no-project v-else></no-project>
+            </q-list>
+          </q-tab-panel>
+
+          <q-tab-panel name="reviewed">
+            <q-list bordered separator>
+              <template
+                v-if="reviewedProjects.length"
+                >
+                <project
+                  v-for="project in reviewedProjects"
+                  :key="project.id"
+                  id="project.id"
+                  :project="project"></project>
+              </template>
+              <no-project v-else></no-project>
+            </q-list>
+          </q-tab-panel>
+
+          <q-tab-panel name="finalized">
+            <q-list bordered separator>
+              <template
+                v-if="finalizedProjects.length"
+                >
+                <project
+                  v-for="project in finalizedProjects"
                   :key="project.id"
                   id="project.id"
                   :project="project"></project>
               </template>
             </q-list>
-          </q-tab-panel>
-
-          <q-tab-panel name="reviewed">
-            <div class="text-h6">Movies</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          </q-tab-panel>
-
-          <q-tab-panel name="finalized">
-            <div class="text-h6">Movies</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
           </q-tab-panel>
         </q-tab-panels>
     </q-card>
@@ -57,7 +78,8 @@ import { mapGetters } from "vuex";
 
 export default {
   components: {
-    "project": () => import(/* webpackChunkName: 'Project' */ "./Project")
+    "project": () => import(/* webpackChunkName: 'Project' */ "./Project"),
+    "no-project": () => import(/* webpackChunkName: 'NoProject' */ "./NoProject")
   },
   name: "ListComponent",
   data() {
@@ -66,7 +88,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters("projects", ["projects"])
+    ...mapGetters("projects", ["projects","newProjects","reviewedProjects","finalizedProjects"])
   }
 };
 </script>

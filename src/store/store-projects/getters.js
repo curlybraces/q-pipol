@@ -40,3 +40,37 @@ export function projectsSorted(state) {
 
   return projectsSorted;
 }
+
+export function newProjects(state, getters) {
+  let newProjects = [],
+    projects = getters.projectsFiltered;
+
+  newProjects = projects.filter(project => {
+    return (project.status == 'new' ||
+      project.status == undefined)
+  });
+
+  return newProjects;
+}
+
+export function reviewedProjects(state, getters) {
+  let reviewedProjects = [],
+    projects = getters.projectsFiltered;
+
+  reviewedProjects = projects.filter(project => {
+    return project.status == 'reviewed'
+  });
+
+  return reviewedProjects;
+}
+
+export function finalizedProjects(state, getters) {
+  let finalizedProjects = [],
+    projects = getters.projectsFiltered;
+
+  finalizedProjects = projects.filter(project => {
+    return project.status == 'finalized'
+  });
+
+  return finalizedProjects;
+}

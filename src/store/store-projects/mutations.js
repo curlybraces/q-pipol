@@ -3,7 +3,11 @@ export function addProject(state, payload) {
 }
 
 export function updateProject(state, payload) {
-  Object.assign(state.projects[payload.id], payload);
+  // Object.assign(state.projects[payload.id], payload);
+  state.projects.filter(project => {
+    return project.id != payload.id;
+  });
+  state.projects.push(payload);
 }
 
 export function deleteProject(state, id) {
