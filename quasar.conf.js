@@ -77,22 +77,14 @@ module.exports = function (ctx) {
         "QTd",
         "QMarkupTable",
 
-        "QSpinnerFacebook",
         "QSpinnerDots",
         "QSpinner",
-
-        "QStepper",
-        "QStep",
-        "QStepperNavigation",
 
         "QInnerLoading",
 
         "QCard",
         "QCardSection",
         "QCardActions",
-
-        "QPopupProxy",
-        "QPopupEdit",
 
         "QAvatar",
 
@@ -102,16 +94,9 @@ module.exports = function (ctx) {
 
         "QPageSticky",
         "QDialog",
-        "QMenu",
-        "QBadge",
-
         "QScrollArea",
 
-        "QUploader",
-        "QRating",
-        "QSlideTransition",
-        "QInfiniteScroll",
-        "QSpinnerDots"
+        "QRating"
       ],
 
       directives: ["Ripple", "ClosePopup"],

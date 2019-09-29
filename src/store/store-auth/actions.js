@@ -104,7 +104,6 @@ export function handleAuthStateChange({ commit, dispatch }) {
       Loading.hide();
       commit("setLoggedIn", true);
       LocalStorage.set("loggedIn", true);
-      this.$router.push("/");
       dispatch("projects/fbReadData", null, { root: true });
     } else {
       commit("setDisplayName", "");

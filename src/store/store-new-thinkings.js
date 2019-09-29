@@ -2,35 +2,35 @@ const state = {
   newThinkings: [
     {
       value: "Modernization of Agriculture",
-      label: "Modernization of Agriculture"
+      label: "1. Modernization of Agriculture"
     },
     {
       value: "Industrialization of Agriculture",
-      label: "Industrialization of Agriculture"
+      label: "2. Industrialization of Agriculture"
     },
     {
       value: "Promotion of Exports",
-      label: "Promotion of Exports"
+      label: "3. Promotion of Exports"
     },
     {
       value: "Farm Consolidation",
-      label: "Farm Consolidation"
+      label: "4. Farm Consolidation"
     },
     {
       value: "Roadmap Development",
-      label: "Roadmap Development"
+      label: "5. Roadmap Development"
     },
     {
       value: "Infrastructure Development",
-      label: "Infrastructure Development"
+      label: "6. Infrastructure Development"
     },
     {
       value: "Higher Budget and Investments for Agriculture",
-      label: "Higher Budget and Investments for Agriculture"
+      label: "7. Higher Budget and Investments for Agriculture"
     },
     {
       value: "Legislative Support",
-      label: "Legislative Support"
+      label: "8. Legislative Support"
     }
   ]
 };

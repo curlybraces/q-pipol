@@ -12,7 +12,7 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
-import AddEditProject from "../components/AddEditProject";
+const AddEditProject = () => import(/* webpackChunkName: 'AddEditProject' */ "../components/AddEditProject");
 
 export default {
   components: {

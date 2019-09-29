@@ -1,8 +1,8 @@
 const state = {
   typologies: [
     {
-      label: "Core Investment Program/Project (CIP)",
-      value: "Core Investment Program/Project (CIP)"
+      label: "Capital Investment Program/Project",
+      value: "Capital Investment Program/Project"
     },
     {
       label: "Technical Assistance",

@@ -17,11 +17,10 @@
               </div>
               <div class="row text-center">
                 <q-btn
-                  icon="expand_more"
-                  flat
-                  round
-                  size="xl"
-                  @click="$refs.features.focus()"
+                  outline
+                  size="lg"
+                  label="Get Started"
+                  @click="showLoginForm = true"
                 ></q-btn>
               </div>
             </div>
@@ -48,6 +47,21 @@
         </div>
       </div>
     </div>
+
+    <q-dialog v-model="showLoginForm" maximized v-if="!loggedIn">
+      <q-card class="bg-white">
+        <q-toolbar>
+          <q-space/>
+          <q-btn
+            flat
+            dense
+            round
+            icon="close"
+            v-close-popup></q-btn>
+        </q-toolbar>
+        <login-form></login-form>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
@@ -55,9 +69,13 @@
 import { mapState, mapActions } from "vuex";
 
 export default {
+  components: {
+    "login-form": () => import(/* webpackChunkName: 'LoginForm' */ "../components/AppLayout/LoginForm")
+  },
   name: "PageIndex",
   data() {
     return {
+      showLoginForm: false,
       features: [
         {
           icon: "offline_bolt",

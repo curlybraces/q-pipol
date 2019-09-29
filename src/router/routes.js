@@ -36,8 +36,9 @@ const routes = [
           import(/* webpackChunkName: 'AddProject' */ "pages/AddProject.vue")
       },
       {
-        path: "ranked",
-        component: () => import("pages/RankedProjects.vue")
+        path: "projects/:id/edit",
+        component: () =>
+          import(/* webpackChunkName: 'EditProject' */ "pages/EditProject.vue")
       },
       {
         path: "projects/:id",

@@ -14,16 +14,16 @@ register(process.env.SERVICE_WORKER_FILE, {
 
   ready() {
     // console.log('App is being served from cache by a service worker.')
-    Notify.create({
-      message: "App is being served from cache by a service worker."
-    })
+    // Notify.create({
+    //   message: "App is being served from cache by a service worker."
+    // })
   },
 
   registered() {
     // console.log('Service worker has been registered.', registration)
-    Notify.create({
-      message: "Service worker has been registered."
-    })
+    // Notify.create({
+    //   message: "Service worker has been registered."
+    // })
   },
 
   cached() {
