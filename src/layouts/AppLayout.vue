@@ -76,7 +76,7 @@
       v-model="rightDrawerOpen"
       :width="480"
       v-if="!loggedIn && $q.screen.gt.sm"
-      show-if-above>
+      >
       <login-form></login-form>
     </q-drawer>
 
@@ -151,7 +151,7 @@ export default {
     ]),
     ...mapState("settings", ["dark"]),
     rightDrawerOpen() {
-      return !this.loggedIn;
+      return !this.loggedIn && this.$q.screen.gt.sm
     }
   },
   methods: {
