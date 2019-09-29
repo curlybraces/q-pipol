@@ -4,7 +4,12 @@
       <q-toolbar :class="(dark ? 'bg-info' : 'bg-primary') + ' text-white'">
         <q-avatar icon="note_add" />
         <q-toolbar-title>View Project</q-toolbar-title>
-        <q-btn :to="'/projects/' + $route.params.id + '/edit'" flat round icon="edit" />
+        <q-btn
+          :to="'/projects/' + $route.params.id + '/edit'"
+          flat
+          round
+          icon="edit"
+        />
         <q-btn @click="printProject" icon="save" flat round dense />
       </q-toolbar>
 

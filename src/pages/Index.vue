@@ -51,13 +51,8 @@
     <q-dialog v-model="showLoginForm" maximized v-if="!loggedIn">
       <q-card class="bg-white">
         <q-toolbar>
-          <q-space/>
-          <q-btn
-            flat
-            dense
-            round
-            icon="close"
-            v-close-popup></q-btn>
+          <q-space />
+          <q-btn flat dense round icon="close" v-close-popup></q-btn>
         </q-toolbar>
         <login-form></login-form>
       </q-card>
@@ -70,7 +65,10 @@ import { mapState, mapActions } from "vuex";
 
 export default {
   components: {
-    "login-form": () => import(/* webpackChunkName: 'LoginForm' */ "../components/AppLayout/LoginForm")
+    "login-form": () =>
+      import(
+        /* webpackChunkName: 'LoginForm' */ "../components/AppLayout/LoginForm"
+      )
   },
   name: "PageIndex",
   data() {

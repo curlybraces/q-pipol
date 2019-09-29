@@ -46,8 +46,7 @@ export function newProjects(state, getters) {
     projects = getters.projectsFiltered;
 
   newProjects = projects.filter(project => {
-    return (project.status == 'new' ||
-      project.status == undefined)
+    return project.status == "new" || project.status == undefined;
   });
 
   return newProjects;
@@ -58,7 +57,7 @@ export function reviewedProjects(state, getters) {
     projects = getters.projectsFiltered;
 
   reviewedProjects = projects.filter(project => {
-    return project.status == 'reviewed'
+    return project.status == "reviewed";
   });
 
   return reviewedProjects;
@@ -69,7 +68,7 @@ export function finalizedProjects(state, getters) {
     projects = getters.projectsFiltered;
 
   finalizedProjects = projects.filter(project => {
-    return project.status == 'finalized'
+    return project.status == "finalized";
   });
 
   return finalizedProjects;

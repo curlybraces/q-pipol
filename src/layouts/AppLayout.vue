@@ -14,11 +14,7 @@
           <span class="app-title">{{ appTitle }}</span>
         </q-toolbar-title>
 
-        <q-btn
-          v-if="loggedIn"
-          outline
-          label="Logout"
-          @click="logoutUser">
+        <q-btn v-if="loggedIn" outline label="Logout" @click="logoutUser">
         </q-btn>
       </q-toolbar>
     </q-header>
@@ -76,7 +72,7 @@
       v-model="rightDrawerOpen"
       :width="480"
       v-if="!loggedIn && $q.screen.gt.sm"
-      >
+    >
       <login-form></login-form>
     </q-drawer>
 
@@ -104,7 +100,10 @@ import { mapState, mapActions } from "vuex";
 
 export default {
   components: {
-    "login-form": () => import(/* webpackChunkName: 'LoginForm' */ "../components/AppLayout/LoginForm")
+    "login-form": () =>
+      import(
+        /* webpackChunkName: 'LoginForm' */ "../components/AppLayout/LoginForm"
+      )
   },
   name: "MyLayout",
   data() {
@@ -151,12 +150,12 @@ export default {
     ]),
     ...mapState("settings", ["dark"]),
     rightDrawerOpen() {
-      return !this.loggedIn && this.$q.screen.gt.sm
+      return !this.loggedIn && this.$q.screen.gt.sm;
     }
   },
   methods: {
     openURL,
-    ...mapActions("auth",["logoutUser"]),
+    ...mapActions("auth", ["logoutUser"]),
     ...mapActions("settings", ["setDark"])
   }
 };
@@ -168,11 +167,11 @@ export default {
 }
 
 .my-menu-link .q-item__label {
-  color: #25CCF7;
+  color: #25ccf7;
 }
 
 .my-menu-link .material-icons {
-  color: #25CCF7;
+  color: #25ccf7;
 }
 
 @media screen and (min-width: 768px) {

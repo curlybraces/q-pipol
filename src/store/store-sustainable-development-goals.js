@@ -11,7 +11,8 @@ const state = {
         "End hunger, achieve food security and improved nutrition and promote sustainable agriculture"
     },
     {
-      label: "3. Ensure healthy lives and promote well-being for all at all ages",
+      label:
+        "3. Ensure healthy lives and promote well-being for all at all ages",
       value: "Ensure healthy lives and promote well-being for all at all ages"
     },
     {

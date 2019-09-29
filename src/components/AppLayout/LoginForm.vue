@@ -5,9 +5,7 @@
     </div>
     <div class="text-caption">
       <span @click="loginForm = !loginForm">
-        {{
-          loginForm ? "or create an account" : "or sign in to your account"
-        }}
+        {{ loginForm ? "or create an account" : "or sign in to your account" }}
       </span>
     </div>
     <q-input
@@ -58,81 +56,77 @@
 </template>
 
 <script>
-  import { mapActions } from "vuex";
-  import { firebaseAuth } from "boot/firebase";
-  import { showErrorMessage } from "src/functions/function-show-error-message";
+import { mapActions } from "vuex";
+import { firebaseAuth } from "boot/firebase";
+import { showErrorMessage } from "src/functions/function-show-error-message";
 
-  export default {
-    name: "LoginForm",
-    data() {
-      return {
-        loginForm: true,
-        showPassword: false,
-        email: "",
-        password: "",
-        displayName: "",
-        agree: false
-      }
-    },
-    methods: {
-      ...mapActions("auth", [
-        "loginUser",
-        "registerUser",
-        "resetPassword"
-      ]),
-      resetPassword() {
-        this.$q
-          .dialog({
-            title: "Reset Password",
-            message: "Enter your email below.",
-            prompt: {
-              model: "",
-              type: "text"
-            },
-            cancel: true,
-            persistent: true
-          })
-          .onOk(data => {
-            firebaseAuth
-              .sendPasswordResetEmail(data)
-              .then(() => {
-                alert(
-                  "Password reset email sent to the following email: " + data
-                );
-              })
-              .catch(err => {
-                showErrorMessage(err.message);
-              });
-          });
-      },
-      submitForm() {
-        if (!this.email || !this.password) {
-          showErrorMessage("Email and password is required.");
-        } else {
-          if (this.loginForm) {
-            this.loginUser({
-              email: this.email,
-              password: this.password
+export default {
+  name: "LoginForm",
+  data() {
+    return {
+      loginForm: true,
+      showPassword: false,
+      email: "",
+      password: "",
+      displayName: "",
+      agree: false
+    };
+  },
+  methods: {
+    ...mapActions("auth", ["loginUser", "registerUser", "resetPassword"]),
+    resetPassword() {
+      this.$q
+        .dialog({
+          title: "Reset Password",
+          message: "Enter your email below.",
+          prompt: {
+            model: "",
+            type: "text"
+          },
+          cancel: true,
+          persistent: true
+        })
+        .onOk(data => {
+          firebaseAuth
+            .sendPasswordResetEmail(data)
+            .then(() => {
+              alert(
+                "Password reset email sent to the following email: " + data
+              );
+            })
+            .catch(err => {
+              showErrorMessage(err.message);
             });
+        });
+    },
+    submitForm() {
+      if (!this.email || !this.password) {
+        showErrorMessage("Email and password is required.");
+      } else {
+        if (this.loginForm) {
+          this.loginUser({
+            email: this.email,
+            password: this.password
+          });
+        } else {
+          if (!this.displayName) {
+            showErrorMessage("Please tell us what to call you.");
           } else {
-            if (!this.displayName) {
-              showErrorMessage("Please tell us what to call you.");
+            if (!this.agree) {
+              showErrorMessage(
+                "You must agree with the terms and conditions of this app."
+              );
             } else {
-              if (!this.agree) {
-                showErrorMessage(
-                  "You must agree with the terms and conditions of this app."
-                );
-              } else {
-                this.registerUser({
-                  email: this.email,
-                  password: this.password,
-                  displayName: this.displayName
-                });
-              }
+              this.registerUser({
+                email: this.email,
+                password: this.password,
+                displayName: this.displayName
+              });
             }
           }
         }
       }
     }
   }
+};
 </script>

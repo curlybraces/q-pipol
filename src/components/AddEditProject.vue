@@ -618,31 +618,19 @@
       </form-element>
 
       <form-element label="34. Benefit-Cost Ratio">
-        <input-component
-          type="number"
-          v-model="project.bcr"
-        ></input-component>
+        <input-component type="number" v-model="project.bcr"></input-component>
       </form-element>
 
       <form-element label="35. Internal Rate of Return (in %)">
-        <input-component
-          type="number"
-          v-model="project.irr"
-        ></input-component>
+        <input-component type="number" v-model="project.irr"></input-component>
       </form-element>
 
       <form-element label="36. Return on Investment (in %)">
-        <input-component
-          type="number"
-          v-model="project.roi"
-        ></input-component>
+        <input-component type="number" v-model="project.roi"></input-component>
       </form-element>
 
       <form-element label="37. Net Present Value">
-        <input-component
-          type="number"
-          v-model="project.npv"
-        ></input-component>
+        <input-component type="number" v-model="project.npv"></input-component>
       </form-element>
 
       <q-item-label header>PROJECT COSTING</q-item-label>
@@ -691,7 +679,8 @@
       <q-item>
         <table-component
           :tableData="project.componentBreakdown"
-          type="Component">
+          type="Component"
+        >
         </table-component>
       </q-item>
       <q-item>
@@ -711,62 +700,61 @@
           </thead>
           <tbody>
             <template v-if="project.componentBreakdown.length > 0">
-              <tr v-for="(comp, index) in project.componentBreakdown" :key="index">
+              <tr
+                v-for="(comp, index) in project.componentBreakdown"
+                :key="index"
+              >
                 <td>
-                  <q-input
-                    borderless
-                    dense
-                    v-model="comp.component"
-                    ></q-input>
+                  <q-input borderless dense v-model="comp.component"></q-input>
                 </td>
                 <td>
                   <q-input
                     borderless
                     dense
                     v-model="comp.investment2017"
-                    ></q-input>
+                  ></q-input>
                 </td>
                 <td>
                   <q-input
                     borderless
                     dense
                     v-model="comp.investment2018"
-                    ></q-input>
+                  ></q-input>
                 </td>
                 <td>
                   <q-input
                     borderless
                     dense
                     v-model="comp.investment2019"
-                    ></q-input>
+                  ></q-input>
                 </td>
                 <td>
                   <q-input
                     borderless
                     dense
                     v-model="comp.investment2020"
-                    ></q-input>
+                  ></q-input>
                 </td>
                 <td>
                   <q-input
                     borderless
                     dense
                     v-model="comp.investment2021"
-                    ></q-input>
+                  ></q-input>
                 </td>
                 <td>
                   <q-input
                     borderless
                     dense
                     v-model="comp.investment2022"
-                    ></q-input>
+                  ></q-input>
                 </td>
                 <td>
                   <q-input
                     borderless
                     dense
                     v-model="comp.investmentTotal"
-                    ></q-input>
+                  ></q-input>
                 </td>
                 <td class="text-center">
                   <q-btn
@@ -776,78 +764,78 @@
                     color="red"
                     icon="delete"
                     @click="deleteComponent(index)"
-                    ></q-btn>
+                  ></q-btn>
                 </td>
               </tr>
             </template>
             <tr>
-                <td>
-                  <q-input
-                    borderless
-                    dense
-                    v-model="newComponent.component"
-                    ></q-input>
-                </td>
-                <td>
-                  <q-input
-                    borderless
-                    dense
-                    v-model="newComponent.investment2017"
-                    ></q-input>
-                </td>
-                <td>
-                  <q-input
-                    borderless
-                    dense
-                    v-model="newComponent.investment2018"
-                    ></q-input>
-                </td>
-                <td>
-                  <q-input
-                    borderless
-                    dense
-                    v-model="newComponent.investment2019"
-                    ></q-input>
-                </td>
-                <td>
-                  <q-input
-                    borderless
-                    dense
-                    v-model="newComponent.investment2020"
-                    ></q-input>
-                </td>
-                <td>
-                  <q-input
-                    borderless
-                    dense
-                    v-model="newComponent.investment2021"
-                    ></q-input>
-                </td>
-                <td>
-                  <q-input
-                    borderless
-                    dense
-                    v-model="newComponent.investment2022"
-                    ></q-input>
-                </td>
-                <td>
-                  <q-input
-                    borderless
-                    dense
-                    v-model="newComponent.investmentTotal"
-                    ></q-input>
-                </td>
-                <td class="text-center">
-                  <q-btn
-                    flat
-                    dense
-                    round
-                    color="green"
-                    icon="add_box"
-                    @click="addComponent"
-                    ></q-btn>
-                </td>
-              </tr>
+              <td>
+                <q-input
+                  borderless
+                  dense
+                  v-model="newComponent.component"
+                ></q-input>
+              </td>
+              <td>
+                <q-input
+                  borderless
+                  dense
+                  v-model="newComponent.investment2017"
+                ></q-input>
+              </td>
+              <td>
+                <q-input
+                  borderless
+                  dense
+                  v-model="newComponent.investment2018"
+                ></q-input>
+              </td>
+              <td>
+                <q-input
+                  borderless
+                  dense
+                  v-model="newComponent.investment2019"
+                ></q-input>
+              </td>
+              <td>
+                <q-input
+                  borderless
+                  dense
+                  v-model="newComponent.investment2020"
+                ></q-input>
+              </td>
+              <td>
+                <q-input
+                  borderless
+                  dense
+                  v-model="newComponent.investment2021"
+                ></q-input>
+              </td>
+              <td>
+                <q-input
+                  borderless
+                  dense
+                  v-model="newComponent.investment2022"
+                ></q-input>
+              </td>
+              <td>
+                <q-input
+                  borderless
+                  dense
+                  v-model="newComponent.investmentTotal"
+                ></q-input>
+              </td>
+              <td class="text-center">
+                <q-btn
+                  flat
+                  dense
+                  round
+                  color="green"
+                  icon="add_box"
+                  @click="addComponent"
+                ></q-btn>
+              </td>
+            </tr>
           </tbody>
         </q-markup-table>
       </q-item>
@@ -953,12 +941,9 @@
         label="42. Financial Accomplishment (only for locally funded projects)"
       ></form-element>
 
-      <q-page-sticky
-        position="bottom-right"
-        :offset="[18, 0]">
+      <q-page-sticky position="bottom-right" :offset="[18, 0]">
         <q-btn fab color="primary" icon="save" type="submit" />
       </q-page-sticky>
-
     </q-list>
   </q-form>
 </template>
@@ -1100,7 +1085,7 @@ export default {
       if (selectedFundingSource) {
         fundingSourcesFiltered = this.fundingSources.filter(fundingSource => {
           return fundingSource.value != selectedFundingSource;
-        })
+        });
         return fundingSourcesFiltered;
       } else {
         return this.fundingSources;
@@ -1122,7 +1107,7 @@ export default {
     },
     addComponent() {
       if (this.newComponent.component != "") {
-        let comp = this.newComponent
+        let comp = this.newComponent;
         this.project.componentBreakdown.push({
           component: comp.component,
           investment2017: comp.investment2017,
@@ -1134,7 +1119,7 @@ export default {
           investment2023: comp.investment2023,
           investmentTotal: comp.investmentTotal
         });
-        this.newComponent = {}
+        this.newComponent = {};
       }
     },
     deleteComponent(index) {

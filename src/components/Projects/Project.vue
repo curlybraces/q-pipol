@@ -2,7 +2,7 @@
   <q-item clickable v-ripple @click="goTo(project.id)">
     <q-item-section avatar top>
       <q-avatar>
-        <q-img src="statics/masaganang-ani-mataas-na-kita.png"/>
+        <q-img src="statics/masaganang-ani-mataas-na-kita.png" />
       </q-avatar>
     </q-item-section>
 
@@ -25,7 +25,14 @@
 
     <q-item-section top side>
       <div class="text-grey-8">
-        <q-btn size="12px" flat dense round icon="delete" @click.stop="promptToDelete(project.id)"/>
+        <q-btn
+          size="12px"
+          flat
+          dense
+          round
+          icon="delete"
+          @click.stop="promptToDelete(project.id)"
+        />
       </div>
     </q-item-section>
   </q-item>
@@ -71,7 +78,7 @@ export default {
         });
     },
     goTo(id) {
-      this.$router.push('projects/' + id);
+      this.$router.push("projects/" + id);
     }
   },
   filters: {
