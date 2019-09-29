@@ -10,13 +10,13 @@ const mutations = {};
 const actions = {};
 
 const getters = {
-  pdpChaptersFiltered: (state) => {
+  pdpChaptersFiltered: state => {
     let pdpChaptersFiltered = [];
     if (state.selectedChapters.length > 0) {
       pdpChaptersFiltered = [...state.pdpChapters].filter(chapter => {
-        return state.selectedChapters.includes(chapter.value)
-      })
-      return pdpChaptersFiltered
+        return state.selectedChapters.includes(chapter.value);
+      });
+      return pdpChaptersFiltered;
     }
     return state.pdpChapters;
   }

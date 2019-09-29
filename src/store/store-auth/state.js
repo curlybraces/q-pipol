@@ -1,6 +1,7 @@
 export default {
   loggedIn: false,
-  user: {},
+  currentUserDisplayName: "",
+  currentUserEmail: "",
   emailVerified: false,
   isAdmin: false,
   isReviewer: false,

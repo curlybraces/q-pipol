@@ -9,8 +9,9 @@ const routes = [
           import(/* webpackChunkName: 'Index' */ "pages/Index.vue")
       },
       {
-        path: "notifications",
-        component: () => import("pages/Notifications.vue")
+        path: "projects",
+        component: () =>
+          import(/* webpackChunkName: 'Projects' */ "pages/Projects.vue")
       },
       {
         path: "directory",
@@ -28,10 +29,6 @@ const routes = [
       {
         path: "account",
         component: () => import("pages/Account.vue")
-      },
-      {
-        path: "about",
-        component: () => import("pages/About.vue")
       },
       {
         path: "add",

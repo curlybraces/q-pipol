@@ -2,14 +2,18 @@ import { LocalStorage, Loading, Notify, Dialog } from "quasar";
 import { firebaseAuth, firebaseDb } from "boot/firebase";
 import { showErrorMessage } from "src/functions/function-show-error-message";
 
-export function registerUser({}, payload) {
+export function registerUser({ dispatch }, payload) {
   Loading.show();
   firebaseAuth
     .createUserWithEmailAndPassword(payload.email, payload.password)
     .then(user => {
       let ref = firebaseDb.collection("users");
+
+      dispatch("setDisplayName", payload.displayName);
+
       ref.doc(user.user.uid).set({
         email: payload.email,
+        displayName: payload.displayName,
         admin: false,
         reviewer: false,
         encoder: false,
@@ -19,6 +23,13 @@ export function registerUser({}, payload) {
     .catch(error => {
       showErrorMessage(error.message);
     });
+}
+
+export function setDisplayName({}, payload) {
+  var user = firebaseAuth.currentUser;
+  user.updateProfile({
+    displayName: payload.displayName
+  });
 }
 
 export function loginUser({}, payload) {
@@ -87,19 +98,22 @@ export function setRoles({ commit }) {
 export function handleAuthStateChange({ commit, dispatch }) {
   firebaseAuth.onAuthStateChanged(user => {
     if (user) {
-      dispatch("setRoles", null);
       commit("setEmailVerified", user.emailVerified);
+      commit("setDisplayName", user.displayName);
+      commit("setEmail", user.email);
       Loading.hide();
       commit("setLoggedIn", true);
       LocalStorage.set("loggedIn", true);
       this.$router.push("/");
       dispatch("projects/fbReadData", null, { root: true });
     } else {
+      commit("setDisplayName", "");
+      commit("setEmail", "");
       commit("projects/setProjectsDownloaded", false, { root: true });
       commit("projects/clearProjects", null, { root: true });
       commit("setLoggedIn", false);
       LocalStorage.set("loggedIn", false);
-      this.$router.replace("/login");
+      this.$router.replace("/");
     }
   });
 }

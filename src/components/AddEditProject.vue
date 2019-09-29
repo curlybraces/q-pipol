@@ -188,11 +188,13 @@
         ></select-component>
       </form-element>
 
-      <form-element label="7c. Province/s"
+      <form-element
+        label="7c. Province/s"
         v-if="
           project.spatialCoverage == 'Inter-regional' ||
             project.spatialCoverage == 'Region-specific'
-        ">
+        "
+      >
         <input-component
           label="7c. Province/s"
           v-model="project.provinces"
@@ -205,7 +207,8 @@
         v-if="
           project.spatialCoverage == 'Inter-regional' ||
             project.spatialCoverage == 'Region-specific'
-        ">
+        "
+      >
         <input-component
           label="7d. City/Municipality/ies"
           v-model="project.cityMunicipalities"
@@ -745,9 +748,7 @@
           </div>
         </template>
         <template v-else>
-          <p class="text-red">
-            <q-icon name="error" />No components added.
-          </p>
+          <p class="text-red"><q-icon name="error" />No components added.</p>
         </template>
       </form-element>
 
@@ -973,12 +974,12 @@ export default {
       }
     },
     pdpChaptersFiltered() {
-      let pdpChaptersFiltered = []
+      let pdpChaptersFiltered = [];
       if (this.project.pdp.length > 0) {
         pdpChaptersFiltered = this.pdpChapters.filter(chapter => {
-          return this.project.pdp.includes(chapter.value)
-        })
-        return pdpChaptersFiltered
+          return this.project.pdp.includes(chapter.value);
+        });
+        return pdpChaptersFiltered;
       }
       return this.pdpChapters;
     }
