@@ -45,4 +45,11 @@ let firebaseStorage = firebaseApp.storage();
 
 let projectRef = firebaseDb.collection("projects");
 
-export { firebase, firebaseAuth, firebaseDb, firebaseRealtime, firebaseStorage, projectRef };
+export {
+  firebase,
+  firebaseAuth,
+  firebaseDb,
+  firebaseRealtime,
+  firebaseStorage,
+  projectRef
+};

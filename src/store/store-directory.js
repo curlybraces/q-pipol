@@ -1,6 +1,5 @@
 import { firebaseRealtime } from "boot/firebase";
 
-
 const state = {
   directory: [],
   directoryDownloaded: false
@@ -11,17 +10,19 @@ const mutations = {
     state.directoryDownloaded = value;
   },
   addDirectory(state, payload) {
-    state.directory.push(payload)
+    state.directory.push(payload);
   },
   updateDirectory(state, payload) {
-    let index = state.directory.findIndex(directory => directory.id == payload.id)
+    let index = state.directory.findIndex(
+      directory => directory.id == payload.id
+    );
     state.directory.splice(index, 1);
     state.directory.push(payload);
   },
   deleteDirectory(state, id) {
     state.directory = state.directory.filter(directory => {
-      return directory.id != id
-    })
+      return directory.id != id;
+    });
   }
 };
 
@@ -31,7 +32,7 @@ const actions = {
     let ref = firebaseRealtime.ref("directory");
 
     ref.once("value").then(() => {
-      commit('setDirectoryDownloaded', true)
+      commit("setDirectoryDownloaded", true);
     });
 
     ref.on("child_added", snapshot => {
@@ -45,10 +46,10 @@ const actions = {
       let payload = snapshot.val();
       payload.id = snapshot.key;
       commit("updateDirectory", payload);
-    })
+    });
 
     ref.on("child_removed", snapshot => {
-      commit("deleteDirectory", snapshot.key)
+      commit("deleteDirectory", snapshot.key);
     });
 
     // ref.onSnapshot(snapshot => {
