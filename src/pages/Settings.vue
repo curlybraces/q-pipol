@@ -50,6 +50,16 @@
           <q-toggle color="primary" :value="dark" @input="setDark" />
         </q-item-section>
       </q-item>
+
+      <q-item tag="label" v-ripple>
+        <q-item-section>
+          <q-item-label>Show All Projects</q-item-label>
+          <q-item-label caption>Turn off to show only your projects</q-item-label>
+        </q-item-section>
+        <q-item-section side top>
+          <q-toggle color="primary" :value="showAll" @input="setShowAll" />
+        </q-item-section>
+      </q-item>
     </q-list>
 
     <q-dialog
@@ -149,9 +159,6 @@ export default {
       changePasswordDialog: false,
       profilePicture: null,
       confirmPassword: false,
-      settings: {
-        dark: false
-      },
       rules: {
         password: [
           v => v.length >= 8 || "Password must be at least 8 characters."
@@ -160,10 +167,10 @@ export default {
     };
   },
   computed: {
-    ...mapState("settings", ["dark", "showWelcome"])
+    ...mapState("settings", ["dark", "showWelcome","showAll"])
   },
   methods: {
-    ...mapActions("settings", ["setDark", "setShowWelcome"]),
+    ...mapActions("settings", ["setDark", "setShowWelcome","setShowAll"]),
     ...mapActions("auth", ["changePassword"]),
     confirmUserPassword() {
       let user = firebaseAuth.currentUser;
@@ -192,5 +199,3 @@ export default {
   }
 };
 </script>
-
-<style></style>

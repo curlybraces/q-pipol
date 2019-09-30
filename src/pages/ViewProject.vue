@@ -30,13 +30,13 @@
         <label-value label="1. Proposal/Project Name" :value="project.title" />
 
         <label-value
-          label="2. Implementing Department/Agency"
-          :value="project.implementingAgency"
+          label="2. Program or Project"
+          :value="project.classification"
         />
 
         <label-value
-          label="3. Priority Ranking No."
-          :value="project.priorityRanking"
+          label="3. Implementing Agency"
+          :value="project.implementingAgency"
         />
 
         <label-value

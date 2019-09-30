@@ -25,7 +25,7 @@
 
       <q-tab-panels v-model="tab" animated>
         <q-tab-panel name="new">
-          <q-list bordered separator>
+          <q-list separator>
             <template v-if="newProjects.length">
               <project
                 :key="project.id"
