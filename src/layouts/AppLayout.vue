@@ -40,31 +40,7 @@
           <div>{{ currentUserEmail }}</div>
         </div>
       </q-img>
-      <q-scroll-area
-        style="height: calc(100% - 150px); margin-top: 150px; border-right: 1px solid #ddd"
-      >
-        <q-list padding dark class="text-grey">
-          <q-item-label header class="text-black">NAVIGATION</q-item-label>
-
-          <template v-for="item in sidemenu">
-            <q-item
-              :key="item.label"
-              exact
-              clickable
-              :to="item.href"
-              exact-active-class="my-menu-link"
-            >
-              <q-item-section avatar>
-                <q-icon :name="item.icon" />
-              </q-item-section>
-
-              <q-item-section>
-                <q-item-label>{{ item.label }}</q-item-label>
-              </q-item-section>
-            </q-item>
-          </template>
-        </q-list>
-      </q-scroll-area>
+      <left-drawer :sidemenu="sidemenu" />
     </q-drawer>
 
     <q-drawer
@@ -103,6 +79,10 @@ export default {
     "login-form": () =>
       import(
         /* webpackChunkName: 'LoginForm' */ "../components/AppLayout/LoginForm"
+      ),
+    "left-drawer": () =>
+      import(
+        /* webpackChunkName: 'LeftDrawer' */ "../components/AppLayout/LeftDrawer"
       )
   },
   name: "MyLayout",
@@ -118,42 +98,33 @@ export default {
         {
           label: "Home",
           href: "/",
-          icon: "home",
-          caption: "Home page"
+          icon: "home"
         },
         {
           label: "Projects",
           href: "/projects",
-          icon: "list",
-          caption: "View all projects"
+          icon: "list"
         },
         {
           label: "Directory",
           href: "/directory",
-          icon: "call",
-          caption: "Directory of offices"
+          icon: "call"
         },
         {
           label: "Settings",
           href: "/settings",
-          icon: "settings",
-          caption: "Change user and system settings"
+          icon: "settings"
         },
         {
           label: "Account",
           href: "/account",
-          icon: "person",
-          caption: "Account Information"
+          icon: "person"
         }
       ]
     };
   },
   computed: {
-    ...mapState("auth", [
-      "loggedIn",
-      "currentUserEmail",
-      "currentUserDisplayName"
-    ]),
+    ...mapState("auth", ["loggedIn","currentUserEmail", "currentUserDisplayName"]),
     ...mapState("settings", ["dark"]),
     rightDrawerOpen() {
       return !this.loggedIn && this.$q.screen.gt.sm;
@@ -170,14 +141,6 @@ export default {
 <style scoped>
 .app-title {
   font-family: PrimeTime;
-}
-
-.my-menu-link .q-item__label {
-  color: #25ccf7;
-}
-
-.my-menu-link .material-icons {
-  color: #25ccf7;
 }
 
 @media screen and (min-width: 768px) {

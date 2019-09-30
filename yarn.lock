@@ -4621,10 +4621,10 @@ doctrine@^3.0.0:
   dependencies:
     esutils "^2.0.2"
 
-docx@^5.0.0-rc5:
-  version "5.0.0-rc5"
-  resolved "https://registry.yarnpkg.com/docx/-/docx-5.0.0-rc5.tgz#e0cc1e376ed425c8a1070f442dcd2c3ede67066c"
-  integrity sha512-suNpubIKN8sbXPMb5Vse9kU50qe+CxBSmGqGCU5L0jXyNyh7WkdNPAQ6HOxzyP0yok8ByA0HrN560XMRkOo1Rw==
+docx@^5.0.0-rc6:
+  version "5.0.0-rc6"
+  resolved "https://registry.yarnpkg.com/docx/-/docx-5.0.0-rc6.tgz#3047861b8be68c64fa4a41716276b3a051741fc0"
+  integrity sha512-AQbHvCKFtkdjxg0LgV4aR8alIRRbflCXxPupCqcbu2YQNqT+bS60YHOiYsaCK6koL3F+SVQvbAtolUJHrqDqdg==
   dependencies:
     "@types/jszip" "^3.1.4"
     jszip "^3.1.5"
