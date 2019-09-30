@@ -29,8 +29,8 @@
         <q-td key="main" :props="props">
           {{ props.row.main }}
           <div class="my-table-details">
-            {{ props.row.headPosition }}<br/>
-            {{ props.row.headContactNumber }} / {{ props.row.headEmail }}
+            {{ props.row.mainPosition }}<br/>
+            {{ props.row.mainContactNumber }} / {{ props.row.headEmail }}
           </div>
         </q-td>
         <q-td key="alt1" :props="props">
@@ -52,7 +52,13 @@
         </q-td>
         <q-td>
           <div class="text-center">
-            <q-btn flat dense round icon="edit" />
+            <q-btn
+              flat
+              dense
+              round
+              color="primary"
+              size="sm"
+              icon="edit" />
           </div>
         </q-td>
       </q-tr>
