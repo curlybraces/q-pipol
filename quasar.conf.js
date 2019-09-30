@@ -81,7 +81,6 @@ module.exports = function (ctx) {
         "QSpinner",
 
         "QInnerLoading",
-
         "QCard",
         "QCardSection",
         "QCardActions",

@@ -3,6 +3,7 @@ import * as firebase from "firebase/app";
 
 import "firebase/auth";
 import "firebase/firestore";
+import "firebase/database";
 import "firebase/storage";
 
 var firebaseConfig = {
@@ -39,8 +40,9 @@ firebaseApp
   });
 
 let firebaseDb = firebaseApp.firestore();
+let firebaseRealtime = firebaseApp.database();
 let firebaseStorage = firebaseApp.storage();
 
 let projectRef = firebaseDb.collection("projects");
 
-export { firebase, firebaseAuth, firebaseDb, firebaseStorage, projectRef };
+export { firebase, firebaseAuth, firebaseDb, firebaseRealtime, firebaseStorage, projectRef };

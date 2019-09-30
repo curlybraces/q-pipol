@@ -3,6 +3,7 @@ import Vuex from "vuex";
 
 import auth from "./store-auth/";
 import projects from "./store-projects/";
+import directory from "./store-directory";
 import settings from "./store-settings";
 
 // Dropdown stores
@@ -55,6 +56,7 @@ export default function(/* { ssrContext } */) {
     modules: {
       auth,
       projects,
+      directory,
       settings,
 
       approval_levels,

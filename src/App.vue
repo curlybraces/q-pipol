@@ -19,7 +19,7 @@ export default {
     this.handleAuthStateChange();
   },
   created() {
-    this.$q.addressbarColor.set();
+    this.$q.addressbarColor.set("primary");
   }
 };
 </script>

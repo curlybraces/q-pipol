@@ -117,7 +117,7 @@
       <form-element label="6a. Status">
         <options-component
           label="Status"
-          v-model="project.status"
+          v-model="project.projectStatus"
           :options="statuses"
         ></options-component>
       </form-element>

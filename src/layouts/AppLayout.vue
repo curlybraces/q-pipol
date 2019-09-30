@@ -128,6 +128,12 @@ export default {
           caption: "View all projects"
         },
         {
+          label: "Directory",
+          href: "/directory",
+          icon: "call",
+          caption: "Directory of offices"
+        },
+        {
           label: "Settings",
           href: "/settings",
           icon: "settings",

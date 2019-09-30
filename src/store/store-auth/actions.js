@@ -105,6 +105,7 @@ export function handleAuthStateChange({ commit, dispatch }) {
       commit("setLoggedIn", true);
       LocalStorage.set("loggedIn", true);
       dispatch("projects/fbReadData", null, { root: true });
+      dispatch("directory/fbReadData", null, { root: true });
     } else {
       commit("setDisplayName", "");
       commit("setEmail", "");
