@@ -566,7 +566,6 @@
           tick-strategy="strict"
           label-key="label"
           :ticked.sync="project.pdpIndicators"
-          :expanded="project.pdp"
           :dark="dark"
         />
       </form-element>
@@ -678,264 +677,41 @@
       <q-item-label class="q-pl-md">38. Costing by Component</q-item-label>
       <q-item>
         <table-component
-          :tableData="project.componentBreakdown"
+          :tableData.sync="project.componentBreakdown"
           type="Component"
         >
         </table-component>
       </q-item>
-      <q-item>
-        <q-markup-table separator="cell" class="col">
-          <thead>
-            <tr>
-              <th>Component</th>
-              <th>2017</th>
-              <th>2018</th>
-              <th>2019</th>
-              <th>2020</th>
-              <th>2021</th>
-              <th>2022</th>
-              <th>Total</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <template v-if="project.componentBreakdown.length > 0">
-              <tr
-                v-for="(comp, index) in project.componentBreakdown"
-                :key="index"
               >
-                <td>
-                  <q-input borderless dense v-model="comp.component"></q-input>
-                </td>
-                <td>
-                  <q-input
-                    borderless
-                    dense
-                    v-model="comp.investment2017"
-                  ></q-input>
-                </td>
-                <td>
-                  <q-input
-                    borderless
-                    dense
-                    v-model="comp.investment2018"
-                  ></q-input>
-                </td>
-                <td>
-                  <q-input
-                    borderless
-                    dense
-                    v-model="comp.investment2019"
-                  ></q-input>
-                </td>
-                <td>
-                  <q-input
-                    borderless
-                    dense
-                    v-model="comp.investment2020"
-                  ></q-input>
-                </td>
-                <td>
-                  <q-input
-                    borderless
-                    dense
-                    v-model="comp.investment2021"
-                  ></q-input>
-                </td>
-                <td>
-                  <q-input
-                    borderless
-                    dense
-                    v-model="comp.investment2022"
-                  ></q-input>
-                </td>
-                <td>
-                  <q-input
-                    borderless
-                    dense
-                    v-model="comp.investmentTotal"
-                  ></q-input>
-                </td>
-                <td class="text-center">
-                  <q-btn
-                    flat
-                    dense
-                    round
-                    color="red"
-                    icon="delete"
-                    @click="deleteComponent(index)"
-                  ></q-btn>
-                </td>
-              </tr>
-            </template>
-            <tr>
-              <td>
-                <q-input
-                  borderless
-                  dense
-                  v-model="newComponent.component"
-                ></q-input>
-              </td>
-              <td>
-                <q-input
-                  borderless
-                  dense
-                  v-model="newComponent.investment2017"
-                ></q-input>
-              </td>
-              <td>
-                <q-input
-                  borderless
-                  dense
-                  v-model="newComponent.investment2018"
-                ></q-input>
-              </td>
-              <td>
-                <q-input
-                  borderless
-                  dense
-                  v-model="newComponent.investment2019"
-                ></q-input>
-              </td>
-              <td>
-                <q-input
-                  borderless
-                  dense
-                  v-model="newComponent.investment2020"
-                ></q-input>
-              </td>
-              <td>
-                <q-input
-                  borderless
-                  dense
-                  v-model="newComponent.investment2021"
-                ></q-input>
-              </td>
-              <td>
-                <q-input
-                  borderless
-                  dense
-                  v-model="newComponent.investment2022"
-                ></q-input>
-              </td>
-              <td>
-                <q-input
-                  borderless
-                  dense
-                  v-model="newComponent.investmentTotal"
-                ></q-input>
-              </td>
-              <td class="text-center">
-                <q-btn
-                  flat
-                  dense
-                  round
-                  color="green"
-                  icon="add_box"
-                  @click="addComponent"
-                ></q-btn>
-              </td>
-            </tr>
-          </tbody>
-        </q-markup-table>
-      </q-item>
 
       <form-element label="39. Cost of Infrastructure Component"></form-element>
+      <q-item>
+        <table-component
+          :tableData.sync="project.infrastructureBreakdown"
+          type="Infrastructure"
+        >
+        </table-component>
+      </q-item>
 
-      <form-element label="40. Costing by Fund Source">
-        <template v-if="project.fundingSourceBreakdown">
-          <div
-            class="row"
-            v-for="(fs, index) in project.fundingSourceBreakdown"
-            :key="index"
-          >
-            <costing-component
-              :fs="fs"
-              :key="index"
-              :implementationStart="project.implementationStart"
-              :implementationEnd="project.implementationEnd"
-              @delete="deleteFundingSource(index)"
-            ></costing-component>
-          </div>
-        </template>
-
-        <div class="row q-col-gutter-sm q-pa-md">
-          <select-component
-            class="col-12 col-md"
-            :options="fundingSources"
-            v-model="fundingSource"
-          ></select-component>
-          <input-component
-            label="2016 &amp; Prior"
-            class="col-12 col-md"
-            type="number"
-            v-if="project.implementationStart < 2017"
-            v-model="investment2016"
-          ></input-component>
-          <input-component
-            label="2017"
-            class="col-12 col-md"
-            type="number"
-            v-model="investment2017"
-          ></input-component>
-          <input-component
-            label="2018"
-            class="col-12 col-md"
-            type="number"
-            v-model="investment2018"
-          ></input-component>
-          <input-component
-            label="2019"
-            class="col-12 col-md"
-            type="number"
-            v-model="investment2019"
-          ></input-component>
-          <input-component
-            label="2020"
-            class="col-12 col-md"
-            type="number"
-            v-model="investment2020"
-          ></input-component>
-          <input-component
-            label="2021"
-            class="col-12 col-md"
-            type="number"
-            v-model="investment2021"
-          ></input-component>
-          <input-component
-            label="2022"
-            class="col-12 col-md"
-            type="number"
-            v-model="investment2022"
-          ></input-component>
-          <input-component
-            label="2023 &amp; Beyond"
-            class="col-12 col-md"
-            type="number"
-            v-if="project.implementationEnd > 2022"
-            v-model="investment2023"
-          ></input-component>
-          <input-component
-            label="Total"
-            class="col-12 col-md"
-            type="number"
-            :readonly="true"
-            :value="investmentTotal"
-          ></input-component>
-          <q-btn
-            flat
-            dense
-            round
-            color="green"
-            icon="add_box"
-            @click="addFundingSource()"
-          />
-        </div>
-      </form-element>
+      <form-element label="40. Costing by Fund Source"></form-element>
+      <q-item>
+        <table-component
+          :tableData.sync="project.fundingSourceBreakdown"
+          type="Funding Source"
+        >
+        </table-component>
+      </q-item>
 
       <form-element
         label="41. Cost by Location of Implementation"
       ></form-element>
+      <q-item>
+        <table-component
+          :tableData.sync="project.locationBreakdown"
+          type="Location"
+        >
+        </table-component>
+      </q-item>
 
       <form-element
         label="42. Financial Accomplishment (only for locally funded projects)"
@@ -954,7 +730,6 @@ const InputComponent = () => import("./FormInputs/InputComponent");
 const SelectComponent = () => import("./FormInputs/SelectComponent");
 const OptionsComponent = () => import("./FormInputs/OptionsComponent");
 const FormElement = () => import("./FormInputs/FormElement");
-const CostingComponent = () => import("./CostingComponent");
 const TableComponent = () => import("../components/TableComponent");
 
 export default {
@@ -963,7 +738,6 @@ export default {
     FormElement,
     InputComponent,
     OptionsComponent,
-    CostingComponent,
     TableComponent
   },
   name: "AddEditProject",

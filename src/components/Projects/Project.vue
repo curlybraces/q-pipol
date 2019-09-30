@@ -18,8 +18,8 @@
           ></div>
         </span>
       </q-item-label>
-      <q-item-label caption lines="1">
-        @rstoenescu in #1: > The build system
+      <q-item-label caption lines="2">
+        {{ project.description }}
       </q-item-label>
     </q-item-section>
 

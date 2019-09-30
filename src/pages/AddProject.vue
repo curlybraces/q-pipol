@@ -57,6 +57,32 @@ export default {
             investmentTotal: 0
           }
         ],
+        infrastructureBreakdown: [
+          {
+            infrastructure: "",
+            investment2016: 0,
+            investment2017: 0,
+            investment2018: 0,
+            investment2019: 0,
+            investment2020: 0,
+            investment2021: 0,
+            investment2022: 0,
+            investmentTotal: 0
+          }
+        ],
+        locationBreakdown: [
+          {
+            location: "",
+            investment2016: 0,
+            investment2017: 0,
+            investment2018: 0,
+            investment2019: 0,
+            investment2020: 0,
+            investment2021: 0,
+            investment2022: 0,
+            investmentTotal: 0
+          }
+        ],
         challenges: [],
         infrastructureSectors: [],
         components: [],

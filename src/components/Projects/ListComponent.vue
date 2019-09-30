@@ -4,7 +4,7 @@
     enter-active-class="animated zoomIn"
     leave-active-class="animated zoomOut"
   >
-    <q-card>
+    <q-card flat>
       <q-toolbar>
         <q-toolbar-title>Projects</q-toolbar-title>
       </q-toolbar>
@@ -39,7 +39,7 @@
         </q-tab-panel>
 
         <q-tab-panel name="reviewed">
-          <q-list bordered separator>
+          <q-list separator>
             <template v-if="reviewedProjects.length">
               <project
                 v-for="project in reviewedProjects"
@@ -53,7 +53,7 @@
         </q-tab-panel>
 
         <q-tab-panel name="finalized">
-          <q-list bordered separator>
+          <q-list separator>
             <template v-if="finalizedProjects.length">
               <project
                 v-for="project in finalizedProjects"
@@ -62,6 +62,7 @@
                 :project="project"
               ></project>
             </template>
+            <no-project v-else></no-project>
           </q-list>
         </q-tab-panel>
       </q-tab-panels>

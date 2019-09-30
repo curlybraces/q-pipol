@@ -14,11 +14,16 @@
       </q-toolbar>
 
       <q-list separator :dark="dark">
-        <label-value label="PAP UACS Code" :value="project.uacsCode" />
+
+        <div class="text-h6 text-uppercase q-pa-md">
+          {{ project.title }}
+        </div>
 
         <q-item-label header class="text-uppercase"
           >General Information</q-item-label
         >
+
+        <label-value label="PAP UACS Code" :value="project.uacsCode" />
 
         <label-value label="Commodity/ies" :value="project.commodities" />
 

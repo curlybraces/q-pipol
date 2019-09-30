@@ -1,48 +1,56 @@
 <template>
-  <div>
+  <div class="col">
     <q-markup-table separator="cell" class="col">
       <thead>
         <tr>
           <th>{{ type }}</th>
+          <th>2016 &amp; Prior</th>
           <th>2017</th>
           <th>2018</th>
           <th>2019</th>
           <th>2020</th>
           <th>2021</th>
           <th>2022</th>
+          <th>2023 &amp; Beyond</th>
           <th>Total</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
         <template v-if="tableData.length > 0">
-          <tr v-for="(comp, index) in tableData" :key="index">
+          <tr v-for="(data, index) in tableData" :key="index">
             <td>
-              <q-input borderless dense v-model="comp.component"></q-input>
+              <q-input borderless dense v-model="data.component"></q-input>
             </td>
             <td>
-              <q-input borderless dense v-model="comp.investment2017"></q-input>
+              <q-input borderless dense v-model="data.investment2016"></q-input>
             </td>
             <td>
-              <q-input borderless dense v-model="comp.investment2018"></q-input>
+              <q-input borderless dense v-model="data.investment2017"></q-input>
             </td>
             <td>
-              <q-input borderless dense v-model="comp.investment2019"></q-input>
+              <q-input borderless dense v-model="data.investment2018"></q-input>
             </td>
             <td>
-              <q-input borderless dense v-model="comp.investment2020"></q-input>
+              <q-input borderless dense v-model="data.investment2019"></q-input>
             </td>
             <td>
-              <q-input borderless dense v-model="comp.investment2021"></q-input>
+              <q-input borderless dense v-model="data.investment2020"></q-input>
             </td>
             <td>
-              <q-input borderless dense v-model="comp.investment2022"></q-input>
+              <q-input borderless dense v-model="data.investment2021"></q-input>
+            </td>
+            <td>
+              <q-input borderless dense v-model="data.investment2022"></q-input>
+            </td>
+            <td>
+              <q-input borderless dense v-model="data.investment2023"></q-input>
             </td>
             <td>
               <q-input
                 borderless
                 dense
-                v-model="comp.investmentTotal"
+                v-model="data.investmentTotal"
               ></q-input>
             </td>
             <td class="text-center">
@@ -62,56 +70,70 @@
             <q-input
               borderless
               dense
-              v-model="newComponent.component"
+              v-model="newData.component"
             ></q-input>
           </td>
           <td>
             <q-input
               borderless
               dense
-              v-model="newComponent.investment2017"
+              v-model="newData.investment2016"
             ></q-input>
           </td>
           <td>
             <q-input
               borderless
               dense
-              v-model="newComponent.investment2018"
+              v-model="newData.investment2017"
             ></q-input>
           </td>
           <td>
             <q-input
               borderless
               dense
-              v-model="newComponent.investment2019"
+              v-model="newData.investment2018"
             ></q-input>
           </td>
           <td>
             <q-input
               borderless
               dense
-              v-model="newComponent.investment2020"
+              v-model="newData.investment2019"
             ></q-input>
           </td>
           <td>
             <q-input
               borderless
               dense
-              v-model="newComponent.investment2021"
+              v-model="newData.investment2020"
             ></q-input>
           </td>
           <td>
             <q-input
               borderless
               dense
-              v-model="newComponent.investment2022"
+              v-model="newData.investment2021"
             ></q-input>
           </td>
           <td>
             <q-input
               borderless
               dense
-              v-model="newComponent.investmentTotal"
+              v-model="newData.investment2022"
+            ></q-input>
+          </td>
+          <td>
+            <q-input
+              borderless
+              dense
+              v-model="newData.investment2023"
+            ></q-input>
+          </td>
+          <td>
+            <q-input
+              borderless
+              dense
+              v-model="newData.investmentTotal"
             ></q-input>
           </td>
           <td class="text-center">
@@ -121,7 +143,7 @@
               round
               color="green"
               icon="add_box"
-              @click="addComponent"
+              @click="addData"
             ></q-btn>
           </td>
         </tr>
@@ -136,7 +158,7 @@ export default {
   props: ["type", "tableData"],
   data() {
     return {
-      newComponent: {
+      newData: {
         component: "",
         investment2016: 0,
         investment2017: 0,
@@ -150,19 +172,19 @@ export default {
     };
   },
   methods: {
-    addComponent() {
-      let newComp = this.newComponent;
+    addData() {
+      let newData = this.newData;
       this.tableData.push({
-        component: newComp.component,
-        investment2017: newComp.investment2017,
-        investment2018: newComp.investment2018,
-        investment2019: newComp.investment2019,
-        investment2020: newComp.investment2020,
-        investment2021: newComp.investment2021,
-        investment2022: newComp.investment2022,
-        investment2023: newComp.investmentTotal
+        component: newData.component,
+        investment2017: newData.investment2017,
+        investment2018: newData.investment2018,
+        investment2019: newData.investment2019,
+        investment2020: newData.investment2020,
+        investment2021: newData.investment2021,
+        investment2022: newData.investment2022,
+        investment2023: newData.investmentTotal
       });
-      newComp = {};
+      newData = {};
     },
     deleteComponent(index) {
       this.tableData.splice(index, 1);
