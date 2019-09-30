@@ -682,7 +682,6 @@
         >
         </table-component>
       </q-item>
-              >
 
       <form-element label="39. Cost of Infrastructure Component"></form-element>
       <q-item>
