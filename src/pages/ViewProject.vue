@@ -237,6 +237,11 @@
           label="26. New Thinking for Agriculture (Eight Paradigms for a Food-Secure Philippines)"
           :value="project.newThinkings"
         />
+        
+        <label-value
+          label="27. Contribution to increasing income"
+          :value="project.incomeEffect"
+        />
 
         <label-value label="Philippine Development Plan" :value="project.pdp" />
 
