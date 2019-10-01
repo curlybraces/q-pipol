@@ -18,6 +18,7 @@
       >
         <q-tab name="new" label="New" />
         <q-tab name="reviewed" label="Reviewed" />
+        <q-tab name="encoded" label="Encoded" />
         <q-tab name="finalized" label="Finalized" />
       </q-tabs>
 
@@ -43,6 +44,20 @@
             <template v-if="reviewedProjects.length">
               <project
                 v-for="project in reviewedProjects"
+                :key="project.id"
+                id="project.id"
+                :project="project"
+              ></project>
+            </template>
+            <no-project v-else></no-project>
+          </q-list>
+        </q-tab-panel>
+
+        <q-tab-panel name="encoded">
+          <q-list separator>
+            <template v-if="encodedProjects.length">
+              <project
+                v-for="project in encodedProjects"
                 :key="project.id"
                 id="project.id"
                 :project="project"
@@ -89,6 +104,7 @@ export default {
     ...mapGetters("projects", [
       "projects",
       "newProjects",
+      "encodedProjects",
       "reviewedProjects",
       "finalizedProjects"
     ])

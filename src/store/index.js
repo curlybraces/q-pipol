@@ -5,6 +5,7 @@ import auth from "./store-auth/";
 import projects from "./store-projects/";
 import directory from "./store-directory";
 import settings from "./store-settings";
+import submissions from "./store-submissions";
 
 // Dropdown stores
 import approval_levels from "./store-approval-levels";
@@ -58,6 +59,7 @@ export default function(/* { ssrContext } */) {
       projects,
       directory,
       settings,
+      submissions,
 
       approval_levels,
       categorizations,

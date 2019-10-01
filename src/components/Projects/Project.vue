@@ -6,8 +6,10 @@
       </q-avatar>
     </q-item-section>
 
-    <q-item-section top class="col-2 gt-sm">
-      <q-item-label class="q-mt-sm">GitHub</q-item-label>
+    <q-item-section top class="col-1 gt-sm">
+      <q-item-label class="q-mt-sm">{{
+        project.implementingAgency
+      }}</q-item-label>
     </q-item-section>
 
     <q-item-section top>
@@ -23,8 +25,16 @@
       </q-item-label>
     </q-item-section>
 
-    <q-item-section top side>
+    <q-item-section side top>
       <div class="text-grey-8">
+        <q-btn
+          size="12px"
+          dense
+          flat
+          round
+          icon="edit"
+          @click.stop="showUpdateStatus = !showUpdateStatus"
+        />
         <q-btn
           size="12px"
           flat
@@ -35,6 +45,53 @@
         />
       </div>
     </q-item-section>
+
+    <q-dialog v-model="showUpdateStatus" persistent v-close-popup>
+      <q-card>
+        <q-toolbar class="bg-primary text-white">
+          <q-toolbar-title>Update Project Status</q-toolbar-title>
+          <q-btn icon="close" flat round dense v-close-popup />
+        </q-toolbar>
+        <q-card-section class="q-pa-md">
+          Title: <span class="text-weight-bold">{{ project.title }}</span>
+          <q-select
+            outlined
+            v-model="status"
+            class="q-mt-sm"
+            dense
+            :options="[
+              {
+                value: 'new',
+                label: 'New'
+              },
+              {
+                value: 'reviewed',
+                label: 'Reviewed'
+              },
+              {
+                value: 'encoded',
+                label: 'Encoded'
+              },
+              {
+                value: 'finalized',
+                label: 'Finalized'
+              }
+            ]"
+            emit-value
+          >
+          </q-select>
+        </q-card-section>
+        <q-card-actions align="right">
+          <q-btn flat label="Cancel" v-close-popup />
+          <q-btn
+            color="primary"
+            label="Save"
+            @click="updateStatus(project.id)"
+            v-close-popup
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </q-item>
 </template>
 
@@ -53,7 +110,8 @@ export default {
   data() {
     return {
       showEditProject: false,
-      showReviewProject: false
+      showReviewProject: false,
+      showUpdateStatus: false
     };
   },
   computed: {
@@ -79,6 +137,9 @@ export default {
     },
     goTo(id) {
       this.$router.push("projects/" + id);
+    },
+    updateStatus(id) {
+      alert(id);
     }
   },
   filters: {

@@ -106,6 +106,11 @@ export default {
           icon: "list"
         },
         {
+          label: "Submissions",
+          href: "/submissions",
+          icon: "gps_fixed"
+        },
+        {
           label: "Directory",
           href: "/directory",
           icon: "call"
@@ -124,7 +129,11 @@ export default {
     };
   },
   computed: {
-    ...mapState("auth", ["loggedIn","currentUserEmail", "currentUserDisplayName"]),
+    ...mapState("auth", [
+      "loggedIn",
+      "currentUserEmail",
+      "currentUserDisplayName"
+    ]),
     ...mapState("settings", ["dark"]),
     rightDrawerOpen() {
       return !this.loggedIn && this.$q.screen.gt.sm;

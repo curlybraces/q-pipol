@@ -1,4 +1,4 @@
-import { Notify } from "quasar";
+import { Notify, Loading } from "quasar";
 import { firebaseAuth, projectRef } from "boot/firebase";
 import { showErrorMessage } from "src/functions/function-show-error-message";
 
@@ -40,14 +40,18 @@ export function fbAddProject({}, payload) {
   project.addedBy = userId;
   project.status = "new";
 
+  Loading.show();
+
   projectRef
     .doc()
     .set(project)
     .then(() => {
+      Loading.hide();
       Notify.create("Project Added");
-      this.$router.push("/");
+      this.$router.push("/projects");
     })
     .catch(err => {
+      Loading.hide();
       showErrorMessage(err.message);
     });
 }

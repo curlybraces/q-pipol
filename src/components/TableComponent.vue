@@ -67,11 +67,7 @@
         </template>
         <tr>
           <td>
-            <q-input
-              borderless
-              dense
-              v-model="newData.component"
-            ></q-input>
+            <q-input borderless dense v-model="newData.component"></q-input>
           </td>
           <td>
             <q-input

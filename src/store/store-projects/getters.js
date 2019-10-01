@@ -34,7 +34,7 @@ export function projectsSorted(state, getters, rootState) {
     let projects = getters.myProjects;
     projectsSorted = projects.sort((a, b) => {
       let aProp = a[state.sort].toLowerCase(),
-          bProp = b[state.sort].toLowerCase();
+        bProp = b[state.sort].toLowerCase();
       if (aProp > bProp) {
         return 1;
       } else if (aProp < bProp) {
@@ -45,7 +45,7 @@ export function projectsSorted(state, getters, rootState) {
     });
   } else {
     projectsSorted = [...state.projects].sort((a, b) => {
-    let aProp = a[state.sort].toLowerCase(),
+      let aProp = a[state.sort].toLowerCase(),
         bProp = b[state.sort].toLowerCase();
       if (aProp > bProp) {
         return 1;
@@ -65,8 +65,8 @@ export function myProjects(state) {
   let userId = firebaseAuth.currentUser.uid;
 
   myProjects = [...state.projects].filter(project => {
-    return project.addedBy == userId
-  })
+    return project.addedBy == userId;
+  });
 
   return myProjects;
 }
@@ -91,6 +91,17 @@ export function reviewedProjects(state, getters) {
   });
 
   return reviewedProjects;
+}
+
+export function encodedProjects(state, getters) {
+  let encodedProjects = [],
+    projects = getters.projectsFiltered;
+
+  encodedProjects = projects.filter(project => {
+    return project.status == "finalized";
+  });
+
+  return encodedProjects;
 }
 
 export function finalizedProjects(state, getters) {

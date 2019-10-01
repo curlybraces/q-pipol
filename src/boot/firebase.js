@@ -44,6 +44,7 @@ let firebaseRealtime = firebaseApp.database();
 let firebaseStorage = firebaseApp.storage();
 
 let projectRef = firebaseDb.collection("projects");
+let submissionsRef = firebaseDb.collection("submissions");
 
 export {
   firebase,
@@ -51,5 +52,6 @@ export {
   firebaseDb,
   firebaseRealtime,
   firebaseStorage,
-  projectRef
+  projectRef,
+  submissionsRef
 };

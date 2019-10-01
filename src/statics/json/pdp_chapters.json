@@ -1,7 +1,7 @@
 [
     {
         "label": "Chapter 5: Ensuring People-Centered, Clean and Efficient Governance",
-        "value": 5,
+        "value": "Chapter 5: Ensuring People-Centered, Clean and Efficient Governance",
         "children": [
             {
                 "label": "People-centered, innovative, clean, efficient, effective and inclusive delivery of public goods and services ensured",
@@ -140,7 +140,7 @@
     },
     {
         "label": "Chapter 7: Promoting Philippine Culture and Values",
-        "value": 7,
+        "value": "Chapter 7: Promoting Philippine Culture and Values",
         "children": [
             {
                 "label": "Philippine culture and values promoted",
@@ -200,7 +200,7 @@
     },
     {
         "label": "Chapter 8: Expanding Economic Opportunities in Agriculture, Forestry and Fisheries",
-        "value": 8,
+        "value": "Chapter 8: Expanding Economic Opportunities in Agriculture, Forestry and Fisheries",
         "children": [
             {
                 "label": "Economic opportunities in agriculture, forestry and fisheries expanded",
@@ -317,7 +317,7 @@
     },
     {
         "label": "Chapter 9: Expanding Economic Opportunities in Industry and Services",
-        "value": 9,
+        "value": "Chapter 9: Expanding Economic Opportunities in Industry and Services",
         "children": [
             {
                 "label": "Economic opportunities in Industry and Services (I&S) expanded",
@@ -430,7 +430,7 @@
     },
     {
         "label": "Chapter 10: Accelerating Human Capital Development",
-        "value": 10,
+        "value": "Chapter 10: Accelerating Human Capital Development",
         "children": [
             {
                 "label": "Human Capital Development Accelerated",
@@ -492,7 +492,7 @@
     },
     {
         "label": "Chapter 11: Reducing Vulnerability of Individuals and Families",
-        "value": 11,
+        "value": "Chapter 11: Reducing Vulnerability of Individuals and Families",
         "children": [
             {
                 "label": "Vulnerability of individuals and families reduced",
@@ -562,7 +562,7 @@
     },
     {
         "label": "Chapter 12: Building Safe and Secure Communities",
-        "value": 12,
+        "value": "Chapter 12: Building Safe and Secure Communities",
         "children": [
             {
                 "label": "Access to affordable, adequate, safe, and secure shelter in well-planned communities expanded",
@@ -596,7 +596,7 @@
     },
     {
         "label": "Chapter 13: Reaching for the Demographic Dividend",
-        "value": 13,
+        "value": "Chapter 13: Reaching for the Demographic Dividend",
         "children": [
             {
                 "label": "Demographic transition accelerated",
@@ -612,7 +612,7 @@
     },
     {
         "label": "Chapter 14: Vigorously Advancing Science, Technology, and Innovation",
-        "value": 14,
+        "value": "Chapter 14: Vigorously Advancing Science, Technology, and Innovation",
         "children": [
             {
                 "label": "Technology adoption promoted and accelerated",
@@ -734,7 +734,7 @@
     },
     {
         "label": "Chapter 15: Ensuring Sound Macroeconomic Policy",
-        "value": 15,
+        "value": "Chapter 15: Ensuring Sound Macroeconomic Policy",
         "children": [
             {
                 "label": "Stable, sound and supportive macroeconomic environment sustained",
@@ -807,7 +807,7 @@
     },
     {
         "label": "Chapter 16: Formulating the Framework for National Competition Policy",
-        "value": 16,
+        "value": "Chapter 16: Formulating the Framework for National Competition Policy",
         "children": [
             {
                 "label": "Consumer welfare improved",
@@ -852,7 +852,7 @@
     },
     {
         "label": "Chapter 17: Attaining Just and Lasting Peace",
-        "value": 17,
+        "value": "Chapter 17: Attaining Just and Lasting Peace",
         "children": [
             {
                 "label": "Just and lasting peace attained",
@@ -925,7 +925,7 @@
     },
     {
         "label": "Chapter 18: Ensuring Security, Public Order, and Safety",
-        "value": 18,
+        "value": "Chapter 18: Ensuring Security, Public Order, and Safety",
         "children": [
             {
                 "label": "Security, public order and safety ensured",
@@ -957,7 +957,7 @@
     },
     {
         "label": "Chapter 19: Accelerating Strategic Infrastructure Development",
-        "value": 19,
+        "value": "Chapter 19: Accelerating Strategic Infrastructure Development",
         "children": [
             {
                 "label": "Access to economic opportunities increased",
@@ -1099,7 +1099,7 @@
     },
     {
         "label": "Chapter 20: Ensuring Ecological Integrity, Clean and Healthy Environment",
-        "value": 20,
+        "value": "Chapter 20: Ensuring Ecological Integrity, Clean and Healthy Environment",
         "children": [
             {
                 "label": "Ecological integrity ensured and socioeconomic condition of resource-based communities improved",

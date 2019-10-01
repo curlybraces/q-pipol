@@ -54,7 +54,9 @@
       <q-item tag="label" v-ripple>
         <q-item-section>
           <q-item-label>Show All Projects</q-item-label>
-          <q-item-label caption>Turn off to show only your projects</q-item-label>
+          <q-item-label caption
+            >Turn off to show only your projects</q-item-label
+          >
         </q-item-section>
         <q-item-section side top>
           <q-toggle color="primary" :value="showAll" @input="setShowAll" />
@@ -167,10 +169,10 @@ export default {
     };
   },
   computed: {
-    ...mapState("settings", ["dark", "showWelcome","showAll"])
+    ...mapState("settings", ["dark", "showWelcome", "showAll"])
   },
   methods: {
-    ...mapActions("settings", ["setDark", "setShowWelcome","setShowAll"]),
+    ...mapActions("settings", ["setDark", "setShowWelcome", "setShowAll"]),
     ...mapActions("auth", ["changePassword"]),
     confirmUserPassword() {
       let user = firebaseAuth.currentUser;

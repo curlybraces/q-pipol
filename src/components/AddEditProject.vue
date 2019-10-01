@@ -43,18 +43,8 @@
         ></input-component>
       </form-element>
 
-      <form-element label="2. Implementing Department/Agency">
-        <select-component
-          label="2. Implementing Department/Agency"
-          :options="operatingUnits"
-          v-model="project.implementingAgency"
-          :rules="rules.required"
-        ></select-component>
-      </form-element>
-
-      <form-element label="3. Program or Project">
+      <form-element label="2. Classification">
         <options-component
-          label="3. Program or Project"
           :options="[
             {
               label: 'Program',
@@ -69,6 +59,14 @@
           v-model="project.classification"
           :rules="rules.required"
         ></options-component>
+      </form-element>
+
+      <form-element label="3. Implementing Department/Agency">
+        <select-component
+          :options="operatingUnits"
+          v-model="project.implementingAgency"
+          :rules="rules.required"
+        ></select-component>
       </form-element>
 
       <form-element label="4. Main Funding Source">
@@ -100,6 +98,46 @@
           :options="fundingSourcesFiltered"
           :rules="rules.required"
           :multiple="true"
+        ></select-component>
+      </form-element>
+
+      <form-element
+        label="ODA Funding Institution"
+        v-if="project.mainFundingSource == 2 || project.mainFundingSource == 3"
+      >
+        <select-component
+          label="ODA Funding Institution"
+          v-if="
+            project.mainFundingSource == 2 || project.mainFundingSource == 3
+          "
+          v-model="project.mainFundingInstitution"
+          :options="fundingInstitutions"
+          :rules="rules.required"
+        ></select-component>
+      </form-element>
+
+      <form-element
+        label="Other Funding Institution"
+        v-if="project.mainFundingSource == 99"
+      >
+        <input-component
+          label="Other Funding Institution"
+          v-if="project.mainFundingSource == 99"
+          v-model="project.otherFundingInstitution"
+          :rules="rules.required"
+        ></input-component>
+      </form-element>
+
+      <form-element
+        label="Other Funding Institution"
+        v-if="project.categorization == 2"
+      >
+        <select-component
+          v-if="project.categorization == 2"
+          label="Project Preparation Document"
+          v-model="project.preparationDocument"
+          :options="preparationDocuments"
+          :rules="rules.required"
         ></select-component>
       </form-element>
 
@@ -550,7 +588,16 @@
         ></options-component>
       </form-element>
 
-      <form-element label="27a. Philippine Development Plan Chapters">
+      <form-element
+        label="27. How can the program/project contribute to increasing farmers/fisherfolk's income"
+      >
+        <input-component
+          type="textarea"
+          v-model="project.incomeEffect"
+        ></input-component>
+      </form-element>
+
+      <form-element label="28a. Philippine Development Plan Chapters">
         <select-component
           :options="pdpChapters"
           node-key="value"
@@ -559,7 +606,7 @@
         />
       </form-element>
 
-      <form-element label="27b. Philippine Development Plan Indicators">
+      <form-element label="28b. Philippine Development Plan Indicators">
         <q-tree
           :nodes="pdpChaptersFiltered"
           node-key="value"
@@ -634,47 +681,7 @@
 
       <q-item-label header>PROJECT COSTING</q-item-label>
 
-      <form-element
-        label="ODA Funding Institution"
-        v-if="project.mainFundingSource == 2 || project.mainFundingSource == 3"
-      >
-        <select-component
-          label="ODA Funding Institution"
-          v-if="
-            project.mainFundingSource == 2 || project.mainFundingSource == 3
-          "
-          v-model="project.mainFundingInstitution"
-          :options="fundingInstitutions"
-          :rules="rules.required"
-        ></select-component>
-      </form-element>
-
-      <form-element
-        label="Other Funding Institution"
-        v-if="project.mainFundingSource == 99"
-      >
-        <input-component
-          label="Other Funding Institution"
-          v-if="project.mainFundingSource == 99"
-          v-model="project.otherFundingInstitution"
-          :rules="rules.required"
-        ></input-component>
-      </form-element>
-
-      <form-element
-        label="Other Funding Institution"
-        v-if="project.categorization == 2"
-      >
-        <select-component
-          v-if="project.categorization == 2"
-          label="Project Preparation Document"
-          v-model="project.preparationDocument"
-          :options="preparationDocuments"
-          :rules="rules.required"
-        ></select-component>
-      </form-element>
-
-      <q-item-label class="q-pl-md">38. Costing by Component</q-item-label>
+      <q-item-label class="q-pl-md">39. Costing by Component</q-item-label>
       <q-item>
         <table-component
           :tableData.sync="project.componentBreakdown"
@@ -683,7 +690,7 @@
         </table-component>
       </q-item>
 
-      <form-element label="39. Cost of Infrastructure Component"></form-element>
+      <form-element label="40. Cost of Infrastructure Component"></form-element>
       <q-item>
         <table-component
           :tableData.sync="project.infrastructureBreakdown"

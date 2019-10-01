@@ -15,11 +15,12 @@ const routes = [
       },
       {
         path: "directory",
-        component: () => import("pages/Directory.vue")
+        component: () =>
+          import(/* webpackChunkName: 'Directory' */ "pages/Directory.vue")
       },
       {
         path: "help",
-        component: () => import("pages/Help.vue")
+        component: () => import(/* webpackChunkName: 'Help' */ "pages/Help.vue")
       },
       {
         path: "settings",
@@ -28,7 +29,8 @@ const routes = [
       },
       {
         path: "account",
-        component: () => import("pages/Account.vue")
+        component: () =>
+          import(/* webpackChunkName: 'Account' */ "pages/Account.vue")
       },
       {
         path: "add",
@@ -44,16 +46,11 @@ const routes = [
         path: "projects/:id",
         component: () =>
           import(/* webpackChunkName: 'ViewProject' */ "pages/ViewProject.vue")
-      }
-    ]
-  },
-  {
-    path: "/login",
-    component: () => import("layouts/AuthLayout.vue"),
-    children: [
+      },
       {
-        path: "",
-        component: () => import(/* webpackChunkName: 'Auth' */ "pages/Auth.vue")
+        path: "submissions",
+        component: () =>
+          import(/* webpackChunkName: 'Submissions' */ "pages/Submissions.vue")
       }
     ]
   }

@@ -15,6 +15,10 @@ const state = {
     {
       label: "Program/Project is gender-responsive",
       value: "Program/Project is gender-responsive"
+    },
+    {
+      label: "Not Applicable",
+      value: "Not Applicable"
     }
   ]
 };
