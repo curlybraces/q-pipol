@@ -35,7 +35,7 @@
         <label-value label="1. Proposal/Project Name" :value="project.title" />
 
         <label-value
-          label="2. Program or Project"
+          label="2. Classification"
           :value="project.classification"
         />
 
@@ -63,7 +63,7 @@
           >Categorization</q-item-label
         >
 
-        <label-value label="6a. Status" :value="project.status"></label-value>
+        <label-value label="6a. Status" :value="project.projectStatus"></label-value>
 
         <label-value
           label="6b. Infrastructure"
