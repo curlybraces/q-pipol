@@ -111,14 +111,15 @@ export default {
     return {
       showEditProject: false,
       showReviewProject: false,
-      showUpdateStatus: false
+      showUpdateStatus: false,
+      status: ""
     };
   },
   computed: {
     ...mapState("projects", ["search"])
   },
   methods: {
-    ...mapActions("projects", ["deleteProject"]),
+    ...mapActions("projects", ["deleteProject","updateProjectStatus"]),
     promptToDelete(id) {
       this.$q
         .dialog({
@@ -139,7 +140,10 @@ export default {
       this.$router.push("projects/" + id);
     },
     updateStatus(id) {
-      alert(id);
+      this.updateProjectStatus({
+        id: id,
+        status: this.status
+      });
     }
   },
   filters: {

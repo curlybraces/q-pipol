@@ -28,6 +28,13 @@ export function setProjectsDownloaded(state, value) {
   state.projectsDownloaded = value;
 }
 
+export function setProjectStatus(state, payload) {
+  let projectIndex = state.projects.findIndex(project => {
+    return project.id == payload.id;
+  });
+  state.projects.splice(projectIndex, 1);
+}
+
 export function clearProjects(state) {
   state.projects = [];
 }

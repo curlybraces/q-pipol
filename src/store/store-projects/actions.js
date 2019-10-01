@@ -14,6 +14,10 @@ export function deleteProject({ dispatch }, id) {
   dispatch("fbDeleteProject", id);
 }
 
+export function updateProjectStatus({ dispatch }, payload) {
+  dispatch("fbUpdateProjectStatus", payload);
+}
+
 export function fbReadData({ commit }) {
   projectRef.onSnapshot(snapshot => {
     commit("setProjectsDownloaded", true);
@@ -26,6 +30,7 @@ export function fbReadData({ commit }) {
         commit("deleteProject", change.doc.id);
       } else if (change.type == "modified") {
         let project = change.doc.data();
+
         project.id = change.doc.id;
         commit("updateProject", project);
       }
@@ -64,6 +69,24 @@ export function fbUpdateProject({}, payload) {
     .update(payload)
     .then(() => {
       Notify.create("Project updated.");
+    })
+    .catch(err => {
+      Notify.create(err.message);
+    });
+}
+
+export function fbUpdateProjectStatus({ commit }, payload) {
+  projectRef
+    .doc(payload.id)
+    .update({
+      status: payload.status
+    })
+    .then(() => {
+      Notify.create("Project status updated.")
+      commit("setProjectStatus", {
+        id: payload.id,
+        status: payload.status
+      })
     })
     .catch(err => {
       Notify.create(err.message);

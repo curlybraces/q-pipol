@@ -98,7 +98,7 @@ export function encodedProjects(state, getters) {
     projects = getters.projectsFiltered;
 
   encodedProjects = projects.filter(project => {
-    return project.status == "finalized";
+    return project.status == "encoded";
   });
 
   return encodedProjects;

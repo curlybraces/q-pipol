@@ -699,7 +699,7 @@
         </table-component>
       </q-item>
 
-      <form-element label="40. Costing by Fund Source"></form-element>
+      <form-element label="41. Costing by Fund Source"></form-element>
       <q-item>
         <table-component
           :tableData.sync="project.fundingSourceBreakdown"
@@ -709,7 +709,7 @@
       </q-item>
 
       <form-element
-        label="41. Cost by Location of Implementation"
+        label="42. Cost by Location of Implementation"
       ></form-element>
       <q-item>
         <table-component
@@ -720,8 +720,165 @@
       </q-item>
 
       <form-element
-        label="42. Financial Accomplishment (only for locally funded projects)"
+        label="43. Financial Accomplishment (only for locally funded projects)"
       ></form-element>
+
+      <q-item>
+        <q-markup-table separator="cell">
+          <thead>
+            <tr>
+              <th>Financial</th>
+              <th>2017</th>
+              <th>2018</th>
+              <th>2019</th>
+              <th>2020</th>
+              <th>2021</th>
+              <th>2022</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>NEP</td>
+              <td>
+                <q-input
+                  dense
+                  borderless
+                  v-model="project.nep2017" />
+              </td>
+              <td>
+                <q-input
+                  dense
+                  borderless
+                  v-model="project.nep2018" />
+              </td>
+              <td>
+                <q-input
+                  dense
+                  borderless
+                  v-model="project.nep2019" />
+              </td>
+              <td>
+                <q-input
+                  dense
+                  borderless
+                  v-model="project.nep2020" />
+              </td>
+              <td>
+                <q-input
+                  dense
+                  borderless
+                  v-model="project.nep2021" />
+              </td>
+              <td>
+                <q-input
+                  dense
+                  borderless
+                  v-model="project.nep2022" />
+              </td>
+              <td>
+                <q-input
+                  dense
+                  borderless
+                  readonly
+                  v-model="project.nepTotal" />
+              </td>
+            </tr>
+            <tr>
+              <td>GAA</td>
+              <td>
+                <q-input
+                  dense
+                  borderless
+                  v-model="project.gaa2017" />
+              </td>
+              <td>
+                <q-input
+                  dense
+                  borderless
+                  v-model="project.gaa2018" />
+              </td>
+              <td>
+                <q-input
+                  dense
+                  borderless
+                  v-model="project.gaa2019" />
+              </td>
+              <td>
+                <q-input
+                  dense
+                  borderless
+                  v-model="project.gaa2020" />
+              </td>
+              <td>
+                <q-input
+                  dense
+                  borderless
+                  v-model="project.gaa2021" />
+              </td>
+              <td>
+                <q-input
+                  dense
+                  borderless
+                  v-model="project.gaa2022" />
+              </td>
+              <td>
+                <q-input
+                  dense
+                  borderless
+                  readonly
+                  v-model="project.gaaTotal" />
+              </td>
+            </tr>
+            <tr>
+              <td>Disbursement</td>
+              <td>
+                <q-input
+                  dense
+                  borderless
+                  v-model="project.disbursement2017" />
+              </td>
+              <td>
+                <q-input
+                  dense
+                  borderless
+                  v-model="project.disbursement2018" />
+              </td>
+              <td>
+                <q-input
+                  dense
+                  borderless
+                  v-model="project.disbursement2019" />
+              </td>
+              <td>
+                <q-input
+                  dense
+                  borderless
+                  v-model="project.disbursement2020" />
+              </td>
+              <td>
+                <q-input
+                  dense
+                  borderless
+                  v-model="project.disbursement2021" />
+              </td>
+              <td>
+                <q-input
+                  dense
+                  borderless
+                  v-model="project.disbursement2022" />
+              </td>
+              <td>
+                <q-input
+                  dense
+                  borderless
+                  readonly
+                  v-model="project.disbursementTotal" />
+              </td>
+            </tr>
+          </tbody>
+        </q-markup-table>
+      </q-item>
 
       <q-page-sticky position="bottom-right" :offset="[18, 0]">
         <q-btn fab color="primary" icon="save" type="submit" />

@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <q-card :class="dark ? 'bg-grey-10' : 'bg-white'">
+    <q-card :class="dark ? 'bg-grey-10' : 'bg-white'" flat>
       <q-toolbar :class="(dark ? 'bg-info' : 'bg-primary') + ' text-white'">
         <q-avatar icon="note_add" />
         <q-toolbar-title>View Project</q-toolbar-title>
@@ -23,9 +23,13 @@
           >General Information</q-item-label
         >
 
-        <label-value label="PAP UACS Code" :value="project.uacsCode" />
+        <label-value
+          label="PAP UACS Code"
+          :value="project.uacsCode" />
 
-        <label-value label="Commodity/ies" :value="project.commodities" />
+        <label-value
+          label="Commodity/ies"
+          :value="project.commodities" />
 
         <label-value
           label="Program/Functional Classification"
@@ -90,7 +94,7 @@
 
         <label-value
           label="8. Total Project Cost (in PhP)"
-          :value="project.totalProjectCost"
+          :value="project.totalProjectCost | monetize"
         />
 
         <label-value
@@ -203,9 +207,13 @@
           :value="project.detailedEngineeringDesign"
         />
 
-        <label-value label="Business Plan" :value="project.businessPlan" />
+        <label-value
+          label="Business Plan"
+          :value="project.businessPlan" />
 
-        <label-value label="Right of Way" :value="project.rightOfWay" />
+        <label-value
+          label="Right of Way"
+          :value="project.rightOfWay" />
 
         <label-value
           label="Resettlement Plan"
@@ -237,31 +245,37 @@
           label="26. New Thinking for Agriculture (Eight Paradigms for a Food-Secure Philippines)"
           :value="project.newThinkings"
         />
-        
+
         <label-value
           label="27. Contribution to increasing income"
           :value="project.incomeEffect"
         />
 
-        <label-value label="Philippine Development Plan" :value="project.pdp" />
+        <label-value
+          label="28. Philippine Development Plan"
+          :value="project.pdp" />
 
         <label-value
-          label="29. Sustainable Development Goals"
+          label="29. Philippine Development Plan"
+          :value="project.pdpIndicators" />
+
+        <label-value
+          label="30. Sustainable Development Goals"
           :value="project.sustainableDevelopmentGoals"
         />
 
         <label-value
-          label="30. 0-10 Socioeconomic Agenda"
+          label="31. 0-10 Socioeconomic Agenda"
           :value="project.tenPointAgenda"
         />
 
         <label-value
-          label="31. Level of GAD Responsiveness"
+          label="32. Level of GAD Responsiveness"
           :value="project.gadResponsiveness"
         />
 
         <label-value
-          label="32. Infrastructure Sector"
+          label="33. Infrastructure Sector"
           :value="project.infrastructureSectors"
         />
 
@@ -270,49 +284,215 @@
         >
 
         <label-value
-          label="33. Estimated Project Life (in years)"
+          label="34. Estimated Project Life (in years)"
           :value="project.projectLife"
         />
 
-        <label-value label="34. Benefit-Cost Ratio" :value="project.bcr" />
+        <label-value label="35. Benefit-Cost Ratio" :value="project.bcr" />
 
         <label-value
-          label="35. Internal Rate of Return (in %)"
+          label="36. Internal Rate of Return (in %)"
           :value="project.irr"
         />
 
         <label-value
-          label="36. Return on Investment (in %)"
+          label="37. Return on Investment (in %)"
           :value="project.roi"
+        />
+
+        <label-value
+          label="38. Net Present Value (PhP)"
+          :value="project.npv"
         />
 
         <q-item-label header>PROJECT COSTING</q-item-label>
 
-        <label-value
-          label="ODA Funding Institution"
-          :value="project.mainFundingInstitution"
-        />
+        <q-item>
+          <q-item-section>
+            <q-item-label>
+              39. Investment Cost by Component
+            </q-item-label>
+            <q-item-label>
+            <q-markup-table>
+              <thead>
+                <tr>
+                  <td>Component</td>
+                  <td class="text-right">2016 &amp; Prior</td>
+                  <td class="text-right">2017</td>
+                  <td class="text-right">2018</td>
+                  <td class="text-right">2019</td>
+                  <td class="text-right">2020</td>
+                  <td class="text-right">2021</td>
+                  <td class="text-right">2022</td>
+                  <td class="text-right">2023 &amp; Beyond</td>
+                  <td class="text-right">TOTAL</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(comp, index) in project.componentBreakdown" :key="index">
+                  <td>{{ comp.component }}</td>
+                  <td class="text-right">{{ comp.investment2016 }}</td>
+                  <td class="text-right">{{ comp.investment2017 }}</td>
+                  <td class="text-right">{{ comp.investment2018 }}</td>
+                  <td class="text-right">{{ comp.investment2019 }}</td>
+                  <td class="text-right">{{ comp.investment2020 }}</td>
+                  <td class="text-right">{{ comp.investment2021 }}</td>
+                  <td class="text-right">{{ comp.investment2022 }}</td>
+                  <td class="text-right">{{ comp.investment2023 }}</td>
+                  <td class="text-right">{{ comp.investmentTotal }}</td>
+                </tr>
+              </tbody>
+            </q-markup-table>
+            </q-item-label>
+          </q-item-section>
+        </q-item>
 
-        <label-value
-          label="Other Funding Institution"
-          :value="project.otherFundingInstitution"
-        />
+        <q-item>
+          <q-item-section>
+            <q-item-label>
+              41. Investment Cost by FundingSource
+            </q-item-label>
+            <q-item-label>
+            <q-markup-table>
+              <thead>
+                <tr>
+                  <td>Component</td>
+                  <td class="text-right">2016 &amp; Prior</td>
+                  <td class="text-right">2017</td>
+                  <td class="text-right">2018</td>
+                  <td class="text-right">2019</td>
+                  <td class="text-right">2020</td>
+                  <td class="text-right">2021</td>
+                  <td class="text-right">2022</td>
+                  <td class="text-right">2023 &amp; Beyond</td>
+                  <td class="text-right">TOTAL</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  v-for="(comp, index) in project.fundingSourceBreakdown"
+                  :key="index">
+                  <td>{{ comp.fundingSource }}</td>
+                  <td class="text-right">{{ comp.investment2016 }}</td>
+                  <td class="text-right">{{ comp.investment2017 }}</td>
+                  <td class="text-right">{{ comp.investment2018 }}</td>
+                  <td class="text-right">{{ comp.investment2019 }}</td>
+                  <td class="text-right">{{ comp.investment2020 }}</td>
+                  <td class="text-right">{{ comp.investment2021 }}</td>
+                  <td class="text-right">{{ comp.investment2022 }}</td>
+                  <td class="text-right">{{ comp.investment2023 }}</td>
+                  <td class="text-right">{{ comp.investmentTotal }}</td>
+                </tr>
+              </tbody>
+            </q-markup-table>
+            </q-item-label>
+          </q-item-section>
+        </q-item>
 
-        <label-value
-          label="Other Funding Institution"
-          :value="project.preparationDocument"
-        />
+        <q-item>
+          <q-item-section>
+            <q-item-label>
+              42. Investment Cost by Location of Implementation
+            </q-item-label>
+            <q-item-label>
+            <q-markup-table>
+              <thead>
+                <tr>
+                  <td>Component</td>
+                  <td class="text-right">2016 &amp; Prior</td>
+                  <td class="text-right">2017</td>
+                  <td class="text-right">2018</td>
+                  <td class="text-right">2019</td>
+                  <td class="text-right">2020</td>
+                  <td class="text-right">2021</td>
+                  <td class="text-right">2022</td>
+                  <td class="text-right">2023 &amp; Beyond</td>
+                  <td class="text-right">TOTAL</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  v-for="(comp, index) in project.locationBreakdown"
+                  :key="index">
+                  <td>{{ comp.location }}</td>
+                  <td class="text-right">{{ comp.investment2016 }}</td>
+                  <td class="text-right">{{ comp.investment2017 }}</td>
+                  <td class="text-right">{{ comp.investment2018 }}</td>
+                  <td class="text-right">{{ comp.investment2019 }}</td>
+                  <td class="text-right">{{ comp.investment2020 }}</td>
+                  <td class="text-right">{{ comp.investment2021 }}</td>
+                  <td class="text-right">{{ comp.investment2022 }}</td>
+                  <td class="text-right">{{ comp.investment2023 }}</td>
+                  <td class="text-right">{{ comp.investmentTotal }}</td>
+                </tr>
+              </tbody>
+            </q-markup-table>
+            </q-item-label>
+          </q-item-section>
+        </q-item>
 
-        <q-markup-table></q-markup-table>
-
-        <q-markup-table></q-markup-table>
+        <q-item>
+          <q-item-section>
+            <q-item-label>
+              43. Financial Accomplishment
+            </q-item-label>
+            <q-item-label>
+            <q-markup-table>
+              <thead>
+                <tr>
+                  <td>Type</td>
+                  <td class="text-right">2017</td>
+                  <td class="text-right">2018</td>
+                  <td class="text-right">2019</td>
+                  <td class="text-right">2020</td>
+                  <td class="text-right">2021</td>
+                  <td class="text-right">2022</td>
+                  <td class="text-right">TOTAL</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>NEP</td>
+                  <td class="text-right">{{ project.nep2017 }}</td>
+                  <td class="text-right">{{ project.nep2018 }}</td>
+                  <td class="text-right">{{ project.nep2019 }}</td>
+                  <td class="text-right">{{ project.nep2020 }}</td>
+                  <td class="text-right">{{ project.nep2021 }}</td>
+                  <td class="text-right">{{ project.nep2022 }}</td>
+                  <td class="text-right">{{ project.nepTotal }}</td>
+                </tr>
+                <tr>
+                  <td>GAA</td>
+                  <td class="text-right">{{ project.gaa2017 }}</td>
+                  <td class="text-right">{{ project.gaa2018 }}</td>
+                  <td class="text-right">{{ project.gaa2019 }}</td>
+                  <td class="text-right">{{ project.gaa2020 }}</td>
+                  <td class="text-right">{{ project.gaa2021 }}</td>
+                  <td class="text-right">{{ project.gaa2022 }}</td>
+                  <td class="text-right">{{ project.gaaTotal }}</td>
+                </tr>
+                <tr>
+                  <td>Disbursement</td>
+                  <td class="text-right">{{ project.disbursement2017 }}</td>
+                  <td class="text-right">{{ project.disbursement2018 }}</td>
+                  <td class="text-right">{{ project.disbursement2019 }}</td>
+                  <td class="text-right">{{ project.disbursement2020 }}</td>
+                  <td class="text-right">{{ project.disbursement2021 }}</td>
+                  <td class="text-right">{{ project.disbursement2022 }}</td>
+                  <td class="text-right">{{ project.disbursementTotal }}</td>
+                </tr>
+              </tbody>
+            </q-markup-table>
+            </q-item-label>
+          </q-item-section>
+        </q-item>
       </q-list>
     </q-card>
   </q-page>
 </template>
 
 <script>
-import { firebaseDb } from "boot/firebase";
+import { projectRef } from "boot/firebase";
 import { mapState, mapGetters } from "vuex";
 import { Notify, Loading } from "quasar";
 
@@ -350,6 +530,16 @@ export default {
   computed: {
     ...mapState("settings", ["dark"]),
     ...mapGetters("projects", ["getProject"])
+  },
+  filters: {
+    monetize(val) {
+      if (!val) {
+        return "PhP 0.00"
+      } else {
+        let totalProjectCost = parseInt(val);
+        return "PhP " + totalProjectCost.toLocaleString('en-PH')
+      }
+    }
   },
   methods: {
     printProject() {
@@ -813,16 +1003,17 @@ export default {
     }
   },
   created() {
-    let ref = firebaseDb.collection("projects");
-
-    ref
+    Loading.show();
+    projectRef
       .doc(this.$route.params.id)
       .get()
       .then(doc => {
         this.project = doc.data();
+        Loading.hide();
       })
       .catch(err => {
         Notify.create("Error message: ", err.message);
+        Loading.hide();
       });
   }
 };
