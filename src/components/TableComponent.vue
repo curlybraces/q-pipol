@@ -1,5 +1,11 @@
 <template>
   <div class="col">
+    <q-btn
+      flat
+      class="text-grey"
+      label="Add"
+      icon="add"
+      @click="addMore"></q-btn>
     <q-markup-table separator="cell" class="col">
       <thead>
         <tr>
@@ -20,31 +26,59 @@
         <template v-if="tableData.length > 0">
           <tr v-for="(data, index) in tableData" :key="index">
             <td>
-              <q-input borderless dense v-model="data.component"></q-input>
+              <q-input
+                borderless
+                dense
+                v-model="data.component"></q-input>
             </td>
             <td>
-              <q-input borderless dense v-model="data.investment2016"></q-input>
+              <q-input
+                borderless
+                dense
+                v-model="data.investment2016"></q-input>
             </td>
             <td>
-              <q-input borderless dense v-model="data.investment2017"></q-input>
+              <q-input
+                borderless
+                dense
+                v-model="data.investment2017"></q-input>
             </td>
             <td>
-              <q-input borderless dense v-model="data.investment2018"></q-input>
+              <q-input
+                borderless
+                dense
+                v-model="data.investment2018"></q-input>
             </td>
             <td>
-              <q-input borderless dense v-model="data.investment2019"></q-input>
+              <q-input
+                borderless
+                dense
+                v-model="data.investment2019"></q-input>
             </td>
             <td>
-              <q-input borderless dense v-model="data.investment2020"></q-input>
+              <q-input
+                borderless
+                dense
+                v-model="data.investment2020"></q-input>
             </td>
             <td>
-              <q-input borderless dense v-model="data.investment2021"></q-input>
+              <q-input
+                borderless
+                dense
+                v-model="data.investment2021"></q-input>
             </td>
             <td>
-              <q-input borderless dense v-model="data.investment2022"></q-input>
+              <q-input
+                borderless
+                dense
+                readonly
+                v-model="data.investment2022"></q-input>
             </td>
             <td>
-              <q-input borderless dense v-model="data.investment2023"></q-input>
+              <q-input
+              borderless
+              dense
+              v-model="data.investment2023"></q-input>
             </td>
             <td>
               <q-input
@@ -129,6 +163,7 @@
             <q-input
               borderless
               dense
+              readonly
               v-model="newData.investmentTotal"
             ></q-input>
           </td>
@@ -166,6 +201,11 @@ export default {
         investment2023: 0
       }
     };
+  },
+  computed: {
+    investmentTotal() {
+      return null;
+    }
   },
   methods: {
     addData() {
