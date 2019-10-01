@@ -119,7 +119,7 @@ export default {
     ...mapState("projects", ["search"])
   },
   methods: {
-    ...mapActions("projects", ["deleteProject","updateProjectStatus"]),
+    ...mapActions("projects", ["deleteProject", "updateProjectStatus"]),
     promptToDelete(id) {
       this.$q
         .dialog({

@@ -20,7 +20,6 @@
 
       <form-element label="Commodity/ies">
         <input-component
-          label="Commodity/ies"
           v-model="project.commodities"
           :rules="rules.required"
         ></input-component>
@@ -28,7 +27,6 @@
 
       <form-element label="Program/Functional Classification">
         <input-component
-          label="Program/Functional Classification"
           v-model="project.program"
           :rules="rules.required"
         ></input-component>
@@ -36,7 +34,6 @@
 
       <form-element label="1. Proposal/Project Name">
         <input-component
-          label="1. Proposal/Project Name"
           hint="Project title must match title in budget proposal"
           v-model="project.title"
           :rules="rules.required"
@@ -71,7 +68,6 @@
 
       <form-element label="4. Main Funding Source">
         <select-component
-          label="4. Main Funding Source"
           v-model="project.mainFundingSource"
           hint="Choose the major type of funding source for the PAP."
           :options="fundingSources"
@@ -79,8 +75,24 @@
         ></select-component>
         <input-component
           v-if="project.mainFundingSource == 'NG-Local'"
-          label="PREXC Activity"
           v-model="project.prexcActivity"
+          placeholder="PREXC Activity"
+        ></input-component>
+        <select-component
+          label="ODA Funding Institution"
+          v-if="
+            project.mainFundingSource == 'NG-ODA Loan' ||
+              project.mainFundingSource == 'NG-ODA Grant'
+          "
+          v-model="project.mainFundingInstitution"
+          :options="fundingInstitutions"
+          :rules="rules.required"
+        ></select-component>
+        <input-component
+          label="Other Funding Institution"
+          v-if="project.mainFundingSource == 'Others'"
+          v-model="project.otherFundingInstitution"
+          :rules="rules.required"
         ></input-component>
       </form-element>
 
@@ -102,39 +114,11 @@
       </form-element>
 
       <form-element
-        label="ODA Funding Institution"
-        v-if="project.mainFundingSource == 2 || project.mainFundingSource == 3"
+        label="Other Funding Institution"
+        v-if="project.budgetTier == 'Tier 2'"
       >
         <select-component
-          label="ODA Funding Institution"
-          v-if="
-            project.mainFundingSource == 2 || project.mainFundingSource == 3
-          "
-          v-model="project.mainFundingInstitution"
-          :options="fundingInstitutions"
-          :rules="rules.required"
-        ></select-component>
-      </form-element>
-
-      <form-element
-        label="Other Funding Institution"
-        v-if="project.mainFundingSource == 99"
-      >
-        <input-component
-          label="Other Funding Institution"
-          v-if="project.mainFundingSource == 99"
-          v-model="project.otherFundingInstitution"
-          :rules="rules.required"
-        ></input-component>
-      </form-element>
-
-      <form-element
-        label="Other Funding Institution"
-        v-if="project.categorization == 2"
-      >
-        <select-component
-          v-if="project.categorization == 2"
-          label="Project Preparation Document"
+          v-if="project.budgetTier == 'Tier 2'"
           v-model="project.preparationDocument"
           :options="preparationDocuments"
           :rules="rules.required"
@@ -144,7 +128,6 @@
       <form-element label="5. Priority Ranking No.">
         <input-component
           type="number"
-          label="5. Priority Ranking No."
           v-model="project.priorityRanking"
           disable
         ></input-component>
@@ -154,7 +137,6 @@
 
       <form-element label="6a. Status">
         <options-component
-          label="Status"
           v-model="project.projectStatus"
           :options="statuses"
         ></options-component>
@@ -174,7 +156,6 @@
 
       <form-element label="6c. Typology">
         <options-component
-          label="Typology"
           v-model="project.typology"
           :options="typologies"
         ></options-component>
@@ -182,7 +163,6 @@
 
       <form-element label="6d. Budget Tier">
         <options-component
-          label="Budget Tier"
           v-model="project.budgetTier"
           :options="[
             {
@@ -199,7 +179,6 @@
 
       <form-element label="7a. Spatial Coverage">
         <select-component
-          label="7a. Spatial Coverage"
           :options="spatialCoverages"
           v-model="project.spatialCoverage"
           hint="Choose where your project will be implemented."
@@ -216,7 +195,6 @@
       >
         <select-component
           v-if="project.spatialCoverage == 'Inter-regional'"
-          label="7b. Regions"
           :options="regions"
           :multiple="true"
           hint="Select the regions where the project will be implemented."
@@ -226,7 +204,6 @@
 
         <select-component
           v-else-if="project.spatialCoverage == 'Region-specific'"
-          label="7b. Region"
           :options="regions"
           v-model="project.regions"
           hint="Select the region where the project will be implemented."
@@ -242,7 +219,6 @@
         "
       >
         <input-component
-          label="7c. Province/s"
           v-model="project.provinces"
           :rules="rules.required"
         ></input-component>
@@ -256,7 +232,6 @@
         "
       >
         <input-component
-          label="7d. City/Municipality/ies"
           v-model="project.cityMunicipalities"
           :rules="rules.required"
         ></input-component>
@@ -265,7 +240,6 @@
       <form-element label="8. Total Project Cost (in PhP)">
         <input-component
           type="number"
-          label="8. Total Project Cost (in PhP)"
           hint="Total cost of the project in absolute terms"
           v-model="project.totalProjectCost"
           :rules="rules.required"
@@ -274,7 +248,6 @@
 
       <form-element label="9. Bases for Implementation">
         <options-component
-          label="9. Bases for Implementation"
           type="checkbox"
           v-model="project.implementationBases"
           :options="implementationBases"
@@ -313,7 +286,6 @@
       <form-element label="13. Description">
         <input-component
           type="textarea"
-          label="13. Description"
           hint="Overview, Purpose, and/or Rationale of the Undertaking, Sub-programs/Components"
           v-model="project.description"
           :rules="rules.required"
@@ -323,7 +295,6 @@
       <form-element label="14. Purpose">
         <input-component
           type="textarea"
-          label="14. Purpose"
           v-model="project.purpose"
           :rules="rules.required"
         ></input-component>
@@ -341,7 +312,6 @@
       <form-element label="16. Expected Outputs">
         <input-component
           type="textarea"
-          label="16. Expected Outputs"
           hint="Actual Deliverables, i.e. 100km of paved roads"
           v-model="project.expectedOutputs"
           :rules="rules.required"
@@ -351,7 +321,6 @@
       <form-element label="17. Beneficiaries">
         <input-component
           type="textarea"
-          label="17. Beneficiaries"
           v-model="project.beneficiaries"
           :rules="rules.required"
         ></input-component>
@@ -359,7 +328,6 @@
 
       <form-element label="18. Estimated number of persons to be employed">
         <input-component
-          label="18. Estimated number of persons to be employed"
           v-model="project.employmentGeneration"
           type="number"
         ></input-component>
@@ -369,7 +337,6 @@
         <select-component
           outlined
           dense
-          label="19a. Implementation Start"
           hint="Target year of start of implementation"
           :options="implementationPeriods"
           v-model="project.implementationStart"
@@ -379,7 +346,6 @@
         <select-component
           outlined
           dense
-          label="19b. Implementation End"
           hint="Target year of project completion"
           :options="filteredImplementationPeriods"
           v-model="project.implementationEnd"
@@ -390,7 +356,6 @@
 
       <form-element label="20. Physical Status Update/Accomplishment">
         <input-component
-          label="20. Physical Status Update/Accomplishment"
           type="textarea"
           v-model="project.updates"
         ></input-component>
@@ -551,16 +516,14 @@
       </form-element>
 
       <form-element label="23. Level of Readiness">
-        <input-component
-          label="23. Level of Readiness"
-          type="textarea"
+        <select-component
+          :options="readinessLevels"
           v-model="project.readinessLevel"
-        ></input-component>
+        ></select-component>
       </form-element>
 
       <form-element label="24. Implementation Risks">
         <input-component
-          label="24. Implementation Risks"
           type="textarea"
           v-model="project.implementationRisks"
         ></input-component>
@@ -568,7 +531,6 @@
 
       <form-element label="25. Mitigation Strategies">
         <input-component
-          label="25. Mitigation Strategies"
           type="textarea"
           v-model="project.mitigationStrategies"
         ></input-component>
@@ -724,7 +686,7 @@
       ></form-element>
 
       <q-item>
-        <q-markup-table separator="cell">
+        <q-markup-table separator="cell" class="col">
           <thead>
             <tr>
               <th>Financial</th>
@@ -741,139 +703,78 @@
             <tr>
               <td>NEP</td>
               <td>
-                <q-input
-                  dense
-                  borderless
-                  v-model="project.nep2017" />
+                <q-input dense borderless v-model="project.nep2017" />
               </td>
               <td>
-                <q-input
-                  dense
-                  borderless
-                  v-model="project.nep2018" />
+                <q-input dense borderless v-model="project.nep2018" />
               </td>
               <td>
-                <q-input
-                  dense
-                  borderless
-                  v-model="project.nep2019" />
+                <q-input dense borderless v-model="project.nep2019" />
               </td>
               <td>
-                <q-input
-                  dense
-                  borderless
-                  v-model="project.nep2020" />
+                <q-input dense borderless v-model="project.nep2020" />
               </td>
               <td>
-                <q-input
-                  dense
-                  borderless
-                  v-model="project.nep2021" />
+                <q-input dense borderless v-model="project.nep2021" />
               </td>
               <td>
-                <q-input
-                  dense
-                  borderless
-                  v-model="project.nep2022" />
+                <q-input dense borderless v-model="project.nep2022" />
               </td>
               <td>
-                <q-input
-                  dense
-                  borderless
-                  readonly
-                  v-model="project.nepTotal" />
+                <q-input dense borderless readonly v-model="project.nepTotal" />
               </td>
             </tr>
             <tr>
               <td>GAA</td>
               <td>
-                <q-input
-                  dense
-                  borderless
-                  v-model="project.gaa2017" />
+                <q-input dense borderless v-model="project.gaa2017" />
               </td>
               <td>
-                <q-input
-                  dense
-                  borderless
-                  v-model="project.gaa2018" />
+                <q-input dense borderless v-model="project.gaa2018" />
               </td>
               <td>
-                <q-input
-                  dense
-                  borderless
-                  v-model="project.gaa2019" />
+                <q-input dense borderless v-model="project.gaa2019" />
               </td>
               <td>
-                <q-input
-                  dense
-                  borderless
-                  v-model="project.gaa2020" />
+                <q-input dense borderless v-model="project.gaa2020" />
               </td>
               <td>
-                <q-input
-                  dense
-                  borderless
-                  v-model="project.gaa2021" />
+                <q-input dense borderless v-model="project.gaa2021" />
               </td>
               <td>
-                <q-input
-                  dense
-                  borderless
-                  v-model="project.gaa2022" />
+                <q-input dense borderless v-model="project.gaa2022" />
               </td>
               <td>
-                <q-input
-                  dense
-                  borderless
-                  readonly
-                  v-model="project.gaaTotal" />
+                <q-input dense borderless readonly v-model="project.gaaTotal" />
               </td>
             </tr>
             <tr>
               <td>Disbursement</td>
               <td>
-                <q-input
-                  dense
-                  borderless
-                  v-model="project.disbursement2017" />
+                <q-input dense borderless v-model="project.disbursement2017" />
               </td>
-              <td>
-                <q-input
-                  dense
-                  borderless
-                  v-model="project.disbursement2018" />
+              <td class="text-right">
+                <q-input dense borderless v-model="project.disbursement2018" />
               </td>
-              <td>
-                <q-input
-                  dense
-                  borderless
-                  v-model="project.disbursement2019" />
+              <td class="text-right">
+                <q-input dense borderless v-model="project.disbursement2019" />
               </td>
-              <td>
-                <q-input
-                  dense
-                  borderless
-                  v-model="project.disbursement2020" />
+              <td class="text-right">
+                <q-input dense borderless v-model="project.disbursement2020" />
               </td>
-              <td>
-                <q-input
-                  dense
-                  borderless
-                  v-model="project.disbursement2021" />
+              <td class="text-right">
+                <q-input dense borderless v-model="project.disbursement2021" />
               </td>
-              <td>
-                <q-input
-                  dense
-                  borderless
-                  v-model="project.disbursement2022" />
+              <td class="text-right">
+                <q-input dense borderless v-model="project.disbursement2022" />
               </td>
-              <td>
+              <td class="text-right">
                 <q-input
                   dense
                   borderless
                   readonly
-                  v-model="project.disbursementTotal" />
+                  v-model="project.disbursementTotal"
+                />
               </td>
             </tr>
           </tbody>
@@ -985,6 +886,7 @@ export default {
     ...mapState("prerequisites", ["prerequisites"]),
     ...mapState("new_thinkings", ["newThinkings"]),
     ...mapState("pdp_chapters", ["pdpChapters"]),
+    ...mapState("readiness_levels", ["readinessLevels"]),
     ...mapState("sustainable_development_goals", [
       "sustainableDevelopmentGoals"
     ]),

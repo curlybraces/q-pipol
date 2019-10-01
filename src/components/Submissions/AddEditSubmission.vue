@@ -28,8 +28,7 @@ export default {
     ...mapState("operating_units", ["operatingUnits"])
   },
   methods: {
-    addSubmission() {
-    }
+    addSubmission() {}
   }
 };
 </script>

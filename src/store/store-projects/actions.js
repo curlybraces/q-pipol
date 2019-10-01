@@ -82,11 +82,11 @@ export function fbUpdateProjectStatus({ commit }, payload) {
       status: payload.status
     })
     .then(() => {
-      Notify.create("Project status updated.")
+      Notify.create("Project status updated.");
       commit("setProjectStatus", {
         id: payload.id,
         status: payload.status
-      })
+      });
     })
     .catch(err => {
       Notify.create(err.message);

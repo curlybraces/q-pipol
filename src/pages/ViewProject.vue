@@ -14,7 +14,6 @@
       </q-toolbar>
 
       <q-list separator :dark="dark">
-
         <div class="text-h6 text-uppercase q-pa-md">
           {{ project.title }}
         </div>
@@ -23,13 +22,9 @@
           >General Information</q-item-label
         >
 
-        <label-value
-          label="PAP UACS Code"
-          :value="project.uacsCode" />
+        <label-value label="PAP UACS Code" :value="project.uacsCode" />
 
-        <label-value
-          label="Commodity/ies"
-          :value="project.commodities" />
+        <label-value label="Commodity/ies" :value="project.commodities" />
 
         <label-value
           label="Program/Functional Classification"
@@ -67,7 +62,10 @@
           >Categorization</q-item-label
         >
 
-        <label-value label="6a. Status" :value="project.projectStatus"></label-value>
+        <label-value
+          label="6a. Status"
+          :value="project.projectStatus"
+        ></label-value>
 
         <label-value
           label="6b. Infrastructure"
@@ -207,13 +205,9 @@
           :value="project.detailedEngineeringDesign"
         />
 
-        <label-value
-          label="Business Plan"
-          :value="project.businessPlan" />
+        <label-value label="Business Plan" :value="project.businessPlan" />
 
-        <label-value
-          label="Right of Way"
-          :value="project.rightOfWay" />
+        <label-value label="Right of Way" :value="project.rightOfWay" />
 
         <label-value
           label="Resettlement Plan"
@@ -253,11 +247,13 @@
 
         <label-value
           label="28. Philippine Development Plan"
-          :value="project.pdp" />
+          :value="project.pdp"
+        />
 
         <label-value
           label="29. Philippine Development Plan"
-          :value="project.pdpIndicators" />
+          :value="project.pdpIndicators"
+        />
 
         <label-value
           label="30. Sustainable Development Goals"
@@ -300,10 +296,7 @@
           :value="project.roi"
         />
 
-        <label-value
-          label="38. Net Present Value (PhP)"
-          :value="project.npv"
-        />
+        <label-value label="38. Net Present Value (PhP)" :value="project.npv" />
 
         <q-item-label header>PROJECT COSTING</q-item-label>
 
@@ -313,36 +306,39 @@
               39. Investment Cost by Component
             </q-item-label>
             <q-item-label>
-            <q-markup-table>
-              <thead>
-                <tr>
-                  <td>Component</td>
-                  <td class="text-right">2016 &amp; Prior</td>
-                  <td class="text-right">2017</td>
-                  <td class="text-right">2018</td>
-                  <td class="text-right">2019</td>
-                  <td class="text-right">2020</td>
-                  <td class="text-right">2021</td>
-                  <td class="text-right">2022</td>
-                  <td class="text-right">2023 &amp; Beyond</td>
-                  <td class="text-right">TOTAL</td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(comp, index) in project.componentBreakdown" :key="index">
-                  <td>{{ comp.component }}</td>
-                  <td class="text-right">{{ comp.investment2016 }}</td>
-                  <td class="text-right">{{ comp.investment2017 }}</td>
-                  <td class="text-right">{{ comp.investment2018 }}</td>
-                  <td class="text-right">{{ comp.investment2019 }}</td>
-                  <td class="text-right">{{ comp.investment2020 }}</td>
-                  <td class="text-right">{{ comp.investment2021 }}</td>
-                  <td class="text-right">{{ comp.investment2022 }}</td>
-                  <td class="text-right">{{ comp.investment2023 }}</td>
-                  <td class="text-right">{{ comp.investmentTotal }}</td>
-                </tr>
-              </tbody>
-            </q-markup-table>
+              <q-markup-table>
+                <thead>
+                  <tr>
+                    <td>Component</td>
+                    <td class="text-right">2016 &amp; Prior</td>
+                    <td class="text-right">2017</td>
+                    <td class="text-right">2018</td>
+                    <td class="text-right">2019</td>
+                    <td class="text-right">2020</td>
+                    <td class="text-right">2021</td>
+                    <td class="text-right">2022</td>
+                    <td class="text-right">2023 &amp; Beyond</td>
+                    <td class="text-right">TOTAL</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="(comp, index) in project.componentBreakdown"
+                    :key="index"
+                  >
+                    <td>{{ comp.component }}</td>
+                    <td class="text-right">{{ comp.investment2016 }}</td>
+                    <td class="text-right">{{ comp.investment2017 }}</td>
+                    <td class="text-right">{{ comp.investment2018 }}</td>
+                    <td class="text-right">{{ comp.investment2019 }}</td>
+                    <td class="text-right">{{ comp.investment2020 }}</td>
+                    <td class="text-right">{{ comp.investment2021 }}</td>
+                    <td class="text-right">{{ comp.investment2022 }}</td>
+                    <td class="text-right">{{ comp.investment2023 }}</td>
+                    <td class="text-right">{{ comp.investmentTotal }}</td>
+                  </tr>
+                </tbody>
+              </q-markup-table>
             </q-item-label>
           </q-item-section>
         </q-item>
@@ -353,38 +349,39 @@
               41. Investment Cost by FundingSource
             </q-item-label>
             <q-item-label>
-            <q-markup-table>
-              <thead>
-                <tr>
-                  <td>Component</td>
-                  <td class="text-right">2016 &amp; Prior</td>
-                  <td class="text-right">2017</td>
-                  <td class="text-right">2018</td>
-                  <td class="text-right">2019</td>
-                  <td class="text-right">2020</td>
-                  <td class="text-right">2021</td>
-                  <td class="text-right">2022</td>
-                  <td class="text-right">2023 &amp; Beyond</td>
-                  <td class="text-right">TOTAL</td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  v-for="(comp, index) in project.fundingSourceBreakdown"
-                  :key="index">
-                  <td>{{ comp.fundingSource }}</td>
-                  <td class="text-right">{{ comp.investment2016 }}</td>
-                  <td class="text-right">{{ comp.investment2017 }}</td>
-                  <td class="text-right">{{ comp.investment2018 }}</td>
-                  <td class="text-right">{{ comp.investment2019 }}</td>
-                  <td class="text-right">{{ comp.investment2020 }}</td>
-                  <td class="text-right">{{ comp.investment2021 }}</td>
-                  <td class="text-right">{{ comp.investment2022 }}</td>
-                  <td class="text-right">{{ comp.investment2023 }}</td>
-                  <td class="text-right">{{ comp.investmentTotal }}</td>
-                </tr>
-              </tbody>
-            </q-markup-table>
+              <q-markup-table>
+                <thead>
+                  <tr>
+                    <td>Component</td>
+                    <td class="text-right">2016 &amp; Prior</td>
+                    <td class="text-right">2017</td>
+                    <td class="text-right">2018</td>
+                    <td class="text-right">2019</td>
+                    <td class="text-right">2020</td>
+                    <td class="text-right">2021</td>
+                    <td class="text-right">2022</td>
+                    <td class="text-right">2023 &amp; Beyond</td>
+                    <td class="text-right">TOTAL</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="(comp, index) in project.fundingSourceBreakdown"
+                    :key="index"
+                  >
+                    <td>{{ comp.fundingSource }}</td>
+                    <td class="text-right">{{ comp.investment2016 }}</td>
+                    <td class="text-right">{{ comp.investment2017 }}</td>
+                    <td class="text-right">{{ comp.investment2018 }}</td>
+                    <td class="text-right">{{ comp.investment2019 }}</td>
+                    <td class="text-right">{{ comp.investment2020 }}</td>
+                    <td class="text-right">{{ comp.investment2021 }}</td>
+                    <td class="text-right">{{ comp.investment2022 }}</td>
+                    <td class="text-right">{{ comp.investment2023 }}</td>
+                    <td class="text-right">{{ comp.investmentTotal }}</td>
+                  </tr>
+                </tbody>
+              </q-markup-table>
             </q-item-label>
           </q-item-section>
         </q-item>
@@ -395,38 +392,39 @@
               42. Investment Cost by Location of Implementation
             </q-item-label>
             <q-item-label>
-            <q-markup-table>
-              <thead>
-                <tr>
-                  <td>Component</td>
-                  <td class="text-right">2016 &amp; Prior</td>
-                  <td class="text-right">2017</td>
-                  <td class="text-right">2018</td>
-                  <td class="text-right">2019</td>
-                  <td class="text-right">2020</td>
-                  <td class="text-right">2021</td>
-                  <td class="text-right">2022</td>
-                  <td class="text-right">2023 &amp; Beyond</td>
-                  <td class="text-right">TOTAL</td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  v-for="(comp, index) in project.locationBreakdown"
-                  :key="index">
-                  <td>{{ comp.location }}</td>
-                  <td class="text-right">{{ comp.investment2016 }}</td>
-                  <td class="text-right">{{ comp.investment2017 }}</td>
-                  <td class="text-right">{{ comp.investment2018 }}</td>
-                  <td class="text-right">{{ comp.investment2019 }}</td>
-                  <td class="text-right">{{ comp.investment2020 }}</td>
-                  <td class="text-right">{{ comp.investment2021 }}</td>
-                  <td class="text-right">{{ comp.investment2022 }}</td>
-                  <td class="text-right">{{ comp.investment2023 }}</td>
-                  <td class="text-right">{{ comp.investmentTotal }}</td>
-                </tr>
-              </tbody>
-            </q-markup-table>
+              <q-markup-table>
+                <thead>
+                  <tr>
+                    <td>Component</td>
+                    <td class="text-right">2016 &amp; Prior</td>
+                    <td class="text-right">2017</td>
+                    <td class="text-right">2018</td>
+                    <td class="text-right">2019</td>
+                    <td class="text-right">2020</td>
+                    <td class="text-right">2021</td>
+                    <td class="text-right">2022</td>
+                    <td class="text-right">2023 &amp; Beyond</td>
+                    <td class="text-right">TOTAL</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="(comp, index) in project.locationBreakdown"
+                    :key="index"
+                  >
+                    <td>{{ comp.location }}</td>
+                    <td class="text-right">{{ comp.investment2016 }}</td>
+                    <td class="text-right">{{ comp.investment2017 }}</td>
+                    <td class="text-right">{{ comp.investment2018 }}</td>
+                    <td class="text-right">{{ comp.investment2019 }}</td>
+                    <td class="text-right">{{ comp.investment2020 }}</td>
+                    <td class="text-right">{{ comp.investment2021 }}</td>
+                    <td class="text-right">{{ comp.investment2022 }}</td>
+                    <td class="text-right">{{ comp.investment2023 }}</td>
+                    <td class="text-right">{{ comp.investmentTotal }}</td>
+                  </tr>
+                </tbody>
+              </q-markup-table>
             </q-item-label>
           </q-item-section>
         </q-item>
@@ -437,52 +435,52 @@
               43. Financial Accomplishment
             </q-item-label>
             <q-item-label>
-            <q-markup-table>
-              <thead>
-                <tr>
-                  <td>Type</td>
-                  <td class="text-right">2017</td>
-                  <td class="text-right">2018</td>
-                  <td class="text-right">2019</td>
-                  <td class="text-right">2020</td>
-                  <td class="text-right">2021</td>
-                  <td class="text-right">2022</td>
-                  <td class="text-right">TOTAL</td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>NEP</td>
-                  <td class="text-right">{{ project.nep2017 }}</td>
-                  <td class="text-right">{{ project.nep2018 }}</td>
-                  <td class="text-right">{{ project.nep2019 }}</td>
-                  <td class="text-right">{{ project.nep2020 }}</td>
-                  <td class="text-right">{{ project.nep2021 }}</td>
-                  <td class="text-right">{{ project.nep2022 }}</td>
-                  <td class="text-right">{{ project.nepTotal }}</td>
-                </tr>
-                <tr>
-                  <td>GAA</td>
-                  <td class="text-right">{{ project.gaa2017 }}</td>
-                  <td class="text-right">{{ project.gaa2018 }}</td>
-                  <td class="text-right">{{ project.gaa2019 }}</td>
-                  <td class="text-right">{{ project.gaa2020 }}</td>
-                  <td class="text-right">{{ project.gaa2021 }}</td>
-                  <td class="text-right">{{ project.gaa2022 }}</td>
-                  <td class="text-right">{{ project.gaaTotal }}</td>
-                </tr>
-                <tr>
-                  <td>Disbursement</td>
-                  <td class="text-right">{{ project.disbursement2017 }}</td>
-                  <td class="text-right">{{ project.disbursement2018 }}</td>
-                  <td class="text-right">{{ project.disbursement2019 }}</td>
-                  <td class="text-right">{{ project.disbursement2020 }}</td>
-                  <td class="text-right">{{ project.disbursement2021 }}</td>
-                  <td class="text-right">{{ project.disbursement2022 }}</td>
-                  <td class="text-right">{{ project.disbursementTotal }}</td>
-                </tr>
-              </tbody>
-            </q-markup-table>
+              <q-markup-table>
+                <thead>
+                  <tr>
+                    <td>Type</td>
+                    <td class="text-right">2017</td>
+                    <td class="text-right">2018</td>
+                    <td class="text-right">2019</td>
+                    <td class="text-right">2020</td>
+                    <td class="text-right">2021</td>
+                    <td class="text-right">2022</td>
+                    <td class="text-right">TOTAL</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>NEP</td>
+                    <td class="text-right">{{ project.nep2017 }}</td>
+                    <td class="text-right">{{ project.nep2018 }}</td>
+                    <td class="text-right">{{ project.nep2019 }}</td>
+                    <td class="text-right">{{ project.nep2020 }}</td>
+                    <td class="text-right">{{ project.nep2021 }}</td>
+                    <td class="text-right">{{ project.nep2022 }}</td>
+                    <td class="text-right">{{ project.nepTotal }}</td>
+                  </tr>
+                  <tr>
+                    <td>GAA</td>
+                    <td class="text-right">{{ project.gaa2017 }}</td>
+                    <td class="text-right">{{ project.gaa2018 }}</td>
+                    <td class="text-right">{{ project.gaa2019 }}</td>
+                    <td class="text-right">{{ project.gaa2020 }}</td>
+                    <td class="text-right">{{ project.gaa2021 }}</td>
+                    <td class="text-right">{{ project.gaa2022 }}</td>
+                    <td class="text-right">{{ project.gaaTotal }}</td>
+                  </tr>
+                  <tr>
+                    <td>Disbursement</td>
+                    <td class="text-right">{{ project.disbursement2017 }}</td>
+                    <td class="text-right">{{ project.disbursement2018 }}</td>
+                    <td class="text-right">{{ project.disbursement2019 }}</td>
+                    <td class="text-right">{{ project.disbursement2020 }}</td>
+                    <td class="text-right">{{ project.disbursement2021 }}</td>
+                    <td class="text-right">{{ project.disbursement2022 }}</td>
+                    <td class="text-right">{{ project.disbursementTotal }}</td>
+                  </tr>
+                </tbody>
+              </q-markup-table>
             </q-item-label>
           </q-item-section>
         </q-item>
@@ -534,10 +532,10 @@ export default {
   filters: {
     monetize(val) {
       if (!val) {
-        return "PhP 0.00"
+        return "PhP 0.00";
       } else {
         let totalProjectCost = parseInt(val);
-        return "PhP " + totalProjectCost.toLocaleString('en-PH')
+        return "PhP " + totalProjectCost.toLocaleString("en-PH");
       }
     }
   },
