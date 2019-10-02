@@ -1,12 +1,5 @@
 <template>
   <div class="col">
-    <q-btn
-      flat
-      class="text-grey"
-      label="Add"
-      icon="add"
-      @click="addMore"
-    ></q-btn>
     <q-markup-table separator="cell" class="col">
       <thead>
         <tr>
@@ -54,11 +47,7 @@
               <q-input borderless dense v-model="data.investment2023"></q-input>
             </td>
             <td>
-              <q-input
-                borderless
-                dense
-                v-model="data.investmentTotal"
-              ></q-input>
+              {{ investmentTotal[index] }}
             </td>
             <td class="text-center">
               <q-btn
@@ -74,7 +63,7 @@
         </template>
         <tr>
           <td>
-            <q-input borderless dense v-model="newData.component"></q-input>
+            <q-input borderless dense v-model="newData.component"> </q-input>
           </td>
           <td>
             <q-input
@@ -133,12 +122,7 @@
             ></q-input>
           </td>
           <td>
-            <q-input
-              borderless
-              dense
-              readonly
-              v-model="newData.investmentTotal"
-            ></q-input>
+            {{ newDataTotal }}
           </td>
           <td class="text-center">
             <q-btn
@@ -177,7 +161,34 @@ export default {
   },
   computed: {
     investmentTotal() {
-      return null;
+      return this.tableData.map(item => {
+        let total = 0;
+        total =
+          (parseInt(item.investment2016) || 0) +
+          (parseInt(item.investment2017) || 0) +
+          (parseInt(item.investment2018) || 0) +
+          (parseInt(item.investment2019) || 0) +
+          (parseInt(item.investment2020) || 0) +
+          (parseInt(item.investment2021) || 0) +
+          (parseInt(item.investment2022) || 0) +
+          (parseInt(item.investment2023) || 0);
+        return total.toLocaleString();
+      });
+    },
+    newDataTotal() {
+      let newData = this.newData,
+        newDataTotal = 0;
+
+      newDataTotal =
+        (parseInt(newData.investment2016) || 0) +
+        (parseInt(newData.investment2017) || 0) +
+        (parseInt(newData.investment2018) || 0) +
+        (parseInt(newData.investment2019) || 0) +
+        (parseInt(newData.investment2020) || 0) +
+        (parseInt(newData.investment2021) || 0) +
+        (parseInt(newData.investment2022) || 0) +
+        (parseInt(newData.investment2023) || 0);
+      return newDataTotal.toLocaleString();
     }
   },
   methods: {
@@ -193,7 +204,7 @@ export default {
         investment2022: newData.investment2022,
         investment2023: newData.investmentTotal
       });
-      newData = {};
+      this.newData = {};
     },
     deleteComponent(index) {
       this.tableData.splice(index, 1);

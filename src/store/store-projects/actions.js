@@ -67,12 +67,15 @@ export function fbUpdateProject({}, payload) {
 
   let project = projectRef.doc(payload.id);
 
+  Loading.show();
   project
     .update(payload.project)
     .then(() => {
+      Loading.hide();
       Notify.create("Project updated.");
     })
     .catch(err => {
+      Loading.hide();
       Notify.create(err.message);
     });
 }

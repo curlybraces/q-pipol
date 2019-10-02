@@ -733,7 +733,7 @@
                 <q-input dense borderless v-model="project.nep2022" />
               </td>
               <td>
-                <q-input dense borderless readonly v-model="project.nepTotal" />
+                {{ nepTotal }}
               </td>
             </tr>
             <tr>
@@ -757,7 +757,7 @@
                 <q-input dense borderless v-model="project.gaa2022" />
               </td>
               <td>
-                <q-input dense borderless readonly v-model="project.gaaTotal" />
+                {{ gaaTotal }}
               </td>
             </tr>
             <tr>
@@ -781,12 +781,7 @@
                 <q-input dense borderless v-model="project.disbursement2022" />
               </td>
               <td class="text-right">
-                <q-input
-                  dense
-                  borderless
-                  readonly
-                  v-model="project.disbursementTotal"
-                />
+                {{ disbursementTotal }}
               </td>
             </tr>
           </tbody>
@@ -906,19 +901,6 @@ export default {
     ...mapState("settings", ["dark"]),
     ...mapState("statuses", ["statuses"]),
     ...mapState("typologies", ["typologies"]),
-    investmentTotal: {
-      get() {
-        var y1 = parseFloat(this.investment2016) || 0;
-        var y2 = parseFloat(this.investment2017) || 0;
-        var y3 = parseFloat(this.investment2018) || 0;
-        var y4 = parseFloat(this.investment2019) || 0;
-        var y5 = parseFloat(this.investment2020) || 0;
-        var y6 = parseFloat(this.investment2021) || 0;
-        var y7 = parseFloat(this.investment2022) || 0;
-        var y8 = parseFloat(this.investment2023) || 0;
-        return y1 + y2 + y3 + y4 + y5 + y6 + y7 + y8;
-      }
-    },
     pdpChaptersFiltered() {
       let pdpChaptersFiltered = [];
       if (this.project.pdp.length > 0) {
@@ -941,6 +923,39 @@ export default {
       } else {
         return this.fundingSources;
       }
+    },
+    nepTotal() {
+      let nepTotal = 0;
+      nepTotal =
+        (parseInt(this.project.nep2017) || 0) +
+        (parseInt(this.project.nep2018) || 0) +
+        (parseInt(this.project.nep2019) || 0) +
+        (parseInt(this.project.nep2020) || 0) +
+        (parseInt(this.project.nep2021) || 0) +
+        (parseInt(this.project.nep2022) || 0);
+      return nepTotal.toLocaleString();
+    },
+    gaaTotal() {
+      let gaaTotal = 0;
+      gaaTotal =
+        (parseInt(this.project.gaa2017) || 0) +
+        (parseInt(this.project.gaa2018) || 0) +
+        (parseInt(this.project.gaa2019) || 0) +
+        (parseInt(this.project.gaa2020) || 0) +
+        (parseInt(this.project.gaa2021) || 0) +
+        (parseInt(this.project.gaa2022) || 0);
+      return gaaTotal.toLocaleString();
+    },
+    disbursementTotal() {
+      let disbursementTotal = 0;
+      disbursementTotal =
+        (parseInt(this.project.disbursement2017) || 0) +
+        (parseInt(this.project.disbursement2018) || 0) +
+        (parseInt(this.project.disbursement2019) || 0) +
+        (parseInt(this.project.disbursement2020) || 0) +
+        (parseInt(this.project.disbursement2021) || 0) +
+        (parseInt(this.project.disbursement2022) || 0);
+      return disbursementTotal.toLocaleString();
     }
   },
   methods: {
