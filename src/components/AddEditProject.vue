@@ -1,6 +1,18 @@
 <template>
   <q-form ref="form" @submit="submitProject" autofocus>
     <q-list separator :dark="dark">
+      <form-element label="Project submitted previously to PIPOL System?">
+        <q-checkbox
+          dense
+          v-model="project.newProject"
+          label="Submitted previously"
+        />
+      </form-element>
+
+      <form-element label="Link to PIPOL System">
+        <input-component v-model="project.pipolLink"></input-component>
+      </form-element>
+
       <form-element
         label="PAP UACS Code"
         v-if="project.categorization == 1 || project.categorization == 3"
@@ -934,14 +946,14 @@ export default {
   methods: {
     ...mapActions("projects", ["addProject", "loadProject", "updateProject"]),
     submitProject() {
-      if (!this.project.id) {
+      if (typeof this.$route.params.id === "undefined") {
         this.addProject(this.project);
       } else {
+        var projectId = this.$route.params.id;
         this.updateProject({
-          id: this.project.id,
+          id: projectId,
           project: this.project
         });
-        this.$emit("close");
       }
     },
     addComponent() {

@@ -14,6 +14,13 @@
           <span class="app-title">{{ appTitle }}</span>
         </q-toolbar-title>
 
+        <q-btn
+          v-if="loggedIn"
+          flat
+          label="Add Project"
+          :to="'/add'"
+          class="q-mr-md"
+        />
         <q-btn v-if="loggedIn" outline label="Logout" @click="logoutUser">
         </q-btn>
       </q-toolbar>

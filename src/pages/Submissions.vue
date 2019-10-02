@@ -74,6 +74,67 @@
       </template>
     </q-table>
 
+    <!-- <q-markup-table>
+      <thead>
+        <tr>
+          <th>Operating Unit</th>
+          <th>Rice</th>
+          <th>Corn</th>
+          <th>HVCDP</th>
+          <th>Livestock</th>
+          <th>Fisheries</th>
+          <th>Organic</th>
+          <th>Halal</th>
+          <th>FMRDP</th>
+          <th>SAAD</th>
+          <th>PRDP</th>
+          <th>Projects</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="item in submissions" :key="item.id">
+          <td>
+            {{ item.operatingUnit }}
+          </td>
+          <td>
+            <q-checkbox readonly :value="item.riceProgram" />
+          </td>
+          <td>
+            <q-checkbox readonly :value="item.cornProgram" />
+          </td>
+          <td>
+            <q-checkbox readonly :value="item.hvcProgram" />
+          </td>
+          <td>
+            <q-checkbox readonly :value="item.livestockProgram" />
+          </td>
+          <td>
+            <q-checkbox readonly :value="item.fisheriesProgram" />
+          </td>
+          <td>
+            <q-checkbox readonly :value="item.organicProgram" />
+          </td>
+          <td>
+            <q-checkbox readonly :value="item.halalProgram" />
+          </td>
+          <td>
+            <q-checkbox readonly :value="item.fmrProgram" />
+          </td>
+          <td>
+            <q-checkbox readonly :value="item.saadProgram" />
+          </td>
+          <td>
+            <q-checkbox readonly :value="item.prdpProgram" />
+          </td>
+          <td>
+            <q-checkbox readonly :value="item.projects" />
+          </td>
+        </tr>
+      </tbody>
+    </q-markup-table> -->
+
+    <q-dialog v-model="editSubmission"></q-dialog>
+
     <q-dialog v-model="showAddSubmission">
       <add-edit-submission :submission="submission"> </add-edit-submission>
     </q-dialog>
@@ -81,7 +142,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   components: {
@@ -93,7 +154,7 @@ export default {
     return {
       filter: "",
       showAddSubmission: false,
-      showEditSubmission: false,
+      editSubmission: false,
       pagination: {
         rowsPerPage: 10
       },
@@ -189,7 +250,7 @@ export default {
     };
   },
   computed: {
-    ...mapState("submissions", ["submissions"])
+    ...mapGetters("submissions", ["submissions"])
   }
 };
 </script>

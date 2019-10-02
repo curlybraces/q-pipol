@@ -19,6 +19,16 @@
             v-html="$options.filters.searchHighlight(project.title, search)"
           ></div>
         </span>
+        <q-badge
+          color="red"
+          v-if="project.classification == 'Project'"
+          label="project"
+        />
+        <q-badge
+          color="blue"
+          v-if="project.classification == 'Program'"
+          label="program"
+        />
       </q-item-label>
       <q-item-label caption lines="2">
         {{ project.description }}
@@ -65,12 +75,12 @@
                 label: 'New'
               },
               {
-                value: 'reviewed',
-                label: 'Reviewed'
-              },
-              {
                 value: 'encoded',
                 label: 'Encoded'
+              },
+              {
+                value: 'reviewed',
+                label: 'Reviewed'
               },
               {
                 value: 'finalized',

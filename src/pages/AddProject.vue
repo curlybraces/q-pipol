@@ -5,7 +5,8 @@
         <q-avatar icon="note_add" />
         <q-toolbar-title>Add Project</q-toolbar-title>
       </q-toolbar>
-      <add-edit-project :project="project"></add-edit-project>
+      <add-edit-project :project="project" @submit="submitProject(project)">
+      </add-edit-project>
     </q-card>
   </q-page>
 </template>

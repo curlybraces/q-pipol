@@ -5,16 +5,21 @@
       <q-toolbar-title>Edit Project</q-toolbar-title>
       <q-btn dense flat round icon="close" @click="$emit('close')" />
     </q-toolbar>
-    <add-edit-project :project="projectToUpdate"></add-edit-project>
+    <add-edit-project :project="projectToUpdate"> </add-edit-project>
   </q-card>
 </template>
 
 <script>
 import { mapState } from "vuex";
-import AddEditProject from "./AddEditProject";
+const AddEditProject = () =>
+  import(
+    /* webpackChunkName: 'AddEditProject' */ "../components/AddEditProject"
+  );
 
 export default {
-  components: { AddEditProject },
+  components: {
+    AddEditProject
+  },
   name: "EditProject",
   props: {
     project: Object
@@ -23,6 +28,11 @@ export default {
     return {
       projectToUpdate: {}
     };
+  },
+  methods: {
+    onSubmit() {
+      console.log(this.projectToUpdate);
+    }
   },
   computed: {
     ...mapState("settings", ["dark"])

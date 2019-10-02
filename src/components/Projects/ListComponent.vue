@@ -17,8 +17,8 @@
         align="justify"
       >
         <q-tab name="new" label="New" />
-        <q-tab name="reviewed" label="Reviewed" />
         <q-tab name="encoded" label="Encoded" />
+        <q-tab name="reviewed" label="Reviewed" />
         <q-tab name="finalized" label="Finalized" />
       </q-tabs>
 
@@ -39,11 +39,11 @@
           </q-list>
         </q-tab-panel>
 
-        <q-tab-panel name="reviewed">
+        <q-tab-panel name="encoded">
           <q-list separator>
-            <template v-if="reviewedProjects.length">
+            <template v-if="encodedProjects.length">
               <project
-                v-for="project in reviewedProjects"
+                v-for="project in encodedProjects"
                 :key="project.id"
                 id="project.id"
                 :project="project"
@@ -53,11 +53,11 @@
           </q-list>
         </q-tab-panel>
 
-        <q-tab-panel name="encoded">
+        <q-tab-panel name="reviewed">
           <q-list separator>
-            <template v-if="encodedProjects.length">
+            <template v-if="reviewedProjects.length">
               <project
-                v-for="project in encodedProjects"
+                v-for="project in reviewedProjects"
                 :key="project.id"
                 id="project.id"
                 :project="project"

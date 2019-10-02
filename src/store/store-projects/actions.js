@@ -63,10 +63,12 @@ export function fbAddProject({}, payload) {
 
 export function fbUpdateProject({}, payload) {
   let userId = firebaseAuth.currentUser.uid;
-  payload.updatedBy = userId;
-  let projectRef = projectRef.doc(payload.id);
-  projectRef
-    .update(payload)
+  payload.project.updatedBy = userId;
+
+  let project = projectRef.doc(payload.id);
+
+  project
+    .update(payload.project)
     .then(() => {
       Notify.create("Project updated.");
     })

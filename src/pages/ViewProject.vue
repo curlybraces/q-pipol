@@ -15,7 +15,19 @@
 
       <q-list separator :dark="dark">
         <div class="text-h6 text-uppercase q-pa-md">
-          {{ project.title }}
+          <a :href="project.pipolLink" target="_blank">
+            {{ project.title }}
+          </a>
+          <q-space />
+          <q-badge
+            v-if="project.newProject"
+            label="New"
+            color="green"
+          ></q-badge>
+          <q-badge v-else label="Old" color="red"></q-badge>
+        </div>
+        <div class="text-caption q-mx-md">
+          (Click on the title to go to PIPOL entry.)
         </div>
 
         <q-item-label header class="text-uppercase"
