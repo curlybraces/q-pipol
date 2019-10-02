@@ -7,9 +7,11 @@
     </q-item-section>
 
     <q-item-section top class="col-1 gt-sm">
-      <q-item-label class="q-mt-sm">{{
-        project.implementingAgency
-      }}</q-item-label>
+      <q-item-label class="q-mt-sm">
+        {{
+          project.implementingAgency
+        }}
+      </q-item-label>
     </q-item-section>
 
     <q-item-section top>

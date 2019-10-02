@@ -76,7 +76,7 @@ export function newProjects(state, getters) {
     projects = getters.projectsFiltered;
 
   newProjects = projects.filter(project => {
-    return project.status == "new" || project.status == undefined;
+    return project.status == "new" || (typeof project.status === 'undefined');
   });
 
   return newProjects;

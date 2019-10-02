@@ -2,7 +2,7 @@
   <q-card style="min-width: 360px">
     <q-toolbar class="bg-primary text-white">
       <q-toolbar-title>
-        Add Submission
+        Add/Update Submission
       </q-toolbar-title>
       <q-btn flat round dense icon="close" v-close-popup />
     </q-toolbar>
@@ -16,7 +16,7 @@
           <q-item-section>
             <q-select
               :options="operatingUnits"
-              v-model="operatingUnit"
+              v-model="submissionToEdit.operatingUnit"
               emit-value
               map-options />
           </q-item-section>
@@ -25,7 +25,7 @@
           <q-option-group
             type="checkbox"
             :options="paps"
-            v-model="submitted"
+            v-model="submissionToEdit.submitted"
             ></q-option-group>
         </q-item>
       </q-list>
@@ -50,8 +50,10 @@ import { Notify } from "quasar";
 
 export default {
   name: "AddEditSubmission",
+  props: ["submission"],
   data() {
     return {
+      submissionToEdit: {},
       paps: [
         {
           label: "Rice Program",
@@ -107,22 +109,35 @@ export default {
   },
   methods: {
     addSubmission() {
-      let payload = {
-        operatingUnit: this.operatingUnit,
-        submissions: this.submitted
-      }
-      console.log(payload)
-      submissionsRef.doc()
-        .set(payload)
-        .then(() => {
-          Notify.create({
-            message: "Successfully added submission."
+      if (typeof this.submissionToEdit.id === 'undefined') {
+        submissionsRef.doc().set(this.submissionToEdit)
+          .then(() => {
+            Notify.create({
+              message: "Successfully added submission."
+            })
           })
-        })
-        .catch(err => {
-          Notify.create(err.message)
-        })
+          .catch(err => {
+            Notify.create(err.message);
+          });
+      }
+      else {
+        submissionsRef.doc(this.submissionToEdit.id)
+          .update({
+            submitted: this.submissionToEdit.submitted
+          })
+          .then(() => {
+            Notify.create({
+              message: "Successfully updated."
+            })
+          })
+          .catch(err => {
+            Notify.create(err.message)
+          });
+      }
     }
+  },
+  mounted() {
+    this.submissionToEdit = Object.assign({}, this.submission)
   }
 };
 </script>

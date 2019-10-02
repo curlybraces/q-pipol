@@ -1,109 +1,45 @@
 <template>
   <q-page padding>
-    <q-table
-      title="Submissions (under Construction)"
-      :columns="columns"
-      :data="submissions"
-      :filter="filter"
-      key="name"
-      :rows-per-page-options="[10, 25, 50, 100]"
-      :pagination="pagination"
-    >
-      <template v-slot:top-right>
-        <q-input borderless placeholder="Search" v-model="filter">
-          <template v-slot:append>
-            <q-icon name="search" />
-          </template>
-        </q-input>
-      </template>
-      <template v-slot:body="props">
-        <q-tr :props="props">
-          <q-td key="operatingUnit" :props="props">
-            {{ props.row.operatingUnit }}
-          </q-td>
-          <q-td>
-            <q-option-group
-              readonly
-              :options="paps"
-              type="checkbox"
-              :value="props.row.submitted"
-              inline></q-option-group>
-          </q-td>
-        </q-tr>
-      </template>
-      <template v-slot:top-left>
-        <q-btn
-          color="primary"
-          label="Add"
-          @click="showAddSubmission = !showAddSubmission"
-        ></q-btn>
-      </template>
-    </q-table>
-
-    <!-- <q-markup-table>
-      <thead>
-        <tr>
-          <th>Operating Unit</th>
-          <th>Rice</th>
-          <th>Corn</th>
-          <th>HVCDP</th>
-          <th>Livestock</th>
-          <th>Fisheries</th>
-          <th>Organic</th>
-          <th>Halal</th>
-          <th>FMRDP</th>
-          <th>SAAD</th>
-          <th>PRDP</th>
-          <th>Projects</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="item in submissions" :key="item.id">
-          <td>
+    <q-card>
+      <q-list separator>
+        <q-item-label header class="text-uppercase">Status of Submissions</q-item-label>
+        <q-btn flat @click="showAddSubmission = true" label="Add" />
+        <q-item
+          v-for="item in submissions"
+          :key="item.id">
+          <q-item-section avatar>
+            <q-btn
+              flat
+              size="12px"
+              round
+              dense
+              icon="edit"
+              @click="editSubmission = !editSubmission" />
+          </q-item-section>
+          <q-item-section class="col-2">
             {{ item.operatingUnit }}
-          </td>
-          <td>
-            <q-checkbox readonly :value="item.riceProgram" />
-          </td>
-          <td>
-            <q-checkbox readonly :value="item.cornProgram" />
-          </td>
-          <td>
-            <q-checkbox readonly :value="item.hvcProgram" />
-          </td>
-          <td>
-            <q-checkbox readonly :value="item.livestockProgram" />
-          </td>
-          <td>
-            <q-checkbox readonly :value="item.fisheriesProgram" />
-          </td>
-          <td>
-            <q-checkbox readonly :value="item.organicProgram" />
-          </td>
-          <td>
-            <q-checkbox readonly :value="item.halalProgram" />
-          </td>
-          <td>
-            <q-checkbox readonly :value="item.fmrProgram" />
-          </td>
-          <td>
-            <q-checkbox readonly :value="item.saadProgram" />
-          </td>
-          <td>
-            <q-checkbox readonly :value="item.prdpProgram" />
-          </td>
-          <td>
-            <q-checkbox readonly :value="item.projects" />
-          </td>
-        </tr>
-      </tbody>
-    </q-markup-table> -->
+          </q-item-section>
+          <q-item-section>
+            <q-option-group
+              type="checkbox"
+              :options="paps"
+              :value="item.submitted"
+              inline/>
+          </q-item-section>
+          <q-dialog v-model="editSubmission">
+            <q-card>
+              <add-edit-submission :submission="item" />
+            </q-card>
+          </q-dialog>
+        </q-item>
+      </q-list>
 
-    <q-dialog v-model="editSubmission"></q-dialog>
+      <q-dialog v-model="editSubmission"></q-dialog>
 
-    <q-dialog v-model="showAddSubmission">
-      <add-edit-submission :submission="submission"> </add-edit-submission>
-    </q-dialog>
+      <q-dialog v-model="showAddSubmission">
+        <add-edit-submission :submission="submission"> </add-edit-submission>
+      </q-dialog>
+    </q-card>
   </q-page>
 </template>
 
@@ -124,7 +60,10 @@ export default {
       pagination: {
         rowsPerPage: 10
       },
-      submission: {},
+      submission: {
+        operatingUnit: "",
+        submitted: []
+      },
       columns: [
         {
           name: "operatingUnit",
@@ -174,7 +113,7 @@ export default {
           value: "fmrdp"
         },
         {
-          label: "Special Area for Agricultural Development",
+          label: "SAAD",
           value: "saad"
         },
         {
