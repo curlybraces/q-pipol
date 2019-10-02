@@ -16,10 +16,19 @@
         indicator-color="primary"
         align="justify"
       >
-        <q-tab name="new" label="New" />
-        <q-tab name="encoded" label="Encoded" />
-        <q-tab name="reviewed" label="Reviewed" />
-        <q-tab name="finalized" label="Finalized" />
+        <q-tab name="new" :label="'New (' + newProjects.length + ')'" />
+        <q-tab
+          name="encoded"
+          :label="'Encoded (' + encodedProjects.length + ')'"
+        />
+        <q-tab
+          name="reviewed"
+          :label="'Reviewed (' + reviewedProjects.length + ')'"
+        />
+        <q-tab
+          name="finalized"
+          :label="'Finalized (' + finalizedProjects.length + ')'"
+        />
       </q-tabs>
 
       <q-separator />

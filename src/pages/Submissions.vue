@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <q-table
-      title="Submissions"
+      title="Submissions (under Construction)"
       :columns="columns"
       :data="submissions"
       :filter="filter"
@@ -19,49 +19,15 @@
       <template v-slot:body="props">
         <q-tr :props="props">
           <q-td key="operatingUnit" :props="props">
-            <q-btn
-              flat
-              dense
-              round
-              color="primary"
-              size="sm"
-              icon="edit"
-              @click="showEditSubmission = true"
-            />
             {{ props.row.operatingUnit }}
           </q-td>
-          <q-td key="riceProgram" :props="props">
-            <q-checkbox :value="props.row.riceProgram" />
-          </q-td>
-          <q-td key="cornProgram" :props="props">
-            <q-checkbox :value="props.row.cornProgram" />
-          </q-td>
-          <q-td key="hvcProgram" :props="props">
-            <q-checkbox :value="props.row.hvcProgram" />
-          </q-td>
-          <q-td key="livestockProgram" :props="props">
-            <q-checkbox :value="props.row.livestockProgram" />
-          </q-td>
-          <q-td key="fisheriesProgram" :props="props">
-            <q-checkbox :value="props.row.fisheriesProgram" />
-          </q-td>
-          <q-td key="organicProgram" :props="props">
-            <q-checkbox :value="props.row.organicProgram" />
-          </q-td>
-          <q-td key="halalProgram" :props="props">
-            <q-checkbox :value="props.row.halalProgram" />
-          </q-td>
-          <q-td key="fmrProgram" :props="props">
-            <q-checkbox :value="props.row.halalProgram" />
-          </q-td>
-          <q-td key="saadProgram" :props="props">
-            <q-checkbox :value="props.row.saadProgram" />
-          </q-td>
-          <q-td key="prdpProgram" :props="props">
-            <q-checkbox :value="props.row.prdpProgram" />
-          </q-td>
-          <q-td key="projects" :props="props">
-            <q-checkbox :value="props.row.projects" />
+          <q-td>
+            <q-option-group
+              readonly
+              :options="paps"
+              type="checkbox"
+              :value="props.row.submitted"
+              inline></q-option-group>
           </q-td>
         </q-tr>
       </template>
@@ -158,20 +124,7 @@ export default {
       pagination: {
         rowsPerPage: 10
       },
-      submission: {
-        operatingUnit: "",
-        riceProgram: false,
-        cornProgram: false,
-        hvcProgram: false,
-        livestockProgram: false,
-        fisheriesProgram: false,
-        organicProgram: false,
-        halalProgram: false,
-        fmrProgram: false,
-        saadProgram: false,
-        prdpProgram: false,
-        projects: false
-      },
+      submission: {},
       columns: [
         {
           name: "operatingUnit",
@@ -181,70 +134,56 @@ export default {
           sortable: true
         },
         {
-          name: "riceProgram",
-          label: "Rice Program",
+          name: "submitted",
+          label: "Submitted",
           align: "center",
-          field: "riceProgram"
+          field: "submitted"
+        }
+      ],
+      paps: [
+        {
+          label: "Rice",
+          value: "rice"
         },
         {
-          name: "cornProgram",
           label: "Corn",
-          align: "center",
-          field: "cornProgram"
+          value: "corn"
         },
         {
-          name: "hvcProgram",
-          label: "HVCDP",
-          align: "center",
-          field: "hvcProgram"
-        },
-        {
-          name: "livestockProgram",
           label: "Livestock",
-          align: "center",
-          field: "livestockProgram"
+          value: "livestock"
         },
         {
-          name: "fisheriesProgram",
+          label: "HVCDP",
+          value: "hvcdp"
+        },
+        {
           label: "Fisheries",
-          align: "center",
-          field: "fisheriesProgram"
+          value: "fisheries"
         },
         {
-          name: "organicProgram",
-          label: "Organic",
-          align: "center",
-          field: "organicProgram"
+          label: "NOAP",
+          value: "organic"
         },
         {
-          name: "halalProgram",
           label: "Halal",
-          align: "center",
-          field: "halalProgram"
+          value: "halal"
         },
         {
-          name: "fmrProgram",
-          label: "FMR",
-          align: "center",
-          field: "fmrProgram"
+          label: "FMRDP",
+          value: "fmrdp"
         },
         {
-          name: "saadProgram",
-          label: "SAAD",
-          align: "center",
-          field: "saadProgram"
+          label: "Special Area for Agricultural Development",
+          value: "saad"
         },
         {
-          name: "prdpProgram",
-          label: "PRDP",
-          align: "center",
-          field: "prdpProgram"
+          label: "Other Programs",
+          value: "otherPrograms"
         },
         {
-          name: "projects",
-          label: "Projects",
-          align: "center",
-          field: "projects"
+          label: "Other Projects",
+          value: "projects"
         }
       ]
     };

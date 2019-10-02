@@ -26,6 +26,7 @@ export default {
   data() {
     return {
       project: {
+        newProject: false,
         addedBy: "",
         beneficiaries: "",
         businessPlan: false,
