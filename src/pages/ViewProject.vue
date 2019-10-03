@@ -459,7 +459,7 @@
                     <td class="text-right">{{ comp.investment2021 }}</td>
                     <td class="text-right">{{ comp.investment2022 }}</td>
                     <td class="text-right">{{ comp.investment2023 }}</td>
-                    <td class="text-right">{{ comp.investmentTotal }}</td>
+                    <td class="text-right">{{ lInvestmentTotal[index] }}</td>
                   </tr>
                 </tbody>
               </q-markup-table>
@@ -583,6 +583,21 @@ export default {
     },
     cInvestmentTotal() {
       return this.project.componentBreakdown.map(item => {
+        let total = 0;
+        total =
+          (parseInt(item.investment2016) || 0) +
+          (parseInt(item.investment2017) || 0) +
+          (parseInt(item.investment2018) || 0) +
+          (parseInt(item.investment2019) || 0) +
+          (parseInt(item.investment2020) || 0) +
+          (parseInt(item.investment2021) || 0) +
+          (parseInt(item.investment2022) || 0) +
+          (parseInt(item.investment2023) || 0);
+        return total.toLocaleString();
+      });
+    },
+    lInvestmentTotal() {
+      return this.project.locationBreakdown.map(item => {
         let total = 0;
         total =
           (parseInt(item.investment2016) || 0) +
