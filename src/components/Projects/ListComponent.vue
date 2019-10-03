@@ -110,9 +110,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("projects", [
-      "projects"
-    ]),
+    ...mapGetters("projects", ["projects"]),
     newProjects() {
       return this.projects.filter(project => {
         if (typeof project.status === "undefined" || project.status == "new") {

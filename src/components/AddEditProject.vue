@@ -12,14 +12,16 @@
       <form-element label="Link to PIPOL System">
         <input-component
           :readonly="!project.newProject"
-          v-model="project.pipolLink">
+          v-model="project.pipolLink"
+        >
         </input-component>
       </form-element>
 
       <form-element label="PIPOL Code">
         <input-component
           :readonly="!project.newProject"
-          v-model="project.pipolCode">
+          v-model="project.pipolCode"
+        >
         </input-component>
       </form-element>
 
@@ -155,9 +157,7 @@
         ></input-component>
       </form-element>
 
-      <q-item-label
-        header
-        class="text-uppercase">
+      <q-item-label header class="text-uppercase">
         Categorization
       </q-item-label>
 

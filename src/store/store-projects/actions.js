@@ -32,7 +32,7 @@ export function fbReadData({ commit }) {
         let payload = {
           id: change.doc.id,
           project: change.doc.data()
-        }
+        };
         commit("updateProject", payload);
       }
     });

@@ -27,8 +27,8 @@ export function projectsFiltered(state, getters) {
 }
 
 export function projectsSorted(state, getters, rootState) {
-  let projectsSorted = [];
-  let showAll = rootState.settings.showAll;
+  let projectsSorted = [],
+    showAll = rootState.settings.showAll;
 
   if (!showAll) {
     let projects = getters.myProjects;
@@ -61,8 +61,10 @@ export function projectsSorted(state, getters, rootState) {
 }
 
 export function myProjects(state) {
-  let myProjects = [];
-  let userId = firebaseAuth.currentUser.uid;
+  let myProjects = [],
+    userId = null;
+
+  userId = firebaseAuth.currentUser.uid;
 
   myProjects = [...state.projects].filter(project => {
     return project.addedBy == userId;
@@ -70,47 +72,3 @@ export function myProjects(state) {
 
   return myProjects;
 }
-
-// export function newProjects(state, getters) {
-//   let newProjects = [],
-//     projects = getters.projectsFiltered;
-
-//   newProjects = projects.filter(project => {
-//     return project.status == "new" || typeof project.status === "undefined";
-//   });
-
-//   return newProjects;
-// }
-
-// export function reviewedProjects(state, getters) {
-//   let reviewedProjects = [],
-//     projects = getters.projectsFiltered;
-
-//   reviewedProjects = projects.filter(project => {
-//     return project.status == "reviewed";
-//   });
-
-//   return reviewedProjects;
-// }
-
-// export function encodedProjects(state, getters) {
-//   let encodedProjects = [],
-//     projects = getters.projectsFiltered;
-
-//   encodedProjects = projects.filter(project => {
-//     return project.status == "encoded";
-//   });
-
-//   return encodedProjects;
-// }
-
-// export function finalizedProjects(state, getters) {
-//   let finalizedProjects = [],
-//     projects = getters.projectsFiltered;
-
-//   finalizedProjects = projects.filter(project => {
-//     return project.status == "finalized";
-//   });
-
-//   return finalizedProjects;
-// }
