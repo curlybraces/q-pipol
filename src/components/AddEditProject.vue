@@ -10,7 +10,17 @@
       </form-element>
 
       <form-element label="Link to PIPOL System">
-        <input-component v-model="project.pipolLink"></input-component>
+        <input-component
+          :readonly="!project.newProject"
+          v-model="project.pipolLink">
+        </input-component>
+      </form-element>
+
+      <form-element label="PIPOL Code">
+        <input-component
+          :readonly="!project.newProject"
+          v-model="project.pipolCode">
+        </input-component>
       </form-element>
 
       <form-element
@@ -145,7 +155,11 @@
         ></input-component>
       </form-element>
 
-      <q-item-label header class="text-uppercase">Categorization</q-item-label>
+      <q-item-label
+        header
+        class="text-uppercase">
+        Categorization
+      </q-item-label>
 
       <form-element label="6a. Status">
         <options-component
@@ -156,7 +170,6 @@
 
       <form-element label="6b. Infrastructure">
         <options-component
-          inline
           v-model="project.infrastructure"
           :options="[
             { value: 'Infrastructure', label: 'Infrastructure' },
