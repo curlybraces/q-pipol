@@ -1,21 +1,19 @@
-// import Vue from "vue";
-
 export function addProject(state, payload) {
   state.projects.push(payload);
 }
 
 export function updateProject(state, payload) {
-  // Object.assign(state.projects[payload.id], payload.project);
-  state.projects.filter(project => {
-    return project.id != payload.id;
+  let projectIndex = state.projects.findIndex(project => {
+    return project.id == payload.id;
   });
-  state.projects.push(payload.project);
+  state.projects.splice(projectIndex, 1, payload.project);
 }
 
 export function deleteProject(state, id) {
-  state.projects = state.projects.filter(project => {
-    return project.id != id;
+  let projectIndex = state.projects.findIndex(project => {
+    return project.id == id;
   });
+  state.projects.splice(projectIndex, 1);
 }
 
 export function setSearch(state, value) {
@@ -28,18 +26,6 @@ export function setProject(state, value) {
 
 export function setProjectsDownloaded(state, value) {
   state.projectsDownloaded = value;
-}
-
-export function setProjectStatus(state, payload) {
-  let projectIndex = state.projects.findIndex(project => {
-    return project.id == payload.id;
-  });
-  // console.log(state.projects[projectIndex])
-  // state.projects.splice(projectIndex, 1);
-  // Vue.set(state.projects[projectIndex], 'status', payload.status);
-  Object.assign({}, state.projects[projectIndex], {
-    status: payload.status
-  })
 }
 
 export function clearProjects(state) {

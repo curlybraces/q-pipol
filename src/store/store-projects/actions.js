@@ -29,10 +29,11 @@ export function fbReadData({ commit }) {
       } else if (change.type == "removed") {
         commit("deleteProject", change.doc.id);
       } else if (change.type == "modified") {
-        let project = change.doc.data();
-
-        project.id = change.doc.id;
-        commit("updateProject", project);
+        let payload = {
+          id: change.doc.id,
+          project: change.doc.data()
+        }
+        commit("updateProject", payload);
       }
     });
   });
@@ -80,7 +81,7 @@ export function fbUpdateProject({}, payload) {
     });
 }
 
-export function fbUpdateProjectStatus({ commit }, payload) {
+export function fbUpdateProjectStatus({}, payload) {
   projectRef
     .doc(payload.id)
     .update({
@@ -88,10 +89,10 @@ export function fbUpdateProjectStatus({ commit }, payload) {
     })
     .then(() => {
       Notify.create("Project status updated.");
-      commit("setProjectStatus", {
-        id: payload.id,
-        status: payload.status
-      });
+      // commit("setProjectStatus", {
+      //   id: payload.id,
+      //   status: payload.status
+      // });
     })
     .catch(err => {
       Notify.create(err.message);
