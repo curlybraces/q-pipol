@@ -23,6 +23,9 @@ const mutations = {
     state.directory = state.directory.filter(directory => {
       return directory.id != id;
     });
+  },
+  clearDirectory(state) {
+    state.directory = [];
   }
 };
 

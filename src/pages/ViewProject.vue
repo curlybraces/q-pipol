@@ -114,12 +114,12 @@
 
         <label-value
           label="10. RDIP Inclusion"
-          :value="project.rdipInclusion"
+          :value="project.rdipInclusion | falsify"
         />
 
         <label-value
           label="11. PCIP Inclusion"
-          :value="project.pcipInclusion"
+          :value="project.pcipInclusion | falsify"
         />
 
         <label-value
@@ -166,67 +166,91 @@
 
         <q-item-label header>21. Prerequisites</q-item-label>
 
-        <label-value label="NEDA Board" :value="project.nedaBoard" />
+        <label-value label="NEDA Board" :value="project.nedaBoard | falsify" />
 
-        <label-value label="NEDA Board-ICC" :value="project.nedaBoardIcc" />
+        <label-value
+          label="NEDA Board-ICC"
+          :value="project.nedaBoardIcc | falsify"
+        />
 
         <label-value
           label="DPWH Certification"
-          :value="project.dpwhCertification"
+          :value="project.dpwhCertification | falsify"
         />
 
-        <label-value label="DPWH MOA" :value="project.dpwhMoa" />
+        <label-value label="DPWH MOA" :value="project.dpwhMoa | falsify" />
 
-        <label-value label="DPWH Costing" :value="project.dpwhCosting" />
+        <label-value
+          label="DPWH Costing"
+          :value="project.dpwhCosting | falsify"
+        />
 
-        <label-value label="DENR Clearance" :value="project.denrClearance" />
+        <label-value
+          label="DENR Clearance"
+          :value="project.denrClearance | falsify"
+        />
 
         <label-value
           label="RDC Consultation"
-          :value="project.rdcConsultation"
+          :value="project.rdcConsultation | falsify"
         />
 
         <label-value
           label="CSO Consultation"
-          :value="project.csoConsultation"
+          :value="project.csoConsultation | falsify"
         />
 
-        <label-value label="List of Locations" :value="project.listLocations" />
+        <label-value
+          label="List of Locations"
+          :value="project.listLocations | falsify"
+        />
 
         <label-value
           label="List of Beneficiaries"
-          :value="project.listBeneficiaries"
+          :value="project.listBeneficiaries | falsify"
         />
 
         <label-value
           label="Evaluated and endorsed by DA Clearinghouse Committee"
-          :value="project.daClearingHouse"
+          :value="project.daClearingHouse | falsify"
         />
 
         <q-item-label header>22. Technical Readiness</q-item-label>
 
-        <label-value label="Concept Note" :value="project.conceptNote" />
+        <label-value
+          label="Concept Note"
+          :value="project.conceptNote | falsify"
+        />
 
         <label-value
           label="Feasibility Study"
-          :value="project.feasibilityStudy"
+          :value="project.feasibilityStudy | falsify"
         />
 
         <label-value
           label="Detailed Engineering Design"
-          :value="project.detailedEngineeringDesign"
+          :value="project.detailedEngineeringDesign | falsify"
         />
 
-        <label-value label="Business Plan" :value="project.businessPlan" />
+        <label-value
+          label="Business Plan"
+          :value="project.businessPlan | falsify"
+        />
 
-        <label-value label="Right of Way" :value="project.rightOfWay" />
+        <label-value
+          label="Right of Way"
+          :value="project.rightOfWay | falsify"
+        />
 
         <label-value
           label="Resettlement Plan"
-          :value="project.resettlementPlan"
+          :value="project.resettlementPlan | falsify"
         />
 
-        <label-value label="Others" :value="project.otherTechnicalReadiness" />
+        <label-value
+          label="Others"
+          :value="project.otherTechnicalReadiness | falsify"
+        />
 
         <label-value
           label="23. Level of Readiness"
@@ -321,16 +345,16 @@
               <q-markup-table>
                 <thead>
                   <tr>
-                    <td>Component</td>
-                    <td class="text-right">2016 &amp; Prior</td>
-                    <td class="text-right">2017</td>
-                    <td class="text-right">2018</td>
-                    <td class="text-right">2019</td>
-                    <td class="text-right">2020</td>
-                    <td class="text-right">2021</td>
-                    <td class="text-right">2022</td>
-                    <td class="text-right">2023 &amp; Beyond</td>
-                    <td class="text-right">TOTAL</td>
+                    <th>Component</th>
+                    <th class="text-right">2016 &amp; Prior</th>
+                    <th class="text-right">2017</th>
+                    <th class="text-right">2018</th>
+                    <th class="text-right">2019</th>
+                    <th class="text-right">2020</th>
+                    <th class="text-right">2021</th>
+                    <th class="text-right">2022</th>
+                    <th class="text-right">2023 &amp; Beyond</th>
+                    <th class="text-right">TOTAL</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -347,7 +371,7 @@
                     <td class="text-right">{{ comp.investment2021 }}</td>
                     <td class="text-right">{{ comp.investment2022 }}</td>
                     <td class="text-right">{{ comp.investment2023 }}</td>
-                    <td class="text-right">{{ comp.investmentTotal }}</td>
+                    <td class="text-right">{{ cInvestmentTotal[index] }}</td>
                   </tr>
                 </tbody>
               </q-markup-table>
@@ -364,16 +388,16 @@
               <q-markup-table>
                 <thead>
                   <tr>
-                    <td>Component</td>
-                    <td class="text-right">2016 &amp; Prior</td>
-                    <td class="text-right">2017</td>
-                    <td class="text-right">2018</td>
-                    <td class="text-right">2019</td>
-                    <td class="text-right">2020</td>
-                    <td class="text-right">2021</td>
-                    <td class="text-right">2022</td>
-                    <td class="text-right">2023 &amp; Beyond</td>
-                    <td class="text-right">TOTAL</td>
+                    <th>Component</th>
+                    <th class="text-right">2016 &amp; Prior</th>
+                    <th class="text-right">2017</th>
+                    <th class="text-right">2018</th>
+                    <th class="text-right">2019</th>
+                    <th class="text-right">2020</th>
+                    <th class="text-right">2021</th>
+                    <th class="text-right">2022</th>
+                    <th class="text-right">2023 &amp; Beyond</th>
+                    <th class="text-right">TOTAL</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -381,7 +405,7 @@
                     v-for="(comp, index) in project.fundingSourceBreakdown"
                     :key="index"
                   >
-                    <td>{{ comp.fundingSource }}</td>
+                    <td>{{ comp.component }}</td>
                     <td class="text-right">{{ comp.investment2016 }}</td>
                     <td class="text-right">{{ comp.investment2017 }}</td>
                     <td class="text-right">{{ comp.investment2018 }}</td>
@@ -390,7 +414,9 @@
                     <td class="text-right">{{ comp.investment2021 }}</td>
                     <td class="text-right">{{ comp.investment2022 }}</td>
                     <td class="text-right">{{ comp.investment2023 }}</td>
-                    <td class="text-right">{{ comp.investmentTotal }}</td>
+                    <td class="text-right">
+                      {{ fsInvestmentTotal[index] }}
+                    </td>
                   </tr>
                 </tbody>
               </q-markup-table>
@@ -424,7 +450,7 @@
                     v-for="(comp, index) in project.locationBreakdown"
                     :key="index"
                   >
-                    <td>{{ comp.location }}</td>
+                    <td>{{ comp.component }}</td>
                     <td class="text-right">{{ comp.investment2016 }}</td>
                     <td class="text-right">{{ comp.investment2017 }}</td>
                     <td class="text-right">{{ comp.investment2018 }}</td>
@@ -539,7 +565,37 @@ export default {
   },
   computed: {
     ...mapState("settings", ["dark"]),
-    ...mapGetters("projects", ["getProject"])
+    ...mapGetters("projects", ["getProject"]),
+    fsInvestmentTotal() {
+      return this.project.fundingSourceBreakdown.map(item => {
+        let total = 0;
+        total =
+          (parseInt(item.investment2016) || 0) +
+          (parseInt(item.investment2017) || 0) +
+          (parseInt(item.investment2018) || 0) +
+          (parseInt(item.investment2019) || 0) +
+          (parseInt(item.investment2020) || 0) +
+          (parseInt(item.investment2021) || 0) +
+          (parseInt(item.investment2022) || 0) +
+          (parseInt(item.investment2023) || 0);
+        return total.toLocaleString();
+      });
+    },
+    cInvestmentTotal() {
+      return this.project.componentBreakdown.map(item => {
+        let total = 0;
+        total =
+          (parseInt(item.investment2016) || 0) +
+          (parseInt(item.investment2017) || 0) +
+          (parseInt(item.investment2018) || 0) +
+          (parseInt(item.investment2019) || 0) +
+          (parseInt(item.investment2020) || 0) +
+          (parseInt(item.investment2021) || 0) +
+          (parseInt(item.investment2022) || 0) +
+          (parseInt(item.investment2023) || 0);
+        return total.toLocaleString();
+      });
+    }
   },
   filters: {
     monetize(val) {
@@ -548,6 +604,13 @@ export default {
       } else {
         let totalProjectCost = parseInt(val);
         return "PhP " + totalProjectCost.toLocaleString("en-PH");
+      }
+    },
+    falsify(val) {
+      if (val) {
+        return "Yes";
+      } else {
+        return "No";
       }
     }
   },

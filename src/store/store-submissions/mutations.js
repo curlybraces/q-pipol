@@ -5,3 +5,7 @@ export function setSubmissionsDownloaded(state, value) {
 export function addSubmission(state, value) {
   state.submissions.push(value);
 }
+
+export function clearSubmissions(state) {
+  state.submissions = [];
+}

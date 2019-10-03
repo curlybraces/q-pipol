@@ -2,11 +2,11 @@
   <q-page padding>
     <q-card>
       <q-list separator>
-        <q-item-label header class="text-uppercase">Status of Submissions</q-item-label>
+        <q-item-label header class="text-uppercase"
+          >Status of Submissions</q-item-label
+        >
         <q-btn flat @click="showAddSubmission = true" label="Add" />
-        <q-item
-          v-for="item in submissions"
-          :key="item.id">
+        <q-item v-for="item in submissions" :key="item.id">
           <q-item-section avatar>
             <q-btn
               flat
@@ -14,7 +14,8 @@
               round
               dense
               icon="edit"
-              @click="editSubmission = !editSubmission" />
+              @click="editSubmission = !editSubmission"
+            />
           </q-item-section>
           <q-item-section class="col-2">
             {{ item.operatingUnit }}
@@ -24,7 +25,8 @@
               type="checkbox"
               :options="paps"
               :value="item.submitted"
-              inline/>
+              inline
+            />
           </q-item-section>
           <q-dialog v-model="editSubmission">
             <q-card>

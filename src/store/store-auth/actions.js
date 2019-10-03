@@ -112,6 +112,8 @@ export function handleAuthStateChange({ commit, dispatch }) {
       commit("setEmail", "");
       commit("projects/setProjectsDownloaded", false, { root: true });
       commit("projects/clearProjects", null, { root: true });
+      commit("directory/clearDirectory", null, { root: true });
+      commit("projects/clearSubmissions", null, { root: true });
       commit("setLoggedIn", false);
       LocalStorage.set("loggedIn", false);
       this.$router.replace("/");

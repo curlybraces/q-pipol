@@ -18,7 +18,8 @@
               :options="operatingUnits"
               v-model="submissionToEdit.operatingUnit"
               emit-value
-              map-options />
+              map-options
+            />
           </q-item-section>
         </q-item>
         <q-item>
@@ -26,7 +27,7 @@
             type="checkbox"
             :options="paps"
             v-model="submissionToEdit.submitted"
-            ></q-option-group>
+          ></q-option-group>
         </q-item>
       </q-list>
     </q-card-section>
@@ -102,42 +103,44 @@ export default {
       ],
       submitted: [],
       operatingUnit: ""
-    }
+    };
   },
   computed: {
     ...mapState("operating_units", ["operatingUnits"])
   },
   methods: {
     addSubmission() {
-      if (typeof this.submissionToEdit.id === 'undefined') {
-        submissionsRef.doc().set(this.submissionToEdit)
+      if (typeof this.submissionToEdit.id === "undefined") {
+        submissionsRef
+          .doc()
+          .set(this.submissionToEdit)
           .then(() => {
             Notify.create({
               message: "Successfully added submission."
-            })
+            });
           })
           .catch(err => {
             Notify.create(err.message);
           });
-      }
-      else {
-        submissionsRef.doc(this.submissionToEdit.id)
+      } else {
+        submissionsRef
+          .doc(this.submissionToEdit.id)
           .update({
             submitted: this.submissionToEdit.submitted
           })
           .then(() => {
             Notify.create({
               message: "Successfully updated."
-            })
+            });
           })
           .catch(err => {
-            Notify.create(err.message)
+            Notify.create(err.message);
           });
       }
     }
   },
   mounted() {
-    this.submissionToEdit = Object.assign({}, this.submission)
+    this.submissionToEdit = Object.assign({}, this.submission);
   }
 };
 </script>

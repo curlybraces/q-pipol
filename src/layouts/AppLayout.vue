@@ -11,7 +11,9 @@
         ></q-btn>
 
         <q-toolbar-title>
-          <span class="app-title">{{ appTitle }}</span>
+          <span class="app-title">
+            {{ appTitle }}
+          </span>
         </q-toolbar-title>
 
         <q-btn
@@ -43,8 +45,12 @@
           <q-avatar size="56px" class="q-mb-sm">
             <img src="https://cdn.quasar.dev/img/boy-avatar.png" />
           </q-avatar>
-          <div class="text-weight-bold">{{ currentUserDisplayName }}</div>
-          <div>{{ currentUserEmail }}</div>
+          <div class="text-weight-bold">
+            {{ currentUserDisplayName }}
+          </div>
+          <div>
+            {{ currentUserEmail }}
+          </div>
         </div>
       </q-img>
       <left-drawer :sidemenu="sidemenu" />

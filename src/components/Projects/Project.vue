@@ -8,9 +8,7 @@
 
     <q-item-section top class="col-1 gt-sm">
       <q-item-label class="q-mt-sm">
-        {{
-          project.implementingAgency
-        }}
+        {{ project.implementingAgency }}
       </q-item-label>
     </q-item-section>
 
@@ -23,12 +21,12 @@
         </span>
         <q-badge
           color="red"
-          v-if="project.classification == 'Project'"
+          v-if="project.classification.toLowerCase() == 'project'"
           label="project"
         />
         <q-badge
           color="blue"
-          v-if="project.classification == 'Program'"
+          v-if="project.classification.toLowerCase() == 'program'"
           label="program"
         />
       </q-item-label>
