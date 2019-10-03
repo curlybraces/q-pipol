@@ -29,9 +29,11 @@ export function fbReadData({ commit }) {
       } else if (change.type == "removed") {
         commit("deleteProject", change.doc.id);
       } else if (change.type == "modified") {
+        let project = change.doc.data();
+        project.id = change.doc.id;
         let payload = {
           id: change.doc.id,
-          project: change.doc.data()
+          project: project
         };
         commit("updateProject", payload);
       }

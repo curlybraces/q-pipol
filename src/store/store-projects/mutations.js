@@ -3,6 +3,7 @@ export function addProject(state, payload) {
 }
 
 export function updateProject(state, payload) {
+  console.log(payload.project)
   let projectIndex = state.projects.findIndex(project => {
     return project.id == payload.id;
   });

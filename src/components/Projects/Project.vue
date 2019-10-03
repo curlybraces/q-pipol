@@ -19,19 +19,21 @@
             v-html="$options.filters.searchHighlight(project.title, search)"
           ></div>
         </span>
-        <q-badge
-          color="red"
-          v-if="project.classification.toLowerCase() == 'project'"
-          label="project"
-        />
-        <q-badge
-          color="blue"
-          v-if="project.classification.toLowerCase() == 'program'"
-          label="program"
-        />
       </q-item-label>
       <q-item-label caption lines="2">
         {{ project.description }}
+      </q-item-label>
+      <q-item-label>
+        <q-badge
+            color="red"
+            v-if="project.classification == 'Project'"
+            label="project"
+          />
+          <q-badge
+            color="blue"
+            v-if="project.classification == 'Program'"
+            label="program"
+          />
       </q-item-label>
     </q-item-section>
 
