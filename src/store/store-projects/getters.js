@@ -71,46 +71,46 @@ export function myProjects(state) {
   return myProjects;
 }
 
-export function newProjects(state, getters) {
-  let newProjects = [],
-    projects = getters.projectsFiltered;
+// export function newProjects(state, getters) {
+//   let newProjects = [],
+//     projects = getters.projectsFiltered;
 
-  newProjects = projects.filter(project => {
-    return project.status == "new" || typeof project.status === "undefined";
-  });
+//   newProjects = projects.filter(project => {
+//     return project.status == "new" || typeof project.status === "undefined";
+//   });
 
-  return newProjects;
-}
+//   return newProjects;
+// }
 
-export function reviewedProjects(state, getters) {
-  let reviewedProjects = [],
-    projects = getters.projectsFiltered;
+// export function reviewedProjects(state, getters) {
+//   let reviewedProjects = [],
+//     projects = getters.projectsFiltered;
 
-  reviewedProjects = projects.filter(project => {
-    return project.status == "reviewed";
-  });
+//   reviewedProjects = projects.filter(project => {
+//     return project.status == "reviewed";
+//   });
 
-  return reviewedProjects;
-}
+//   return reviewedProjects;
+// }
 
-export function encodedProjects(state, getters) {
-  let encodedProjects = [],
-    projects = getters.projectsFiltered;
+// export function encodedProjects(state, getters) {
+//   let encodedProjects = [],
+//     projects = getters.projectsFiltered;
 
-  encodedProjects = projects.filter(project => {
-    return project.status == "encoded";
-  });
+//   encodedProjects = projects.filter(project => {
+//     return project.status == "encoded";
+//   });
 
-  return encodedProjects;
-}
+//   return encodedProjects;
+// }
 
-export function finalizedProjects(state, getters) {
-  let finalizedProjects = [],
-    projects = getters.projectsFiltered;
+// export function finalizedProjects(state, getters) {
+//   let finalizedProjects = [],
+//     projects = getters.projectsFiltered;
 
-  finalizedProjects = projects.filter(project => {
-    return project.status == "finalized";
-  });
+//   finalizedProjects = projects.filter(project => {
+//     return project.status == "finalized";
+//   });
 
-  return finalizedProjects;
-}
+//   return finalizedProjects;
+// }

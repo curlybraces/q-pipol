@@ -13,7 +13,7 @@
     </q-item-section>
 
     <q-item-section top>
-      <q-item-label lines="2">
+      <q-item-label lines="3">
         <span class="text-weight-medium">
           <div
             v-html="$options.filters.searchHighlight(project.title, search)"

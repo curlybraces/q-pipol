@@ -111,14 +111,34 @@ export default {
   },
   computed: {
     ...mapGetters("projects", [
-      "projects",
-      "newProjects",
-      "encodedProjects",
-      "reviewedProjects",
-      "finalizedProjects"
-    ])
+      "projects"
+    ]),
+    newProjects() {
+      return this.projects.filter(project => {
+        return project.status == "new" || typeof project.status === "undefined";
+      });
+    },
+    encodedProjects() {
+      return this.projects.filter(project => {
+        if (typeof project.status !== "undefined") {
+          return project.status == "encoded";
+        }
+      });
+    },
+    reviewedProjects() {
+      return this.projects.filter(project => {
+        if (typeof project.status !== "undefined") {
+          return project.status == "reviewed";
+        }
+      });
+    },
+    finalizedProjects() {
+      return this.projects.filter(project => {
+        if (typeof project.status !== "undefined") {
+          return project.status == "finalized";
+        }
+      });
+    }
   }
 };
 </script>
-
-<style></style>

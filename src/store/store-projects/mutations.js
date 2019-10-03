@@ -1,3 +1,5 @@
+// import Vue from "vue";
+
 export function addProject(state, payload) {
   state.projects.push(payload);
 }
@@ -32,7 +34,12 @@ export function setProjectStatus(state, payload) {
   let projectIndex = state.projects.findIndex(project => {
     return project.id == payload.id;
   });
-  state.projects.splice(projectIndex, 1);
+  // console.log(state.projects[projectIndex])
+  // state.projects.splice(projectIndex, 1);
+  // Vue.set(state.projects[projectIndex], 'status', payload.status);
+  Object.assign({}, state.projects[projectIndex], {
+    status: payload.status
+  })
 }
 
 export function clearProjects(state) {
