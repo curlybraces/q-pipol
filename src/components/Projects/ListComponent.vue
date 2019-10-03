@@ -115,7 +115,9 @@ export default {
     ]),
     newProjects() {
       return this.projects.filter(project => {
-        return project.status == "new" || typeof project.status === "undefined";
+        if (typeof project.status === "undefined" || project.status == "new") {
+          return true;
+        }
       });
     },
     encodedProjects() {
