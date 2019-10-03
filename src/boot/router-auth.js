@@ -24,7 +24,8 @@ export default ({ router }) => {
     // }
     if (!loggedIn && to.path !== "/") {
       next("/");
-    } else {
+    }
+    else {
       next();
     }
   });

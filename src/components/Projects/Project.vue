@@ -40,6 +40,7 @@
     <q-item-section side top>
       <div class="text-grey-8">
         <q-btn
+          v-if="project.addedBy == userId"
           size="12px"
           dense
           flat
@@ -48,6 +49,7 @@
           @click.stop="showUpdateStatus = !showUpdateStatus"
         />
         <q-btn
+          v-if="project.addedBy == userId"
           size="12px"
           flat
           dense
@@ -108,6 +110,7 @@
 </template>
 
 <script>
+import { firebaseAuth } from "boot/firebase";
 import { mapState, mapActions } from "vuex";
 // const EditProject = () => import("../../components/EditProject");
 // const ReviewProject = () => import("../../components/ReviewProject");
@@ -128,7 +131,10 @@ export default {
     };
   },
   computed: {
-    ...mapState("projects", ["search"])
+    ...mapState("projects", ["search"]),
+    userId() {
+      return firebaseAuth.currentUser.uid;
+    }
   },
   methods: {
     ...mapActions("projects", ["deleteProject", "updateProjectStatus"]),

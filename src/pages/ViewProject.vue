@@ -5,6 +5,7 @@
         <q-avatar icon="note_add" />
         <q-toolbar-title>View Project</q-toolbar-title>
         <q-btn
+          v-if="project.addedBy == userId"
           :to="'/projects/' + $route.params.id + '/edit'"
           flat
           round
@@ -528,7 +529,7 @@
 </template>
 
 <script>
-import { projectRef } from "boot/firebase";
+import { firebaseAuth, projectRef } from "boot/firebase";
 import { mapState, mapGetters } from "vuex";
 import { Notify, Loading } from "quasar";
 
@@ -566,6 +567,9 @@ export default {
   computed: {
     ...mapState("settings", ["dark"]),
     ...mapGetters("projects", ["getProject"]),
+    userId() {
+      return firebaseAuth.currentUser.uid;
+    },
     fsInvestmentTotal() {
       return this.project.fundingSourceBreakdown.map(item => {
         let total = 0;
