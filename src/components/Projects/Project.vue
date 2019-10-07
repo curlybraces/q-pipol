@@ -25,15 +25,15 @@
       </q-item-label>
       <q-item-label>
         <q-badge
-            color="red"
-            v-if="project.classification == 'Project'"
-            label="project"
-          />
-          <q-badge
-            color="blue"
-            v-if="project.classification == 'Program'"
-            label="program"
-          />
+          color="red"
+          v-if="project.classification == 'Project'"
+          label="project"
+        />
+        <q-badge
+          color="blue"
+          v-if="project.classification == 'Program'"
+          label="program"
+        />
       </q-item-label>
     </q-item-section>
 
