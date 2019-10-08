@@ -76,6 +76,7 @@ export function fbUpdateProject({}, payload) {
     .then(() => {
       Loading.hide();
       Notify.create("Project updated.");
+      this.$router.push("/projects/" + payload.id);
     })
     .catch(err => {
       Loading.hide();

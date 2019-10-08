@@ -364,14 +364,14 @@
                     :key="index"
                   >
                     <td>{{ comp.component }}</td>
-                    <td class="text-right">{{ comp.investment2016 }}</td>
-                    <td class="text-right">{{ comp.investment2017 }}</td>
-                    <td class="text-right">{{ comp.investment2018 }}</td>
-                    <td class="text-right">{{ comp.investment2019 }}</td>
-                    <td class="text-right">{{ comp.investment2020 }}</td>
-                    <td class="text-right">{{ comp.investment2021 }}</td>
-                    <td class="text-right">{{ comp.investment2022 }}</td>
-                    <td class="text-right">{{ comp.investment2023 }}</td>
+                    <td class="text-right">{{ comp.investment2016 | numberize }}</td>
+                    <td class="text-right">{{ comp.investment2017 | numberize }}</td>
+                    <td class="text-right">{{ comp.investment2018 | numberize }}</td>
+                    <td class="text-right">{{ comp.investment2019 | numberize }}</td>
+                    <td class="text-right">{{ comp.investment2020 | numberize }}</td>
+                    <td class="text-right">{{ comp.investment2021 | numberize }}</td>
+                    <td class="text-right">{{ comp.investment2022 | numberize }}</td>
+                    <td class="text-right">{{ comp.investment2023 | numberize }}</td>
                     <td class="text-right">{{ cInvestmentTotal[index] }}</td>
                   </tr>
                 </tbody>
@@ -407,14 +407,14 @@
                     :key="index"
                   >
                     <td>{{ comp.component }}</td>
-                    <td class="text-right">{{ comp.investment2016 }}</td>
-                    <td class="text-right">{{ comp.investment2017 }}</td>
-                    <td class="text-right">{{ comp.investment2018 }}</td>
-                    <td class="text-right">{{ comp.investment2019 }}</td>
-                    <td class="text-right">{{ comp.investment2020 }}</td>
-                    <td class="text-right">{{ comp.investment2021 }}</td>
-                    <td class="text-right">{{ comp.investment2022 }}</td>
-                    <td class="text-right">{{ comp.investment2023 }}</td>
+                    <td class="text-right">{{ comp.investment2016 | numberize }}</td>
+                    <td class="text-right">{{ comp.investment2017 | numberize }}</td>
+                    <td class="text-right">{{ comp.investment2018 | numberize }}</td>
+                    <td class="text-right">{{ comp.investment2019 | numberize }}</td>
+                    <td class="text-right">{{ comp.investment2020 | numberize }}</td>
+                    <td class="text-right">{{ comp.investment2021 | numberize }}</td>
+                    <td class="text-right">{{ comp.investment2022 | numberize }}</td>
+                    <td class="text-right">{{ comp.investment2023 | numberize }}</td>
                     <td class="text-right">
                       {{ fsInvestmentTotal[index] }}
                     </td>
@@ -452,14 +452,14 @@
                     :key="index"
                   >
                     <td>{{ comp.component }}</td>
-                    <td class="text-right">{{ comp.investment2016 }}</td>
-                    <td class="text-right">{{ comp.investment2017 }}</td>
-                    <td class="text-right">{{ comp.investment2018 }}</td>
-                    <td class="text-right">{{ comp.investment2019 }}</td>
-                    <td class="text-right">{{ comp.investment2020 }}</td>
-                    <td class="text-right">{{ comp.investment2021 }}</td>
-                    <td class="text-right">{{ comp.investment2022 }}</td>
-                    <td class="text-right">{{ comp.investment2023 }}</td>
+                    <td class="text-right">{{ comp.investment2016 | numberize }}</td>
+                    <td class="text-right">{{ comp.investment2017 | numberize }}</td>
+                    <td class="text-right">{{ comp.investment2018 | numberize }}</td>
+                    <td class="text-right">{{ comp.investment2019 | numberize }}</td>
+                    <td class="text-right">{{ comp.investment2020 | numberize }}</td>
+                    <td class="text-right">{{ comp.investment2021 | numberize }}</td>
+                    <td class="text-right">{{ comp.investment2022 | numberize }}</td>
+                    <td class="text-right">{{ comp.investment2023 | numberize }}</td>
                     <td class="text-right">{{ lInvestmentTotal[index] }}</td>
                   </tr>
                 </tbody>
@@ -496,7 +496,7 @@
                     <td class="text-right">{{ project.nep2020 }}</td>
                     <td class="text-right">{{ project.nep2021 }}</td>
                     <td class="text-right">{{ project.nep2022 }}</td>
-                    <td class="text-right">{{ project.nepTotal }}</td>
+                    <td class="text-right">{{ nepTotal }}</td>
                   </tr>
                   <tr>
                     <td>GAA</td>
@@ -506,7 +506,7 @@
                     <td class="text-right">{{ project.gaa2020 }}</td>
                     <td class="text-right">{{ project.gaa2021 }}</td>
                     <td class="text-right">{{ project.gaa2022 }}</td>
-                    <td class="text-right">{{ project.gaaTotal }}</td>
+                    <td class="text-right">{{ gaaTotal }}</td>
                   </tr>
                   <tr>
                     <td>Disbursement</td>
@@ -516,7 +516,7 @@
                     <td class="text-right">{{ project.disbursement2020 }}</td>
                     <td class="text-right">{{ project.disbursement2021 }}</td>
                     <td class="text-right">{{ project.disbursement2022 }}</td>
-                    <td class="text-right">{{ project.disbursementTotal }}</td>
+                    <td class="text-right">{{ disbursementTotal }}</td>
                   </tr>
                 </tbody>
               </q-markup-table>
@@ -614,6 +614,42 @@ export default {
           (parseInt(item.investment2023) || 0);
         return total.toLocaleString();
       });
+    },
+    nepTotal() {
+      return (
+        (
+          (parseFloat(this.project.nep2017) || 0) +
+          (parseFloat(this.project.nep2018) || 0) +
+          (parseFloat(this.project.nep2019) || 0) +
+          (parseFloat(this.project.nep2020) || 0) +
+          (parseFloat(this.project.nep2021) || 0) +
+          (parseFloat(this.project.nep2022) || 0)
+        )
+      )
+    },
+    gaaTotal() {
+      return (
+        (
+          (parseFloat(this.project.gaa2017) || 0) +
+          (parseFloat(this.project.gaa2018) || 0) +
+          (parseFloat(this.project.gaa2019) || 0) +
+          (parseFloat(this.project.gaa2020) || 0) +
+          (parseFloat(this.project.gaa2021) || 0) +
+          (parseFloat(this.project.gaa2022) || 0)
+        )
+      )
+    },
+    disbursementTotal() {
+      return (
+        (
+          (parseFloat(this.project.disbursement2017) || 0) +
+          (parseFloat(this.project.disbursement2018) || 0) +
+          (parseFloat(this.project.disbursement2019) || 0) +
+          (parseFloat(this.project.disbursement2020) || 0) +
+          (parseFloat(this.project.disbursement2021) || 0) +
+          (parseFloat(this.project.disbursement2022) || 0)
+        )
+      )
     }
   },
   filters: {
@@ -621,8 +657,16 @@ export default {
       if (!val) {
         return "PhP 0.00";
       } else {
-        let totalProjectCost = parseInt(val);
+        let totalProjectCost = parseInt(val.replace(/,/g,""));
         return "PhP " + totalProjectCost.toLocaleString("en-PH");
+      }
+    },
+    numberize(val) {
+      if (!val) {
+        return 0.00;
+      } else {
+        let totalProjectCost = parseFloat(val.replace(/,/g,""));
+        return totalProjectCost.toLocaleString("en-PH");
       }
     },
     falsify(val) {
