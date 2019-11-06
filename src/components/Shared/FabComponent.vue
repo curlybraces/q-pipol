@@ -1,13 +1,6 @@
 <template>
   <q-page-sticky position="bottom" :offset="[18, 10]">
-    <q-btn
-      fab
-      icon="add"
-      :color="dark ? 'info' : 'primary'"
-      :to="link"
-      size="25px"
-      :dark="dark"
-    />
+    <q-btn fab icon="add" :to="link" size="25px" />
   </q-page-sticky>
 </template>
 
@@ -21,7 +14,6 @@ export default {
     };
   },
   computed: {
-    ...mapState("settings", ["dark"]),
     ...mapState("auth", ["isEncoder"])
   }
 };

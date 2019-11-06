@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHr LpR lFr">
-    <q-header :class="dark ? 'bg-grey-10' : 'bg-primary'" elevated>
+    <q-header elevated>
       <q-toolbar>
         <q-btn
           icon="menu"
@@ -32,7 +32,6 @@
       v-model="leftDrawerOpen"
       side="left"
       bordered
-      :content-class="dark ? 'bg-grey-10' : 'bg-white'"
       :width="250"
       v-if="loggedIn"
     >
@@ -65,7 +64,7 @@
       <login-form></login-form>
     </q-drawer>
 
-    <q-footer :class="dark ? 'bg-grey-10' : 'bg-primary'" :dark="dark" elevated>
+    <q-footer elevated>
       <q-tabs align="justify" switch-indicator>
         <q-route-tab
           v-for="item in sidemenu"

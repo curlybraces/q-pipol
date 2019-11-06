@@ -1,7 +1,7 @@
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
 
-module.exports = function (ctx) {
+module.exports = function(ctx) {
   return {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
@@ -31,6 +31,11 @@ module.exports = function (ctx) {
       // lang: 'de', // Quasar language
 
       // all: true, // --- includes everything; for dev only!
+
+      // set dark mode to auto
+      config: {
+        dark: "auto"
+      },
 
       components: [
         "QLayout",
@@ -108,7 +113,8 @@ module.exports = function (ctx) {
         "Loading",
 
         "AddressbarColor",
-        "LocalStorage"
+        "LocalStorage",
+        "Dark"
       ]
     },
 
@@ -141,7 +147,7 @@ module.exports = function (ctx) {
     },
 
     // animations: 'all', // --- includes all animations
-    animations: ["zoomIn", "zoomOut","bounce"],
+    animations: ["zoomIn", "zoomOut", "bounce"],
 
     ssr: {
       pwa: false

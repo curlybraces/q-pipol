@@ -2,8 +2,8 @@
   <q-scroll-area
     style="height: calc(100% - 150px); margin-top: 150px; border-right: 1px solid #ddd"
   >
-    <q-list padding dark class="text-grey">
-      <q-item-label header class="text-black">NAVIGATION</q-item-label>
+    <q-list padding class="text-grey">
+      <q-item-label header>NAVIGATION</q-item-label>
 
       <template v-for="item in sidemenu">
         <q-item

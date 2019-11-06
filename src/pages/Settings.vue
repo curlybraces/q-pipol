@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <q-list bordered padding :dark="dark">
+    <q-list bordered padding>
       <q-item-label header>User Controls</q-item-label>
 
       <q-item tag="label" v-ripple>
@@ -47,7 +47,7 @@
           <q-item-label caption>Switch to dark mode</q-item-label>
         </q-item-section>
         <q-item-section side top>
-          <q-toggle color="primary" :value="dark" @input="setDark" />
+          <q-toggle color="primary" @input="setDark" v-model="dark" />
         </q-item-section>
       </q-item>
 
@@ -165,15 +165,19 @@ export default {
         password: [
           v => v.length >= 8 || "Password must be at least 8 characters."
         ]
-      }
+      },
+      dark: false
     };
   },
   computed: {
     ...mapState("settings", ["dark", "showWelcome", "showAll"])
   },
   methods: {
-    ...mapActions("settings", ["setDark", "setShowWelcome", "setShowAll"]),
+    ...mapActions("settings", ["setShowWelcome", "setShowAll"]),
     ...mapActions("auth", ["changePassword"]),
+    setDark(val) {
+      this.$q.dark.set(val);
+    },
     confirmUserPassword() {
       let user = firebaseAuth.currentUser;
       let cred = firebase.auth.EmailAuthProvider.credential(

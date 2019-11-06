@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-banner dense class="bg-grey-3">
+    <q-banner dense>
       <template v-slot:avatar>
         <q-icon name="check" color="primary" />
       </template>

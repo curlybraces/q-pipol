@@ -1,7 +1,6 @@
 const state = {
   showWelcome: false,
   showAll: true,
-  dark: false,
   userName: "",
   ipFocal: "",
   planningHead: "",
@@ -9,9 +8,6 @@ const state = {
 };
 
 const mutations = {
-  setDark(state, value) {
-    state.dark = value;
-  },
   setShowWelcome(state, value) {
     state.showWelcome = value;
   },
@@ -21,9 +17,6 @@ const mutations = {
 };
 
 const actions = {
-  setDark({ commit }, payload) {
-    commit("setDark", payload);
-  },
   setShowWelcome({ commit }, payload) {
     commit("setShowWelcome", payload);
   },

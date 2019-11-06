@@ -3,7 +3,14 @@ import { firebaseAuth, projectRef } from "boot/firebase";
 import { showErrorMessage } from "src/functions/function-show-error-message";
 
 export function addProject({ dispatch }, project) {
-  dispatch("fbAddProject", project);
+  if (!project.title) {
+    Notify.create({
+      message: "Please enter program/project title.",
+      color: "red"
+    });
+  } else {
+    dispatch("fbAddProject", project);
+  }
 }
 
 export function updateProject({ dispatch }, payload) {

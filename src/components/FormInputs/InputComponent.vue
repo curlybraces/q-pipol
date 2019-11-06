@@ -2,7 +2,6 @@
   <q-input
     dense
     :outlined="outlined"
-    :dark="dark"
     :type="type"
     :label="$q.screen.lt.md ? label : void 0"
     :hint="hint"
@@ -11,7 +10,6 @@
     :readonly="readonly"
     :disabled="disabled"
     :stack-label="$q.screen.lt.md"
-    :color="dark ? 'white' : 'primary'"
     :rules="rules"
     :clearable="type != 'number'"
     lazy-rules
@@ -20,8 +18,6 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-
 export default {
   name: "InputComponent",
   props: {
@@ -42,9 +38,6 @@ export default {
       type: Boolean,
       default: false
     }
-  },
-  computed: {
-    ...mapState("settings", ["dark"])
   },
   methods: {
     onInput(evt) {

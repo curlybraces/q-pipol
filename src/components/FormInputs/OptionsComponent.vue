@@ -6,12 +6,10 @@
     <div class="col">
       <q-option-group
         :dense="dense"
-        :color="dark ? 'info' : 'primary'"
         :options="options"
         @input="onInput"
         :value="value"
         :inline="inline"
-        :dark="dark"
         :type="type"
         :disable="disable"
       ></q-option-group>
@@ -20,8 +18,6 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-
 export default {
   name: "OptionsComponent",
   props: {
@@ -44,9 +40,6 @@ export default {
       type: String,
       default: "radio"
     }
-  },
-  computed: {
-    ...mapState("settings", ["dark"])
   },
   methods: {
     onInput(evt) {

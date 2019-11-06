@@ -1,7 +1,7 @@
 <template>
   <q-page>
-    <q-card :class="dark ? 'bg-grey-10' : 'bg-white'" flat>
-      <q-toolbar :class="(dark ? 'bg-info' : 'bg-primary') + ' text-white'">
+    <q-card flat>
+      <q-toolbar>
         <q-avatar icon="note_add" />
         <q-toolbar-title>View Project</q-toolbar-title>
         <q-btn
@@ -14,7 +14,7 @@
         <q-btn @click="printProject" icon="save" flat round dense />
       </q-toolbar>
 
-      <q-list separator :dark="dark">
+      <q-list separator>
         <div class="text-h6 text-uppercase q-pa-md">
           <a :href="project.pipolLink" target="_blank">
             {{ project.title }}

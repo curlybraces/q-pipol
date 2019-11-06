@@ -25,7 +25,7 @@ import '@quasar/extras/animate/zoomOut.css'
 import '@quasar/extras/animate/bounce.css'
 
 
-// We load Quasar stylus files
+// We load Quasar stylesheet file
 import 'quasar/dist/quasar.styl'
 
 
@@ -52,12 +52,22 @@ import qboot_Bootnotifydefaults from 'boot/notify-defaults'
 
 
 
+<<<<<<< Updated upstream
+=======
 
-
-
+>>>>>>> Stashed changes
 
 Vue.config.devtools = true
 Vue.config.productionTip = false
+
+
+
+<<<<<<< Updated upstream
+Vue.config.devtools = true
+Vue.config.productionTip = false
+=======
+console.info('[Quasar] Running SPA.')
+>>>>>>> Stashed changes
 
 
 
@@ -65,10 +75,13 @@ console.info('[Quasar] Running SPA.')
 
 
 
+<<<<<<< Updated upstream
 const { app, store, router } = createApp()
 
 
 
+=======
+>>>>>>> Stashed changes
 async function start () {
   
   let routeUnchanged = true
