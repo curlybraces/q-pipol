@@ -189,16 +189,7 @@
       <form-element label="6d. Budget Tier">
         <options-component
           v-model="project.budgetTier"
-          :options="[
-            {
-              label: 'Tier 1',
-              value: 'Tier 1'
-            },
-            {
-              label: 'Tier 2',
-              value: 'Tier 2'
-            }
-          ]"
+          :options="categorizations"
         ></options-component>
       </form-element>
 
@@ -816,6 +807,8 @@ const OptionsComponent = () => import("./FormInputs/OptionsComponent");
 const FormElement = () => import("./FormInputs/FormElement");
 const TableComponent = () => import("../components/TableComponent");
 
+import { categorizations } from '../data/categorizations';
+
 export default {
   components: {
     SelectComponent,
@@ -830,6 +823,7 @@ export default {
   },
   data() {
     return {
+      categorizations: categorizations,
       filteredImplementationPeriods: [],
       showHelp: false,
       showAddFundSource: true,
@@ -888,7 +882,7 @@ export default {
     };
   },
   computed: {
-    ...mapState("categorizations", ["categorizations"]),
+    // ...mapState("categorizations", ["categorizations"]),
     ...mapState("challenges", ["challenges"]),
     ...mapState("funding_institutions", ["fundingInstitutions"]),
     ...mapState("funding_sources", ["fundingSources"]),
