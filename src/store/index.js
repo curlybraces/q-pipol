@@ -8,14 +8,10 @@ import settings from "./store-settings";
 import submissions from "./store-submissions";
 
 // Dropdown stores
-import approval_levels from "./store-approval-levels";
-import categorizations from "./store-categorizations";
-import challenges from "./store-challenges";
 import cip_types from "./store-cip-types";
 import city_municipalities from "./store-city-municipalities";
 import commodities from "./store-commodities";
 import contact_types from "./store-contact-types";
-import funding_institutions from "./store-funding-institutions";
 import funding_sources from "./store-funding-sources";
 import gad_responsiveness from "./store-gad-responsiveness";
 import implementation_bases from "./store-implementation-bases";
@@ -62,14 +58,10 @@ export default function(/* { ssrContext } */) {
       settings,
       submissions,
 
-      approval_levels,
-      categorizations,
-      challenges,
       cip_types,
       city_municipalities,
       commodities,
       contact_types,
-      funding_institutions,
       funding_sources,
       gad_responsiveness,
       implementation_bases,

@@ -807,7 +807,11 @@ const OptionsComponent = () => import("./FormInputs/OptionsComponent");
 const FormElement = () => import("./FormInputs/FormElement");
 const TableComponent = () => import("../components/TableComponent");
 
-import { categorizations } from '../data/categorizations';
+import {
+  categorizations,
+  challenges,
+  fundingInstitutions
+} from "../data/dropdown-values.js";
 
 export default {
   components: {
@@ -824,6 +828,8 @@ export default {
   data() {
     return {
       categorizations: categorizations,
+      challenges: challenges,
+      fundingInstitutions: fundingInstitutions,
       filteredImplementationPeriods: [],
       showHelp: false,
       showAddFundSource: true,
@@ -883,8 +889,8 @@ export default {
   },
   computed: {
     // ...mapState("categorizations", ["categorizations"]),
-    ...mapState("challenges", ["challenges"]),
-    ...mapState("funding_institutions", ["fundingInstitutions"]),
+    // ...mapState("challenges", ["challenges"]),
+    // ...mapState("funding_institutions", ["fundingInstitutions"]),
     ...mapState("funding_sources", ["fundingSources"]),
     ...mapState("gad_responsiveness", ["gadResponsiveness"]),
     ...mapState("implementation_bases", ["implementationBases"]),

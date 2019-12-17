@@ -1,4 +1,4 @@
-import { Dialog, Notify  } from "quasar";
+import { Dialog, Notify } from "quasar";
 import * as firebase from "firebase/app";
 
 import "firebase/auth";
@@ -26,7 +26,7 @@ firebaseApp
     Notify.create({
       message: "Message: Offline capabilities are enabled."
     });
-//     console.log("Message: Offline capabilities are enabled.");
+    //     console.log("Message: Offline capabilities are enabled.");
   })
   .catch(err => {
     if (err.code == "failed-precondition") {

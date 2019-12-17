@@ -17,7 +17,7 @@ module.exports = function(ctx) {
     extras: [
       // 'ionicons-v4',
       // 'mdi-v3',
-      // "fontawesome-v5", // disable after removing from Github
+      "fontawesome-v5", // disable after removing from Github
       // 'eva-icons',
       // 'themify',
       // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
