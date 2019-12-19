@@ -320,7 +320,7 @@
         <options-component
           type="checkbox"
           v-model="project.challenges"
-          :options="challenges"
+          :options="CHALLENGES"
           :rules="rules.required"
         ></options-component>
       </form-element>
