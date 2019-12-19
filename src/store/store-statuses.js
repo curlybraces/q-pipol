@@ -1,19 +1,4 @@
-const state = {
-  statuses: [
-    {
-      label: "Ongoing",
-      value: "Ongoing"
-    },
-    {
-      label: "New/Proposed",
-      value: "New/Proposed"
-    },
-    {
-      label: "Expanded/Revised",
-      value: "Expanded/Revised"
-    }
-  ]
-};
+const state = {};
 
 const mutations = {};
 

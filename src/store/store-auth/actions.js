@@ -79,20 +79,17 @@ export function sendEmailVerification() {
     });
 }
 
-/*
- * Set roles of user
- */
-export function setRoles({ commit }) {
-  let userId = firebaseAuth.currentUser.uid;
-  let ref = firebaseDb.collection("users");
-  let userRef = ref.doc(userId);
-
-  userRef.get().then(doc => {
-    commit("setAdmin", doc.data().admin);
-    commit("setEncoder", doc.data().encoder);
-    commit("setReviewer", doc.data().reviewer);
-    commit("setViewer", doc.data().viewer);
-  });
+export function sendResetPasswordEmail({}, payload) {
+  firebaseAuth
+    .sendPasswordResetEmail(payload.email)
+    .then(() => {
+      Dialog.create({
+        message: "We have sent a password reset link to the email provided."
+      });
+    })
+    .catch(err => {
+      Dialog.create(err.message);
+    });
 }
 
 export function handleAuthStateChange({ commit, dispatch }) {

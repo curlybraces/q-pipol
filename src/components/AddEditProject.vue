@@ -84,7 +84,7 @@
 
       <form-element label="3. Implementing Department/Agency">
         <select-component
-          :options="operatingUnits"
+          :options="OPERATING_UNITS"
           v-model="project.implementingAgency"
           :rules="rules.required"
         ></select-component>
@@ -94,7 +94,7 @@
         <select-component
           v-model="project.mainFundingSource"
           hint="Choose the major type of funding source for the PAP."
-          :options="fundingSources"
+          :options="FUNDING_SOURCES"
           :rules="rules.required"
         ></select-component>
         <input-component
@@ -109,7 +109,7 @@
               project.mainFundingSource == 'NG-ODA Grant'
           "
           v-model="project.mainFundingInstitution"
-          :options="fundingInstitutions"
+          :options="FUNDING_INSTITUTIONS"
           :rules="rules.required"
         ></select-component>
         <input-component
@@ -123,7 +123,7 @@
       <form-element label="4a. Mode of Implementation">
         <select-component
           v-model="project.implementationMode"
-          :options="implementationModes"
+          :options="IMPLEMENTATION_MODES"
           :rules="rules.required"
         ></select-component>
       </form-element>
@@ -144,7 +144,7 @@
         <select-component
           v-if="project.budgetTier == 'Tier 2'"
           v-model="project.preparationDocument"
-          :options="preparationDocuments"
+          :options="PREPARATION_DOCUMENTS"
           :rules="rules.required"
         ></select-component>
       </form-element>
@@ -164,7 +164,7 @@
       <form-element label="6a. Status">
         <options-component
           v-model="project.projectStatus"
-          :options="statuses"
+          :options="STATUSES"
         ></options-component>
       </form-element>
 
@@ -182,20 +182,20 @@
       <form-element label="6c. Typology">
         <options-component
           v-model="project.typology"
-          :options="typologies"
+          :options="TYPOLOGIES"
         ></options-component>
       </form-element>
 
       <form-element label="6d. Budget Tier">
         <options-component
           v-model="project.budgetTier"
-          :options="categorizations"
+          :options="CATEGORIZATIONS"
         ></options-component>
       </form-element>
 
       <form-element label="7a. Spatial Coverage">
         <select-component
-          :options="spatialCoverages"
+          :options="SPATIAL_COVERAGES"
           v-model="project.spatialCoverage"
           hint="Choose where your project will be implemented."
           :rules="rules.required"
@@ -211,7 +211,7 @@
       >
         <select-component
           v-if="project.spatialCoverage == 'Inter-regional'"
-          :options="regions"
+          :options="REGIONS"
           :multiple="true"
           hint="Select the regions where the project will be implemented."
           v-model="project.regions"
@@ -220,7 +220,7 @@
 
         <select-component
           v-else-if="project.spatialCoverage == 'Region-specific'"
-          :options="regions"
+          :options="REGIONS"
           v-model="project.regions"
           hint="Select the region where the project will be implemented."
           :rules="rules.required"
@@ -266,7 +266,7 @@
         <options-component
           type="checkbox"
           v-model="project.implementationBases"
-          :options="implementationBases"
+          :options="IMPLEMENTATION_BASES"
         ></options-component>
       </form-element>
 
@@ -289,7 +289,7 @@
       <form-element label="12. Status of ICC/NEDA Board Processing">
         <select-component
           v-model="project.nedaProcessing"
-          :options="nedaProcessing"
+          :options="NEDA_PROCESSING"
         ></select-component>
         <input-component
           class="q-mt-md"
@@ -533,7 +533,7 @@
 
       <form-element label="23. Level of Readiness">
         <select-component
-          :options="readinessLevels"
+          :options="READINESS_LEVELS"
           v-model="project.readinessLevel"
         ></select-component>
       </form-element>
@@ -800,7 +800,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapActions } from "vuex";
 const InputComponent = () => import("./FormInputs/InputComponent");
 const SelectComponent = () => import("./FormInputs/SelectComponent");
 const OptionsComponent = () => import("./FormInputs/OptionsComponent");
@@ -808,9 +808,21 @@ const FormElement = () => import("./FormInputs/FormElement");
 const TableComponent = () => import("../components/TableComponent");
 
 import {
-  categorizations,
-  challenges,
-  fundingInstitutions
+  CATEGORIZATIONS,
+  CHALLENGES,
+  CIP_TYPES,
+  FUNDING_INSTITUTIONS,
+  FUNDING_SOURCES,
+  IMPLEMENTATION_BASES,
+  IMPLEMENTATION_MODES,
+  INFRASTRUCTURE_SECTORS,
+  NEDA_PROCESSING,
+  OPERATING_UNITS,
+  PREPARATION_DOCUMENTS,
+  READINESS_LEVELS,
+  SPATIAL_COVERAGES,
+  STATUSES,
+  TYPOLOGIES
 } from "../data/dropdown-values.js";
 
 export default {
@@ -827,9 +839,21 @@ export default {
   },
   data() {
     return {
-      categorizations: categorizations,
-      challenges: challenges,
-      fundingInstitutions: fundingInstitutions,
+      CATEGORIZATIONS,
+      CHALLENGES,
+      FUNDING_INSTITUTIONS,
+      CIP_TYPES,
+      FUNDING_SOURCES,
+      INFRASTRUCTURE_SECTORS,
+      OPERATING_UNITS,
+      PREPARATION_DOCUMENTS,
+      IMPLEMENTATION_BASES,
+      IMPLEMENTATION_MODES,
+      NEDA_PROCESSING,
+      READINESS_LEVELS,
+      SPATIAL_COVERAGES,
+      STATUSES,
+      TYPOLOGIES,
       filteredImplementationPeriods: [],
       showHelp: false,
       showAddFundSource: true,
@@ -888,32 +912,6 @@ export default {
     };
   },
   computed: {
-    // ...mapState("categorizations", ["categorizations"]),
-    // ...mapState("challenges", ["challenges"]),
-    // ...mapState("funding_institutions", ["fundingInstitutions"]),
-    ...mapState("funding_sources", ["fundingSources"]),
-    ...mapState("gad_responsiveness", ["gadResponsiveness"]),
-    ...mapState("implementation_bases", ["implementationBases"]),
-    ...mapState("implementation_modes", ["implementationModes"]),
-    ...mapState("implementation_periods", ["implementationPeriods"]),
-    ...mapState("infrastructure_sectors", ["infrastructureSectors"]),
-    ...mapState("neda_processing", ["nedaProcessing"]),
-    ...mapState("operating_units", ["operatingUnits"]),
-    ...mapState("preparation_documents", ["preparationDocuments"]),
-    ...mapState("spatial_coverages", ["spatialCoverages"]),
-    ...mapState("regions", ["regions"]),
-    ...mapState("preparation_documents", ["preparationDocuments"]),
-    ...mapState("prerequisites", ["prerequisites"]),
-    ...mapState("new_thinkings", ["newThinkings"]),
-    ...mapState("pdp_chapters", ["pdpChapters"]),
-    ...mapState("readiness_levels", ["readinessLevels"]),
-    ...mapState("sustainable_development_goals", [
-      "sustainableDevelopmentGoals"
-    ]),
-    ...mapState("ten_point_agenda", ["tenPointAgenda"]),
-    ...mapState("settings", ["dark"]),
-    ...mapState("statuses", ["statuses"]),
-    ...mapState("typologies", ["typologies"]),
     pdpChaptersFiltered() {
       let pdpChaptersFiltered = [];
       if (this.project.pdp.length > 0) {

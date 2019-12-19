@@ -73,8 +73,7 @@
 </template>
 
 <script>
-import { firebaseAuth } from "boot/firebase";
-import { Dialog } from "quasar";
+import { mapActions } from "vuex";
 const LoginRegister = () => import("../components/Auth/LoginRegister");
 
 export default {
@@ -90,19 +89,7 @@ export default {
     };
   },
   methods: {
-    sendResetPasswordEmail() {
-      firebaseAuth
-        .sendPasswordResetEmail(this.email)
-        .then(() => {
-          Dialog.create({
-            message: "We have sent a password reset link to the email provided."
-          });
-          this.resetPassword = false;
-        })
-        .catch(err => {
-          Dialog.create(err.message);
-        });
-    }
+    ...mapActions("auth", ["sendResetPasswordEmail"])
   }
 };
 </script>

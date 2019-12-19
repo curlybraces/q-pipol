@@ -57,7 +57,6 @@
 
 <script>
 import { mapActions } from "vuex";
-import { firebaseAuth } from "boot/firebase";
 import { showErrorMessage } from "src/functions/function-show-error-message";
 
 export default {
@@ -73,7 +72,12 @@ export default {
     };
   },
   methods: {
-    ...mapActions("auth", ["loginUser", "registerUser", "resetPassword"]),
+    ...mapActions("auth", [
+      "loginUser",
+      "registerUser",
+      "resetPassword",
+      "sendResetPasswordEmail"
+    ]),
     resetPassword() {
       this.$q
         .dialog({
@@ -87,16 +91,10 @@ export default {
           persistent: true
         })
         .onOk(data => {
-          firebaseAuth
-            .sendPasswordResetEmail(data)
-            .then(() => {
-              alert(
-                "Password reset email sent to the following email: " + data
-              );
-            })
-            .catch(err => {
-              showErrorMessage(err.message);
-            });
+          console.log(data);
+          this.sendResetPasswordEmail({
+            email: data
+          });
         });
     },
     submitForm() {

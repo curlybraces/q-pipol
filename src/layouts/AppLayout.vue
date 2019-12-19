@@ -118,11 +118,6 @@ export default {
           icon: "list"
         },
         {
-          label: "Submissions",
-          href: "/submissions",
-          icon: "gps_fixed"
-        },
-        {
           label: "Directory",
           href: "/directory",
           icon: "call"
