@@ -101,7 +101,8 @@ module.exports = function(ctx) {
         "QScrollArea",
 
         "QRating",
-        "QBadge"
+        "QBadge",
+        "QPagination"
       ],
 
       directives: ["Ripple", "ClosePopup"],

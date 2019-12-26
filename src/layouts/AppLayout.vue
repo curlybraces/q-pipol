@@ -113,6 +113,11 @@ export default {
           icon: "home"
         },
         {
+          label: "AFMP",
+          href: "/afmp",
+          icon: "list"
+        },
+        {
           label: "Projects",
           href: "/projects",
           icon: "list"
