@@ -9,6 +9,13 @@ const routes = [
           import(/* webpackChunkName: 'Index' */ "pages/Index.vue")
       },
       {
+        path: "afmp/:id",
+        component: () =>
+          import(
+            /* webpackChunkName: 'InterventionDetails' */ "pages/InterventionDetails.vue"
+          )
+      },
+      {
         path: "afmp",
         component: () => import(/* webpackChunkName: 'Afmp' */ "pages/Afmp.vue")
       },

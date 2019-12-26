@@ -19,22 +19,44 @@
     </div>
     <template v-if="!loading">
       <div class="row q-col-gutter-md q-mt-md">
-        <template v-for="{ id, program, intervention } in interventions">
+        <template
+          v-for="{
+            id,
+            program,
+            intervention,
+            investmentTotal
+          } in interventions"
+        >
           <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-12" :key="id">
             <q-card>
               <q-img src="https://via.placeholder.com/300x200" />
-              <div class="q-pa-xs">
-                <span class="text-subtitle2">{{ intervention }}</span>
-                <br />
-                <span class="text-caption">{{ program }}</span>
-              </div>
+              <q-item class="q-pa-sm">
+                <q-item-section>
+                  <q-item-label :lines="2">
+                    {{ intervention }}
+                  </q-item-label>
+                  <q-item-label caption>
+                    {{ program }}
+                  </q-item-label>
+                </q-item-section>
+                <q-item-section side top>
+                  Php {{ investmentTotal.toLocaleString(2) }}
+                </q-item-section>
+              </q-item>
+              <q-card-actions align="right">
+                <q-btn color="secondary" flat @click="viewDetails(id)"
+                  >VIEW MORE</q-btn
+                >
+              </q-card-actions>
             </q-card>
           </div>
         </template>
       </div>
     </template>
     <template v-else>
-      <q-spinner />
+      <div class="row text-center">
+        <q-spinner />
+      </div>
     </template>
   </q-page>
 </template>
@@ -59,6 +81,9 @@ export default {
     search() {
       alert(this.searchText);
     },
+    viewDetails(id) {
+      this.$router.push("/afmp/" + id);
+    },
     loadInterventions(page = 1, limit = 12) {
       this.loading = true;
       this.page = page;
@@ -70,6 +95,7 @@ export default {
                   id
                   intervention
                   program
+                  investmentTotal
                 },
                 total,
                 per_page
