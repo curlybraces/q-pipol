@@ -72,7 +72,7 @@ export default {
       interventions: [],
       per_page: null,
       total: null,
-      max: null,
+      max: 10,
       page: 1,
       loading: true
     };

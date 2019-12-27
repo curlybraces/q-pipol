@@ -41,7 +41,7 @@
                 :key="project.id"
                 v-for="project in newProjects"
                 id="project.id"
-                :project="project"
+                v-bind="project"
               ></project>
             </template>
             <no-project v-else></no-project>
@@ -55,7 +55,7 @@
                 v-for="project in encodedProjects"
                 :key="project.id"
                 id="project.id"
-                :project="project"
+                v-bind="project"
               ></project>
             </template>
             <no-project v-else></no-project>
@@ -69,7 +69,7 @@
                 v-for="project in reviewedProjects"
                 :key="project.id"
                 id="project.id"
-                :project="project"
+                v-bind="project"
               ></project>
             </template>
             <no-project v-else></no-project>
@@ -83,7 +83,7 @@
                 v-for="project in finalizedProjects"
                 :key="project.id"
                 id="project.id"
-                :project="project"
+                v-bind="project"
               ></project>
             </template>
             <no-project v-else></no-project>

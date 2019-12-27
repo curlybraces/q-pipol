@@ -1,5 +1,5 @@
 <template>
-  <q-item clickable v-ripple @click="goTo(project.id)">
+  <q-item clickable v-ripple @click="goTo(id)">
     <q-item-section avatar top>
       <q-avatar>
         <q-img src="statics/masaganang-ani-mataas-na-kita.png" />
@@ -8,30 +8,28 @@
 
     <q-item-section top class="col-1 gt-sm">
       <q-item-label class="q-mt-sm">
-        {{ project.implementingAgency }}
+        {{ implementingAgency }}
       </q-item-label>
     </q-item-section>
 
     <q-item-section top>
       <q-item-label lines="3">
         <span class="text-weight-medium">
-          <div
-            v-html="$options.filters.searchHighlight(project.title, search)"
-          ></div>
+          <div v-html="$options.filters.searchHighlight(title, search)"></div>
         </span>
       </q-item-label>
       <q-item-label caption lines="2">
-        {{ project.description }}
+        {{ description }}
       </q-item-label>
       <q-item-label>
         <q-badge
           color="red"
-          v-if="project.classification == 'Project'"
+          v-if="classification == 'Project'"
           label="project"
         />
         <q-badge
           color="blue"
-          v-if="project.classification == 'Program'"
+          v-if="classification == 'Program'"
           label="program"
         />
       </q-item-label>
@@ -40,7 +38,7 @@
     <q-item-section side top>
       <div class="text-grey-8">
         <q-btn
-          v-if="project.addedBy == userId"
+          v-if="addedBy == userId"
           size="12px"
           dense
           flat
@@ -49,13 +47,13 @@
           @click.stop="showUpdateStatus = !showUpdateStatus"
         />
         <q-btn
-          v-if="project.addedBy == userId"
+          v-if="addedBy == userId"
           size="12px"
           flat
           dense
           round
           icon="delete"
-          @click.stop="promptToDelete(project.id)"
+          @click.stop="promptToDelete(id)"
         />
       </div>
     </q-item-section>
@@ -67,7 +65,7 @@
           <q-btn icon="close" flat round dense v-close-popup />
         </q-toolbar>
         <q-card-section class="q-pa-md">
-          Title: <span class="text-weight-bold">{{ project.title }}</span>
+          Title: <span class="text-weight-bold">{{ title }}</span>
           <q-select
             outlined
             v-model="status"
@@ -100,7 +98,7 @@
           <q-btn
             color="primary"
             label="Save"
-            @click="updateStatus(project.id)"
+            @click="updateStatus(id)"
             v-close-popup
           />
         </q-card-actions>
@@ -112,14 +110,15 @@
 <script>
 import { firebaseAuth } from "boot/firebase";
 import { mapState, mapActions } from "vuex";
-// const EditProject = () => import("../../components/EditProject");
-// const ReviewProject = () => import("../../components/ReviewProject");
 
 export default {
-  // components: { EditProject, ReviewProject },
   name: "Project",
   props: {
-    project: Object,
+    title: String,
+    implementingAgency: String,
+    description: String,
+    classification: String,
+    addedBy: String,
     id: String
   },
   data() {
