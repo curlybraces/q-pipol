@@ -2,79 +2,23 @@
   <q-layout view="hhh LpR lFr">
     <q-header elevated>
       <q-toolbar>
-        <q-btn
-          icon="menu"
-          flat
-          round
-          @click="leftDrawerOpen = !leftDrawerOpen"
-          v-if="loggedIn"
-        ></q-btn>
-
         <q-toolbar-title>
           <span class="app-title">
             {{ appTitle }}
           </span>
         </q-toolbar-title>
 
-        <q-btn
-          v-if="loggedIn"
-          flat
-          label="Add Project"
-          :to="'/add'"
-          class="q-mr-md"
-        />
-        <q-btn v-if="loggedIn" outline label="Logout" @click="logoutUser">
+        <q-btn icon="apps" flat round>
+          <q-tooltip>Apps</q-tooltip>
+        </q-btn>
+
+        <q-btn icon="notifications" flat round>
+          <q-tooltip>Notifications</q-tooltip>
         </q-btn>
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      side="left"
-      bordered
-      :width="250"
-      v-if="loggedIn"
-    >
-      <q-img
-        class="absolute-top"
-        src="statics/masaganang-ani-mataas-na-kita.png"
-        style="height: 150px"
-      >
-        <div class="absolute-bottom bg-transparent">
-          <q-avatar size="56px" class="q-mb-sm">
-            <img src="https://cdn.quasar.dev/img/boy-avatar.png" />
-          </q-avatar>
-          <div class="text-weight-bold">
-            {{ currentUserDisplayName }}
-          </div>
-          <div>
-            {{ currentUserEmail }}
-          </div>
-        </div>
-      </q-img>
-      <left-drawer :sidemenu="sidemenu" />
-    </q-drawer>
-
-    <q-drawer
-      side="right"
-      v-model="rightDrawerOpen"
-      :width="480"
-      v-if="!loggedIn && $q.screen.gt.sm"
-    >
-      <login-form></login-form>
-    </q-drawer>
-
-    <q-footer elevated>
-      <q-tabs align="justify" switch-indicator>
-        <q-route-tab
-          v-for="item in sidemenu"
-          :to="item.href"
-          :label="item.label"
-          :icon="item.icon"
-          :key="item.label"
-        ></q-route-tab>
-      </q-tabs>
-    </q-footer>
+    <q-footer elevated> </q-footer>
 
     <q-page-container>
       <router-view />
@@ -87,16 +31,6 @@ import { openURL } from "quasar";
 import { mapState, mapActions } from "vuex";
 
 export default {
-  components: {
-    "login-form": () =>
-      import(
-        /* webpackChunkName: 'LoginForm' */ "../components/AppLayout/LoginForm"
-      ),
-    "left-drawer": () =>
-      import(
-        /* webpackChunkName: 'LeftDrawer' */ "../components/AppLayout/LeftDrawer"
-      )
-  },
   name: "MyLayout",
   data() {
     return {
@@ -162,11 +96,5 @@ export default {
 <style scoped>
 .app-title {
   font-family: PrimeTime;
-}
-
-@media screen and (min-width: 768px) {
-  .q-footer {
-    display: none;
-  }
 }
 </style>

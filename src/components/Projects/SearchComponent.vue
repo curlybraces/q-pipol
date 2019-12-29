@@ -7,6 +7,7 @@
     clearable
     placeholder="Search in project titles..."
     v-model="searchField"
+    :debounce="500"
   >
     <template v-slot:append>
       <q-icon name="search" />
@@ -19,9 +20,6 @@ import { mapState, mapActions } from "vuex";
 
 export default {
   name: "SearchComponent",
-  data() {
-    return {};
-  },
   computed: {
     ...mapState("projects", ["search"]),
     searchField: {

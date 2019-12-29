@@ -39,8 +39,6 @@
         </span>
       </template>
     </div>
-
-    <fab-component />
   </q-page>
 </template>
 
@@ -49,11 +47,9 @@ import { mapState, mapActions, mapGetters } from "vuex";
 const ListComponent = () => import("../components/Projects/ListComponent");
 const NoProject = () => import("../components/Projects/NoProject");
 const SearchComponent = () => import("../components/Projects/SearchComponent");
-const FabComponent = () => import("../components/Shared/FabComponent");
 
 export default {
   components: {
-    FabComponent,
     ListComponent,
     SearchComponent,
     NoProject

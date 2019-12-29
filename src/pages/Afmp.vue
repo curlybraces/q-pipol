@@ -1,12 +1,23 @@
 <template>
   <q-page padding>
-    <q-input v-model="searchText" dense outlined rounded @keyup.enter="search">
-      <template v-slot:append>
-        <q-icon name="search" @click="search" class="cursor-pointer" />
-      </template>
-    </q-input>
-    <div class="row">
-      <div class="text-center">
+    <div class="row q-mb-md">
+      <q-input
+        class="col"
+        v-model="searchText"
+        dense
+        outlined
+        rounded
+        @keyup.enter="search"
+        aria-placeholder="Search interventions"
+        placeholder="What are you looking for?"
+      >
+        <template v-slot:append>
+          <q-icon name="search" @click="search" class="cursor-pointer" />
+        </template>
+      </q-input>
+    </div>
+    <template v-if="!loading && !error">
+      <div class="row q-mt-md">
         <q-pagination
           :value="page"
           :max-pages="10"
@@ -16,8 +27,6 @@
           @input="loadInterventions"
         ></q-pagination>
       </div>
-    </div>
-    <template v-if="!loading">
       <div class="row q-col-gutter-md q-mt-md">
         <template
           v-for="{
@@ -53,9 +62,14 @@
         </template>
       </div>
     </template>
-    <template v-else>
+    <template v-if="loading">
       <div class="row text-center">
-        <q-spinner />
+        <q-spinner-grid color="primary" size="md" />
+      </div>
+    </template>
+    <template v-if="error">
+      <div class="row text-center">
+        {{ errorMessage }}
       </div>
     </template>
   </q-page>
@@ -74,7 +88,9 @@ export default {
       total: null,
       max: 10,
       page: 1,
-      loading: true
+      loading: true,
+      error: null,
+      errorMessage: null
     };
   },
   methods: {
@@ -121,18 +137,17 @@ export default {
           console.log("per_page: ", per_page);
           this.per_page = per_page;
           this.max = Math.ceil(total / per_page);
-          this.loading = false;
         })
         .catch(err => {
-          this.$q.dialog({
-            title: err.message,
-            message: "An error has occurred."
-          });
+          this.error = true;
+          this.errorMessage = err.message;
+        })
+        .finally(() => {
+          this.loading = false;
         });
     }
   },
   created() {
-    // this.loadInterventions(2, 12);
     this.loadInterventions();
   }
 };

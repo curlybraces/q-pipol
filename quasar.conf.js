@@ -30,93 +30,19 @@ module.exports = function(ctx) {
       // iconSet: 'ionicons-v4',
       // lang: 'de', // Quasar language
 
-      // all: true, // --- includes everything; for dev only!
+      all: "auto", // --- includes everything; for dev only!
 
       // set dark mode to auto
       config: {
         dark: "auto"
       },
 
-      components: [
-        "QLayout",
-        "QHeader",
-        "QFooter",
-        "QDrawer",
-        "QPageContainer",
-        "QPage",
-        "QToolbar",
-        "QToolbarTitle",
-        "QBtn",
-        "QIcon",
-        "QList",
-        "QExpansionItem",
-        "QItem",
-        "QItemSection",
-        "QItemLabel",
-        "QSpace",
-        "QSeparator",
+      components: [],
 
-        "QTabs",
-        "QTab",
-        "QRouteTab",
-
-        "QTabPanels",
-        "QTabPanel",
-
-        "QInput",
-        "QSelect",
-        "QCheckbox",
-        "QToggle",
-        "QRadio",
-        "QForm",
-        "QSlider",
-        "QDate",
-        "QOptionGroup",
-        "QBtnToggle",
-
-        "QImg",
-
-        "QTable",
-        "QTh",
-        "QTr",
-        "QTd",
-        "QMarkupTable",
-
-        "QSpinnerDots",
-        "QSpinner",
-
-        "QInnerLoading",
-        "QCard",
-        "QCardSection",
-        "QCardActions",
-
-        "QAvatar",
-
-        "QTree",
-
-        "QBanner",
-
-        "QPageSticky",
-        "QDialog",
-        "QScrollArea",
-
-        "QRating",
-        "QBadge",
-        "QPagination"
-      ],
-
-      directives: ["Ripple", "ClosePopup"],
+      directives: [],
 
       // Quasar plugins
-      plugins: [
-        "Notify",
-        "Dialog",
-        "Loading",
-
-        "AddressbarColor",
-        "LocalStorage",
-        "Dark"
-      ]
+      plugins: ["Dialog", "AddressbarColor", "LocalStorage"]
     },
 
     supportIE: false,

@@ -59,6 +59,17 @@ const routes = [
           import(/* webpackChunkName: 'ViewProject' */ "pages/ViewProject.vue")
       }
     ]
+  },
+  {
+    path: "/login",
+    component: () => import("layouts/AuthLayout.vue"),
+    children: [
+      {
+        path: "",
+        component: () =>
+          import(/* webpackChunkName: 'Login' */ "pages/Login.vue")
+      }
+    ]
   }
 ];
 

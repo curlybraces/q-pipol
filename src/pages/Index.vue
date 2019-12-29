@@ -16,12 +16,7 @@
                 Public Investment Program 2017-2022.
               </div>
               <div class="row text-center">
-                <q-btn
-                  outline
-                  size="lg"
-                  label="Get Started"
-                  @click="showLoginForm = true"
-                ></q-btn>
+                <q-btn outline size="lg" label="Get Started" to="login"></q-btn>
               </div>
             </div>
           </div>
