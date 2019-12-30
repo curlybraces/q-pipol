@@ -15,6 +15,8 @@
         <q-btn icon="notifications" flat round>
           <q-tooltip>Notifications</q-tooltip>
         </q-btn>
+
+        <q-toggle @click="toggleDarkMode"></q-toggle>
       </q-toolbar>
     </q-header>
 
@@ -36,10 +38,6 @@ export default {
     return {
       appTitle: "iPMS",
       copyright: "Made by Mark Lester A. Bolotaolo",
-      leftDrawerOpen: false,
-      expanded: false,
-      notifyUser: false,
-      darkMode: false,
       sidemenu: [
         {
           label: "Home",
@@ -79,16 +77,11 @@ export default {
       "loggedIn",
       "currentUserEmail",
       "currentUserDisplayName"
-    ]),
-    ...mapState("settings", ["dark"]),
-    rightDrawerOpen() {
-      return !this.loggedIn && this.$q.screen.gt.sm;
-    }
+    ])
   },
   methods: {
     openURL,
-    ...mapActions("auth", ["logoutUser"]),
-    ...mapActions("settings", ["setDark"])
+    ...mapActions("auth", ["logoutUser"])
   }
 };
 </script>

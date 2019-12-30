@@ -27,7 +27,44 @@
           class="q-scroll-area-projects"
           style="height:100px"
         >
-          <list-component :items="projects" />
+          <div class="row q-col-gutter-md">
+            <template
+              v-for="{
+                id,
+                title,
+                implementingAgency,
+                totalProjectCost
+              } in projects"
+            >
+              <div class="col-md-3 flex" :key="id">
+                <q-card class="fit">
+                  <q-img src="https://via.placeholder.com/300x200"></q-img>
+                  <q-item class="q-pa-sm">
+                    <q-item-section>
+                      <q-item-label :lines="2">
+                        <div
+                          v-html="
+                            $options.filters.searchHighlight(title, search)
+                          "
+                        ></div>
+                      </q-item-label>
+                      <q-item-label caption>
+                        {{ implementingAgency }}
+                      </q-item-label>
+                    </q-item-section>
+                    <q-item-section side top>
+                      <q-item-label
+                        >PhP
+                        {{
+                          parseInt(totalProjectCost).toLocaleString()
+                        }}</q-item-label
+                      >
+                    </q-item-section>
+                  </q-item>
+                </q-card>
+              </div>
+            </template>
+          </div>
         </q-scroll-area>
 
         <no-project v-if="!projects.length && search" />
@@ -44,13 +81,11 @@
 
 <script>
 import { mapState, mapActions, mapGetters } from "vuex";
-const ListComponent = () => import("../components/Projects/ListComponent");
 const NoProject = () => import("../components/Projects/NoProject");
 const SearchComponent = () => import("../components/Projects/SearchComponent");
 
 export default {
   components: {
-    ListComponent,
     SearchComponent,
     NoProject
   },
@@ -62,6 +97,17 @@ export default {
   },
   methods: {
     ...mapActions("auth", ["sendEmailVerification"])
+  },
+  filters: {
+    searchHighlight(value, search) {
+      if (search) {
+        let searchRegExp = new RegExp(search, "ig");
+        return value.replace(searchRegExp, match => {
+          return "<span class='bg-yellow-6'>" + match + "</span>";
+        });
+      }
+      return value;
+    }
   }
 };
 </script>
