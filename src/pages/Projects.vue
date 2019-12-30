@@ -2,7 +2,6 @@
   <q-page>
     <div class="q-pa-md absolute full-height full-width column">
       <template v-if="projectsDownloaded">
-
         <search-component />
 
         <no-project v-if="!projects.length && !search" />
