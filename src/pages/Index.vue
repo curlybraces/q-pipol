@@ -25,16 +25,16 @@
 
       <div class="q-pa-xl full-width" ref="features">
         <div class="row q-col-gutter-sm justify-start align-start">
-          <template v-for="(feature, index) in features">
+          <template v-for="({ icon, title, description }, index) in features">
             <div
               class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-xs-12 flex"
               :key="index"
             >
               <q-card class="q-pa-md fit text-center" flat square>
-                <q-icon :name="feature.icon" color="primary" size="200px" />
-                <div class="text-h6 q-mt-md">{{ feature.title }}</div>
+                <q-icon :name="icon" color="primary" size="200px" />
+                <div class="text-h6 q-mt-md">{{ title }}</div>
                 <div class="text-subtitle1 q-mt-md">
-                  {{ feature.description }}
+                  {{ description }}
                 </div>
               </q-card>
             </div>
@@ -42,16 +42,6 @@
         </div>
       </div>
     </div>
-
-    <q-dialog v-model="showLoginForm" maximized v-if="!loggedIn">
-      <q-card class="bg-white">
-        <q-toolbar>
-          <q-space />
-          <q-btn flat dense round icon="close" v-close-popup></q-btn>
-        </q-toolbar>
-        <login-form></login-form>
-      </q-card>
-    </q-dialog>
   </q-page>
 </template>
 
@@ -59,12 +49,6 @@
 import { mapState, mapActions } from "vuex";
 
 export default {
-  components: {
-    "login-form": () =>
-      import(
-        /* webpackChunkName: 'LoginForm' */ "../components/AppLayout/LoginForm"
-      )
-  },
   name: "PageIndex",
   data() {
     return {
