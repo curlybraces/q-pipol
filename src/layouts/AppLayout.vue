@@ -16,7 +16,7 @@
           <q-tooltip>Notifications</q-tooltip>
         </q-btn>
 
-        <q-toggle @click="toggleDarkMode"></q-toggle>
+        <q-toggle :value="darkMode" @input="toggleDarkMode"></q-toggle>
       </q-toolbar>
     </q-header>
 
@@ -77,11 +77,17 @@ export default {
       "loggedIn",
       "currentUserEmail",
       "currentUserDisplayName"
-    ])
+    ]),
+    darkMode() {
+      return this.$q.dark.isActive;
+    }
   },
   methods: {
     openURL,
-    ...mapActions("auth", ["logoutUser"])
+    ...mapActions("auth", ["logoutUser"]),
+    toggleDarkMode() {
+      this.$q.dark.toggle();
+    }
   }
 };
 </script>

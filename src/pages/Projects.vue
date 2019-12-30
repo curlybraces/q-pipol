@@ -36,7 +36,10 @@
                 totalProjectCost
               } in projects"
             >
-              <div class="col-md-3 flex" :key="id">
+              <div
+                class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col-xs-12 flex"
+                :key="id"
+              >
                 <q-card class="fit">
                   <q-img src="https://via.placeholder.com/300x200"></q-img>
                   <q-item class="q-pa-sm">
