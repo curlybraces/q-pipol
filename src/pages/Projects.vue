@@ -2,21 +2,6 @@
   <q-page>
     <div class="q-pa-md absolute full-height full-width column">
       <template v-if="projectsDownloaded">
-        <q-banner dense class="bg-red-2 q-mb-md" v-if="!emailVerified">
-          <template v-slot:avatar>
-            <q-icon name="warning" color="red" />
-          </template>
-          Your email is not verified. You can only view projects. Click the link
-          below to verify your email to add/update projects.
-          <template v-slot:action>
-            <q-btn
-              flat
-              color="red"
-              label="VERIFY EMAIL"
-              @click="sendEmailVerification"
-            />
-          </template>
-        </q-banner>
 
         <search-component />
 

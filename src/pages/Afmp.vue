@@ -36,8 +36,8 @@
             investmentTotal
           } in interventions"
         >
-          <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-12" :key="id">
-            <q-card>
+          <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col-xs-12" :key="id">
+            <q-card class="fit">
               <q-img src="https://via.placeholder.com/300x200" />
               <q-item class="q-pa-sm">
                 <q-item-section>
@@ -63,12 +63,14 @@
       </div>
     </template>
     <template v-if="loading">
-      <div class="row text-center">
-        <q-spinner-grid color="primary" size="md" />
-      </div>
+      <span class="absolute-center">
+        <q-spinner color="primary" size="3em"></q-spinner>
+      </span>
     </template>
     <template v-if="error">
-      <div class="row text-center">
+      <div class="absolute-center text-center">
+        <q-icon name="warning" color="red" size="lg"></q-icon>
+        <br />
         {{ errorMessage }}
       </div>
     </template>

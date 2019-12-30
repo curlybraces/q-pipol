@@ -7,16 +7,6 @@
             {{ appTitle }}
           </span>
         </q-toolbar-title>
-
-        <q-btn icon="apps" flat round>
-          <q-tooltip>Apps</q-tooltip>
-        </q-btn>
-
-        <q-btn icon="notifications" flat round>
-          <q-tooltip>Notifications</q-tooltip>
-        </q-btn>
-
-        <q-toggle :value="darkMode" @input="toggleDarkMode"></q-toggle>
       </q-toolbar>
     </q-header>
 

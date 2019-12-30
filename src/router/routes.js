@@ -20,7 +20,7 @@ const routes = [
         component: () => import(/* webpackChunkName: 'Afmp' */ "pages/Afmp.vue")
       },
       {
-        path: "projects",
+        path: "pip",
         component: () =>
           import(/* webpackChunkName: 'Projects' */ "pages/Projects.vue")
       },
@@ -49,12 +49,12 @@ const routes = [
           import(/* webpackChunkName: 'AddProject' */ "pages/AddProject.vue")
       },
       {
-        path: "projects/:id/edit",
+        path: "pip/:id/edit",
         component: () =>
           import(/* webpackChunkName: 'EditProject' */ "pages/EditProject.vue")
       },
       {
-        path: "projects/:id",
+        path: "pip/:id",
         component: () =>
           import(/* webpackChunkName: 'ViewProject' */ "pages/ViewProject.vue")
       }
