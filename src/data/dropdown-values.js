@@ -1848,3 +1848,47 @@ export const STATUSES = [
     value: "Expanded/Revised"
   }
 ];
+
+export const PROGRAMS = [
+  {
+    label: "Production Support Services",
+    value: "pss"
+  },
+  {
+    label: "Market Development Services",
+    value: "mds"
+  },
+  {
+    label: "Research and Development",
+    value: "rnd"
+  },
+  {
+    label: "Extension Support, Education and Training Services",
+    value: "esets"
+  },
+  {
+    label:
+      "Agricultural Machineries, Equipment and Facilities Support Services",
+    value: "amefss"
+  },
+  {
+    label: "Farm-to-Market Road Network Services",
+    value: "fmr"
+  },
+  {
+    label: "Irrigation Network Services",
+    value: "ins"
+  },
+  {
+    label: "Locally and Foreign Assisted Projects",
+    value: "lfp-fap"
+  },
+  {
+    label: "Agriculture and Fisheries Regulatory Program",
+    value: "regulatory"
+  },
+  {
+    label: "Agriculture and Fisheries Policy Services",
+    value: "policy"
+  }
+];
