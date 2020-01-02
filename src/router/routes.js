@@ -20,6 +20,13 @@ const routes = [
         component: () => import(/* webpackChunkName: 'Afmp' */ "pages/Afmp.vue")
       },
       {
+        path: "interventions",
+        component: () =>
+          import(
+            /* webpackChunkName: 'Interventions' */ "pages/Interventions.vue"
+          )
+      },
+      {
         path: "pip",
         component: () =>
           import(/* webpackChunkName: 'Projects' */ "pages/Projects.vue")

@@ -1,19 +1,26 @@
 <template>
-  <div class="row q-my-md">
-    <q-item-label class="text-weight-bold">{{
-      title.toUpperCase()
-    }}</q-item-label>
-    <q-scroll-area
-      horizontal
-      style="height: 200px; width: 100%;"
-      :visible="false"
-    >
-      <div class="row q-mt-xs q-col-gutter-md no-wrap">
-        <template v-for="{ label } in list">
-          <div class="col-1" :key="label">
-            <q-card style="height:120px;min-width:80px;">
+  <div class="col">
+    <div class="column q-my-md">
+      <div class="row">
+        <q-item class="col">
+          <q-item-section>
+            <q-item-label class="text-weight-bold">
+              {{ title.toUpperCase() }}
+            </q-item-label>
+          </q-item-section>
+          <q-item-section side>
+            Show more >
+          </q-item-section>
+        </q-item>
+      </div>
+      <div class="row q-col-gutter-md">
+        <template v-for="{ label } in menu">
+          <div class="col-lg-1 col-md-2 col-sm-3 col-xs-4" :key="label">
+            <q-card>
               <q-img src="https://via.placeholder.com/80x120">
-                <div class="absolute-full text-subtitle2 flex flex-center">
+                <div
+                  class="absolute-full text-subtitle2 flex flex-center text-center"
+                >
                   {{ label }}
                 </div>
               </q-img>
@@ -21,7 +28,7 @@
           </div>
         </template>
       </div>
-    </q-scroll-area>
+    </div>
   </div>
 </template>
 
@@ -31,6 +38,15 @@ export default {
   props: {
     title: String,
     list: Array
+  },
+  data() {
+    return {
+      menu: []
+    };
+  },
+  mounted() {
+    const { list } = this;
+    this.menu = list;
   }
 };
 </script>

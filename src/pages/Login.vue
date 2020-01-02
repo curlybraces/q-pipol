@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import { firebaseAuth } from "boot/firebase";
+import { mapActions } from "vuex";
 
 export default {
   name: "PageLogin",
@@ -69,15 +69,17 @@ export default {
     };
   },
   methods: {
+    ...mapActions("auth", ["loginUser"]),
     login() {
       const { email, password } = this;
       if (!email || !password) {
         alert("Please enter email and password.");
       } else {
         // login logic here
-        firebaseAuth
-          .signInWithEmailAndPassword(email, password)
-          .catch(err => console.log(err.message));
+        this.loginUser({
+          email: email,
+          password: password
+        });
       }
     }
   }

@@ -1,7 +1,8 @@
 <template>
   <q-page padding>
-    <scrolling-card title="regions" :list="REGIONS"></scrolling-card>
-    <scrolling-card title="programs" :list="PROGRAMS"></scrolling-card>
+    <div class="row">
+      <scrolling-card title="regions" :list="REGIONS"> </scrolling-card>
+    </div>
   </q-page>
 </template>
 

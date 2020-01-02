@@ -16,72 +16,87 @@
         </template>
       </q-input>
     </div>
-    <template v-if="!loading && !error">
-      <div class="row q-mt-md">
-        <q-pagination
-          :value="page"
-          :max-pages="10"
-          :max="max"
-          boundary-links
-          boundary-numbers
-          @input="loadInterventions"
-        ></q-pagination>
+    <q-separator />
+    <div class="row q-mt-md q-col-gutter-md">
+      <div class="col-lg-1 col-md-2 col-sm-3 col-xs-4">
+        <filter-menu title="REGIONS" :options="REGIONS" />
+        <q-separator />
+        <filter-menu title="PROGRAMS" :options="PROGRAMS" />
       </div>
-      <div class="row q-col-gutter-md q-mt-md">
-        <template
-          v-for="{
-            id,
-            program,
-            intervention,
-            investmentTotal
-          } in interventions"
-        >
-          <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col-xs-12" :key="id">
-            <q-card class="fit">
-              <q-img src="https://via.placeholder.com/300x200" />
-              <q-item class="q-pa-sm">
-                <q-item-section>
-                  <q-item-label :lines="2">
-                    {{ intervention }}
-                  </q-item-label>
-                  <q-item-label caption>
-                    {{ program }}
-                  </q-item-label>
-                </q-item-section>
-                <q-item-section side top>
-                  Php {{ investmentTotal.toLocaleString(2) }}
-                </q-item-section>
-              </q-item>
-              <q-card-actions align="right">
-                <q-btn color="secondary" flat @click="viewDetails(id)"
-                  >VIEW MORE</q-btn
-                >
-              </q-card-actions>
-            </q-card>
+      <template v-if="!loading && !error">
+        <div class="col-lg-11 col-md-10 col-sm-9 col-xs-8">
+          <div class="row q-col-gutter-md">
+            <template
+              v-for="{
+                id,
+                commodityGroup,
+                program,
+                intervention,
+                investmentTotal
+              } in interventions"
+            >
+              <div class="col-md-3 col-sm-6 col-xs-12" :key="id">
+                <q-card class="fit">
+                  <card-image :commodityGroup="commodityGroup" />
+                  <q-item class="q-pa-sm">
+                    <q-item-section>
+                      <q-item-label :lines="2">
+                        {{ intervention }}
+                      </q-item-label>
+                      <q-item-label caption>
+                        {{ program }}
+                      </q-item-label>
+                    </q-item-section>
+                    <q-item-section side top>
+                      Php {{ investmentTotal.toLocaleString(2) }}
+                    </q-item-section>
+                  </q-item>
+                </q-card>
+              </div>
+            </template>
           </div>
-        </template>
-      </div>
-    </template>
-    <template v-if="loading">
-      <span class="absolute-center">
-        <q-spinner color="primary" size="3em"></q-spinner>
-      </span>
-    </template>
-    <template v-if="error">
-      <div class="absolute-center text-center">
-        <q-icon name="warning" color="red" size="lg"></q-icon>
-        <br />
-        {{ errorMessage }}
-      </div>
-    </template>
+          <div class="row q-mt-md justify-between items-center">
+            <span>
+              Showing {{ (page - 1) * per_page + 1 }} - {{ page * per_page }} of
+              {{ total }} interventions
+            </span>
+            <q-pagination
+              :value="page"
+              :max-pages="max_pages"
+              :max="max"
+              boundary-links
+              boundary-numbers
+              @input="loadInterventions"
+            ></q-pagination>
+          </div>
+        </div>
+      </template>
+      <template v-if="loading">
+        <span class="absolute-center">
+          <q-spinner color="primary" size="3em"></q-spinner>
+        </span>
+      </template>
+      <template v-if="error">
+        <div class="absolute-center text-center">
+          <q-icon name="warning" color="red" size="lg"></q-icon>
+          <br />
+          {{ errorMessage }}
+        </div>
+      </template>
+    </div>
   </q-page>
 </template>
 
 <script>
 import axios from "axios";
+import { REGIONS, PROGRAMS } from "../data/dropdown-values";
 
 export default {
   name: "PageInterventions",
+  components: {
+    "filter-menu": () => import("../components/FilterMenu.vue"),
+    "card-image": () => import("../components/CardImage.vue")
+  },
   data() {
     return {
       searchText: "",
@@ -92,8 +107,19 @@ export default {
       page: 1,
       loading: true,
       error: null,
-      errorMessage: null
+      errorMessage: null,
+      group: [],
+      REGIONS,
+      PROGRAMS
     };
+  },
+  computed: {
+    max_pages() {
+      if (this.$q.screen.gt.md) {
+        return 10;
+      }
+      return 5;
+    }
   },
   methods: {
     search() {
@@ -111,6 +137,7 @@ export default {
               interventions(limit:$limit,page:$page) {
                 data {
                   id
+                  commodityGroup
                   intervention
                   program
                   investmentTotal
