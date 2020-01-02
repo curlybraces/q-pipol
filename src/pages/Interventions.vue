@@ -18,7 +18,7 @@
     </div>
     <q-separator />
     <div class="row q-mt-md q-col-gutter-md">
-      <div class="col-lg-1 col-md-2 col-sm-3 col-xs-4">
+      <div class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
         <filter-menu
           title="REGIONS"
           :options="REGIONS"
@@ -30,13 +30,64 @@
           :options="PROGRAMS"
           v-model="selectedPrograms"
         />
+        <q-separator />
+        <div class="q-py-md">
+          <span class="title">INVESTMENT VALUE</span>
+          <div class="row q-col-gutter-x-xs q-mt-xs items-center">
+            <div class="col-6">
+              <q-input
+                type="number"
+                v-model="investmentTotal.min"
+                placeholder="Min"
+                outlined
+                dense
+                :min="0"
+              ></q-input>
+            </div>
+            <div class="col-6">
+              <q-input
+                type="number"
+                v-model="investmentTotal.max"
+                placeholder="Max"
+                outlined
+                dense
+                :min="0"
+              ></q-input>
+            </div>
+          </div>
+          <q-btn
+            class="q-mt-md full-width"
+            color="primary"
+            icon="filter_list"
+            label="APPLY FILTER"
+            @click="loadInterventions"
+          >
+          </q-btn>
+        </div>
       </div>
       <template v-if="!loading && !error">
-        <div class="col-lg-11 col-md-10 col-sm-9 col-xs-8">
-          <template v-if="interventions.length == 0">
+        <div class="col-lg-10 col-md-10 col-sm-9 col-xs-8">
+          <template v-if="interventions.length === 0">
             No interventions found.
           </template>
           <template v-else>
+            Filters:
+            <span v-if="selectedRegions">
+              <q-chip
+                v-for="(item, index) in selectedRegions"
+                :key="index"
+                dense
+                >{{ item }}</q-chip
+              >
+            </span>
+            <span v-if="selectedPrograms">
+              <q-chip
+                v-for="(item, index) in selectedPrograms"
+                :key="index"
+                dense
+                >{{ item }}</q-chip
+              >
+            </span>
             <div class="row q-col-gutter-md">
               <template
                 v-for="{
@@ -74,7 +125,7 @@
                 {{ total }} interventions
               </span>
               <q-pagination
-                :value="page"
+                v-model="page"
                 :max-pages="max_pages"
                 :max="max"
                 boundary-links
@@ -119,6 +170,7 @@ export default {
       total: null,
       max: 10,
       page: 1,
+      limit: 12,
       loading: true,
       error: null,
       errorMessage: null,
@@ -126,7 +178,13 @@ export default {
       REGIONS,
       PROGRAMS,
       selectedRegions: [],
-      selectedPrograms: []
+      selectedPrograms: [],
+      minValue: 0,
+      maxValue: 10000000000,
+      investmentTotal: {
+        min: null,
+        max: null
+      }
     };
   },
   computed: {
@@ -137,14 +195,14 @@ export default {
       return 5;
     }
   },
-  watch: {
-    selectedRegions() {
-      this.loadInterventions();
-    },
-    selectedPrograms() {
-      this.loadInterventions();
-    }
-  },
+  // watch: {
+  //   selectedRegions() {
+  //     this.loadInterventions();
+  //   },
+  //   selectedPrograms() {
+  //     this.loadInterventions();
+  //   }
+  // },
   methods: {
     search() {
       alert(this.searchText);
@@ -152,11 +210,10 @@ export default {
     viewDetails(id) {
       this.$router.push("/afmp/" + id);
     },
-    loadInterventions(page = 1, limit = 12) {
+    loadInterventions() {
       this.loading = true;
-      this.page = page;
 
-      const { selectedPrograms, selectedRegions } = this;
+      const { page, limit, selectedPrograms, selectedRegions } = this;
 
       axios
         .post("http://localhost:8000/graphql", {

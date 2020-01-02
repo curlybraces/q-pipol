@@ -1851,44 +1851,48 @@ export const STATUSES = [
 
 export const PROGRAMS = [
   {
-    label: "Production Support Services",
-    value: "pss"
+    value: "Production Support Services",
+    label: "PSS"
   },
   {
-    label: "Market Development Services",
-    value: "mds"
+    value: "Market Development Services",
+    label: "MDS"
   },
   {
-    label: "Research and Development",
-    value: "rnd"
+    value: "Research and Development",
+    label: "R&D"
   },
   {
-    label: "Extension Support, Education and Training Services",
-    value: "esets"
+    value: "Extension Support, Education and Training Services",
+    label: "ESETS"
   },
   {
-    label:
+    value:
       "Agricultural Machineries, Equipment and Facilities Support Services",
-    value: "amefss"
+    label: "AMEFSS"
   },
   {
-    label: "Farm-to-Market Road Network Services",
-    value: "fmr"
+    value: "Farm-to-Market Road Network Services",
+    label: "FMRDP"
   },
   {
-    label: "Irrigation Network Services",
-    value: "ins"
+    value: "Irrigation Network Services",
+    label: "INS"
   },
   {
-    label: "Locally and Foreign Assisted Projects",
-    value: "lfp-fap"
+    value: "Locally and Foreign Assisted Projects",
+    label: "LFP/FAP"
   },
   {
-    label: "Agriculture and Fisheries Regulatory Program",
-    value: "regulatory"
+    value: "Agriculture and Fisheries Regulatory Program",
+    label: "REGULATORY"
   },
   {
-    label: "Agriculture and Fisheries Policy Services",
-    value: "policy"
+    value: "Agriculture and Fisheries Policy Services",
+    label: "POLICY"
+  },
+  {
+    value: "Others",
+    label: "OTHERS"
   }
 ];

@@ -1,15 +1,25 @@
 <template>
   <div class="q-py-md">
-    <span class="title">
-      {{ title.toUpperCase() }}
-    </span>
+    <div class="row justify-between">
+      <div class="title">
+        {{ title.toUpperCase() }}
+      </div>
+      <div class="text-right text-weight-bold">
+        <a v-if="!allSelected" @click="selectAll" class="text-green"
+          >Select All
+        </a>
+        <span v-if="selected.length > 0 && !allSelected">|</span>
+        <a v-if="selected.length > 0" @click="clearAll" class="text-red">
+          Clear</a
+        >
+      </div>
+    </div>
     <q-option-group
       :options="expanded ? options : options.slice(0, 5)"
       type="checkbox"
       class="cb"
-      v-model="group"
+      v-model="selected"
       dense
-      @input="emitValue"
     />
     <a href="#" class="text-weight-bold" @click="expanded = !expanded">
       VIEW {{ expanded ? "LESS" : "MORE" }}
@@ -26,13 +36,35 @@ export default {
   },
   data() {
     return {
-      group: [],
+      selected: [],
       expanded: false
     };
   },
+  computed: {
+    allSelected() {
+      let allOptions = [];
+      allOptions = this.options.map(({ value }) => {
+        return value;
+      });
+      if (allOptions.length == this.selected.length) {
+        return true;
+      }
+      return false;
+    }
+  },
   methods: {
-    emitValue(val) {
-      this.$emit("input", val);
+    selectAll() {
+      this.selected = this.options.map(({ value }) => {
+        return value;
+      });
+    },
+    clearAll() {
+      this.selected = [];
+    }
+  },
+  watch: {
+    selected() {
+      this.$emit("input", this.selected);
     }
   }
 };
