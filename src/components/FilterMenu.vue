@@ -9,6 +9,7 @@
       class="cb"
       v-model="group"
       dense
+      @input="emitValue"
     />
     <a href="#" class="text-weight-bold" @click="expanded = !expanded">
       VIEW {{ expanded ? "LESS" : "MORE" }}
@@ -26,9 +27,13 @@ export default {
   data() {
     return {
       group: [],
-      expanded: false,
-      val: false
+      expanded: false
     };
+  },
+  methods: {
+    emitValue(val) {
+      this.$emit("input", val);
+    }
   }
 };
 </script>

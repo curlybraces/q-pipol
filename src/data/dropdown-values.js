@@ -846,72 +846,72 @@ export const REGIONS = [
   {
     label: "Region I",
     order: 5,
-    value: "Region I"
+    value: "Region 1"
   },
   {
     label: "Region II",
     order: 6,
-    value: "Region II"
+    value: "Region 2"
   },
   {
     label: "Region III",
     order: 7,
-    value: "Region III"
+    value: "Region 3"
   },
   {
     label: "Region IV-A",
     order: 8,
-    value: "Region IV-A"
+    value: "Region 4A"
   },
   {
     label: "Region IV-B",
     order: 9,
-    value: "Region IV-B"
+    value: "Region 4B"
   },
   {
     label: "Region V",
     order: 10,
-    value: "Region V"
+    value: "Region 5"
   },
   {
     label: "Region VI",
     order: 11,
-    value: "Region VI"
+    value: "Region 6"
   },
   {
     label: "Region VII",
     order: 12,
-    value: "Region VII"
+    value: "Region 7"
   },
   {
     label: "Region VIII",
     order: 13,
-    value: "Region VIII"
+    value: "Region 8"
   },
   {
     label: "Region IX",
     order: 14,
-    value: "Region IX"
+    value: "Region 9"
   },
   {
     label: "Region X",
     order: 15,
-    value: "Region X"
+    value: "Region 10"
   },
   {
     label: "Region XI",
     order: 16,
-    value: "Region XI"
+    value: "Region 11"
   },
   {
     label: "Region XII",
     order: 17,
-    value: "Region XII"
+    value: "Region 12"
   },
   {
     label: "Region XIII",
     order: 18,
-    value: "Region XIII"
+    value: "Region 13"
   },
   {
     label: "ARMM",

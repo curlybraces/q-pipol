@@ -19,56 +19,70 @@
     <q-separator />
     <div class="row q-mt-md q-col-gutter-md">
       <div class="col-lg-1 col-md-2 col-sm-3 col-xs-4">
-        <filter-menu title="REGIONS" :options="REGIONS" />
+        <filter-menu
+          title="REGIONS"
+          :options="REGIONS"
+          v-model="selectedRegions"
+        />
         <q-separator />
-        <filter-menu title="PROGRAMS" :options="PROGRAMS" />
+        <filter-menu
+          title="PROGRAMS"
+          :options="PROGRAMS"
+          v-model="selectedPrograms"
+        />
       </div>
       <template v-if="!loading && !error">
         <div class="col-lg-11 col-md-10 col-sm-9 col-xs-8">
-          <div class="row q-col-gutter-md">
-            <template
-              v-for="{
-                id,
-                commodityGroup,
-                program,
-                intervention,
-                investmentTotal
-              } in interventions"
-            >
-              <div class="col-md-3 col-sm-6 col-xs-12" :key="id">
-                <q-card class="fit">
-                  <card-image :commodityGroup="commodityGroup" />
-                  <q-item class="q-pa-sm">
-                    <q-item-section>
-                      <q-item-label :lines="2">
-                        {{ intervention }}
-                      </q-item-label>
-                      <q-item-label caption>
-                        {{ program }}
-                      </q-item-label>
-                    </q-item-section>
-                    <q-item-section side top>
-                      Php {{ investmentTotal.toLocaleString(2) }}
-                    </q-item-section>
-                  </q-item>
-                </q-card>
-              </div>
-            </template>
-          </div>
-          <div class="row q-mt-md justify-between items-center">
-            <span>
-              Showing {{ (page - 1) * per_page + 1 }} - {{ page * per_page }} of
-              {{ total }} interventions
-            </span>
-            <q-pagination
-              :value="page"
-              :max-pages="max_pages"
-              :max="max"
-              boundary-links
-              boundary-numbers
-              @input="loadInterventions"
-            ></q-pagination>
-          </div>
+          <template v-if="interventions.length == 0">
+            No interventions found.
+          </template>
+          <template v-else>
+            <div class="row q-col-gutter-md">
+              <template
+                v-for="{
+                  id,
+                  commodityGroup,
+                  program,
+                  intervention,
+                  investmentTotal
+                } in interventions"
+              >
+                <div class="col-md-3 col-sm-6 col-xs-12" :key="id">
+                  <q-card class="fit">
+                    <card-image :commodityGroup="commodityGroup" />
+                    <q-item class="q-pa-sm">
+                      <q-item-section>
+                        <q-item-label :lines="2">
+                          {{ intervention }}
+                        </q-item-label>
+                        <q-item-label caption>
+                          {{ program }}
+                        </q-item-label>
+                      </q-item-section>
+                      <q-item-section side top>
+                        Php {{ investmentTotal.toLocaleString(2) }}
+                      </q-item-section>
+                    </q-item>
+                  </q-card>
+                </div>
+              </template>
+            </div>
+            <div class="row q-mt-md justify-between items-center">
+              <span>
+                Showing {{ (page - 1) * per_page + 1 }} -
+                {{ page * per_page > total ? total : page * per_page }} of
+                {{ total }} interventions
+              </span>
+              <q-pagination
+                :value="page"
+                :max-pages="max_pages"
+                :max="max"
+                boundary-links
+                boundary-numbers
+                @input="loadInterventions"
+              ></q-pagination>
+            </div>
+          </template>
         </div>
       </template>
       <template v-if="loading">
@@ -110,7 +124,9 @@ export default {
       errorMessage: null,
       group: [],
       REGIONS,
-      PROGRAMS
+      PROGRAMS,
+      selectedRegions: [],
+      selectedPrograms: []
     };
   },
   computed: {
@@ -119,6 +135,14 @@ export default {
         return 10;
       }
       return 5;
+    }
+  },
+  watch: {
+    selectedRegions() {
+      this.loadInterventions();
+    },
+    selectedPrograms() {
+      this.loadInterventions();
     }
   },
   methods: {
@@ -131,10 +155,13 @@ export default {
     loadInterventions(page = 1, limit = 12) {
       this.loading = true;
       this.page = page;
+
+      const { selectedPrograms, selectedRegions } = this;
+
       axios
         .post("http://localhost:8000/graphql", {
-          query: `query interventions($limit: Int!, $page: Int!) {
-              interventions(limit:$limit,page:$page) {
+          query: `query interventions($limit: Int!, $page: Int!, $region: [String!], $program: [String!]) {
+              interventions(limit:$limit,page:$page,region:$region,program:$program) {
                 data {
                   id
                   commodityGroup
@@ -148,7 +175,9 @@ export default {
             }`,
           variables: {
             limit: limit,
-            page: page
+            page: page,
+            region: selectedRegions,
+            program: selectedPrograms
           }
         })
         .then(res => {
