@@ -13,19 +13,3 @@ export function setEmail(state, value) {
 export function setDisplayName(state, value) {
   state.currentUserDisplayName = value;
 }
-
-export function setAdmin(state, value) {
-  state.isAdmin = value;
-}
-
-export function setReviewer(state, value) {
-  state.isReviewer = value;
-}
-
-export function setEncoder(state, value) {
-  state.isEncoder = value;
-}
-
-export function setViewer(state, value) {
-  state.isViewer = value;
-}

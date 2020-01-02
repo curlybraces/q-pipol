@@ -7,6 +7,7 @@
             {{ appTitle }}
           </span>
         </q-toolbar-title>
+        <q-btn flat label="LOGOUT" @click="logoutUser" />
       </q-toolbar>
     </q-header>
 

@@ -13,7 +13,7 @@
 
 import Vue from 'vue'
 
-import {Quasar,Dialog,AddressbarColor,LocalStorage} from 'quasar'
+import {Quasar,Dialog,AddressbarColor,LocalStorage,Notify} from 'quasar'
 
 
-Vue.use(Quasar, { config: {"dark":"auto"},plugins: {Dialog,AddressbarColor,LocalStorage} })
+Vue.use(Quasar, { config: {"dark":"auto"},plugins: {Dialog,AddressbarColor,LocalStorage,Notify} })

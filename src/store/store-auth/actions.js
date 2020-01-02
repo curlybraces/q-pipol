@@ -38,6 +38,7 @@ export function loginUser({}, payload) {
     .signInWithEmailAndPassword(payload.email, payload.password)
     .then(() => {
       Notify.create("Welcome back!");
+      this.$router.go("/");
     })
     .catch(error => {
       showErrorMessage(error.message);
@@ -113,7 +114,7 @@ export function handleAuthStateChange({ commit, dispatch }) {
       commit("projects/clearSubmissions", null, { root: true });
       commit("setLoggedIn", false);
       LocalStorage.set("loggedIn", false);
-      this.$router.replace("/");
+      this.$router.replace("/login");
     }
   });
 }
