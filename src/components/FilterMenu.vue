@@ -57,9 +57,11 @@ export default {
       this.selected = this.options.map(({ value }) => {
         return value;
       });
+      this.expanded = true;
     },
     clearAll() {
       this.selected = [];
+      this.expanded = false;
     }
   },
   watch: {
