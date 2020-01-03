@@ -436,9 +436,8 @@ export default {
 svg#Layer_1 {
   opacity: 0.5;
   position: fixed;
-  bottom: -160px;
-  left: -230px;
+  bottom: 0px;
   z-index: -10;
-  width: 1920px;
+  width: 100vw;
 }
 </style>
