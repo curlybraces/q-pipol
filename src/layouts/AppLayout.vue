@@ -1,12 +1,10 @@
 <template>
   <q-layout view="hhh LpR lFr">
     <q-header elevated>
-      <q-toolbar>
-        <q-toolbar-title>
-          <span class="app-title">
-            {{ appTitle }}
-          </span>
-        </q-toolbar-title>
+      <q-toolbar class="text-grey-9">
+        <img src="../assets/logo.svg" height="35px;" />
+        <q-toolbar-title class="text-primary">E-PLANNING</q-toolbar-title>
+        <q-space />
         <q-btn flat label="LOGOUT" @click="logoutUser" />
       </q-toolbar>
     </q-header>
@@ -83,8 +81,8 @@ export default {
 };
 </script>
 
-<style scoped>
-.app-title {
-  font-family: PrimeTime;
+<style>
+.q-layout__section--marginal {
+  background-color: transparent;
 }
 </style>

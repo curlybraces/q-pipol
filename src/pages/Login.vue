@@ -4,7 +4,7 @@
       <div class="row justify-center q-my-xl">APP_LOGO</div>
       <div class="row justify-center">
         <q-card class="my-card">
-          <q-toolbar>
+          <q-toolbar color="primary">
             <q-icon avatar name="lock"></q-icon>
             <q-toolbar-title>Login</q-toolbar-title>
           </q-toolbar>

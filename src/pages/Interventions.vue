@@ -18,7 +18,7 @@
     </div>
     <q-separator />
     <div class="row q-mt-md q-col-gutter-md">
-      <div class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
+      <div class="col-lg-2 col-md-2 col-sm-3 col-xs-4 bg-grey-1 q-pa-sm">
         <filter-menu
           title="REGIONS"
           :options="REGIONS"
@@ -30,6 +30,7 @@
           :options="PROGRAMS"
           v-model="selectedPrograms"
         />
+        <q-separator />
         <filter-menu
           title="COMMODITY GROUP"
           :options="COMMODITY_GROUP"
