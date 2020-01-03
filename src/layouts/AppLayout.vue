@@ -2,7 +2,12 @@
   <q-layout view="hhh LpR lFr">
     <q-header elevated class="transparent">
       <q-toolbar class="text-grey-9">
-        <img src="../assets/logo.svg" height="35px;" />
+        <img
+          src="../assets/logo.svg"
+          height="35px;"
+          @click="$router.push('/')"
+          class="cursor-pointer"
+        />
         <q-toolbar-title class="text-primary">E-PLANNING</q-toolbar-title>
         <q-space />
         <q-btn flat label="LOGOUT" @click="logoutUser" />

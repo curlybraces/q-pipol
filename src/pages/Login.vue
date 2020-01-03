@@ -1,7 +1,16 @@
 <template>
   <q-page padding>
     <div class="full-width column justify-center">
-      <div class="row justify-center q-my-xl">APP_LOGO</div>
+      <div class="row justify-center q-my-xl">
+        <div class="column text-center">
+          <div>
+            <q-img src="../assets/logo.svg" style="width: 60px;" />
+          </div>
+          <div class="q-mt-sm text-h6 text-weight-bold text-primary">
+            E-PLANNING
+          </div>
+        </div>
+      </div>
       <div class="row justify-center">
         <q-card class="my-card">
           <q-toolbar color="primary">
@@ -9,10 +18,8 @@
             <q-toolbar-title>Login</q-toolbar-title>
           </q-toolbar>
           <q-separator />
-          <q-card-section>
-            <q-item-label class="q-mt-md"
-              >Sign in with email and password</q-item-label
-            >
+          <q-card-section class="q-pa-md">
+            <q-item-label>Sign in with email and password</q-item-label>
             <q-form class="q-gutter-md q-mt-md" @submit="login">
               <q-input
                 outlined
@@ -44,7 +51,9 @@
                   ></q-icon>
                 </template>
               </q-input>
-              <q-btn type="submit" flat>Submit</q-btn>
+              <div class="row">
+                <q-btn class="full-width" type="submit" flat>Submit</q-btn>
+              </div>
             </q-form>
           </q-card-section>
         </q-card>

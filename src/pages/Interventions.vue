@@ -17,179 +17,195 @@
       </q-input>
     </div>
     <q-separator />
-    <div class="row q-mt-md q-col-gutter-md">
-      <div class="col-lg-2 col-md-2 col-sm-3 col-xs-4 bg-grey-1 q-pa-sm">
-        <filter-menu
-          title="REGIONS"
-          :options="REGIONS"
-          v-model="selectedRegions"
-        />
-        <q-separator />
-        <filter-menu
-          title="PROGRAMS"
-          :options="PROGRAMS"
-          v-model="selectedPrograms"
-        />
-        <q-separator />
-        <filter-menu
-          title="COMMODITY GROUP"
-          :options="COMMODITY_GROUP"
-          v-model="selectedCommodities"
-        />
-        <q-separator />
-        <div class="q-py-md">
-          <span class="title">INVESTMENT VALUE</span>
-          <div class="row q-col-gutter-x-xs q-mt-xs items-center">
-            <div class="col-6">
-              <q-input
-                type="number"
-                v-model="investmentTotal.min"
-                placeholder="Min"
-                outlined
-                dense
-                :min="0"
-              ></q-input>
-            </div>
-            <div class="col-6">
-              <q-input
-                type="number"
-                v-model="investmentTotal.max"
-                placeholder="Max"
-                outlined
-                dense
-                :min="0"
-              ></q-input>
-            </div>
-          </div>
-          <q-btn
-            class="q-mt-md full-width"
-            color="primary"
-            icon="filter_list"
-            label="APPLY FILTER"
-            @click="filterInterventions"
-          >
-          </q-btn>
-        </div>
-      </div>
-      <template v-if="!loading && !error">
-        <div class="col-lg-10 col-md-10 col-sm-9 col-xs-8">
-          <template v-if="interventions.length === 0">
-            No interventions found.
-          </template>
-          <template v-else>
-            <div class="row items-center">
-              <div class="col-6 text-h6">Interventions</div>
+    <div class="q-ml-md">
+      <div class="row q-mt-md q-col-gutter-x-md">
+        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-4 bg-grey-1 q-pa-sm">
+          <filter-menu
+            title="REGIONS"
+            :options="REGIONS"
+            v-model="selectedRegions"
+          />
+          <q-separator />
+          <filter-menu
+            title="PROGRAMS"
+            :options="PROGRAMS"
+            v-model="selectedPrograms"
+          />
+          <q-separator />
+          <filter-menu
+            title="COMMODITY GROUP"
+            :options="COMMODITY_GROUP"
+            v-model="selectedCommodities"
+          />
+          <q-separator />
+          <div class="q-py-md">
+            <span class="title">INVESTMENT VALUE</span>
+            <div class="row q-col-gutter-x-xs q-mt-xs items-center">
               <div class="col-6">
-                <div class="row justify-end items-center">
-                  <span class="q-mr-sm">Sort by:</span>
-                  <q-select
-                    class="q-mr-sm"
-                    style="min-width: 200px;"
-                    dense
-                    outlined
-                    v-model="sort"
-                    :options="sortOptions"
-                    @input="sortData"
-                    emit-value
-                    map-options
-                  ></q-select>
-                  <span class="q-ml-md">View:</span>
-                  <q-btn flat round class="q-ml-sm" icon="apps">
-                    <q-tooltip>Grid View</q-tooltip>
-                  </q-btn>
-                  <q-btn flat round class="q-ml-sm" icon="storage">
-                    <q-tooltip>List View</q-tooltip>
-                  </q-btn>
-                </div>
+                <q-input
+                  type="number"
+                  v-model="investmentTotal.min"
+                  placeholder="Min"
+                  outlined
+                  dense
+                  :min="0"
+                ></q-input>
+              </div>
+              <div class="col-6">
+                <q-input
+                  type="number"
+                  v-model="investmentTotal.max"
+                  placeholder="Max"
+                  outlined
+                  dense
+                  :min="0"
+                ></q-input>
               </div>
             </div>
-            <div class="row items-center">
-              Filters:
-              <span v-if="selectedRegions">
-                <q-chip
-                  v-for="(item, index) in selectedRegions"
-                  :key="index"
-                  dense
-                  >{{ item }}</q-chip
-                >
-              </span>
-              <span v-if="selectedPrograms">
-                <q-chip
-                  v-for="(item, index) in selectedPrograms"
-                  :key="index"
-                  dense
-                  >{{ item }}</q-chip
-                >
-              </span>
-              <span v-if="selectedCommodities">
-                <q-chip
-                  v-for="(item, index) in selectedCommodities"
-                  :key="index"
-                  dense
-                  >{{ item }}</q-chip
-                >
-              </span>
-            </div>
-            <div class="row q-col-gutter-md">
-              <template
-                v-for="{
-                  id,
-                  commodityGroup,
-                  program,
-                  intervention,
-                  investmentTotal
-                } in interventions"
-              >
-                <div class="col-md-3 col-sm-6 col-xs-12" :key="id">
-                  <q-card class="fit cursor-pointer" @click="goTo(id)">
-                    <card-image :commodityGroup="commodityGroup" caption />
-                    <q-item class="q-pa-sm">
-                      <q-item-section>
-                        <q-item-label :lines="2">
-                          {{ intervention }}
-                        </q-item-label>
-                        <q-item-label caption>
-                          {{ program }}
-                        </q-item-label>
-                      </q-item-section>
-                      <q-item-section side top>
-                        Php {{ investmentTotal.toLocaleString(2) }}
-                      </q-item-section>
-                    </q-item>
-                  </q-card>
-                </div>
+            <q-btn
+              class="q-mt-md full-width"
+              color="primary"
+              icon="filter_list"
+              label="APPLY FILTER"
+              @click="filterInterventions"
+            >
+            </q-btn>
+          </div>
+        </div>
+        <div class="col-lg-10 col-md-10 col-sm-9 col-xs-8">
+          <q-toolbar>
+            <q-toolbar-title>Interventions</q-toolbar-title>
+            <q-space />
+            <span class="q-mr-md">Sort by:</span>
+            <q-select
+              class="q-mr-md"
+              style="min-width: 200px;"
+              dense
+              outlined
+              v-model="sort"
+              :options="sortOptions"
+              @input="sortData"
+              emit-value
+              map-options
+            ></q-select>
+            <span class="q-ml-md">View:</span>
+            <q-btn-toggle
+              v-model="view"
+              class="q-ml-md"
+              push
+              toggle-color="primary"
+              :options="[
+                { value: 'grid', slot: 'grid' },
+                { value: 'list', slot: 'list' }
+              ]"
+            >
+              <template v-slot:grid>
+                <q-icon name="apps"></q-icon>
+                <q-tooltip>Grid view</q-tooltip>
               </template>
+
+              <template v-slot:list>
+                <q-icon name="apps"></q-icon>
+                <q-tooltip>List view</q-tooltip>
+              </template>
+            </q-btn-toggle>
+          </q-toolbar>
+
+          <template v-if="!loading && !error">
+            <template v-if="interventions.length === 0">
+              No interventions found.
+            </template>
+            <template v-else>
+              <div class="row items-center q-py-md q-pl-md">
+                Filters:
+                <span v-if="selectedRegions">
+                  <q-chip
+                    v-for="(item, index) in selectedRegions"
+                    :key="index"
+                    dense
+                    >{{ item }}</q-chip
+                  >
+                </span>
+                <span v-if="selectedPrograms">
+                  <q-chip
+                    v-for="(item, index) in selectedPrograms"
+                    :key="index"
+                    dense
+                    >{{ item }}</q-chip
+                  >
+                </span>
+                <span v-if="selectedCommodities">
+                  <q-chip
+                    v-for="(item, index) in selectedCommodities"
+                    :key="index"
+                    dense
+                    >{{ item }}</q-chip
+                  >
+                </span>
+              </div>
+              <div class="row q-col-gutter-md">
+                <template
+                  v-for="{
+                    id,
+                    commodityGroup,
+                    program,
+                    intervention,
+                    investmentTotal
+                  } in interventions"
+                >
+                  <div class="col-md-3 col-sm-6 col-xs-12" :key="id">
+                    <q-card class="fit cursor-pointer" @click="goTo(id)">
+                      <card-image :commodityGroup="commodityGroup" caption />
+                      <q-item class="q-pa-sm">
+                        <q-item-section>
+                          <q-item-label :lines="2">
+                            {{ intervention }}
+                          </q-item-label>
+                          <q-item-label caption>
+                            {{ program }}
+                          </q-item-label>
+                        </q-item-section>
+                        <q-item-section side top>
+                          Php {{ investmentTotal.toLocaleString(2) }}
+                        </q-item-section>
+                      </q-item>
+                    </q-card>
+                  </div>
+                </template>
+              </div>
+              <div class="row q-mt-md justify-between items-center">
+                <span>
+                  Showing {{ (page - 1) * per_page + 1 }} -
+                  {{ page * per_page > total ? total : page * per_page }} of
+                  {{ total }} interventions
+                </span>
+                <q-pagination
+                  v-model="page"
+                  :max-pages="max_pages"
+                  :max="max"
+                  boundary-links
+                  boundary-numbers
+                  @input="loadInterventions"
+                ></q-pagination>
+              </div>
+            </template>
+          </template>
+
+          <template v-if="loading">
+            <div class="text-center" style="margin-top: 200px;">
+              <q-spinner color="primary" size="3em"></q-spinner>
             </div>
-            <div class="row q-mt-md justify-between items-center">
-              <span>
-                Showing {{ (page - 1) * per_page + 1 }} -
-                {{ page * per_page > total ? total : page * per_page }} of
-                {{ total }} interventions
-              </span>
-              <q-pagination
-                v-model="page"
-                :max-pages="max_pages"
-                :max="max"
-                boundary-links
-                boundary-numbers
-                @input="loadInterventions"
-              ></q-pagination>
+          </template>
+
+          <template v-if="error">
+            <div class="text-center" style="margin-top: 200px;">
+              <q-icon name="warning" color="red" size="lg"></q-icon>
+              <br />
+              {{ errorMessage }}
             </div>
           </template>
         </div>
-      </template>
-      <template v-if="loading">
-        <span class="absolute-center">
-          <q-spinner color="primary" size="3em"></q-spinner>
-        </span>
-      </template>
-      <template v-if="error">
-        <div class="absolute-center text-center">
-          <q-icon name="warning" color="red" size="lg"></q-icon>
-          <br />
-          {{ errorMessage }}
-        </div>
-      </template>
+      </div>
     </div>
   </q-page>
 </template>
@@ -241,7 +257,8 @@ export default {
           label: "Investment high to low",
           value: 2
         }
-      ]
+      ],
+      view: "grid"
     };
   },
   computed: {
@@ -252,14 +269,6 @@ export default {
       return 5;
     }
   },
-  // watch: {
-  //   selectedRegions() {
-  //     this.loadInterventions();
-  //   },
-  //   selectedPrograms() {
-  //     this.loadInterventions();
-  //   }
-  // },
   methods: {
     search() {
       alert(this.searchText);

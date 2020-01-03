@@ -33,9 +33,9 @@ module.exports = function(ctx) {
       all: "auto", // --- includes everything; for dev only!
 
       // set dark mode to auto
-      config: {
-        dark: "auto"
-      },
+      // config: {
+      //   dark: "auto"
+      // },
 
       components: [],
 
