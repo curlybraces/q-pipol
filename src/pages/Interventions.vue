@@ -30,6 +30,11 @@
           :options="PROGRAMS"
           v-model="selectedPrograms"
         />
+        <filter-menu
+          title="COMMODITY GROUP"
+          :options="COMMODITY_GROUP"
+          v-model="selectedCommodities"
+        />
         <q-separator />
         <div class="q-py-md">
           <span class="title">INVESTMENT VALUE</span>
@@ -60,7 +65,7 @@
             color="primary"
             icon="filter_list"
             label="APPLY FILTER"
-            @click="loadInterventions"
+            @click="filterInterventions"
           >
           </q-btn>
         </div>
@@ -71,23 +76,59 @@
             No interventions found.
           </template>
           <template v-else>
-            Filters:
-            <span v-if="selectedRegions">
-              <q-chip
-                v-for="(item, index) in selectedRegions"
-                :key="index"
-                dense
-                >{{ item }}</q-chip
-              >
-            </span>
-            <span v-if="selectedPrograms">
-              <q-chip
-                v-for="(item, index) in selectedPrograms"
-                :key="index"
-                dense
-                >{{ item }}</q-chip
-              >
-            </span>
+            <div class="row items-center">
+              <div class="col-6 text-h6">Interventions</div>
+              <div class="col-6">
+                <div class="row justify-end items-center">
+                  <span class="q-mr-sm">Sort by:</span>
+                  <q-select
+                    class="q-mr-sm"
+                    style="min-width: 200px;"
+                    dense
+                    outlined
+                    v-model="sort"
+                    :options="sortOptions"
+                    @input="sortData"
+                    emit-value
+                    map-options
+                  ></q-select>
+                  <span class="q-ml-md">View:</span>
+                  <q-btn flat round class="q-ml-sm" icon="apps">
+                    <q-tooltip>Grid View</q-tooltip>
+                  </q-btn>
+                  <q-btn flat round class="q-ml-sm" icon="storage">
+                    <q-tooltip>List View</q-tooltip>
+                  </q-btn>
+                </div>
+              </div>
+            </div>
+            <div class="row items-center">
+              Filters:
+              <span v-if="selectedRegions">
+                <q-chip
+                  v-for="(item, index) in selectedRegions"
+                  :key="index"
+                  dense
+                  >{{ item }}</q-chip
+                >
+              </span>
+              <span v-if="selectedPrograms">
+                <q-chip
+                  v-for="(item, index) in selectedPrograms"
+                  :key="index"
+                  dense
+                  >{{ item }}</q-chip
+                >
+              </span>
+              <span v-if="selectedCommodities">
+                <q-chip
+                  v-for="(item, index) in selectedCommodities"
+                  :key="index"
+                  dense
+                  >{{ item }}</q-chip
+                >
+              </span>
+            </div>
             <div class="row q-col-gutter-md">
               <template
                 v-for="{
@@ -99,8 +140,8 @@
                 } in interventions"
               >
                 <div class="col-md-3 col-sm-6 col-xs-12" :key="id">
-                  <q-card class="fit">
-                    <card-image :commodityGroup="commodityGroup" />
+                  <q-card class="fit cursor-pointer" @click="goTo(id)">
+                    <card-image :commodityGroup="commodityGroup" caption />
                     <q-item class="q-pa-sm">
                       <q-item-section>
                         <q-item-label :lines="2">
@@ -154,7 +195,7 @@
 
 <script>
 import axios from "axios";
-import { REGIONS, PROGRAMS } from "../data/dropdown-values";
+import { REGIONS, PROGRAMS, COMMODITY_GROUP } from "../data/dropdown-values";
 
 export default {
   name: "PageInterventions",
@@ -177,14 +218,29 @@ export default {
       group: [],
       REGIONS,
       PROGRAMS,
+      COMMODITY_GROUP,
       selectedRegions: [],
       selectedPrograms: [],
+      selectedCommodities: [],
       minValue: 0,
       maxValue: 10000000000,
       investmentTotal: {
         min: null,
         max: null
-      }
+      },
+      sort: null,
+      sortBy: null,
+      dir: null,
+      sortOptions: [
+        {
+          label: "Investment low to high",
+          value: 1
+        },
+        {
+          label: "Investment high to low",
+          value: 2
+        }
+      ]
     };
   },
   computed: {
@@ -210,15 +266,41 @@ export default {
     viewDetails(id) {
       this.$router.push("/afmp/" + id);
     },
+    goTo(id) {
+      this.$router.push("/interventions/" + id);
+    },
+    sortData() {
+      const { sort } = this;
+      this.page = 1;
+      if (sort == 1) {
+        this.sortBy = "investmentTotal";
+        this.dir = "ASC";
+      } else if (sort == 2) {
+        this.sortBy = "investmentTotal";
+        this.dir = "DESC";
+      } else {
+        this.sortBy = null;
+        this.dir = null;
+      }
+      this.loadInterventions();
+    },
     loadInterventions() {
       this.loading = true;
 
-      const { page, limit, selectedPrograms, selectedRegions } = this;
+      const {
+        page,
+        limit,
+        selectedPrograms,
+        selectedRegions,
+        selectedCommodities,
+        sortBy,
+        dir
+      } = this;
 
       axios
         .post("http://localhost:8000/graphql", {
-          query: `query interventions($limit: Int!, $page: Int!, $region: [String!], $program: [String!]) {
-              interventions(limit:$limit,page:$page,region:$region,program:$program) {
+          query: `query interventions($limit: Int!, $page: Int!, $commodityGroup: [String!], $region: [String!], $program: [String!], $sortBy: String, $dir: String) {
+              interventions(limit:$limit,page:$page,commodityGroup:$commodityGroup,region:$region,program:$program,sortBy:$sortBy,dir:$dir) {
                 data {
                   id
                   commodityGroup
@@ -234,7 +316,10 @@ export default {
             limit: limit,
             page: page,
             region: selectedRegions,
-            program: selectedPrograms
+            program: selectedPrograms,
+            commodityGroup: selectedCommodities,
+            sortBy: sortBy,
+            dir: dir
           }
         })
         .then(res => {
@@ -260,6 +345,10 @@ export default {
         .finally(() => {
           this.loading = false;
         });
+    },
+    filterInterventions() {
+      this.page = 1;
+      this.loadInterventions();
     }
   },
   created() {

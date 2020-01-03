@@ -1,7 +1,12 @@
 <template>
-  <q-img class="q-pa-none" :src="image" :ratio="16 / 9">
-    <div class="absolute-full text-subtitle2 flex flex-center">
-      <q-btn flat>VIEW MORE</q-btn>
+  <q-img
+    class="q-pa-none"
+    :src="image"
+    :ratio="16 / 9"
+    :placeholder-src="placeholder"
+  >
+    <div v-if="caption" class="absolute-full text-subtitle2 flex flex-center">
+      VIEW MORE
     </div>
   </q-img>
 </template>
@@ -10,9 +15,16 @@
 export default {
   name: "CardImage",
   props: {
-    commodityGroup: String
+    commodityGroup: String,
+    caption: {
+      type: Boolean,
+      default: false
+    }
   },
   computed: {
+    placeholder() {
+      return "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWBAMAAADOL2zRAAAAG1BMVEXMzMyWlpaqqqq3t7fFxcW+vr6xsbGjo6OcnJyLKnDGAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABAElEQVRoge3SMW+DMBiE4YsxJqMJtHOTITPeOsLQnaodGImEUMZEkZhRUqn92f0MaTubtfeMh/QGHANEREREREREREREtIJJ0xbH299kp8l8FaGtLdTQ19HjofxZlJ0m1+eBKZcikd9PWtXC5DoDotRO04B9YOvFIXmXLy2jEbiqE6Df7DTleA5socLqvEFVxtJyrpZFWz/pHM2CVte0lS8g2eDe6prOyqPglhzROL+Xye4tmT4WvRcQ2/m81p+/rdguOi8Hc5L/8Qk4vhZzy08DduGt9eVQyP2qoTM1zi0/uf4hvBWf5c77e69Gf798y08L7j0RERERERERERH9P99ZpSVRivB/rgAAAABJRU5ErkJggg==";
+    },
     image() {
       const { commodityGroup } = this;
       let imageUrl = "";

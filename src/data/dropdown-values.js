@@ -1896,3 +1896,42 @@ export const PROGRAMS = [
     label: "OTHERS"
   }
 ];
+
+export const COMMODITY_GROUP = [
+  {
+    value: "Rice",
+    label: "Rice"
+  },
+  {
+    value: "Corn",
+    label: "Corn"
+  },
+  {
+    value: "High Value Crops",
+    label: "High Value Crops"
+  },
+  {
+    value: "Livestock",
+    label: "Livestock"
+  },
+  {
+    value: "Fisheries",
+    label: "Fisheries"
+  },
+  {
+    value: "Organic",
+    label: "Organic"
+  },
+  {
+    value: "Halal",
+    label: "Halal"
+  },
+  {
+    value: "Not Applicable",
+    label: "Not Applicable"
+  },
+  {
+    value: "Commodity-Neutral",
+    label: "Commodity-Neutral"
+  }
+];

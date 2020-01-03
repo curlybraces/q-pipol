@@ -9,7 +9,7 @@ const routes = [
           import(/* webpackChunkName: 'Index' */ "pages/Index.vue")
       },
       {
-        path: "afmp/:id",
+        path: "interventions/:id",
         component: () =>
           import(
             /* webpackChunkName: 'InterventionDetails' */ "pages/InterventionDetails.vue"
