@@ -41,6 +41,9 @@ let firebaseStorage = firebaseApp.storage();
 let projectRef = firebaseDb.collection("projects");
 let submissionsRef = firebaseDb.collection("submissions");
 
+const googleProvider = new firebase.auth.GoogleAuthProvider();
+googleProvider.setCustomParameters({ prompt: "select_account" });
+
 export {
   firebase,
   firebaseAuth,
@@ -48,5 +51,6 @@ export {
   firebaseRealtime,
   firebaseStorage,
   projectRef,
-  submissionsRef
+  submissionsRef,
+  googleProvider
 };

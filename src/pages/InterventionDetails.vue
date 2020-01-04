@@ -2,11 +2,11 @@
   <q-page padding>
     <q-card style="height:80vh;max-width:600px;">
       <div class="q-pa-xs">
-        <card-image
+        <grid-card
           v-if="intervention.commodityGroup"
           :commodityGroup="intervention.commodityGroup"
           :caption="false"
-        ></card-image>
+        ></grid-card>
         <span class="text-h6">{{ intervention.intervention }}</span>
         <br />
         <span>
@@ -54,7 +54,7 @@ import axios from "axios";
 export default {
   name: "InterventionDetails",
   components: {
-    "card-image": () => import("../components/CardImage.vue")
+    "grid-card": () => import("../components/GridCard.vue")
   },
   data() {
     return {

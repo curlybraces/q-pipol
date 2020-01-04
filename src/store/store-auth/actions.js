@@ -1,5 +1,5 @@
 import { LocalStorage, Loading, Notify, Dialog } from "quasar";
-import { firebaseAuth, firebaseDb } from "boot/firebase";
+import { firebaseAuth, firebaseDb, googleProvider } from "boot/firebase";
 import { showErrorMessage } from "src/functions/function-show-error-message";
 
 export function registerUser({ dispatch }, payload) {
@@ -19,6 +19,8 @@ export function registerUser({ dispatch }, payload) {
         encoder: false,
         viewer: true
       });
+
+      this.$router.go("/");
     })
     .catch(error => {
       showErrorMessage(error.message);
@@ -42,6 +44,17 @@ export function loginUser({}, payload) {
     })
     .catch(error => {
       showErrorMessage(error.message);
+    });
+}
+
+export function signInWithGoogle({}) {
+  firebaseAuth
+    .signInWithPopup(googleProvider)
+    .then(() => {
+      this.$router.go("/");
+    })
+    .catch(err => {
+      showErrorMessage(err.message);
     });
 }
 

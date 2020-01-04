@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <div class="full-width column justify-center">
-      <div class="row justify-center q-my-xl">
+      <div class="row justify-center q-my-lg">
         <div class="column text-center">
           <div>
             <q-img src="../assets/logo.svg" style="width: 60px;" />
@@ -15,18 +15,25 @@
         <q-card class="my-card">
           <q-toolbar color="primary">
             <q-icon avatar name="lock"></q-icon>
-            <q-toolbar-title>Login</q-toolbar-title>
+            <q-toolbar-title>
+              <span class="text-subtitle1">
+                {{
+                  tab == "login"
+                    ? "Login to your E-Planning Account"
+                    : "Create new account"
+                }}
+              </span>
+            </q-toolbar-title>
           </q-toolbar>
-          <q-separator />
+          <q-separator spaced />
           <q-card-section class="q-pa-md">
-            <q-item-label>Sign in with email and password</q-item-label>
-            <q-form class="q-gutter-md q-mt-md" @submit="login">
+            <q-form class="q-gutter-md" @submit="handleSubmit">
               <q-input
+                v-if="tab == 'signup'"
                 outlined
-                dense
-                placeholder="Email"
-                type="email"
-                v-model="email"
+                placeholder="Full Name"
+                type="text"
+                v-model="displayName"
               >
                 <template v-slot:prepend>
                   <q-icon name="person"></q-icon>
@@ -34,7 +41,16 @@
               </q-input>
               <q-input
                 outlined
-                dense
+                placeholder="Email"
+                type="email"
+                v-model="email"
+              >
+                <template v-slot:prepend>
+                  <q-icon name="email"></q-icon>
+                </template>
+              </q-input>
+              <q-input
+                outlined
                 placeholder="Password"
                 :type="!passwordVisibility ? 'password' : 'text'"
                 v-model="password"
@@ -52,7 +68,43 @@
                 </template>
               </q-input>
               <div class="row">
-                <q-btn class="full-width" type="submit" flat>Submit</q-btn>
+                <q-btn
+                  size="lg"
+                  class="full-width btn-login"
+                  type="submit"
+                  color="red"
+                  unelevated
+                >
+                  {{ tab == "login" ? "Login" : "Sign up" }}
+                </q-btn>
+              </div>
+              <template v-if="tab == 'login'">
+                <div class="text-center">OR</div>
+                <div class="row">
+                  <q-btn
+                    size="lg"
+                    class="full-width btn-login"
+                    icon="fab fa-google"
+                    label="Continue with Google"
+                    @click="signInWithGoogle"
+                  ></q-btn>
+                </div>
+              </template>
+              <div class="text-center" v-if="tab == 'login'">
+                Don't have an account?
+                <span
+                  class="text-blue text-weight-bolder cursor-pointer"
+                  @click="tab = 'signup'"
+                  >Sign up</span
+                >
+              </div>
+              <div class="text-center" v-else>
+                Already have an account?
+                <span
+                  class="text-blue text-weight-bolder cursor-pointer"
+                  @click="tab = 'login'"
+                  >Login</span
+                >
               </div>
             </q-form>
           </q-card-section>
@@ -73,12 +125,14 @@ export default {
   data() {
     return {
       passwordVisibility: false,
+      displayName: null,
       email: null,
-      password: null
+      password: null,
+      tab: "login"
     };
   },
   methods: {
-    ...mapActions("auth", ["loginUser"]),
+    ...mapActions("auth", ["loginUser", "registerUser", "signInWithGoogle"]),
     login() {
       const { email, password } = this;
       if (!email || !password) {
@@ -90,13 +144,35 @@ export default {
           password: password
         });
       }
+    },
+    handleSubmit() {
+      const { tab, email, password, displayName } = this;
+      if (tab == "login") {
+        this.login();
+      } else {
+        this.registerUser({
+          email: email,
+          password: password,
+          displayName: displayName
+        });
+      }
     }
   }
 };
 </script>
 
-<style lang="sass" scoped>
-.my-card
-  width: 100%
-  max-width: 400px
+<style>
+.my-card {
+  width: 100%;
+  max-width: 400px;
+}
+
+.btn-login {
+  text-transform: none;
+  font-weight: 300;
+}
+
+.fab.fa-google {
+  color: #f44336;
+}
 </style>

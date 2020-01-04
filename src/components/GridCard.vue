@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: "CardImage",
+  name: "GridCard",
   props: {
     commodityGroup: String,
     caption: {

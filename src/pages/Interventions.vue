@@ -155,7 +155,7 @@
                 >
                   <div class="col-md-3 col-sm-6 col-xs-12" :key="id">
                     <q-card class="fit cursor-pointer" @click="goTo(id)">
-                      <card-image :commodityGroup="commodityGroup" caption />
+                      <grid-card :commodityGroup="commodityGroup" caption />
                       <q-item class="q-pa-sm">
                         <q-item-section>
                           <q-item-label :lines="2">
@@ -218,7 +218,7 @@ export default {
   name: "PageInterventions",
   components: {
     "filter-menu": () => import("../components/FilterMenu.vue"),
-    "card-image": () => import("../components/CardImage.vue")
+    "grid-card": () => import("../components/GridCard.vue")
   },
   data() {
     return {
