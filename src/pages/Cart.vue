@@ -38,7 +38,7 @@
                 ></q-img>
               </q-item-section>
 
-              <q-item-section top>
+              <q-item-section top class="col-5">
                 <q-item-label lines="1">
                   <span class="text-weight-medium">Intervention</span>
                 </q-item-label>
@@ -47,25 +47,40 @@
                 </q-item-label>
               </q-item-section>
 
-              <q-item-section top side>
-                <div class="text-grey-8 q-gutter-xs">
-                  <q-btn
-                    class="gt-xs"
-                    size="12px"
-                    flat
-                    dense
-                    round
-                    icon="far fa-trash-alt"
-                  />
-                  <q-btn
-                    class="gt-xs"
-                    size="12px"
-                    flat
-                    dense
-                    round
-                    icon="done"
-                  />
-                  <q-btn size="12px" flat dense round icon="more_vert" />
+              <q-item-section class="3">
+                <span class="text-subtitle1 text-weigh-medium text-orange-9"
+                  >PhP Price</span
+                >
+                <q-icon name="far fa-trash-alt" class="q-mt-md" size="18px" />
+              </q-item-section>
+
+              <q-item-section class="col-2" side>
+                <div class="text-grey-8">
+                  <span class="row item-center no-wrap">
+                    <q-btn
+                      class="gt-xs"
+                      flat
+                      dense
+                      round
+                      icon="keyboard_arrow_left"
+                    />
+                    <q-input
+                      type="number"
+                      class="my-input q-mx-xs"
+                      input-class="text-center item-center"
+                      borderless
+                      dense
+                      value="1"
+                      min="0"
+                    />
+                    <q-btn
+                      class="gt-xs"
+                      flat
+                      dense
+                      round
+                      icon="keyboard_arrow_right"
+                    />
+                  </span>
                 </div>
               </q-item-section>
             </q-item>
@@ -107,5 +122,17 @@ export default {
 <style>
 .far.fa-trash-alt {
   font-size: 15px;
+}
+
+.my-input {
+  width: 40px;
+  border: none;
+  font-size: 18px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 </style>
