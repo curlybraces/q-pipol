@@ -64,6 +64,10 @@ const routes = [
         path: "pip/:id",
         component: () =>
           import(/* webpackChunkName: 'ViewProject' */ "pages/ViewProject.vue")
+      },
+      {
+        path: "cart",
+        component: () => import(/* webpackChunkName: 'Cart' */ "pages/Cart.vue")
       }
     ]
   },

@@ -340,11 +340,11 @@ export default {
               }
             }
           } = res;
-          console.log("data: ", data);
+          // console.log("data: ", data);
           this.interventions = data;
-          console.log("total: ", total);
+          // console.log("total: ", total);
           this.total = total;
-          console.log("per_page: ", per_page);
+          // console.log("per_page: ", per_page);
           this.per_page = per_page;
           this.max = Math.ceil(total / per_page);
         })

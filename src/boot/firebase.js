@@ -22,12 +22,6 @@ let firebaseAuth = firebaseApp.auth();
 firebaseApp
   .firestore()
   .enablePersistence()
-  .then(() => {
-    // Notify.create({
-    //   message: "Message: Offline capabilities are enabled."
-    // });
-    console.log("Message: Offline capabilities are enabled.");
-  })
   .catch(err => {
     if (err.code == "failed-precondition") {
       Dialog.create({
