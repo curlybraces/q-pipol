@@ -97,7 +97,7 @@
 <script>
 import { showErrorMessage } from "../functions/function-show-error-message";
 import { Loading } from "quasar";
-import axios from "axios";
+import axiosInstance from "boot/axios";
 
 export default {
   name: "InterventionDetails",
@@ -111,8 +111,8 @@ export default {
   },
   created() {
     Loading.show();
-    axios
-      .post("http://localhost:8000/graphql", {
+    axiosInstance
+      .post("graphql", {
         query: `query
             intervention($id: Int!) {
               intervention(id: $id) {
