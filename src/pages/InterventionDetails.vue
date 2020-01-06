@@ -13,11 +13,11 @@
     <q-card>
       <div class="row q-pa-md">
         <div class="col-4">
-          <grid-card
+          <commodity-image
             v-if="intervention.commodityGroup"
             :commodityGroup="intervention.commodityGroup"
             :caption="false"
-          ></grid-card>
+          />
         </div>
         <div class="column col-8 q-pa-md justify-between">
           <div class="text-h6">
@@ -95,14 +95,14 @@
 </template>
 
 <script>
+import axiosInstance from "boot/axios";
 import { showErrorMessage } from "../functions/function-show-error-message";
 import { Loading } from "quasar";
-import axiosInstance from "boot/axios";
 
 export default {
   name: "InterventionDetails",
   components: {
-    "grid-card": () => import("../components/GridCard.vue")
+    "commodity-image": () => import("../components/CommodityImage.vue")
   },
   data() {
     return {
