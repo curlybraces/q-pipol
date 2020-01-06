@@ -1,6 +1,13 @@
 <template>
   <q-page padding>
-    <div class="row q-mb-md">
+    <div class="row">
+      <q-breadcrumbs>
+        <q-breadcrumbs-el :to="{ name: 'home' }">Home</q-breadcrumbs-el>
+        <q-breadcrumbs-el>Interventions</q-breadcrumbs-el>
+      </q-breadcrumbs>
+    </div>
+    <q-separator spaced />
+    <div class="row">
       <q-input
         class="col"
         v-model="searchText"
@@ -16,7 +23,7 @@
         </template>
       </q-input>
     </div>
-    <q-separator />
+
     <div class="q-ml-md">
       <div class="row q-mt-md q-col-gutter-x-md">
         <div class="col-lg-2 col-md-2 col-sm-3 col-xs-4 bg-grey-1 q-pa-sm">
@@ -73,7 +80,7 @@
           </div>
         </div>
         <div class="col-lg-10 col-md-10 col-sm-9 col-xs-8">
-          <div class="row bg-white q-pa-sm items-center q-gutter-x-sm">
+          <div class="row bg-white q-pa-sm items-center">
             <span
               class="gt-xs text-primary text-h6 text-weight-bolder text-uppercase"
               >Interventions</span
@@ -82,6 +89,7 @@
             <span class="gt-sm">Sort by:</span>
             <q-select
               style="min-width: 200px;"
+              class="q-ml-sm"
               dense
               outlined
               v-model="sort"
@@ -90,8 +98,9 @@
               emit-value
               map-options
             ></q-select>
-            <span class="gt-sm">View:</span>
+            <span class="gt-sm q-ml-sm">View:</span>
             <q-btn-toggle
+              class="q-ml-sm"
               v-model="view"
               dense
               push

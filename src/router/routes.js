@@ -5,6 +5,7 @@ const routes = [
     children: [
       {
         path: "",
+        name: "home",
         component: () =>
           import(/* webpackChunkName: 'Index' */ "pages/Index.vue")
       },
@@ -16,11 +17,8 @@ const routes = [
           )
       },
       {
-        path: "afmp",
-        component: () => import(/* webpackChunkName: 'Afmp' */ "pages/Afmp.vue")
-      },
-      {
         path: "interventions",
+        name: "interventions",
         component: () =>
           import(
             /* webpackChunkName: 'Interventions' */ "pages/Interventions.vue"
@@ -28,6 +26,7 @@ const routes = [
       },
       {
         path: "pip",
+        name: "pip",
         component: () =>
           import(/* webpackChunkName: 'Projects' */ "pages/Projects.vue")
       },
@@ -62,6 +61,7 @@ const routes = [
       },
       {
         path: "pip/:id",
+        name: "pipDetails",
         component: () =>
           import(/* webpackChunkName: 'ViewProject' */ "pages/ViewProject.vue")
       },

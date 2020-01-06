@@ -1,6 +1,16 @@
 <template>
   <q-page padding>
-    <q-card style="height:80vh;">
+    <div class="row">
+      <q-breadcrumbs>
+        <q-breadcrumbs-el :to="{ name: 'home' }">Home</q-breadcrumbs-el>
+        <q-breadcrumbs-el :to="{ name: 'interventions' }"
+          >Interventions</q-breadcrumbs-el
+        >
+        <q-breadcrumbs-el>Intervention Details</q-breadcrumbs-el>
+      </q-breadcrumbs>
+    </div>
+    <q-separator spaced />
+    <q-card>
       <div class="row q-pa-md">
         <div class="col-4">
           <grid-card

@@ -42,7 +42,7 @@
               <q-item clickable v-close-popup>
                 <q-item-section>Help &amp; Feedback</q-item-section>
               </q-item>
-              <q-item clickable v-close-popup @click="logoutUser">
+              <q-item clickable v-close-popup @click="showLogout">
                 <q-item-section>Logout</q-item-section>
               </q-item>
             </q-list>
@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import { openURL } from "quasar";
+import { openURL, Dialog } from "quasar";
 import { mapState, mapActions } from "vuex";
 
 export default {
@@ -87,6 +87,12 @@ export default {
     ...mapActions("auth", ["logoutUser"]),
     toggleDarkMode() {
       this.$q.dark.toggle();
+    },
+    showLogout() {
+      Dialog.create({
+        title: "Logout",
+        message: "Are you sure you want to log out?"
+      }).onOk(() => this.logoutUser());
     }
   }
 };
