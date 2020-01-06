@@ -73,12 +73,14 @@
           </div>
         </div>
         <div class="col-lg-10 col-md-10 col-sm-9 col-xs-8">
-          <q-toolbar>
-            <q-toolbar-title>Interventions</q-toolbar-title>
+          <div class="row bg-white q-pa-sm items-center q-gutter-x-sm">
+            <span
+              class="gt-xs text-primary text-h6 text-weight-bolder text-uppercase"
+              >Interventions</span
+            >
             <q-space />
-            <span class="q-mr-md">Sort by:</span>
+            <span class="gt-sm">Sort by:</span>
             <q-select
-              class="q-mr-md"
               style="min-width: 200px;"
               dense
               outlined
@@ -88,10 +90,10 @@
               emit-value
               map-options
             ></q-select>
-            <span class="q-ml-md">View:</span>
+            <span class="gt-sm">View:</span>
             <q-btn-toggle
               v-model="view"
-              class="q-ml-md"
+              dense
               push
               toggle-color="primary"
               :options="[
@@ -105,11 +107,11 @@
               </template>
 
               <template v-slot:list>
-                <q-icon name="apps"></q-icon>
+                <q-icon name="list"></q-icon>
                 <q-tooltip>List view</q-tooltip>
               </template>
             </q-btn-toggle>
-          </q-toolbar>
+          </div>
 
           <template v-if="!loading && !error">
             <template v-if="interventions.length === 0">
@@ -154,7 +156,10 @@
                   } in interventions"
                 >
                   <div class="col-md-3 col-sm-6 col-xs-12" :key="id">
-                    <q-card class="fit cursor-pointer" @click="goTo(id)">
+                    <q-card
+                      class="fit cursor-pointer grid-card"
+                      @click="goTo(id)"
+                    >
                       <grid-card :commodityGroup="commodityGroup" caption />
                       <q-item class="q-pa-sm">
                         <q-item-section>
@@ -197,7 +202,7 @@
             </div>
           </template>
 
-          <template v-if="error">
+          <template v-if="!loading && error">
             <div class="text-center" style="margin-top: 200px;">
               <q-icon name="warning" color="red" size="lg"></q-icon>
               <br />
@@ -317,8 +322,8 @@ export default {
                   intervention
                   program
                   investmentTotal
-                },
-                total,
+                }
+                total
                 per_page
               }
             }`,
@@ -366,3 +371,10 @@ export default {
   }
 };
 </script>
+
+<style>
+.grid-card:hover {
+  opacity: 0.95;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+</style>

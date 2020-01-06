@@ -7,7 +7,7 @@
             v-for="({ url, imageUrl, alt, title, description, hover },
             index) in features"
           >
-            <div class="col-md-6 col-sm-12 col-xs-12" :key="index">
+            <div class="col-md-4 col-sm-12 col-xs-12" :key="index">
               <q-card
                 class="q-pa-md fit text-center cursor-pointer directory-card"
                 square
@@ -33,7 +33,7 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
-import { AFMP_IMAGE, PIP_IMAGE } from "../data/images";
+import { AFMP_IMAGE, PIP_IMAGE, GAA_IMAGE } from "../data/images";
 
 export default {
   name: "PageIndex",
@@ -54,6 +54,13 @@ export default {
           alt: "pip cover",
           title: "PIP",
           description: "Public Investment Program 2017-2022"
+        },
+        {
+          url: "pbp",
+          imageUrl: GAA_IMAGE,
+          alt: "gaa cover",
+          title: "PBP",
+          description: "Annual Plan and Budget Proposal"
         }
       ]
     };
@@ -65,9 +72,6 @@ export default {
     ...mapActions("auth", ["sendEmailVerification"]),
     goTo(url) {
       this.$router.push(url);
-    },
-    doSomething() {
-      alert("mouse over!");
     }
   }
 };
