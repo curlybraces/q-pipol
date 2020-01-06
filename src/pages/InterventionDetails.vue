@@ -1,44 +1,82 @@
 <template>
   <q-page padding>
-    <q-card style="height:80vh;max-width:600px;">
-      <div class="q-pa-xs">
-        <grid-card
-          v-if="intervention.commodityGroup"
-          :commodityGroup="intervention.commodityGroup"
-          :caption="false"
-        ></grid-card>
-        <span class="text-h6">{{ intervention.intervention }}</span>
-        <br />
-        <span>
-          <q-badge
-            color="orange"
-            :label="intervention.commodityGroup"
-            class="q-mr-xs"
-          />
-          <q-badge color="green" :label="intervention.region" class="q-mr-xs" />
-          <q-badge
-            color="blue"
-            :label="intervention.province"
-            class="q-mr-xs"
-          />
-          <q-badge color="red" :label="intervention.program" class="q-mr-xs" />
-        </span>
-        <q-separator />
-        <div class="text-h5 text-orange q-mt-md">
-          PhP {{ intervention.investmentTotal.toLocaleString() }}
+    <q-card style="height:80vh;">
+      <div class="row q-pa-md">
+        <div class="col-4">
+          <grid-card
+            v-if="intervention.commodityGroup"
+            :commodityGroup="intervention.commodityGroup"
+            :caption="false"
+          ></grid-card>
         </div>
-        <div class="text-weight-bolder q-mt-md">Description:</div>
-        {{ intervention.interventionDetails }}
-        <div class="text-weight-bolder q-mt-md">Quantity:</div>
-        {{ intervention.targetTotal }}
-        <div class="text-weight-bolder q-mt-md">Remarks:</div>
-        {{ intervention.remarks }}
-        <div class="row absolute-bottom q-pa-sm q-col-gutter-x-sm">
-          <div class="col-6">
-            <q-btn class="full-width" color="amber">ADD TO CART</q-btn>
+        <div class="column col-8 q-pa-md justify-between">
+          <div class="text-h6">
+            {{
+              intervention.intervention == "Others"
+                ? intervention.interventionOthers
+                : intervention.intervention
+            }}
           </div>
-          <div class="col-6">
-            <q-btn class="full-width" color="orange">BUY NOW</q-btn>
+          <span>
+            <q-badge
+              color="orange"
+              :label="intervention.commodityGroup"
+              class="q-mr-xs"
+            />
+            <q-badge
+              color="green"
+              :label="intervention.region"
+              class="q-mr-xs"
+            />
+            <q-badge
+              color="red"
+              :label="intervention.program"
+              class="q-mr-xs"
+            />
+          </span>
+          <div class="text-h5 text-orange q-my-md q-ml-md">
+            PhP {{ intervention.investmentTotal.toLocaleString() }}
+          </div>
+          <q-list>
+            <q-item>
+              <q-item-section>
+                <q-item-label caption>Location:</q-item-label>
+                <q-item-label>{{ intervention.province }}</q-item-label>
+              </q-item-section>
+            </q-item>
+            <q-item>
+              <q-item-section>
+                <q-item-label caption>Specific Commodity:</q-item-label>
+                <q-item-label>{{ intervention.commodity }}</q-item-label>
+              </q-item-section>
+            </q-item>
+            <q-item>
+              <q-item-section>
+                <q-item-label caption>Description:</q-item-label>
+                <q-item-label>{{
+                  intervention.interventionDetails
+                }}</q-item-label>
+              </q-item-section>
+            </q-item>
+            <q-item>
+              <q-item-section>
+                <q-item-label caption>Quantity:</q-item-label>
+                <q-item-label>{{ intervention.targetTotal }}</q-item-label>
+              </q-item-section>
+            </q-item>
+            <q-item>
+              <q-item-section>
+                <q-item-label caption>Remarks:</q-item-label>
+                <q-item-label>{{ intervention.remarks }}</q-item-label>
+              </q-item-section>
+            </q-item>
+          </q-list>
+          <q-separator />
+          <div class="row q-pa-sm">
+            <q-btn unelevated color="amber">ADD TO PROJECT</q-btn>
+            <q-btn unelevated class="q-ml-sm" color="orange"
+              >ADD TO PROGRAM</q-btn
+            >
           </div>
         </div>
       </div>
@@ -70,8 +108,10 @@ export default {
               intervention(id: $id) {
                 id
                 intervention
+                interventionOthers
                 interventionDetails
                 commodityGroup
+                commodity
                 region
                 province
                 program
@@ -92,9 +132,9 @@ export default {
           }
         } = res;
         this.intervention = intervention;
-        Loading.hide();
       })
-      .catch(err => showErrorMessage(err.message));
+      .catch(err => showErrorMessage(err.message))
+      .finally(() => Loading.hide());
   }
 };
 </script>

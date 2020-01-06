@@ -145,39 +145,41 @@
                   >
                 </span>
               </div>
-              <div class="row q-col-gutter-md">
-                <template
-                  v-for="{
-                    id,
-                    commodityGroup,
-                    program,
-                    intervention,
-                    investmentTotal
-                  } in interventions"
-                >
-                  <div class="col-md-3 col-sm-6 col-xs-12" :key="id">
-                    <q-card
-                      class="fit cursor-pointer grid-card"
-                      @click="goTo(id)"
-                    >
-                      <grid-card :commodityGroup="commodityGroup" caption />
-                      <q-item class="q-pa-sm">
-                        <q-item-section>
-                          <q-item-label :lines="2">
-                            {{ intervention }}
-                          </q-item-label>
-                          <q-item-label caption>
-                            {{ program }}
-                          </q-item-label>
-                        </q-item-section>
-                        <q-item-section side top>
-                          Php {{ investmentTotal.toLocaleString(2) }}
-                        </q-item-section>
-                      </q-item>
-                    </q-card>
-                  </div>
-                </template>
-              </div>
+              <q-scroll-area style="height: 60vh;">
+                <div class="row q-col-gutter-md">
+                  <template
+                    v-for="{
+                      id,
+                      commodityGroup,
+                      program,
+                      intervention,
+                      investmentTotal
+                    } in interventions"
+                  >
+                    <div class="col-md-3 col-sm-6 col-xs-12" :key="id">
+                      <q-card
+                        class="fit cursor-pointer grid-card"
+                        @click="goTo(id)"
+                      >
+                        <grid-card :commodityGroup="commodityGroup" caption />
+                        <q-item class="q-pa-sm">
+                          <q-item-section>
+                            <q-item-label :lines="2">
+                              {{ intervention }}
+                            </q-item-label>
+                            <q-item-label caption>
+                              {{ program }}
+                            </q-item-label>
+                          </q-item-section>
+                          <q-item-section side top>
+                            Php {{ investmentTotal.toLocaleString(2) }}
+                          </q-item-section>
+                        </q-item>
+                      </q-card>
+                    </div>
+                  </template>
+                </div>
+              </q-scroll-area>
               <div class="row q-mt-md justify-between items-center">
                 <span>
                   Showing {{ (page - 1) * per_page + 1 }} -
