@@ -227,7 +227,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axiosInstance from "boot/axios";
 import { REGIONS, PROGRAMS, COMMODITY_GROUP } from "../data/dropdown-values";
 
 export default {
@@ -323,8 +323,8 @@ export default {
         dir
       } = this;
 
-      axios
-        .post("http://localhost:8000/graphql", {
+      axiosInstance
+        .post("/graphql",{
           query: `query interventions($limit: Int!, $page: Int!, $commodityGroup: [String!], $region: [String!], $program: [String!], $sortBy: String, $dir: String) {
               interventions(limit:$limit,page:$page,commodityGroup:$commodityGroup,region:$region,program:$program,sortBy:$sortBy,dir:$dir) {
                 data {
