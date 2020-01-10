@@ -21,7 +21,9 @@
             <q-list style="min-width: 280px">
               <q-item>
                 <q-item-section avatar>
-                  <q-avatar class="bg-grey-9 text-white">MB</q-avatar>
+                  <q-avatar>
+                    <q-img :src="photoURL" />
+                  </q-avatar>
                 </q-item-section>
                 <q-item-section>
                   <q-item-label>{{ currentUserDisplayName }}</q-item-label>
@@ -76,7 +78,8 @@ export default {
     ...mapState("auth", [
       "loggedIn",
       "currentUserEmail",
-      "currentUserDisplayName"
+      "currentUserDisplayName",
+      "photoURL"
     ]),
     darkMode() {
       return this.$q.dark.isActive;

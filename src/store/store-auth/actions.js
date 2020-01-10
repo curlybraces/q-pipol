@@ -52,15 +52,15 @@ export function signInWithGoogle({ dispatch }) {
     .signInWithPopup(googleProvider)
     .then(user => {
       dispatch("retrieveUserProfileDocument", user.user.uid);
-      this.$router.go("/");
     })
+    .then(() => this.$router.go("/"))
     .catch(err => {
       showErrorMessage(err.message);
     });
 }
 
-export function retrieveUserProfileDocument({}, uid) {
-  console.log(uid);
+export function retrieveUserProfileDocument({}) {
+  // console.log(uid);
 }
 
 export function logoutUser() {
@@ -116,6 +116,7 @@ export function handleAuthStateChange({ commit, dispatch }) {
     if (user) {
       commit("setEmailVerified", user.emailVerified);
       commit("setDisplayName", user.displayName);
+      commit("setPhotoURL", user.photoURL);
       commit("setEmail", user.email);
       Loading.hide();
       commit("setLoggedIn", true);

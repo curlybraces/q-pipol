@@ -13,3 +13,7 @@ export function setEmail(state, value) {
 export function setDisplayName(state, value) {
   state.currentUserDisplayName = value;
 }
+
+export function setPhotoURL(state, value) {
+  state.photoURL = value;
+}

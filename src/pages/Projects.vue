@@ -29,7 +29,7 @@
               class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col-xs-12 flex"
               :key="id"
             >
-              <q-card class="fit project-card cursor-pointer">
+              <q-card class="fit project-card cursor-pointer" @click="goTo(id)">
                 <q-img src="https://via.placeholder.com/300x200"></q-img>
                 <q-item class="q-pa-sm">
                   <q-item-section>
@@ -85,7 +85,10 @@ export default {
     ...mapGetters("projects", ["projects"])
   },
   methods: {
-    ...mapActions("auth", ["sendEmailVerification"])
+    ...mapActions("auth", ["sendEmailVerification"]),
+    goTo(id) {
+      this.$router.push("/pip/" + id);
+    }
   },
   filters: {
     searchHighlight(value, search) {

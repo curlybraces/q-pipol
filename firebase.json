@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "daipms",
+    "site": "eplanning-da",
     "public": "dist/pwa",
     "ignore": [
       "firebase.json",
