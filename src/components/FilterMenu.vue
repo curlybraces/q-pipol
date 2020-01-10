@@ -21,7 +21,7 @@
       v-model="selected"
       dense
     />
-    <a href="#" class="text-weight-bold" @click="expanded = !expanded">
+    <a class="text-weight-bold" @click="expanded = !expanded">
       VIEW {{ expanded ? "LESS" : "MORE" }}
     </a>
   </div>
