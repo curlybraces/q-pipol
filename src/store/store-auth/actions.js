@@ -47,15 +47,20 @@ export function loginUser({}, payload) {
     });
 }
 
-export function signInWithGoogle({}) {
+export function signInWithGoogle({ dispatch }) {
   firebaseAuth
     .signInWithPopup(googleProvider)
-    .then(() => {
+    .then(user => {
+      dispatch("retrieveUserProfileDocument", user.user.uid);
       this.$router.go("/");
     })
     .catch(err => {
       showErrorMessage(err.message);
     });
+}
+
+export function retrieveUserProfileDocument({}, uid) {
+  console.log(uid);
 }
 
 export function logoutUser() {
