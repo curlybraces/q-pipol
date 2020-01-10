@@ -97,7 +97,7 @@
 <script>
 import axiosInstance from "boot/axios";
 import { showErrorMessage } from "../functions/function-show-error-message";
-import { Loading } from "quasar";
+import { Loading, Dialog } from "quasar";
 
 export default {
   name: "InterventionDetails",
@@ -141,9 +141,22 @@ export default {
             data: { intervention }
           }
         } = res;
+        if (!intervention) {
+          Dialog.create({
+            title: "Intervention missing",
+            message:
+              "The intervention may have been deleted. Click OK to go back.",
+            persistent: true
+          }).onDismiss(() => {
+            this.$router.push("/interventions");
+          });
+        }
         this.intervention = intervention;
       })
-      .catch(err => showErrorMessage(err.message))
+      .catch(err => {
+        showErrorMessage(err.message);
+        this.$router.go(-1);
+      })
       .finally(() => Loading.hide());
   }
 };

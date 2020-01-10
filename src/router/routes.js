@@ -90,6 +90,11 @@ const routes = [
           import(/* webpackChunkName: 'Login' */ "pages/Login.vue")
       }
     ]
+  },
+  {
+    path: "/error",
+    name: "error",
+    component: () => import("pages/Error404.vue")
   }
 ];
 
