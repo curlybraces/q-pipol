@@ -189,7 +189,7 @@
                 </span>
                 <q-select
                   v-model="params.limit"
-                  :options="[12,25,50,100]"
+                  :options="[12, 25, 50, 100]"
                   dense
                   outlined
                   @input="reloadInterventions"

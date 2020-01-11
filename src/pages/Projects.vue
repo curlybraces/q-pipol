@@ -164,7 +164,7 @@ export default {
   methods: {
     ...mapActions("auth", ["sendEmailVerification"]),
     sortData() {
-      console.log("sort");
+      // console.log("sort");
     },
     goTo(id) {
       this.$router.push("/pip/" + id);
