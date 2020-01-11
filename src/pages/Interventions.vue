@@ -1,12 +1,6 @@
 <template>
   <q-page padding>
-    <div class="row">
-      <q-breadcrumbs>
-        <q-breadcrumbs-el :to="{ name: 'home' }">Home</q-breadcrumbs-el>
-        <q-breadcrumbs-el>Interventions</q-breadcrumbs-el>
-      </q-breadcrumbs>
-    </div>
-    <q-separator spaced />
+    <page-breadcrumbs :breadcrumbs="breadcrumbs" />
     <div class="q-ml-md">
       <div class="row q-col-gutter-x-md">
         <div class="col-lg-2 col-md-2 col-sm-3 col-xs-4 bg-grey-1 q-pa-sm">
@@ -57,7 +51,7 @@
               color="primary"
               icon="filter_list"
               label="APPLY FILTER"
-              @click="filterInterventions"
+              @click="reloadInterventions"
             >
             </q-btn>
           </div>
@@ -106,110 +100,108 @@
               </q-btn-toggle>
             </div>
             <q-separator spaced />
-            <template v-if="!loading && !error">
-              <template v-if="interventions.length === 0">
-                No interventions found.
-              </template>
-              <template v-else>
-                <q-scroll-area style="height: 88vh;">
-                  <div class="row q-col-gutter-md q-my-sm">
-                    <template v-if="view == 'grid'">
-                      <template
-                        v-for="{
-                          id,
-                          commodityGroup,
-                          program,
-                          intervention,
-                          investmentTotal
-                        } in interventions"
-                      >
-                        <div class="col-md-3 col-sm-6 col-xs-12" :key="id">
-                          <grid-card @click="goTo(id)">
-                            <template v-slot:image>
-                              <commodity-image
-                                :commodityGroup="commodityGroup"
-                                caption
-                              />
-                            </template>
-                            <template v-slot:item>
-                              <q-item class="q-pa-sm">
-                                <q-item-section>
-                                  <q-item-label :lines="2">
-                                    {{ intervention }}
-                                  </q-item-label>
-                                  <q-item-label caption>
-                                    {{ program }}
-                                  </q-item-label>
-                                </q-item-section>
-                                <q-item-section side top>
-                                  Php {{ investmentTotal.toLocaleString(2) }}
-                                </q-item-section>
-                              </q-item>
-                            </template>
-                          </grid-card>
-                        </div>
-                      </template>
+            <template v-if="interventions.length === 0">
+              No interventions found.
+            </template>
+            <template v-else>
+              <q-scroll-area style="height: 88vh;">
+                <div class="row q-col-gutter-md q-my-sm">
+                  <template v-if="view == 'grid'">
+                    <template
+                      v-for="{
+                        id,
+                        commodityGroup,
+                        program,
+                        intervention,
+                        investmentTotal
+                      } in interventions"
+                    >
+                      <div class="col-md-3 col-sm-6 col-xs-12" :key="id">
+                        <grid-card @click="goTo(id)">
+                          <template v-slot:image>
+                            <commodity-image
+                              :commodityGroup="commodityGroup"
+                              caption
+                            />
+                          </template>
+                          <template v-slot:item>
+                            <q-item class="q-pa-sm">
+                              <q-item-section>
+                                <q-item-label :lines="2">
+                                  {{ intervention }}
+                                </q-item-label>
+                                <q-item-label caption>
+                                  {{ program }}
+                                </q-item-label>
+                              </q-item-section>
+                              <q-item-section side top>
+                                Php {{ investmentTotal.toLocaleString(2) }}
+                              </q-item-section>
+                            </q-item>
+                          </template>
+                        </grid-card>
+                      </div>
                     </template>
-                    <template v-else>
-                      <template
-                        v-for="{
-                          id,
-                          commodityGroup,
-                          program,
-                          intervention,
-                          investmentTotal
-                        } in interventions"
-                      >
-                        <div class="col-12" :key="id">
-                          <list-card @click="goTo(id)">
-                            <template v-slot:image>
-                              <commodity-image
-                                :commodityGroup="commodityGroup"
-                                caption
-                              />
-                            </template>
-                            <template v-slot:item>
-                              <span>{{ intervention }}</span>
-                              <q-item-label caption>{{ program }}</q-item-label>
-                            </template>
-                            <template v-slot:side>
-                              PhP {{ investmentTotal.toLocaleString() }}
-                            </template>
-                          </list-card>
-                        </div>
-                      </template>
+                  </template>
+                  <template v-else>
+                    <template
+                      v-for="{
+                        id,
+                        commodityGroup,
+                        program,
+                        intervention,
+                        investmentTotal
+                      } in interventions"
+                    >
+                      <div class="col-12" :key="id">
+                        <list-card @click="goTo(id)">
+                          <template v-slot:image>
+                            <commodity-image
+                              :commodityGroup="commodityGroup"
+                              caption
+                            />
+                          </template>
+                          <template v-slot:item>
+                            <span>{{ intervention }}</span>
+                            <q-item-label caption>{{ program }}</q-item-label>
+                          </template>
+                          <template v-slot:side>
+                            PhP {{ investmentTotal.toLocaleString() }}
+                          </template>
+                        </list-card>
+                      </div>
                     </template>
-                  </div>
-                </q-scroll-area>
-                <div class="row q-mt-md justify-between items-center">
-                  <span>
-                    Showing {{ (page - 1) * per_page + 1 }} -
-                    {{ page * per_page > total ? total : page * per_page }} of
-                    {{ total }} interventions
-                  </span>
-                  <q-pagination
-                    v-model="page"
-                    :max-pages="max_pages"
-                    :max="max"
-                    boundary-links
-                    boundary-numbers
-                    @input="loadInterventions"
-                  ></q-pagination>
+                  </template>
                 </div>
-              </template>
-            </template>
-
-            <template v-if="loading">
-              <div class="text-center" style="margin-top: 200px;">
-                <q-spinner color="primary" size="3em"></q-spinner>
-              </div>
-            </template>
-
-            <template v-if="!loading && error">
-              <div class="text-center" style="margin-top: 200px;">
-                <q-icon name="warning" color="red" size="lg"></q-icon>
-                <br />
-                {{ errorMessage }}
+              </q-scroll-area>
+              <div class="row q-mt-md justify-between items-center">
+                <span>
+                  Showing {{ (params.page - 1) * per_page + 1 }} -
+                  {{
+                    params.page * per_page > total
+                      ? total
+                      : params.page * per_page
+                  }}
+                  of {{ total }} interventions
+                </span>
+                <span>
+                  Show Entries:
+                </span>
+                <q-select
+                  v-model="params.limit"
+                  :options="[12,25,50,100]"
+                  dense
+                  outlined
+                  @input="reloadInterventions"
+                />
+                <q-pagination
+                  v-model="params.page"
+                  :max-pages="max_pages"
+                  :max="max"
+                  boundary-links
+                  boundary-numbers
+                  @input="reloadInterventions"
+                ></q-pagination>
               </div>
             </template>
           </q-card>
@@ -220,27 +212,42 @@
 </template>
 
 <script>
-import axiosInstance from "boot/axios";
 import { REGIONS, PROGRAMS, COMMODITY_GROUP } from "../data/dropdown-values";
+import PageBreadcrumbs from "../components/PageBreadcrumbs";
+import FilterMenu from "../components/FilterMenu";
+
+import { loadInterventions } from "../functions/function-load-interventions";
 
 export default {
   name: "PageInterventions",
   components: {
-    "filter-menu": () => import("../components/FilterMenu.vue"),
+    PageBreadcrumbs,
+    FilterMenu,
     "commodity-image": () => import("../components/CommodityImage.vue"),
     "grid-card": () => import("../components/GridCard.vue"),
     "list-card": () => import("../components/ListCard.vue")
   },
   data() {
     return {
+      breadcrumbs: [
+        {
+          title: "Home",
+          url: "/"
+        },
+        {
+          title: "Interventions"
+        }
+      ],
       searchText: "",
       interventions: [],
+      params: {
+        page: 1,
+        limit: 12
+      },
       per_page: null,
       total: null,
       max: 10,
-      page: 1,
-      limit: 12,
-      loading: true,
+      loading: false,
       error: null,
       errorMessage: null,
       group: [],
@@ -303,77 +310,33 @@ export default {
         this.sortBy = null;
         this.dir = null;
       }
-      this.loadInterventions();
-    },
-    loadInterventions() {
-      this.loading = true;
-
-      const {
-        page,
-        limit,
-        selectedPrograms,
-        selectedRegions,
-        selectedCommodities,
-        sortBy,
-        dir
-      } = this;
-
-      axiosInstance
-        .post("/graphql", {
-          query: `query interventions($limit: Int!, $page: Int!, $commodityGroup: [String!], $region: [String!], $program: [String!], $sortBy: String, $dir: String) {
-              interventions(limit:$limit,page:$page,commodityGroup:$commodityGroup,region:$region,program:$program,sortBy:$sortBy,dir:$dir) {
-                data {
-                  id
-                  commodityGroup
-                  intervention
-                  program
-                  investmentTotal
-                }
-                total
-                per_page
-              }
-            }`,
-          variables: {
-            limit: limit,
-            page: page,
-            region: selectedRegions,
-            program: selectedPrograms,
-            commodityGroup: selectedCommodities,
-            sortBy: sortBy,
-            dir: dir
-          }
-        })
-        .then(res => {
-          const {
-            data: {
-              data: {
-                interventions: { data, total, per_page }
-              }
-            }
-          } = res;
-          // console.log("data: ", data);
-          this.interventions = data;
-          // console.log("total: ", total);
-          this.total = total;
-          // console.log("per_page: ", per_page);
-          this.per_page = per_page;
-          this.max = Math.ceil(total / per_page);
-        })
-        .catch(err => {
-          this.error = true;
-          this.errorMessage = err.message;
-        })
-        .finally(() => {
-          this.loading = false;
-        });
+      loadInterventions();
     },
     filterInterventions() {
       this.page = 1;
-      this.loadInterventions();
+      loadInterventions();
+    },
+    reloadInterventions() {
+      loadInterventions(this.params).then(response => {
+        const {
+          data: {
+            data: {
+              interventions: { data, total, per_page }
+            }
+          }
+        } = response;
+
+        this.interventions = data;
+
+        this.total = total;
+
+        this.per_page = per_page;
+        this.max = Math.ceil(total / per_page);
+      });
     }
   },
   created() {
-    this.loadInterventions();
+    this.reloadInterventions();
   }
 };
 </script>

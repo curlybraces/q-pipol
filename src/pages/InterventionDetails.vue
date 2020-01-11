@@ -95,7 +95,6 @@
 </template>
 
 <script>
-import axiosInstance from "boot/axios";
 import { showErrorMessage } from "../functions/function-show-error-message";
 import { Loading, Dialog } from "quasar";
 
@@ -111,7 +110,7 @@ export default {
   },
   created() {
     Loading.show();
-    axiosInstance
+    this.$axios
       .post("graphql", {
         query: `query
             intervention($id: Int!) {

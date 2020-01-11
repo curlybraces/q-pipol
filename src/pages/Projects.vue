@@ -1,70 +1,124 @@
 <template>
   <q-page padding>
-    <div class="row">
-      <q-breadcrumbs>
-        <q-breadcrumbs-el :to="{ name: 'home' }">Home</q-breadcrumbs-el>
-        <q-breadcrumbs-el>PIP</q-breadcrumbs-el>
-      </q-breadcrumbs>
-    </div>
-    <q-separator spaced />
+    <page-breadcrumbs :breadcrumbs="breadcrumbs" />
     <search-component />
-    <template v-if="projectsDownloaded">
-      <no-project v-if="!projects.length && !search" />
-
-      <q-scroll-area
-        v-if="projects.length"
-        class="q-scroll-area-projects"
-        style="height:75vh"
-      >
-        <div class="row q-col-gutter-md">
-          <template
-            v-for="{
-              id,
-              title,
-              implementingAgency,
-              totalProjectCost
-            } in projects"
-          >
-            <div
-              class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col-xs-12 flex"
-              :key="id"
-            >
-              <q-card class="fit project-card cursor-pointer" @click="goTo(id)">
-                <q-img src="https://via.placeholder.com/300x200"></q-img>
-                <q-item class="q-pa-sm">
-                  <q-item-section>
-                    <q-item-label :lines="2">
-                      <div
-                        v-html="$options.filters.searchHighlight(title, search)"
-                      ></div>
-                    </q-item-label>
-                    <q-item-label caption>
-                      {{ implementingAgency }}
-                    </q-item-label>
-                  </q-item-section>
-                  <q-item-section side top>
-                    <q-item-label
-                      >PhP
-                      {{
-                        parseInt(totalProjectCost).toLocaleString()
-                      }}</q-item-label
-                    >
-                  </q-item-section>
-                </q-item>
-              </q-card>
-            </div>
-          </template>
+    <div class="q-ml-md">
+      <div class="row q-col-gutter-x-md">
+        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-4 bg-grey-1 q-pa-sm">
+          Filters
         </div>
-      </q-scroll-area>
+        <div class="col-lg-10 col-md-10 col-sm-9 col-xs-8">
+          <q-card class="q-pa-sm fit bg-grey-1">
+            <div class="row q-pa-sm items-center">
+              <span
+                class="gt-xs text-primary text-h6 text-weight-bolder text-uppercase"
+                >Projects</span
+              >
+              <q-space />
+              <span class="gt-sm">Sort by:</span>
+              <q-select
+                style="min-width: 200px;"
+                class="q-ml-sm"
+                dense
+                outlined
+                v-model="sort"
+                :options="sortOptions"
+                @input="sortData"
+                emit-value
+                map-options
+              ></q-select>
 
-      <no-project v-if="!projects.length && search" />
-    </template>
+              <toggle-view v-model="view" />
+            </div>
+            <q-separator spaced />
+            <template v-if="!loading && !error">
+              <no-project v-if="projects.length === 0 && search" />
+              <template v-else>
+                <q-scroll-area style="height: 88vh;">
+                  <div class="row q-col-gutter-md q-my-sm">
+                    <template v-if="view == 'grid'">
+                      <template
+                        v-for="{
+                          id,
+                          title,
+                          implementingAgency,
+                          totalProjectCost
+                        } in projects"
+                      >
+                        <div class="col-md-3 col-sm-6 col-xs-12" :key="id">
+                          <grid-card @click="goTo(id)">
+                            <template v-slot:image>
+                              <commodity-image />
+                            </template>
 
-    <template v-else>
-      <span class="absolute-center">
-        <q-spinner color="primary" size="3em"></q-spinner>
-      </span>
-    </template>
+                            <template v-slot:item>
+                              <q-item class="q-pa-sm">
+                                <q-item-section>
+                                  <q-item-label :lines="2">
+                                    {{ title }}
+                                  </q-item-label>
+                                  <q-item-label caption>
+                                    {{ implementingAgency }}
+                                  </q-item-label>
+                                </q-item-section>
+                                <q-item-section side top>
+                                  Php {{ totalProjectCost.toLocaleString(2) }}
+                                </q-item-section>
+                              </q-item>
+                            </template>
+                          </grid-card>
+                        </div>
+                      </template>
+                    </template>
+                    <template v-else>
+                      <template
+                        v-for="{
+                          id,
+                          title,
+                          implementingAgency,
+                          totalProjectCost
+                        } in projects"
+                      >
+                        <div class="col-12" :key="id">
+                          <list-card @click="goTo(id)">
+                            <template v-slot:image>
+                              <commodity-image />
+                            </template>
+                            <template v-slot:item>
+                              <span>{{ title }}</span>
+                              <q-item-label caption>{{
+                                implementingAgency
+                              }}</q-item-label>
+                            </template>
+                            <template v-slot:side>
+                              PhP {{ totalProjectCost.toLocaleString() }}
+                            </template>
+                          </list-card>
+                        </div>
+                      </template>
+                    </template>
+                  </div>
+                </q-scroll-area>
+              </template>
+            </template>
+
+            <template v-if="loading">
+              <div class="text-center" style="margin-top: 200px;">
+                <q-spinner color="primary" size="3em"></q-spinner>
+              </div>
+            </template>
+
+            <template v-if="!loading && error">
+              <div class="text-center" style="margin-top: 200px;">
+                <q-icon name="warning" color="red" size="lg"></q-icon>
+                <br />
+                {{ errorMessage }}
+              </div>
+            </template>
+          </q-card>
+        </div>
+      </div>
+    </div>
   </q-page>
 </template>
 
@@ -76,9 +130,32 @@ const SearchComponent = () => import("../components/Projects/SearchComponent");
 export default {
   components: {
     SearchComponent,
-    NoProject
+    NoProject,
+    "grid-card": () => import("../components/GridCard.vue"),
+    "list-card": () => import("../components/ListCard.vue"),
+    "commodity-image": () => import("../components/CommodityImage.vue"),
+    "page-breadcrumbs": () => import("../components/PageBreadcrumbs.vue"),
+    "toggle-view": () => import("../components/ToggleView.vue")
   },
   name: "PageProjects",
+  data() {
+    return {
+      breadcrumbs: [
+        {
+          url: "/",
+          title: "Home"
+        },
+        {
+          title: "PIP"
+        }
+      ],
+      view: "grid",
+      loading: false,
+      error: false,
+      sortOptions: [],
+      sort: ""
+    };
+  },
   computed: {
     ...mapState("projects", ["search", "projectsDownloaded"]),
     ...mapState("auth", ["emailVerified"]),
@@ -86,6 +163,9 @@ export default {
   },
   methods: {
     ...mapActions("auth", ["sendEmailVerification"]),
+    sortData() {
+      console.log("sort");
+    },
     goTo(id) {
       this.$router.push("/pip/" + id);
     }

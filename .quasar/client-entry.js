@@ -40,9 +40,9 @@ import Vue from 'vue'
 import createApp from './app.js'
 
 
-import 'app/src-pwa/register-service-worker.js'
 
 
+import qboot_Bootaxios from 'boot/axios'
 
 import qboot_Bootrouterauth from 'boot/router-auth'
 
@@ -58,14 +58,15 @@ import qboot_Bootnotifydefaults from 'boot/notify-defaults'
 
 
 
+Vue.config.devtools = true
+Vue.config.productionTip = false
 
 
 
+console.info('[Quasar] Running SPA.')
 
-// Needed only for iOS PWAs
-if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream && window.navigator.standalone) {
-  import(/* webpackChunkName: "fastclick"  */ '@quasar/fastclick')
-}
+
+
 
 
 async function start () {
@@ -81,7 +82,7 @@ async function start () {
   }
 
   const urlPath = window.location.href.replace(window.location.origin, '')
-  const bootFiles = [qboot_Bootrouterauth,qboot_Bootloadingdefaults,qboot_Bootaddressbarcolor,qboot_Bootnotifydefaults]
+  const bootFiles = [qboot_Bootaxios,qboot_Bootrouterauth,qboot_Bootloadingdefaults,qboot_Bootaddressbarcolor,qboot_Bootnotifydefaults]
 
   for (let i = 0; routeUnchanged === true && i < bootFiles.length; i++) {
     if (typeof bootFiles[i] !== 'function') {

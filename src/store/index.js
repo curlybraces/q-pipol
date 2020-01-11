@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 import auth from "./store-auth/";
+import interventions from "./store-interventions";
 import projects from "./store-projects/";
 import directory from "./store-directory";
 import settings from "./store-settings";
@@ -18,6 +19,7 @@ export default function(/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
       auth,
+      interventions,
       projects,
       directory,
       settings,

@@ -1,8 +1,9 @@
 // import something here
+import Vue from "vue";
 import axios from "axios";
 
-const axiosInstance = axios.create({
-  baseURL: "https://e-planning.daplanningcentral.net"
-});
+axios.defaults.baseURL = "https://e-planning.daplanningcentral.net";
 
-export default axiosInstance;
+Vue.prototype.$axios = axios;
+
+export default axios;
