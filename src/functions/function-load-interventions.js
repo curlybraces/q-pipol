@@ -2,7 +2,15 @@ import { Loading } from "quasar";
 import axios from "boot/axios";
 import { showErrorMessage } from "./function-show-error-message";
 
-export const loadInterventions = ({ page = 2, limit = 12 }) => {
+export const loadInterventions = ({
+  page = 2,
+  limit = 12,
+  selectedRegions = [],
+  selectedPrograms = [],
+  selectedCommodities = [],
+  sortBy = null,
+  dir = null
+}) => {
   Loading.show();
 
   return axios
@@ -23,12 +31,12 @@ export const loadInterventions = ({ page = 2, limit = 12 }) => {
             }`,
       variables: {
         limit: limit,
-        page: page
-        // region: selectedRegions,
-        // program: selectedPrograms,
-        // commodityGroup: selectedCommodities,
-        // sortBy: sortBy,
-        // dir: dir
+        page: page,
+        region: selectedRegions,
+        program: selectedPrograms,
+        commodityGroup: selectedCommodities,
+        sortBy: sortBy,
+        dir: dir
       }
     })
     .then(res => {

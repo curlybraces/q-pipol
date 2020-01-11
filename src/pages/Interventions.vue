@@ -7,19 +7,19 @@
           <filter-menu
             title="REGIONS"
             :options="REGIONS"
-            v-model="selectedRegions"
+            v-model="params.selectedRegions"
           />
           <q-separator />
           <filter-menu
             title="PROGRAMS"
             :options="PROGRAMS"
-            v-model="selectedPrograms"
+            v-model="params.selectedPrograms"
           />
           <q-separator />
           <filter-menu
             title="COMMODITY GROUP"
             :options="COMMODITY_GROUP"
-            v-model="selectedCommodities"
+            v-model="params.selectedCommodities"
           />
           <q-separator />
           <div class="q-py-md">
@@ -242,7 +242,12 @@ export default {
       interventions: [],
       params: {
         page: 1,
-        limit: 12
+        limit: 12,
+        selectedRegions: [],
+        selectedPrograms: [],
+        selectedCommodities: [],
+        sortBy: null,
+        dir: null
       },
       per_page: null,
       total: null,
@@ -254,9 +259,6 @@ export default {
       REGIONS,
       PROGRAMS,
       COMMODITY_GROUP,
-      selectedRegions: [],
-      selectedPrograms: [],
-      selectedCommodities: [],
       minValue: 0,
       maxValue: 10000000000,
       investmentTotal: {
@@ -264,8 +266,6 @@ export default {
         max: null
       },
       sort: null,
-      sortBy: null,
-      dir: null,
       sortOptions: [
         {
           label: "Investment low to high",
@@ -301,16 +301,16 @@ export default {
       const { sort } = this;
       this.page = 1;
       if (sort == 1) {
-        this.sortBy = "investmentTotal";
-        this.dir = "ASC";
+        this.params.sortBy = "investmentTotal";
+        this.params.dir = "ASC";
       } else if (sort == 2) {
-        this.sortBy = "investmentTotal";
-        this.dir = "DESC";
+        this.params.sortBy = "investmentTotal";
+        this.params.dir = "DESC";
       } else {
-        this.sortBy = null;
-        this.dir = null;
+        this.params.sortBy = null;
+        this.params.dir = null;
       }
-      loadInterventions();
+      this.reloadInterventions();
     },
     filterInterventions() {
       this.page = 1;
