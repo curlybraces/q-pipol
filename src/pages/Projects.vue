@@ -48,7 +48,11 @@
                         <div class="col-md-3 col-sm-6 col-xs-12" :key="id">
                           <grid-card @click="goTo(id)">
                             <template v-slot:image>
-                              <commodity-image />
+                              <q-img
+                                :src="
+                                  `statics/logo/attached_corporations/${implementingAgency.toLowerCase()}.svg`
+                                "
+                              />
                             </template>
 
                             <template v-slot:item>
