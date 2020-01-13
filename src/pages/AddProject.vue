@@ -8,11 +8,7 @@
         icon="settings"
         :done="step > 1"
       >
-        <general-information />
-
-        <q-stepper-navigation>
-          <q-btn @click="step = 2" color="primary" label="Continue" />
-        </q-stepper-navigation>
+        <general-information @next="step++" />
       </q-step>
 
       <q-step
