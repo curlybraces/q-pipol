@@ -1,23 +1,23 @@
 <template>
-  <q-form class="q-gutter-y-sm" ref="form1" @submit="validate">
+  <div class="q-gutter-y-sm">
     <q-option-group
-      v-model="type"
+      v-model="generalInformation.classification"
       label="Type"
       :options="types"
       inline
     ></q-option-group>
     <q-input
-      v-model="title"
+      v-model="generalInformation.title"
       label="Program/Project Title"
       stack-label
       outlined
       dense
       hint="The title of the program or project"
-      lazy-rules
-      :rules="[val => (val && val.length > 0) || 'Title is required']"
+      counter
+      maxlength="250"
     />
     <q-select
-      v-model="implementing_agency"
+      v-model="generalInformation.implementing_agency"
       label="Implementing Agency"
       stack-label
       outlined
@@ -26,7 +26,7 @@
       hint="Proponent of the program/project"
     />
     <q-input
-      v-model="description"
+      v-model="generalInformation.description"
       label="Description"
       type="textarea"
       stack-label
@@ -35,7 +35,7 @@
       hint="Description of the program/project (e.g. location, components, design, etc.)"
     />
     <q-input
-      v-model="expected_outputs"
+      v-model="generalInformation.expected_outputs"
       label="Expected Outputs"
       type="textarea"
       stack-label
@@ -44,15 +44,15 @@
       hint="Physical deliverables of the project (indicate unit)"
     />
     <q-select
-      v-model="spatial_coverage"
+      v-model="generalInformation.spatial_coverage"
       label="Spatial Coverage"
       stack-label
       outlined
       dense
-      :options="SPATIAL_COVERAGES"
+      :options="generalInformation.SPATIAL_COVERAGES"
     />
     <q-select
-      v-model="regions"
+      v-model="generalInformation.regions"
       label="Region/s"
       stack-label
       outlined
@@ -62,7 +62,7 @@
       use-chips
     />
     <q-select
-      v-model="provinces"
+      v-model="generalInformation.provinces"
       label="Province/s"
       stack-label
       outlined
@@ -72,7 +72,7 @@
       use-chips
     />
     <q-input
-      v-model="implementation_start"
+      v-model="generalInformation.implementation_start_date"
       label="Implementation Start"
       stack-label
       outlined
@@ -80,7 +80,7 @@
       hint="Indicate what year the project is expected to start."
     />
     <q-input
-      v-model="implementation_end"
+      v-model="generalInformation.implementation_end_date"
       label="Implementation End"
       stack-label
       outlined
@@ -88,7 +88,7 @@
       hint="Indicate what year the project is expected to be completed."
     />
     <q-input
-      v-model="total_project_cost"
+      v-model="generalInformation.total_project_cost"
       label="Total Project Cost"
       stack-label
       outlined
@@ -96,21 +96,14 @@
       hint="Indicative project cost in absolute PhP"
     />
     <q-select
-      v-model="status"
+      v-model="generalInformation._update"
       label="Status"
       stack-label
       outlined
       dense
       :options="STATUSES"
     />
-    <q-btn
-      type="submit"
-      class="q-mt-md"
-      label="CONTINUE"
-      color="primary"
-      @click="validate"
-    />
-  </q-form>
+  </div>
 </template>
 
 <script>
@@ -124,6 +117,9 @@ import {
 
 export default {
   name: "GeneralInformation",
+  props: {
+    generalInformation: Object
+  },
   data() {
     return {
       types: [
@@ -140,61 +136,8 @@ export default {
       SPATIAL_COVERAGES,
       REGIONS,
       PROVINCES,
-      STATUSES,
-      title: null,
-      type: null,
-      implementing_agency: null,
-      description: null,
-      expected_outputs: null,
-      spatial_coverage: null,
-      regions: [],
-      provinces: [],
-      implementation_start: null,
-      implementation_end: null,
-      total_project_cost: null,
-      status: null
+      STATUSES
     };
-  },
-  methods: {
-    validate() {
-      this.$refs.form1.validate().then(success => {
-        if (success) {
-          console.log("validated form");
-
-          const {
-            title,
-            type,
-            implementing_agency,
-            description,
-            expected_outputs,
-            spatial_coverage,
-            regions,
-            provinces,
-            implementation_start,
-            implementation_end,
-            total_project_cost,
-            status
-          } = this;
-          console.log(
-            title,
-            type,
-            implementing_agency,
-            description,
-            expected_outputs,
-            spatial_coverage,
-            regions,
-            provinces,
-            implementation_start,
-            implementation_end,
-            total_project_cost,
-            status
-          );
-        } else {
-          console.log("Please review your inputs.");
-        }
-      });
-      this.$emit("next");
-    }
   }
 };
 </script>

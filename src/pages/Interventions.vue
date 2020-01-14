@@ -270,7 +270,6 @@ export default {
       REGIONS,
       PROGRAMS,
       COMMODITY_GROUP,
-      // PROVINCES,
       minValue: 0,
       maxValue: 10000000000,
       investmentTotal: {

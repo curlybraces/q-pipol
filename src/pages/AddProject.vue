@@ -1,8 +1,8 @@
 <template>
   <q-page padding>
     <page-breadcrumbs :breadcrumbs="breadcrumbs" />
-    <div class="row q-col-gutter-x-md">
-      <div class="col-2">
+    <div class="row q-col-gutter-x-md q-gutter-y-md">
+      <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
         <q-card>
           <q-list separator>
             <q-item-label header>NAVIGATION</q-item-label>
@@ -27,73 +27,81 @@
           </q-list>
         </q-card>
       </div>
-      <div class="col-10">
-        <q-stepper v-model="step" vertical color="primary" animated>
-          <q-step
-            :name="1"
-            title="General Information"
-            icon="settings"
-            :done="step > 1"
-          >
-            <general-information @next="step++" />
-          </q-step>
-
-          <q-step :name="2" title="Investment Cost" icon="attach_money">
-            This step won't show up because it is disabled.
-            <q-stepper-navigation>
-              <q-btn @click="step++" color="primary" label="Continue" />
-              <q-btn
-                flat
-                @click="step--"
-                color="primary"
-                label="Back"
-                class="q-ml-sm"
+      <div class="col-lg-10 col-md-9 col-sm-8 col-xs-12">
+        <q-form ref="form" @submit="handleSubmit">
+          <q-stepper v-model="step" vertical color="primary" animated>
+            <q-step
+              :name="1"
+              title="General Information"
+              icon="settings"
+              :done="step > 1"
+            >
+              <general-information
+                v-bind:generalInformation.sync="generalInformation"
               />
-            </q-stepper-navigation>
-          </q-step>
+              <q-stepper-navigation>
+                <q-btn color="primary" label="Continue" @click="step++" />
+              </q-stepper-navigation>
+            </q-step>
 
-          <q-step :name="3" title="Rationale and Justification" icon="help">
-            <q-input
-              v-model="rationale"
-              label="Rationale and Justification"
-              type="textarea"
-              stack-label
-              outlined
-              dense
-              counter
-              maxlength="1000"
-              hint="Please provide rationale and justification for the program/project in less than 1000 characters."
-            />
-            <q-stepper-navigation>
-              <q-btn @click="step++" color="primary" label="Continue" />
-              <q-btn
-                flat
-                @click="step--"
-                color="primary"
-                label="Back"
-                class="q-ml-sm"
+            <q-step :name="2" title="Investment Cost" icon="attach_money">
+              This step won't show up because it is disabled.
+              <q-stepper-navigation>
+                <q-btn @click="step++" color="primary" label="Continue" />
+                <q-btn
+                  flat
+                  @click="step--"
+                  color="primary"
+                  label="Back"
+                  class="q-ml-sm"
+                />
+              </q-stepper-navigation>
+            </q-step>
+
+            <q-step :name="3" title="Rationale and Justification" icon="help">
+              <q-input
+                v-model="rationale"
+                label="Rationale and Justification"
+                type="textarea"
+                stack-label
+                outlined
+                dense
+                counter
+                maxlength="1000"
+                hint="Please provide rationale and justification for the program/project in less than 1000 characters."
               />
-            </q-stepper-navigation>
-          </q-step>
+              <q-stepper-navigation>
+                <q-btn @click="step++" color="primary" label="Continue" />
+                <q-btn
+                  flat
+                  @click="step--"
+                  color="primary"
+                  label="Back"
+                  class="q-ml-sm"
+                />
+              </q-stepper-navigation>
+            </q-step>
 
-          <q-step :name="4" title="Save Program/Project" icon="save">
-            Try out different ad text to see what brings in the most customers,
-            and learn how to enhance your ads using features like ad extensions.
-            If you run into any problems with your ads, find out how to tell if
-            they're running and how to resolve approval issues.
+            <q-step :name="4" title="Save Program/Project" icon="save">
+              Try out different ad text to see what brings in the most
+              customers, and learn how to enhance your ads using features like
+              ad extensions. If you run into any problems with your ads, find
+              out how to tell if they're running and how to resolve approval
+              issues.
 
-            <q-stepper-navigation>
-              <q-btn color="primary" label="Finish" />
-              <q-btn
-                flat
-                @click="step--"
-                color="primary"
-                label="Back"
-                class="q-ml-sm"
-              />
-            </q-stepper-navigation>
-          </q-step>
-        </q-stepper>
+              <q-stepper-navigation>
+                <q-btn type="submit" color="primary" label="Save" />
+                <q-btn
+                  flat
+                  @click="step--"
+                  color="primary"
+                  label="Back"
+                  class="q-ml-sm"
+                />
+              </q-stepper-navigation>
+            </q-step>
+          </q-stepper>
+        </q-form>
       </div>
     </div>
   </q-page>
@@ -102,6 +110,8 @@
 <script>
 import PageBreadcrumbs from "../components/PageBreadcrumbs.vue";
 import GeneralInformation from "../components/AddEditProject/GeneralInformation";
+
+import { createProject } from "../functions/function-create-project";
 
 export default {
   components: { PageBreadcrumbs, GeneralInformation },
@@ -144,7 +154,22 @@ export default {
         }
       ],
       step: 1,
-      rationale: ""
+      rationale: "",
+      id: null,
+      generalInformation: {
+        title: null,
+        classification: null,
+        implementing_agency: null,
+        description: null,
+        expected_outputs: null,
+        spatial_coverage: null,
+        regions: [],
+        provinces: [],
+        implementation_start_date: null,
+        implementation_end_date: null,
+        total_project_cost: null,
+        status_update: null
+      }
     };
   },
   computed: {
@@ -155,6 +180,17 @@ export default {
   methods: {
     jumpTo(step) {
       this.step = step;
+    },
+    handleSubmit() {
+      this.$refs.form.validate().then(success => {
+        if (success) {
+          createProject(this.generalInformation).then(id => {
+            this.id = id;
+          });
+        } else {
+          alert("error");
+        }
+      });
     }
   }
 };
