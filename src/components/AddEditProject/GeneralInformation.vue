@@ -24,6 +24,8 @@
       dense
       :options="OPERATING_UNITS"
       hint="Proponent of the program/project"
+      emit-value
+      map-options
     />
     <q-input
       v-model="generalInformation.description"
@@ -49,7 +51,9 @@
       stack-label
       outlined
       dense
-      :options="generalInformation.SPATIAL_COVERAGES"
+      :options="SPATIAL_COVERAGES"
+      emit-value
+      map-options
     />
     <q-select
       v-model="generalInformation.regions"
@@ -60,6 +64,8 @@
       :options="REGIONS"
       multiple
       use-chips
+      emit-value
+      map-options
     />
     <q-select
       v-model="generalInformation.provinces"
@@ -70,23 +76,57 @@
       :options="PROVINCES"
       multiple
       use-chips
+      emit-value
+      map-options
     />
     <q-input
+      filled
       v-model="generalInformation.implementation_start_date"
-      label="Implementation Start"
+      mask="date"
       stack-label
       outlined
       dense
       hint="Indicate what year the project is expected to start."
-    />
+    >
+      <template v-slot:append>
+        <q-icon name="event" class="cursor-pointer">
+          <q-popup-proxy
+            ref="qDateProxy"
+            transition-show="scale"
+            transition-hide="scale"
+          >
+            <q-date
+              v-model="generalInformation.implementation_start_date"
+              @input="() => $refs.qDateProxy.hide()"
+            />
+          </q-popup-proxy>
+        </q-icon>
+      </template>
+    </q-input>
     <q-input
+      filled
       v-model="generalInformation.implementation_end_date"
-      label="Implementation End"
+      mask="date"
       stack-label
       outlined
       dense
-      hint="Indicate what year the project is expected to be completed."
-    />
+      hint="Indicate what year the project is expected to start."
+    >
+      <template v-slot:append>
+        <q-icon name="event" class="cursor-pointer">
+          <q-popup-proxy
+            ref="qDateProxy"
+            transition-show="scale"
+            transition-hide="scale"
+          >
+            <q-date
+              v-model="generalInformation.implementation_end_date"
+              @input="() => $refs.qDateProxy.hide()"
+            />
+          </q-popup-proxy>
+        </q-icon>
+      </template>
+    </q-input>
     <q-input
       v-model="generalInformation.total_project_cost"
       label="Total Project Cost"
@@ -102,6 +142,7 @@
       outlined
       dense
       :options="STATUSES"
+      emit-value
     />
   </div>
 </template>

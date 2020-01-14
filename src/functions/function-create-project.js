@@ -31,7 +31,7 @@ export const createProject = ({
           $provinces: [String],
           $implementation_start_date: String,
           $implementation_end_date: String,
-          $total_project_cost: Int,
+          $total_project_cost: Float,
           $status_update: String,
           $created_by:String!
           ) {
