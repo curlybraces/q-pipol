@@ -1,70 +1,101 @@
 <template>
   <q-page padding>
     <page-breadcrumbs :breadcrumbs="breadcrumbs" />
-    <q-stepper v-model="step" vertical color="primary" animated>
-      <q-step
-        :name="1"
-        title="General Information"
-        icon="settings"
-        :done="step > 1"
-      >
-        <general-information @next="step++" />
-      </q-step>
+    <div class="row q-col-gutter-x-md">
+      <div class="col-2">
+        <q-card>
+          <q-list separator>
+            <q-item-label header>NAVIGATION</q-item-label>
+            <q-item
+              v-for="item in steps"
+              :key="item.step"
+              clickable
+              @click="jumpTo(item.step)"
+              :active="item.step == step"
+            >
+              <q-item-section top avatar>
+                <q-avatar
+                  color="primary"
+                  text-color="white"
+                  :icon="item.icon"
+                />
+              </q-item-section>
+              <q-item-section>
+                <q-item-label>{{ item.label }}</q-item-label>
+              </q-item-section>
+            </q-item>
+          </q-list>
+        </q-card>
+      </div>
+      <div class="col-10">
+        <q-stepper v-model="step" vertical color="primary" animated>
+          <q-step
+            :name="1"
+            title="General Information"
+            icon="settings"
+            :done="step > 1"
+          >
+            <general-information @next="step++" />
+          </q-step>
 
-      <q-step
-        :name="2"
-        title="Create an ad group"
-        caption="Optional"
-        icon="create_new_folder"
-        :done="step > 2"
-      >
-        An ad group contains one or more ads which target a shared set of
-        keywords.
+          <q-step :name="2" title="Investment Cost" icon="attach_money">
+            This step won't show up because it is disabled.
+            <q-stepper-navigation>
+              <q-btn @click="step++" color="primary" label="Continue" />
+              <q-btn
+                flat
+                @click="step--"
+                color="primary"
+                label="Back"
+                class="q-ml-sm"
+              />
+            </q-stepper-navigation>
+          </q-step>
 
-        <q-stepper-navigation>
-          <q-btn @click="step = 3" color="primary" label="Continue" />
-          <q-btn
-            flat
-            @click="step = 1"
-            color="primary"
-            label="Back"
-            class="q-ml-sm"
-          />
-        </q-stepper-navigation>
-      </q-step>
+          <q-step :name="3" title="Rationale and Justification" icon="help">
+            <q-input
+              v-model="rationale"
+              label="Rationale and Justification"
+              type="textarea"
+              stack-label
+              outlined
+              dense
+              counter
+              maxlength="1000"
+              hint="Please provide rationale and justification for the program/project in less than 1000 characters."
+            />
+            <q-stepper-navigation>
+              <q-btn @click="step++" color="primary" label="Continue" />
+              <q-btn
+                flat
+                @click="step--"
+                color="primary"
+                label="Back"
+                class="q-ml-sm"
+              />
+            </q-stepper-navigation>
+          </q-step>
 
-      <q-step :name="3" title="Investment Cost" icon="attach_money">
-        This step won't show up because it is disabled.
-        <q-stepper-navigation>
-          <q-btn @click="step = 4" color="primary" label="Continue" />
-          <q-btn
-            flat
-            @click="step = 1"
-            color="primary"
-            label="Back"
-            class="q-ml-sm"
-          />
-        </q-stepper-navigation>
-      </q-step>
+          <q-step :name="4" title="Save Program/Project" icon="save">
+            Try out different ad text to see what brings in the most customers,
+            and learn how to enhance your ads using features like ad extensions.
+            If you run into any problems with your ads, find out how to tell if
+            they're running and how to resolve approval issues.
 
-      <q-step :name="4" title="Save Program/Project" icon="save">
-        Try out different ad text to see what brings in the most customers, and
-        learn how to enhance your ads using features like ad extensions. If you
-        run into any problems with your ads, find out how to tell if they're
-        running and how to resolve approval issues.
-
-        <q-stepper-navigation>
-          <q-btn color="primary" label="Finish" />
-          <q-btn
-            flat
-            @click="step = 3"
-            color="primary"
-            label="Back"
-            class="q-ml-sm"
-          />
-        </q-stepper-navigation>
-      </q-step>
-    </q-stepper>
+            <q-stepper-navigation>
+              <q-btn color="primary" label="Finish" />
+              <q-btn
+                flat
+                @click="step--"
+                color="primary"
+                label="Back"
+                class="q-ml-sm"
+              />
+            </q-stepper-navigation>
+          </q-step>
+        </q-stepper>
+      </div>
+    </div>
   </q-page>
 </template>
 
@@ -90,8 +121,41 @@ export default {
           title: "Add Project"
         }
       ],
-      step: 1
+      steps: [
+        {
+          icon: "edit",
+          label: "General Information",
+          step: 1
+        },
+        {
+          icon: "attach_money",
+          label: "Investment Cost",
+          step: 2
+        },
+        {
+          icon: "help",
+          label: "Rationale and Justification",
+          step: 3
+        },
+        {
+          icon: "save",
+          label: "Save Program/Project",
+          step: 4
+        }
+      ],
+      step: 1,
+      rationale: ""
     };
+  },
+  computed: {
+    isActive() {
+      return this.val == this.step;
+    }
+  },
+  methods: {
+    jumpTo(step) {
+      this.step = step;
+    }
   }
 };
 </script>

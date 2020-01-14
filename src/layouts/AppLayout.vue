@@ -14,7 +14,7 @@
           class="bg-grey-9 text-white"
           round
           flat
-          label="MB"
+          :label="currentUserDisplayName.charAt(0)"
           @mouseenter="menu = true"
         >
           <q-menu max-width="300px" v-model="menu">
