@@ -6,6 +6,7 @@ export const loadInterventions = ({
   page = 2,
   limit = 12,
   selectedRegions = [],
+  selectedProvinces = [],
   selectedPrograms = [],
   selectedCommodities = [],
   sortBy = null,
@@ -15,8 +16,8 @@ export const loadInterventions = ({
 
   return axios
     .post("/graphql", {
-      query: `query interventions($limit: Int!, $page: Int!, $commodityGroup: [String!], $region: [String!], $program: [String!], $sortBy: String, $dir: String) {
-              interventions(limit:$limit,page:$page,commodityGroup:$commodityGroup,region:$region,program:$program,sortBy:$sortBy,dir:$dir) {
+      query: `query interventions($limit: Int!, $page: Int!, $commodityGroup: [String!], $region: [String!], $province: [String!], $program: [String!], $sortBy: String, $dir: String) {
+              interventions(limit:$limit,page:$page,commodityGroup:$commodityGroup,region:$region,province:$province,program:$program,sortBy:$sortBy,dir:$dir) {
                 data {
                   id
                   commodityGroup
@@ -33,6 +34,7 @@ export const loadInterventions = ({
         limit: limit,
         page: page,
         region: selectedRegions,
+        province: selectedProvinces,
         program: selectedPrograms,
         commodityGroup: selectedCommodities,
         sortBy: sortBy,

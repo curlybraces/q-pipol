@@ -39,6 +39,7 @@
                   <q-icon name="person"></q-icon>
                 </template>
               </q-input>
+
               <q-input
                 outlined
                 placeholder="Email"
@@ -49,6 +50,7 @@
                   <q-icon name="email"></q-icon>
                 </template>
               </q-input>
+
               <q-input
                 outlined
                 placeholder="Password"
@@ -67,6 +69,7 @@
                   ></q-icon>
                 </template>
               </q-input>
+
               <div class="row">
                 <q-btn
                   size="lg"

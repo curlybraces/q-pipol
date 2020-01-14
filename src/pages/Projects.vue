@@ -123,6 +123,9 @@
         </div>
       </div>
     </div>
+    <q-page-sticky position="bottom-right" :offset="[18, 18]">
+      <q-btn round color="primary" icon="add" to="/pip/add" size="20px"></q-btn>
+    </q-page-sticky>
   </q-page>
 </template>
 

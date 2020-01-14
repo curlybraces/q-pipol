@@ -2,8 +2,8 @@
   <q-page padding>
     <page-breadcrumbs :breadcrumbs="breadcrumbs" />
     <div class="q-ml-md">
-      <div class="row q-col-gutter-x-md">
-        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-4 bg-grey-1 q-pa-sm">
+      <div class="row q-col-gutter-x-md q-gutter-y-md">
+        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 bg-grey-1 q-pa-sm">
           <filter-menu
             title="REGIONS"
             :options="REGIONS"
@@ -16,6 +16,11 @@
             v-model="params.selectedPrograms"
           />
           <q-separator />
+          <filter-menu
+            title="PROVINCES"
+            :options="provinces"
+            v-model="params.selectedProvinces"
+          />
           <filter-menu
             title="COMMODITY GROUP"
             :options="COMMODITY_GROUP"
@@ -56,7 +61,7 @@
             </q-btn>
           </div>
         </div>
-        <div class="col-lg-10 col-md-10 col-sm-9 col-xs-8">
+        <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
           <q-card class="q-pa-sm fit bg-grey-1">
             <div class="row q-pa-sm items-center">
               <span
@@ -212,7 +217,12 @@
 </template>
 
 <script>
-import { REGIONS, PROGRAMS, COMMODITY_GROUP } from "../data/dropdown-values";
+import {
+  REGIONS,
+  PROGRAMS,
+  COMMODITY_GROUP,
+  PROVINCES
+} from "../data/dropdown-values";
 import PageBreadcrumbs from "../components/PageBreadcrumbs";
 import FilterMenu from "../components/FilterMenu";
 
@@ -246,6 +256,7 @@ export default {
         selectedRegions: [],
         selectedPrograms: [],
         selectedCommodities: [],
+        selectedProvinces: [],
         sortBy: null,
         dir: null
       },
@@ -259,6 +270,7 @@ export default {
       REGIONS,
       PROGRAMS,
       COMMODITY_GROUP,
+      // PROVINCES,
       minValue: 0,
       maxValue: 10000000000,
       investmentTotal: {
@@ -285,6 +297,14 @@ export default {
         return 10;
       }
       return 5;
+    },
+    provinces() {
+      return PROVINCES.map(({ label }) => {
+        return {
+          label: label,
+          value: label
+        };
+      });
     }
   },
   methods: {
