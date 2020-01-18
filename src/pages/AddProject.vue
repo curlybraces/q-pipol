@@ -44,6 +44,40 @@
               </q-stepper-navigation>
             </q-step>
 
+<<<<<<< HEAD
+      <q-step :name="2" title="Investment Cost" icon="attach_money">
+        This step won't show up because it is disabled.
+        <q-stepper-navigation>
+          <q-btn @click="step++" color="primary" label="Continue" />
+          <q-btn
+            flat
+            @click="step--"
+            color="primary"
+            label="Back"
+            class="q-ml-sm"
+          />
+        </q-stepper-navigation>
+      </q-step>
+
+      <q-step :name="3" title="Save Program/Project" icon="save">
+        Try out different ad text to see what brings in the most customers, and
+        learn how to enhance your ads using features like ad extensions. If you
+        run into any problems with your ads, find out how to tell if they're
+        running and how to resolve approval issues.
+
+        <q-stepper-navigation>
+          <q-btn color="primary" label="Finish" />
+          <q-btn
+            flat
+            @click="step--"
+            color="primary"
+            label="Back"
+            class="q-ml-sm"
+          />
+        </q-stepper-navigation>
+      </q-step>
+    </q-stepper>
+=======
             <q-step :name="2" title="Investment Cost" icon="attach_money">
               This step won't show up because it is disabled.
               <q-stepper-navigation>
@@ -104,6 +138,7 @@
         </q-form>
       </div>
     </div>
+>>>>>>> 44052da005922a2a68ad491802688bac5c8980b1
   </q-page>
 </template>
 
