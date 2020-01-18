@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A Quasar Framework App for e-planning",
   "productName": "E-PLANNING",
-  "cordovaId": "org.cordova.quasar.ipms",
+  "cordovaId": "org.cordova.quasar.eplanning",
   "author": "Mark Lester Bolotaolo <mlab817@gmail.com>",
   "private": true,
   "scripts": {
