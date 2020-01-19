@@ -124,20 +124,18 @@
       </div>
     </div>
     <q-page-sticky position="bottom-right" :offset="[18, 18]">
-      <q-btn round color="primary" icon="add" to="/pip/add" size="20px"></q-btn>
+      <q-btn round color="primary" icon="add" to="/pip/new" size="20px"></q-btn>
     </q-page-sticky>
   </q-page>
 </template>
 
 <script>
 import { mapState, mapActions, mapGetters } from "vuex";
-const NoProject = () => import("../components/Projects/NoProject");
-const SearchComponent = () => import("../components/Projects/SearchComponent");
 
 export default {
   components: {
-    SearchComponent,
-    NoProject,
+    "search-component": () => import("../components/Projects/SearchComponent"),
+    "no-project": () => import("../components/Projects/NoProject"),
     "grid-card": () => import("../components/GridCard.vue"),
     "list-card": () => import("../components/ListCard.vue"),
     "commodity-image": () => import("../components/CommodityImage.vue"),

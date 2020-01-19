@@ -2,7 +2,7 @@
   <q-page padding>
     <page-breadcrumbs :breadcrumbs="breadcrumbs" />
     <q-card class="q-pa-md">
-      <q-form class="q-gutter-y-sm">
+      <q-form class="q-gutter-y-sm" @submit="save">
         <q-option-group
           v-model="classification"
           label="Type"
@@ -100,7 +100,7 @@
           dense
           hint="Indicate what year the project is expected to start."
         >
-          <template v-slot:append>
+          <template v-slot:prepend>
             <q-icon name="event" class="cursor-pointer">
               <q-popup-proxy
                 ref="qDateProxy"
@@ -124,7 +124,7 @@
           dense
           hint="Indicate what year the project is expected to start."
         >
-          <template v-slot:append>
+          <template v-slot:prepend>
             <q-icon name="event" class="cursor-pointer">
               <q-popup-proxy
                 ref="qDateProxy"
@@ -172,6 +172,7 @@ import {
   PROVINCES,
   STATUSES
 } from "../data/dropdown-values";
+import { createProject } from "../functions/function-create-project";
 
 import PageBreadcrumbs from "../components/PageBreadcrumbs";
 
@@ -222,6 +223,17 @@ export default {
       total_project_cost: null,
       status_update: null
     };
+  },
+  methods: {
+    save() {
+      createProject(this).then(res => console.log(res));
+    }
   }
 };
 </script>
+
+<style>
+.q-textarea .q-field__native {
+  resize: none;
+}
+</style>
