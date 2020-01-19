@@ -50,7 +50,7 @@ const routes = [
           import(/* webpackChunkName: 'Account' */ "pages/Account.vue")
       },
       {
-        path: "pip/add",
+        path: "pip/new",
         component: () =>
           import(/* webpackChunkName: 'AddProject' */ "pages/AddProject.vue")
       },
