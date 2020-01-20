@@ -914,7 +914,7 @@ export const REGIONS = [
     value: 16
   },
   {
-    label: "ARMM",
+    label: "BARMM",
     order: 19,
     value: 15
   }
@@ -1224,7 +1224,7 @@ export const PREREQUISITES = [
   },
   {
     label: "List of Locations",
-    value: 9
+    value: "List of Locations"
   },
   {
     label: "List of Beneficiaries",
@@ -1272,6 +1272,26 @@ export const PREPARATION_DOCUMENTS = [
 ];
 
 export const PROVINCES = [
+  {
+    label: "NCR, CITY OF MANILA, FIRST DISTRICT (Not a Province)",
+    value: 82,
+    region_id: 13
+  },
+  {
+    label: "NCR, SECOND DISTRICT (Not a Province)",
+    value: 83,
+    region_id: 13
+  },
+  {
+    label: "NCR, THIRD DISTRICT (Not a Province)",
+    value: 84,
+    region_id: 13
+  },
+  {
+    label: "NCR, FOURTH DISTRICT (Not a Province)",
+    value: 85,
+    region_id: 13
+  },
   {
     label: "MOUNTAIN PROVINCE",
     value: 1,
@@ -1345,6 +1365,11 @@ export const PROVINCES = [
   {
     label: "BATANES",
     value: 15,
+    region_id: 2
+  },
+  {
+    label: "SANTIAGO CITY",
+    value: 89,
     region_id: 2
   },
   {
@@ -1433,6 +1458,11 @@ export const PROVINCES = [
     region_id: 17
   },
   {
+    label: "PUERTO PRINCESA CITY",
+    value: 94,
+    region_id: 17
+  },
+  {
     label: "CATANDUANES",
     value: 33,
     region_id: 5
@@ -1490,6 +1520,11 @@ export const PROVINCES = [
   {
     label: "GUIMARAS",
     value: 44,
+    region_id: 6
+  },
+  {
+    label: "ILOILO CITY",
+    value: 88,
     region_id: 6
   },
   {
@@ -1558,6 +1593,11 @@ export const PROVINCES = [
     region_id: 9
   },
   {
+    label: "ZAMBOANGA CITY",
+    value: 86,
+    region_id: 9
+  },
+  {
     label: "MISAMIS OCCIDENTAL",
     value: 58,
     region_id: 10
@@ -1580,6 +1620,16 @@ export const PROVINCES = [
   {
     label: "CAMIGUIN",
     value: 62,
+    region_id: 10
+  },
+  {
+    label: "CAGAYAN DE ORO CITY",
+    value: 93,
+    region_id: 10
+  },
+  {
+    label: "ILIGAN CITY",
+    value: 92,
     region_id: 10
   },
   {
@@ -1608,6 +1658,11 @@ export const PROVINCES = [
     region_id: 11
   },
   {
+    label: "DAVAO CITY",
+    value: 87,
+    region_id: 11
+  },
+  {
     label: "SOUTH COTABATO",
     value: 68,
     region_id: 12
@@ -1625,6 +1680,11 @@ export const PROVINCES = [
   {
     label: "SARANGANI",
     value: 71,
+    region_id: 12
+  },
+  {
+    label: "GENERAL SANTOS CITY",
+    value: 91,
     region_id: 12
   },
   {
@@ -1653,6 +1713,11 @@ export const PROVINCES = [
     region_id: 16
   },
   {
+    label: "BUTUAN CITY",
+    value: 90,
+    region_id: 16
+  },
+  {
     label: "TAWI-TAWI",
     value: 77,
     region_id: 15
@@ -1675,72 +1740,7 @@ export const PROVINCES = [
   {
     label: "LANAO DEL SUR",
     value: 81,
-    region_id: "15"
-  },
-  {
-    label: "NCR, CITY OF MANILA, FIRST DISTRICT (Not a Province)",
-    value: 82,
-    region_id: 13
-  },
-  {
-    label: "NCR, SECOND DISTRICT (Not a Province)",
-    value: 83,
-    region_id: 13
-  },
-  {
-    label: "NCR, THIRD DISTRICT (Not a Province)",
-    value: 84,
-    region_id: 13
-  },
-  {
-    label: "NCR, FOURTH DISTRICT (Not a Province)",
-    value: 85,
-    region_id: 13
-  },
-  {
-    label: "ZAMBOANGA CITY",
-    value: 86,
-    region_id: 9
-  },
-  {
-    label: "DAVAO CITY",
-    value: 87,
-    region_id: 11
-  },
-  {
-    label: "ILOILO CITY",
-    value: 88,
-    region_id: 6
-  },
-  {
-    label: "SANTIAGO CITY",
-    value: 89,
-    region_id: 2
-  },
-  {
-    label: "BUTUAN CITY",
-    value: 90,
-    region_id: 16
-  },
-  {
-    label: "GENERAL SANTOS CITY",
-    value: 91,
-    region_id: 12
-  },
-  {
-    label: "ILIGAN CITY",
-    value: 92,
-    region_id: 10
-  },
-  {
-    label: "CAGAYAN DE ORO CITY",
-    value: 93,
-    region_id: 10
-  },
-  {
-    label: "PUERTO PRINCESA CITY",
-    value: 94,
-    region_id: 17
+    region_id: 15
   }
 ];
 

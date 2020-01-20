@@ -94,7 +94,8 @@ export default {
     showLogout() {
       Dialog.create({
         title: "Logout",
-        message: "Are you sure you want to log out?"
+        message: "Are you sure you want to log out?",
+        cancel: true
       }).onOk(() => this.logoutUser());
     }
   }

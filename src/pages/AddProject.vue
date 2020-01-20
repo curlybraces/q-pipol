@@ -85,7 +85,7 @@
           stack-label
           outlined
           dense
-          :options="province_options"
+          :options="filteredProvinces"
           multiple
           use-chips
           emit-value
@@ -188,7 +188,7 @@ export default {
         },
         {
           title: "Projects",
-          url: "/projects"
+          url: "/pip"
         },
         {
           title: "Add Project"
@@ -223,6 +223,13 @@ export default {
       total_project_cost: null,
       status_update: null
     };
+  },
+  computed: {
+    filteredProvinces() {
+      return PROVINCES.filter(province => {
+        return this.regions.includes(province.region_id);
+      });
+    }
   },
   methods: {
     save() {
