@@ -56,7 +56,7 @@ export default {
           description: "Public Investment Program 2017-2022"
         },
         {
-          url: "pbp",
+          url: "/pbp",
           imageUrl: GAA_IMAGE,
           alt: "gaa cover",
           title: "PBP",
