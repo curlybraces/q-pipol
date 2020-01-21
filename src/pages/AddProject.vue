@@ -176,6 +176,8 @@ import { createProject } from "../functions/function-create-project";
 
 import PageBreadcrumbs from "../components/PageBreadcrumbs";
 
+import { Dialog } from "quasar";
+
 export default {
   components: { PageBreadcrumbs },
   name: "AddProject",
@@ -235,6 +237,20 @@ export default {
     save() {
       createProject(this).then(res => console.log(res));
     }
+  },
+  beforeRouteLeave(to, from, next) {
+    Dialog.create({
+      title: "Warning",
+      message:
+        "Are you sure you want to leave this page? You may have unsaved changes.",
+      cancel: true
+    })
+      .onOk(() => {
+        next();
+      })
+      .onCancel(() => {
+        next(false);
+      });
   }
 };
 </script>
