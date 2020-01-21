@@ -41,20 +41,12 @@
                         v-for="{
                           id,
                           title,
-                          implementingAgency,
-                          totalProjectCost
+                          implementing_agency,
+                          total_project_cost
                         } in projects"
                       >
                         <div class="col-md-3 col-sm-6 col-xs-12" :key="id">
                           <grid-card @click="goTo(id)">
-                            <template v-slot:image>
-                              <q-img
-                                :src="
-                                  `statics/logo/attached_corporations/${implementingAgency.toLowerCase()}.svg`
-                                "
-                              />
-                            </template>
-
                             <template v-slot:item>
                               <q-item class="q-pa-sm">
                                 <q-item-section>
@@ -62,11 +54,16 @@
                                     {{ title }}
                                   </q-item-label>
                                   <q-item-label caption>
-                                    {{ implementingAgency }}
+                                    {{ implementing_agency }}
                                   </q-item-label>
                                 </q-item-section>
                                 <q-item-section side top>
-                                  Php {{ totalProjectCost.toLocaleString(2) }}
+                                  Php
+                                  {{
+                                    total_project_cost !== "undefined"
+                                      ? 0
+                                      : total_project_cost.toLocaleString()
+                                  }}
                                 </q-item-section>
                               </q-item>
                             </template>
@@ -79,23 +76,25 @@
                         v-for="{
                           id,
                           title,
-                          implementingAgency,
-                          totalProjectCost
+                          implementing_agency,
+                          total_project_cost
                         } in projects"
                       >
                         <div class="col-12" :key="id">
                           <list-card @click="goTo(id)">
-                            <template v-slot:image>
-                              <commodity-image />
-                            </template>
                             <template v-slot:item>
                               <span>{{ title }}</span>
                               <q-item-label caption>{{
-                                implementingAgency
+                                implementing_agency
                               }}</q-item-label>
                             </template>
                             <template v-slot:side>
-                              PhP {{ totalProjectCost.toLocaleString() }}
+                              PhP
+                              {{
+                                total_project_cost !== "undefined"
+                                  ? 0
+                                  : total_project_cost.toLocaleString()
+                              }}
                             </template>
                           </list-card>
                         </div>
@@ -119,28 +118,56 @@
                 {{ errorMessage }}
               </div>
             </template>
+
+            <div class="row q-mt-md justify-between items-center">
+              <span>
+                Showing {{ (current_page - 1) * per_page + 1 }} -
+                {{
+                  current_page * per_page > total
+                    ? total
+                    : current_page * per_page
+                }}
+                of {{ total }} interventions
+              </span>
+              <span>
+                Show Entries:
+              </span>
+              <q-select
+                v-model="current_page"
+                :options="[12, 25, 50, 100]"
+                dense
+                outlined
+                @input="reloadInterventions"
+              />
+              <q-pagination
+                v-model="current_page"
+                :max-pages="last_page"
+                :max="max"
+                boundary-links
+                boundary-numbers
+                @input="reloadInterventions"
+              ></q-pagination>
+            </div>
           </q-card>
         </div>
       </div>
     </div>
-    <q-page-sticky position="bottom-right" :offset="[18, 18]">
-      <q-btn round color="primary" icon="add" to="/pip/add" size="20px"></q-btn>
+    <q-page-sticky position="bottom-right" :offset="[25, 65]">
+      <q-btn round color="primary" icon="add" to="/pip/new" size="20px"></q-btn>
     </q-page-sticky>
   </q-page>
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from "vuex";
-const NoProject = () => import("../components/Projects/NoProject");
-const SearchComponent = () => import("../components/Projects/SearchComponent");
+import { mapState, mapActions } from "vuex";
+import { loadProjects } from "../functions/function-load-projects";
 
 export default {
   components: {
-    SearchComponent,
-    NoProject,
+    "search-component": () => import("../components/Projects/SearchComponent"),
+    "no-project": () => import("../components/Projects/NoProject"),
     "grid-card": () => import("../components/GridCard.vue"),
     "list-card": () => import("../components/ListCard.vue"),
-    "commodity-image": () => import("../components/CommodityImage.vue"),
     "page-breadcrumbs": () => import("../components/PageBreadcrumbs.vue"),
     "toggle-view": () => import("../components/ToggleView.vue")
   },
@@ -160,13 +187,24 @@ export default {
       loading: false,
       error: false,
       sortOptions: [],
-      sort: ""
+      sort: "",
+      projects: [],
+      total: null,
+      per_page: null,
+      current_page: null,
+      last_page: null
     };
   },
   computed: {
     ...mapState("projects", ["search", "projectsDownloaded"]),
     ...mapState("auth", ["emailVerified"]),
-    ...mapGetters("projects", ["projects"])
+    max() {
+      let total_pages = Math.ceil(this.total / this.per_page);
+      if (total_pages > 5) {
+        return 5;
+      }
+      return total_pages;
+    }
   },
   methods: {
     ...mapActions("auth", ["sendEmailVerification"]),
@@ -187,6 +225,16 @@ export default {
       }
       return value;
     }
+  },
+  created() {
+    loadProjects().then(res => {
+      const { total, per_page, current_page, last_page } = res.data.projects;
+      this.total = total;
+      this.per_page = per_page;
+      this.current_page = current_page;
+      this.last_page = last_page;
+      this.projects = res.data.projects.data;
+    });
   }
 };
 </script>

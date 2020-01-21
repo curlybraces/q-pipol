@@ -1,120 +1,183 @@
 <template>
   <q-page padding>
     <page-breadcrumbs :breadcrumbs="breadcrumbs" />
-    <div class="row q-col-gutter-x-md q-gutter-y-md">
-      <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
-        <q-card>
-          <q-list separator>
-            <q-item-label header>NAVIGATION</q-item-label>
-            <q-item
-              v-for="item in steps"
-              :key="item.step"
-              clickable
-              @click="jumpTo(item.step)"
-              :active="item.step == step"
-            >
-              <q-item-section top avatar>
-                <q-avatar
-                  color="primary"
-                  text-color="white"
-                  :icon="item.icon"
+    <q-card class="q-pa-md">
+      <q-form class="q-gutter-y-sm" @submit="save">
+        <q-option-group
+          v-model="classification"
+          label="Type"
+          :options="types"
+          inline
+        ></q-option-group>
+        <q-input
+          v-model="title"
+          label="Program/Project Title"
+          stack-label
+          outlined
+          dense
+          hint="The title of the program or project"
+          counter
+          maxlength="250"
+        />
+        <q-select
+          v-model="implementing_agency"
+          label="Implementing Agency"
+          stack-label
+          outlined
+          dense
+          :options="OPERATING_UNITS"
+          hint="Proponent of the program/project"
+          emit-value
+          map-options
+        />
+        <q-input
+          v-model="description"
+          label="Description"
+          type="textarea"
+          stack-label
+          outlined
+          dense
+          hint="Description of the program/project (e.g. location, components, design, etc.)"
+        />
+        <q-input
+          v-model="outcomes"
+          label="Outcomes"
+          type="textarea"
+          stack-label
+          outlined
+          dense
+          hint="Desired outcome of the program/project (e.g. Increase productivity)"
+        ></q-input>
+        <q-input
+          v-model="expected_outputs"
+          label="Expected Outputs"
+          type="textarea"
+          stack-label
+          outlined
+          dense
+          hint="Physical deliverables of the project (indicate unit)"
+        />
+        <q-select
+          v-model="spatial_coverage"
+          label="Spatial Coverage"
+          stack-label
+          outlined
+          dense
+          :options="SPATIAL_COVERAGES"
+          emit-value
+          map-options
+        />
+        <q-select
+          v-model="regions"
+          label="Region/s"
+          stack-label
+          outlined
+          dense
+          :options="region_options"
+          multiple
+          use-chips
+          emit-value
+          map-options
+        />
+        <q-select
+          v-model="provinces"
+          label="Province/s"
+          stack-label
+          outlined
+          dense
+          :options="filteredProvinces"
+          multiple
+          use-chips
+          emit-value
+          map-options
+        />
+        <q-input
+          v-model="implementation_start_date"
+          mask="date"
+          label="Implementation Start Date"
+          stack-label
+          outlined
+          dense
+          hint="Indicate what year the project is expected to start."
+        >
+          <template v-slot:prepend>
+            <q-icon name="event" class="cursor-pointer">
+              <q-popup-proxy
+                ref="qDateProxy"
+                transition-show="scale"
+                transition-hide="scale"
+              >
+                <q-date
+                  v-model="implementation_start_date"
+                  @input="() => $refs.qDateProxy.hide()"
                 />
-              </q-item-section>
-              <q-item-section>
-                <q-item-label>{{ item.label }}</q-item-label>
-              </q-item-section>
-            </q-item>
-          </q-list>
-        </q-card>
-      </div>
-      <div class="col-lg-10 col-md-9 col-sm-8 col-xs-12">
-        <q-form ref="form" @submit="handleSubmit">
-          <q-stepper v-model="step" vertical color="primary" animated>
-            <q-step
-              :name="1"
-              title="General Information"
-              icon="settings"
-              :done="step > 1"
-            >
-              <general-information
-                v-bind:generalInformation.sync="generalInformation"
-              />
-              <q-stepper-navigation>
-                <q-btn color="primary" label="Continue" @click="step++" />
-              </q-stepper-navigation>
-            </q-step>
-
-            <q-step :name="2" title="Investment Cost" icon="attach_money">
-              This step won't show up because it is disabled.
-              <q-stepper-navigation>
-                <q-btn @click="step++" color="primary" label="Continue" />
-                <q-btn
-                  flat
-                  @click="step--"
-                  color="primary"
-                  label="Back"
-                  class="q-ml-sm"
+              </q-popup-proxy>
+            </q-icon>
+          </template>
+        </q-input>
+        <q-input
+          v-model="implementation_end_date"
+          mask="date"
+          label="Implementation End Date"
+          stack-label
+          outlined
+          dense
+          hint="Indicate what year the project is expected to start."
+        >
+          <template v-slot:prepend>
+            <q-icon name="event" class="cursor-pointer">
+              <q-popup-proxy
+                ref="qDateProxy"
+                transition-show="scale"
+                transition-hide="scale"
+              >
+                <q-date
+                  v-model="implementation_end_date"
+                  @input="() => $refs.qDateProxy.hide()"
                 />
-              </q-stepper-navigation>
-            </q-step>
-
-            <q-step :name="3" title="Rationale and Justification" icon="help">
-              <q-input
-                v-model="rationale"
-                label="Rationale and Justification"
-                type="textarea"
-                stack-label
-                outlined
-                dense
-                counter
-                maxlength="1000"
-                hint="Please provide rationale and justification for the program/project in less than 1000 characters."
-              />
-              <q-stepper-navigation>
-                <q-btn @click="step++" color="primary" label="Continue" />
-                <q-btn
-                  flat
-                  @click="step--"
-                  color="primary"
-                  label="Back"
-                  class="q-ml-sm"
-                />
-              </q-stepper-navigation>
-            </q-step>
-
-            <q-step :name="4" title="Save Program/Project" icon="save">
-              Try out different ad text to see what brings in the most
-              customers, and learn how to enhance your ads using features like
-              ad extensions. If you run into any problems with your ads, find
-              out how to tell if they're running and how to resolve approval
-              issues.
-
-              <q-stepper-navigation>
-                <q-btn type="submit" color="primary" label="Save" />
-                <q-btn
-                  flat
-                  @click="step--"
-                  color="primary"
-                  label="Back"
-                  class="q-ml-sm"
-                />
-              </q-stepper-navigation>
-            </q-step>
-          </q-stepper>
-        </q-form>
-      </div>
-    </div>
+              </q-popup-proxy>
+            </q-icon>
+          </template>
+        </q-input>
+        <q-input
+          v-model="total_project_cost"
+          label="Total Project Cost"
+          stack-label
+          outlined
+          dense
+          hint="Indicative project cost in absolute PhP"
+          prefix="PhP"
+        />
+        <q-select
+          v-model="status_update"
+          label="Status"
+          stack-label
+          outlined
+          dense
+          :options="STATUSES"
+          emit-value
+        />
+        <q-btn type="submit" label="Save" color="primary" />
+        <q-btn flat type="reset" label="Reset" class="q-ml-sm" />
+      </q-form>
+    </q-card>
   </q-page>
 </template>
 
 <script>
-import PageBreadcrumbs from "../components/PageBreadcrumbs.vue";
-import GeneralInformation from "../components/AddEditProject/GeneralInformation";
-
+import {
+  OPERATING_UNITS,
+  SPATIAL_COVERAGES,
+  REGIONS,
+  PROVINCES,
+  STATUSES
+} from "../data/dropdown-values";
 import { createProject } from "../functions/function-create-project";
 
+import PageBreadcrumbs from "../components/PageBreadcrumbs";
+
 export default {
-  components: { PageBreadcrumbs, GeneralInformation },
+  components: { PageBreadcrumbs },
   name: "AddProject",
   data() {
     return {
@@ -124,74 +187,60 @@ export default {
           url: "/"
         },
         {
-          title: "PIP",
+          title: "Projects",
           url: "/pip"
         },
         {
           title: "Add Project"
         }
       ],
-      steps: [
+      types: [
         {
-          icon: "edit",
-          label: "General Information",
-          step: 1
+          label: "Program",
+          value: "program"
         },
         {
-          icon: "attach_money",
-          label: "Investment Cost",
-          step: 2
-        },
-        {
-          icon: "help",
-          label: "Rationale and Justification",
-          step: 3
-        },
-        {
-          icon: "save",
-          label: "Save Program/Project",
-          step: 4
+          label: "Project",
+          value: "project"
         }
       ],
-      step: 1,
-      rationale: "",
-      id: null,
-      generalInformation: {
-        title: null,
-        classification: null,
-        implementing_agency: null,
-        description: null,
-        expected_outputs: null,
-        spatial_coverage: null,
-        regions: [],
-        provinces: [],
-        implementation_start_date: null,
-        implementation_end_date: null,
-        total_project_cost: null,
-        status_update: null
-      }
+      OPERATING_UNITS,
+      SPATIAL_COVERAGES,
+      region_options: REGIONS,
+      province_options: PROVINCES,
+      STATUSES,
+      classification: null,
+      title: null,
+      implementing_agency: null,
+      description: null,
+      outcomes: null,
+      expected_outputs: null,
+      spatial_coverage: null,
+      regions: [],
+      provinces: [],
+      implementation_start_date: null,
+      implementation_end_date: null,
+      total_project_cost: null,
+      status_update: null
     };
   },
   computed: {
-    isActive() {
-      return this.val == this.step;
+    filteredProvinces() {
+      return PROVINCES.filter(province => {
+        return this.regions.includes(province.region_id);
+      });
     }
   },
   methods: {
-    jumpTo(step) {
-      this.step = step;
-    },
-    handleSubmit() {
-      this.$refs.form.validate().then(success => {
-        if (success) {
-          createProject(this.generalInformation).then(id => {
-            this.id = id;
-          });
-        } else {
-          alert("error");
-        }
-      });
+    save() {
+      createProject(this).then(res => console.log(res));
     }
   }
 };
 </script>
+
+<style>
+.q-textarea .q-field__native {
+  resize: none;
+}
+</style>

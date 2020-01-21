@@ -1,10 +1,11 @@
-import axios from "axios";
-import { Loading, Dialog } from "quasar";
-import { firebaseAuth } from "../boot/firebase";
+import axios from "boot/axios";
+import { showErrorMessage } from "./function-show-error-message";
+import { firebaseAuth } from "boot/firebase";
+import { Loading } from "quasar";
 
 export const createProject = ({
-  title,
   classification,
+  title,
   implementing_agency,
   description,
   expected_outputs,
@@ -14,48 +15,49 @@ export const createProject = ({
   implementation_start_date,
   implementation_end_date,
   total_project_cost,
-  status_update
+  status
 }) => {
   Loading.show();
-
   return axios
     .post("/graphql", {
       query: `mutation create_project(
-          $title:String!,
-          $classification:String,
-          $implementing_agency: String,
-          $description: String,
-          $expected_outputs: String,
-          $spatial_coverage: String,
-          $regions: [String],
-          $provinces: [String],
-          $implementation_start_date: String,
-          $implementation_end_date: String,
-          $total_project_cost: Float,
-          $status_update: String,
-          $created_by:String!
-          ) {
+        $classification: String,
+        $title: String!,
+        $implementing_agency: String,
+        $description: String,
+        $outcomes: String,
+        $expected_outputs: String,
+        $spatial_coverage: String,
+        $regions: [Int],
+        $provinces: [Int],
+        $implementation_start_date: String,
+        $implementation_end_date: String,
+        $total_project_cost: Float,
+        $status_update: String,
+        $created_by: String!
+      ) {
         create_project(
-          title:$title,
-          classification:$classification,
-          implementing_agency:$implementing_agency,
-          description:$description,
-          expected_outputs:$expected_outputs,
-          spatial_coverage:$spatial_coverage,
-          regions:$regions,
-          provinces:$provinces,
-          implementation_start_date:$implementation_start_date,
-          implementation_end_date:$implementation_end_date,
-          total_project_cost:$total_project_cost,
-          status_update:$status_update,
-          created_by:$created_by
-          ) {
+          classification: $classification,
+          title: $title,
+          implementing_agency: $implementing_agency,
+          description: $description,
+          outcomes: $outcomes,
+          expected_outputs: $expected_outputs,
+          spatial_coverage: $spatial_coverage,
+          regions: $regions,
+          provinces: $provinces,
+          implementation_start_date: $implementation_start_date,
+          implementation_end_date: $implementation_end_date,
+          total_project_cost: $total_project_cost,
+          status_update: $status_update,
+          created_by: $created_by
+        ) {
           id
         }
       }`,
       variables: {
-        title: title,
         classification: classification,
+        title: title,
         implementing_agency: implementing_agency,
         description: description,
         expected_outputs: expected_outputs,
@@ -65,20 +67,15 @@ export const createProject = ({
         implementation_start_date: implementation_start_date,
         implementation_end_date: implementation_end_date,
         total_project_cost: total_project_cost,
-        status_update: status_update,
+        status_update: status,
         created_by: firebaseAuth.currentUser.email
       }
     })
     .then(res => {
-      return res.data.data.create_project.id;
+      return res;
     })
     .catch(err => {
-      Dialog.create({
-        title: "Error",
-        message: err.message
-      });
+      showErrorMessage(err.message);
     })
-    .finally(() => {
-      Loading.hide();
-    });
+    .finally(() => Loading.hide());
 };
