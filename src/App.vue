@@ -1,7 +1,7 @@
 <template>
-  <div id="q-app">
+  <div id="q-app" class="bg-grey-1">
     <router-view />
-    <sunny-image />
+    <!-- <sunny-image /> -->
     <cookie-law
       theme="blood-orange"
       buttonText="I understand"
@@ -14,13 +14,13 @@
 
 <script>
 import { mapActions } from "vuex";
-import SunnyImage from "./components/svg/SunnyImage.vue";
+// import SunnyImage from "./components/svg/SunnyImage.vue";
 
 import CookieLaw from "vue-cookie-law";
 
 export default {
   components: {
-    SunnyImage,
+    // SunnyImage,
     CookieLaw
   },
   name: "App",

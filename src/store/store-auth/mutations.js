@@ -17,3 +17,7 @@ export function setDisplayName(state, value) {
 export function setPhotoURL(state, value) {
   state.photoURL = value;
 }
+
+export function setSignInProvider(state, value) {
+  state.signInProvider = value;
+}

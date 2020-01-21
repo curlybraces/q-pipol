@@ -3,5 +3,6 @@ export default {
   currentUserDisplayName: "",
   currentUserEmail: "",
   emailVerified: false,
-  photoURL: ""
+  photoURL: "",
+  signInProvider: ""
 };

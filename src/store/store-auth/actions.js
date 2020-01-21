@@ -2,7 +2,7 @@ import { LocalStorage, Loading, Notify, Dialog } from "quasar";
 import { firebaseAuth, firebaseDb, googleProvider } from "boot/firebase";
 import { showErrorMessage } from "src/functions/function-show-error-message";
 
-export function registerUser({ dispatch }, payload) {
+export const registerUser = ({ dispatch }, payload) => {
   Loading.show();
   firebaseAuth
     .createUserWithEmailAndPassword(payload.email, payload.password)
@@ -13,11 +13,7 @@ export function registerUser({ dispatch }, payload) {
 
       ref.doc(user.user.uid).set({
         email: payload.email,
-        displayName: payload.displayName,
-        admin: false,
-        reviewer: false,
-        encoder: false,
-        viewer: true
+        displayName: payload.displayName
       });
 
       this.$router.go("/");
@@ -25,7 +21,7 @@ export function registerUser({ dispatch }, payload) {
     .catch(error => {
       showErrorMessage(error.message);
     });
-}
+};
 
 export function setDisplayName({}, payload) {
   var user = firebaseAuth.currentUser;
@@ -34,11 +30,12 @@ export function setDisplayName({}, payload) {
   });
 }
 
-export function loginUser({}, payload) {
+export function loginUser({ dispatch }, payload) {
   Loading.show();
   firebaseAuth
     .signInWithEmailAndPassword(payload.email, payload.password)
-    .then(() => {
+    .then(user => {
+      dispatch("retrieveUserProfileDocument", user.user.uid);
       Notify.create("Welcome back!");
       this.$router.go("/");
     })
@@ -59,13 +56,10 @@ export function signInWithGoogle({ dispatch }) {
     });
 }
 
-export function retrieveUserProfileDocument({}) {
-  // console.log(uid);
-}
-
-export function logoutUser() {
-  firebaseAuth.signOut();
-}
+export const logoutUser = () => {
+  Loading.show();
+  firebaseAuth.signOut().then(() => Loading.hide());
+};
 
 export function changePassword({}, payload) {
   var user = firebaseAuth.currentUser;
@@ -111,6 +105,11 @@ export function sendResetPasswordEmail({}, payload) {
     });
 }
 
+export function getSignInProvider({ commit }) {
+  let signInProvider = firebaseAuth.currentUser.providerData[0].providerId;
+  commit("setSignInProvider", signInProvider);
+}
+
 export function handleAuthStateChange({ commit, dispatch }) {
   firebaseAuth.onAuthStateChanged(user => {
     if (user) {
@@ -118,6 +117,7 @@ export function handleAuthStateChange({ commit, dispatch }) {
       commit("setDisplayName", user.displayName);
       commit("setPhotoURL", user.photoURL);
       commit("setEmail", user.email);
+      dispatch("getSignInProvider", null);
       Loading.hide();
       commit("setLoggedIn", true);
       LocalStorage.set("loggedIn", true);
@@ -127,6 +127,7 @@ export function handleAuthStateChange({ commit, dispatch }) {
     } else {
       commit("setDisplayName", "");
       commit("setEmail", "");
+      commit("setSignInProvider", "");
       commit("projects/setProjectsDownloaded", false, { root: true });
       commit("projects/clearProjects", null, { root: true });
       commit("directory/clearDirectory", null, { root: true });

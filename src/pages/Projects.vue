@@ -34,74 +34,72 @@
             <template v-if="!loading && !error">
               <no-project v-if="projects.length === 0 && search" />
               <template v-else>
-                <q-scroll-area style="height: 88vh;">
-                  <div class="row q-col-gutter-md q-my-sm">
-                    <template v-if="view == 'grid'">
-                      <template
-                        v-for="{
-                          id,
-                          title,
-                          implementing_agency,
-                          total_project_cost
-                        } in projects"
-                      >
-                        <div class="col-md-3 col-sm-6 col-xs-12" :key="id">
-                          <grid-card @click="goTo(id)">
-                            <template v-slot:item>
-                              <q-item class="q-pa-sm">
-                                <q-item-section>
-                                  <q-item-label :lines="2">
-                                    {{ title }}
-                                  </q-item-label>
-                                  <q-item-label caption>
-                                    {{ implementing_agency }}
-                                  </q-item-label>
-                                </q-item-section>
-                                <q-item-section side top>
-                                  Php
-                                  {{
-                                    total_project_cost !== "undefined"
-                                      ? 0
-                                      : total_project_cost.toLocaleString()
-                                  }}
-                                </q-item-section>
-                              </q-item>
-                            </template>
-                          </grid-card>
-                        </div>
-                      </template>
+                <div class="row q-col-gutter-sm q-my-sm">
+                  <template v-if="view == 'grid'">
+                    <template
+                      v-for="{
+                        id,
+                        title,
+                        implementing_agency,
+                        total_project_cost
+                      } in projects"
+                    >
+                      <div class="col-md-3 col-sm-6 col-xs-12" :key="id">
+                        <grid-card @click="goTo(id)">
+                          <template v-slot:item>
+                            <q-item class="q-pa-sm">
+                              <q-item-section>
+                                <q-item-label :lines="2">
+                                  {{ title }}
+                                </q-item-label>
+                                <q-item-label caption>
+                                  {{ implementing_agency }}
+                                </q-item-label>
+                              </q-item-section>
+                              <q-item-section side top>
+                                Php
+                                {{
+                                  total_project_cost !== "undefined"
+                                    ? 0
+                                    : total_project_cost.toLocaleString()
+                                }}
+                              </q-item-section>
+                            </q-item>
+                          </template>
+                        </grid-card>
+                      </div>
                     </template>
-                    <template v-else>
-                      <template
-                        v-for="{
-                          id,
-                          title,
-                          implementing_agency,
-                          total_project_cost
-                        } in projects"
-                      >
-                        <div class="col-12" :key="id">
-                          <list-card @click="goTo(id)">
-                            <template v-slot:item>
-                              <span>{{ title }}</span>
-                              <q-item-label caption>{{
-                                implementing_agency
-                              }}</q-item-label>
-                            </template>
-                            <template v-slot:side>
-                              PhP
-                              {{
-                                total_project_cost !== "undefined"
-                                  ? 0
-                                  : total_project_cost.toLocaleString()
-                              }}
-                            </template>
-                          </list-card>
-                        </div>
-                      </template>
+                  </template>
+                  <template v-else>
+                    <template
+                      v-for="{
+                        id,
+                        title,
+                        implementing_agency,
+                        total_project_cost
+                      } in projects"
+                    >
+                      <div class="col-12" :key="id">
+                        <list-card @click="goTo(id)">
+                          <template v-slot:item>
+                            <span>{{ title }}</span>
+                            <q-item-label caption>{{
+                              implementing_agency
+                            }}</q-item-label>
+                          </template>
+                          <template v-slot:side>
+                            PhP
+                            {{
+                              total_project_cost !== "undefined"
+                                ? 0
+                                : total_project_cost.toLocaleString()
+                            }}
+                          </template>
+                        </list-card>
+                      </div>
                     </template>
-                  </div>
-                </q-scroll-area>
+                  </template>
+                </div>
               </template>
             </template>
 
@@ -133,7 +131,7 @@
                 Show Entries:
               </span>
               <q-select
-                v-model="current_page"
+                v-model="per_page"
                 :options="[12, 25, 50, 100]"
                 dense
                 outlined

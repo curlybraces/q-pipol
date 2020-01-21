@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="hhh LpR lFr">
+  <q-layout view="lhh lpR lFr">
     <q-header elevated class="transparent">
       <q-toolbar class="text-grey-9 app-toolbar">
         <img
@@ -53,6 +53,32 @@
       </q-toolbar>
     </q-header>
 
+    <q-drawer v-model="drawer" content-class="bg-grey-2">
+      <div class="q-pa-md bg-white text-center">
+        <q-img src="../assets/logo.svg" alt="logo" style="max-width: 150px" />
+        <br />
+        <span class="text-h6">E-PLANNING</span>
+      </div>
+      <q-separator />
+      <q-list>
+        <q-item-label header>NAVIGATION</q-item-label>
+        <q-item
+          v-for="({ label, icon, url }, index) in drawerItems"
+          :key="index"
+          clickable
+          :to="url"
+          exact
+        >
+          <q-item-section avatar>
+            <q-icon :name="icon" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>{{ label }}</q-item-label>
+          </q-item-section>
+        </q-item>
+      </q-list>
+    </q-drawer>
+
     <q-footer elevated> </q-footer>
 
     <q-page-container>
@@ -71,7 +97,31 @@ export default {
     return {
       appTitle: "iPMS",
       copyright: "Made by Mark Lester A. Bolotaolo",
-      menu: false
+      menu: false,
+      miniState: false,
+      drawer: true,
+      drawerItems: [
+        {
+          label: "Home",
+          icon: "home",
+          url: "/"
+        },
+        {
+          label: "Projects",
+          icon: "list",
+          url: "/pip"
+        },
+        {
+          label: "Account",
+          icon: "person",
+          url: "/user"
+        },
+        {
+          label: "Settings",
+          icon: "settings",
+          url: "/settings"
+        }
+      ]
     };
   },
   computed: {
@@ -79,7 +129,8 @@ export default {
       "loggedIn",
       "currentUserEmail",
       "currentUserDisplayName",
-      "photoURL"
+      "photoURL",
+      "signInProvider"
     ]),
     darkMode() {
       return this.$q.dark.isActive;

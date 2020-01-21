@@ -109,76 +109,75 @@
               No interventions found.
             </template>
             <template v-else>
-              <q-scroll-area style="height: 88vh;">
-                <div class="row q-col-gutter-md q-my-sm">
-                  <template v-if="view == 'grid'">
-                    <template
-                      v-for="{
-                        id,
-                        commodityGroup,
-                        program,
-                        intervention,
-                        investmentTotal
-                      } in interventions"
-                    >
-                      <div class="col-md-3 col-sm-6 col-xs-12" :key="id">
-                        <grid-card @click="goTo(id)">
-                          <template v-slot:image>
-                            <commodity-image
-                              :commodityGroup="commodityGroup"
-                              caption
-                            />
-                          </template>
-                          <template v-slot:item>
-                            <q-item class="q-pa-sm">
-                              <q-item-section>
-                                <q-item-label :lines="2">
-                                  {{ intervention }}
-                                </q-item-label>
-                                <q-item-label caption>
-                                  {{ program }}
-                                </q-item-label>
-                              </q-item-section>
-                              <q-item-section side top>
-                                Php {{ investmentTotal.toLocaleString(2) }}
-                              </q-item-section>
-                            </q-item>
-                          </template>
-                        </grid-card>
-                      </div>
-                    </template>
+              <div class="row q-col-gutter-md q-my-sm">
+                <template v-if="view == 'grid'">
+                  <template
+                    v-for="{
+                      id,
+                      commodityGroup,
+                      program,
+                      intervention,
+                      investmentTotal
+                    } in interventions"
+                  >
+                    <div class="col-md-3 col-sm-6 col-xs-12" :key="id">
+                      <grid-card @click="goTo(id)">
+                        <template v-slot:image>
+                          <commodity-image
+                            :commodityGroup="commodityGroup"
+                            caption
+                          />
+                        </template>
+                        <template v-slot:item>
+                          <q-item class="q-pa-sm">
+                            <q-item-section>
+                              <q-item-label :lines="2">
+                                {{ intervention }}
+                              </q-item-label>
+                              <q-item-label caption>
+                                {{ program }}
+                              </q-item-label>
+                            </q-item-section>
+                            <q-item-section side top>
+                              Php {{ investmentTotal.toLocaleString(2) }}
+                            </q-item-section>
+                          </q-item>
+                        </template>
+                      </grid-card>
+                    </div>
                   </template>
-                  <template v-else>
-                    <template
-                      v-for="{
-                        id,
-                        commodityGroup,
-                        program,
-                        intervention,
-                        investmentTotal
-                      } in interventions"
-                    >
-                      <div class="col-12" :key="id">
-                        <list-card @click="goTo(id)">
-                          <template v-slot:image>
-                            <commodity-image
-                              :commodityGroup="commodityGroup"
-                              caption
-                            />
-                          </template>
-                          <template v-slot:item>
-                            <span>{{ intervention }}</span>
-                            <q-item-label caption>{{ program }}</q-item-label>
-                          </template>
-                          <template v-slot:side>
-                            PhP {{ investmentTotal.toLocaleString() }}
-                          </template>
-                        </list-card>
-                      </div>
-                    </template>
+                </template>
+                <template v-else>
+                  <template
+                    v-for="{
+                      id,
+                      commodityGroup,
+                      program,
+                      intervention,
+                      investmentTotal
+                    } in interventions"
+                  >
+                    <div class="col-12" :key="id">
+                      <list-card @click="goTo(id)">
+                        <template v-slot:image>
+                          <commodity-image
+                            :commodityGroup="commodityGroup"
+                            caption
+                          />
+                        </template>
+                        <template v-slot:item>
+                          <span>{{ intervention }}</span>
+                          <q-item-label caption>{{ program }}</q-item-label>
+                        </template>
+                        <template v-slot:side>
+                          PhP {{ investmentTotal.toLocaleString() }}
+                        </template>
+                      </list-card>
+                    </div>
                   </template>
-                </div>
-              </q-scroll-area>
+                </template>
+              </div>
+
               <div class="row q-mt-md justify-between items-center">
                 <span>
                   Showing {{ (params.page - 1) * per_page + 1 }} -
@@ -213,6 +212,22 @@
         </div>
       </div>
     </div>
+    <q-dialog ref="interventionDetails">
+      <q-card style="min-width: 360px;">
+        <q-toolbar>
+          <q-toolbar-title>
+            Intervention Details
+          </q-toolbar-title>
+          <q-btn
+            flat
+            dense
+            round
+            icon="close"
+            @click="closeInterventionDetails"
+          ></q-btn>
+        </q-toolbar>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
@@ -314,7 +329,12 @@ export default {
       this.$router.push("/afmp/" + id);
     },
     goTo(id) {
-      this.$router.push("/interventions/" + id);
+      // this.$router.push("/interventions/" + id);
+      this.$refs.interventionDetails.show();
+      console.log(id);
+    },
+    closeInterventionDetails() {
+      this.$refs.interventionDetails.hide();
     },
     sortData() {
       const { sort } = this;

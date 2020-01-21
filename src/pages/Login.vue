@@ -29,7 +29,7 @@
           <q-card-section class="q-pa-md">
             <q-form class="q-gutter-md" @submit="handleSubmit">
               <q-input
-                v-if="tab == 'signup'"
+                v-show="tab == 'signup'"
                 outlined
                 placeholder="Full Name"
                 type="text"

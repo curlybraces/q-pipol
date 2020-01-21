@@ -1,5 +1,9 @@
 <template>
-  <q-card class="q-mx-xs cursor-pointer list-card" @click="handleClick">
+  <q-card
+    unelevated
+    class="q-mx-xs cursor-pointer list-card"
+    @click="handleClick"
+  >
     <q-item>
       <q-item-section class="col-2">
         <slot name="image"></slot>

@@ -1,5 +1,5 @@
-import { Loading } from "quasar";
 import axios from "boot/axios";
+import { Loading } from "quasar";
 import { showErrorMessage } from "./function-show-error-message";
 
 export const loadInterventions = ({
@@ -42,14 +42,6 @@ export const loadInterventions = ({
       }
     })
     .then(res => {
-      // const {
-      //   data: {
-      //     data: {
-      //       interventions: { data, total, per_page }
-      //     }
-      //   }
-      // } = res;
-
       return res;
     })
     .catch(err => {
