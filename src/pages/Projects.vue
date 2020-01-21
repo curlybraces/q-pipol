@@ -135,7 +135,7 @@
                 :options="[12, 25, 50, 100]"
                 dense
                 outlined
-                @input="reloadInterventions"
+                @input="reloadProjects"
               />
               <q-pagination
                 v-model="current_page"
@@ -143,7 +143,7 @@
                 :max="max"
                 boundary-links
                 boundary-numbers
-                @input="reloadInterventions"
+                @input="reloadProjects"
               ></q-pagination>
             </div>
           </q-card>
@@ -189,7 +189,7 @@ export default {
       projects: [],
       total: null,
       per_page: null,
-      current_page: null,
+      current_page: 1,
       last_page: null
     };
   },
@@ -211,6 +211,18 @@ export default {
     },
     goTo(id) {
       this.$router.push("/pip/" + id);
+    },
+    reloadProjects() {
+      loadProjects({
+        current_page: this.current_page
+      }).then(res => {
+        const { total, per_page, current_page, last_page } = res.data.projects;
+        this.total = total;
+        this.per_page = per_page;
+        this.current_page = current_page;
+        this.last_page = last_page;
+        this.projects = res.data.projects.data;
+      });
     }
   },
   filters: {
@@ -225,7 +237,9 @@ export default {
     }
   },
   created() {
-    loadProjects().then(res => {
+    loadProjects({
+      current_page: 1
+    }).then(res => {
       const { total, per_page, current_page, last_page } = res.data.projects;
       this.total = total;
       this.per_page = per_page;

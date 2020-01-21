@@ -1,12 +1,12 @@
 import axios from "boot/axios";
 import { Loading } from "quasar";
 
-export const loadProjects = () => {
+export const loadProjects = ({ current_page = 1 }) => {
   Loading.show();
   return axios
     .post("/graphql", {
-      query: `query projects {
-        projects {
+      query: `query projects($current_page: Int) {
+        projects(current_page: $current_page) {
           data {
             id
             title
@@ -17,7 +17,10 @@ export const loadProjects = () => {
           current_page
           last_page
         }
-      }`
+      }`,
+      variables: {
+        current_page: current_page
+      }
     })
     .then(res => {
       return res.data;
