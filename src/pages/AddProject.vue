@@ -3,18 +3,31 @@
     <page-breadcrumbs :breadcrumbs="breadcrumbs" />
     <q-card class="q-pa-md">
       <q-form class="q-gutter-y-sm" @submit="save">
+        <div class="row">
+          <q-space></q-space>
+          <q-btn
+            rounded
+            dense
+            flat
+            :icon="dense ? 'format_line_spacing' : 'vertical_align_center'"
+            @click="dense = !dense"
+          >
+            <q-tooltip>Toggle View</q-tooltip>
+          </q-btn>
+        </div>
         <q-option-group
           v-model="classification"
           label="Type"
           :options="types"
           inline
+          :dense="dense"
         ></q-option-group>
         <q-input
           v-model="title"
           label="Program/Project Title"
           stack-label
           outlined
-          dense
+          :dense="dense"
           hint="The title of the program or project"
           counter
           maxlength="250"
@@ -24,11 +37,13 @@
           label="Implementing Agency"
           stack-label
           outlined
-          dense
+          :dense="dense"
+          :options-dense="dense"
           :options="OPERATING_UNITS"
           hint="Proponent of the program/project"
           emit-value
           map-options
+          behavior="dialog"
         />
         <q-input
           v-model="description"
@@ -36,7 +51,7 @@
           type="textarea"
           stack-label
           outlined
-          dense
+          :dense="dense"
           hint="Description of the program/project (e.g. location, components, design, etc.)"
         />
         <q-input
@@ -45,7 +60,7 @@
           type="textarea"
           stack-label
           outlined
-          dense
+          :dense="dense"
           hint="Desired outcome of the program/project (e.g. Increase productivity)"
         ></q-input>
         <q-input
@@ -54,7 +69,7 @@
           type="textarea"
           stack-label
           outlined
-          dense
+          :dense="dense"
           hint="Physical deliverables of the project (indicate unit)"
         />
         <q-select
@@ -62,42 +77,70 @@
           label="Spatial Coverage"
           stack-label
           outlined
-          dense
+          :dense="dense"
+          :options-dense="dense"
           :options="SPATIAL_COVERAGES"
           emit-value
           map-options
+          behavior="dialog"
         />
         <q-select
           v-model="regions"
           label="Region/s"
           stack-label
           outlined
-          dense
+          :dense="dense"
+          :options-dense="dense"
           :options="region_options"
           multiple
           use-chips
           emit-value
           map-options
-        />
+          behavior="dialog"
+        >
+          <template v-slot:option="scope">
+            <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
+              <q-item-section avatar>
+                <q-checkbox v-model="regions" :val="scope.opt.value" />
+              </q-item-section>
+              <q-item-section>
+                <q-item-label v-html="scope.opt.label"></q-item-label>
+              </q-item-section>
+            </q-item>
+          </template>
+        </q-select>
         <q-select
           v-model="provinces"
           label="Province/s"
           stack-label
           outlined
-          dense
+          :dense="dense"
+          :options-dense="dense"
           :options="filteredProvinces"
           multiple
           use-chips
           emit-value
           map-options
-        />
+          behavior="dialog"
+        >
+          <template v-slot:option="scope">
+            <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
+              <q-item-section avatar>
+                <q-checkbox v-model="provinces" :val="scope.opt.value" />
+              </q-item-section>
+              <q-item-section>
+                <q-item-label v-html="scope.opt.label"></q-item-label>
+              </q-item-section>
+            </q-item>
+          </template>
+        </q-select>
         <q-input
           v-model="implementation_start_date"
           mask="date"
           label="Implementation Start Date"
           stack-label
           outlined
-          dense
+          :dense="dense"
           hint="Indicate what year the project is expected to start."
         >
           <template v-slot:prepend>
@@ -121,7 +164,7 @@
           label="Implementation End Date"
           stack-label
           outlined
-          dense
+          :dense="dense"
           hint="Indicate what year the project is expected to start."
         >
           <template v-slot:prepend>
@@ -144,7 +187,7 @@
           label="Total Project Cost"
           stack-label
           outlined
-          dense
+          :dense="dense"
           hint="Indicative project cost in absolute PhP"
           prefix="PhP"
         />
@@ -153,12 +196,14 @@
           label="Status"
           stack-label
           outlined
-          dense
+          :dense="dense"
+          :options-dense="dense"
           :options="STATUSES"
           emit-value
+          behavior="dialog"
         />
-        <q-btn type="submit" label="Save" color="primary" />
-        <q-btn flat type="reset" label="Reset" class="q-ml-sm" />
+        <q-btn type="submit" label="Save" color="primary" :dense="dense" />
+        <q-btn flat type="reset" label="Reset" class="q-ml-sm" :dense="dense" />
       </q-form>
     </q-card>
   </q-page>
@@ -223,7 +268,8 @@ export default {
       implementation_start_date: null,
       implementation_end_date: null,
       total_project_cost: null,
-      status_update: null
+      status_update: null,
+      dense: false
     };
   },
   computed: {
@@ -235,7 +281,14 @@ export default {
   },
   methods: {
     save() {
-      createProject(this).then(res => console.log(res));
+      createProject(this).then(res => {
+        Dialog.create({
+          title: "Success!",
+          message: `The project was successfully created as Project #${res.data.data.create_project.id}.`
+        }).onOk(() => {
+          this.$router.push("/pip");
+        });
+      });
     }
   },
   beforeRouteLeave(to, from, next) {
