@@ -1,6 +1,6 @@
 <template>
-  <q-layout view="lHh lpR lFf">
-    <q-header elevated class="transparent">
+  <q-layout view="lHh lpR lff">
+    <q-header elevated class="bg-grey-1">
       <q-toolbar class="text-grey-9 app-toolbar">
         <img
           src="../assets/logo.svg"
@@ -53,7 +53,7 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="drawer" content-class="bg-grey-2">
+    <q-drawer v-model="drawer" content-class="bg-grey-2" bordered :width="200">
       <div class="q-pa-md bg-white text-center">
         <q-img src="../assets/logo.svg" alt="logo" style="max-width: 150px" />
         <br />
@@ -79,10 +79,10 @@
       </q-list>
     </q-drawer>
 
-    <q-footer class="transparent">
+    <q-footer>
       <q-toolbar>
         <q-toolbar-title>E-PLANNING</q-toolbar-title>
-        <q-avatar>
+        <q-avatar color="white">
           <q-img src="../statics/ani-at-kita-logo.svg"></q-img>
         </q-avatar>
       </q-toolbar>
@@ -127,6 +127,10 @@ export default {
           label: "Settings",
           icon: "settings",
           url: "/settings"
+        },
+        {
+          label: "Help",
+          icon: "help"
         }
       ]
     };

@@ -151,9 +151,6 @@
         </div>
       </div>
     </div>
-    <q-page-sticky position="bottom-right" :offset="[25, 65]">
-      <q-btn round color="primary" icon="add" to="/pip/new" size="20px"></q-btn>
-    </q-page-sticky>
   </q-page>
 </template>
 
@@ -214,7 +211,8 @@ export default {
     },
     reloadProjects() {
       loadProjects({
-        current_page: this.current_page
+        current_page: this.current_page,
+        per_page: this.per_page
       }).then(res => {
         const { total, per_page, current_page, last_page } = res.data.projects;
         this.total = total;
