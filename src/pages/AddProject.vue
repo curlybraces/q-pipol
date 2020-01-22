@@ -101,7 +101,7 @@
           <template v-slot:before-options>
             <q-item>
               <q-item-section avatar>
-                <q-btn label="Select all" @click="selectAllRegions" />
+                <q-btn label="Select all" @click.stop="selectAllRegions" />
               </q-item-section>
             </q-item>
           </template>
@@ -140,7 +140,7 @@
           <template v-slot:before-options>
             <q-item>
               <q-item-section avatar>
-                <q-btn label="Select all" @click="selectAllProvinces" />
+                <q-btn label="Select all" @click.stop="selectAllProvinces" />
               </q-item-section>
             </q-item>
           </template>
