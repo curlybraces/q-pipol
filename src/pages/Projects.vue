@@ -71,33 +71,34 @@
                     </template>
                   </template>
                   <template v-else>
-                    <template
-                      v-for="{
-                        id,
-                        title,
-                        implementing_agency,
-                        total_project_cost
-                      } in projects"
-                    >
-                      <div class="col-12" :key="id">
-                        <list-card @click="goTo(id)">
-                          <template v-slot:item>
-                            <span>{{ title }}</span>
-                            <q-item-label caption>{{
+                    <q-list class="col q-ml-sm" separator bordered>
+                      <template
+                        v-for="{
+                          id,
+                          title,
+                          implementing_agency,
+                          total_project_cost
+                        } in projects"
+                      >
+                        <q-item :key="id" @click="goTo(id)" clickable>
+                          <q-item-section avatar> </q-item-section>
+                          <q-item-section>
+                            <q-item-label>{{ title }}</q-item-label>
+                            <q-item-label>{{
                               implementing_agency
                             }}</q-item-label>
-                          </template>
-                          <template v-slot:side>
+                          </q-item-section>
+                          <q-item-section side>
                             PhP
                             {{
                               total_project_cost !== "undefined"
                                 ? 0
                                 : total_project_cost.toLocaleString()
                             }}
-                          </template>
-                        </list-card>
-                      </div>
-                    </template>
+                          </q-item-section>
+                        </q-item>
+                      </template>
+                    </q-list>
                   </template>
                 </div>
               </template>
@@ -165,7 +166,6 @@ export default {
     "search-component": () => import("../components/Projects/SearchComponent"),
     "no-project": () => import("../components/Projects/NoProject"),
     "grid-card": () => import("../components/GridCard.vue"),
-    "list-card": () => import("../components/ListCard.vue"),
     "page-breadcrumbs": () => import("../components/PageBreadcrumbs.vue"),
     "toggle-view": () => import("../components/ToggleView.vue")
   },

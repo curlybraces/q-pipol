@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lhh lpR lFr">
+  <q-layout view="lHh lpR lFf">
     <q-header elevated class="transparent">
       <q-toolbar class="text-grey-9 app-toolbar">
         <img
@@ -79,7 +79,14 @@
       </q-list>
     </q-drawer>
 
-    <q-footer elevated> </q-footer>
+    <q-footer class="transparent">
+      <q-toolbar>
+        <q-toolbar-title>E-PLANNING</q-toolbar-title>
+        <q-avatar>
+          <q-img src="../statics/ani-at-kita-logo.svg"></q-img>
+        </q-avatar>
+      </q-toolbar>
+    </q-footer>
 
     <q-page-container>
       <router-view />

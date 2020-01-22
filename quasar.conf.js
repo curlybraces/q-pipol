@@ -18,7 +18,7 @@ module.exports = function(ctx) {
     extras: [
       // 'ionicons-v4',
       // 'mdi-v3',
-      "fontawesome-v5", // disable after removing from Github
+      "fontawesome-v5",
       // 'eva-icons',
       // 'themify',
       // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
@@ -29,6 +29,7 @@ module.exports = function(ctx) {
 
     framework: {
       // iconSet: 'ionicons-v4',
+      iconSet: "svg-material-icons",
       // lang: 'de', // Quasar language
 
       all: "auto", // --- includes everything; for dev only!

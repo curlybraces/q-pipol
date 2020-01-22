@@ -10,10 +10,12 @@
  * Boot files are your "main.js"
  **/
 
+import iconSet from 'quasar/icon-set/svg-material-icons'
+
 
 import Vue from 'vue'
 
 import {Quasar,Dialog,AddressbarColor,LocalStorage,Notify} from 'quasar'
 
 
-Vue.use(Quasar, { config: {},plugins: {Dialog,AddressbarColor,LocalStorage,Notify} })
+Vue.use(Quasar, { config: {},iconSet: iconSet,plugins: {Dialog,AddressbarColor,LocalStorage,Notify} })
