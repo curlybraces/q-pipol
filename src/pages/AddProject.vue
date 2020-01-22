@@ -98,6 +98,13 @@
           map-options
           behavior="dialog"
         >
+          <template v-slot:before-options>
+            <q-item>
+              <q-item-section avatar>
+                <q-btn label="Select all" @click="selectAllRegions" />
+              </q-item-section>
+            </q-item>
+          </template>
           <template v-slot:option="scope">
             <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
               <q-item-section avatar>
@@ -107,6 +114,13 @@
                 <q-item-label v-html="scope.opt.label"></q-item-label>
               </q-item-section>
             </q-item>
+          </template>
+          <template v-if="regions.length" v-slot:append>
+            <q-icon
+              name="cancel"
+              @click.stop="regions = []"
+              class="cursor-pointer"
+            />
           </template>
         </q-select>
         <q-select
@@ -123,6 +137,13 @@
           map-options
           behavior="dialog"
         >
+          <template v-slot:before-options>
+            <q-item>
+              <q-item-section avatar>
+                <q-btn label="Select all" @click="selectAllProvinces" />
+              </q-item-section>
+            </q-item>
+          </template>
           <template v-slot:option="scope">
             <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
               <q-item-section avatar>
@@ -132,6 +153,13 @@
                 <q-item-label v-html="scope.opt.label"></q-item-label>
               </q-item-section>
             </q-item>
+          </template>
+          <template v-if="provinces.length" v-slot:append>
+            <q-icon
+              name="cancel"
+              @click.stop="provinces = []"
+              class="cursor-pointer"
+            />
           </template>
         </q-select>
         <q-input
@@ -289,6 +317,18 @@ export default {
           this.$router.push("/pip");
         });
       });
+    },
+    selectAllRegions() {
+      const { region_options } = this;
+      this.regions = [];
+      region_options.forEach(region => this.regions.push(region.value));
+    },
+    selectAllProvinces() {
+      const { filteredProvinces } = this;
+      this.provinces = [];
+      filteredProvinces.forEach(province =>
+        this.provinces.push(province.value)
+      );
     }
   },
   beforeRouteLeave(to, from, next) {
