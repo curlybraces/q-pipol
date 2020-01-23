@@ -3,7 +3,7 @@
     <q-header elevated class="bg-grey-1">
       <q-toolbar class="text-grey-9 app-toolbar">
         <img
-          src="../assets/logo.svg"
+          src="statics/logo.svg"
           height="35px;"
           @click="$router.push('/')"
           class="cursor-pointer"
@@ -54,36 +54,14 @@
     </q-header>
 
     <q-drawer v-model="drawer" content-class="bg-grey-2" bordered :width="200">
-      <div class="q-pa-md bg-white text-center">
-        <q-img src="../assets/logo.svg" alt="logo" style="max-width: 150px" />
-        <br />
-        <span class="text-h6">E-PLANNING</span>
-      </div>
-      <q-separator />
-      <q-list>
-        <q-item-label header>NAVIGATION</q-item-label>
-        <q-item
-          v-for="({ label, icon, url }, index) in drawerItems"
-          :key="index"
-          clickable
-          :to="url"
-          exact
-        >
-          <q-item-section avatar>
-            <q-icon :name="icon" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>{{ label }}</q-item-label>
-          </q-item-section>
-        </q-item>
-      </q-list>
+      <drawer-content />
     </q-drawer>
 
     <q-footer>
       <q-toolbar>
         <q-toolbar-title>E-PLANNING</q-toolbar-title>
         <q-avatar color="white">
-          <q-img src="../statics/ani-at-kita-logo.svg"></q-img>
+          <q-img src="statics/ani-at-kita-logo.svg"></q-img>
         </q-avatar>
       </q-toolbar>
     </q-footer>
@@ -98,7 +76,10 @@
 import { openURL, Dialog } from "quasar";
 import { mapState, mapActions } from "vuex";
 
+import DrawerContent from "../components/layout/Drawer";
+
 export default {
+  components: { DrawerContent },
   name: "MyLayout",
   data() {
     return {
@@ -106,33 +87,7 @@ export default {
       copyright: "Made by Mark Lester A. Bolotaolo",
       menu: false,
       miniState: false,
-      drawer: true,
-      drawerItems: [
-        {
-          label: "Home",
-          icon: "home",
-          url: "/"
-        },
-        {
-          label: "Projects",
-          icon: "list",
-          url: "/pip"
-        },
-        {
-          label: "Account",
-          icon: "person",
-          url: "/user"
-        },
-        {
-          label: "Settings",
-          icon: "settings",
-          url: "/settings"
-        },
-        {
-          label: "Help",
-          icon: "help"
-        }
-      ]
+      drawer: true
     };
   },
   computed: {
