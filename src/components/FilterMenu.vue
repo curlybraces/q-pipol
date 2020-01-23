@@ -1,7 +1,7 @@
 <template>
   <div class="q-py-md">
     <div class="row justify-between">
-      <div class="title">
+      <div class="title text-weight-bold">
         {{ title.toUpperCase() }}
       </div>
       <div class="text-right text-weight-bold">
@@ -19,10 +19,14 @@
       type="checkbox"
       class="cb"
       v-model="selected"
-      dense
+      :dense="dense"
     />
-    <a class="text-weight-bold" @click="expanded = !expanded">
-      VIEW {{ expanded ? "LESS" : "MORE" }}
+    <a
+      class="text-weight-light"
+      @click="expanded = !expanded"
+      v-if="options.length > 5"
+    >
+      + See {{ expanded ? "Less" : "More" }}
     </a>
   </div>
 </template>
@@ -32,7 +36,11 @@ export default {
   name: "FilterMenu",
   props: {
     title: String,
-    options: Array
+    options: Array,
+    dense: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
