@@ -11,6 +11,7 @@ export const loadProjects = ({ current_page = 1, per_page = 12 }) => {
             id
             title
             implementing_agency
+            description
           }
           total
           per_page

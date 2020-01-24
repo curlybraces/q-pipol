@@ -33,77 +33,66 @@
               emit-value
               map-options
             ></q-select>
-
-            <toggle-view v-model="view" />
           </div>
           <q-separator spaced />
           <template v-if="!loading && !error">
             <no-project v-if="projects.length === 0 && search" />
             <template v-else>
               <div class="row q-col-gutter-sm q-my-sm">
-                <template v-if="view == 'grid'">
+                <q-list class="col q-ml-sm" separator bordered>
                   <template
                     v-for="{
                       id,
                       title,
                       implementing_agency,
+                      description,
                       total_project_cost
                     } in projects"
                   >
-                    <div class="col-md-3 col-sm-6 col-xs-12" :key="id">
-                      <grid-card @click="goTo(id)">
-                        <template v-slot:item>
-                          <q-item class="q-pa-sm">
-                            <q-item-section>
-                              <q-item-label :lines="2">
-                                {{ title }}
-                              </q-item-label>
-                              <q-item-label caption>
-                                {{ implementing_agency }}
-                              </q-item-label>
-                            </q-item-section>
-                            <q-item-section side top>
-                              Php
-                              {{
-                                total_project_cost !== "undefined"
-                                  ? 0
-                                  : total_project_cost.toLocaleString()
-                              }}
-                            </q-item-section>
-                          </q-item>
-                        </template>
-                      </grid-card>
-                    </div>
+                    <q-item :key="id" @click="goTo(id)" clickable>
+                      <q-item-section avatar> </q-item-section>
+                      <q-item-section>
+                        <q-item-label>{{ title }}</q-item-label>
+                        <q-item-label>{{ implementing_agency }}</q-item-label>
+                      </q-item-section>
+                      <q-item-section>
+                        <q-item-label>
+                          {{ description }}
+                        </q-item-label>
+                      </q-item-section>
+                      <q-item-section>
+                        PhP
+                        {{
+                          total_project_cost !== "undefined"
+                            ? 0
+                            : total_project_cost.toLocaleString()
+                        }}
+                      </q-item-section>
+                      <q-item-section top side>
+                        <div class="text-grey-8 q-gutter-xs">
+                          <q-btn
+                            class="gt-xs"
+                            size="12px"
+                            flat
+                            dense
+                            round
+                            icon="delete"
+                            @click.stop="promptDelete(id)"
+                          />
+                          <q-btn
+                            class="gt-xs"
+                            size="12px"
+                            flat
+                            dense
+                            round
+                            icon="done"
+                            @click.stop=""
+                          />
+                        </div>
+                      </q-item-section>
+                    </q-item>
                   </template>
-                </template>
-                <template v-else>
-                  <q-list class="col q-ml-sm" separator bordered>
-                    <template
-                      v-for="{
-                        id,
-                        title,
-                        implementing_agency,
-                        total_project_cost
-                      } in projects"
-                    >
-                      <q-item :key="id" @click="goTo(id)" clickable>
-                        <q-item-section avatar> </q-item-section>
-                        <q-item-section>
-                          <q-item-label>{{ title }}</q-item-label>
-                          <q-item-label>{{ implementing_agency }}</q-item-label>
-                        </q-item-section>
-                        <q-item-section side>
-                          PhP
-                          {{
-                            total_project_cost !== "undefined"
-                              ? 0
-                              : total_project_cost.toLocaleString()
-                          }}
-                        </q-item-section>
-                      </q-item>
-                    </template>
-                  </q-list>
-                </template>
+                </q-list>
               </div>
             </template>
           </template>
@@ -160,16 +149,16 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import { loadProjects } from "../functions/function-load-projects";
+import { deleteProject } from "../functions/function-delete-project";
 
 import { REGIONS } from "../data/dropdown-values";
+import { Dialog } from "quasar";
 
 export default {
   components: {
     "search-component": () => import("../components/Projects/SearchComponent"),
     "no-project": () => import("../components/Projects/NoProject"),
-    "grid-card": () => import("../components/GridCard.vue"),
     "page-breadcrumbs": () => import("../components/PageBreadcrumbs.vue"),
-    "toggle-view": () => import("../components/ToggleView.vue"),
     "filter-menu": () => import("../components/FilterMenu.vue")
   },
   name: "PageProjects",
@@ -228,6 +217,16 @@ export default {
         this.current_page = current_page;
         this.last_page = last_page;
         this.projects = res.data.projects.data;
+      });
+    },
+    promptDelete(id) {
+      Dialog.create({
+        title: "Delete Project",
+        message: "Are you sure you want to move the project to trash?",
+        cancel: true
+      }).onOk(() => {
+        deleteProject({ id: id });
+        this.reloadProjects();
       });
     }
   },
