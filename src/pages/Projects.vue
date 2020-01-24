@@ -77,16 +77,8 @@
                             dense
                             round
                             icon="delete"
+                            color="red"
                             @click.stop="promptDelete(id)"
-                          />
-                          <q-btn
-                            class="gt-xs"
-                            size="12px"
-                            flat
-                            dense
-                            round
-                            icon="done"
-                            @click.stop=""
                           />
                         </div>
                       </q-item-section>
