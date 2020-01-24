@@ -12,7 +12,7 @@
         </div>
       </div>
     </div>
-    <div class="row q-col-gutter-x-md">
+    <div class="row">
       <div class="col">
         <q-card class="q-pa-sm fit bg-grey-1">
           <div class="row q-pa-sm items-center">
@@ -38,60 +38,65 @@
           <template v-if="!loading && !error">
             <no-project v-if="projects.length === 0 && search" />
             <template v-else>
-              <div class="row q-col-gutter-sm q-my-sm">
-                <q-list class="col q-ml-sm" separator bordered>
-                  <template
+              <div class="row q-my-sm">
+                <q-list class="col" separator bordered>
+                  <q-item
                     v-for="{
                       id,
                       title,
-                      implementing_agency,
+                      operating_unit,
                       description,
                       total_project_cost
                     } in projects"
+                    :key="id"
+                    @click="goTo(id)"
+                    clickable
                   >
-                    <q-item :key="id" @click="goTo(id)" clickable>
-                      <q-item-section avatar> </q-item-section>
-                      <q-item-section>
-                        <q-item-label>{{ title }}</q-item-label>
-                        <q-item-label>{{ implementing_agency }}</q-item-label>
-                      </q-item-section>
-                      <q-item-section>
-                        <q-item-label>
-                          {{ description }}
-                        </q-item-label>
-                      </q-item-section>
-                      <q-item-section>
-                        PhP
+                    <q-item-section avatar>
+                      <q-avatar>
+                        <img
+                          :src="
+                            `statics/agency_logos/${operating_unit.image}.svg`
+                          "
+                        />
+                      </q-avatar>
+                    </q-item-section>
+                    <q-item-section>
+                      <q-item-label>{{ title }}</q-item-label>
+                      <q-item-label>{{ operating_unit.name }}</q-item-label>
+                      <q-item-label caption>{{ description }}</q-item-label>
+                    </q-item-section>
+                    <q-item-section top side>
+                      <q-item-label
+                        >PhP
                         {{
                           total_project_cost !== "undefined"
                             ? 0
                             : total_project_cost.toLocaleString()
                         }}
-                      </q-item-section>
-                      <q-item-section top side>
-                        <div class="text-grey-8 q-gutter-xs">
-                          <q-btn
-                            class="gt-xs"
-                            size="12px"
-                            flat
-                            dense
-                            round
-                            icon="delete"
-                            color="red"
-                            @click.stop="promptDelete(id)"
-                          />
-                        </div>
-                      </q-item-section>
-                    </q-item>
-                  </template>
+                      </q-item-label>
+                      <q-item-label>
+                        <q-btn
+                          class="gt-xs"
+                          size="12px"
+                          flat
+                          dense
+                          round
+                          icon="delete"
+                          color="red"
+                          @click.stop="promptDelete(id)"
+                        />
+                      </q-item-label>
+                    </q-item-section>
+                  </q-item>
                 </q-list>
               </div>
             </template>
           </template>
 
           <template v-if="loading">
-            <div class="text-center" style="margin-top: 200px;">
-              <q-spinner color="primary" size="3em"></q-spinner>
+            <div class="text-center" style="margin-top: 10px;">
+              Loading projects...
             </div>
           </template>
 
@@ -103,7 +108,10 @@
             </div>
           </template>
 
-          <div class="row q-mt-md justify-between items-center">
+          <div
+            class="row q-mt-md justify-between items-center"
+            v-if="!loading && projects.length > 0"
+          >
             <span>
               Showing {{ (current_page - 1) * per_page + 1 }} -
               {{
@@ -111,7 +119,7 @@
                   ? total
                   : current_page * per_page
               }}
-              of {{ total }} interventions
+              of {{ total }} projects
             </span>
             <span>
               Show Entries:
@@ -217,8 +225,7 @@ export default {
         message: "Are you sure you want to move the project to trash?",
         cancel: true
       }).onOk(() => {
-        deleteProject({ id: id });
-        this.reloadProjects();
+        deleteProject({ id: id }).then(() => this.reloadProjects());
       });
     }
   },
@@ -234,6 +241,7 @@ export default {
     }
   },
   created() {
+    this.loading = true;
     loadProjects({
       current_page: 1
     }).then(res => {
@@ -243,6 +251,7 @@ export default {
       this.current_page = current_page;
       this.last_page = last_page;
       this.projects = res.data.projects.data;
+      this.loading = false;
     });
   }
 };

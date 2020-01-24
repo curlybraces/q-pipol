@@ -83,7 +83,6 @@ export default {
   name: "MyLayout",
   data() {
     return {
-      appTitle: "iPMS",
       copyright: "Made by Mark Lester A. Bolotaolo",
       menu: false,
       miniState: false,

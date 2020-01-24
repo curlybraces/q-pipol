@@ -10,7 +10,10 @@ export const loadProjects = ({ current_page = 1, per_page = 12 }) => {
           data {
             id
             title
-            implementing_agency
+            operating_unit {
+              name
+              image
+            }
             description
           }
           total

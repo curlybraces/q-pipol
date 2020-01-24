@@ -16,13 +16,11 @@
           expand-separator
           icon="list"
           label="Projects"
-          default-opened
         >
           <q-item
             v-for="({ label, icon, url }, index) in submenu"
             :header-inset-level="1"
             expand-separator
-            default-opened
             :key="index"
             :to="url"
             exact

@@ -6,7 +6,7 @@ import { Loading } from "quasar";
 export const createProject = ({
   classification,
   title,
-  implementing_agency,
+  operating_unit,
   description,
   expected_outputs,
   spatial_coverage,
@@ -23,7 +23,7 @@ export const createProject = ({
       query: `mutation create_project(
         $classification: String,
         $title: String!,
-        $implementing_agency: String,
+        $operating_unit: Int,
         $description: String,
         $outcomes: String,
         $expected_outputs: String,
@@ -39,7 +39,7 @@ export const createProject = ({
         create_project(
           classification: $classification,
           title: $title,
-          implementing_agency: $implementing_agency,
+          operating_unit_id: $operating_unit,
           description: $description,
           outcomes: $outcomes,
           expected_outputs: $expected_outputs,
@@ -58,7 +58,7 @@ export const createProject = ({
       variables: {
         classification: classification,
         title: title,
-        implementing_agency: implementing_agency,
+        operating_unit_id: operating_unit,
         description: description,
         expected_outputs: expected_outputs,
         spatial_coverage: spatial_coverage,

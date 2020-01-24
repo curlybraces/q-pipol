@@ -31,9 +31,10 @@
           hint="The title of the program or project"
           counter
           maxlength="250"
+          required
         />
         <q-select
-          v-model="implementing_agency"
+          v-model="operating_unit"
           label="Implementing Agency"
           stack-label
           outlined
@@ -44,6 +45,7 @@
           emit-value
           map-options
           behavior="dialog"
+          required
         />
         <q-input
           v-model="description"
@@ -286,7 +288,7 @@ export default {
       STATUSES,
       classification: null,
       title: null,
-      implementing_agency: null,
+      operating_unit: null,
       description: null,
       outcomes: null,
       expected_outputs: null,
