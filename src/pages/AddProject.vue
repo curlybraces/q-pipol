@@ -86,6 +86,11 @@
           map-options
           behavior="dialog"
         />
+        <multi-select
+          v-model="regions"
+          label="Regions"
+          :options="region_options"
+        />
         <q-select
           v-model="regions"
           label="Region/s"
@@ -254,7 +259,10 @@ import PageBreadcrumbs from "../components/PageBreadcrumbs";
 import { Dialog } from "quasar";
 
 export default {
-  components: { PageBreadcrumbs },
+  components: {
+    PageBreadcrumbs,
+    "multi-select": () => import("../components/FormInputs/MultiSelect.vue")
+  },
   name: "AddProject",
   data() {
     return {

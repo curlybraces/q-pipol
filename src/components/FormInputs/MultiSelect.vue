@@ -1,0 +1,94 @@
+<template>
+  <q-select
+    :value="model"
+    @input="handleInput"
+    @filter="filterFn"
+    :options="filterOptions"
+    :label="label"
+    stack-label
+    behavior="dialog"
+    :input-debounce="100"
+    :dense="dense"
+    :options-dense="optionsDense"
+    outlined
+    multiple
+    map-options
+    emit-value
+    use-chips
+    use-input
+  >
+    <template v-slot:before-options>
+      <q-item>
+        <q-item-section avatar>
+          <q-btn label="Select all" @click.stop="selectAllOptions" />
+        </q-item-section>
+      </q-item>
+    </template>
+    <template v-slot:option="scope">
+      <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
+        <q-item-section avatar>
+          <q-checkbox v-model="model" :val="scope.opt.value" />
+        </q-item-section>
+        <q-item-section>
+          <q-item-label v-html="scope.opt.label"></q-item-label>
+        </q-item-section>
+      </q-item>
+    </template>
+    <template v-if="model.length" v-slot:append>
+      <q-icon name="cancel" @click.stop="model = []" class="cursor-pointer" />
+    </template>
+  </q-select>
+</template>
+
+<script>
+export default {
+  name: "MultiSelect",
+  props: {
+    label: {
+      type: String,
+      default: ""
+    },
+    dense: {
+      type: Boolean,
+      default: false
+    },
+    optionsDense: {
+      type: Boolean,
+      default: false
+    },
+    options: Array,
+    value: {
+      type: [Number, String, Array]
+    }
+  },
+  data() {
+    return {
+      filterOptions: [],
+      model: []
+    };
+  },
+  methods: {
+    handleInput() {
+      this.$emit("input", this.model);
+    },
+    filterFn(val, update) {
+      const { options } = this;
+      update(() => {
+        if (val === "") {
+          this.filterOptions = options;
+        } else {
+          const needle = val.toLowerCase();
+          this.filterOptions = options.filter(
+            ({ label }) => label.toLowerCase().indexOf(needle) > -1
+          );
+        }
+      });
+    },
+    selectAllOptions() {
+      const { options } = this;
+      this.model = [];
+      options.forEach(option => this.model.push(option.value));
+    }
+  }
+};
+</script>
