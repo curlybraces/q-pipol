@@ -1,13 +1,12 @@
 <template>
   <q-select
-    :value="model"
+    v-model="model"
     @input="handleInput"
     @filter="filterFn"
     :options="filterOptions"
     :label="label"
     stack-label
     behavior="dialog"
-    :input-debounce="100"
     :dense="dense"
     :options-dense="optionsDense"
     outlined
@@ -17,6 +16,9 @@
     use-chips
     use-input
   >
+    <template v-slot:prepend>
+      <q-icon name="swap_vert" />
+    </template>
     <template v-slot:before-options>
       <q-item>
         <q-item-section avatar>

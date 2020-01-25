@@ -32,7 +32,11 @@
           counter
           maxlength="250"
           required
-        />
+        >
+          <template v-slot:prepend>
+            <q-icon name="text_format" />
+          </template>
+        </q-input>
         <q-select
           v-model="operating_unit"
           label="Implementing Agency"
@@ -55,7 +59,11 @@
           outlined
           :dense="dense"
           hint="Description of the program/project (e.g. location, components, design, etc.)"
-        />
+        >
+          <template v-slot:prepend>
+            <q-icon name="text_format" />
+          </template>
+        </q-input>
         <q-input
           v-model="outcomes"
           label="Outcomes"
@@ -64,7 +72,11 @@
           outlined
           :dense="dense"
           hint="Desired outcome of the program/project (e.g. Increase productivity)"
-        ></q-input>
+        >
+          <template v-slot:prepend>
+            <q-icon name="text_format" />
+          </template>
+        </q-input>
         <q-input
           v-model="expected_outputs"
           label="Expected Outputs"
@@ -73,7 +85,11 @@
           outlined
           :dense="dense"
           hint="Physical deliverables of the project (indicate unit)"
-        />
+        >
+          <template v-slot:prepend>
+            <q-icon name="text_format" />
+          </template>
+        </q-input>
         <q-select
           v-model="spatial_coverage"
           label="Spatial Coverage"
@@ -91,84 +107,11 @@
           label="Regions"
           :options="region_options"
         />
-        <q-select
-          v-model="regions"
-          label="Region/s"
-          stack-label
-          outlined
-          :dense="dense"
-          :options-dense="dense"
-          :options="region_options"
-          multiple
-          use-chips
-          emit-value
-          map-options
-          behavior="dialog"
-        >
-          <template v-slot:before-options>
-            <q-item>
-              <q-item-section avatar>
-                <q-btn label="Select all" @click.stop="selectAllRegions" />
-              </q-item-section>
-            </q-item>
-          </template>
-          <template v-slot:option="scope">
-            <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
-              <q-item-section avatar>
-                <q-checkbox v-model="regions" :val="scope.opt.value" />
-              </q-item-section>
-              <q-item-section>
-                <q-item-label v-html="scope.opt.label"></q-item-label>
-              </q-item-section>
-            </q-item>
-          </template>
-          <template v-if="regions.length" v-slot:append>
-            <q-icon
-              name="cancel"
-              @click.stop="regions = []"
-              class="cursor-pointer"
-            />
-          </template>
-        </q-select>
-        <q-select
+        <multi-select
           v-model="provinces"
           label="Province/s"
-          stack-label
-          outlined
-          :dense="dense"
-          :options-dense="dense"
           :options="filteredProvinces"
-          multiple
-          use-chips
-          emit-value
-          map-options
-          behavior="dialog"
-        >
-          <template v-slot:before-options>
-            <q-item>
-              <q-item-section avatar>
-                <q-btn label="Select all" @click.stop="selectAllProvinces" />
-              </q-item-section>
-            </q-item>
-          </template>
-          <template v-slot:option="scope">
-            <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
-              <q-item-section avatar>
-                <q-checkbox v-model="provinces" :val="scope.opt.value" />
-              </q-item-section>
-              <q-item-section>
-                <q-item-label v-html="scope.opt.label"></q-item-label>
-              </q-item-section>
-            </q-item>
-          </template>
-          <template v-if="provinces.length" v-slot:append>
-            <q-icon
-              name="cancel"
-              @click.stop="provinces = []"
-              class="cursor-pointer"
-            />
-          </template>
-        </q-select>
+        />
         <q-input
           v-model="implementation_start_date"
           mask="date"
@@ -312,7 +255,7 @@ export default {
   },
   computed: {
     filteredProvinces() {
-      return PROVINCES.filter(province => {
+      return this.province_options.filter(province => {
         return this.regions.includes(province.region_id);
       });
     }

@@ -1892,6 +1892,14 @@ export const STATUSES = [
   {
     label: "Expanded/Revised",
     value: "Expanded/Revised"
+  },
+  {
+    label: "Completed",
+    value: "completed"
+  },
+  {
+    label: "Dropped",
+    value: "dropped"
   }
 ];
 
