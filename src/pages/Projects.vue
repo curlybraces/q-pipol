@@ -53,7 +53,7 @@
                     clickable
                   >
                     <q-item-section avatar>
-                      <q-avatar>
+                      <q-avatar color="white">
                         <img
                           v-if="operating_unit != null"
                           :src="
@@ -63,21 +63,22 @@
                         <img v-else src="statics/agency_logos/da-co.svg" />
                       </q-avatar>
                     </q-item-section>
+                    <q-item-section class="col-2">
+                      <q-item-label>
+                        {{
+                          operating_unit != null ? operating_unit.name : null
+                        }}
+                      </q-item-label>
+                    </q-item-section>
                     <q-item-section>
                       <q-item-label>{{ title }}</q-item-label>
-                      <q-item-label>{{
-                        operating_unit != null ? operating_unit.name : null
+                      <q-item-label caption :lines="2">{{
+                        description
                       }}</q-item-label>
-                      <q-item-label caption>{{ description }}</q-item-label>
                     </q-item-section>
-                    <q-item-section top side>
+                    <q-item-section class="col-1" top side>
                       <q-item-label
-                        >PhP
-                        {{
-                          total_project_cost !== "undefined"
-                            ? 0
-                            : total_project_cost.toLocaleString()
-                        }}
+                        >{{ total_project_cost | currency }}
                       </q-item-label>
                       <q-item-label>
                         <q-btn
@@ -242,6 +243,9 @@ export default {
         });
       }
       return value;
+    },
+    currency(value) {
+      return "PhP " + value.toLocaleString();
     }
   },
   created() {

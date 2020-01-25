@@ -2,7 +2,11 @@
 import Vue from "vue";
 import axios from "axios";
 
-axios.defaults.baseURL = "https://e-planning.daplanningcentral.net";
+if (process.env.DEV) {
+  axios.defaults.baseURL = "http://localhost:8000";
+} else {
+  axios.defaults.baseURL = "https://e-planning.daplanningcentral.net";
+}
 
 Vue.prototype.$axios = axios;
 

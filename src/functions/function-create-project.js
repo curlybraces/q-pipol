@@ -18,6 +18,8 @@ export const createProject = ({
   status
 }) => {
   Loading.show();
+
+  var projectCost = parseFloat(total_project_cost.replace(/[^0-9.-]/g, ""));
   return axios
     .post("/graphql", {
       query: `mutation create_project(
@@ -66,7 +68,7 @@ export const createProject = ({
         provinces: provinces,
         implementation_start_date: implementation_start_date,
         implementation_end_date: implementation_end_date,
-        total_project_cost: total_project_cost,
+        total_project_cost: projectCost,
         status_update: status,
         created_by: firebaseAuth.currentUser.email
       }

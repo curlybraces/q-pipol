@@ -15,6 +15,7 @@ export const loadProjects = ({ current_page = 1, per_page = 12 }) => {
               image
             }
             description
+            total_project_cost
           }
           total
           per_page
