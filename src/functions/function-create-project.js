@@ -23,7 +23,7 @@ export const createProject = ({
       query: `mutation create_project(
         $classification: String,
         $title: String!,
-        $operating_unit: Int,
+        $operating_unit_id: Int,
         $description: String,
         $outcomes: String,
         $expected_outputs: String,
@@ -39,7 +39,7 @@ export const createProject = ({
         create_project(
           classification: $classification,
           title: $title,
-          operating_unit_id: $operating_unit,
+          operating_unit_id: $operating_unit_id,
           description: $description,
           outcomes: $outcomes,
           expected_outputs: $expected_outputs,

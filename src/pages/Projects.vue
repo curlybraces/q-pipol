@@ -55,15 +55,19 @@
                     <q-item-section avatar>
                       <q-avatar>
                         <img
+                          v-if="operating_unit != null"
                           :src="
                             `statics/agency_logos/${operating_unit.image}.svg`
                           "
                         />
+                        <img v-else src="statics/agency_logos/da-co.svg" />
                       </q-avatar>
                     </q-item-section>
                     <q-item-section>
                       <q-item-label>{{ title }}</q-item-label>
-                      <q-item-label>{{ operating_unit.name }}</q-item-label>
+                      <q-item-label>{{
+                        operating_unit != null ? operating_unit.name : null
+                      }}</q-item-label>
                       <q-item-label caption>{{ description }}</q-item-label>
                     </q-item-section>
                     <q-item-section top side>
