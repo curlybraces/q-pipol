@@ -6,7 +6,12 @@
       <div class="row">
         <q-btn outline icon="tune" @click="filter = !filter">FILTER</q-btn>
       </div>
-      <div class="row" v-show="filter">
+      <div
+        class="row"
+        v-show="filter"
+        transition-show="jump-down"
+        transition-hide="jump-up"
+      >
         <div class="col-3">
           <filter-menu title="REGIONS" :options="REGIONS" dense></filter-menu>
         </div>

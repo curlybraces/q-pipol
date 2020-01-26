@@ -1,12 +1,16 @@
 import axios from "boot/axios";
 import { Loading } from "quasar";
 
-export const loadProjects = ({ current_page = 1, per_page = 12 }) => {
+export const loadProjects = ({
+  current_page = 1,
+  per_page = 12,
+  deleted = false
+}) => {
   Loading.show();
   return axios
     .post("/graphql", {
-      query: `query projects($current_page: Int, $per_page: Int) {
-        projects(current_page: $current_page, per_page: $per_page) {
+      query: `query projects($current_page: Int, $per_page: Int, $deleted: Boolean) {
+        projects(current_page: $current_page, per_page: $per_page, deleted: $deleted) {
           data {
             id
             title
@@ -25,7 +29,8 @@ export const loadProjects = ({ current_page = 1, per_page = 12 }) => {
       }`,
       variables: {
         current_page: current_page,
-        per_page: per_page
+        per_page: per_page,
+        deleted: deleted
       }
     })
     .then(res => {

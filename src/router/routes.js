@@ -66,8 +66,11 @@ const routes = [
           import(/* webpackChunkName: 'ViewProject' */ "pages/ViewProject.vue")
       },
       {
-        path: "cart",
-        component: () => import(/* webpackChunkName: 'Cart' */ "pages/Cart.vue")
+        path: "trash",
+        component: () =>
+          import(
+            /* webpackChunkName: 'DeletedProjects' */ "pages/DeletedProjects.vue"
+          )
       },
       {
         path: "user",
