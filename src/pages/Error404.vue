@@ -1,12 +1,16 @@
 <template>
   <div class="fixed-center text-center">
     <p>
-      <img src="~assets/sad.svg" style="width:30vw;max-width:150px;" />
+      <img src="statics/404.png" style="width:50vw;max-width:300px;" />
     </p>
-    <p class="text-faded">Sorry, nothing here...<strong>(404)</strong></p>
-    <q-btn color="secondary" style="width:200px;" @click="$router.go(-1)"
-      >Go back</q-btn
-    >
+    <q-btn
+      outline
+      color="primary"
+      @click="$router.go(-1)"
+      icon="home"
+      size="lg"
+      label="Go Home"
+    />
   </div>
 </template>
 

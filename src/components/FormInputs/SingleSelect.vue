@@ -10,7 +10,6 @@
     :dense="dense"
     :options-dense="optionsDense"
     outlined
-    multiple
     map-options
     emit-value
     use-input

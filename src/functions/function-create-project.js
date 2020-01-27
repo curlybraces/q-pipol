@@ -1,4 +1,4 @@
-import axios from "boot/axios";
+import { axiosInstance } from "boot/axios";
 import { showErrorMessage } from "./function-show-error-message";
 import { firebaseAuth } from "boot/firebase";
 import { Loading } from "quasar";
@@ -20,7 +20,7 @@ export const createProject = ({
   Loading.show();
 
   var projectCost = parseFloat(total_project_cost.replace(/[^0-9.-]/g, ""));
-  return axios
+  return axiosInstance
     .post("/graphql", {
       query: `mutation create_project(
         $classification: String,

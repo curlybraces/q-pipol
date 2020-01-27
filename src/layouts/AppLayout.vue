@@ -11,44 +11,15 @@
         <q-toolbar-title class="text-primary">E-PLANNING</q-toolbar-title>
         <q-space />
         <q-btn
-          class="bg-grey-9 text-white"
+          class="bg-primary text-white"
           round
           flat
-          :label="currentUserDisplayName.charAt(0)"
+          :label="
+            currentUserDisplayName ? currentUserDisplayName.charAt(0) : 'DA'
+          "
           @mouseenter="menu = true"
         >
-          <q-menu max-width="300px" v-model="menu">
-            <q-list style="min-width: 280px">
-              <q-item>
-                <q-item-section avatar>
-                  <q-avatar>
-                    <q-img :src="photoURL" />
-                  </q-avatar>
-                </q-item-section>
-                <q-item-section>
-                  <q-item-label>{{ currentUserDisplayName }}</q-item-label>
-                  <q-item-label caption>{{ currentUserEmail }}</q-item-label>
-                </q-item-section>
-              </q-item>
-              <q-separator />
-              <q-item clickable v-close-popup to="/user">
-                <q-item-section>Account</q-item-section>
-              </q-item>
-              <q-item clickable v-close-popup>
-                <q-item-section>History</q-item-section>
-              </q-item>
-              <q-item clickable v-close-popup>
-                <q-item-section>Settings</q-item-section>
-              </q-item>
-              <q-separator />
-              <q-item clickable v-close-popup>
-                <q-item-section>Help &amp; Feedback</q-item-section>
-              </q-item>
-              <q-item clickable v-close-popup @click="showLogout">
-                <q-item-section>Logout</q-item-section>
-              </q-item>
-            </q-list>
-          </q-menu>
+          <dropdown-menu v-model="menu" />
         </q-btn>
       </q-toolbar>
     </q-header>
@@ -73,13 +44,14 @@
 </template>
 
 <script>
-import { openURL, Dialog } from "quasar";
-import { mapState, mapActions } from "vuex";
+import { openURL } from "quasar";
+import { mapState } from "vuex";
 
 import DrawerContent from "../components/layout/Drawer";
+import DropdownMenu from "../components/layout/Dropdown";
 
 export default {
-  components: { DrawerContent },
+  components: { DrawerContent, DropdownMenu },
   name: "MyLayout",
   data() {
     return {
@@ -90,29 +62,15 @@ export default {
     };
   },
   computed: {
-    ...mapState("auth", [
-      "loggedIn",
-      "currentUserEmail",
-      "currentUserDisplayName",
-      "photoURL",
-      "signInProvider"
-    ]),
+    ...mapState("auth", ["currentUserDisplayName"]),
     darkMode() {
       return this.$q.dark.isActive;
     }
   },
   methods: {
     openURL,
-    ...mapActions("auth", ["logoutUser"]),
     toggleDarkMode() {
       this.$q.dark.toggle();
-    },
-    showLogout() {
-      Dialog.create({
-        title: "Logout",
-        message: "Are you sure you want to log out?",
-        cancel: true
-      }).onOk(() => this.logoutUser());
     }
   }
 };

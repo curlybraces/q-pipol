@@ -1,9 +1,9 @@
-import axios from "boot/axios";
+import { axiosInstance } from "boot/axios";
 import { Loading } from "quasar";
 
 export const restoreProject = ({ id }) => {
   Loading.show();
-  axios
+  axiosInstance
     .post("/graphql", {
       query: `mutation restore_project($id: Int!) {
       restore_project(id: $id) {

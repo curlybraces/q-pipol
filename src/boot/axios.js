@@ -1,13 +1,14 @@
-// import something here
 import Vue from "vue";
 import axios from "axios";
 
-if (process.env.DEV) {
-  axios.defaults.baseURL = "http://localhost:8000";
-} else {
-  axios.defaults.baseURL = "https://e-planning.daplanningcentral.net";
-}
+// axios.defaults.baseURL = "http://localhost:8000";
 
-Vue.prototype.$axios = axios;
+var baseURL = process.env.DEV
+  ? "http://localhost:8000"
+  : "https://e-planning.daplanningcentral.net";
 
-export default axios;
+export const axiosInstance = axios.create({
+  baseURL: baseURL
+});
+
+Vue.prototype.$axios = axiosInstance;

@@ -871,7 +871,7 @@ export const OPERATING_UNITS = [
   {
     value: 33,
     name: "Philippine Fiber Industry Development Authority ",
-    label: "PhilFvalueA"
+    label: "PhilFIDA"
   },
   {
     value: 34,

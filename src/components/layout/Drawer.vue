@@ -123,3 +123,9 @@ export default {
   }
 };
 </script>
+
+<style>
+.q-router-link--exact-active {
+  font-weight: bold;
+}
+</style>

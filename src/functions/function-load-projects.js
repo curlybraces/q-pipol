@@ -1,4 +1,4 @@
-import axios from "boot/axios";
+import { axiosInstance } from "boot/axios";
 import { Loading } from "quasar";
 
 export const loadProjects = ({
@@ -7,7 +7,7 @@ export const loadProjects = ({
   deleted = false
 }) => {
   Loading.show();
-  return axios
+  return axiosInstance
     .post("/graphql", {
       query: `query projects($current_page: Int, $per_page: Int, $deleted: Boolean) {
         projects(current_page: $current_page, per_page: $per_page, deleted: $deleted) {

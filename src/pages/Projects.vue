@@ -26,79 +26,36 @@
               >Projects</span
             >
             <q-space />
-            <span class="gt-sm">Sort by:</span>
-            <q-select
-              style="min-width: 200px;"
-              class="q-ml-sm"
-              dense
-              outlined
-              v-model="sort"
-              :options="sortOptions"
-              @input="sortData"
-              emit-value
-              map-options
-            ></q-select>
+            <q-btn
+              outline
+              label="Add Project"
+              icon="create"
+              to="/pip/new"
+              color="primary"
+            />
           </div>
-          <q-separator spaced />
           <template v-if="!loading && !error">
             <no-project v-if="projects.length === 0 && search" />
             <template v-else>
               <div class="row q-my-sm">
                 <q-list class="col" separator bordered>
-                  <q-item
+                  <project-item
                     v-for="{
                       id,
                       title,
-                      operating_unit,
                       description,
+                      operating_unit,
                       total_project_cost
                     } in projects"
                     :key="id"
-                    @click="goTo(id)"
-                    clickable
-                  >
-                    <q-item-section avatar>
-                      <q-avatar color="white">
-                        <img
-                          v-if="operating_unit != null"
-                          :src="
-                            `statics/agency_logos/${operating_unit.image}.svg`
-                          "
-                        />
-                        <img v-else src="statics/agency_logos/da-co.svg" />
-                      </q-avatar>
-                    </q-item-section>
-                    <q-item-section class="col-2">
-                      <q-item-label>
-                        {{
-                          operating_unit != null ? operating_unit.name : null
-                        }}
-                      </q-item-label>
-                    </q-item-section>
-                    <q-item-section>
-                      <q-item-label>{{ title }}</q-item-label>
-                      <q-item-label caption :lines="2">{{
-                        description
-                      }}</q-item-label>
-                    </q-item-section>
-                    <q-item-section class="col-1" top side>
-                      <q-item-label
-                        >{{ total_project_cost | currency }}
-                      </q-item-label>
-                      <q-item-label>
-                        <q-btn
-                          class="gt-xs"
-                          size="12px"
-                          flat
-                          dense
-                          round
-                          icon="delete"
-                          color="red"
-                          @click.stop="promptDelete(id)"
-                        />
-                      </q-item-label>
-                    </q-item-section>
-                  </q-item>
+                    :id="id"
+                    :title="title"
+                    :description="description"
+                    :operating_unit="operating_unit"
+                    :total_project_cost="total_project_cost"
+                    @goTo="goTo(id)"
+                    @promptDelete="promptDelete(id)"
+                  ></project-item>
                 </q-list>
               </div>
             </template>
@@ -110,19 +67,21 @@
             </div>
           </template>
 
-          <template v-if="!loading && error">
-            <div class="text-center" style="margin-top: 200px;">
-              <q-icon name="warning" color="red" size="lg"></q-icon>
-              <br />
-              {{ errorMessage }}
-            </div>
-          </template>
+          <div
+            v-if="!loading && error"
+            class="text-center"
+            style="margin-top: 200px;"
+          >
+            <q-icon name="warning" color="red" size="lg"></q-icon>
+            <br />
+            {{ errorMessage }}
+          </div>
 
           <div
-            class="row q-mt-md justify-between items-center"
-            v-if="!loading && projects.length > 0"
+            v-if="!loading && projects.length"
+            class="row justify-between items-center"
           >
-            <span>
+            <div>
               Showing {{ (current_page - 1) * per_page + 1 }} -
               {{
                 current_page * per_page > total
@@ -130,25 +89,17 @@
                   : current_page * per_page
               }}
               of {{ total }} projects
-            </span>
-            <span>
-              Show Entries:
-            </span>
-            <q-select
-              v-model="per_page"
-              :options="[12, 25, 50, 100]"
-              dense
-              outlined
-              @input="reloadProjects"
-            />
-            <q-pagination
-              v-model="current_page"
-              :max-pages="last_page"
-              :max="max"
-              boundary-links
-              boundary-numbers
-              @input="reloadProjects"
-            ></q-pagination>
+            </div>
+            <div>
+              <q-pagination
+                v-model="current_page"
+                :max-pages="last_page"
+                :max="max"
+                boundary-links
+                boundary-numbers
+                @input="reloadProjects"
+              />
+            </div>
           </div>
         </q-card>
       </div>
@@ -169,7 +120,8 @@ export default {
     "search-component": () => import("../components/Projects/SearchComponent"),
     "no-project": () => import("../components/Projects/NoProject"),
     "page-breadcrumbs": () => import("../components/PageBreadcrumbs.vue"),
-    "filter-menu": () => import("../components/FilterMenu.vue")
+    "filter-menu": () => import("../components/FilterMenu.vue"),
+    "project-item": () => import("../components/Projects/ProjectItem.vue")
   },
   name: "PageProjects",
   data() {

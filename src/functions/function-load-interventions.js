@@ -1,4 +1,4 @@
-import axios from "boot/axios";
+import { axiosInstance } from "boot/axios";
 import { Loading } from "quasar";
 import { showErrorMessage } from "./function-show-error-message";
 
@@ -14,7 +14,7 @@ export const loadInterventions = ({
 }) => {
   Loading.show();
 
-  return axios
+  return axiosInstance
     .post("/graphql", {
       query: `query interventions($limit: Int!, $page: Int!, $commodityGroup: [String!], $region: [String!], $province: [String!], $program: [String!], $sortBy: String, $dir: String) {
               interventions(limit:$limit,page:$page,commodityGroup:$commodityGroup,region:$region,province:$province,program:$program,sortBy:$sortBy,dir:$dir) {

@@ -1,10 +1,10 @@
-import axios from "../boot/axios";
+import { axiosInstance } from "../boot/axios";
 import { Loading } from "quasar";
 import { showErrorMessage } from "./function-show-error-message";
 
 export const deleteProject = ({ id }) => {
   Loading.show();
-  return axios
+  return axiosInstance
     .post("/graphql", {
       query: `mutation delete_project($id: Int!)
       {
