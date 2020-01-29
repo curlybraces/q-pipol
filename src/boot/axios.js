@@ -1,7 +1,8 @@
 import Vue from "vue";
 import axios from "axios";
+import { LocalStorage } from "quasar";
 
-// axios.defaults.baseURL = "http://localhost:8000";
+var jwt = LocalStorage.getItem("jwt");
 
 var baseURL = process.env.DEV
   ? "http://localhost:8000"
@@ -10,5 +11,8 @@ var baseURL = process.env.DEV
 export const axiosInstance = axios.create({
   baseURL: baseURL
 });
+
+axiosInstance.defaults.headers["Accept"] = "application/json";
+axiosInstance.defaults.headers["Authorization"] = "Bearer " + jwt;
 
 Vue.prototype.$axios = axiosInstance;

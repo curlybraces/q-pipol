@@ -47,11 +47,11 @@
     <q-separator />
     <q-item clickable @click="showHelp">
       <q-item-section avatar>
-        <q-icon name="help" />
+        <q-icon name="contact_support" />
       </q-item-section>
       <q-item-section>
         <q-item-label>
-          Help
+          Contact Us
         </q-item-label>
       </q-item-section>
     </q-item>
@@ -68,6 +68,11 @@ export default {
           label: "Home",
           icon: "home",
           url: "/"
+        },
+        {
+          label: "Programs",
+          icon: "list",
+          url: "/programs"
         },
         {
           label: "Projects",
@@ -116,7 +121,9 @@ export default {
             isValid: val => val.length > 5
           },
           cancel: true,
-          persistent: true
+          persistent: true,
+          transitionShow: "fade",
+          transitionHide: "fade"
         })
         .onOk(data => alert(data));
     }

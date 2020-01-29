@@ -10,34 +10,16 @@ const routes = [
           import(/* webpackChunkName: 'Index' */ "pages/Index.vue")
       },
       {
-        path: "interventions/:id",
+        path: "programs",
+        name: "programs",
         component: () =>
-          import(
-            /* webpackChunkName: 'InterventionDetails' */ "pages/InterventionDetails.vue"
-          )
-      },
-      {
-        path: "interventions",
-        name: "interventions",
-        component: () =>
-          import(
-            /* webpackChunkName: 'Interventions' */ "pages/Interventions.vue"
-          )
+          import(/* webpackChunkName: 'Programs' */ "pages/Programs.vue")
       },
       {
         path: "pip",
         name: "pip",
         component: () =>
           import(/* webpackChunkName: 'Projects' */ "pages/Projects.vue")
-      },
-      {
-        path: "directory",
-        component: () =>
-          import(/* webpackChunkName: 'Directory' */ "pages/Directory.vue")
-      },
-      {
-        path: "help",
-        component: () => import(/* webpackChunkName: 'Help' */ "pages/Help.vue")
       },
       {
         path: "settings",

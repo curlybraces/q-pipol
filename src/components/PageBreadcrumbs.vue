@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="row">
+    <div class="row text-uppercase">
       <q-breadcrumbs>
         <q-breadcrumbs-el
           v-for="({ title, url }, index) in breadcrumbs"

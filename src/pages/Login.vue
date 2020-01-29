@@ -122,6 +122,7 @@
 
 <script>
 import { mapActions } from "vuex";
+// import { login } from "../functions/function-login.js";
 
 export default {
   name: "PageLogin",
@@ -146,6 +147,7 @@ export default {
           email: email,
           password: password
         });
+        // login({ email: email, password: password });
       }
     },
     handleSubmit() {

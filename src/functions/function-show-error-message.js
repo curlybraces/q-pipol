@@ -4,6 +4,8 @@ export function showErrorMessage(errorMessage) {
   Loading.hide();
   Dialog.create({
     title: "Error",
-    message: errorMessage
+    message: errorMessage,
+    transitionHide: "fade",
+    transitionShow: "fade"
   });
 }

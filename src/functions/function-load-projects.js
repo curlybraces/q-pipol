@@ -1,5 +1,6 @@
 import { axiosInstance } from "boot/axios";
 import { Loading } from "quasar";
+import { showErrorMessage } from "./function-show-error-message";
 
 export const loadProjects = ({
   current_page = 1,
@@ -36,6 +37,6 @@ export const loadProjects = ({
     .then(res => {
       return res.data;
     })
-    .catch(err => console.log(err.message))
+    .catch(err => showErrorMessage(err.message))
     .finally(() => Loading.hide());
 };

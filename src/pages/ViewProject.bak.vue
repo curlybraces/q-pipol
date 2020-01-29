@@ -1,0 +1,1198 @@
+<template>
+  <q-page>
+    <q-card flat>
+      <q-toolbar>
+        <q-avatar icon="note_add" />
+        <q-toolbar-title>View Project</q-toolbar-title>
+        <q-btn
+          v-if="project.addedBy == userId"
+          :to="'/projects/' + $route.params.id + '/edit'"
+          flat
+          round
+          icon="edit"
+        />
+        <q-btn @click="printProject" icon="save" flat round dense />
+      </q-toolbar>
+
+      <q-list separator>
+        <div class="text-h6 text-uppercase q-pa-md">
+          <a :href="project.pipolLink" target="_blank">
+            {{ project.title }}
+          </a>
+          <q-space />
+          <q-badge
+            v-if="project.newProject"
+            label="New"
+            color="green"
+          ></q-badge>
+          <q-badge v-else label="Old" color="red"></q-badge>
+        </div>
+        <div class="text-caption q-mx-md">
+          (Click on the title to go to PIPOL entry.)
+        </div>
+
+        <q-item-label header class="text-uppercase"
+          >General Information</q-item-label
+        >
+
+        <label-value label="PAP UACS Code" :value="project.uacsCode" />
+
+        <label-value label="Commodity/ies" :value="project.commodities" />
+
+        <label-value
+          label="Program/Functional Classification"
+          :value="project.program"
+        />
+
+        <label-value label="1. Proposal/Project Name" :value="project.title" />
+
+        <label-value
+          label="2. Classification"
+          :value="project.classification"
+        />
+
+        <label-value
+          label="3. Implementing Agency"
+          :value="project.implementingAgency"
+        />
+
+        <label-value
+          label="4. Main Funding Source"
+          :value="project.mainFundingSource"
+        />
+
+        <label-value
+          label="4a. Mode of Implementation"
+          :value="project.implementationMode"
+        />
+
+        <label-value
+          label="5. Priority Ranking No."
+          :value="project.priorityRanking"
+        />
+
+        <q-item-label header class="text-uppercase"
+          >Categorization</q-item-label
+        >
+
+        <label-value
+          label="6a. Status"
+          :value="project.projectStatus"
+        ></label-value>
+
+        <label-value
+          label="6b. Infrastructure"
+          :value="project.infrastructure"
+        ></label-value>
+
+        <label-value label="6c. Typology" :value="project.typology" />
+
+        <label-value label="6d. Budget Tier" :value="project.budgetTier" />
+
+        <label-value
+          label="7a. Spatial Coverage"
+          :value="project.spatialCoverage"
+        />
+
+        <label-value label="7b. Regions" :value="project.regions" />
+
+        <label-value label="7c. Province/s" :value="project.provinces" />
+
+        <label-value
+          label="7d. City/Municipality/ies"
+          :value="project.cityMunicipalities"
+        />
+
+        <label-value
+          label="8. Total Project Cost (in PhP)"
+          :value="project.totalProjectCost | monetize"
+        />
+
+        <label-value
+          label="9. Bases for Implementation"
+          :value="project.implementationBases"
+        />
+
+        <label-value
+          label="10. RDIP Inclusion"
+          :value="project.rdipInclusion | falsify"
+        />
+
+        <label-value
+          label="11. PCIP Inclusion"
+          :value="project.pcipInclusion | falsify"
+        />
+
+        <label-value
+          label="12. Status of ICC/NEDA Board Processing"
+          :value="project.nedaProcessing + ' on ' + project.dateNedaProcessing"
+        />
+
+        <label-value label="13. Description" :value="project.description" />
+
+        <label-value label="Add component" :value="project.components" />
+
+        <label-value label="14. Purpose" :value="project.purpose" />
+
+        <label-value
+          label="15. Challenges being addressed"
+          :value="project.challenges"
+        />
+
+        <label-value
+          label="16. Expected Outputs"
+          :value="project.expectedOutputs"
+        />
+
+        <label-value label="17. Beneficiaries" :value="project.beneficiaries" />
+
+        <label-value
+          label="18. Estimated number of persons to be employed"
+          :value="project.employmentGeneration"
+        />
+
+        <label-value
+          label="19. Implementation Period"
+          :value="project.implementationStart + '-' + project.implementationEnd"
+        />
+
+        <label-value
+          label="20. Physical Status Update/Accomplishment"
+          :value="project.updates"
+        />
+
+        <q-item-label header class="text-uppercase"
+          >Implementation Readiness</q-item-label
+        >
+
+        <q-item-label header>21. Prerequisites</q-item-label>
+
+        <label-value label="NEDA Board" :value="project.nedaBoard | falsify" />
+
+        <label-value
+          label="NEDA Board-ICC"
+          :value="project.nedaBoardIcc | falsify"
+        />
+
+        <label-value
+          label="DPWH Certification"
+          :value="project.dpwhCertification | falsify"
+        />
+
+        <label-value label="DPWH MOA" :value="project.dpwhMoa | falsify" />
+
+        <label-value
+          label="DPWH Costing"
+          :value="project.dpwhCosting | falsify"
+        />
+
+        <label-value
+          label="DENR Clearance"
+          :value="project.denrClearance | falsify"
+        />
+
+        <label-value
+          label="RDC Consultation"
+          :value="project.rdcConsultation | falsify"
+        />
+
+        <label-value
+          label="CSO Consultation"
+          :value="project.csoConsultation | falsify"
+        />
+
+        <label-value
+          label="List of Locations"
+          :value="project.listLocations | falsify"
+        />
+
+        <label-value
+          label="List of Beneficiaries"
+          :value="project.listBeneficiaries | falsify"
+        />
+
+        <label-value
+          label="Evaluated and endorsed by DA Clearinghouse Committee"
+          :value="project.daClearingHouse | falsify"
+        />
+
+        <q-item-label header>22. Technical Readiness</q-item-label>
+
+        <label-value
+          label="Concept Note"
+          :value="project.conceptNote | falsify"
+        />
+
+        <label-value
+          label="Feasibility Study"
+          :value="project.feasibilityStudy | falsify"
+        />
+
+        <label-value
+          label="Detailed Engineering Design"
+          :value="project.detailedEngineeringDesign | falsify"
+        />
+
+        <label-value
+          label="Business Plan"
+          :value="project.businessPlan | falsify"
+        />
+
+        <label-value
+          label="Right of Way"
+          :value="project.rightOfWay | falsify"
+        />
+
+        <label-value
+          label="Resettlement Plan"
+          :value="project.resettlementPlan | falsify"
+        />
+
+        <label-value
+          label="Others"
+          :value="project.otherTechnicalReadiness | falsify"
+        />
+
+        <label-value
+          label="23. Level of Readiness"
+          :value="project.readinessLevel"
+        />
+
+        <label-value
+          label="24. Implementation Risks"
+          :value="project.implementationRisks"
+        />
+
+        <label-value
+          label="25. Mitigation Strategies"
+          :value="project.mitigationStrategies"
+        />
+
+        <q-item-label header class="text-uppercase"
+          >Strategic Alignment</q-item-label
+        >
+
+        <label-value
+          label="26. New Thinking for Agriculture (Eight Paradigms for a Food-Secure Philippines)"
+          :value="project.newThinkings"
+        />
+
+        <label-value
+          label="27. Contribution to increasing income"
+          :value="project.incomeEffect"
+        />
+
+        <label-value
+          label="28. Philippine Development Plan"
+          :value="project.pdp"
+        />
+
+        <label-value
+          label="29. Philippine Development Plan"
+          :value="project.pdpIndicators"
+        />
+
+        <label-value
+          label="30. Sustainable Development Goals"
+          :value="project.sustainableDevelopmentGoals"
+        />
+
+        <label-value
+          label="31. 0-10 Socioeconomic Agenda"
+          :value="project.tenPointAgenda"
+        />
+
+        <label-value
+          label="32. Level of GAD Responsiveness"
+          :value="project.gadResponsiveness"
+        />
+
+        <label-value
+          label="33. Infrastructure Sector"
+          :value="project.infrastructureSectors"
+        />
+
+        <q-item-label header class="text-uppercase"
+          >FINANCIAL AND ECONOMIC BENEFITS</q-item-label
+        >
+
+        <label-value
+          label="34. Estimated Project Life (in years)"
+          :value="project.projectLife"
+        />
+
+        <label-value label="35. Benefit-Cost Ratio" :value="project.bcr" />
+
+        <label-value
+          label="36. Internal Rate of Return (in %)"
+          :value="project.irr"
+        />
+
+        <label-value
+          label="37. Return on Investment (in %)"
+          :value="project.roi"
+        />
+
+        <label-value label="38. Net Present Value (PhP)" :value="project.npv" />
+
+        <q-item-label header>PROJECT COSTING</q-item-label>
+
+        <q-item>
+          <q-item-section>
+            <q-item-label>
+              39. Investment Cost by Component
+            </q-item-label>
+            <q-item-label>
+              <q-markup-table>
+                <thead>
+                  <tr>
+                    <th>Component</th>
+                    <th class="text-right">2016 &amp; Prior</th>
+                    <th class="text-right">2017</th>
+                    <th class="text-right">2018</th>
+                    <th class="text-right">2019</th>
+                    <th class="text-right">2020</th>
+                    <th class="text-right">2021</th>
+                    <th class="text-right">2022</th>
+                    <th class="text-right">2023 &amp; Beyond</th>
+                    <th class="text-right">TOTAL</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="(comp, index) in project.componentBreakdown"
+                    :key="index"
+                  >
+                    <td>{{ comp.component }}</td>
+                    <td class="text-right">
+                      {{ comp.investment2016 | numberize }}
+                    </td>
+                    <td class="text-right">
+                      {{ comp.investment2017 | numberize }}
+                    </td>
+                    <td class="text-right">
+                      {{ comp.investment2018 | numberize }}
+                    </td>
+                    <td class="text-right">
+                      {{ comp.investment2019 | numberize }}
+                    </td>
+                    <td class="text-right">
+                      {{ comp.investment2020 | numberize }}
+                    </td>
+                    <td class="text-right">
+                      {{ comp.investment2021 | numberize }}
+                    </td>
+                    <td class="text-right">
+                      {{ comp.investment2022 | numberize }}
+                    </td>
+                    <td class="text-right">
+                      {{ comp.investment2023 | numberize }}
+                    </td>
+                    <td class="text-right">{{ cInvestmentTotal[index] }}</td>
+                  </tr>
+                </tbody>
+              </q-markup-table>
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+
+        <q-item>
+          <q-item-section>
+            <q-item-label>
+              41. Investment Cost by FundingSource
+            </q-item-label>
+            <q-item-label>
+              <q-markup-table>
+                <thead>
+                  <tr>
+                    <th>Component</th>
+                    <th class="text-right">2016 &amp; Prior</th>
+                    <th class="text-right">2017</th>
+                    <th class="text-right">2018</th>
+                    <th class="text-right">2019</th>
+                    <th class="text-right">2020</th>
+                    <th class="text-right">2021</th>
+                    <th class="text-right">2022</th>
+                    <th class="text-right">2023 &amp; Beyond</th>
+                    <th class="text-right">TOTAL</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="(comp, index) in project.fundingSourceBreakdown"
+                    :key="index"
+                  >
+                    <td>{{ comp.component }}</td>
+                    <td class="text-right">
+                      {{ comp.investment2016 | numberize }}
+                    </td>
+                    <td class="text-right">
+                      {{ comp.investment2017 | numberize }}
+                    </td>
+                    <td class="text-right">
+                      {{ comp.investment2018 | numberize }}
+                    </td>
+                    <td class="text-right">
+                      {{ comp.investment2019 | numberize }}
+                    </td>
+                    <td class="text-right">
+                      {{ comp.investment2020 | numberize }}
+                    </td>
+                    <td class="text-right">
+                      {{ comp.investment2021 | numberize }}
+                    </td>
+                    <td class="text-right">
+                      {{ comp.investment2022 | numberize }}
+                    </td>
+                    <td class="text-right">
+                      {{ comp.investment2023 | numberize }}
+                    </td>
+                    <td class="text-right">
+                      {{ fsInvestmentTotal[index] }}
+                    </td>
+                  </tr>
+                </tbody>
+              </q-markup-table>
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+
+        <q-item>
+          <q-item-section>
+            <q-item-label>
+              42. Investment Cost by Location of Implementation
+            </q-item-label>
+            <q-item-label>
+              <q-markup-table>
+                <thead>
+                  <tr>
+                    <td>Component</td>
+                    <td class="text-right">2016 &amp; Prior</td>
+                    <td class="text-right">2017</td>
+                    <td class="text-right">2018</td>
+                    <td class="text-right">2019</td>
+                    <td class="text-right">2020</td>
+                    <td class="text-right">2021</td>
+                    <td class="text-right">2022</td>
+                    <td class="text-right">2023 &amp; Beyond</td>
+                    <td class="text-right">TOTAL</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="(comp, index) in project.locationBreakdown"
+                    :key="index"
+                  >
+                    <td>{{ comp.component }}</td>
+                    <td class="text-right">
+                      {{ comp.investment2016 | numberize }}
+                    </td>
+                    <td class="text-right">
+                      {{ comp.investment2017 | numberize }}
+                    </td>
+                    <td class="text-right">
+                      {{ comp.investment2018 | numberize }}
+                    </td>
+                    <td class="text-right">
+                      {{ comp.investment2019 | numberize }}
+                    </td>
+                    <td class="text-right">
+                      {{ comp.investment2020 | numberize }}
+                    </td>
+                    <td class="text-right">
+                      {{ comp.investment2021 | numberize }}
+                    </td>
+                    <td class="text-right">
+                      {{ comp.investment2022 | numberize }}
+                    </td>
+                    <td class="text-right">
+                      {{ comp.investment2023 | numberize }}
+                    </td>
+                    <td class="text-right">{{ lInvestmentTotal[index] }}</td>
+                  </tr>
+                </tbody>
+              </q-markup-table>
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+
+        <q-item>
+          <q-item-section>
+            <q-item-label>
+              43. Financial Accomplishment
+            </q-item-label>
+            <q-item-label>
+              <q-markup-table>
+                <thead>
+                  <tr>
+                    <td>Type</td>
+                    <td class="text-right">2017</td>
+                    <td class="text-right">2018</td>
+                    <td class="text-right">2019</td>
+                    <td class="text-right">2020</td>
+                    <td class="text-right">2021</td>
+                    <td class="text-right">2022</td>
+                    <td class="text-right">TOTAL</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>NEP</td>
+                    <td class="text-right">{{ project.nep2017 }}</td>
+                    <td class="text-right">{{ project.nep2018 }}</td>
+                    <td class="text-right">{{ project.nep2019 }}</td>
+                    <td class="text-right">{{ project.nep2020 }}</td>
+                    <td class="text-right">{{ project.nep2021 }}</td>
+                    <td class="text-right">{{ project.nep2022 }}</td>
+                    <td class="text-right">{{ nepTotal }}</td>
+                  </tr>
+                  <tr>
+                    <td>GAA</td>
+                    <td class="text-right">{{ project.gaa2017 }}</td>
+                    <td class="text-right">{{ project.gaa2018 }}</td>
+                    <td class="text-right">{{ project.gaa2019 }}</td>
+                    <td class="text-right">{{ project.gaa2020 }}</td>
+                    <td class="text-right">{{ project.gaa2021 }}</td>
+                    <td class="text-right">{{ project.gaa2022 }}</td>
+                    <td class="text-right">{{ gaaTotal }}</td>
+                  </tr>
+                  <tr>
+                    <td>Disbursement</td>
+                    <td class="text-right">{{ project.disbursement2017 }}</td>
+                    <td class="text-right">{{ project.disbursement2018 }}</td>
+                    <td class="text-right">{{ project.disbursement2019 }}</td>
+                    <td class="text-right">{{ project.disbursement2020 }}</td>
+                    <td class="text-right">{{ project.disbursement2021 }}</td>
+                    <td class="text-right">{{ project.disbursement2022 }}</td>
+                    <td class="text-right">{{ disbursementTotal }}</td>
+                  </tr>
+                </tbody>
+              </q-markup-table>
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+      </q-list>
+    </q-card>
+  </q-page>
+</template>
+
+<script>
+import { firebaseAuth, projectRef } from "boot/firebase";
+import { mapState, mapGetters } from "vuex";
+import { Notify, Loading } from "quasar";
+
+const LabelValue = () => import("../components/LabelValue");
+
+import { saveAs } from "file-saver";
+import {
+  Document,
+  Packer,
+  Table,
+  Paragraph,
+  WidthType,
+  TableAnchorType,
+  Header,
+  HeadingLevel,
+  TableLayoutType,
+  // Footer,
+  // TextRun,
+  // VerticalAlign,
+  // BorderStyle,
+  AlignmentType,
+  VerticalAlign
+} from "docx";
+
+export default {
+  components: {
+    LabelValue
+  },
+  name: "PageViewProject",
+  data() {
+    return {
+      project: {}
+    };
+  },
+  computed: {
+    ...mapState("settings", ["dark"]),
+    ...mapGetters("projects", ["getProject"]),
+    userId() {
+      return firebaseAuth.currentUser.uid;
+    },
+    fsInvestmentTotal() {
+      return this.project.fundingSourceBreakdown.map(item => {
+        let total = 0;
+        total =
+          (parseInt(item.investment2016) || 0) +
+          (parseInt(item.investment2017) || 0) +
+          (parseInt(item.investment2018) || 0) +
+          (parseInt(item.investment2019) || 0) +
+          (parseInt(item.investment2020) || 0) +
+          (parseInt(item.investment2021) || 0) +
+          (parseInt(item.investment2022) || 0) +
+          (parseInt(item.investment2023) || 0);
+        return total.toLocaleString();
+      });
+    },
+    cInvestmentTotal() {
+      return this.project.componentBreakdown.map(item => {
+        let total = 0;
+        total =
+          (parseInt(item.investment2016) || 0) +
+          (parseInt(item.investment2017) || 0) +
+          (parseInt(item.investment2018) || 0) +
+          (parseInt(item.investment2019) || 0) +
+          (parseInt(item.investment2020) || 0) +
+          (parseInt(item.investment2021) || 0) +
+          (parseInt(item.investment2022) || 0) +
+          (parseInt(item.investment2023) || 0);
+        return total.toLocaleString();
+      });
+    },
+    lInvestmentTotal() {
+      return this.project.locationBreakdown.map(item => {
+        let total = 0;
+        total =
+          (parseInt(item.investment2016) || 0) +
+          (parseInt(item.investment2017) || 0) +
+          (parseInt(item.investment2018) || 0) +
+          (parseInt(item.investment2019) || 0) +
+          (parseInt(item.investment2020) || 0) +
+          (parseInt(item.investment2021) || 0) +
+          (parseInt(item.investment2022) || 0) +
+          (parseInt(item.investment2023) || 0);
+        return total.toLocaleString();
+      });
+    },
+    nepTotal() {
+      return (
+        (parseFloat(this.project.nep2017) || 0) +
+        (parseFloat(this.project.nep2018) || 0) +
+        (parseFloat(this.project.nep2019) || 0) +
+        (parseFloat(this.project.nep2020) || 0) +
+        (parseFloat(this.project.nep2021) || 0) +
+        (parseFloat(this.project.nep2022) || 0)
+      );
+    },
+    gaaTotal() {
+      return (
+        (parseFloat(this.project.gaa2017) || 0) +
+        (parseFloat(this.project.gaa2018) || 0) +
+        (parseFloat(this.project.gaa2019) || 0) +
+        (parseFloat(this.project.gaa2020) || 0) +
+        (parseFloat(this.project.gaa2021) || 0) +
+        (parseFloat(this.project.gaa2022) || 0)
+      );
+    },
+    disbursementTotal() {
+      return (
+        (parseFloat(this.project.disbursement2017) || 0) +
+        (parseFloat(this.project.disbursement2018) || 0) +
+        (parseFloat(this.project.disbursement2019) || 0) +
+        (parseFloat(this.project.disbursement2020) || 0) +
+        (parseFloat(this.project.disbursement2021) || 0) +
+        (parseFloat(this.project.disbursement2022) || 0)
+      );
+    }
+  },
+  filters: {
+    monetize(val) {
+      if (!val) {
+        return "PhP 0.00";
+      } else {
+        let totalProjectCost = parseInt(val.replace(/,/g, ""));
+        return "PhP " + totalProjectCost.toLocaleString("en-PH");
+      }
+    },
+    numberize(val) {
+      if (!val) {
+        return 0.0;
+      } else {
+        let totalProjectCost = parseFloat(val.replace(/,/g, ""));
+        return totalProjectCost.toLocaleString("en-PH");
+      }
+    },
+    falsify(val) {
+      if (val) {
+        return "Yes";
+      } else {
+        return "No";
+      }
+    }
+  },
+  methods: {
+    printProject() {
+      const doc = new Document({
+        creator: "DA-IPMS"
+      });
+
+      const table = new Table({
+        rows: 11,
+        columns: 2,
+        float: {
+          horizontalAnchor: TableAnchorType.MARGIN,
+          verticalAnchor: TableAnchorType.MARGIN
+        },
+        width: 9070,
+        widthUnitType: WidthType.DXA,
+        layout: TableLayoutType.FIXED,
+        margins: {
+          top: 100,
+          bottom: 100,
+          right: 100,
+          left: 100
+        }
+      });
+
+      const cell = table.getCell(0, 0);
+      cell.Properties.setWidth("30%", WidthType.PCT);
+      cell.add(new Paragraph("1. Proposal/Project Name"));
+
+      const cell2 = table.getCell(0, 1);
+      cell2.Properties.setWidth("70%", WidthType.PCT);
+      cell2.add(new Paragraph(this.project.title));
+
+      table
+        .getCell(1, 0)
+        .add(new Paragraph("2.	Implementing Department/ Agency (or Agencies)"));
+
+      table.getCell(1, 1).add(new Paragraph(this.project.implementingAgency));
+      table.getCell(2, 0).add(new Paragraph("3. Priority Ranking No."));
+      table.getCell(2, 1).add(new Paragraph(this.project.priorityRanking));
+      table.getCell(3, 0).add(new Paragraph("4. Categorization"));
+      table.getCell(3, 1).add(new Paragraph(this.project.categorization));
+      table.getCell(4, 0).add(new Paragraph("5. NEDA Project ID"));
+      table.getCell(4, 1).add(new Paragraph(this.project.nedaProjectId));
+      table.getCell(5, 0).add(new Paragraph("6. Total Project Cost"));
+      table.getCell(5, 1).add(new Paragraph(this.project.totalProjectCost));
+      table.getCell(6, 0).add(new Paragraph("7. Description"));
+      table.getCell(6, 1).add(new Paragraph(this.project.description));
+      table.getCell(7, 0).add(new Paragraph("8. Purpose"));
+      table.getCell(7, 1).add(new Paragraph(this.project.purpose));
+      table.getCell(8, 0).add(new Paragraph("9. Beneficiaries"));
+      table.getCell(8, 1).add(new Paragraph(this.project.beneficiaries));
+      table.getCell(9, 0).add(new Paragraph("10. Implementation Period"));
+      table
+        .getCell(9, 1)
+        .add(new Paragraph("Start Date: " + this.project.implementationStart));
+      table
+        .getCell(10, 1)
+        .add(new Paragraph("End Date: " + this.project.implementationEnd));
+
+      const table2 = new Table({
+        rows: 13,
+        columns: 6,
+        float: {
+          horizontalAnchor: TableAnchorType.MARGIN,
+          verticalAnchor: TableAnchorType.MARGIN
+        },
+        width: 9070,
+        widthUnitType: WidthType.DXA,
+        layout: TableLayoutType.FIXED,
+        margins: {
+          top: 100,
+          bottom: 100,
+          right: 100,
+          left: 100
+        }
+      });
+
+      table2.getCell(0, 0).add(new Paragraph("11. Pre-requisites"));
+      table2.getCell(0, 0).Properties.setWidth("30%", WidthType.PCT);
+      table2
+        .getRow(0)
+        .mergeCells(1, 5)
+        .add(
+          new Paragraph({
+            text: "Reviewed/Approved",
+            alignment: AlignmentType.CENTER
+          })
+        )
+        .setVerticalAlign(VerticalAlign.CENTER);
+
+      table2.getCell(1, 1).add(new Paragraph("Approving Authorities"));
+      table2.getCell(1, 2).add(new Paragraph("Yes"));
+      table2.getCell(1, 3).add(new Paragraph("No"));
+      table2.getCell(1, 4).add(new Paragraph("Not Applicable"));
+      table2.getCell(1, 5).add(new Paragraph("Remark"));
+      table2.getCell(2, 1).add(new Paragraph("NEDA Board"));
+      table2.getCell(2, 2).add(new Paragraph(""));
+      table2.getCell(2, 3).add(new Paragraph(""));
+      table2.getCell(2, 4).add(new Paragraph(""));
+      table2.getCell(2, 5).add(new Paragraph(""));
+      table2.getCell(3, 1).add(new Paragraph("NEDA Board-ICC"));
+      table2.getCell(3, 2).add(new Paragraph(""));
+      table2.getCell(3, 3).add(new Paragraph(""));
+      table2.getCell(3, 4).add(new Paragraph(""));
+      table2.getCell(3, 5).add(new Paragraph(""));
+      table2.getCell(4, 1).add(new Paragraph("DPWH Certification"));
+      table2.getCell(4, 2).add(new Paragraph(""));
+      table2.getCell(4, 3).add(new Paragraph(""));
+      table2.getCell(4, 4).add(new Paragraph(""));
+      table2.getCell(4, 5).add(new Paragraph(""));
+      table2.getCell(5, 1).add(new Paragraph("DPWH MOA"));
+      table2.getCell(5, 2).add(new Paragraph(""));
+      table2.getCell(5, 3).add(new Paragraph(""));
+      table2.getCell(5, 4).add(new Paragraph(""));
+      table2.getCell(5, 5).add(new Paragraph(""));
+      table2.getCell(6, 1).add(new Paragraph("DPWH Costing"));
+      table2.getCell(6, 2).add(new Paragraph(""));
+      table2.getCell(6, 3).add(new Paragraph(""));
+      table2.getCell(6, 4).add(new Paragraph(""));
+      table2.getCell(6, 5).add(new Paragraph(""));
+      table2.getCell(7, 1).add(new Paragraph("DENR Clearance"));
+      table2.getCell(7, 2).add(new Paragraph(""));
+      table2.getCell(7, 3).add(new Paragraph(""));
+      table2.getCell(7, 4).add(new Paragraph(""));
+      table2.getCell(7, 5).add(new Paragraph(""));
+      table2.getCell(8, 1).add(new Paragraph("RDC Consultation"));
+      table2.getCell(8, 2).add(new Paragraph(""));
+      table2.getCell(8, 3).add(new Paragraph(""));
+      table2.getCell(8, 4).add(new Paragraph(""));
+      table2.getCell(8, 5).add(new Paragraph(""));
+      table2.getCell(9, 1).add(new Paragraph("CSO Consultation"));
+      table2.getCell(9, 2).add(new Paragraph(""));
+      table2.getCell(9, 3).add(new Paragraph(""));
+      table2.getCell(9, 4).add(new Paragraph(""));
+      table2.getCell(9, 5).add(new Paragraph(""));
+      table2.getCell(10, 1).add(new Paragraph("List of Locations"));
+      table2.getCell(10, 2).add(new Paragraph(""));
+      table2.getCell(10, 3).add(new Paragraph(""));
+      table2.getCell(10, 4).add(new Paragraph(""));
+      table2.getCell(10, 5).add(new Paragraph(""));
+      table2.getCell(11, 1).add(new Paragraph("List of Beneficiaries"));
+      table2.getCell(11, 2).add(new Paragraph(""));
+      table2.getCell(11, 3).add(new Paragraph(""));
+      table2.getCell(11, 4).add(new Paragraph(""));
+      table2.getCell(11, 5).add(new Paragraph(""));
+      table2.getCell(12, 1).add(new Paragraph("Others (please specify)"));
+      table2.getCell(12, 2).add(new Paragraph(""));
+      table2.getCell(12, 3).add(new Paragraph(""));
+      table2.getCell(12, 4).add(new Paragraph(""));
+      table2.getCell(12, 5).add(new Paragraph(""));
+
+      const table3 = new Table({
+        rows: 3,
+        columns: 4,
+        float: {
+          horizontalAnchor: TableAnchorType.MARGIN,
+          verticalAnchor: TableAnchorType.MARGIN
+        },
+        width: 9070,
+        widthUnitType: WidthType.DXA,
+        layout: TableLayoutType.FIXED,
+        margins: {
+          top: 100,
+          bottom: 100,
+          right: 100,
+          left: 100
+        }
+      });
+      table3.getCell(0, 0).Properties.setWidth("30%", WidthType.PCT);
+      table3.getCell(0, 0).add(new Paragraph("PAP (A)"));
+      table3.getCell(0, 1).add(new Paragraph("FY 2021 Tier 2 (B)"));
+      table3.getCell(0, 2).add(new Paragraph("2022 (C)"));
+      table3.getCell(0, 3).add(new Paragraph("2023 (D)"));
+
+      table3.getCell(2, 0).add(new Paragraph("GRAND TOTAL"));
+
+      const table4 = new Table({
+        rows: 3,
+        columns: 4,
+        float: {
+          horizontalAnchor: TableAnchorType.MARGIN,
+          verticalAnchor: TableAnchorType.MARGIN
+        },
+        width: 9070,
+        widthUnitType: WidthType.DXA,
+        layout: TableLayoutType.FIXED,
+        margins: {
+          top: 100,
+          bottom: 100,
+          right: 100,
+          left: 100
+        }
+      });
+
+      table4.getCell(0, 0).add(new Paragraph("Physical Accomplishments (A)"));
+      table4.getCell(0, 0).Properties.setWidth("30%", WidthType.PCT);
+      table4
+        .getRow(0)
+        .mergeCells(1, 3)
+        .add(new Paragraph("Targets"));
+      table4.getCell(1, 1).add(new Paragraph("FY 2020 Tier 2 (B)"));
+      table4.getCell(1, 2).add(new Paragraph("2021 (C)"));
+      table4.getCell(1, 3).add(new Paragraph("2022 (D)"));
+
+      const table5 = new Table({
+        rows: 6,
+        columns: 2,
+        float: {
+          horizontalAnchor: TableAnchorType.MARGIN,
+          verticalAnchor: TableAnchorType.MARGIN
+        },
+        width: 9070,
+        widthUnitType: WidthType.DXA,
+        layout: TableLayoutType.FIXED,
+        margins: {
+          top: 100,
+          bottom: 100,
+          right: 100,
+          left: 100
+        }
+      });
+
+      table5.getCell(0, 0).add(new Paragraph("Expense Class"));
+      table5.getCell(0, 0).Properties.setWidth("30%", WidthType.PCT);
+      table5.getCell(0, 1).add(new Paragraph("Total Project Cost"));
+      table5.getCell(1, 0).add(new Paragraph("Personnel Services (PS)"));
+      table5
+        .getCell(2, 0)
+        .add(new Paragraph("Maintenance and Other Operating Expenses (MOOE)"));
+      table5.getCell(3, 0).add(new Paragraph("Financial Expenses (FINEX)"));
+      table5.getCell(4, 0).add(new Paragraph("Capital Outlay (CO)"));
+      table5.getCell(5, 0).add(new Paragraph("GRAND TOTAL"));
+      table5.getCell(5, 1).add(new Paragraph(this.project.totalProjectCost));
+
+      const table6 = new Table({
+        rows: 3,
+        columns: 3,
+        float: {
+          horizontalAnchor: TableAnchorType.MARGIN,
+          verticalAnchor: TableAnchorType.MARGIN
+        },
+        width: 9070,
+        widthUnitType: WidthType.DXA,
+        layout: TableLayoutType.FIXED,
+        margins: {
+          top: 100,
+          bottom: 100,
+          right: 100,
+          left: 100
+        }
+      });
+
+      table6.getCell(0, 0).add(new Paragraph("PAP (A)"));
+      table6.getCell(0, 0).Properties.setWidth("30%", WidthType.PCT);
+      table6.getCell(0, 1).add(new Paragraph("2021 (B)"));
+      table6.getCell(0, 2).add(new Paragraph("2022 (C)"));
+      table6.getCell(2, 0).add(new Paragraph("GRAND TOTAL"));
+
+      const table7 = new Table({
+        rows: 3,
+        columns: 6,
+        float: {
+          horizontalAnchor: TableAnchorType.MARGIN,
+          verticalAnchor: TableAnchorType.MARGIN
+        },
+        width: 9070,
+        widthUnitType: WidthType.DXA,
+        layout: TableLayoutType.FIXED,
+        margins: {
+          top: 100,
+          bottom: 100,
+          right: 100,
+          left: 100
+        }
+      });
+
+      table7.getCell(0, 0).add(new Paragraph("Components (A)"));
+      table7.getCell(0, 0).Properties.setWidth("30%", WidthType.PCT);
+      table7.getCell(0, 1).add(new Paragraph("PS (B)"));
+      table7.getCell(0, 2).add(new Paragraph("MOOE (C)"));
+      table7.getCell(0, 3).add(new Paragraph("CO (D)"));
+      table7.getCell(0, 4).add(new Paragraph("FINEX (E)"));
+      table7.getCell(0, 5).add(new Paragraph("Total (F)"));
+      table7.getCell(2, 0).add(new Paragraph("GRAND TOTAL"));
+
+      const table8 = new Table({
+        rows: 3,
+        columns: 6,
+        float: {
+          horizontalAnchor: TableAnchorType.MARGIN,
+          verticalAnchor: TableAnchorType.MARGIN
+        },
+        width: 9070,
+        widthUnitType: WidthType.DXA,
+        layout: TableLayoutType.FIXED,
+        margins: {
+          top: 100,
+          bottom: 100,
+          right: 100,
+          left: 100
+        }
+      });
+
+      table8.getCell(0, 0).add(new Paragraph("Location (A)"));
+      table8.getCell(0, 0).Properties.setWidth("30%", WidthType.PCT);
+      table8.getCell(0, 1).add(new Paragraph("PS (B)"));
+      table8.getCell(0, 2).add(new Paragraph("MOOE (C)"));
+      table8.getCell(0, 3).add(new Paragraph("CO (D)"));
+      table8.getCell(0, 4).add(new Paragraph("FINEX (E)"));
+      table8.getCell(0, 5).add(new Paragraph("Total (F)"));
+      table8.getCell(2, 0).add(new Paragraph("GRAND TOTAL"));
+
+      const table9 = new Table({
+        rows: 3,
+        columns: 5,
+        float: {
+          horizontalAnchor: TableAnchorType.MARGIN,
+          verticalAnchor: TableAnchorType.MARGIN
+        },
+        width: 9070,
+        widthUnitType: WidthType.DXA,
+        layout: TableLayoutType.FIXED,
+        margins: {
+          top: 100,
+          bottom: 100,
+          right: 100,
+          left: 100
+        }
+      });
+
+      table9.getCell(1, 0).Properties.setWidth("20%", WidthType.PCT);
+      table9.getCell(1, 1).Properties.setWidth("20%", WidthType.PCT);
+      table9.getCell(1, 2).Properties.setWidth("20%", WidthType.PCT);
+      table9.getCell(1, 3).Properties.setWidth("20%", WidthType.PCT);
+      table9.getCell(1, 4).Properties.setWidth("20%", WidthType.PCT);
+
+      table9
+        .getRow(0)
+        .mergeCells(0, 1)
+        .add(new Paragraph("Prepared by:"));
+      table9.getCell(0, 1).add(new Paragraph("Certified Correct:"));
+      table9.getCell(0, 2).add(new Paragraph("Approved:"));
+      table9.getCell(0, 3).add(new Paragraph("Date:"));
+      table9.getCell(2, 0).add(new Paragraph("Budget Officer"));
+      table9.getCell(2, 1).add(new Paragraph("Planning Officer"));
+      table9.getCell(2, 2).add(new Paragraph("Chief Accountant"));
+      table9.getCell(2, 3).add(new Paragraph("Head of Agency"));
+      table9.getCell(2, 4).add(new Paragraph("Date"));
+
+      doc.addSection({
+        properties: {},
+        headers: {
+          default: new Header({
+            children: [
+              new Paragraph({
+                text: "Revised BP Form 202 (2021 Budget Tier 2)",
+                alignment: AlignmentType.RIGHT,
+                bold: true
+              })
+            ]
+          })
+        },
+        children: [
+          new Paragraph({
+            text: "PROPOSAL FOR NEW OR EXPANDED LOCALLY FUNDED PROJECT",
+            alignment: AlignmentType.CENTER,
+            bold: true,
+            spacing: {
+              after: 200
+            }
+          }),
+          table,
+          new Paragraph({
+            text: "Pre-Requisites",
+            heading: HeadingLevel.HEADING_4,
+            spacing: {
+              after: 200,
+              before: 200
+            }
+          }),
+          table2,
+          new Paragraph({
+            text: "12. Financial (in P'000) and Physical Details",
+            heading: HeadingLevel.HEADING_4,
+            spacing: {
+              after: 200,
+              before: 200
+            }
+          }),
+          new Paragraph({
+            text: "12.1 PAP ATTRIBUTION BY EXPENSE CLASS",
+            heading: HeadingLevel.HEADING_5,
+            spacing: {
+              after: 200,
+              before: 200
+            }
+          }),
+          table3,
+          new Paragraph({
+            text: "12.2 PHYSICAL ACCOMPLISHMENTS &amp; TARGETS",
+            heading: HeadingLevel.HEADING_5,
+            spacing: {
+              after: 200,
+              before: 200
+            }
+          }),
+          table4,
+          new Paragraph({
+            text: "12.3 TOTAL PROJECT COST",
+            heading: HeadingLevel.HEADING_5,
+            spacing: {
+              after: 200,
+              before: 200
+            }
+          }),
+          table5,
+          new Paragraph({
+            text:
+              "12.4 REQUIREMENTS FOR OPERATING COST OF INFRASTRUCTURE PROJECT",
+            heading: HeadingLevel.HEADING_5,
+            spacing: {
+              after: 200,
+              before: 200
+            }
+          }),
+          table6,
+          new Paragraph({
+            text: "12.5 COSTING BY COMPONENT(S)",
+            heading: HeadingLevel.HEADING_5,
+            spacing: {
+              after: 200,
+              before: 200
+            }
+          }),
+          table7,
+          new Paragraph({
+            text: "12.6 LOCATION OF IMPLEMENTATION",
+            heading: HeadingLevel.HEADING_5,
+            spacing: {
+              after: 200,
+              before: 200
+            }
+          }),
+          table8,
+          new Paragraph({
+            spacing: {
+              after: 200,
+              before: 200
+            }
+          }),
+          table9
+        ]
+      });
+
+      Loading.show();
+      Packer.toBlob(doc).then(blob => {
+        saveAs(blob, "mydoc.docx");
+        Loading.hide();
+      });
+    }
+  },
+  created() {
+    Loading.show();
+    projectRef
+      .doc(this.$route.params.id)
+      .get()
+      .then(doc => {
+        this.project = doc.data();
+        Loading.hide();
+      })
+      .catch(err => {
+        Notify.create("Error message: ", err.message);
+        Loading.hide();
+      });
+  }
+};
+</script>

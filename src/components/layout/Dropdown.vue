@@ -21,7 +21,7 @@
       <q-item clickable v-close-popup>
         <q-item-section>History</q-item-section>
       </q-item>
-      <q-item clickable v-close-popup>
+      <q-item clickable v-close-popup to="/settings">
         <q-item-section>Settings</q-item-section>
       </q-item>
       <q-separator />
@@ -56,7 +56,9 @@ export default {
       Dialog.create({
         title: "Logout",
         message: "Are you sure you want to log out?",
-        cancel: true
+        cancel: true,
+        transitionShow: "fade",
+        transitionHide: "fade"
       }).onOk(() => this.logoutUser());
     }
   }
