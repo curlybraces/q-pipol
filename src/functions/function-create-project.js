@@ -1,6 +1,5 @@
 import { axiosInstance } from "boot/axios";
 import { showErrorMessage } from "./function-show-error-message";
-import { firebaseAuth } from "boot/firebase";
 import { Loading } from "quasar";
 
 export const createProject = ({
@@ -35,8 +34,7 @@ export const createProject = ({
         $implementation_start_date: String,
         $implementation_end_date: String,
         $total_project_cost: Float,
-        $status_update: String,
-        $created_by: String!
+        $status_update: String
       ) {
         create_project(
           classification: $classification,
@@ -51,8 +49,7 @@ export const createProject = ({
           implementation_start_date: $implementation_start_date,
           implementation_end_date: $implementation_end_date,
           total_project_cost: $total_project_cost,
-          status_update: $status_update,
-          created_by: $created_by
+          status_update: $status_update
         ) {
           id
         }
@@ -69,8 +66,7 @@ export const createProject = ({
         implementation_start_date: implementation_start_date,
         implementation_end_date: implementation_end_date,
         total_project_cost: projectCost,
-        status_update: status,
-        created_by: firebaseAuth.currentUser.email
+        status_update: status
       }
     })
     .then(res => {

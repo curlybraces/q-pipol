@@ -122,7 +122,8 @@
 
 <script>
 import { mapActions } from "vuex";
-// import { login } from "../functions/function-login.js";
+import { loginUser } from "../functions/function-login-user.js";
+import { createUser } from '../functions/function-create-user.js';
 
 export default {
   name: "PageLogin",
@@ -142,23 +143,21 @@ export default {
       if (!email || !password) {
         alert("Please enter email and password.");
       } else {
-        // login logic here
-        this.loginUser({
+        loginUser({
           email: email,
           password: password
         });
-        // login({ email: email, password: password });
       }
     },
     handleSubmit() {
-      const { tab, email, password, displayName } = this;
+      const { tab, login, email, password, name } = this;
       if (tab == "login") {
-        this.login();
+        login();
       } else {
-        this.registerUser({
+        createUser({
           email: email,
           password: password,
-          displayName: displayName
+          name: name
         });
       }
     }

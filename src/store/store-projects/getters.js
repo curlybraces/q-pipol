@@ -1,5 +1,3 @@
-import { firebaseAuth } from "boot/firebase";
-
 export function projects(state, getters) {
   var projects = getters.projectsFiltered;
   if (projects) {
@@ -60,15 +58,8 @@ export function projectsSorted(state, getters, rootState) {
   return projectsSorted;
 }
 
-export function myProjects(state) {
-  let myProjects = [],
-    userId = null;
-
-  userId = firebaseAuth.currentUser.uid;
-
-  myProjects = [...state.projects].filter(project => {
-    return project.addedBy == userId;
-  });
+export function myProjects() {
+  let myProjects = [];
 
   return myProjects;
 }

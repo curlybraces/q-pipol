@@ -1,8 +1,7 @@
-import { Loading } from "quasar";
-import { showErrorMessage } from "src/functions/function-show-error-message";
 import { axiosInstance } from "boot/axios";
+import { Loading } from "quasar";
 
-export function createUser({}, { name, email, password }) {
+export const createUser = ({ name, email, password }) => {
   Loading.show();
   axiosInstance
     .post("/graphql", {
@@ -29,16 +28,7 @@ export function createUser({}, { name, email, password }) {
       console.log(res);
     })
     .catch(err => {
-      showErrorMessage(err.message);
+      console.log(err);
     })
     .finally(() => Loading.hide());
-}
-
-export function loginUser({}, payload) {
-  Loading.show();
-  console.log(payload);
-}
-
-export const logoutUser = () => {
-  Loading.show();
 };

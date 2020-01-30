@@ -22,11 +22,6 @@ const routes = [
           import(/* webpackChunkName: 'Projects' */ "pages/Projects.vue")
       },
       {
-        path: "settings",
-        component: () =>
-          import(/* webpackChunkName: 'Settings' */ "pages/Settings.vue")
-      },
-      {
         path: "account",
         component: () =>
           import(/* webpackChunkName: 'Account' */ "pages/Account.vue")
@@ -35,11 +30,6 @@ const routes = [
         path: "pip/new",
         component: () =>
           import(/* webpackChunkName: 'AddProject' */ "pages/AddProject.vue")
-      },
-      {
-        path: "pip/:id/edit",
-        component: () =>
-          import(/* webpackChunkName: 'EditProject' */ "pages/EditProject.vue")
       },
       {
         path: "pip/:id",
@@ -53,10 +43,6 @@ const routes = [
           import(
             /* webpackChunkName: 'DeletedProjects' */ "pages/DeletedProjects.vue"
           )
-      },
-      {
-        path: "user",
-        component: () => import(/* webpackChunkName: 'User' */ "pages/User.vue")
       },
       {
         path: "pbp",
