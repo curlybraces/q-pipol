@@ -2,6 +2,7 @@
   <q-page padding>
     <page-breadcrumbs :breadcrumbs="breadcrumbs" />
     <search-component />
+
     <div class="column q-pa-md bg-green-1 q-mb-md">
       <div class="row">
         <q-btn outline icon="tune" @click="filter = !filter">FILTER</q-btn>
@@ -170,15 +171,15 @@ export default {
     },
     reloadProjects() {
       loadProjects({
-        current_page: this.current_page,
-        per_page: this.per_page
+        current_page: this.current_page
       }).then(res => {
-        const { total, per_page, current_page, last_page } = res.data.projects;
-        this.total = total;
-        this.per_page = per_page;
-        this.current_page = current_page;
-        this.last_page = last_page;
-        this.projects = res.data.projects.data;
+        const { data, paginatorInfo } = res.data.projects;
+        this.total = paginatorInfo.total;
+        this.per_page = paginatorInfo.perPage;
+        this.current_page = paginatorInfo.currentPage;
+        this.last_page = paginatorInfo.lastPage;
+        this.projects = data;
+        this.loading = false;
       });
     },
     promptDelete(id) {
@@ -207,17 +208,7 @@ export default {
   },
   created() {
     this.loading = true;
-    loadProjects({
-      current_page: 1
-    }).then(res => {
-      const { total, per_page, current_page, last_page } = res.data.projects;
-      this.total = total;
-      this.per_page = per_page;
-      this.current_page = current_page;
-      this.last_page = last_page;
-      this.projects = res.data.projects.data;
-      this.loading = false;
-    });
+    this.reloadProjects();
   }
 };
 </script>
