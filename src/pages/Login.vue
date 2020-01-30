@@ -33,7 +33,7 @@
                 outlined
                 placeholder="Full Name"
                 type="text"
-                v-model="displayName"
+                v-model="name"
               >
                 <template v-slot:prepend>
                   <q-icon name="person"></q-icon>
@@ -81,18 +81,6 @@
                   {{ tab == "login" ? "Login" : "Sign up" }}
                 </q-btn>
               </div>
-              <template v-if="tab == 'login'">
-                <div class="text-center">OR</div>
-                <div class="row">
-                  <q-btn
-                    size="lg"
-                    class="full-width btn-login"
-                    icon="fab fa-google"
-                    label="Continue with Google"
-                    @click="signInWithGoogle"
-                  ></q-btn>
-                </div>
-              </template>
               <div class="text-center" v-if="tab == 'login'">
                 Don't have an account?
                 <span
@@ -122,28 +110,28 @@
 
 <script>
 import { mapActions } from "vuex";
-import { loginUser } from "../functions/function-login-user.js";
-import { createUser } from '../functions/function-create-user.js';
 
 export default {
   name: "PageLogin",
   data() {
     return {
       passwordVisibility: false,
-      displayName: null,
-      email: null,
-      password: null,
+      name: null,
+      // email: null,
+      // password: null,
+      email: "mlab817v2@gmail.com",
+      password: "password",
       tab: "login"
     };
   },
   methods: {
-    ...mapActions("auth", ["loginUser", "registerUser", "signInWithGoogle"]),
+    ...mapActions("auth", ["loginUser", "createUser", "signInWithGoogle"]),
     login() {
       const { email, password } = this;
       if (!email || !password) {
         alert("Please enter email and password.");
       } else {
-        loginUser({
+        this.loginUser({
           email: email,
           password: password
         });
@@ -154,7 +142,7 @@ export default {
       if (tab == "login") {
         login();
       } else {
-        createUser({
+        this.createUser({
           email: email,
           password: password,
           name: name

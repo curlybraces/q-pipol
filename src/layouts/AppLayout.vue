@@ -14,9 +14,7 @@
           class="bg-primary text-white"
           round
           flat
-          :label="
-            currentUserDisplayName ? currentUserDisplayName.charAt(0) : 'DA'
-          "
+          :label="name ? name.charAt(0) : 'DA'"
           @mouseenter="menu = true"
         >
           <dropdown-menu v-model="menu" />
@@ -62,7 +60,7 @@ export default {
     };
   },
   computed: {
-    ...mapState("auth", ["currentUserDisplayName"]),
+    ...mapState("auth", ["name"]),
     darkMode() {
       return this.$q.dark.isActive;
     }

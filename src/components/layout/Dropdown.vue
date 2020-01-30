@@ -10,8 +10,8 @@
           </q-avatar>
         </q-item-section>
         <q-item-section>
-          <q-item-label>{{ currentUserDisplayName }}</q-item-label>
-          <q-item-label caption>{{ currentUserEmail }}</q-item-label>
+          <q-item-label>{{ name }}</q-item-label>
+          <q-item-label caption>{{ email }}</q-item-label>
         </q-item-section>
       </q-item>
       <q-separator />
@@ -42,13 +42,7 @@ import { Dialog } from "quasar";
 export default {
   name: "DropdownMenu",
   computed: {
-    ...mapState("auth", [
-      "loggedIn",
-      "currentUserEmail",
-      "photoURL",
-      "signInProvider",
-      "currentUserDisplayName"
-    ])
+    ...mapState("auth", ["loggedIn", "email", "name"])
   },
   methods: {
     ...mapActions("auth", ["logoutUser"]),

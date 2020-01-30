@@ -2,17 +2,26 @@ import Vue from "vue";
 import axios from "axios";
 import { LocalStorage } from "quasar";
 
-var jwt = LocalStorage.getItem("jwt");
-
 var baseURL = process.env.DEV
   ? "http://localhost:8000"
   : "https://e-planning.daplanningcentral.net";
 
 export const axiosInstance = axios.create({
-  baseURL: baseURL
+  baseURL: baseURL,
+  headers: [
+    {
+      Accept: "application/json"
+    }
+  ]
 });
 
-axiosInstance.defaults.headers["Accept"] = "application/json";
-axiosInstance.defaults.headers["Authorization"] = "Bearer " + jwt;
+export const setAuthHeader = token => {
+  LocalStorage.set("token", token);
+  var newToken = LocalStorage.getItem("token");
+  if (newToken) {
+    axiosInstance.defaults.headers.common["Authorization"] =
+      "Bearer " + newToken;
+  }
+};
 
 Vue.prototype.$axios = axiosInstance;

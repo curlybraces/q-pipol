@@ -1,3 +1,6 @@
 export default {
-  loggedIn: false
+  loggedIn: false,
+  token: null,
+  email: null,
+  name: null
 };

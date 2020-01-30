@@ -13,9 +13,10 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
-
 import CookieLaw from "vue-cookie-law";
+import { mapActions } from "vuex";
+import { LocalStorage } from "quasar";
+import { setAuthHeader } from "boot/axios";
 
 export default {
   components: {
@@ -23,13 +24,14 @@ export default {
   },
   name: "App",
   methods: {
-    ...mapActions("auth", ["handleAuthStateChange"])
-  },
-  mounted() {
-    this.handleAuthStateChange();
+    ...mapActions("auth", ["retrieveUserInfo"])
   },
   created() {
     this.$q.addressbarColor.set("primary");
+    if (LocalStorage.getItem("loggedIn")) {
+      setAuthHeader(LocalStorage.getItem("token"));
+      this.retrieveUserInfo();
+    }
   }
 };
 </script>
