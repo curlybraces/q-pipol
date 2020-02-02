@@ -2,9 +2,20 @@
   <q-page padding>
     <page-breadcrumbs :breadcrumbs="breadcrumbs" />
     <q-card>
+      <q-card-section>
+        <div class="row align-center">
+          Manage Users
+          <q-space />
+          <q-btn
+            outline
+            label="Add User"
+            color="primary"
+            @click="addUser = true"
+          />
+        </div>
+      </q-card-section>
+      <q-separator />
       <q-list separator>
-        <q-item-label header>User Management</q-item-label>
-        <q-separator />
         <q-item v-if="loading">
           <q-inner-loading :showing="loading">
             <q-spinner-gears size="25px" color="primary" />
@@ -47,15 +58,35 @@
         ></q-pagination>
       </q-card-actions>
     </q-card>
+
+    <q-dialog
+      v-model="addUser"
+      transition-hide="fade"
+      transition-show="fade"
+      persistent
+    >
+      <q-card class="q-pa-sm q-gutter-y-sm" style="width: 360px;">
+        <div class="row">
+          <div class="text-uppercase text-h6">ADD USER</div>
+          <q-space />
+          <q-btn flat round dense icon="close" v-close-popup />
+        </div>
+        <q-separator />
+        <text-input label="Full Name" />
+        <single-select label="Office" />
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
 <script>
 import { axiosInstance } from "boot/axios";
 import PageBreadcrumbs from "../components/PageBreadcrumbs";
+import TextInput from "../components/FormInputs/TextInput";
+import SingleSelect from "../components/FormInputs/SingleSelect";
 
 export default {
-  components: { PageBreadcrumbs },
+  components: { PageBreadcrumbs, TextInput, SingleSelect },
   name: "PageAdmin",
   data() {
     return {
@@ -72,7 +103,8 @@ export default {
       loading: false,
       currentPage: 1,
       lastPage: 1,
-      total: null
+      total: null,
+      addUser: true
     };
   },
   methods: {
