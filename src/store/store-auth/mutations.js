@@ -13,3 +13,23 @@ export function SET_EMAIL(state, value) {
 export function SET_NAME(state, value) {
   state.name = value;
 }
+
+export function SET_IMAGE(state, value) {
+  state.image = value;
+}
+
+export function SET_OPERATING_UNIT(state, value) {
+  state.operating_unit = value;
+}
+
+export function SET_UNIT(state, value) {
+  state.unit = value;
+}
+
+export function SET_POSITION(state, value) {
+  state.position = value;
+}
+
+export function SET_ROLES(state, value) {
+  value.forEach(val => state.roles.push(val.name));
+}

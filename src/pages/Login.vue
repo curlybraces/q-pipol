@@ -119,7 +119,7 @@ export default {
       name: null,
       // email: null,
       // password: null,
-      email: "mlab817v2@gmail.com",
+      email: "encoder@gmail.com",
       password: "password",
       tab: "login"
     };

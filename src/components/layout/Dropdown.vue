@@ -5,7 +5,11 @@
         <q-item-section avatar>
           <q-avatar>
             <q-img
-              :src="photoURL ? photoURL : 'statics/avatar-placeholder.png'"
+              :src="
+                image
+                  ? 'statics/agency_logos/' + image
+                  : 'statics/avatar-placeholder.png'
+              "
             />
           </q-avatar>
         </q-item-section>
@@ -15,7 +19,7 @@
         </q-item-section>
       </q-item>
       <q-separator />
-      <q-item clickable v-close-popup to="/user">
+      <q-item clickable v-close-popup to="/account">
         <q-item-section>Account</q-item-section>
       </q-item>
       <q-item clickable v-close-popup>
@@ -42,7 +46,7 @@ import { mapState, mapActions } from "vuex";
 export default {
   name: "DropdownMenu",
   computed: {
-    ...mapState("auth", ["loggedIn", "email", "name"])
+    ...mapState("auth", ["loggedIn", "email", "name", "image"])
   },
   methods: {
     ...mapActions("auth", ["logoutUser"]),

@@ -17,7 +17,7 @@
         </div>
 
         <q-option-group
-          v-model="classification"
+          v-model="type_id"
           label="Type"
           :options="types"
           inline
@@ -41,7 +41,7 @@
         </q-input>
 
         <single-select
-          v-model="operating_unit"
+          v-model="operating_unit_id"
           label="Implementing Agency"
           :dense="dense"
           :options-dense="dense"
@@ -98,7 +98,7 @@
         </q-input>
 
         <single-select
-          v-model="spatial_coverage"
+          v-model="spatial_coverage_id"
           label="Spatial Coverage"
           :dense="dense"
           :options-dense="dense"
@@ -106,14 +106,16 @@
         />
 
         <multi-select
+          v-if="spatial_coverage_id == 2 || spatial_coverage_id == 3"
           v-model="regions"
           label="Regions"
-          :options="region_options"
+          :options="REGIONS_OPTIONS"
           :dense="dense"
           :options-dense="dense"
         />
 
         <multi-select
+          v-if="regions.length > 0"
           v-model="provinces"
           label="Province/s"
           :options="filteredProvinces"
@@ -164,17 +166,18 @@
         <q-btn flat type="reset" label="Reset" class="q-ml-sm" :dense="dense" />
       </q-form>
     </q-card>
+    <q-dialog v-model="showDialog">
+      <investment-cost />
+    </q-dialog>
   </q-page>
 </template>
 
 <script>
-import {
-  OPERATING_UNITS,
-  SPATIAL_COVERAGES,
-  REGIONS,
-  PROVINCES,
-  STATUSES
-} from "../data/dropdown-values";
+import { STATUSES } from "../data/dropdown-values";
+import { OPERATING_UNITS } from "../data/operating_units.js";
+import { REGIONS_OPTIONS } from "../data/regions.js";
+import { PROVINCES_OPTIONS } from "../data/provinces.js";
+import { SPATIAL_COVERAGES } from "../data/spatial_coverages.js";
 import { createProject } from "../functions/function-create-project";
 
 import PageBreadcrumbs from "../components/PageBreadcrumbs";
@@ -186,11 +189,13 @@ export default {
     PageBreadcrumbs,
     "multi-select": () => import("../components/FormInputs/MultiSelect.vue"),
     "single-select": () => import("../components/FormInputs/SingleSelect.vue"),
-    "date-input": () => import("../components/FormInputs/DateInput.vue")
+    "date-input": () => import("../components/FormInputs/DateInput.vue"),
+    "investment-cost": () => import("../components/InvestmentCost.vue")
   },
   name: "AddProject",
   data() {
     return {
+      showDialog: true,
       breadcrumbs: [
         {
           title: "Home",
@@ -207,27 +212,27 @@ export default {
       types: [
         {
           label: "Program",
-          value: "program"
+          value: 1
         },
         {
           label: "Project",
-          value: "project"
+          value: 2
         }
       ],
       OPERATING_UNITS,
       SPATIAL_COVERAGES,
-      region_options: REGIONS,
-      province_options: PROVINCES,
+      REGIONS_OPTIONS,
+      PROVINCES_OPTIONS,
       STATUSES,
-      classification: null,
-      title: null,
-      operating_unit: null,
-      description: null,
-      outcomes: null,
-      expected_outputs: null,
-      spatial_coverage: null,
-      regions: [],
-      provinces: [],
+      type_id: 1,
+      title: "Title",
+      operating_unit_id: 1,
+      description: "Description",
+      outcomes: "Outcomes",
+      expected_outputs: "Outputs",
+      spatial_coverage_id: 2,
+      regions: [1, 2, 3],
+      provinces: [1, 2, 3],
       implementation_start_date: null,
       implementation_end_date: null,
       total_project_cost: null,
@@ -237,7 +242,7 @@ export default {
   },
   computed: {
     filteredProvinces() {
-      return this.province_options.filter(province => {
+      return this.PROVINCES_OPTIONS.filter(province => {
         return this.regions.includes(province.region_id);
       });
     }

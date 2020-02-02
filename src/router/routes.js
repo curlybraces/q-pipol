@@ -10,6 +10,12 @@ const routes = [
           import(/* webpackChunkName: 'Index' */ "pages/Index.vue")
       },
       {
+        path: "admin",
+        name: "admin",
+        component: () =>
+          import(/* webpackChunkName: 'Admin' */ "pages/Admin.vue")
+      },
+      {
         path: "programs",
         name: "programs",
         component: () =>
@@ -48,6 +54,11 @@ const routes = [
         path: "pbp",
         component: () =>
           import(/* webpackChunkName: 'Budget' */ "pages/Budget.vue")
+      },
+      {
+        path: "settings",
+        component: () =>
+          import(/* webpackChunkName: 'Settings' */ "pages/Settings.vue")
       }
     ]
   },

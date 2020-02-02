@@ -60,9 +60,11 @@ export function loginUser({ commit, dispatch }, { email, password }) {
     })
     .then(res => {
       var token = res.data.data.loginUser;
+
       commit("SET_TOKEN", token);
       commit("SET_LOGGED_IN", true);
       LocalStorage.set("loggedIn", true);
+
       setAuthHeader(token);
 
       dispatch("retrieveUserInfo");
@@ -74,6 +76,7 @@ export function loginUser({ commit, dispatch }, { email, password }) {
 }
 
 export function retrieveUserInfo({ commit }) {
+  Loading.show();
   axiosInstance
     .post("/graphql", {
       query: `query {
@@ -85,7 +88,9 @@ export function retrieveUserInfo({ commit }) {
           }
           profile {
             operating_unit {
+              id
               name
+              image
             }
             position
             unit
@@ -94,10 +99,34 @@ export function retrieveUserInfo({ commit }) {
       }`
     })
     .then(res => {
-      const { name, email } = res.data.data.me;
-      commit("SET_NAME", name);
-      commit("SET_EMAIL", email);
-    });
+      console.log("Retrieving user info.");
+      Loading.hide();
+      if (res.data.errors) {
+        Dialog.create({
+          title: "Unauthenticated",
+          message: "You are not logged in.",
+          persistent: true
+        }).onOk(() => {
+          LocalStorage.remove("loggedIn");
+          LocalStorage.remove("token");
+
+          this.$router.push("/login");
+        });
+      } else {
+        const { name, email, profile, roles } = res.data.data.me;
+
+        commit("SET_TOKEN", LocalStorage.getItem("token"));
+        commit("SET_LOGGED_IN", LocalStorage.getItem("loggedIn"));
+        commit("SET_NAME", name);
+        commit("SET_EMAIL", email);
+        commit("SET_IMAGE", profile.operating_unit.image);
+        commit("SET_OPERATING_UNIT", profile.operating_unit.id);
+        commit("SET_POSITION", profile.position);
+        commit("SET_UNIT", profile.unit);
+        commit("SET_ROLES", roles);
+      }
+    })
+    .finally(() => Loading.hide());
 }
 
 export function logoutUser() {

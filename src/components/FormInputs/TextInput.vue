@@ -3,7 +3,6 @@
     <q-input
       v-model="model"
       :label="label"
-      class="bg-green-1 text-white"
       stack-label
       :dense="dense"
       outlined

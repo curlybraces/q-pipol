@@ -1,14 +1,15 @@
 <template>
-  <q-layout view="lHh lpR lff">
+  <q-layout view="LHh lpR lff">
     <q-header bordered class="bg-grey-1">
       <q-toolbar class="text-grey-9 app-toolbar">
         <img
           src="statics/logo.svg"
           height="35px;"
-          @click="$router.push('/')"
+          @click="drawer = true"
           class="cursor-pointer"
+          v-show="$q.screen.lt.md"
         />
-        <q-toolbar-title class="text-primary">E-PLANNING</q-toolbar-title>
+        <q-toolbar-title class="text-primary">{{ appTitle }}</q-toolbar-title>
         <q-space />
         <q-btn
           class="bg-primary text-white"
@@ -28,7 +29,7 @@
 
     <q-footer>
       <q-toolbar>
-        <q-toolbar-title>E-PLANNING</q-toolbar-title>
+        <q-toolbar-title>{{ appTitle }}</q-toolbar-title>
         <q-avatar color="white">
           <q-img src="statics/ani-at-kita-logo.svg"></q-img>
         </q-avatar>
@@ -42,7 +43,6 @@
 </template>
 
 <script>
-import { openURL } from "quasar";
 import { mapState } from "vuex";
 
 import DrawerContent from "../components/layout/Drawer";
@@ -53,20 +53,28 @@ export default {
   name: "MyLayout",
   data() {
     return {
+      appTitle: "PIP Online System",
       copyright: "Made by Mark Lester A. Bolotaolo",
       menu: false,
       miniState: false,
-      drawer: true
+      drawerState: this.$q.screen.md || this.$q.screen.gt.md
     };
   },
   computed: {
     ...mapState("auth", ["name"]),
     darkMode() {
       return this.$q.dark.isActive;
+    },
+    drawer: {
+      get() {
+        return this.drawerState;
+      },
+      set(val) {
+        this.drawerState = val;
+      }
     }
   },
   methods: {
-    openURL,
     toggleDarkMode() {
       this.$q.dark.toggle();
     }

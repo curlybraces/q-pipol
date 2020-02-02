@@ -3,9 +3,9 @@ import { showErrorMessage } from "./function-show-error-message";
 import { Loading } from "quasar";
 
 export const createProject = ({
-  classification,
+  type_id,
   title,
-  operating_unit,
+  operating_unit_id,
   description,
   expected_outputs,
   spatial_coverage,
@@ -21,8 +21,8 @@ export const createProject = ({
   var projectCost = parseFloat(total_project_cost.replace(/[^0-9.-]/g, ""));
   return axiosInstance
     .post("/graphql", {
-      query: `mutation create_project(
-        $classification: String,
+      query: `mutation createProject(
+        $type_id: Int!,
         $title: String!,
         $operating_unit_id: Int,
         $description: String,
@@ -37,7 +37,7 @@ export const createProject = ({
         $status_update: String
       ) {
         create_project(
-          classification: $classification,
+          type_id: $type_id,
           title: $title,
           operating_unit_id: $operating_unit_id,
           description: $description,
@@ -55,9 +55,9 @@ export const createProject = ({
         }
       }`,
       variables: {
-        classification: classification,
+        type_id: type_id,
         title: title,
-        operating_unit_id: operating_unit,
+        operating_unit_id: operating_unit_id,
         description: description,
         expected_outputs: expected_outputs,
         spatial_coverage: spatial_coverage,

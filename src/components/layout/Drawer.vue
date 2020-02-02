@@ -3,7 +3,7 @@
     <div class="q-pa-md bg-white text-center">
       <q-img src="statics/logo.svg" alt="logo" style="max-width: 150px" />
       <br />
-      <span class="text-h6">E-PLANNING</span>
+      <span class="text-h6">{{ appTitle }}</span>
     </div>
     <q-separator />
 
@@ -63,16 +63,12 @@ export default {
   name: "DrawerContent",
   data() {
     return {
+      appTitle: "PIP",
       drawerItems: [
         {
           label: "Home",
           icon: "home",
           url: "/"
-        },
-        {
-          label: "Programs",
-          icon: "list",
-          url: "/programs"
         },
         {
           label: "Projects",
@@ -99,7 +95,7 @@ export default {
         {
           label: "Account",
           icon: "person",
-          url: "/user"
+          url: "/account"
         },
         {
           label: "Settings",
