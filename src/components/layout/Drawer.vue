@@ -9,6 +9,17 @@
 
     <q-item-label header>NAVIGATION</q-item-label>
 
+    <q-item v-if="admin" clickable to="/admin">
+      <q-item-section avatar>
+        <q-icon name="lock"></q-icon>
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>ADMIN</q-item-label>
+      </q-item-section>
+    </q-item>
+
+    <q-separator />
+
     <template v-for="({ label, icon, url, submenu }, index) in drawerItems">
       <template v-if="submenu">
         <q-expansion-item
@@ -104,6 +115,14 @@ export default {
         }
       ]
     };
+  },
+  computed: {
+    admin() {
+      return (
+        this.$store.state.auth.roles.includes("admin") ||
+        this.$store.state.auth.roles.includes("super-admin")
+      );
+    }
   },
   methods: {
     showHelp() {

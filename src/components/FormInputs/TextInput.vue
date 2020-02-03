@@ -8,6 +8,7 @@
       outlined
       @input="val => $emit('input', val)"
       :readonly="readonly"
+      :rules="rules"
     />
   </div>
 </template>
@@ -15,7 +16,7 @@
 <script>
 export default {
   name: "TextInput",
-  props: ["label", "dense", "value", "readonly"],
+  props: ["label", "dense", "value", "readonly", "rules"],
   data() {
     return {
       model: null

@@ -24,13 +24,13 @@ export default {
   },
   name: "App",
   methods: {
-    ...mapActions("auth", ["retrieveUserInfo"])
+    ...mapActions("auth", ["retrieveUser"])
   },
   created() {
     this.$q.addressbarColor.set("primary");
     if (LocalStorage.getItem("loggedIn")) {
       setAuthHeader(LocalStorage.getItem("token"));
-      this.retrieveUserInfo();
+      this.retrieveUser();
     }
   }
 };

@@ -1,34 +1,44 @@
 import { axiosInstance } from "boot/axios";
+import { showErrorMessage } from "./function-show-error-message";
 import { Loading } from "quasar";
 
-export const createUser = ({ name, email, password }) => {
+export const createUser = ({ name, email, password, selectedRoles }) => {
   Loading.show();
-  axiosInstance
+  return axiosInstance
     .post("/graphql", {
       query: `
-        mutation createUser(
-          $name: String!
-          $email: String!
-          $password: String!
+      mutation createUser(
+        $name: String!
+        $email: String!
+        $password: String!
+        $roles: [Int!]
+      ) {
+        createUser(
+          name: $name
+          email: $email
+          password: $password
+          roles: $roles
         ) {
-          createUser(
-            name: $name
-            email: $email
-            password: $password
-          )
+          id
         }
-      `,
+      }
+    `,
       variables: {
         name: name,
         email: email,
-        password: password
+        password: password,
+        roles: selectedRoles
       }
     })
     .then(res => {
-      console.log(res);
+      if (res.data.errors) {
+        return Promise.reject(res.data.errors[0]);
+      }
+      var user = res.data.data.createUser;
+      return user;
     })
-    .catch(err => {
-      console.log(err);
+    .catch(error => {
+      showErrorMessage(error.message);
     })
     .finally(() => Loading.hide());
 };

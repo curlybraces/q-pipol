@@ -7,7 +7,7 @@
             <q-img src="../assets/logo.svg" style="width: 60px;" />
           </div>
           <div class="q-mt-sm text-h6 text-weight-bold text-primary">
-            E-PLANNING
+            {{ appTitle }}
           </div>
         </div>
       </div>
@@ -19,7 +19,7 @@
               <span class="text-subtitle1">
                 {{
                   tab == "login"
-                    ? "Login to your E-Planning Account"
+                    ? `Login to your ${appTitle} Account`
                     : "Create new account"
                 }}
               </span>
@@ -27,13 +27,15 @@
           </q-toolbar>
           <q-separator spaced />
           <q-card-section class="q-pa-md">
-            <q-form class="q-gutter-md" @submit="handleSubmit">
+            <q-form ref="loginForm" class="q-gutter-md" @submit="handleSubmit">
               <q-input
-                v-show="tab == 'signup'"
+                v-if="tab == 'signup'"
                 outlined
                 placeholder="Full Name"
                 type="text"
                 v-model="name"
+                lazy-rules
+                :rules="[val => (val && val.length > 0) || 'Name is required']"
               >
                 <template v-slot:prepend>
                   <q-icon name="person"></q-icon>
@@ -45,6 +47,8 @@
                 placeholder="Email"
                 type="email"
                 v-model="email"
+                lazy-rules
+                :rules="[val => (val && val.length > 0) || 'Email is required']"
               >
                 <template v-slot:prepend>
                   <q-icon name="email"></q-icon>
@@ -56,6 +60,10 @@
                 placeholder="Password"
                 :type="!passwordVisibility ? 'password' : 'text'"
                 v-model="password"
+                lazy-rules
+                :rules="[
+                  val => (val && val.length > 0) || 'Password is required'
+                ]"
               >
                 <template v-slot:prepend>
                   <q-icon name="vpn_key"></q-icon>
@@ -116,38 +124,32 @@ export default {
   data() {
     return {
       passwordVisibility: false,
+      appTitle: "PIP Online System",
       name: null,
-      // email: null,
-      // password: null,
-      email: "encoder@gmail.com",
-      password: "password",
+      email: null,
+      password: null,
       tab: "login"
     };
   },
   methods: {
-    ...mapActions("auth", ["loginUser", "createUser", "signInWithGoogle"]),
-    login() {
-      const { email, password } = this;
-      if (!email || !password) {
-        alert("Please enter email and password.");
-      } else {
-        this.loginUser({
-          email: email,
-          password: password
-        });
-      }
-    },
+    ...mapActions("auth", ["login", "create"]),
     handleSubmit() {
-      const { tab, login, email, password, name } = this;
-      if (tab == "login") {
-        login();
-      } else {
-        this.createUser({
-          email: email,
-          password: password,
-          name: name
-        });
-      }
+      this.$refs.loginForm.validate().then(success => {
+        if (success) {
+          if (this.tab == "login") {
+            this.login({
+              email: this.email,
+              password: this.password
+            });
+          } else {
+            this.create({
+              name: this.name,
+              email: this.email,
+              password: this.password
+            });
+          }
+        }
+      });
     }
   }
 };

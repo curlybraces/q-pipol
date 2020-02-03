@@ -1,132 +1,41 @@
-import { Loading, Dialog, LocalStorage } from "quasar";
-import { showErrorMessage } from "src/functions/function-show-error-message";
-import { axiosInstance, setAuthHeader } from "boot/axios";
+import { LocalStorage } from "quasar";
+import { loginUser } from "../../functions/function-login-user";
+import { createUser } from "../../functions/function-create-user";
+import { retrieveUserInfo } from "../../functions/function-retrieve-user-info";
+import { setAuthHeader } from "boot/axios";
 
-export function createUser({}, { name, email, password }) {
-  Loading.show();
-  axiosInstance
-    .post("/graphql", {
-      query: `
-        mutation createUser(
-          $name: String!
-          $email: String!
-          $password: String!
-        ) {
-          createUser(
-            name: $name
-            email: $email
-            password: $password
-          ) {
-            id
-          }
-        }
-      `,
-      variables: {
-        name: name,
-        email: email,
-        password: password
-      }
-    })
-    .then(res => {
-      if (res.data.data.createUser)
-        Dialog.create({
-          title: "Success",
-          message: "You may now login"
-        });
-    })
-    .catch(err => {
-      showErrorMessage(err.message);
-    })
-    .finally(() => Loading.hide());
+export function create({}, { name, email, password, selectedRoles = [] }) {
+  createUser({ name, email, password, selectedRoles });
 }
 
-export function loginUser({ commit, dispatch }, { email, password }) {
-  Loading.show();
-  axiosInstance
-    .post("/graphql", {
-      query: `mutation loginUser(
-        $email: String!
-        $password: String!
-      ) {
-        loginUser(
-          email: $email
-          password: $password
-        )
-      }`,
-      variables: {
-        email: email,
-        password: password
-      }
-    })
-    .then(res => {
-      var token = res.data.data.loginUser;
-
-      commit("SET_TOKEN", token);
-      commit("SET_LOGGED_IN", true);
+export function login({ commit, dispatch }, { email, password }) {
+  loginUser({ email, password }).then(res => {
+    if (!res) {
+      return;
+    } else {
+      LocalStorage.set("token", res);
       LocalStorage.set("loggedIn", true);
+      commit("SET_TOKEN", res);
+      commit("SET_LOGGED_IN", true);
+      setAuthHeader(res);
 
-      setAuthHeader(token);
-
-      dispatch("retrieveUserInfo");
+      dispatch("retrieveUser");
 
       this.$router.push("/");
-    })
-    .catch()
-    .finally(() => Loading.hide());
+    }
+  });
 }
 
-export function retrieveUserInfo({ commit }) {
-  Loading.show();
-  axiosInstance
-    .post("/graphql", {
-      query: `query {
-        me {
-          name
-          email
-          roles {
-            name
-          }
-          profile {
-            operating_unit {
-              id
-              name
-              image
-            }
-            position
-            unit
-          }
-        }
-      }`
-    })
-    .then(res => {
-      console.log("Retrieving user info.");
-      Loading.hide();
-      if (res.data.errors) {
-        Dialog.create({
-          title: "Unauthenticated",
-          message: "You are not logged in.",
-          persistent: true
-        }).onOk(() => {
-          LocalStorage.remove("loggedIn");
-          LocalStorage.remove("token");
-
-          this.$router.push("/login");
-        });
-      } else {
-        const { name, email, profile, roles } = res.data.data.me;
-
-        commit("SET_TOKEN", LocalStorage.getItem("token"));
-        commit("SET_LOGGED_IN", LocalStorage.getItem("loggedIn"));
-        commit("SET_NAME", name);
-        commit("SET_EMAIL", email);
-        commit("SET_IMAGE", profile.operating_unit.image);
-        commit("SET_OPERATING_UNIT", profile.operating_unit.id);
-        commit("SET_POSITION", profile.position);
-        commit("SET_UNIT", profile.unit);
-        commit("SET_ROLES", roles);
-      }
-    })
-    .finally(() => Loading.hide());
+export function retrieveUser({ commit }) {
+  retrieveUserInfo().then(res => {
+    commit("SET_NAME", res.name);
+    commit("SET_EMAIL", res.email);
+    commit("SET_IMAGE", res.profile.operating_unit.image);
+    commit("SET_OPERATING_UNIT", res.profile.operating_unit.id);
+    commit("SET_POSITION", res.profile.position);
+    commit("SET_UNIT", res.profile.unit);
+    commit("SET_ROLES", res.roles);
+  });
 }
 
 export function logoutUser() {

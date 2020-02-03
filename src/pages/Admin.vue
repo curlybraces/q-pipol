@@ -10,7 +10,7 @@
             outline
             label="Add User"
             color="primary"
-            @click="addUser = true"
+            @click="addUserDialog = true"
           />
         </div>
       </q-card-section>
@@ -60,20 +60,51 @@
     </q-card>
 
     <q-dialog
-      v-model="addUser"
+      v-model="addUserDialog"
       transition-hide="fade"
       transition-show="fade"
       persistent
     >
-      <q-card class="q-pa-sm q-gutter-y-sm" style="width: 360px;">
+      <q-card class="q-pa-sm" style="width: 360px;">
         <div class="row">
           <div class="text-uppercase text-h6">ADD USER</div>
           <q-space />
           <q-btn flat round dense icon="close" v-close-popup />
         </div>
         <q-separator />
-        <text-input label="Full Name" />
-        <single-select label="Office" />
+        <q-form ref="addUser" class="q-mt-sm q-gutter-y-sm" @submit="addUser">
+          <text-input
+            v-model="name"
+            label="Full Name"
+            lazy-rules
+            :rules="rules.required"
+          />
+          <text-input
+            v-model="email"
+            label="Email"
+            lazy-rules
+            :rules="rules.required"
+          />
+          <text-input
+            v-model="password"
+            label="Password"
+            lazy-rules
+            :rules="rules.required"
+          />
+          <q-item-label>Roles</q-item-label>
+          <q-option-group
+            v-model="selectedRoles"
+            type="checkbox"
+            :options="ROLES"
+          ></q-option-group>
+          <q-btn
+            class="full-width"
+            color="primary"
+            label="ADD USER"
+            @click="addUser"
+            type="submit"
+          />
+        </q-form>
       </q-card>
     </q-dialog>
   </q-page>
@@ -83,10 +114,12 @@
 import { axiosInstance } from "boot/axios";
 import PageBreadcrumbs from "../components/PageBreadcrumbs";
 import TextInput from "../components/FormInputs/TextInput";
-import SingleSelect from "../components/FormInputs/SingleSelect";
+import { createUser } from "../functions/function-create-user";
+
+import { ROLES } from "../data/roles";
 
 export default {
-  components: { PageBreadcrumbs, TextInput, SingleSelect },
+  components: { PageBreadcrumbs, TextInput },
   name: "PageAdmin",
   data() {
     return {
@@ -99,12 +132,20 @@ export default {
           title: "Admin"
         }
       ],
+      ROLES,
       users: null,
       loading: false,
       currentPage: 1,
       lastPage: 1,
       total: null,
-      addUser: true
+      addUserDialog: false,
+      name: "",
+      email: "",
+      password: "password",
+      selectedRoles: [],
+      rules: {
+        required: [val => (val && val.length > 0) || "Please type something"]
+      }
     };
   },
   methods: {
@@ -179,6 +220,18 @@ export default {
     },
     loadPage() {
       this.loadUsers({ page: this.currentPage });
+    },
+    addUser() {
+      this.$refs.addUser.validate().then(success => {
+        if (success) {
+          createUser({
+            name: this.name,
+            password: this.password,
+            email: this.email,
+            selectedRoles: this.selectedRoles
+          });
+        }
+      });
     }
   },
   created() {

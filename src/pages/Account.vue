@@ -29,6 +29,9 @@
             label="New Password"
             :type="showPassword ? 'text' : 'password'"
             v-model="password"
+            :rules="[
+              val => (val && val.length > 0) || 'Password cannot be empty'
+            ]"
           >
             <template v-slot:append>
               <q-icon
