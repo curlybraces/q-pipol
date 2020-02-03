@@ -74,7 +74,7 @@ export default {
   name: "DrawerContent",
   data() {
     return {
-      appTitle: "PIP",
+      appTitle: "IPMS",
       drawerItems: [
         {
           label: "Home",

@@ -8,7 +8,7 @@ export const createProject = ({
   operating_unit_id,
   description,
   expected_outputs,
-  spatial_coverage,
+  spatial_coverage_id,
   regions,
   provinces,
   implementation_start_date,
@@ -18,7 +18,9 @@ export const createProject = ({
 }) => {
   Loading.show();
 
-  var projectCost = parseFloat(total_project_cost.replace(/[^0-9.-]/g, ""));
+  var projectCost = total_project_cost
+    ? parseFloat(total_project_cost.replace(/[^0-9.-]/g, ""))
+    : 0;
   return axiosInstance
     .post("/graphql", {
       query: `mutation createProject(
@@ -28,7 +30,7 @@ export const createProject = ({
         $description: String,
         $outcomes: String,
         $expected_outputs: String,
-        $spatial_coverage: String,
+        $spatial_coverage_id: Int,
         $regions: [Int],
         $provinces: [Int],
         $implementation_start_date: String,
@@ -36,20 +38,22 @@ export const createProject = ({
         $total_project_cost: Float,
         $status_update: String
       ) {
-        create_project(
-          type_id: $type_id,
-          title: $title,
-          operating_unit_id: $operating_unit_id,
-          description: $description,
-          outcomes: $outcomes,
-          expected_outputs: $expected_outputs,
-          spatial_coverage: $spatial_coverage,
-          regions: $regions,
-          provinces: $provinces,
-          implementation_start_date: $implementation_start_date,
-          implementation_end_date: $implementation_end_date,
-          total_project_cost: $total_project_cost,
-          status_update: $status_update
+        createProject(
+          input: {
+            type_id: $type_id,
+            title: $title,
+            operating_unit_id: $operating_unit_id,
+            description: $description,
+            outcomes: $outcomes,
+            expected_outputs: $expected_outputs,
+            spatial_coverage_id: $spatial_coverage_id,
+            regions: $regions,
+            provinces: $provinces,
+            implementation_start_date: $implementation_start_date,
+            implementation_end_date: $implementation_end_date,
+            total_project_cost: $total_project_cost,
+            status_update: $status_update
+          }
         ) {
           id
         }
@@ -60,7 +64,7 @@ export const createProject = ({
         operating_unit_id: operating_unit_id,
         description: description,
         expected_outputs: expected_outputs,
-        spatial_coverage: spatial_coverage,
+        spatial_coverage_id: spatial_coverage_id,
         regions: regions,
         provinces: provinces,
         implementation_start_date: implementation_start_date,
@@ -70,7 +74,11 @@ export const createProject = ({
       }
     })
     .then(res => {
-      return res;
+      if (res.data.errors) {
+        return Promise.reject(res.data.errors[0]);
+      } else {
+        return res.data.data;
+      }
     })
     .catch(err => {
       showErrorMessage(err.message);

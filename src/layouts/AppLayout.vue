@@ -29,7 +29,7 @@
 
     <q-footer>
       <q-toolbar>
-        <q-toolbar-title>{{ appTitle }}</q-toolbar-title>
+        <q-toolbar-title>{{ appTitleFooter }}</q-toolbar-title>
         <q-avatar color="white">
           <q-img src="statics/ani-at-kita-logo.svg"></q-img>
         </q-avatar>
@@ -53,7 +53,8 @@ export default {
   name: "MyLayout",
   data() {
     return {
-      appTitle: "PIP Online System",
+      appTitle: "IPMS",
+      appTitleFooter: "Investment Programming & Management System",
       copyright: "Made by Mark Lester A. Bolotaolo",
       menu: false,
       miniState: false,

@@ -87,9 +87,9 @@ module.exports = function(ctx) {
       // workboxPluginMode: 'InjectManifest',
       workboxOptions: { skipWaiting: true }, // only for NON InjectManifest
       manifest: {
-        name: "E-PLANNING",
-        short_name: "e-Planning",
-        description: "A Quasar Framework App for e-Planning",
+        name: "IPMS",
+        short_name: "IPMS",
+        description: "A Quasar Framework App for IPMS",
         display: "standalone",
         orientation: "portrait",
         background_color: "#ffffff",

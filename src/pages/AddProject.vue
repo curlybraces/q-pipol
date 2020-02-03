@@ -9,7 +9,7 @@
             rounded
             dense
             flat
-            :icon="dense ? 'format_line_spacing' : 'vertical_align_center'"
+            :icon="dense ? 'unfold_more' : 'unfold_less'"
             @click="dense = !dense"
           >
             <q-tooltip>Toggle View</q-tooltip>
@@ -24,21 +24,16 @@
           :dense="dense"
         ></q-option-group>
 
-        <q-input
+        <text-input
           v-model="title"
           label="Program/Project Title"
           stack-label
           outlined
           :dense="dense"
           hint="The title of the program or project"
-          counter
           maxlength="250"
           required
-        >
-          <template v-slot:prepend>
-            <q-icon name="text_format" />
-          </template>
-        </q-input>
+        />
 
         <single-select
           v-model="operating_unit_id"
@@ -166,9 +161,6 @@
         <q-btn flat type="reset" label="Reset" class="q-ml-sm" :dense="dense" />
       </q-form>
     </q-card>
-    <q-dialog v-model="showDialog">
-      <investment-cost />
-    </q-dialog>
   </q-page>
 </template>
 
@@ -190,12 +182,11 @@ export default {
     "multi-select": () => import("../components/FormInputs/MultiSelect.vue"),
     "single-select": () => import("../components/FormInputs/SingleSelect.vue"),
     "date-input": () => import("../components/FormInputs/DateInput.vue"),
-    "investment-cost": () => import("../components/InvestmentCost.vue")
+    "text-input": () => import("../components/FormInputs/TextInput.vue")
   },
   name: "AddProject",
   data() {
     return {
-      showDialog: true,
       breadcrumbs: [
         {
           title: "Home",

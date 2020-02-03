@@ -9,6 +9,10 @@
       @input="val => $emit('input', val)"
       :readonly="readonly"
       :rules="rules"
+      :max-length="maxlength"
+      counter
+      :hint="hint"
+      clearable
     />
   </div>
 </template>
@@ -16,7 +20,7 @@
 <script>
 export default {
   name: "TextInput",
-  props: ["label", "dense", "value", "readonly", "rules"],
+  props: ["label", "dense", "value", "readonly", "rules", "maxlength", "hint"],
   data() {
     return {
       model: null

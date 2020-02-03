@@ -1,8 +1,8 @@
 {
-  "name": "pip",
+  "name": "ipms",
   "version": "1.0.0",
   "description": "A Quasar Framework App for PIP",
-  "productName": "PIP Online System",
+  "productName": "IPM System",
   "cordovaId": "org.cordova.quasar.eplanning",
   "author": "Mark Lester Bolotaolo <mlab817@gmail.com>",
   "private": true,
