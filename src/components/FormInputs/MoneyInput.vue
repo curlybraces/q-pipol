@@ -7,6 +7,7 @@
     :value="value"
     @input="handleInput"
     v-money="money"
+    :dense="dense"
   />
 </template>
 
@@ -15,7 +16,7 @@ import { VMoney } from "v-money";
 
 export default {
   name: "MoneyInput",
-  props: ["label", "value"],
+  props: ["label", "value", "dense"],
   data() {
     return {
       money: {

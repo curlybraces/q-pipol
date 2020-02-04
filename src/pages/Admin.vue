@@ -38,27 +38,21 @@
             <q-item-section side>
               <div class="row q-gutter-sm">
                 <q-btn
-                  :label="active ? 'Deactivate' : 'Activate'"
-                  :color="active ? 'red-9' : 'primary'"
-                  @click.stop="showActivateDialog(id, active)"
-                />
-                <q-btn
-                  label="Assign Roles"
-                  color="blue"
-                  @click="showDialogAssignRoles(id)"
-                />
-                <q-btn
                   round
-                  icon="block"
+                  :icon="active ? 'block' : 'how_to_reg'"
                   flat
-                  color="red"
-                  @click="showDialogAssignRoles(id)"
-                />
+                  :color="active ? 'red' : 'green'"
+                  @click.stop="showActivateDialog(id, active)"
+                >
+                  <q-tooltip>
+                    {{ active ? "Deactivate" : "Activate" }}
+                  </q-tooltip>
+                </q-btn>
                 <q-btn
                   round
                   icon="settings"
                   flat
-                  color="blue"
+                  color="grey-7"
                   @click="showDialogAssignRoles(id)"
                 />
               </div>
@@ -72,7 +66,8 @@
           v-model="currentPage"
           :max="lastPage"
           :input="true"
-          @input="loadUsers"/>
+          @input="loadUsers"
+        />
       </q-card-actions>
     </q-card>
 
@@ -183,8 +178,7 @@ export default {
           activateUser({
             id: id,
             active: !active
-          })
-          .then(() => {
+          }).then(() => {
             this.loadUsers(this.currentPage);
             this.loading = false;
           });

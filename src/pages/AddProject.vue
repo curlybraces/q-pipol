@@ -138,19 +138,11 @@
           hint="Indicate the date when the project is expected to start."
         />
 
-        <q-input
-          v-model="total_project_cost"
-          label="Total Project Cost"
-          stack-label
-          outlined
-          :dense="dense"
-          hint="Indicative project cost in absolute PhP"
-          prefix="PhP"
-        />
-
         <money-input
           label="Total Project Cost"
           v-model="total_project_cost"
+          :dense="dense"
+          hint="Indicative project cost in absolute PhP"
         ></money-input>
 
         <single-select
@@ -161,9 +153,9 @@
           :options="STATUSES"
         />
 
-        <q-btn type="submit" label="Save" color="primary" :dense="dense" />
+        <q-btn type="submit" label="Save" color="primary" />
 
-        <q-btn flat type="reset" label="Reset" class="q-ml-sm" :dense="dense" />
+        <q-btn flat type="reset" label="Reset" class="q-ml-sm" />
       </q-form>
     </q-card>
   </q-page>
@@ -223,14 +215,14 @@ export default {
       PROVINCES_OPTIONS,
       STATUSES,
       type_id: 1,
-      title: "Title",
-      operating_unit_id: 1,
-      description: "Description",
-      outcomes: "Outcomes",
-      expected_outputs: "Outputs",
-      spatial_coverage_id: 2,
-      regions: [1, 2, 3],
-      provinces: [1, 2, 3],
+      title: null,
+      operating_unit_id: null,
+      description: null,
+      outcomes: null,
+      expected_outputs: null,
+      spatial_coverage_id: null,
+      regions: [],
+      provinces: [],
       implementation_start_date: null,
       implementation_end_date: null,
       total_project_cost: null,
