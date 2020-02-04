@@ -16,6 +16,7 @@
     "firebase": "^6.6.0",
     "moment": "^2.24.0",
     "quasar": "^1.8.5",
+    "v-money": "^0.8.1",
     "vue-cookie-law": "^1.11.0"
   },
   "devDependencies": {

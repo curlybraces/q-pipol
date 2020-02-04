@@ -148,6 +148,11 @@
           prefix="PhP"
         />
 
+        <money-input
+          label="Total Project Cost"
+          v-model="total_project_cost"
+        ></money-input>
+
         <single-select
           v-model="status_update"
           label="Status"
@@ -182,11 +187,13 @@ export default {
     "multi-select": () => import("../components/FormInputs/MultiSelect.vue"),
     "single-select": () => import("../components/FormInputs/SingleSelect.vue"),
     "date-input": () => import("../components/FormInputs/DateInput.vue"),
-    "text-input": () => import("../components/FormInputs/TextInput.vue")
+    "text-input": () => import("../components/FormInputs/TextInput.vue"),
+    "money-input": () => import("../components/FormInputs/MoneyInput.vue")
   },
   name: "AddProject",
   data() {
     return {
+      success: true,
       breadcrumbs: [
         {
           title: "Home",
@@ -241,12 +248,11 @@ export default {
   methods: {
     save() {
       createProject(this).then(res => {
-        Dialog.create({
-          title: "Success!",
-          message: `The project was successfully created as Project #${res.data.data.create_project.id}.`
-        }).onOk(() => {
-          this.$router.push("/pip");
-        });
+        if (res) {
+          this.$router.push("/pip/" + res.id);
+        } else {
+          return;
+        }
       });
     },
     selectAllRegions() {

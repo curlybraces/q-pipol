@@ -13,6 +13,7 @@ export const loadProjects = ({ current_page = 1 }) => {
             title
             operating_unit {
               name
+              image
             }
             description
             total_project_cost

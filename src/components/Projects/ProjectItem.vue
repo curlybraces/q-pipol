@@ -4,7 +4,7 @@
       <q-avatar color="white">
         <q-img
           v-if="operating_unit != null"
-          :src="`statics/agency_logos/${operating_unit.image}.svg`"
+          :src="`statics/agency_logos/${operating_unit.image}`"
         />
         <q-img v-else src="statics/agency_logos/da-co.svg" />
       </q-avatar>

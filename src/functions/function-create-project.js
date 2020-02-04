@@ -77,7 +77,7 @@ export const createProject = ({
       if (res.data.errors) {
         return Promise.reject(res.data.errors[0]);
       } else {
-        return res.data.data;
+        return res.data.data.createProject;
       }
     })
     .catch(err => {

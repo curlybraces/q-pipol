@@ -120,7 +120,7 @@ export default {
     admin() {
       return (
         this.$store.state.auth.roles.includes("admin") ||
-        this.$store.state.auth.roles.includes("super-admin")
+        this.$store.state.auth.roles.includes("super admin")
       );
     }
   },
