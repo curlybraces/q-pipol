@@ -42,7 +42,25 @@
                   :color="active ? 'red-9' : 'primary'"
                   @click.stop="showActivateDialog(id, active)"
                 />
-                <q-btn label="Assign Roles" color="blue" />
+                <q-btn
+                  label="Assign Roles"
+                  color="blue"
+                  @click="showDialogAssignRoles(id)"
+                />
+                <q-btn
+                  round
+                  icon="block"
+                  flat
+                  color="red"
+                  @click="showDialogAssignRoles(id)"
+                />
+                <q-btn
+                  round
+                  icon="settings"
+                  flat
+                  color="blue"
+                  @click="showDialogAssignRoles(id)"
+                />
               </div>
             </q-item-section>
           </q-item>
@@ -54,8 +72,7 @@
           v-model="currentPage"
           :max="lastPage"
           :input="true"
-          @input="loadPage"
-        ></q-pagination>
+          @input="loadUsers"/>
       </q-card-actions>
     </q-card>
 
@@ -93,16 +110,16 @@
           />
           <q-item-label>Roles</q-item-label>
           <q-option-group
-            v-model="selectedRoles"
             type="checkbox"
+            v-model="selectedRoles"
             :options="ROLES"
           ></q-option-group>
           <q-btn
+            type="submit"
             class="full-width"
             color="primary"
             label="ADD USER"
             @click="addUser"
-            type="submit"
           />
         </q-form>
       </q-card>
@@ -111,10 +128,12 @@
 </template>
 
 <script>
-import { axiosInstance } from "boot/axios";
 import PageBreadcrumbs from "../components/PageBreadcrumbs";
 import TextInput from "../components/FormInputs/TextInput";
 import { createUser } from "../functions/function-create-user";
+import { loadUsers } from "../functions/function-load-users";
+import { showErrorMessage } from "../functions/function-show-error-message";
+import { activateUser } from "../functions/function-activate-user";
 
 import { ROLES } from "../data/roles";
 
@@ -152,7 +171,7 @@ export default {
     showActivateDialog(id, active) {
       this.$q
         .dialog({
-          title: "Toggle User Activation",
+          title: active ? "Deactivate user" : "Activate user",
           message: "You are about to toggle activation status of user #" + id,
           persistent: true,
           cancel: true,
@@ -160,66 +179,19 @@ export default {
           transitionHide: "fade"
         })
         .onOk(() => {
-          // Todo: call user activation here
-          axiosInstance
-            .post("graphql", {
-              query: `mutation activateUser(
-                $id:ID!
-                $active:Boolean!) {
-                activateUser(
-                  id: $id
-                  active: $active
-                  )
-              }`,
-              variables: {
-                id: id,
-                active: !active
-              }
-            })
-            .then(() => {
-              this.loadUsers({ page: this.currentPage });
-            });
+          this.loading = true;
+          activateUser({
+            id: id,
+            active: !active
+          })
+          .then(() => {
+            this.loadUsers(this.currentPage);
+            this.loading = false;
+          });
         });
     },
-    loadUsers({ page = 1 }) {
-      this.loading = true;
-
-      axiosInstance
-        .post("graphql", {
-          query: `query users($page:Int!){
-            users (page:$page) {
-              data {
-                id
-                name
-                email
-                active
-              }
-              paginatorInfo {
-                currentPage
-                lastPage
-                total
-              }
-            }
-          }`,
-          variables: {
-            page: page
-          }
-        })
-        .then(res => {
-          this.users = res.data.data.users.data;
-          const {
-            currentPage,
-            lastPage,
-            total
-          } = res.data.data.users.paginatorInfo;
-          this.currentPage = currentPage;
-          this.lastPage = lastPage;
-          this.total = total;
-          this.loading = false;
-        });
-    },
-    loadPage() {
-      this.loadUsers({ page: this.currentPage });
+    showDialogAssignRoles(id) {
+      console.log("id:", id);
     },
     addUser() {
       this.$refs.addUser.validate().then(success => {
@@ -232,10 +204,21 @@ export default {
           });
         }
       });
+    },
+    loadUsers(page) {
+      this.loading = true;
+      loadUsers(page).then(res => {
+        if (res.errors) {
+          showErrorMessage(res.errors);
+        } else {
+          this.users = res.users.data;
+        }
+        this.loading = false;
+      });
     }
   },
   created() {
-    this.loadUsers({ page: 1 });
+    this.loadUsers(1);
   }
 };
 </script>
