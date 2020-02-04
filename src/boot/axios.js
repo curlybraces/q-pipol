@@ -6,22 +6,16 @@ var baseURL = process.env.DEV
   ? "http://localhost:8000"
   : "https://e-planning.daplanningcentral.net";
 
-export const axiosInstance = axios.create({
-  baseURL: baseURL,
-  headers: [
-    {
-      Accept: "application/json"
-    }
-  ]
-});
-
-export const setAuthHeader = token => {
-  LocalStorage.set("token", token);
+export const setAuthHeader = () => {
   var newToken = LocalStorage.getItem("token");
   if (newToken) {
     axiosInstance.defaults.headers.common["Authorization"] =
       "Bearer " + newToken;
   }
 };
+
+export const axiosInstance = axios.create();
+axiosInstance.defaults.baseURL = baseURL;
+axiosInstance.defaults.headers.common["Accept"] = "application/json";
 
 Vue.prototype.$axios = axiosInstance;

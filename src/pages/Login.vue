@@ -46,7 +46,7 @@
                 outlined
                 placeholder="Email"
                 type="email"
-                v-model="email"
+                v-model="username"
                 lazy-rules
                 :rules="[val => (val && val.length > 0) || 'Email is required']"
               >
@@ -126,7 +126,7 @@ export default {
       passwordVisibility: false,
       appTitle: "PIP Online System",
       name: null,
-      email: null,
+      username: null,
       password: null,
       tab: "login"
     };
@@ -138,13 +138,13 @@ export default {
         if (success) {
           if (this.tab == "login") {
             this.login({
-              email: this.email,
+              username: this.username,
               password: this.password
             });
           } else {
             this.create({
               name: this.name,
-              email: this.email,
+              username: this.username,
               password: this.password
             });
           }

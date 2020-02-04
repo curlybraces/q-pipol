@@ -2,21 +2,29 @@ import { axiosInstance } from "boot/axios";
 import { showErrorMessage } from "./function-show-error-message";
 import { Loading } from "quasar";
 
-export const loginUser = ({ email, password }) => {
+export const loginUser = ({ username, password }) => {
   Loading.show();
   return axiosInstance
     .post("/graphql", {
-      query: `mutation loginUser(
-        $email: String!
+      query: `mutation login(
         $password: String!
-      ) {
-        loginUser(
-          email: $email
-          password: $password
-        )
+        $username: String!
+      ){
+        login(
+            input:{
+              password:$password
+              username:$username,
+            }) {
+            access_token
+            user {
+              id
+              name
+              email
+            }
+        }
       }`,
       variables: {
-        email: email,
+        username: username,
         password: password
       }
     })
@@ -24,7 +32,7 @@ export const loginUser = ({ email, password }) => {
       if (res.data.errors) {
         return Promise.reject(res.data.errors[0]);
       } else {
-        var token = res.data.data.loginUser;
+        var token = res.data.data.login.access_token;
         return token;
       }
     })

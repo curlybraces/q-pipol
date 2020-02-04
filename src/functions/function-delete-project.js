@@ -6,26 +6,23 @@ export const deleteProject = ({ id }) => {
   Loading.show();
   return axiosInstance
     .post("/graphql", {
-      query: `mutation delete_project($id: Int!)
+      query: `mutation deleteProject($id: ID!)
       {
-        delete_project(id: $id) {
-          id
-        }
+        deleteProject(id: $id)
       }`,
       variables: {
         id: id
       }
     })
     .then(res => {
-      console.log(res);
-      if (!res.data.data.delete_project) {
-        showErrorMessage(
-          "Something went wrong. The project you are trying to delete may no longer exist."
-        );
+      if (res.data.errors) {
+        Promise.reject(res.data.errors[0]);
+      } else {
+        return res.data.data.deleteProject;
       }
     })
     .catch(err => {
-      console.log(err.message);
+      showErrorMessage(err.message);
     })
     .finally(() => Loading.hide());
 };

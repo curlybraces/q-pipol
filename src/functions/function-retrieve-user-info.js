@@ -1,5 +1,5 @@
 import { axiosInstance } from "boot/axios";
-import { Dialog, LocalStorage } from "quasar";
+import { showErrorMessage } from "./function-show-error-message";
 
 export const retrieveUserInfo = () => {
   return axiosInstance
@@ -24,21 +24,11 @@ export const retrieveUserInfo = () => {
     }`
     })
     .then(res => {
-      console.log("Retrieving user info.");
-
       if (res.data.errors) {
-        Dialog.create({
-          title: "Unauthenticated",
-          message: "You are not logged in.",
-          persistent: true
-        }).onOk(() => {
-          LocalStorage.remove("loggedIn");
-          LocalStorage.remove("token");
-
-          this.$router.push("/login");
-        });
+        Promise.reject(res.data.errors[0]);
       } else {
         return res.data.data.me;
       }
-    });
+    })
+    .catch(err => showErrorMessage(err.message));
 };

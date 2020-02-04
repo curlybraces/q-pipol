@@ -4,12 +4,12 @@ import { createUser } from "../../functions/function-create-user";
 import { retrieveUserInfo } from "../../functions/function-retrieve-user-info";
 import { setAuthHeader } from "boot/axios";
 
-export function create({}, { name, email, password, selectedRoles = [] }) {
-  createUser({ name, email, password, selectedRoles });
+export function create({}, { name, username, password, selectedRoles = [] }) {
+  createUser({ name, username, password, selectedRoles });
 }
 
-export function login({ commit, dispatch }, { email, password }) {
-  loginUser({ email, password }).then(res => {
+export function login({ commit, dispatch }, { username, password }) {
+  loginUser({ username, password }).then(res => {
     if (!res) {
       return;
     } else {
@@ -17,9 +17,7 @@ export function login({ commit, dispatch }, { email, password }) {
       LocalStorage.set("loggedIn", true);
       commit("SET_TOKEN", res);
       commit("SET_LOGGED_IN", true);
-      setAuthHeader(res);
-
-      dispatch("retrieveUser");
+      setAuthHeader().then(() => dispatch("retrieveUser"));
 
       this.$router.push("/");
     }
