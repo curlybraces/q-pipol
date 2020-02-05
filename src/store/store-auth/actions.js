@@ -17,7 +17,8 @@ export function login({ commit, dispatch }, { username, password }) {
       LocalStorage.set("loggedIn", true);
       commit("SET_TOKEN", res);
       commit("SET_LOGGED_IN", true);
-      setAuthHeader().then(() => dispatch("retrieveUser"));
+      setAuthHeader();
+      dispatch("retrieveUser");
 
       this.$router.push("/");
     }

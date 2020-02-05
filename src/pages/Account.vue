@@ -52,7 +52,7 @@
           <q-input
             outlined
             label="Full Name"
-            v-model="name"
+            v-model="user.name"
             lazy-rules
             :rules="rules.required"
           ></q-input>
@@ -60,26 +60,28 @@
             outlined
             label="Office"
             :options="OPERATING_UNITS"
-            v-model="operating_unit"
+            v-model="user.operating_unit"
             emit-value
             map-options
           ></q-select>
           <q-input
             outlined
-            v-model="unit"
+            v-model="user.unit"
             label="Service/Division/Unit"
             hint="Do not abbreviate"
             :rules="rules.required"
           />
           <q-input
             outlined
-            v-model="position"
+            v-model="user.position"
             label="Position/Designation"
             hint="Do not abbreviate"
             :rules="rules.required"
           />
           <div class="row justify-center">
-            <q-btn color="primary" type="submit">SAVE CHANGES</q-btn>
+            <q-btn color="primary" type="submit" :loading="loading"
+              >SAVE CHANGES</q-btn
+            >
           </div>
         </q-form>
       </div>
@@ -88,8 +90,9 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
 import { axiosInstance } from "boot/axios";
+import { retrieveUserInfo } from "../functions/function-retrieve-user-info";
+import { updateProfile } from "../functions/function-update-profile";
 import PageBreadcrumbs from "../components/PageBreadcrumbs";
 
 import { OPERATING_UNITS } from "../data/operating_units";
@@ -99,9 +102,6 @@ import { Loading } from "quasar";
 export default {
   components: { PageBreadcrumbs },
   name: "UserPage",
-  computed: {
-    ...mapState("auth", ["email", "name", "operating_unit", "position", "unit"])
-  },
   data() {
     return {
       breadcrumbs: [
@@ -118,15 +118,22 @@ export default {
       showPassword: false,
       rules: {
         required: [val => (val && val.length > 0) || "Please type something"]
-      }
+      },
+      user: {
+        name: null,
+        operating_unit: null,
+        unit: null,
+        position: null
+      },
+      loading: false
     };
   },
   methods: {
     saveProfile() {
       this.$refs.profile.validate().then(success => {
         if (success) {
-          Loading.show();
-          axiosInstance;
+          this.loading = true;
+          updateProfile(this.user).then(() => (this.loading = false));
         }
       });
     },
@@ -147,7 +154,19 @@ export default {
         .then(() => {
           Loading.hide();
         });
+    },
+    retrieveData() {
+      retrieveUserInfo().then(res => {
+        this.email = res.email;
+        this.user.name = res.name;
+        this.user.operating_unit = res.profile.operating_unit.id;
+        this.user.unit = res.profile.unit;
+        this.user.position = res.profile.position;
+      });
     }
+  },
+  created() {
+    this.retrieveData();
   }
 };
 </script>
