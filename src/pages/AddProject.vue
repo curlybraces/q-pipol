@@ -118,6 +118,24 @@
           :options-dense="dense"
         />
 
+        <single-select
+          v-model="target_start_year"
+          label="Target Start Year"
+          :options="YEARS"
+          :dense="dense"
+          :options-dense="dense"
+        >
+        </single-select>
+
+        <single-select
+          v-model="target_end_year"
+          label="Target Completion Year"
+          :options="YEARS"
+          :dense="dense"
+          :options-dense="dense"
+        >
+        </single-select>
+
         <date-input
           v-model="implementation_start_date"
           mask="date"
@@ -167,6 +185,7 @@ import { OPERATING_UNITS } from "../data/operating_units.js";
 import { REGIONS_OPTIONS } from "../data/regions.js";
 import { PROVINCES_OPTIONS } from "../data/provinces.js";
 import { SPATIAL_COVERAGES } from "../data/spatial_coverages.js";
+import { YEARS } from "../data/year";
 import { createProject } from "../functions/function-create-project";
 
 import PageBreadcrumbs from "../components/PageBreadcrumbs";
@@ -209,6 +228,7 @@ export default {
           value: 2
         }
       ],
+      YEARS,
       OPERATING_UNITS,
       SPATIAL_COVERAGES,
       REGIONS_OPTIONS,
@@ -223,6 +243,8 @@ export default {
       spatial_coverage_id: null,
       regions: [],
       provinces: [],
+      target_start_year: null,
+      target_end_year: null,
       implementation_start_date: null,
       implementation_end_date: null,
       total_project_cost: null,

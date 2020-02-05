@@ -1,9 +1,7 @@
 import { axiosInstance } from "boot/axios";
 import { showErrorMessage } from "./function-show-error-message";
-import { Loading } from "quasar";
 
 export const loginUser = ({ username, password }) => {
-  Loading.show();
   return axiosInstance
     .post("/graphql", {
       query: `mutation login(
@@ -38,6 +36,5 @@ export const loginUser = ({ username, password }) => {
     })
     .catch(error => {
       showErrorMessage(error.message);
-    })
-    .finally(() => Loading.hide());
+    });
 };

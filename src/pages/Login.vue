@@ -85,6 +85,7 @@
                   type="submit"
                   color="red"
                   unelevated
+                  :loading="loading"
                 >
                   {{ tab == "login" ? "Login" : "Sign up" }}
                 </q-btn>
@@ -118,6 +119,7 @@
 
 <script>
 import { mapActions } from "vuex";
+import { register } from "../functions/function-register";
 
 export default {
   name: "PageLogin",
@@ -128,7 +130,8 @@ export default {
       name: null,
       username: null,
       password: null,
-      tab: "login"
+      tab: "login",
+      loading: false
     };
   },
   methods: {
@@ -136,17 +139,18 @@ export default {
     handleSubmit() {
       this.$refs.loginForm.validate().then(success => {
         if (success) {
+          this.loading = true;
           if (this.tab == "login") {
             this.login({
               username: this.username,
               password: this.password
             });
           } else {
-            this.create({
+            register({
               name: this.name,
-              username: this.username,
+              email: this.username,
               password: this.password
-            });
+            }).then(() => (this.loading = false));
           }
         }
       });
