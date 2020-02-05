@@ -48,13 +48,26 @@
       <q-separator spaced />
       <div class="row q-pa-md q-mx-xl">
         <q-form class="col q-gutter-md" ref="profile" @submit="saveProfile">
-          <q-item-label header>Profile</q-item-label>
+          <div class="row">
+            <q-item-label header>Profile</q-item-label>
+            <q-space />
+            <q-avatar
+              flat
+              dense
+              class="text-grey-8 cursor-pointer"
+              @click="isEditing = !isEditing"
+              v-if="!isEditing"
+            >
+              <q-icon name="edit" />
+            </q-avatar>
+          </div>
           <q-input
             outlined
             label="Full Name"
             v-model="user.name"
             lazy-rules
             :rules="rules.required"
+            :readonly="!isEditing"
           ></q-input>
           <q-select
             outlined
@@ -63,6 +76,7 @@
             v-model="user.operating_unit"
             emit-value
             map-options
+            :readonly="!isEditing"
           ></q-select>
           <q-input
             outlined
@@ -77,9 +91,14 @@
             label="Position/Designation"
             hint="Do not abbreviate"
             :rules="rules.required"
+            :readonly="!isEditing"
           />
           <div class="row justify-center">
-            <q-btn color="primary" type="submit" :loading="loading"
+            <q-btn
+              color="primary"
+              type="submit"
+              :loading="loading"
+              v-if="isEditing"
               >SAVE CHANGES</q-btn
             >
           </div>
@@ -125,7 +144,8 @@ export default {
         unit: null,
         position: null
       },
-      loading: false
+      loading: false,
+      isEditing: false
     };
   },
   methods: {
@@ -140,6 +160,7 @@ export default {
             this.user.unit = res.profile.unit;
             this.user.position = res.profile.position;
             this.loading = false;
+            this.isEditing = false;
           });
         } else {
           alert("Please check form inputs");

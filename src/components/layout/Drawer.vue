@@ -104,6 +104,10 @@ export default {
           ]
         },
         {
+          label: "Reports",
+          icon: "bubble_chart"
+        },
+        {
           label: "Account",
           icon: "person",
           url: "/account"
