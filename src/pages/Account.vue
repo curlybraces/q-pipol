@@ -133,7 +133,16 @@ export default {
       this.$refs.profile.validate().then(success => {
         if (success) {
           this.loading = true;
-          updateProfile(this.user).then(() => (this.loading = false));
+          updateProfile(this.user).then(res => {
+            this.email = res.email;
+            this.user.name = res.name;
+            this.user.operating_unit = res.profile.operating_unit.id;
+            this.user.unit = res.profile.unit;
+            this.user.position = res.profile.position;
+            this.loading = false;
+          });
+        } else {
+          alert("Please check form inputs");
         }
       });
     },
@@ -165,7 +174,7 @@ export default {
       });
     }
   },
-  created() {
+  mounted() {
     this.retrieveData();
   }
 };

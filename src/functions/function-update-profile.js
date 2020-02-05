@@ -16,7 +16,16 @@ export const updateProfile = ({ name, operating_unit, unit, position }) => {
           operating_unit_id: $operating_unit
           unit: $unit
           position: $position
-        )
+        ) {
+          name
+          profile {
+            operating_unit {
+              id
+            }
+            unit
+            position
+          }
+        }
       }`,
       variables: {
         name: name,
@@ -29,7 +38,7 @@ export const updateProfile = ({ name, operating_unit, unit, position }) => {
       if (res.data.errors) {
         Promise.reject(res.data.errors[0]);
       } else {
-        return true;
+        return res.data.data.updateProfile;
       }
     })
     .catch(err => showErrorMessage(err.message));
