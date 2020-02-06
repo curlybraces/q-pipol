@@ -11,37 +11,17 @@
           </div>
         </div>
       </div>
-      <div class="row justify-center">
+
+      <reset-password v-if="tab == 'reset'"></reset-password>
+
+      <div class="row justify-center" v-else>
         <q-card class="my-card">
-          <q-toolbar color="primary">
-            <q-icon avatar name="lock"></q-icon>
-            <q-toolbar-title>
-              <span class="text-subtitle1">
-                {{
-                  tab == "login"
-                    ? `Login to your ${appTitle} Account`
-                    : "Create new account"
-                }}
-              </span>
-            </q-toolbar-title>
-          </q-toolbar>
+
+
           <q-separator spaced />
+
           <q-card-section class="q-pa-md">
             <q-form ref="loginForm" class="q-gutter-md" @submit="handleSubmit">
-              <q-input
-                v-if="tab == 'signup'"
-                outlined
-                placeholder="Full Name"
-                type="text"
-                v-model="name"
-                lazy-rules
-                :rules="[val => (val && val.length > 0) || 'Name is required']"
-              >
-                <template v-slot:prepend>
-                  <q-icon name="person"></q-icon>
-                </template>
-              </q-input>
-
               <q-input
                 outlined
                 placeholder="Email"
@@ -90,6 +70,14 @@
                   {{ tab == "login" ? "Login" : "Sign up" }}
                 </q-btn>
               </div>
+              <div class="text-center">
+                <span
+                  class="text-blue text-weight-lighter cursor-pointer"
+                  @click="tab = 'reset'"
+                >
+                  Forgot password
+                </span>
+              </div>
               <div class="text-center" v-if="tab == 'login'">
                 Don't have an account?
                 <span
@@ -133,6 +121,17 @@ export default {
       tab: "login",
       loading: false
     };
+  },
+  computed: {
+    title() {
+      if (this.tab == "login") {
+        return "Login to your account";
+      } else if (this.tab == "signup") {
+        return "Sign up to a new account";
+      } else {
+        return "Reset password";
+      }
+    }
   },
   methods: {
     ...mapActions("auth", ["login", "create"]),
