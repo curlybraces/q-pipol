@@ -16,8 +16,11 @@
         </div>
 
         <div class="row q-col-gutter-x-md">
+          <q-inner-loading :showing="loading">
+            <q-spinner-gears size="25px" color="primary" />
+          </q-inner-loading>
           <div class="col">
-            <text-input v-model="title" label="Title" :readonly="readonly" />
+            <q-input v-model="project.title" />
           </div>
         </div>
 
@@ -26,17 +29,19 @@
         </q-card-actions>
       </q-card>
     </div>
+    <pre>
+      {{ project }}
+    </pre>
   </q-page>
 </template>
 
 <script>
+import { axiosInstance } from "boot/axios";
 import PageBreadcrumbs from "../components/PageBreadcrumbs";
-import TextInput from "../components/FormInputs/TextInput";
 
 export default {
   components: {
-    PageBreadcrumbs,
-    TextInput
+    PageBreadcrumbs
   },
   name: "ViewProject",
   data() {
@@ -54,9 +59,38 @@ export default {
           title: "View Project"
         }
       ],
+      loading: true,
       readonly: true,
-      title: "Title"
+      title: "Title",
+      project: {}
     };
+  },
+  created() {
+    this.$loading = true;
+    axiosInstance
+      .post("/graphql", {
+        query: `query project {
+          project(id:8) {
+            id
+            title
+            operating_unit {
+              name
+            }
+            spatial_coverage_id
+            regions {
+              id
+            }
+            total_project_cost
+        }
+      }`
+      })
+      .then(res => {
+        this.project = Object.assign({}, res.data.data.project);
+        this.loading = false;
+      });
+  },
+  mounted() {
+    this.loading = true;
   }
 };
 </script>
