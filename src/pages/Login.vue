@@ -16,12 +16,30 @@
 
       <div class="row justify-center" v-else>
         <q-card class="my-card">
-
+          <div class="row q-pa-md text-weight-light text-h6">
+            {{
+              tab == "login"
+                ? "Login to your account"
+                : "Sign up to create account"
+            }}
+          </div>
 
           <q-separator spaced />
 
           <q-card-section class="q-pa-md">
             <q-form ref="loginForm" class="q-gutter-md" @submit="handleSubmit">
+              <q-input
+                outlined
+                placeholder="Full Name"
+                v-model="name"
+                lazy-rules
+                :rules="[val => (val && val.length > 0) || 'Name is required']"
+                v-if="tab == 'signup'"
+              >
+                <template v-slot:prepend>
+                  <q-icon name="person"></q-icon>
+                </template>
+              </q-input>
               <q-input
                 outlined
                 placeholder="Email"
@@ -40,7 +58,7 @@
                 placeholder="Password"
                 :type="!passwordVisibility ? 'password' : 'text'"
                 v-model="password"
-                lazy-rules
+                lazy-rule
                 :rules="[
                   val => (val && val.length > 0) || 'Password is required'
                 ]"
@@ -81,15 +99,15 @@
               <div class="text-center" v-if="tab == 'login'">
                 Don't have an account?
                 <span
-                  class="text-blue text-weight-bolder cursor-pointer"
+                  class="text-blue text-wight-bolder cursor-pointer"
                   @click="tab = 'signup'"
                   >Sign up</span
                 >
               </div>
               <div class="text-center" v-else>
-                Already have an account?
+                Alreay have an account?
                 <span
-                  class="text-blue text-weight-bolder cursor-pointer"
+                  class="text-blue text-eight-bolder cursor-pointer"
                   @click="tab = 'login'"
                   >Login</span
                 >
@@ -98,6 +116,7 @@
           </q-card-section>
         </q-card>
       </div>
+
       <div class="row justify-center q-my-xl">
         &copy; 2019 Mark Lester Bolotaolo
       </div>
@@ -114,24 +133,13 @@ export default {
   data() {
     return {
       passwordVisibility: false,
-      appTitle: "PIP Online System",
+      appTitle: "IP Online System",
       name: null,
       username: null,
       password: null,
       tab: "login",
       loading: false
     };
-  },
-  computed: {
-    title() {
-      if (this.tab == "login") {
-        return "Login to your account";
-      } else if (this.tab == "signup") {
-        return "Sign up to a new account";
-      } else {
-        return "Reset password";
-      }
-    }
   },
   methods: {
     ...mapActions("auth", ["login", "create"]),
@@ -147,9 +155,9 @@ export default {
           } else {
             register({
               name: this.name,
-              email: this.username,
+              username: this.username,
               password: this.password
-            }).then(() => (this.loading = false));
+            });
           }
         }
       });
@@ -165,7 +173,7 @@ export default {
 }
 
 .btn-login {
-  text-transform: none;
+  text-transform: nne;
   font-weight: 300;
 }
 
