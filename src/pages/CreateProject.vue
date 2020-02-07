@@ -4,18 +4,23 @@
 
     <q-card class="bg-white">
       <div class="row q-pa-md justify-end">
-        <q-btn @click="addRow = !addRow" label="Add Row"></q-btn>
+        <q-btn
+          @click="addRow = !addRow"
+          label="Add Row"
+          color="primary"
+        ></q-btn>
       </div>
       <div class="row q-pa-md">
         <q-markup-table class="col">
           <thead>
             <tr>
               <th class="text-left">Title</th>
-              <th class="text-right">Calories</th>
-              <th class="text-right">Fat (g)</th>
-              <th class="text-right">Carbs (g)</th>
-              <th class="text-right">Protein (g)</th>
-              <th class="text-right">Sodium (mg)</th>
+              <th class="text-right">2017</th>
+              <th class="text-right">2018</th>
+              <th class="text-right">2019</th>
+              <th class="text-right">2020</th>
+              <th class="text-right">2021</th>
+              <th class="text-right">2022</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -28,7 +33,11 @@
                 <td class="text-right">{{ row.input3 }}</td>
                 <td class="text-right">{{ row.input4 }}</td>
                 <td class="text-right">{{ row.input5 }}</td>
-                <td></td>
+                <td class="text-right">{{ row.input6 }}</td>
+                <td class="text-right">
+                  <q-icon name="edit" />
+                  <q-icon name="delete" />
+                </td>
               </tr>
             </template>
             <template v-else>
@@ -49,6 +58,7 @@
           <q-input outlined v-model="input3"></q-input>
           <q-input outlined v-model="input4"></q-input>
           <q-input outlined v-model="input5"></q-input>
+          <q-input outlined v-model="input6"></q-input>
           <q-btn
             class="full-width"
             color="primary"
@@ -93,6 +103,7 @@ export default {
       input3: null,
       input4: null,
       input5: null,
+      input6: null,
       rows: []
     };
   },
@@ -104,7 +115,8 @@ export default {
         input2: this.input2,
         input3: this.input3,
         input4: this.input4,
-        input5: this.input5
+        input5: this.input5,
+        input6: this.input6
       });
     }
   }
