@@ -138,6 +138,7 @@ export default {
       rules: {
         required: [val => (val && val.length > 0) || "Please type something"]
       },
+      email: null,
       user: {
         name: null,
         operating_unit: null,

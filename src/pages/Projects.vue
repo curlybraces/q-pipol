@@ -56,6 +56,7 @@
                     :total_project_cost="total_project_cost"
                     @goTo="goTo(id)"
                     @promptDelete="promptDelete(id)"
+                    @editProject="goToEdit(id)"
                   ></project-item>
                 </q-list>
               </div>
@@ -63,9 +64,9 @@
           </template>
 
           <template v-if="loading">
-            <div class="text-center" style="margin-top: 10px;">
-              Loading projects...
-            </div>
+            <q-inner-loading :showing="loading">
+              <q-spinner-gears color="primary" size="lg"></q-spinner-gears>
+            </q-inner-loading>
           </template>
 
           <div
@@ -169,11 +170,14 @@ export default {
     goTo(id) {
       this.$router.push("/pip/" + id);
     },
+    goToEdit(id) {
+      this.$router.push("/pip/" + id + "/edit");
+    },
     reloadProjects() {
       loadProjects({
         current_page: this.current_page
       }).then(res => {
-        const { data, paginatorInfo } = res.data.projects;
+        const { data, paginatorInfo } = res;
         this.total = paginatorInfo.total;
         this.per_page = paginatorInfo.perPage;
         this.current_page = paginatorInfo.currentPage;

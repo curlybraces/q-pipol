@@ -1,9 +1,7 @@
 import { axiosInstance } from "boot/axios";
-import { Loading } from "quasar";
 import { showErrorMessage } from "./function-show-error-message";
 
 export const loadProjects = ({ current_page = 1 }) => {
-  Loading.show();
   return axiosInstance
     .post("/graphql", {
       query: `query projects($currentPage: Int) {
@@ -31,8 +29,11 @@ export const loadProjects = ({ current_page = 1 }) => {
       }
     })
     .then(res => {
-      return res.data;
+      if (res.data.errors) {
+        return Promise.reject(res.data.errors[0]);
+      } else {
+        return res.data.data.projects;
+      }
     })
-    .catch(err => showErrorMessage(err.message))
-    .finally(() => Loading.hide());
+    .catch(err => showErrorMessage(err.message));
 };

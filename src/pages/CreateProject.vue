@@ -34,11 +34,35 @@
                 <td class="text-right">{{ row.input4 }}</td>
                 <td class="text-right">{{ row.input5 }}</td>
                 <td class="text-right">{{ row.input6 }}</td>
-                <td class="text-right">
-                  <q-icon name="edit" />
-                  <q-icon name="delete" />
+                <td class="text-center q-gutter-x-xs">
+                  <q-btn round flat color="blue" @click="editRow(index)">
+                    <q-icon name="edit" />
+                  </q-btn>
+                  <q-btn round flat color="red" @click="deleteRow(index)">
+                    <q-icon name="delete" />
+                  </q-btn>
                 </td>
               </tr>
+              <q-dialog v-model="editRowDialog">
+                <q-card class="q-pa-sm" style="width:400px;">
+                  <q-form class="q-gutter-y-md">
+                    <q-item-label>Add Row</q-item-label>
+                    <q-input outlined v-model="row.title"></q-input>
+                    <q-input outlined v-model="row.input1"></q-input>
+                    <q-input outlined v-model="row.input2"></q-input>
+                    <q-input outlined v-model="row.input3"></q-input>
+                    <q-input outlined v-model="row.input4"></q-input>
+                    <q-input outlined v-model="row.input5"></q-input>
+                    <q-input outlined v-model="row.input6"></q-input>
+                    <q-btn
+                      class="full-width"
+                      color="primary"
+                      label="Add Row"
+                      @click="addData"
+                    ></q-btn>
+                  </q-form>
+                </q-card>
+              </q-dialog>
             </template>
             <template v-else>
               No data to show
@@ -49,33 +73,17 @@
     </q-card>
 
     <q-dialog v-model="addRow">
-      <q-card class="q-pa-sm" style="width:400px;">
-        <q-form class="q-gutter-y-md">
-          <q-item-label>Add Row</q-item-label>
-          <q-input outlined v-model="title"></q-input>
-          <q-input outlined v-model="input1"></q-input>
-          <q-input outlined v-model="input2"></q-input>
-          <q-input outlined v-model="input3"></q-input>
-          <q-input outlined v-model="input4"></q-input>
-          <q-input outlined v-model="input5"></q-input>
-          <q-input outlined v-model="input6"></q-input>
-          <q-btn
-            class="full-width"
-            color="primary"
-            label="Add Row"
-            @click="addData"
-          ></q-btn>
-        </q-form>
-      </q-card>
+      <dialog-component :title.sync="title" />
     </q-dialog>
   </q-page>
 </template>
 
 <script>
 import PageBreadcrumbs from "../components/PageBreadcrumbs";
+import DialogComponent from "../components/AddEditProject/Shared/Dialog";
 
 export default {
-  components: { PageBreadcrumbs },
+  components: { PageBreadcrumbs, DialogComponent },
   computed: {
     contracted() {
       return !this.$q.screen.gt.md;
@@ -104,7 +112,8 @@ export default {
       input4: null,
       input5: null,
       input6: null,
-      rows: []
+      rows: [],
+      editRowDialog: false
     };
   },
   methods: {
@@ -118,6 +127,13 @@ export default {
         input5: this.input5,
         input6: this.input6
       });
+      this.title = "";
+    },
+    deleteRow(index) {
+      this.rows.splice(index, 1);
+    },
+    editRow() {
+      this.editRowDialog = true;
     }
   }
 };

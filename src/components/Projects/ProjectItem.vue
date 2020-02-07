@@ -18,9 +18,21 @@
       <q-item-label>{{ title }}</q-item-label>
       <q-item-label caption :lines="2">{{ description }}</q-item-label>
     </q-item-section>
-    <q-item-section class="col-2" top side>
+    <q-item-section class="col-2">
       <q-item-label>{{ total_project_cost | currency }} </q-item-label>
+    </q-item-section>
+    <q-item-section class="col-1" top side>
       <q-item-label>
+        <q-btn
+          class="gt-xs"
+          size="12px"
+          flat
+          dense
+          round
+          icon="edit"
+          color="blue"
+          @click.stop="editProject"
+        />
         <q-btn
           class="gt-xs"
           size="12px"
@@ -51,6 +63,9 @@ export default {
     },
     promptDelete() {
       this.$emit("promptDelete");
+    },
+    editProject() {
+      this.$emit("editProject");
     }
   }
 };
