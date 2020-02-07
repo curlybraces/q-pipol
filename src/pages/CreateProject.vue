@@ -3,57 +3,61 @@
     <page-breadcrumbs :breadcrumbs="breadcrumbs" />
 
     <q-card class="bg-white">
-      <q-list bordered class="rounded-borders">
-        <q-expansion-item
-          expand-separator
-          icon="info"
-          label="General Information"
-          caption="John Doe"
-          default-opened
-        >
-          <q-card>
-            <q-card-section>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem,
-              eius reprehenderit eos corrupti commodi magni quaerat ex numquam,
-              dolorum officiis modi facere maiores architecto suscipit iste
-              eveniet doloribus ullam aliquid.
-            </q-card-section>
-          </q-card>
-        </q-expansion-item>
-        <q-expansion-item
-          expand-separator
-          icon="attach_money"
-          label="Financial Information"
-          caption="John Doe"
-          default-opened
-        >
-          <q-card>
-            <q-card-section>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem,
-              eius reprehenderit eos corrupti commodi magni quaerat ex numquam,
-              dolorum officiis modi facere maiores architecto suscipit iste
-              eveniet doloribus ullam aliquid.
-            </q-card-section>
-          </q-card>
-        </q-expansion-item>
-        <q-expansion-item
-          expand-separator
-          icon="system_update_alt"
-          label="Updates"
-          caption="John Doe"
-          default-opened
-        >
-          <q-card>
-            <q-card-section>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem,
-              eius reprehenderit eos corrupti commodi magni quaerat ex numquam,
-              dolorum officiis modi facere maiores architecto suscipit iste
-              eveniet doloribus ullam aliquid.
-            </q-card-section>
-          </q-card>
-        </q-expansion-item>
-      </q-list>
+      <div class="row q-pa-md justify-end">
+        <q-btn @click="addRow = !addRow" label="Add Row"></q-btn>
+      </div>
+      <div class="row q-pa-md">
+        <q-markup-table class="col">
+          <thead>
+            <tr>
+              <th class="text-left">Title</th>
+              <th class="text-right">Calories</th>
+              <th class="text-right">Fat (g)</th>
+              <th class="text-right">Carbs (g)</th>
+              <th class="text-right">Protein (g)</th>
+              <th class="text-right">Sodium (mg)</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <template v-if="rows.length">
+              <tr v-for="(row, index) in rows" :key="index">
+                <td class="text-left">{{ row.title }}</td>
+                <td class="text-right">{{ row.input1 }}</td>
+                <td class="text-right">{{ row.input2 }}</td>
+                <td class="text-right">{{ row.input3 }}</td>
+                <td class="text-right">{{ row.input4 }}</td>
+                <td class="text-right">{{ row.input5 }}</td>
+                <td></td>
+              </tr>
+            </template>
+            <template v-else>
+              No data to show
+            </template>
+          </tbody>
+        </q-markup-table>
+      </div>
     </q-card>
+
+    <q-dialog v-model="addRow">
+      <q-card class="q-pa-sm" style="width:400px;">
+        <q-form class="q-gutter-y-md">
+          <q-item-label>Add Row</q-item-label>
+          <q-input outlined v-model="title"></q-input>
+          <q-input outlined v-model="input1"></q-input>
+          <q-input outlined v-model="input2"></q-input>
+          <q-input outlined v-model="input3"></q-input>
+          <q-input outlined v-model="input4"></q-input>
+          <q-input outlined v-model="input5"></q-input>
+          <q-btn
+            class="full-width"
+            color="primary"
+            label="Add Row"
+            @click="addData"
+          ></q-btn>
+        </q-form>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
@@ -81,8 +85,28 @@ export default {
         {
           title: "Create Project"
         }
-      ]
+      ],
+      addRow: false,
+      title: null,
+      input1: null,
+      input2: null,
+      input3: null,
+      input4: null,
+      input5: null,
+      rows: []
     };
+  },
+  methods: {
+    addData() {
+      this.rows.push({
+        title: this.title,
+        input1: this.input1,
+        input2: this.input2,
+        input3: this.input3,
+        input4: this.input4,
+        input5: this.input5
+      });
+    }
   }
 };
 </script>
