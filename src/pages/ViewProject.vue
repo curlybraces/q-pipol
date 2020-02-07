@@ -3,35 +3,11 @@
     <page-breadcrumbs :breadcrumbs="breadcrumbs" />
     <div class="row">
       <q-card square class="col q-mt-sm q-pa-md q-gutter-y-md">
-        <div class="row text-weight-light text-uppercase">
-          General Information
-          <q-space />
-          <q-btn
-            outline
-            dense
-            icon="edit"
-            label="Edit Project"
-            @click="readonly = !readonly"
-          />
-        </div>
-
-        <div class="row q-col-gutter-x-md">
-          <q-inner-loading :showing="loading">
-            <q-spinner-gears size="25px" color="primary" />
-          </q-inner-loading>
-          <div class="col">
-            <q-input v-model="project.title" />
-          </div>
-        </div>
-
-        <q-card-actions class="q-pa-none" align="right">
-          <q-btn label="Next" color="primary" icon-right="chevron_right" />
-        </q-card-actions>
+        <pre>
+          {{ project }}
+        </pre>
       </q-card>
     </div>
-    <pre>
-      {{ project }}
-    </pre>
   </q-page>
 </template>
 
@@ -62,15 +38,16 @@ export default {
       loading: true,
       readonly: true,
       title: "Title",
-      project: {}
+      project: {},
+      id: this.$route.params.id
     };
   },
   created() {
     this.$loading = true;
     axiosInstance
       .post("/graphql", {
-        query: `query project {
-          project(id:8) {
+        query: `query project($id: ID!) {
+          project(id:$id) {
             id
             title
             operating_unit {
@@ -81,8 +58,11 @@ export default {
               id
             }
             total_project_cost
+          }
+        }`,
+        variables: {
+          id: this.id
         }
-      }`
       })
       .then(res => {
         this.project = Object.assign({}, res.data.data.project);

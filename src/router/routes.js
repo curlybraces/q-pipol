@@ -58,11 +58,6 @@ const routes = [
           )
       },
       {
-        path: "pbp",
-        component: () =>
-          import(/* webpackChunkName: 'Budget' */ "pages/Budget.vue")
-      },
-      {
         path: "settings",
         component: () =>
           import(/* webpackChunkName: 'Settings' */ "pages/Settings.vue")
