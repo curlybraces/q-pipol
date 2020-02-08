@@ -1,6 +1,7 @@
 <template>
   <q-page padding>
     <page-breadcrumbs :breadcrumbs="breadcrumbs" />
+    {{ me }}
     <q-card square>
       <div class="text-center">
         <span class="text-h6 text-weight-bold">Account</span>
@@ -110,13 +111,15 @@
 
 <script>
 import { axiosInstance } from "boot/axios";
-import { retrieveUserInfo } from "../functions/function-retrieve-user-info";
+// import { retrieveUserInfo } from "../functions/function-retrieve-user-info";
 import { updateProfile } from "../functions/function-update-profile";
 import PageBreadcrumbs from "../components/PageBreadcrumbs";
 
 import { OPERATING_UNITS } from "../data/operating_units";
 
 import { Loading } from "quasar";
+
+import gql from "graphql-tag";
 
 export default {
   components: { PageBreadcrumbs },
@@ -148,6 +151,24 @@ export default {
       loading: false,
       isEditing: false
     };
+  },
+  apollo: {
+    me: gql`
+      query {
+        me {
+          name
+          email
+          profile {
+            operating_unit {
+              id
+              name
+            }
+            position
+            unit
+          }
+        }
+      }
+    `
   },
   methods: {
     saveProfile() {
@@ -185,19 +206,19 @@ export default {
         .then(() => {
           Loading.hide();
         });
-    },
-    retrieveData() {
-      retrieveUserInfo().then(res => {
-        this.email = res.email;
-        this.user.name = res.name;
-        this.user.operating_unit = res.profile.operating_unit.id;
-        this.user.unit = res.profile.unit;
-        this.user.position = res.profile.position;
-      });
     }
+    // retrieveData() {
+    //   retrieveUserInfo().then(res => {
+    //     this.email = res.email;
+    //     this.user.name = res.name;
+    //     this.user.operating_unit = res.profile.operating_unit.id;
+    //     this.user.unit = res.profile.unit;
+    //     this.user.position = res.profile.position;
+    //   });
+    // }
   },
   mounted() {
-    this.retrieveData();
+    // this.retrieveData();
   }
 };
 </script>
