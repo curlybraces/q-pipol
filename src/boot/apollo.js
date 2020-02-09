@@ -7,7 +7,13 @@ import {
 import { LocalStorage } from "quasar";
 import VueApollo from "vue-apollo";
 
+// retrieve authorization token
 const AUTH_TOKEN = LocalStorage.getItem("token");
+
+// set the graphql uri depending on the environment
+const uri = process.env.DEV
+  ? "http://localhost:8000/graphql"
+  : "https://e-planning.daplanningcentral.net/graphql";
 
 const client = new ApolloClient({
   link: new ApolloLink((operation, forward) => {
@@ -19,13 +25,11 @@ const client = new ApolloClient({
     return forward(operation);
   }).concat(
     new HttpLink({
-      uri: "http://localhost:8000/graphql" // Server URL
+      uri: uri // Server URL
     })
   ),
   cache: new InMemoryCache()
 });
-
-console.log(client);
 
 export const apolloProvider = new VueApollo({
   defaultClient: client,

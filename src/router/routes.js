@@ -61,6 +61,11 @@ const routes = [
         path: "settings",
         component: () =>
           import(/* webpackChunkName: 'Settings' */ "pages/Settings.vue")
+      },
+      {
+        path: "users",
+        component: () =>
+          import(/* webpackChunkName: 'Users' */ "pages/Users.vue")
       }
     ]
   },

@@ -56,7 +56,7 @@ module.exports = function(ctx) {
       vueRouterMode: "history",
       // vueCompiler: true,
       gzip: true,
-      // analyze: true, // analyze after build
+      analyze: true, // analyze after build
       // extractCSS: false,
       extendWebpack(cfg) {
         cfg.module.rules.push({
@@ -67,6 +67,12 @@ module.exports = function(ctx) {
           options: {
             formatter: require("eslint").CLIEngine.getFormatter("stylish")
           }
+        });
+        cfg.module.rules.push({
+          enforce: "pre",
+          test: /\.(gql|graphql)$/,
+          exclude: /node_modules/,
+          loader: "graphql-tag/loader"
         });
       }
     },

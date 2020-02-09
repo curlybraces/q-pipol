@@ -35,65 +35,74 @@
               color="primary"
             />
           </div>
-
-          <ApolloQuery
-            :query="require('src/graphql/queries/projects.gql')"
-            :variables="{ page: 1 }"
-          >
-            <template slot-scope="{ result: { data } }">
-              <project-item
-                v-for="{
-                  id,
-                  title,
-                  description,
-                  operating_unit,
-                  total_project_cost
-                } in data.projects.data"
-                :key="id"
-                :id="id"
-                :title="title"
-                :description="description"
-                :operating_unit="operating_unit"
-                :total_project_cost="total_project_cost"
-                @goTo="goTo(id)"
-                @promptDelete="promptDelete(id)"
-                @editProject="goToEdit(id)"
-              ></project-item>
-
-              <div class="row justify-between items-center">
-                <div>
-                  Showing
-                  {{
-                    (data.projects.paginatorInfo.currentPage - 1) *
-                      data.projects.paginatorInfo.perPage +
-                      1
-                  }}
-                  -
-                  {{
-                    data.projects.paginatorInfo.currentPage *
-                      data.projects.paginatorInfo.perPage
-                  }}
-                  {{
-                    data.projects.paginatorInfo.total
-                      ? data.projects.paginatorInfo.total
-                      : data.projects.paginatorInfo.currentPage *
-                        data.projects.paginatorInfo.perPage
-                  }}
-                  of {{ data.projects.paginatorInfo.total }} projects
-                </div>
-                <div>
-                  <q-pagination
-                    v-model="data.projects.paginatorInfo.currentPage"
-                    :max-pages="data.projects.paginatorInfo.lastPage"
-                    :max="max"
-                    boundary-links
-                    boundary-numbers
-                    @input="reloadProjects"
-                  />
-                </div>
+          <template v-if="!loading && !error">
+            <no-project v-if="projects.length === 0 && search" />
+            <template v-else>
+              <div class="row q-my-sm">
+                <q-list class="col" separator bordered>
+                  <project-item
+                    v-for="{
+                      id,
+                      title,
+                      description,
+                      operating_unit,
+                      total_project_cost
+                    } in projects"
+                    :key="id"
+                    :id="id"
+                    :title="title"
+                    :description="description"
+                    :operating_unit="operating_unit"
+                    :total_project_cost="total_project_cost"
+                    @goTo="goTo(id)"
+                    @promptDelete="promptDelete(id)"
+                    @editProject="goToEdit(id)"
+                  ></project-item>
+                </q-list>
               </div>
             </template>
-          </ApolloQuery>
+          </template>
+
+          <template v-if="loading">
+            <q-inner-loading :showing="loading">
+              <q-spinner-gears color="primary" size="lg"></q-spinner-gears>
+            </q-inner-loading>
+          </template>
+
+          <div
+            v-if="!loading && error"
+            class="text-center"
+            style="margin-top: 200px;"
+          >
+            <q-icon name="warning" color="red" size="lg"></q-icon>
+            <br />
+            {{ errorMessage }}
+          </div>
+
+          <div
+            v-if="!loading && projects.length"
+            class="row justify-between items-center"
+          >
+            <div>
+              Showing {{ (current_page - 1) * per_page + 1 }} -
+              {{
+                current_page * per_page > total
+                  ? total
+                  : current_page * per_page
+              }}
+              of {{ total }} projects
+            </div>
+            <div>
+              <q-pagination
+                v-model="current_page"
+                :max-pages="last_page"
+                :max="max"
+                boundary-links
+                boundary-numbers
+                @input="reloadProjects"
+              />
+            </div>
+          </div>
         </q-card>
       </div>
     </div>
@@ -111,6 +120,7 @@ import { Dialog } from "quasar";
 export default {
   components: {
     "search-component": () => import("../components/Projects/SearchComponent"),
+    "no-project": () => import("../components/Projects/NoProject"),
     "page-breadcrumbs": () => import("../components/PageBreadcrumbs.vue"),
     "filter-menu": () => import("../components/FilterMenu.vue"),
     "project-item": () => import("../components/Projects/ProjectItem.vue")
@@ -138,8 +148,7 @@ export default {
       current_page: 1,
       last_page: null,
       filter: false,
-      REGIONS,
-      result: {}
+      REGIONS
     };
   },
   computed: {

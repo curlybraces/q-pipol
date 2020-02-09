@@ -1,0 +1,15 @@
+query users($page:Int!) {
+  users(page:$page) {
+    data {
+      id
+      name
+      email
+      active
+    }
+    paginatorInfo {
+      currentPage
+      lastPage
+      total
+    }
+  }
+}

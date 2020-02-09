@@ -1,7 +1,6 @@
 <template>
   <q-page padding>
     <page-breadcrumbs :breadcrumbs="breadcrumbs" />
-    {{ me }}
     <q-card square>
       <div class="text-center">
         <span class="text-h6 text-weight-bold">Account</span>
@@ -13,12 +12,16 @@
       <q-separator spaced></q-separator>
       <div class="row q-pa-md q-mx-xl">
         <q-form class="col q-gutter-md">
-          <q-input
-            outlined
-            prefix="Your Email is"
-            v-model="email"
-            readonly
-          ></q-input>
+          <ApolloQuery :query="require('src/graphql/queries/me.gql')">
+            <template slot-scope="{ result: { data } }">
+              <q-input
+                outlined
+                prefix="Your Email is"
+                v-model="data.me.email"
+                readonly
+              ></q-input>
+            </template>
+          </ApolloQuery>
         </q-form>
       </div>
       <q-separator spaced />
@@ -62,38 +65,46 @@
               <q-icon name="edit" />
             </q-avatar>
           </div>
-          <q-input
-            outlined
-            label="Full Name"
-            v-model="user.name"
-            lazy-rules
-            :rules="rules.required"
-            :readonly="!isEditing"
-          ></q-input>
-          <q-select
-            outlined
-            label="Office"
-            :options="OPERATING_UNITS"
-            v-model="user.operating_unit"
-            emit-value
-            map-options
-            :readonly="!isEditing"
-          ></q-select>
-          <q-input
-            outlined
-            v-model="user.unit"
-            label="Service/Division/Unit"
-            hint="Do not abbreviate"
-            :rules="rules.required"
-          />
-          <q-input
-            outlined
-            v-model="user.position"
-            label="Position/Designation"
-            hint="Do not abbreviate"
-            :rules="rules.required"
-            :readonly="!isEditing"
-          />
+          <ApolloQuery :query="require('src/graphql/queries/me.gql')">
+            <template slot-scope="{ result: { data, loading }, isLoading }">
+              <div v-if="isLoading">Loading...</div>
+              <div class="q-gutter-y-md" v-else>
+                <q-input
+                  outlined
+                  label="Full Name"
+                  v-model="data.me.name"
+                  lazy-rules
+                  :rules="rules.required"
+                  :readonly="!isEditing"
+                ></q-input>
+                <q-select
+                  outlined
+                  label="Office"
+                  :options="OPERATING_UNITS"
+                  v-model="data.me.profile.operating_unit.id"
+                  emit-value
+                  map-options
+                  :readonly="!isEditing"
+                ></q-select>
+                <q-input
+                  outlined
+                  v-model="data.me.profile.unit"
+                  label="Service/Division/Unit"
+                  hint="Do not abbreviate"
+                  :rules="rules.required"
+                  :readonly="!isEditing"
+                />
+                <q-input
+                  outlined
+                  v-model="data.me.profile.position"
+                  label="Position/Designation"
+                  hint="Do not abbreviate"
+                  :rules="rules.required"
+                  :readonly="!isEditing"
+                />
+              </div>
+            </template>
+          </ApolloQuery>
           <div class="row justify-center">
             <q-btn
               color="primary"
@@ -111,15 +122,12 @@
 
 <script>
 import { axiosInstance } from "boot/axios";
-// import { retrieveUserInfo } from "../functions/function-retrieve-user-info";
 import { updateProfile } from "../functions/function-update-profile";
 import PageBreadcrumbs from "../components/PageBreadcrumbs";
 
 import { OPERATING_UNITS } from "../data/operating_units";
 
 import { Loading } from "quasar";
-
-import gql from "graphql-tag";
 
 export default {
   components: { PageBreadcrumbs },
@@ -141,34 +149,9 @@ export default {
       rules: {
         required: [val => (val && val.length > 0) || "Please type something"]
       },
-      email: null,
-      user: {
-        name: null,
-        operating_unit: null,
-        unit: null,
-        position: null
-      },
       loading: false,
       isEditing: false
     };
-  },
-  apollo: {
-    me: gql`
-      query {
-        me {
-          name
-          email
-          profile {
-            operating_unit {
-              id
-              name
-            }
-            position
-            unit
-          }
-        }
-      }
-    `
   },
   methods: {
     saveProfile() {
@@ -207,18 +190,6 @@ export default {
           Loading.hide();
         });
     }
-    // retrieveData() {
-    //   retrieveUserInfo().then(res => {
-    //     this.email = res.email;
-    //     this.user.name = res.name;
-    //     this.user.operating_unit = res.profile.operating_unit.id;
-    //     this.user.unit = res.profile.unit;
-    //     this.user.position = res.profile.position;
-    //   });
-    // }
-  },
-  mounted() {
-    // this.retrieveData();
   }
 };
 </script>
