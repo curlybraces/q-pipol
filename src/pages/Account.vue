@@ -12,16 +12,12 @@
       <q-separator spaced></q-separator>
       <div class="row q-pa-md q-mx-xl">
         <q-form class="col q-gutter-md">
-          <ApolloQuery :query="require('src/graphql/queries/me.gql')">
-            <template slot-scope="{ result: { data } }">
-              <q-input
-                outlined
-                prefix="Your Email is"
-                v-model="data.me.email"
-                readonly
-              ></q-input>
-            </template>
-          </ApolloQuery>
+          <q-input
+            outlined
+            prefix="Your Email is"
+            v-model="me.email"
+            readonly
+          ></q-input>
         </q-form>
       </div>
       <q-separator spaced />
@@ -65,46 +61,44 @@
               <q-icon name="edit" />
             </q-avatar>
           </div>
-          <ApolloQuery :query="require('src/graphql/queries/me.gql')">
-            <template slot-scope="{ result: { data, loading }, isLoading }">
-              <div v-if="isLoading">Loading...</div>
-              <div class="q-gutter-y-md" v-else>
-                <q-input
-                  outlined
-                  label="Full Name"
-                  v-model="data.me.name"
-                  lazy-rules
-                  :rules="rules.required"
-                  :readonly="!isEditing"
-                ></q-input>
-                <q-select
-                  outlined
-                  label="Office"
-                  :options="OPERATING_UNITS"
-                  v-model="data.me.profile.operating_unit.id"
-                  emit-value
-                  map-options
-                  :readonly="!isEditing"
-                ></q-select>
-                <q-input
-                  outlined
-                  v-model="data.me.profile.unit"
-                  label="Service/Division/Unit"
-                  hint="Do not abbreviate"
-                  :rules="rules.required"
-                  :readonly="!isEditing"
-                />
-                <q-input
-                  outlined
-                  v-model="data.me.profile.position"
-                  label="Position/Designation"
-                  hint="Do not abbreviate"
-                  :rules="rules.required"
-                  :readonly="!isEditing"
-                />
-              </div>
-            </template>
-          </ApolloQuery>
+
+          <div v-if="$apollo.loading">Loading User Profile...</div>
+          <div class="q-gutter-y-md" v-else>
+            <q-input
+              outlined
+              label="Full Name"
+              v-model="me.name"
+              lazy-rules
+              :rules="rules.required"
+              :readonly="!isEditing"
+            ></q-input>
+            <q-select
+              outlined
+              label="Office"
+              :options="OPERATING_UNITS"
+              v-model="me.profile.operating_unit.id"
+              emit-value
+              map-options
+              :readonly="!isEditing"
+            ></q-select>
+            <q-input
+              outlined
+              v-model="me.profile.unit"
+              label="Service/Division/Unit"
+              hint="Do not abbreviate"
+              :rules="rules.required"
+              :readonly="!isEditing"
+            />
+            <q-input
+              outlined
+              v-model="me.profile.position"
+              label="Position/Designation"
+              hint="Do not abbreviate"
+              :rules="rules.required"
+              :readonly="!isEditing"
+            />
+          </div>
+
           <div class="row justify-center">
             <q-btn
               color="primary"
@@ -129,6 +123,8 @@ import { OPERATING_UNITS } from "../data/operating_units";
 
 import { Loading } from "quasar";
 
+import gql from "graphql-tag";
+
 export default {
   components: { PageBreadcrumbs },
   name: "UserPage",
@@ -149,9 +145,30 @@ export default {
       rules: {
         required: [val => (val && val.length > 0) || "Please type something"]
       },
-      loading: false,
-      isEditing: false
+      isLoading: false,
+      isEditing: false,
+      me: {}
     };
+  },
+  apollo: {
+    me: {
+      query: gql`
+        query {
+          me {
+            name
+            email
+            profile {
+              operating_unit {
+                id
+                name
+              }
+              position
+              unit
+            }
+          }
+        }
+      `
+    }
   },
   methods: {
     saveProfile() {

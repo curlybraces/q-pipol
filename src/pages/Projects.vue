@@ -36,64 +36,63 @@
             />
           </div>
 
-          <ApolloQuery
-            :query="require('src/graphql/queries/projects.gql')"
-            :variables="{ page: 1 }"
-          >
-            <template slot-scope="{ result: { data } }">
-              <project-item
-                v-for="{
-                  id,
-                  title,
-                  description,
-                  operating_unit,
-                  total_project_cost
-                } in data.projects.data"
-                :key="id"
-                :id="id"
-                :title="title"
-                :description="description"
-                :operating_unit="operating_unit"
-                :total_project_cost="total_project_cost"
-                @goTo="goTo(id)"
-                @promptDelete="promptDelete(id)"
-                @editProject="goToEdit(id)"
-              ></project-item>
+          <template v-if="$apollo.loading">
+            <q-list>
+              <q-item v-for="i in 5" :key="i">
+                <q-item-section avatar>
+                  <q-skeleton type="QAvatar" />
+                </q-item-section>
 
-              <div class="row justify-between items-center">
-                <div>
-                  Showing
-                  {{
-                    (data.projects.paginatorInfo.currentPage - 1) *
-                      data.projects.paginatorInfo.perPage +
-                      1
-                  }}
-                  -
-                  {{
-                    data.projects.paginatorInfo.currentPage *
-                      data.projects.paginatorInfo.perPage
-                  }}
-                  {{
-                    data.projects.paginatorInfo.total
-                      ? data.projects.paginatorInfo.total
-                      : data.projects.paginatorInfo.currentPage *
-                        data.projects.paginatorInfo.perPage
-                  }}
-                  of {{ data.projects.paginatorInfo.total }} projects
-                </div>
-                <div>
-                  <q-pagination
-                    v-model="data.projects.paginatorInfo.currentPage"
-                    :max-pages="data.projects.paginatorInfo.lastPage"
-                    :max="max"
-                    boundary-links
-                    boundary-numbers
-                    @input="reloadProjects"
-                  />
-                </div>
+                <q-item-section>
+                  <q-item-label>
+                    <q-skeleton type="text" />
+                  </q-item-label>
+                  <q-item-label caption>
+                    <q-skeleton type="text" width="65%" />
+                  </q-item-label>
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </template>
+          <template v-else>
+            <project-item
+              v-for="{
+                id,
+                title,
+                description,
+                operating_unit,
+                total_project_cost
+              } in projects.data"
+              :key="id"
+              :id="id"
+              :title="title"
+              :description="description"
+              :operating_unit="operating_unit"
+              :total_project_cost="total_project_cost"
+              @goTo="goTo(id)"
+              @promptDelete="promptDelete(id)"
+              @editProject="goToEdit(id)"
+            ></project-item>
+
+            <div class="row justify-between items-center">
+              <div>
+                Showing
+                {{ (current_page - 1) * projects.paginatorInfo.perPage + 1 }}
+                -
+                {{ current_page * projects.paginatorInfo.perPage }}
+                of {{ projects.paginatorInfo.total }} projects
               </div>
-            </template>
-          </ApolloQuery>
+              <div>
+                <q-pagination
+                  v-model="current_page"
+                  :max-pages="5"
+                  :max="projects.paginatorInfo.lastPage"
+                  boundary-links
+                  boundary-numbers
+                />
+              </div>
+            </div>
+          </template>
         </q-card>
       </div>
     </div>
@@ -101,12 +100,13 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
-import { loadProjects } from "../functions/function-load-projects";
+import { mapState } from "vuex";
 import { deleteProject } from "../functions/function-delete-project";
 
 import { REGIONS } from "../data/dropdown-values";
 import { Dialog } from "quasar";
+
+import gql from "graphql-tag";
 
 export default {
   components: {
@@ -128,7 +128,6 @@ export default {
         }
       ],
       view: "grid",
-      loading: false,
       error: false,
       sortOptions: [],
       sort: "",
@@ -138,9 +137,39 @@ export default {
       current_page: 1,
       last_page: null,
       filter: false,
-      REGIONS,
-      result: {}
+      REGIONS
     };
+  },
+  apollo: {
+    projects: {
+      query: gql`
+        query projects($page: Int) {
+          projects(page: $page) {
+            data {
+              id
+              title
+              operating_unit {
+                name
+                image
+              }
+              description
+              total_project_cost
+            }
+            paginatorInfo {
+              currentPage
+              total
+              perPage
+              lastPage
+            }
+          }
+        }
+      `,
+      variables() {
+        return {
+          page: this.current_page
+        };
+      }
+    }
   },
   computed: {
     ...mapState("projects", ["search", "projectsDownloaded"]),
@@ -154,28 +183,11 @@ export default {
     }
   },
   methods: {
-    ...mapActions("auth", ["sendEmailVerification"]),
-    sortData() {
-      // console.log("sort");
-    },
     goTo(id) {
       this.$router.push("/pip/" + id);
     },
     goToEdit(id) {
       this.$router.push("/pip/" + id + "/edit");
-    },
-    reloadProjects() {
-      loadProjects({
-        current_page: this.current_page
-      }).then(res => {
-        const { data, paginatorInfo } = res;
-        this.total = paginatorInfo.total;
-        this.per_page = paginatorInfo.perPage;
-        this.current_page = paginatorInfo.currentPage;
-        this.last_page = paginatorInfo.lastPage;
-        this.projects = data;
-        this.loading = false;
-      });
     },
     promptDelete(id) {
       Dialog.create({
@@ -200,10 +212,6 @@ export default {
     currency(value) {
       return "PhP " + value.toLocaleString();
     }
-  },
-  created() {
-    this.loading = true;
-    this.reloadProjects();
   }
 };
 </script>

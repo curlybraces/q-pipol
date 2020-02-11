@@ -146,17 +146,18 @@ export default {
     handleSubmit() {
       this.$refs.loginForm.validate().then(success => {
         if (success) {
+          const { username, password, name } = this.$data;
           this.loading = true;
           if (this.tab == "login") {
             this.login({
-              username: this.username,
-              password: this.password
+              username: username,
+              password: password
             });
           } else {
             register({
-              name: this.name,
-              username: this.username,
-              password: this.password
+              name: name,
+              username: username,
+              password: password
             });
           }
         }

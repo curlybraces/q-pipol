@@ -7,7 +7,6 @@ import {
 import { LocalStorage } from "quasar";
 import VueApollo from "vue-apollo";
 
-// retrieve authorization token
 const AUTH_TOKEN = LocalStorage.getItem("token");
 
 // set the graphql uri depending on the environment

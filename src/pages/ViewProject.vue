@@ -3,16 +3,21 @@
     <page-breadcrumbs :breadcrumbs="breadcrumbs" />
     <div class="row">
       <q-card square class="col q-mt-sm q-pa-md q-gutter-y-md">
-        <pre>
-          {{ project }}
-        </pre>
+        <ApolloQuery
+          :query="require('src/graphql/queries/project.gql')"
+          :variables="{ id: $route.params.id }"
+        >
+          <template slot-scope="{ result: { data }, isLoading }">
+            <div v-if="isLoading">Loading</div>
+            <pre>{{ data }}</pre>
+          </template>
+        </ApolloQuery>
       </q-card>
     </div>
   </q-page>
 </template>
 
 <script>
-import { axiosInstance } from "boot/axios";
 import PageBreadcrumbs from "../components/PageBreadcrumbs";
 
 export default {
@@ -35,42 +40,8 @@ export default {
           title: "View Project"
         }
       ],
-      loading: true,
-      readonly: true,
-      title: "Title",
-      project: {},
-      id: this.$route.params.id
+      project: {}
     };
-  },
-  created() {
-    this.$loading = true;
-    axiosInstance
-      .post("/graphql", {
-        query: `query project($id: ID!) {
-          project(id:$id) {
-            id
-            title
-            operating_unit {
-              name
-            }
-            spatial_coverage_id
-            regions {
-              id
-            }
-            total_project_cost
-          }
-        }`,
-        variables: {
-          id: this.id
-        }
-      })
-      .then(res => {
-        this.project = Object.assign({}, res.data.data.project);
-        this.loading = false;
-      });
-  },
-  mounted() {
-    this.loading = true;
   }
 };
 </script>

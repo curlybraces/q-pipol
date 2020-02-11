@@ -18,7 +18,7 @@
       <q-item-label>{{ title }}</q-item-label>
       <q-item-label caption :lines="2">{{ description }}</q-item-label>
     </q-item-section>
-    <q-item-section class="col-2">
+    <q-item-section class="col-2 text-right">
       <q-item-label>{{ total_project_cost | currency }} </q-item-label>
     </q-item-section>
     <q-item-section class="col-1" top side>

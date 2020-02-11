@@ -1,0 +1,25 @@
+query project($id: ID!) {
+  project(id: $id) {
+    id
+    title
+    type_id
+    type {
+      name
+    }
+    operating_unit_id
+    operating_unit {
+      name
+    }
+    spatial_coverage_id
+    spatial_coverage {
+      name
+    }
+    regions {
+      id
+    }
+    total_project_cost
+    created_by {
+      name
+    }
+  }
+}
