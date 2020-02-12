@@ -11,7 +11,7 @@ export const createUser = ({ name, email, password, selectedRoles }) => {
         $name: String!
         $email: String!
         $password: String!
-        $roles: [Int!]
+        $roles: ConnectRolesInput
       ) {
         createUser(
           name: $name
@@ -27,7 +27,9 @@ export const createUser = ({ name, email, password, selectedRoles }) => {
         name: name,
         email: email,
         password: password,
-        roles: selectedRoles
+        roles: {
+          connect: selectedRoles
+        }
       }
     })
     .then(res => {

@@ -37,22 +37,7 @@
           </div>
 
           <template v-if="$apollo.loading">
-            <q-list>
-              <q-item v-for="i in 5" :key="i">
-                <q-item-section avatar>
-                  <q-skeleton type="QAvatar" />
-                </q-item-section>
-
-                <q-item-section>
-                  <q-item-label>
-                    <q-skeleton type="text" />
-                  </q-item-label>
-                  <q-item-label caption>
-                    <q-skeleton type="text" width="65%" />
-                  </q-item-label>
-                </q-item-section>
-              </q-item>
-            </q-list>
+            <list-placeholder />
           </template>
           <template v-else>
             <project-item
@@ -79,7 +64,12 @@
                 Showing
                 {{ (current_page - 1) * projects.paginatorInfo.perPage + 1 }}
                 -
-                {{ current_page * projects.paginatorInfo.perPage }}
+                {{
+                  current_page * projects.paginatorInfo.perPage >
+                  projects.paginatorInfo.total
+                    ? projects.paginatorInfo.total
+                    : current_page * projects.paginatorInfo.perPage
+                }}
                 of {{ projects.paginatorInfo.total }} projects
               </div>
               <div>
@@ -113,7 +103,9 @@ export default {
     "search-component": () => import("../components/Projects/SearchComponent"),
     "page-breadcrumbs": () => import("../components/PageBreadcrumbs.vue"),
     "filter-menu": () => import("../components/FilterMenu.vue"),
-    "project-item": () => import("../components/Projects/ProjectItem.vue")
+    "project-item": () => import("../components/Projects/ProjectItem.vue"),
+    "list-placeholder": () =>
+      import("../components/Projects/ListPlaceholder.vue")
   },
   name: "PageProjects",
   data() {

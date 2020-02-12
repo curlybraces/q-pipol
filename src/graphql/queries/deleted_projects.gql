@@ -1,0 +1,20 @@
+query  {
+  projects(trashed: ONLY) {
+    data {
+      id
+      title
+      operating_unit {
+        name
+        image
+      }
+      description
+      total_project_cost
+    }
+    paginatorInfo {
+      currentPage
+      total
+      perPage
+      lastPage
+    }
+  }
+}
