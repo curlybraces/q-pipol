@@ -38,11 +38,31 @@
               </q-item>
             </template>
             <template v-else>
+              <q-item>
+                <q-item-section avatar>
+                  <q-checkbox
+                    v-model="allUsersSelected"
+                    :val="allUsersSelected"
+                  />
+                </q-item-section>
+                <q-item-section avatar> </q-item-section>
+                <q-item-section>
+                  <q-item-label> NAME </q-item-label>
+                </q-item-section>
+                <q-item-section>ROLES</q-item-section>
+                <q-item-section side>ACTIONS</q-item-section>
+              </q-item>
+              <q-separator></q-separator>
               <q-item v-for="user in data.users.data" :key="user.id">
+                <q-item-section avatar>
+                  <q-checkbox v-model="selectedUsers" :val="user.id">{{
+                    user.id
+                  }}</q-checkbox>
+                </q-item-section>
                 <q-item-section avatar>
                   <q-avatar
                     class="text-white text-uppercase"
-                    :color="active ? 'primary' : 'grey'"
+                    :color="user.active ? 'primary' : 'grey'"
                   >
                     {{ user.name.charAt(0) }}
                   </q-avatar>
@@ -54,9 +74,11 @@
                   <q-item-label caption>{{ user.email }}</q-item-label>
                 </q-item-section>
                 <q-item-section>
-                  <q-badge v-for="role in user.roles" :key="role.id">
-                    {{ role.name }}
-                  </q-badge>
+                  <q-item-label>
+                    <q-badge v-for="role in user.roles" :key="role.id">
+                      {{ role.name }}
+                    </q-badge>
+                  </q-item-label>
                 </q-item-section>
                 <q-item-section side>
                   <q-btn
@@ -74,14 +96,10 @@
           </template>
         </ApolloQuery>
       </q-list>
+      {{ selectedUsers }}
       <q-separator />
       <q-card-actions align="center">
-        <q-pagination
-          v-model="currentPage"
-          :max="lastPage"
-          :input="true"
-          @input="loadUsers"
-        />
+        <q-pagination v-model="currentPage" :max="lastPage" :input="true" />
       </q-card-actions>
     </q-card>
   </q-page>
@@ -108,6 +126,7 @@ export default {
           title: "Admin"
         }
       ],
+      selectedUsers: [],
       ROLES_OPTIONS: ROLES,
       users: [],
       loading: false,
@@ -139,6 +158,19 @@ export default {
         .onOk(() => {
           this.loading = true;
         });
+    },
+    selectAllUsers() {
+      //
+    }
+  },
+  computed: {
+    allUsersSelected: {
+      get() {
+        return false;
+      },
+      set(val) {
+        console.log(val);
+      }
     }
   },
   filters: {
