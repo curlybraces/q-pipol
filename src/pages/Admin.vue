@@ -38,30 +38,36 @@
               </q-item>
             </template>
             <template v-else>
-              <q-item
-                v-for="{ id, name, email, roles, created_at, active } in data
-                  .users.data"
-                :key="id"
-              >
+              <q-item v-for="user in data.users.data" :key="user.id">
                 <q-item-section avatar>
                   <q-avatar
                     class="text-white text-uppercase"
                     :color="active ? 'primary' : 'grey'"
                   >
-                    {{ name.charAt(0) }}
+                    {{ user.name.charAt(0) }}
                   </q-avatar>
                 </q-item-section>
                 <q-item-section>
                   <q-item-label class="text-uppercase"
-                    >{{ name }}
+                    >{{ user.name }}
                   </q-item-label>
-                  <q-item-label caption>{{ email }}</q-item-label>
+                  <q-item-label caption>{{ user.email }}</q-item-label>
                 </q-item-section>
                 <q-item-section>
-                  {{ roles }}
+                  <q-badge v-for="role in user.roles" :key="role.id">
+                    {{ role.name }}
+                  </q-badge>
                 </q-item-section>
                 <q-item-section side>
-                  {{ created_at | memberSince }}
+                  <q-btn
+                    round
+                    flat
+                    dense
+                    icon="settings"
+                    @click="assignRoles(user.id)"
+                  >
+                    <q-tooltip>Assign Roles</q-tooltip>
+                  </q-btn>
                 </q-item-section>
               </q-item>
             </template>
@@ -78,68 +84,18 @@
         />
       </q-card-actions>
     </q-card>
-
-    <q-dialog
-      v-model="addUserDialog"
-      transition-hide="fade"
-      transition-show="fade"
-      persistent
-    >
-      <q-card class="q-pa-sm" style="width: 360px;">
-        <div class="row">
-          <div class="text-uppercase text-h6">ADD USER</div>
-          <q-space />
-          <q-btn flat round dense icon="close" v-close-popup />
-        </div>
-        <q-separator />
-        <q-form ref="addUser" class="q-mt-sm q-gutter-y-sm" @submit="addUser">
-          <text-input
-            v-model="name"
-            label="Full Name"
-            lazy-rules
-            :rules="rules.required"
-          />
-          <text-input
-            v-model="email"
-            label="Email"
-            lazy-rules
-            :rules="rules.required"
-          />
-          <text-input
-            v-model="password"
-            label="Password"
-            lazy-rules
-            :rules="rules.required"
-          />
-          <q-item-label>Roles</q-item-label>
-          <q-option-group
-            type="checkbox"
-            v-model="selectedRoles"
-            :options="ROLES"
-          ></q-option-group>
-          <q-btn
-            type="submit"
-            class="full-width"
-            color="primary"
-            label="ADD USER"
-            @click="addUser"
-          />
-        </q-form>
-      </q-card>
-    </q-dialog>
   </q-page>
 </template>
 
 <script>
 import PageBreadcrumbs from "../components/PageBreadcrumbs";
-import TextInput from "../components/FormInputs/TextInput";
 
 import { date } from "quasar";
 
 import { ROLES } from "../data/roles";
 
 export default {
-  components: { PageBreadcrumbs, TextInput },
+  components: { PageBreadcrumbs },
   name: "PageAdmin",
   data() {
     return {
@@ -152,13 +108,13 @@ export default {
           title: "Admin"
         }
       ],
-      ROLES,
-      users: null,
+      ROLES_OPTIONS: ROLES,
+      users: [],
       loading: false,
       currentPage: 1,
       lastPage: 1,
       total: null,
-      addUserDialog: false,
+      assignRoleDialog: false,
       name: "",
       email: "",
       password: "password",
@@ -183,9 +139,6 @@ export default {
         .onOk(() => {
           this.loading = true;
         });
-    },
-    showDialogAssignRoles(id) {
-      console.log("id:", id);
     }
   },
   filters: {
