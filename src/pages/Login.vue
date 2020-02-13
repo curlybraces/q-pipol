@@ -12,9 +12,7 @@
         </div>
       </div>
 
-      <reset-password v-if="tab == 'reset'"></reset-password>
-
-      <div class="row justify-center" v-else>
+      <div class="row justify-center">
         <q-card class="my-card">
           <div class="row q-pa-md text-weight-light text-h6">
             {{
@@ -37,7 +35,7 @@
                 v-if="tab == 'signup'"
               >
                 <template v-slot:prepend>
-                  <q-icon name="person"></q-icon>
+                  <q-icon :name="laAtSolid"></q-icon>
                 </template>
               </q-input>
               <q-input
@@ -126,7 +124,10 @@
 
 <script>
 import { mapActions } from "vuex";
-import { register } from "../functions/function-register";
+import { laAtSolid } from "@quasar/extras/line-awesome";
+// import { LocalStorage } from "quasar";
+import { LOGIN_MUTATION, REGISTER_MUTATION } from "../constants/graphql";
+import { showErrorMessage } from "../functions/function-show-error-message";
 
 export default {
   name: "PageLogin",
@@ -142,27 +143,42 @@ export default {
     };
   },
   methods: {
-    ...mapActions("auth", ["login", "create"]),
+    ...mapActions("auth", ["populateUser"]),
     handleSubmit() {
       this.$refs.loginForm.validate().then(success => {
         if (success) {
-          const { username, password, name } = this.$data;
-          this.loading = true;
+          const { name, username, password } = this.$data;
           if (this.tab == "login") {
-            this.login({
-              username: username,
-              password: password
-            });
+            this.loading = true;
+            this.$apollo
+              .mutate({
+                mutation: LOGIN_MUTATION,
+                variables: {
+                  username,
+                  password
+                }
+              })
+              .then(res => {
+                this.populateUser(res.data.login.user);
+                localStorage.setItem("token", res.data.login.access_token);
+                this.$router.push({ path: "/" });
+              })
+              .catch(err => {
+                showErrorMessage(err.message);
+              })
+              .finally(() => (this.loading = false));
           } else {
-            register({
-              name: name,
-              username: username,
-              password: password
+            this.$apollo.mutate({
+              mutation: REGISTER_MUTATION
             });
+            console.log(name);
           }
         }
       });
     }
+  },
+  created() {
+    this.laAtSolid = laAtSolid;
   }
 };
 </script>

@@ -7,5 +7,6 @@ export default {
   operating_unit: null,
   unit: null,
   position: null,
-  roles: []
+  roles: [],
+  userLoaded: false
 };

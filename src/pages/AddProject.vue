@@ -186,7 +186,6 @@ import { REGIONS_OPTIONS } from "../data/regions.js";
 import { PROVINCES_OPTIONS } from "../data/provinces.js";
 import { SPATIAL_COVERAGES } from "../data/spatial_coverages.js";
 import { YEARS } from "../data/year";
-import { createProject } from "../functions/function-create-project";
 
 import PageBreadcrumbs from "../components/PageBreadcrumbs";
 
@@ -261,13 +260,7 @@ export default {
   },
   methods: {
     save() {
-      createProject(this).then(res => {
-        if (res) {
-          this.$router.push("/pip/" + res.id);
-        } else {
-          return;
-        }
-      });
+      //
     },
     selectAllRegions() {
       const { region_options } = this;

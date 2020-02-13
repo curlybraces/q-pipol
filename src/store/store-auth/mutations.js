@@ -33,3 +33,7 @@ export function SET_POSITION(state, value) {
 export function SET_ROLES(state, value) {
   value.forEach(val => state.roles.push(val.name));
 }
+
+export function SET_USER_LOADED(state, value) {
+  state.userLoaded = value;
+}

@@ -5,6 +5,11 @@ query users($page:Int!) {
       name
       email
       active
+      roles {
+        id
+        name
+      }
+      created_at
     }
     paginatorInfo {
       currentPage

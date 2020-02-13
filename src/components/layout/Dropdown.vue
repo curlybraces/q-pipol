@@ -46,7 +46,7 @@ import { mapState, mapActions } from "vuex";
 export default {
   name: "DropdownMenu",
   computed: {
-    ...mapState("auth", ["loggedIn", "email", "name", "image"])
+    ...mapState("auth", ["email", "name", "image"])
   },
   methods: {
     ...mapActions("auth", ["logoutUser"]),

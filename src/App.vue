@@ -13,24 +13,48 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
 import CookieLaw from "vue-cookie-law";
-import { mapActions } from "vuex";
-import { LocalStorage } from "quasar";
-import { setAuthHeader } from "boot/axios";
+import gql from "graphql-tag";
 
 export default {
   components: {
     CookieLaw
   },
   name: "App",
+  computed: {
+    ...mapState("auth", ["userLoaded"])
+  },
   methods: {
-    ...mapActions("auth", ["retrieveUser"])
+    ...mapActions("auth", ["populateUser"])
   },
   created() {
     this.$q.addressbarColor.set("primary");
-    if (LocalStorage.getItem("loggedIn")) {
-      setAuthHeader(LocalStorage.getItem("token"));
-      this.retrieveUser();
+    if (!this.userLoaded) {
+      this.$apollo
+        .query({
+          query: gql`
+            query {
+              me {
+                name
+                email
+                profile {
+                  operating_unit {
+                    name
+                    image
+                  }
+                  unit
+                  position
+                }
+                roles {
+                  name
+                }
+              }
+            }
+          `
+        })
+        .then(res => this.populateUser(res.data.me))
+        .catch(err => console.log(err.message));
     }
   }
 };

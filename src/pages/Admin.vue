@@ -16,49 +16,57 @@
       </q-card-section>
       <q-separator />
       <q-list separator>
-        <q-item v-if="loading">
-          <q-inner-loading :showing="loading">
-            <q-spinner-gears size="25px" color="primary" />
-          </q-inner-loading>
-        </q-item>
-        <template v-else>
-          <q-item v-for="{ id, name, email, active } in users" :key="id">
-            <q-item-section avatar>
-              <q-avatar
-                class="text-white text-uppercase"
-                :color="active ? 'primary' : 'grey'"
+        <ApolloQuery
+          :query="require('src/graphql/queries/users.gql')"
+          :variables="{ page: page }"
+        >
+          <template v-slot="{ result: { data, error }, isLoading }">
+            <template v-if="isLoading">
+              <q-item v-for="i in 5" :key="i">
+                <q-item-section avatar>
+                  <q-skeleton type="QAvatar" />
+                </q-item-section>
+
+                <q-item-section>
+                  <q-item-label>
+                    <q-skeleton type="text" />
+                  </q-item-label>
+                  <q-item-label caption>
+                    <q-skeleton type="text" />
+                  </q-item-label>
+                </q-item-section>
+              </q-item>
+            </template>
+            <template v-else>
+              <q-item
+                v-for="{ id, name, email, roles, created_at, active } in data
+                  .users.data"
+                :key="id"
               >
-                {{ name.charAt(0) }}
-              </q-avatar>
-            </q-item-section>
-            <q-item-section>
-              <q-item-label class="text-uppercase">{{ name }} </q-item-label>
-              <q-item-label caption>{{ email }}</q-item-label>
-            </q-item-section>
-            <q-item-section side>
-              <div class="row q-gutter-sm">
-                <q-btn
-                  round
-                  :icon="active ? 'block' : 'how_to_reg'"
-                  flat
-                  :color="active ? 'red' : 'green'"
-                  @click.stop="showActivateDialog(id, active)"
-                >
-                  <q-tooltip>
-                    {{ active ? "Deactivate" : "Activate" }}
-                  </q-tooltip>
-                </q-btn>
-                <q-btn
-                  round
-                  icon="settings"
-                  flat
-                  color="grey-7"
-                  @click="showDialogAssignRoles(id)"
-                />
-              </div>
-            </q-item-section>
-          </q-item>
-        </template>
+                <q-item-section avatar>
+                  <q-avatar
+                    class="text-white text-uppercase"
+                    :color="active ? 'primary' : 'grey'"
+                  >
+                    {{ name.charAt(0) }}
+                  </q-avatar>
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label class="text-uppercase"
+                    >{{ name }}
+                  </q-item-label>
+                  <q-item-label caption>{{ email }}</q-item-label>
+                </q-item-section>
+                <q-item-section>
+                  {{ roles }}
+                </q-item-section>
+                <q-item-section side>
+                  {{ created_at | memberSince }}
+                </q-item-section>
+              </q-item>
+            </template>
+          </template>
+        </ApolloQuery>
       </q-list>
       <q-separator />
       <q-card-actions align="center">
@@ -125,10 +133,8 @@
 <script>
 import PageBreadcrumbs from "../components/PageBreadcrumbs";
 import TextInput from "../components/FormInputs/TextInput";
-import { createUser } from "../functions/function-create-user";
-import { loadUsers } from "../functions/function-load-users";
-import { showErrorMessage } from "../functions/function-show-error-message";
-import { activateUser } from "../functions/function-activate-user";
+
+import { date } from "quasar";
 
 import { ROLES } from "../data/roles";
 
@@ -159,7 +165,8 @@ export default {
       selectedRoles: [],
       rules: {
         required: [val => (val && val.length > 0) || "Please type something"]
-      }
+      },
+      page: 1
     };
   },
   methods: {
@@ -175,44 +182,21 @@ export default {
         })
         .onOk(() => {
           this.loading = true;
-          activateUser({
-            id: id,
-            active: !active
-          }).then(() => {
-            this.loadUsers(this.currentPage);
-            this.loading = false;
-          });
         });
     },
     showDialogAssignRoles(id) {
       console.log("id:", id);
-    },
-    addUser() {
-      this.$refs.addUser.validate().then(success => {
-        if (success) {
-          createUser({
-            name: this.name,
-            password: this.password,
-            email: this.email,
-            selectedRoles: this.selectedRoles
-          });
-        }
-      });
-    },
-    loadUsers(page) {
-      this.loading = true;
-      loadUsers(page).then(res => {
-        if (res.errors) {
-          showErrorMessage(res.errors);
-        } else {
-          this.users = res.users.data;
-        }
-        this.loading = false;
-      });
     }
   },
-  created() {
-    this.loadUsers(1);
+  filters: {
+    memberSince(val) {
+      if (!val) {
+        return "";
+      } else {
+        var today = new Date();
+        return "Member since " + date.getDateDiff(today, val, "days") + " days";
+      }
+    }
   }
 };
 </script>

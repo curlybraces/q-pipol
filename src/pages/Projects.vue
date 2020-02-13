@@ -91,7 +91,6 @@
 
 <script>
 import { mapState } from "vuex";
-import { deleteProject } from "../functions/function-delete-project";
 
 import { REGIONS } from "../data/dropdown-values";
 import { Dialog } from "quasar";
@@ -187,7 +186,7 @@ export default {
         message: "Are you sure you want to move the project to trash?",
         cancel: true
       }).onOk(() => {
-        deleteProject({ id: id }).then(() => this.reloadProjects());
+        console.log(id);
       });
     }
   },

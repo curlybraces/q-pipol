@@ -115,8 +115,6 @@
 </template>
 
 <script>
-import { axiosInstance } from "boot/axios";
-import { updateProfile } from "../functions/function-update-profile";
 import PageBreadcrumbs from "../components/PageBreadcrumbs";
 
 import { OPERATING_UNITS } from "../data/operating_units";
@@ -175,37 +173,13 @@ export default {
       this.$refs.profile.validate().then(success => {
         if (success) {
           this.loading = true;
-          updateProfile(this.user).then(res => {
-            this.email = res.email;
-            this.user.name = res.name;
-            this.user.operating_unit = res.profile.operating_unit.id;
-            this.user.unit = res.profile.unit;
-            this.user.position = res.profile.position;
-            this.loading = false;
-            this.isEditing = false;
-          });
         } else {
           alert("Please check form inputs");
         }
       });
     },
     updatePassword() {
-      console.log("update password");
       Loading.show();
-      axiosInstance
-        .post("/graphql", {
-          query: `mutation updatePassword($password:String!) {
-              updatePassword(password:$password) {
-                id
-              }
-            }`,
-          variables: {
-            password: this.password
-          }
-        })
-        .then(() => {
-          Loading.hide();
-        });
     }
   }
 };
