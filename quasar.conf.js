@@ -11,6 +11,7 @@ module.exports = function(ctx) {
       "loading-defaults",
       "addressbar-color",
       "notify-defaults"
+      // "pusher"
     ],
 
     css: ["app.styl"],

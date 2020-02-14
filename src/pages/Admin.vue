@@ -38,26 +38,12 @@
               </q-item>
             </template>
             <template v-else>
-              <q-item>
-                <q-item-section avatar>
-                  <q-checkbox
-                    v-model="allUsersSelected"
-                    :val="allUsersSelected"
-                  />
-                </q-item-section>
-                <q-item-section avatar> </q-item-section>
-                <q-item-section>
-                  <q-item-label> NAME </q-item-label>
-                </q-item-section>
-                <q-item-section>ROLES</q-item-section>
-                <q-item-section side>ACTIONS</q-item-section>
-              </q-item>
-              <q-separator></q-separator>
               <q-item v-for="user in data.users.data" :key="user.id">
                 <q-item-section avatar>
-                  <q-checkbox v-model="selectedUsers" :val="user.id">{{
-                    user.id
-                  }}</q-checkbox>
+                  <q-checkbox
+                    v-model="selectedUsers"
+                    :val="user.id"
+                  ></q-checkbox>
                 </q-item-section>
                 <q-item-section avatar>
                   <q-avatar
@@ -96,10 +82,8 @@
           </template>
         </ApolloQuery>
       </q-list>
-      {{ selectedUsers }}
-      <q-separator />
-      <q-card-actions align="center">
-        <q-pagination v-model="currentPage" :max="lastPage" :input="true" />
+      <q-card-actions align="right">
+        <q-pagination v-model="currentPage" :max="lastPage" />
       </q-card-actions>
     </q-card>
   </q-page>

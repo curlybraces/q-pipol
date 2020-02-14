@@ -22,6 +22,29 @@ export default {
     CookieLaw
   },
   name: "App",
+  apollo: {
+    $subscribe: {
+      projectCreated: {
+        query: gql`
+          subscription projectCreated($id: ID) {
+            projectCreated(id: $id) {
+              id
+              title
+            }
+          }
+        `,
+        variables() {
+          return {
+            id: 1
+          };
+        },
+        result(data) {
+          console.log("subscribe");
+          console.log(data);
+        }
+      }
+    }
+  },
   computed: {
     ...mapState("auth", ["userLoaded"])
   },
