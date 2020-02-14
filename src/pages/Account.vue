@@ -47,7 +47,7 @@
       </div>
       <q-separator spaced />
       <div class="row q-pa-md q-mx-xl">
-        <q-form class="col q-gutter-md" ref="profile" @submit="saveProfile">
+        <q-form class="col q-gutter-md" ref="profile" @submit="updateProfile()">
           <div class="row">
             <q-item-label header>Profile</q-item-label>
             <q-space />
@@ -105,6 +105,7 @@
               type="submit"
               :loading="loading"
               v-if="isEditing"
+              @click="updateProfile()"
               >SAVE CHANGES</q-btn
             >
           </div>
@@ -143,7 +144,7 @@ export default {
       rules: {
         required: [val => (val && val.length > 0) || "Please type something"]
       },
-      isLoading: false,
+      loading: false,
       isEditing: false,
       me: {}
     };
@@ -169,10 +170,47 @@ export default {
     }
   },
   methods: {
-    saveProfile() {
+    updateProfile() {
       this.$refs.profile.validate().then(success => {
         if (success) {
           this.loading = true;
+          this.$apollo
+            .mutate({
+              mutation: gql`
+                mutation updateProfile(
+                  $name: String!
+                  $operating_unit_id: Int!
+                  $unit: String!
+                  $position: String!
+                ) {
+                  updateProfile(
+                    input: {
+                      name: $name
+                      operating_unit_id: $operating_unit_id
+                      unit: $unit
+                      position: $position
+                    }
+                  ) {
+                    id
+                  }
+                }
+              `,
+              variables: {
+                name: this.me.name,
+                operating_unit_id: this.me.profile.operating_unit.id,
+                unit: this.me.profile.unit,
+                position: this.me.profile.position
+              }
+            })
+            .then(data => {
+              this.loading = false;
+              this.isEditing = false;
+              console.log(data);
+            })
+            .catch(err => {
+              this.loading = false;
+              console.log(err.message);
+            });
         } else {
           alert("Please check form inputs");
         }
