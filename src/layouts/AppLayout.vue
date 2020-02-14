@@ -11,6 +11,7 @@
         />
         <q-toolbar-title class="text-primary">{{ appTitle }}</q-toolbar-title>
         <q-space />
+        <q-btn flat round icon="notifications" class="q-mr-md text-grey-6" />
         <q-btn
           class="bg-primary text-white"
           round

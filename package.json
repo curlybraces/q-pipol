@@ -17,7 +17,6 @@
     "firebase": "^6.6.0",
     "graphql": "^14.6.0",
     "moment": "^2.24.0",
-    "punycode": "^2.1.1",
     "pusher-js": "^5.1.1",
     "quasar": "^1.8.5",
     "v-money": "^0.8.1",

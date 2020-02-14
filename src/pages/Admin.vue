@@ -71,6 +71,28 @@
                     round
                     flat
                     dense
+                    icon="verified_user"
+                    color="green"
+                    @click="assignRoles(user.id)"
+                    v-if="!user.active"
+                  >
+                    <q-tooltip>Activate User</q-tooltip>
+                  </q-btn>
+                  <q-btn
+                    round
+                    flat
+                    dense
+                    icon="person_add_disabled"
+                    color="red"
+                    @click="deactiveUser(user.id)"
+                    v-else
+                  >
+                    <q-tooltip>Deactivate User</q-tooltip>
+                  </q-btn>
+                  <q-btn
+                    round
+                    flat
+                    dense
                     icon="settings"
                     @click="assignRoles(user.id)"
                   >
@@ -83,7 +105,13 @@
         </ApolloQuery>
       </q-list>
       <q-card-actions align="right">
-        <q-pagination v-model="currentPage" :max="lastPage" />
+        <q-pagination
+          v-model="currentPage"
+          :max="lastPage"
+          :max-pages="5"
+          boundary-links
+          boundary-numbers
+        />
       </q-card-actions>
     </q-card>
   </q-page>

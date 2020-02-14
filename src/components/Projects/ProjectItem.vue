@@ -9,7 +9,7 @@
         <q-img v-else src="statics/agency_logos/da-co.svg" />
       </q-avatar>
     </q-item-section>
-    <q-item-section class="col-2">
+    <q-item-section class="col-2" v-if="$q.screen.gt.md">
       <q-item-label>
         {{ operating_unit != null ? operating_unit.name : null }}
       </q-item-label>
