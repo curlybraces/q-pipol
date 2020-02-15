@@ -592,10 +592,10 @@
             <th class="text-center">Date</th>
           </thead>
           <tbody>
-            <tr v-for="({updates, date}, index) in updates" :key="index">
+            <tr v-for="({updates, update_date}, index) in updates" :key="index">
               <td>{{ index + 1 }}</td>
               <td class="text-center">{{ updates }}</td>
-              <td class="text-center">{{ date }}</td>
+              <td class="text-center">{{ update_date }}</td>
             </tr>
           </tbody>
         </q-markup-table>
@@ -738,7 +738,7 @@ export default {
       updates: [
         {
           updates: "New updates",
-          date: "2020-05-16"
+          update_date: "2020-05-16"
         }
       ]
     };
@@ -880,7 +880,7 @@ export default {
               create: [
                 {
                   updates: updates,
-                  date: date
+                  update_date: update_date
                 }
               ]
             }

@@ -48,6 +48,21 @@ export const REGISTER_MUTATION = gql`
   }
 `;
 
+export const ACTIVATE_USER = gql`
+  mutation activateUser(
+    $id:ID!
+    $active:Boolean!
+  ) {
+    activateUser(input: {
+      id:$id
+      active:$active
+    }) {
+      status
+      message
+    }
+  }
+`;
+
 export const CREATE_PROJECT = gql`
   mutation createProject(
     $pipol_url: String

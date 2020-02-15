@@ -73,7 +73,7 @@
                     dense
                     icon="verified_user"
                     color="green"
-                    @click="assignRoles(user.id)"
+                    @click="activateUser(user.id,user.active)"
                     v-if="!user.active"
                   >
                     <q-tooltip>Activate User</q-tooltip>
@@ -84,7 +84,7 @@
                     dense
                     icon="person_add_disabled"
                     color="red"
-                    @click="deactiveUser(user.id)"
+                    @click="deactivateUser(user.id)"
                     v-else
                   >
                     <q-tooltip>Deactivate User</q-tooltip>
@@ -119,6 +119,7 @@
 
 <script>
 import PageBreadcrumbs from "../components/PageBreadcrumbs";
+import { ACTIVATE_USER } from "../constants/graphql.js";
 
 import { date } from "quasar";
 
@@ -157,7 +158,7 @@ export default {
     };
   },
   methods: {
-    showActivateDialog(id, active) {
+    activateUser(id, active) {
       this.$q
         .dialog({
           title: active ? "Deactivate user" : "Activate user",
@@ -169,6 +170,19 @@ export default {
         })
         .onOk(() => {
           this.loading = true;
+          this.$apollo.mutate({
+            mutation: ACTIVATE_USER,
+            variables: {
+              id: id,
+              active: !active
+            }
+          })
+          .then(data => {
+            console.log(data);
+          })
+          .catch(err => {
+            console.log(err);
+          })
         });
     },
     selectAllUsers() {

@@ -5,9 +5,8 @@
         <img
           src="statics/logo.svg"
           height="35px;"
-          @click="drawer = true"
+          @click="drawer = !drawer"
           class="cursor-pointer"
-          v-show="$q.screen.lt.md"
         />
         <q-toolbar-title class="text-primary">{{ appTitle }}</q-toolbar-title>
         <q-space />
@@ -51,7 +50,7 @@ import DropdownMenu from "../components/layout/Dropdown";
 
 export default {
   components: { DrawerContent, DropdownMenu },
-  name: "MyLayout",
+  name: "AppLayout",
   data() {
     return {
       appTitle: "IPMS",
