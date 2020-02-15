@@ -25,26 +25,18 @@ export const APPROVAL_LEVELS = [
   }
 ];
 
-export const CATEGORIZATIONS = [
+export const TIERS = [
   {
-    label: "Tier 1",
-    value: "Tier 1"
+    value: "1",
+    label: "Tier 1"
   },
   {
-    label: "Tier 2 New",
-    value: "Tier 2 New"
+    value: "2",
+    label: "Tier 2 (New)"
   },
   {
-    label: "Tier 2 Expanded",
-    value: "Tier 2 Expanded"
-  },
-  {
-    label: "Completed",
-    value: "Completed"
-  },
-  {
-    label: "Dropped",
-    value: "Dropped"
+    value: "3",
+    label: "Tier 2 (Expanded/Revised)"
   }
 ];
 
@@ -551,61 +543,55 @@ export const IMPLEMENTATION_READINESS = [
 
 export const IMPLEMENTATION_BASES = [
   {
-    label: "National Expenditure Program (NEP)",
-    value: "National Expenditure Program (NEP)"
+    value: "1",
+    label: "National Expenditure Program (NEP)"
   },
   {
-    label: "General Appropriations Act (GAA)",
-    value: "General Appropriations Act (GAA)"
+    value: "2",
+    label: "General Appropriations Act (GAA)"
   },
   {
-    label: "Multi-Year Obligational Authority (MYOA)",
-    value: "Multi-Year Obligational Authority (MYOA)"
+    value: "3",
+    label: "Multi-Year Obligational Authority (MYOA)"
   },
   {
-    label: "Existing masterplan/sector studies/procurement plan",
-    value: "Existing masterplan/sector studies/procurement plan"
+    value: "4",
+    label: "Existing masterplan/sector studies/procurement plan"
   },
   {
-    label: "List of Regional Development Council-endorsed projects",
-    value: "List of Regional Development Council-endorsed projects"
+    value: "5",
+    label: "List of Regional Development Council-endorsed projects"
   },
   {
-    label: "Agreements (e.g. Peace agreements)",
-    value: "Agreements (e.g. Peace agreements)"
+    value: "6",
+    label: "Agreements (e.g. Peace agreements)"
   },
   {
-    label: "Existing laws, rules or regulations",
-    value: "Existing laws, rules or regulations"
-  },
-  {
-    label: "Regular Program",
-    value: "Regular Program"
+    value: "7",
+    label: "Existing laws, rules or regulations"
   }
 ];
 
 export const IMPLEMENTATION_MODES = [
   {
-    label:
-      "Through Local Funds in accordance with RA 9184 or the Government Procurement Act",
-    value:
-      "Through Local Funds in accordance with RA 9184 or the Government Procurement Act"
+    value: "1",
+    label: "Through Local Funds in accordance with RA 9184 or the Government Procurement Act"
   },
   {
-    label: "Through ODA pursuant to RA 8182 or the ODA Act of 1996",
-    value: "Through ODA pursuant to RA 8182 or the ODA Act of 1996"
+    value: "2",
+    label: "Through ODA pursuant to RA 8182 or the ODA Act of 1996"
   },
   {
-    label: "Through PPP under the Amended BOT Law and Its IRR",
-    value: "Through PPP under the Amended BOT Law and Its IRR"
+    value: "3",
+    label: "Through PPP under the Amended BOT Law and Its IRR"
   },
   {
-    label: "Through Joint Venture Arrangement",
-    value: "Through Joint Venture Arrangement"
+    value: "4",
+    label: "Through Joint Venture Arrangement"
   },
   {
-    label: "Others",
-    value: "Others"
+    value: "5",
+    label: "Others"
   }
 ];
 
@@ -671,18 +657,14 @@ export const NEW_THINKINGS = [
   }
 ];
 
-export const PAP_TYPES = [
+export const TYPES = [
   {
     label: "Program",
-    value: "Program"
+    value: "1"
   },
   {
     label: "Project",
-    value: "Project"
-  },
-  {
-    label: "Subproject",
-    value: "Subproject"
+    value: "2"
   }
 ];
 
@@ -826,20 +808,20 @@ export const REGIONS = [
 
 export const TYPOLOGIES = [
   {
-    label: "Capital Investment Program/Project",
-    value: "Capital Investment Program/Project"
+    value: "1",
+    label: "Capital Investment Programs/Projects"
   },
   {
-    label: "Technical Assistance",
-    value: "Technical Assistance"
+    value: "2",
+    label: "Technical Assistance"
   },
   {
-    label: "Relending",
-    value: "Relending"
+    value: "3",
+    label: "Relending PAPs"
   },
   {
-    label: "Government facilities",
-    value: "Government facilities"
+    value: "4",
+    label: "Government Building"
   }
 ];
 
@@ -912,94 +894,72 @@ export const TEN_POINT_AGENDA = [
 
 export const SUSTAINABLE_DEVELOPMENT_GOALS = [
   {
-    label: "1. End poverty in all its forms everywhere",
-    value: "End poverty in all its forms everywhere"
+    value: "1",
+    label: "No Poverty"
   },
   {
-    label:
-      "2. End hunger, achieve food security and improved nutrition and promote sustainable agriculture",
-    value:
-      "End hunger, achieve food security and improved nutrition and promote sustainable agriculture"
+    value: "2",
+    label: "Zero Hunger"
   },
   {
-    label: "3. Ensure healthy lives and promote well-being for all at all ages",
-    value: "Ensure healthy lives and promote well-being for all at all ages"
+    value: "3",
+    label: "Good Health and Well-Being"
   },
   {
-    label:
-      "4. Ensure inclusive and equitable quality education and promote lifelong learning opportunities for all",
-    value:
-      "Ensure inclusive and equitable quality education and promote lifelong learning opportunities for all"
+    value: "4",
+    label: "Quality Education"
   },
   {
-    label: "5. Achieve gender equality and empower all women and girls",
-    value: "Achieve gender equality and empower all women and girls"
+    value: "5",
+    label: "Gender Equality"
   },
   {
-    label:
-      "6. Ensure availability and sustainable management of water and sanitation for all",
-    value:
-      "Ensure availability and sustainable management of water and sanitation for all"
+    value: "6",
+    label: "Clean Water and Sanitation"
   },
   {
-    label:
-      "7. Ensure access to affordable, reliable, sustainable and modern energy for all",
-    value:
-      "Ensure access to affordable, reliable, sustainable and modern energy for all"
+    value: "7",
+    label: "Affordable and Clean Energy"
   },
   {
-    label:
-      "8. Promote sustained, inclusive and sustainable economic growth, full and productive employment and decent work for all",
-    value:
-      "Promote sustained, inclusive and sustainable economic growth, full and productive employment and decent work for all"
+    value: "8",
+    label: "Decent Work and Economic Growth"
   },
   {
-    label:
-      "9. Build resilient infrastructure, promote inclusive and sustainable industrialization and foster innovation",
-    value:
-      "Build resilient infrastructure, promote inclusive and sustainable industrialization and foster innovation"
+    value: "9",
+    label: "Industry, Innovation and Infrastructure"
   },
   {
-    label: "10. Reduce inequality within and among countries",
-    value: "Reduce inequality within and among countries"
+    value: "10",
+    label: "Reduced Inequalities"
   },
   {
-    label:
-      "11. Make cities and human settlements inclusive, safe, resilient and sustainable",
-    value:
-      "Make cities and human settlements inclusive, safe, resilient and sustainable"
+    value: "11",
+    label: "Sustainable Cities and Communities"
   },
   {
-    label: "12. Ensure sustainable consumption and production patterns",
-    value: "Ensure sustainable consumption and production patterns"
+    value: "12",
+    label: "Responsible Consumption and Production"
   },
   {
-    label: "13. Take urgent action to combat climate change and its impacts",
-    value: "Take urgent action to combat climate change and its impacts"
+    value: "13",
+    label: "Climate Action"
   },
   {
-    label:
-      "14. Conserve and sustainably use the oceans, seas and marine resources for sustainable development",
-    value:
-      "Conserve and sustainably use the oceans, seas and marine resources for sustainable development"
+    value: "14",
+    label: "Life Below Water"
   },
   {
-    label:
-      "15. Protect, restore and promote sustainable use of terrestrial ecosystems, sustainably manage forests, combat desertification, and halt and reverse land degradation and halt biodiversity loss",
-    value:
-      "Protect, restore and promote sustainable use of terrestrial ecosystems, sustainably manage forests, combat desertification, and halt and reverse land degradation and halt biodiversity loss"
+    value: "15",
+    label: "Life on Land"
   },
   {
-    label:
-      "16. Promote peaceful and inclusive societies for sustainable development, provide access to justice for all and build effective, accountable and inclusive institutions at all levels",
-    value:
-      "Promote peaceful and inclusive societies for sustainable development, provide access to justice for all and build effective, accountable and inclusive institutions at all levels"
+    value: "16",
+    label: "Peace, Justice and Strong Institutions"
   },
   {
-    label:
-      "17. Strengthen the means of implementation and revitalize the global partnership for sustainable development",
-    value:
-      "Strengthen the means of implementation and revitalize the global partnership for sustainable development"
+    value: "17",
+    label: "Partnerships for the Goals"
   }
 ];
 
@@ -1650,24 +1610,36 @@ export const PROVINCES = [
 
 export const STATUSES = [
   {
-    label: "Ongoing",
-    value: "Ongoing"
+    value: "0",
+    label: "Conceptual Stage"
   },
   {
-    label: "New/Proposed",
-    value: "New/Proposed"
+    value: "1",
+    label: "Proposed"
   },
   {
-    label: "Expanded/Revised",
-    value: "Expanded/Revised"
+    value: "2",
+    label: "Approved but not yet ongoing"
   },
   {
-    label: "Completed",
-    value: "completed"
+    value: "3",
+    label: "Ongoing"
   },
   {
-    label: "Dropped",
-    value: "dropped"
+    value: "4",
+    label: "Temporarily Stopped"
+  },
+  {
+    value: "5",
+    label: "Terminated"
+  },
+  {
+    value: "6",
+    label: "Completed"
+  },
+  {
+    value: "7",
+    label: "Dropped from pipeline"
   }
 ];
 

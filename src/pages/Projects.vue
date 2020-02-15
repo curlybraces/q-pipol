@@ -39,6 +39,7 @@
           <template v-if="$apollo.loading">
             <list-placeholder />
           </template>
+
           <template v-else>
             <project-item
               v-for="{
@@ -91,7 +92,6 @@
 
 <script>
 import { mapState } from "vuex";
-
 import { REGIONS } from "../data/dropdown-values";
 import { Dialog } from "quasar";
 
@@ -119,7 +119,7 @@ export default {
         }
       ],
       view: "grid",
-      error: false,
+      error: null,
       sortOptions: [],
       sort: "",
       projects: [],

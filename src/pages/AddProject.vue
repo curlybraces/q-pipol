@@ -24,9 +24,10 @@
           <q-checkbox v-model="pcip" :val="true">PCIP</q-checkbox>
         </div>
 
-        <text-input
+        <q-input
           v-model="title"
           label="Program/Project Title"
+          filled
           stack-label
           outlined
           :dense="dense"
@@ -38,7 +39,7 @@
         <q-option-group
           v-model="type_id"
           label="Type"
-          :options="types"
+          :options="TYPES"
           inline
           :dense="dense"
         ></q-option-group>
@@ -57,7 +58,7 @@
           label="Implementation Mode"
           :dense="dense"
           :options-dense="dense"
-          :options="[]"
+          :options="IMPLEMENTATION_MODES"
         ></single-select>
 
         <single-select
@@ -65,7 +66,7 @@
           label="Tier"
           :dense="dense"
           :options-dense="dense"
-          :options="[]"
+          :options="TIERS"
         ></single-select>
 
         <single-select
@@ -73,7 +74,7 @@
           label="Typology"
           :dense="dense"
           :options-dense="dense"
-          :options="[]"
+          :options="TYPOLOGIES"
         ></single-select>
 
         <q-input
@@ -141,7 +142,8 @@
         <multi-select
           label="Implementation Bases"
           v-model="bases"
-          :options="[]"
+          :options-dense="dense"
+          :options="IMPLEMENTATION_BASES"
         ></multi-select>
 
         <q-input
@@ -191,19 +193,12 @@
         />
 
         <multi-select
-          v-model="regions"
-          label="Regions"
-          :options="REGIONS_OPTIONS"
-          :dense="dense"
-          :options-dense="dense"
-        />
-
-        <multi-select
           v-model="provinces"
           label="Province/s"
           :options="filteredProvinces"
           :dense="dense"
           :options-dense="dense"
+          :readonly="spatial_coverage_id == '1'"
         />
 
         <q-input
@@ -218,16 +213,16 @@
           </template>
         </q-input>
 
-        <q-checkbox v-model="clearinghouse" :val="true"
-          >Approved by DA Clearinghouse</q-checkbox
-        >
-
         <multi-select
           stack-label
           label="Technical Readiness"
           v-model="technical_readinesses"
           :options="[]"
         ></multi-select>
+
+        <q-checkbox v-model="clearinghouse" :val="true"
+          >Approved by DA Clearinghouse</q-checkbox
+        >
 
         <q-input
           outlined
@@ -285,6 +280,8 @@
 
         <money-input
           label="Total Project Cost"
+          outlined
+          prefix="PhP"
           v-model="total_project_cost"
           :dense="dense"
           hint="Indicative project cost in absolute PhP"
@@ -327,18 +324,6 @@
           stack-label
           label="Updates"
           type="textarea"
-          v-model="updates"
-        >
-          <template v-slot:prepend>
-            <q-icon name="text_format" />
-          </template>
-        </q-input>
-
-        <q-input
-          outlined
-          stack-label
-          label="Updates"
-          type="textarea"
           v-model="income_increase"
         >
           <template v-slot:prepend>
@@ -348,6 +333,7 @@
 
         <money-input
           label="Financial Net Present Value (FNPV)"
+          outlined
           v-model="financial_net_present_value"
           :dense="dense"
           hint="Indicative project cost in absolute PhP"
@@ -392,77 +378,11 @@
 
         <money-input
           label="Economic Net Present Value (ENPV)"
+          outlined
           v-model="economic_net_present_value"
           :dense="dense"
           hint="Indicative project cost in absolute PhP"
         ></money-input>
-
-        <q-item-label header>FUNDING SOURCES</q-item-label>
-
-        <single-select stack-label label="Funding Source"></single-select>
-
-        <q-input
-          outlined
-          stack-label
-          label="2016"
-          v-model="target_2016"
-        ></q-input>
-
-        <q-input
-          outlined
-          stack-label
-          label="2017"
-          v-model="target_2017"
-        ></q-input>
-
-        <q-input
-          outlined
-          stack-label
-          label="2018"
-          v-model="target_2018"
-        ></q-input>
-
-        <q-input
-          outlined
-          stack-label
-          label="2019"
-          v-model="target_2019"
-        ></q-input>
-
-        <q-input
-          outlined
-          stack-label
-          label="2020"
-          v-model="target_2020"
-        ></q-input>
-
-        <q-input
-          outlined
-          stack-label
-          label="2021"
-          v-model="target_2021"
-        ></q-input>
-
-        <q-input
-          outlined
-          stack-label
-          label="2022"
-          v-model="target_2022"
-        ></q-input>
-
-        <q-input
-          outlined
-          stack-label
-          label="2023"
-          v-model="target_2023"
-        ></q-input>
-
-        <q-input
-          outlined
-          stack-label
-          label="Total"
-          v-model="target_total"
-        ></q-input>
 
         <q-item-label header>CIP Processing Status</q-item-label>
 
@@ -487,7 +407,7 @@
 
         <q-item-label header>SOURCE OF FUNDING</q-item-label>
 
-        <q-markup-table flat :dense="dense">
+        <q-markup-table flat bordered :dense="dense" separator="cell">
           <thead>
             <th class="text-left">Funding Sources</th>
             <th class="text-right">2016</th>
@@ -502,17 +422,32 @@
             <th>Action</th>
           </thead>
           <tbody>
-            <tr v-for="i in 3" :key="i">
+            <tr
+              v-for="({
+                funding_source,
+                target_2016,
+                target_2017,
+                target_2018,
+                target_2019,
+                target_2020,
+                target_2021,
+                target_2022,
+                target_2023,
+                target_total
+              },
+              index) in fundingSources"
+              :key="index"
+            >
               <td class="text-left">Funding Source</td>
-              <td class="text-right">2016</td>
-              <td class="text-right">2017</td>
-              <td class="text-right">2018</td>
-              <td class="text-right">2019</td>
-              <td class="text-right">2020</td>
-              <td class="text-right">2021</td>
-              <td class="text-right">2022</td>
-              <td class="text-right">2023</td>
-              <td class="text-right">Total</td>
+              <td class="text-right">{{ target_2016 }}</td>
+              <td class="text-right">{{ target_2017 }}</td>
+              <td class="text-right">{{ target_2018 }}</td>
+              <td class="text-right">{{ target_2019 }}</td>
+              <td class="text-right">{{ target_2020 }}</td>
+              <td class="text-right">{{ target_2021 }}</td>
+              <td class="text-right">{{ target_2022 }}</td>
+              <td class="text-right">{{ target_2023 }}</td>
+              <td class="text-right">{{ target_total }}</td>
               <td class="text-center">
                 <q-btn
                   flat
@@ -528,6 +463,46 @@
                   dense
                   icon="delete"
                   color="red"
+                  size="sm"
+                ></q-btn>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-left">Dropdown</td>
+              <td class="text-right">
+                <money-input dense></money-input>
+              </td>
+              <td class="text-right">
+                <money-input dense></money-input>
+              </td>
+              <td class="text-right">
+                <money-input dense></money-input>
+              </td>
+              <td class="text-right">
+                <money-input dense></money-input>
+              </td>
+              <td class="text-right">
+                <money-input dense></money-input>
+              </td>
+              <td class="text-right">
+                <money-input dense></money-input>
+              </td>
+              <td class="text-right">
+                <money-input dense></money-input>
+              </td>
+              <td class="text-right">
+                <money-input dense></money-input>
+              </td>
+              <td class="text-right">
+                <money-input dense></money-input>
+              </td>
+              <td class="text-center">
+                <q-btn
+                  flat
+                  round
+                  dense
+                  icon="save"
+                  color="blue"
                   size="sm"
                 ></q-btn>
               </td>
@@ -610,6 +585,21 @@
           </tfoot>
         </q-markup-table>
 
+        <q-markup-table>
+          <thead>
+            <th>#</th>
+            <th class="text-center">Updates</th>
+            <th class="text-center">Date</th>
+          </thead>
+          <tbody>
+            <tr v-for="({updates, date}, index) in updates" :key="index">
+              <td>{{ index + 1 }}</td>
+              <td class="text-center">{{ updates }}</td>
+              <td class="text-center">{{ date }}</td>
+            </tr>
+          </tbody>
+        </q-markup-table>
+
         <q-btn type="submit" label="Save" color="primary" />
 
         <q-btn flat type="reset" label="Reset" class="q-ml-sm" />
@@ -619,12 +609,20 @@
 </template>
 
 <script>
-import { STATUSES } from "../data/dropdown-values";
+import {
+  IMPLEMENTATION_BASES, 
+  STATUSES, 
+  TIERS,
+  TYPES, 
+  TYPOLOGIES,
+  IMPLEMENTATION_MODES } from "../data/dropdown-values";
 import { OPERATING_UNITS } from "../data/operating_units.js";
 import { REGIONS_OPTIONS } from "../data/regions.js";
 import { PROVINCES_OPTIONS } from "../data/provinces.js";
 import { SPATIAL_COVERAGES } from "../data/spatial_coverages.js";
 import { YEARS } from "../data/year";
+
+import { CREATE_PROJECT } from "../constants/graphql.js";
 
 import PageBreadcrumbs from "../components/PageBreadcrumbs";
 
@@ -642,6 +640,8 @@ export default {
   name: "AddProject",
   data() {
     return {
+      dense: false,
+      addFundSource: true,
       success: true,
       breadcrumbs: [
         {
@@ -656,66 +656,64 @@ export default {
           title: "Add Project"
         }
       ],
-      types: [
-        {
-          label: "Program",
-          value: 1
-        },
-        {
-          label: "Project",
-          value: 2
-        }
-      ],
+      TYPES,
       YEARS,
       OPERATING_UNITS,
       SPATIAL_COVERAGES,
       REGIONS_OPTIONS,
       PROVINCES_OPTIONS,
       STATUSES,
-      type_id: 1,
-      title: null,
-      operating_unit_id: null,
-      description: null,
-      goals: null,
-      outcomes: null,
-      purpose: null,
-      expected_outputs: null,
-      spatial_coverage_id: null,
-      regions: [],
-      provinces: [],
+      TYPOLOGIES,
+      TIERS,
+      IMPLEMENTATION_MODES,
+      IMPLEMENTATION_BASES,
+      type_id: "1",
+      title: "test data title",
+      operating_unit_id: "1",
+      description: "Some description",
+      goals: "Some goals",
+      outcomes: "Some outcomes",
+      purpose: "Some purpose",
+      expected_outputs: "some expected outputs",
+      spatial_coverage_id: "1",
+      regions: [
+        {
+          id: 1,
+          target_2016: 1000
+        }
+      ],
+      provinces: [1,2,3],
       target_start_year: null,
       target_end_year: null,
       implementation_start_date: null,
       implementation_end_date: null,
       total_project_cost: null,
       status_update: null,
-      dense: false,
-      pip: false,
-      cip: false,
-      trip: false,
-      rdip: false,
-      pcip: false,
-      bases: [],
-      tier_id: 1,
-      typology_id: 1,
-      project_status_id: null,
-      beneficiaries: null,
-      employment_generated: null,
-      implementation_mode_id: 1,
-      implementation_risk: "",
-      mitigation_strategy: "",
-      cities_municipalities: "",
-      updates: "",
-      financial_benefit_cost_ratio: 0,
-      financial_internal_rate_return: 0,
-      financial_net_present_value: 0,
-      economic_benefit_cost_ratio: 0,
-      economic_internal_rate_return: 0,
-      economic_net_present_value: 0,
-      clearinghouse: false,
-      clearinghouse_date: "",
+      pip: true,
+      cip: true,
+      trip: true,
+      rdip: true,
+      pcip: true,
+      bases: ["1","2"],
+      tier_id: "1",
+      typology_id: "1",
+      project_status_id: "1",
+      beneficiaries: "Some beneficiaries",
+      employment_generated: "Some employment generated",
+      implementation_mode_id: "1",
+      implementation_risk: "Some risks",
+      mitigation_strategy: "Some strategies",
+      cities_municipalities: "Some cities and municipalities",
+      financial_benefit_cost_ratio: 1.7,
+      financial_internal_rate_return: 0.18,
+      financial_net_present_value: 1000000,
+      economic_benefit_cost_ratio: 1.9,
+      economic_internal_rate_return: 0.25,
+      economic_net_present_value: 1500000,
+      clearinghouse: true,
+      clearinghouse_date: "2020-05-06",
       technical_readinesses: "",
-      gad_score: null,
+      gad_score: 69,
       target_2016: null,
       target_2017: null,
       target_2018: null,
@@ -725,17 +723,24 @@ export default {
       target_2022: null,
       target_2023: null,
       target_total: null,
-      income_increase: "",
+      income_increase: "Cause for income increase",
       neda_submission: false,
-      neda_submission_date: "",
+      neda_submission_date: "2020-05-16",
       neda_secretariat_review: false,
-      neda_secretariat_review_date: "",
+      neda_secretariat_review_date: "2020-05-16",
       icc_endorsed: false,
-      icc_endorsed_date: "",
+      icc_endorsed_date: "2020-05-16",
       icc_approved: false,
-      icc_approved_date: "",
+      icc_approved_date: "2020-05-16",
       neda_board: false,
-      neda_board_date: ""
+      neda_board_date: "2020-05-16",
+      fundingSources: [],
+      updates: [
+        {
+          updates: "New updates",
+          date: "2020-05-16"
+        }
+      ]
     };
   },
   computed: {
@@ -748,6 +753,141 @@ export default {
   methods: {
     save() {
       //
+      const {
+        title,
+        type_id,
+        pipol_url,
+        pipol_code,
+        pip,
+        cip,
+        trip,
+        operating_unit_id,
+        implementation_mode_id,
+        project_status_id,
+        typology_id,
+        tier_id,
+        spatial_coverage_id,
+        cities_municipalities,
+        rdip,
+        pcip,
+        description,
+        goals,
+        outcomes,
+        purpose,
+        expected_outputs,
+        beneficiaries,
+        employment_generated,
+        target_start_year,
+        target_end_year,
+        implementation_start_date,
+        implementation_end_date,
+        clearinghouse,
+        clearinghouse_date,
+        total_project_cost,
+        implementation_risk,
+        mitigation_strategy,
+        income_increase,
+        gad_score,
+        estimated_project_life,
+        financial_benefit_cost_ratio,
+        financial_internal_rate_return,
+        financial_net_present_value,
+        economic_benefit_cost_ratio,
+        economic_internal_rate_return,
+        economic_net_present_value,
+        bases,
+        ten_point_agenda,
+        regions,
+        provinces,
+        total_investment,
+        infrastructure_investment,
+        cip_processing,
+        sustainable_development_goals,
+        funding_sources,
+        feasibility_study,
+        resettlement_action_plan,
+        right_of_way,
+        updates
+      } = this.$data;
+
+      const financial_net_present_value_float = this.convertMoneyToFloat(financial_net_present_value);
+      const economic_net_present_value_float = this.convertMoneyToFloat(economic_net_present_value);
+
+      this.$apollo
+        .mutate({
+          mutation: CREATE_PROJECT,
+          variables: {
+            title: title,
+            type_id: type_id,
+            pipol_url: pipol_url,
+            pipol_code: pipol_code,
+            pip: pip,
+            cip: cip,
+            trip: trip,
+            operating_unit_id: operating_unit_id,
+            implementation_mode_id: implementation_mode_id,
+            project_status_id: project_status_id,
+            typology_id: typology_id,
+            tier_id: tier_id,
+            spatial_coverage_id: spatial_coverage_id,
+            cities_municipalities: cities_municipalities,
+            rdip: rdip,
+            pcip: pcip,
+            description: description,
+            goals: goals,
+            outcomes: outcomes,
+            purpose: purpose,
+            expected_outputs: expected_outputs,
+            beneficiaries: beneficiaries,
+            employment_generated: employment_generated,
+            target_start_year: target_start_year,
+            target_end_year: target_end_year,
+            implementation_start_date: implementation_start_date,
+            implementation_end_date: implementation_end_date,
+            clearinghouse: clearinghouse,
+            clearinghouse_date: clearinghouse_date,
+            total_project_cost: total_project_cost,
+            implementation_risk: implementation_risk,
+            mitigation_strategy: mitigation_strategy,
+            income_increase: income_increase,
+            gad_score: gad_score,
+            estimated_project_life: estimated_project_life,
+            financial_benefit_cost_ratio: financial_benefit_cost_ratio,
+            financial_internal_rate_return: financial_internal_rate_return,
+            financial_net_present_value: financial_net_present_value_float,
+            economic_benefit_cost_ratio: economic_benefit_cost_ratio,
+            economic_internal_rate_return: economic_internal_rate_return,
+            economic_net_present_value: economic_net_present_value_float,
+            bases: {
+              connect: bases
+            },
+            ten_point_agenda: ten_point_agenda,
+            regions: {
+              connect: regions
+            },
+            provinces: {
+              connect: provinces
+            },
+            total_investment: total_investment,
+            infrastructure_investment: infrastructure_investment,
+            cip_processing: cip_processing,
+            sustainable_development_goals: sustainable_development_goals,
+            funding_sources: funding_sources,
+            feasibility_study: feasibility_study,
+            resettlement_action_plan: resettlement_action_plan,
+            right_of_way: right_of_way,
+            updates: {
+              create: [
+                {
+                  updates: updates,
+                  date: date
+                }
+              ]
+            }
+          }
+        })
+        .then(data => console.log(data))
+        .catch(error => console.log(error));
     },
     selectAllRegions() {
       const { region_options } = this;
@@ -760,6 +900,43 @@ export default {
       filteredProvinces.forEach(province =>
         this.provinces.push(province.value)
       );
+    },
+    addFundingSourceToProject() {
+      const {
+        funding_source,
+        target_2016,
+        target_2017,
+        target_2018,
+        target_2019,
+        target_2020,
+        target_2021,
+        target_2022,
+        target_2023,
+        target_total
+      } = this.$data;
+      this.fundingSources.push({
+        funding_source: funding_source,
+        target_2016: target_2016,
+        target_2017: target_2017,
+        target_2018: target_2018,
+        target_2019: target_2019,
+        target_2020: target_2020,
+        target_2021: target_2021,
+        target_2022: target_2022,
+        target_2023: target_2023,
+        target_total: target_total
+      });
+    },
+    convertMoneyToFloat(val) {
+      const converted = val.replace(/^\W|,/g,"");
+    
+      return parseFloat(converted);
+    },
+    jumpTo(refName) {
+      var element = this.$el[refName];
+      var top = element.offsetTop;
+
+      window.scrollTo(0, top);
     }
   },
   beforeRouteLeave(to, from, next) {
@@ -767,14 +944,16 @@ export default {
       title: "Warning",
       message:
         "Are you sure you want to leave this page? You may have unsaved changes.",
-      cancel: true
+      cancel: true,
+      transitionShow: "fade",
+      transitionHide: "fade"
     })
-      .onOk(() => {
-        next();
-      })
-      .onCancel(() => {
-        next(false);
-      });
+    .onOk(() => {
+      next();
+    })
+    .onCancel(() => {
+      next(false);
+    });
   }
 };
 </script>
@@ -782,5 +961,10 @@ export default {
 <style>
 .q-textarea .q-field__native {
   resize: none;
+}
+
+.q-table th,
+.q-table td {
+  padding: 5px !important;
 }
 </style>
