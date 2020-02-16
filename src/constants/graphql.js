@@ -18,7 +18,9 @@ export const LOGIN_MUTATION = gql`
           }
           position
           unit
-        }
+        },
+        notifications
+        unreadNotifications
       }
       access_token
     }
@@ -324,11 +326,35 @@ export const CREATE_PROJECT = gql`
       }
       updates {
         updates
-        date
+        update_date
       }
       created_by {
         name
       }
     }
   }
+`;
+
+export const VIEW_PROJECT = gql`query project($id: ID!) {
+  project(id: $id) {
+    id
+    title
+  }
+}
+`;
+
+export const UPDATE_PROJECT = gql`mutation updateProject(
+  $id: ID!
+  $title: String
+) {
+  updateProject(
+    input: {
+      id: $id
+      title: $title
+    }
+  ) {
+    id
+    title
+  }
+}
 `;

@@ -10,8 +10,7 @@ module.exports = function(ctx) {
       "router-auth",
       "loading-defaults",
       "addressbar-color",
-      "notify-defaults",
-      "pusher"
+      "notify-defaults"
     ],
 
     css: ["app.styl"],

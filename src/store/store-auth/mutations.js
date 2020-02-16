@@ -37,3 +37,11 @@ export function SET_ROLES(state, value) {
 export function SET_USER_LOADED(state, value) {
   state.userLoaded = value;
 }
+
+export function SET_UNREAD_NOTIFICATIONS(state, value) {
+  state.unreadNotifications = value;
+}
+
+export function SET_NOTIFICATIONS(state, value) {
+  state.notifications = value;
+}

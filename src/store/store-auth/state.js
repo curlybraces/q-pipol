@@ -8,5 +8,7 @@ export default {
   unit: null,
   position: null,
   roles: [],
-  userLoaded: false
+  userLoaded: false,
+  notifications: [],
+  unreadNotifications: []
 };

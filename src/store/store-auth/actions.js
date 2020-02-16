@@ -9,6 +9,8 @@ export function populateUser({ commit }, payload) {
   commit("SET_POSITION", payload.profile.position);
   commit("SET_UNIT", payload.profile.unit);
   commit("SET_ROLES", payload.roles);
+  commit("SET_UNREAD_NOTIFICATIONS", payload.unreadNotifications);
+  commit("SET_NOTIFICATIONS", payload.notifications);
 }
 
 export function logoutUser() {
