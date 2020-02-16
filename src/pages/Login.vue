@@ -161,6 +161,7 @@ export default {
               .then(res => {
                 this.populateUser(res.data.login.user);
                 localStorage.setItem("token", res.data.login.access_token);
+                localStorage.setItem("userId", res.data.login.user.id);
                 this.$router.push({ path: "/" });
               })
               .catch(err => {
