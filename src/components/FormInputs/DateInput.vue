@@ -2,6 +2,7 @@
   <q-input
     v-model="model"
     mask="date"
+    placeholder="YYYY/MM/DD"
     :label="label"
     :dense="dense"
     :hint="hint"

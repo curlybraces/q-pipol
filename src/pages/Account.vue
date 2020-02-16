@@ -1,89 +1,223 @@
 <template>
   <q-page padding>
-    <p>Account</p>
+    <page-breadcrumbs :breadcrumbs="breadcrumbs" />
+    <q-card square>
+      <div class="text-center">
+        <span class="text-h6 text-weight-bold">Account</span>
+        <br />
+        <span class="text-subtitle1">
+          Edit your account settings and change your password here.
+        </span>
+      </div>
+      <q-separator spaced></q-separator>
+      <div class="row q-pa-md q-mx-xl">
+        <q-form class="col q-gutter-md">
+          <q-input
+            outlined
+            prefix="Your Email is"
+            v-model="me.email"
+            readonly
+          ></q-input>
+        </q-form>
+      </div>
+      <q-separator spaced />
+      <div class="row q-pa-md q-mx-xl">
+        <q-form class="col q-gutter-md" @submit="updatePassword">
+          <q-item-label header>Change Password</q-item-label>
+          <q-input
+            outlined
+            label="New Password"
+            :type="showPassword ? 'text' : 'password'"
+            v-model="password"
+            :rules="[
+              val => (val && val.length > 0) || 'Password cannot be empty'
+            ]"
+          >
+            <template v-slot:append>
+              <q-icon
+                :name="showPassword ? 'visibility_off' : 'visibility'"
+                @click="showPassword = !showPassword"
+              ></q-icon>
+            </template>
+          </q-input>
+          <div class="row justify-center">
+            <q-btn color="primary" type="submit">SAVE CHANGES</q-btn>
+          </div>
+        </q-form>
+      </div>
+      <q-separator spaced />
+      <div class="row q-pa-md q-mx-xl">
+        <q-form class="col q-gutter-md" ref="profile" @submit="updateProfile()">
+          <div class="row">
+            <q-item-label header>Profile</q-item-label>
+            <q-space />
+            <q-avatar
+              flat
+              dense
+              class="text-grey-8 cursor-pointer"
+              @click="isEditing = !isEditing"
+              v-if="!isEditing"
+            >
+              <q-icon name="edit" />
+            </q-avatar>
+          </div>
 
-    <div class="row">
-      <q-card class="col-4">
-        <img src="https://cdn.quasar.dev/img/parallax2.jpg" />
-        {{ user }}
-        <q-list>
-          <q-item>
-            <q-item-section avatar>
-              <q-icon color="primary" name="person" />
-            </q-item-section>
+          <div v-if="$apollo.loading">Loading User Profile...</div>
+          <div class="q-gutter-y-md" v-else>
+            <q-input
+              outlined
+              label="Full Name"
+              v-model="me.name"
+              lazy-rules
+              :rules="rules.required"
+              :readonly="!isEditing"
+            ></q-input>
+            <q-select
+              outlined
+              label="Office"
+              :options="OPERATING_UNITS"
+              v-model="me.profile.operating_unit.id"
+              emit-value
+              map-options
+              :readonly="!isEditing"
+            ></q-select>
+            <q-input
+              outlined
+              v-model="me.profile.unit"
+              label="Service/Division/Unit"
+              hint="Do not abbreviate"
+              :rules="rules.required"
+              :readonly="!isEditing"
+            />
+            <q-input
+              outlined
+              v-model="me.profile.position"
+              label="Position/Designation"
+              hint="Do not abbreviate"
+              :rules="rules.required"
+              :readonly="!isEditing"
+            />
+          </div>
 
-            <q-item-section>
-              <q-input label="Name" stack-label outlined dense v-model="name" />
-            </q-item-section>
-          </q-item>
-
-          <q-item>
-            <q-item-section avatar>
-              <q-icon color="primary" name="assignment_ind" />
-            </q-item-section>
-
-            <q-item-section>
-              <q-input
-                label="Position"
-                stack-label
-                outlined
-                dense
-                v-model="position"
-              />
-            </q-item-section>
-          </q-item>
-
-          <q-item>
-            <q-item-section avatar>
-              <q-icon color="positive" name="account_balance" />
-            </q-item-section>
-
-            <q-item-section>
-              <q-select
-                :options="operating_units"
-                label="Office"
-                stack-label
-                outlined
-                dense
-                v-model="operating_unit"
-              />
-            </q-item-section>
-          </q-item>
-
-          <q-item>
-            <q-item-section avatar>
-              <q-icon color="amber" name="phone" />
-            </q-item-section>
-
-            <q-item-section>
-              <q-input
-                label="Contact Number"
-                stack-label
-                outlined
-                dense
-                v-model="contact_information"
-                mask="###-###-####"
-              />
-            </q-item-section>
-          </q-item>
-        </q-list>
-      </q-card>
-    </div>
+          <div class="row justify-center">
+            <q-btn
+              color="primary"
+              type="submit"
+              :loading="loading"
+              v-if="isEditing"
+              @click="updateProfile()"
+              >SAVE CHANGES</q-btn
+            >
+          </div>
+        </q-form>
+      </div>
+    </q-card>
   </q-page>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import PageBreadcrumbs from "../components/PageBreadcrumbs";
+
+import { OPERATING_UNITS } from "../data/operating_units";
+
+import { Loading } from "quasar";
+
+import gql from "graphql-tag";
 
 export default {
-  name: "PageAccount",
+  components: { PageBreadcrumbs },
+  name: "UserPage",
   data() {
-    return {};
+    return {
+      breadcrumbs: [
+        {
+          title: "Home",
+          url: "/"
+        },
+        {
+          title: "Account"
+        }
+      ],
+      OPERATING_UNITS,
+      password: null,
+      showPassword: false,
+      rules: {
+        required: [val => (val && val.length > 0) || "Please type something"]
+      },
+      loading: false,
+      isEditing: false,
+      me: {}
+    };
   },
-  computed: {
-    ...mapState("auth", ["user"]),
-    name() {
-      return this.user.name;
+  apollo: {
+    me: {
+      query: gql`
+        query {
+          me {
+            name
+            email
+            profile {
+              operating_unit {
+                id
+                name
+              }
+              position
+              unit
+            }
+          }
+        }
+      `
+    }
+  },
+  methods: {
+    updateProfile() {
+      this.$refs.profile.validate().then(success => {
+        if (success) {
+          this.loading = true;
+          this.$apollo
+            .mutate({
+              mutation: gql`
+                mutation updateProfile(
+                  $name: String!
+                  $operating_unit_id: Int!
+                  $unit: String!
+                  $position: String!
+                ) {
+                  updateProfile(
+                    input: {
+                      name: $name
+                      operating_unit_id: $operating_unit_id
+                      unit: $unit
+                      position: $position
+                    }
+                  ) {
+                    id
+                  }
+                }
+              `,
+              variables: {
+                name: this.me.name,
+                operating_unit_id: this.me.profile.operating_unit.id,
+                unit: this.me.profile.unit,
+                position: this.me.profile.position
+              }
+            })
+            .then(data => {
+              this.loading = false;
+              this.isEditing = false;
+              console.log(data);
+            })
+            .catch(err => {
+              this.loading = false;
+              console.log(err.message);
+            });
+        } else {
+          alert("Please check form inputs");
+        }
+      });
+    },
+    updatePassword() {
+      Loading.show();
     }
   }
 };

@@ -10,6 +10,12 @@ const routes = [
           import(/* webpackChunkName: 'Index' */ "pages/Index.vue")
       },
       {
+        path: "admin",
+        name: "admin",
+        component: () =>
+          import(/* webpackChunkName: 'Admin' */ "pages/Admin.vue")
+      },
+      {
         path: "programs",
         name: "programs",
         component: () =>
@@ -22,11 +28,6 @@ const routes = [
           import(/* webpackChunkName: 'Projects' */ "pages/Projects.vue")
       },
       {
-        path: "settings",
-        component: () =>
-          import(/* webpackChunkName: 'Settings' */ "pages/Settings.vue")
-      },
-      {
         path: "account",
         component: () =>
           import(/* webpackChunkName: 'Account' */ "pages/Account.vue")
@@ -37,9 +38,16 @@ const routes = [
           import(/* webpackChunkName: 'AddProject' */ "pages/AddProject.vue")
       },
       {
-        path: "pip/:id/edit",
+        path: "pip/add",
         component: () =>
-          import(/* webpackChunkName: 'EditProject' */ "pages/EditProject.vue")
+          import(
+            /* webpackChunkName: 'CreateProject' */ "pages/CreateProject.vue"
+          )
+      },
+      {
+        path: "pip/:id/edit",
+        name: "UpdateProject",
+        component: () => import(/* webpackChunkName: 'UpdateProject' */ "pages/UpdateProject.vue")
       },
       {
         path: "pip/:id",
@@ -55,13 +63,14 @@ const routes = [
           )
       },
       {
-        path: "user",
-        component: () => import(/* webpackChunkName: 'User' */ "pages/User.vue")
+        path: "settings",
+        component: () =>
+          import(/* webpackChunkName: 'Settings' */ "pages/Settings.vue")
       },
       {
-        path: "pbp",
+        path: "users",
         component: () =>
-          import(/* webpackChunkName: 'Budget' */ "pages/Budget.vue")
+          import(/* webpackChunkName: 'Users' */ "pages/Users.vue")
       }
     ]
   },

@@ -1,0 +1,14 @@
+query {
+  me {
+    name
+    email
+    profile {
+      operating_unit {
+        id
+        name
+      }
+      position
+      unit
+    }
+  }
+}

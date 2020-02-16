@@ -6,7 +6,7 @@ module.exports = function(ctx) {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     boot: [
-      "axios",
+      "apollo",
       "router-auth",
       "loading-defaults",
       "addressbar-color",
@@ -55,7 +55,7 @@ module.exports = function(ctx) {
       vueRouterMode: "history",
       // vueCompiler: true,
       gzip: true,
-      // analyze: true, // analyze after build
+      analyze: true, // analyze after build
       // extractCSS: false,
       extendWebpack(cfg) {
         cfg.module.rules.push({
@@ -67,12 +67,18 @@ module.exports = function(ctx) {
             formatter: require("eslint").CLIEngine.getFormatter("stylish")
           }
         });
+        cfg.module.rules.push({
+          enforce: "pre",
+          test: /\.(gql|graphql)$/,
+          exclude: /node_modules/,
+          loader: "graphql-tag/loader"
+        });
       }
     },
 
     devServer: {
-      // https: true,
-      // port: 8080,
+      https: true,
+      port: 8080,
       open: true // opens browser window automatically
     },
 
@@ -87,9 +93,9 @@ module.exports = function(ctx) {
       // workboxPluginMode: 'InjectManifest',
       workboxOptions: { skipWaiting: true }, // only for NON InjectManifest
       manifest: {
-        name: "E-PLANNING",
-        short_name: "e-Planning",
-        description: "A Quasar Framework App for e-Planning",
+        name: "IPMS",
+        short_name: "IPMS",
+        description: "A Quasar Framework App for IPMS",
         display: "standalone",
         orientation: "portrait",
         background_color: "#ffffff",

@@ -3,11 +3,22 @@
     <div class="q-pa-md bg-white text-center">
       <q-img src="statics/logo.svg" alt="logo" style="max-width: 150px" />
       <br />
-      <span class="text-h6">E-PLANNING</span>
+      <span class="text-h6">{{ appTitle }}</span>
     </div>
     <q-separator />
 
     <q-item-label header>NAVIGATION</q-item-label>
+
+    <q-item v-if="admin" clickable to="/admin">
+      <q-item-section avatar>
+        <q-icon name="lock"></q-icon>
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>ADMIN</q-item-label>
+      </q-item-section>
+    </q-item>
+
+    <q-separator />
 
     <template v-for="({ label, icon, url, submenu }, index) in drawerItems">
       <template v-if="submenu">
@@ -63,16 +74,12 @@ export default {
   name: "DrawerContent",
   data() {
     return {
+      appTitle: "IPMS",
       drawerItems: [
         {
           label: "Home",
           icon: "home",
           url: "/"
-        },
-        {
-          label: "Programs",
-          icon: "list",
-          url: "/programs"
         },
         {
           label: "Projects",
@@ -97,9 +104,13 @@ export default {
           ]
         },
         {
+          label: "Reports",
+          icon: "bubble_chart"
+        },
+        {
           label: "Account",
           icon: "person",
-          url: "/user"
+          url: "/account"
         },
         {
           label: "Settings",
@@ -108,6 +119,14 @@ export default {
         }
       ]
     };
+  },
+  computed: {
+    admin() {
+      return (
+        this.$store.state.auth.roles.includes("admin") ||
+        this.$store.state.auth.roles.includes("super admin")
+      );
+    }
   },
   methods: {
     showHelp() {

@@ -1,11 +1,13 @@
 import { LocalStorage } from "quasar";
 
-export default ({ router }) => {
+export default async ({ router }) => {
   router.beforeEach((to, from, next) => {
-    const loggedIn = LocalStorage.getItem("loggedIn");
-    if (!loggedIn && to.path !== "/login") {
+    // check if token exist
+    // note that this does not check validity of token.
+    const token = LocalStorage.getItem("token");
+    if (!token && to.path !== "/login") {
       next("/login");
-    } else if (loggedIn && to.path == "/login") {
+    } else if (token && to.path == "/login") {
       next("/");
     } else {
       next();

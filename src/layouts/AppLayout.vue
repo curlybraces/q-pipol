@@ -1,22 +1,21 @@
 <template>
-  <q-layout view="lHh lpR lff">
+  <q-layout view="LHh lpR lff">
     <q-header bordered class="bg-grey-1">
       <q-toolbar class="text-grey-9 app-toolbar">
         <img
           src="statics/logo.svg"
           height="35px;"
-          @click="$router.push('/')"
+          @click="drawer = !drawer"
           class="cursor-pointer"
         />
-        <q-toolbar-title class="text-primary">E-PLANNING</q-toolbar-title>
+        <q-toolbar-title class="text-primary">{{ appTitle }}</q-toolbar-title>
         <q-space />
+        <q-btn flat round icon="notifications" class="q-mr-md text-grey-6" />
         <q-btn
           class="bg-primary text-white"
           round
           flat
-          :label="
-            currentUserDisplayName ? currentUserDisplayName.charAt(0) : 'DA'
-          "
+          :label="name ? name.charAt(0) : 'DA'"
           @mouseenter="menu = true"
         >
           <dropdown-menu v-model="menu" />
@@ -30,7 +29,7 @@
 
     <q-footer>
       <q-toolbar>
-        <q-toolbar-title>E-PLANNING</q-toolbar-title>
+        <q-toolbar-title>{{ appTitleFooter }}</q-toolbar-title>
         <q-avatar color="white">
           <q-img src="statics/ani-at-kita-logo.svg"></q-img>
         </q-avatar>
@@ -44,7 +43,6 @@
 </template>
 
 <script>
-import { openURL } from "quasar";
 import { mapState } from "vuex";
 
 import DrawerContent from "../components/layout/Drawer";
@@ -52,23 +50,32 @@ import DropdownMenu from "../components/layout/Dropdown";
 
 export default {
   components: { DrawerContent, DropdownMenu },
-  name: "MyLayout",
+  name: "AppLayout",
   data() {
     return {
+      appTitle: "IPMS",
+      appTitleFooter: "Investment Programming & Management System",
       copyright: "Made by Mark Lester A. Bolotaolo",
       menu: false,
       miniState: false,
-      drawer: true
+      drawerState: this.$q.screen.md || this.$q.screen.gt.md
     };
   },
   computed: {
-    ...mapState("auth", ["currentUserDisplayName"]),
+    ...mapState("auth", ["name"]),
     darkMode() {
       return this.$q.dark.isActive;
+    },
+    drawer: {
+      get() {
+        return this.drawerState;
+      },
+      set(val) {
+        this.drawerState = val;
+      }
     }
   },
   methods: {
-    openURL,
     toggleDarkMode() {
       this.$q.dark.toggle();
     }

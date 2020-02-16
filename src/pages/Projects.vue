@@ -2,6 +2,7 @@
   <q-page padding>
     <page-breadcrumbs :breadcrumbs="breadcrumbs" />
     <search-component />
+
     <div class="column q-pa-md bg-green-1 q-mb-md">
       <div class="row">
         <q-btn outline icon="tune" @click="filter = !filter">FILTER</q-btn>
@@ -34,73 +35,55 @@
               color="primary"
             />
           </div>
-          <template v-if="!loading && !error">
-            <no-project v-if="projects.length === 0 && search" />
-            <template v-else>
-              <div class="row q-my-sm">
-                <q-list class="col" separator bordered>
-                  <project-item
-                    v-for="{
-                      id,
-                      title,
-                      description,
-                      operating_unit,
-                      total_project_cost
-                    } in projects"
-                    :key="id"
-                    :id="id"
-                    :title="title"
-                    :description="description"
-                    :operating_unit="operating_unit"
-                    :total_project_cost="total_project_cost"
-                    @goTo="goTo(id)"
-                    @promptDelete="promptDelete(id)"
-                  ></project-item>
-                </q-list>
+
+          <template v-if="$apollo.loading">
+            <list-placeholder />
+          </template>
+
+          <template v-else>
+            <project-item
+              v-for="{
+                id,
+                title,
+                description,
+                operating_unit,
+                total_project_cost
+              } in projects.data"
+              :key="id"
+              :id="id"
+              :title="title"
+              :description="description"
+              :operating_unit="operating_unit"
+              :total_project_cost="total_project_cost"
+              @goTo="goTo(id)"
+              @promptDelete="promptDelete(id)"
+              @editProject="goToEdit(id)"
+            ></project-item>
+
+            <div class="row justify-between items-center">
+              <div>
+                Showing
+                {{ (current_page - 1) * projects.paginatorInfo.perPage + 1 }}
+                -
+                {{
+                  current_page * projects.paginatorInfo.perPage >
+                  projects.paginatorInfo.total
+                    ? projects.paginatorInfo.total
+                    : current_page * projects.paginatorInfo.perPage
+                }}
+                of {{ projects.paginatorInfo.total }} projects
               </div>
-            </template>
-          </template>
-
-          <template v-if="loading">
-            <div class="text-center" style="margin-top: 10px;">
-              Loading projects...
+              <div>
+                <q-pagination
+                  v-model="current_page"
+                  :max-pages="5"
+                  :max="projects.paginatorInfo.lastPage"
+                  boundary-links
+                  boundary-numbers
+                />
+              </div>
             </div>
           </template>
-
-          <div
-            v-if="!loading && error"
-            class="text-center"
-            style="margin-top: 200px;"
-          >
-            <q-icon name="warning" color="red" size="lg"></q-icon>
-            <br />
-            {{ errorMessage }}
-          </div>
-
-          <div
-            v-if="!loading && projects.length"
-            class="row justify-between items-center"
-          >
-            <div>
-              Showing {{ (current_page - 1) * per_page + 1 }} -
-              {{
-                current_page * per_page > total
-                  ? total
-                  : current_page * per_page
-              }}
-              of {{ total }} projects
-            </div>
-            <div>
-              <q-pagination
-                v-model="current_page"
-                :max-pages="last_page"
-                :max="max"
-                boundary-links
-                boundary-numbers
-                @input="reloadProjects"
-              />
-            </div>
-          </div>
         </q-card>
       </div>
     </div>
@@ -108,20 +91,20 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
-import { loadProjects } from "../functions/function-load-projects";
-import { deleteProject } from "../functions/function-delete-project";
-
+import { mapState } from "vuex";
 import { REGIONS } from "../data/dropdown-values";
 import { Dialog } from "quasar";
+
+import gql from "graphql-tag";
 
 export default {
   components: {
     "search-component": () => import("../components/Projects/SearchComponent"),
-    "no-project": () => import("../components/Projects/NoProject"),
     "page-breadcrumbs": () => import("../components/PageBreadcrumbs.vue"),
     "filter-menu": () => import("../components/FilterMenu.vue"),
-    "project-item": () => import("../components/Projects/ProjectItem.vue")
+    "project-item": () => import("../components/Projects/ProjectItem.vue"),
+    "list-placeholder": () =>
+      import("../components/Projects/ListPlaceholder.vue")
   },
   name: "PageProjects",
   data() {
@@ -136,8 +119,7 @@ export default {
         }
       ],
       view: "grid",
-      loading: false,
-      error: false,
+      error: null,
       sortOptions: [],
       sort: "",
       projects: [],
@@ -148,6 +130,37 @@ export default {
       filter: false,
       REGIONS
     };
+  },
+  apollo: {
+    projects: {
+      query: gql`
+        query projects($page: Int) {
+          projects(page: $page) {
+            data {
+              id
+              title
+              operating_unit {
+                name
+                image
+              }
+              description
+              total_project_cost
+            }
+            paginatorInfo {
+              currentPage
+              total
+              perPage
+              lastPage
+            }
+          }
+        }
+      `,
+      variables() {
+        return {
+          page: this.current_page
+        };
+      }
+    }
   },
   computed: {
     ...mapState("projects", ["search", "projectsDownloaded"]),
@@ -161,25 +174,11 @@ export default {
     }
   },
   methods: {
-    ...mapActions("auth", ["sendEmailVerification"]),
-    sortData() {
-      // console.log("sort");
-    },
     goTo(id) {
       this.$router.push("/pip/" + id);
     },
-    reloadProjects() {
-      loadProjects({
-        current_page: this.current_page,
-        per_page: this.per_page
-      }).then(res => {
-        const { total, per_page, current_page, last_page } = res.data.projects;
-        this.total = total;
-        this.per_page = per_page;
-        this.current_page = current_page;
-        this.last_page = last_page;
-        this.projects = res.data.projects.data;
-      });
+    goToEdit(id) {
+      this.$router.push("/pip/" + id + "/edit");
     },
     promptDelete(id) {
       Dialog.create({
@@ -187,7 +186,7 @@ export default {
         message: "Are you sure you want to move the project to trash?",
         cancel: true
       }).onOk(() => {
-        deleteProject({ id: id }).then(() => this.reloadProjects());
+        console.log(id);
       });
     }
   },
@@ -204,20 +203,6 @@ export default {
     currency(value) {
       return "PhP " + value.toLocaleString();
     }
-  },
-  created() {
-    this.loading = true;
-    loadProjects({
-      current_page: 1
-    }).then(res => {
-      const { total, per_page, current_page, last_page } = res.data.projects;
-      this.total = total;
-      this.per_page = per_page;
-      this.current_page = current_page;
-      this.last_page = last_page;
-      this.projects = res.data.projects.data;
-      this.loading = false;
-    });
   }
 };
 </script>

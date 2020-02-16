@@ -5,17 +5,21 @@
         <q-item-section avatar>
           <q-avatar>
             <q-img
-              :src="photoURL ? photoURL : 'statics/avatar-placeholder.png'"
+              :src="
+                image
+                  ? 'statics/agency_logos/' + image
+                  : 'statics/avatar-placeholder.png'
+              "
             />
           </q-avatar>
         </q-item-section>
         <q-item-section>
-          <q-item-label>{{ currentUserDisplayName }}</q-item-label>
-          <q-item-label caption>{{ currentUserEmail }}</q-item-label>
+          <q-item-label>{{ name }}</q-item-label>
+          <q-item-label caption>{{ email }}</q-item-label>
         </q-item-section>
       </q-item>
       <q-separator />
-      <q-item clickable v-close-popup to="/user">
+      <q-item clickable v-close-popup to="/account">
         <q-item-section>Account</q-item-section>
       </q-item>
       <q-item clickable v-close-popup>
@@ -36,19 +40,13 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
 import { Dialog } from "quasar";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "DropdownMenu",
   computed: {
-    ...mapState("auth", [
-      "loggedIn",
-      "currentUserEmail",
-      "photoURL",
-      "signInProvider",
-      "currentUserDisplayName"
-    ])
+    ...mapState("auth", ["email", "name", "image"])
   },
   methods: {
     ...mapActions("auth", ["logoutUser"]),

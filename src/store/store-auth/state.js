@@ -1,8 +1,14 @@
 export default {
   loggedIn: false,
-  currentUserDisplayName: "",
-  currentUserEmail: "",
-  emailVerified: false,
-  photoURL: "",
-  signInProvider: ""
+  token: null,
+  email: null,
+  name: null,
+  image: null,
+  operating_unit: null,
+  unit: null,
+  position: null,
+  roles: [],
+  userLoaded: false,
+  notifications: [],
+  unreadNotifications: []
 };
