@@ -328,19 +328,19 @@
 
 			<q-dialog v-model="addRegionDialog">
 				<q-card>
-					<div style="width:300px;" class="q-pa-md q-gutter-md">
-						<q-input></q-input>
-						<q-input></q-input>
-						<q-input></q-input>
-						<q-input></q-input>
-						<q-input></q-input>
-						<q-input></q-input>
-						<q-input></q-input>
-						<q-input></q-input>
-						<q-input></q-input>
-						<q-input></q-input>
+					<div style="width:480px;" class="q-pa-md q-gutter-md">
+						<q-input label="Region" v-model="newRegion"></q-input>
+						<q-input label="2016" v-model="newTarget2016"></q-input>
+						<q-input label="2017" v-model="newTarget2017"></q-input>
+						<q-input label="2018" v-model="newTarget2018"></q-input>
+						<q-input label="2019" v-model="newTarget2019"></q-input>
+						<q-input label="2020" v-model="newTarget2020"></q-input>
+						<q-input label="2021" v-model="newTarget2021"></q-input>
+						<q-input label="2022" v-model="newTarget2022"></q-input>
+						<q-input label="2023" v-model="newTarget2023"></q-input>
+						<q-input label="Total" v-model="newTargetTotal"></q-input>
 						<div class="q-ml-md">
-							<q-btn class="full-width" color="primary">Add</q-btn>
+							<q-btn class="full-width" color="primary" @click="addToRegionalData">Add</q-btn>
 						</div>
 					</div>
 				</q-card>
@@ -391,7 +391,17 @@ export default {
 			YEARS,
 			filteredProvinces: [],
 			dense: false,
-			addRegionDialog: true
+			addRegionDialog: true,
+			newRegion: "",
+			newTarget2016: "",
+			newTarget2017: "",
+			newTarget2018: "",
+			newTarget2019: "",
+			newTarget2020: "",
+			newTarget2021: "",
+			newTarget2022: "",
+			newTarget2023: "",
+			newTargetTotal: ""
 		}
 	},
 	computed: {
@@ -408,6 +418,31 @@ export default {
 		addRegion() {
 			console.log("add region");
 			this.addRegionDialog = true;
+		},
+		addToRegionalData() {
+			const { newRegion,
+			newTarget2016,
+			newTarget2017,
+			newTarget2018,
+			newTarget2019,
+			newTarget2020,
+			newTarget2021,
+			newTarget2022,
+			newTarget2023,
+			newTargetTotal } = this.$data;
+
+			this.projectToSubmit.regions.push({
+				id: newRegion,
+				target_2016: newTarget2016,
+				target_2017: newTarget2017,
+				target_2018: newTarget2018,
+				target_2019: newTarget2019,
+				target_2020: newTarget2020,
+				target_2021: newTarget2021,
+				target_2022: newTarget2022,
+				target_2023: newTarget2023,
+				target_total: newTargetTotal
+			})
 		}
 	}
 }
