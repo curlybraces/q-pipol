@@ -11,8 +11,6 @@ import PusherLink from './pusher-link';
 import Pusher from "pusher-js";
 
 // Pusher configuration
-
-
 const PUSHER_API_KEY = "43f35a023f84d4edd751";
 const PUSHER_CLUSTER = "ap1";
 const auth_token = LocalStorage.getItem("token");

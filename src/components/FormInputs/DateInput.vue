@@ -16,7 +16,7 @@
           transition-show="scale"
           transition-hide="scale"
         >
-          <q-date v-model="model" @input="() => $refs.qDateProxy.hide()" />
+          <q-date v-model="model" @input="handleInput" />
         </q-popup-proxy>
       </q-icon>
     </template>
@@ -41,6 +41,7 @@ export default {
   },
   methods: {
     handleInput() {
+      this.$refs.qDateProxy.hide();
       this.$emit("input", this.model);
     }
   }

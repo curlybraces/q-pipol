@@ -1729,3 +1729,362 @@ export const COMMODITY_GROUP = [
     label: "Commodity-Neutral"
   }
 ];
+
+export const OPERATING_UNITS = [
+  {
+    value: "1",
+    name: "Central Office",
+    label: "DA-CO"
+  },
+  {
+    value: "2",
+    name: "Regional Field Office - CAR",
+    label: "DA-RFO-CAR"
+  },
+  {
+    value: "3",
+    name: "Regional Field Office - I",
+    label: "DA-RFO-I"
+  },
+  {
+    value: "4",
+    name: "Regional Field Office - II",
+    label: "DA-RFO-II"
+  },
+  {
+    value: "5",
+    name: "Regional Field Office - III",
+    label: "DA-RFO-III"
+  },
+  {
+    value: "6",
+    name: "Regional Field Office - IVA",
+    label: "DA-RFO-IVA"
+  },
+  {
+    value: "7",
+    name: "Regional Field Office - IVB",
+    label: "DA-RFO-IVB"
+  },
+  {
+    value: "8",
+    name: "Regional Field Office - IX",
+    label: "DA-RFO-IX"
+  },
+  {
+    value: "9",
+    name: "Regional Field Office - V",
+    label: "DA-RFO-V"
+  },
+  {
+    value: "10",
+    name: "Regional Field Office - VI",
+    label: "DA-RFO-VI"
+  },
+  {
+    value: "11",
+    name: "Regional Field Office - VII",
+    label: "DA-RFO-VII"
+  },
+  {
+    value: "12",
+    name: "Regional Field Office - VIII",
+    label: "DA-RFO-VIII"
+  },
+  {
+    value: "13",
+    name: "Regional Field Office - X",
+    label: "DA-RFO-X"
+  },
+  {
+    value: "14",
+    name: "Regional Field Office - XI",
+    label: "DA-RFO-XI"
+  },
+  {
+    value: "15",
+    name: "Regional Field Office - XII",
+    label: "DA-RFO-XII"
+  },
+  {
+    value: "16",
+    name: "Regional Field Office - XIII",
+    label: "DA-RFO-XIII"
+  },
+  {
+    value: "17",
+    name: "DAF-ARMM",
+    label: "DAF-ARMM"
+  },
+  {
+    value: "18",
+    name: "Agricultural Training Institute",
+    label: "ATI"
+  },
+  {
+    value: "19",
+    name: "Bureau of Animal Industry",
+    label: "BAI"
+  },
+  {
+    value: "20",
+    name: "Bureau of Agricultural Research",
+    label: "BAR"
+  },
+  {
+    value: "21",
+    name: "Bureau of Plant Industry",
+    label: "BPI"
+  },
+  {
+    value: "22",
+    name: "Bureau of Soils and Water Management",
+    label: "BSWM"
+  },
+  {
+    value: "23",
+    name: "Bureau of Agricultural and Fisheries Engineering",
+    label: "BAFE"
+  },
+  {
+    value: "24",
+    name: "Agricultural Credit Policy Council ",
+    label: "ACPC"
+  },
+  {
+    value: "25",
+    name: "BFAR Central Office",
+    label: "BFAR"
+  },
+  {
+    value: "26",
+    name: "Fertilizer and Pesticvaluee Authority ",
+    label: "FPA"
+  },
+  {
+    value: "27",
+    name: "National Fisheries Research and Development Institute ",
+    label: "NFRDI"
+  },
+  {
+    value: "28",
+    name: "National Meat Inspection Service ",
+    label: "NMIS"
+  },
+  {
+    value: "29",
+    name: "Philippine Rubber Research Institute",
+    label: "PRRI"
+  },
+  {
+    value: "30",
+    name: "Philippine Carabao Center ",
+    label: "PCC"
+  },
+  {
+    value: "31",
+    name: "Philippine Center for Post-Harvest Development and Mechanization",
+    label: "PHilMech"
+  },
+  {
+    value: "32",
+    name: "Philippine Council for Agriculture and Fisheries",
+    label: "PCAF"
+  },
+  {
+    value: "33",
+    name: "Philippine Fiber Industry Development Authority ",
+    label: "PhilFIDA"
+  },
+  {
+    value: "34",
+    name: "National Dairy Authority",
+    label: "NDA"
+  },
+  {
+    value: "35",
+    name: "National Food Authority",
+    label: "NFA"
+  },
+  {
+    value: "36",
+    name: "National Irrigation Administration",
+    label: "NIA"
+  },
+  {
+    value: "37",
+    name: "National Tobacco Administration",
+    label: "NTA"
+  },
+  {
+    value: "38",
+    name: "Philippine Coconut Authority",
+    label: "PCA"
+  },
+  {
+    value: "39",
+    name: "Philippine Crop Insurance Corporation",
+    label: "PCIC"
+  },
+  {
+    value: "40",
+    name: "Philippine Fisheries Development Authority",
+    label: "PFDA"
+  },
+  {
+    value: "41",
+    name: "Philippine Rice Research Institute",
+    label: "PhilRice"
+  },
+  {
+    value: "42",
+    name: "Sugar Regulatory Administration",
+    label: "SRA"
+  }
+];
+
+export const SPATIAL_COVERAGES = [
+  {
+    label: "Nationwide",
+    value: "1"
+  },
+  {
+    label: "Inter-regional",
+    value: "2"
+  },
+  {
+    label: "Region-Specific",
+    value: "3"
+  },
+  {
+    label: "Abroad",
+    value: "4"
+  }
+];
+
+export const YEARS = [
+  {
+    label: "2000",
+    value: "2000"
+  },
+  {
+    label: "2001",
+    value: "2001"
+  },
+  {
+    label: "2002",
+    value: "2002"
+  },
+  {
+    label: "2003",
+    value: "2003"
+  },
+  {
+    label: "2004",
+    value: "2004"
+  },
+  {
+    label: "2005",
+    value: "2005"
+  },
+  {
+    label: "2006",
+    value: "2006"
+  },
+  {
+    label: "2007",
+    value: "2007"
+  },
+  {
+    label: "2008",
+    value: "2008"
+  },
+  {
+    label: "2009",
+    value: "2009"
+  },
+  {
+    label: "2010",
+    value: "2010"
+  },
+  {
+    label: "2011",
+    value: "2011"
+  },
+  {
+    label: "2012",
+    value: "2012"
+  },
+  {
+    label: "2013",
+    value: "2013"
+  },
+  {
+    label: "2014",
+    value: "2014"
+  },
+  {
+    label: "2015",
+    value: "2015"
+  },
+  {
+    label: "2016",
+    value: "2016"
+  },
+  {
+    label: "2017",
+    value: "2017"
+  },
+  {
+    label: "2018",
+    value: "2018"
+  },
+  {
+    label: "2019",
+    value: "2019"
+  },
+  {
+    label: "2020",
+    value: "2020"
+  },
+  {
+    label: "2021",
+    value: "2021"
+  },
+  {
+    label: "2022",
+    value: "2022"
+  },
+  {
+    label: "2023",
+    value: "2023"
+  },
+  {
+    label: "2024",
+    value: "2024"
+  },
+  {
+    label: "2025",
+    value: "2025"
+  },
+  {
+    label: "2026",
+    value: "2026"
+  },
+  {
+    label: "2027",
+    value: "2027"
+  },
+  {
+    label: "2028",
+    value: "2028"
+  },
+  {
+    label: "2029",
+    value: "2029"
+  },
+  {
+    label: "2030",
+    value: "2030"
+  }
+];

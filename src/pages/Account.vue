@@ -118,7 +118,7 @@
 <script>
 import PageBreadcrumbs from "../components/PageBreadcrumbs";
 
-import { OPERATING_UNITS } from "../data/operating_units";
+import { OPERATING_UNITS } from "../data/dropdown-values";
 
 import { Loading } from "quasar";
 

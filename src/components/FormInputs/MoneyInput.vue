@@ -1,6 +1,6 @@
 <template>
   <q-input
-    :outlined="outlined"
+    outlined
     stack-label
     :label="label"
     :prefix="prefix"
@@ -16,7 +16,7 @@ import { VMoney } from "v-money";
 
 export default {
   name: "MoneyInput",
-  props: ["label", "value", "dense", "prefix","outlined"],
+  props: ["label", "value", "dense", "prefix"],
   data() {
     return {
       money: {

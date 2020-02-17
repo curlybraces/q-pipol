@@ -165,7 +165,7 @@ export default {
                 this.$router.push({ path: "/" });
               })
               .catch(err => {
-                showErrorMessage(err.message);
+                console.log("error in login");
               })
               .finally(() => (this.loading = false));
           } else {

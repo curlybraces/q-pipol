@@ -2,6 +2,7 @@
   <div class="col">
     <q-input
       v-model="model"
+      :type="type"
       :label="label"
       stack-label
       :dense="dense"
@@ -20,11 +21,20 @@
 <script>
 export default {
   name: "TextInput",
-  props: ["label", "dense", "value", "readonly", "rules", "maxlength", "hint"],
+  props: ["type", "label", "dense", "value", "readonly", "rules", "maxlength", "hint"],
   data() {
     return {
       model: null
     };
+  },
+  mounted() {
+    this.model = this.value;
   }
 };
 </script>
+
+<style>
+.q-textarea .q-field__native {
+  resize: none;
+}
+</style>
