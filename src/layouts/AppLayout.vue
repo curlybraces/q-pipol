@@ -23,7 +23,7 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="drawer" content-class="bg-grey-2" bordered :width="200">
+    <q-drawer v-model="drawer" content-class="bg-grey-2" bordered>
       <drawer-content />
     </q-drawer>
 

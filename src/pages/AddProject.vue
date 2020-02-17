@@ -63,6 +63,8 @@ export default {
         clearinghouse_date: "",
         implementation_risk: "",
         mitigation_strategy: "",
+        target_start_year: "",
+        target_end_year: "",
         updates: [
           {
             updates: "",
