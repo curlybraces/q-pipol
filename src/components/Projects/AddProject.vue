@@ -2,7 +2,7 @@
   <q-card square flat>
     <card-header>Add Project</card-header>
 
-    <div class="q-pa-md q-gutter-md">
+    <q-form class="q-pa-md q-gutter-md">
       <q-item-label header>GENERAL INFORMATION</q-item-label>
 
       <div class="row justify-around">
@@ -602,7 +602,7 @@
           ></date-input>
         </div>
       </div>
-    </div>
+    </q-form>
 
     <card-actions>
       <q-btn label="Save" @click="$emit('save')" color="primary" />

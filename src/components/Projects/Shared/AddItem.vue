@@ -104,7 +104,7 @@ export default {
       } else {
         this.$emit("add");
       }
-      Object.assign(this.itemToSubmit, this.initialState);
+      this.itemToSubmit = Object.assign({}, this.initialState);
     }
   }
 };
