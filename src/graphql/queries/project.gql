@@ -146,7 +146,7 @@ query project($id: ID!) {
     }
     updates {
       updates
-      date
+      update_date
     }
     created_by {
       name

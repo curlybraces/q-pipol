@@ -10,6 +10,7 @@
       <q-space />
       <slot name="right"></slot>
     </q-toolbar>
+    <q-separator></q-separator>
   </q-card-section>
 </template>
 

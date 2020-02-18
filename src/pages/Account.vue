@@ -2,7 +2,7 @@
   <q-page padding>
     <page-breadcrumbs :breadcrumbs="breadcrumbs" />
     <q-card square>
-      <div class="text-center">
+      <div class="q-pt-xl text-center">
         <span class="text-h6 text-weight-bold">Account</span>
         <br />
         <span class="text-subtitle1">

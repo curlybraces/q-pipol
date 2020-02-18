@@ -1,6 +1,8 @@
 <template>
   <q-card square flat>
-    <card-header>Add Project</card-header>
+    <card-header>
+      Add Project
+    </card-header>
 
     <q-form class="q-pa-md q-gutter-md">
       <q-item-label header>GENERAL INFORMATION</q-item-label>
@@ -374,7 +376,7 @@
       </q-item-label>
 
       <q-markup-table
-        v-if="projectToSubmit.fund_sources.length"
+        v-if="projectToSubmit.funding_sources.length"
         flat
         bordered
         separator="cell"
@@ -393,19 +395,19 @@
         </thead>
         <tbody>
           <tr
-            v-for="fund_source in projectToSubmit.fund_sources"
-            :key="fund_source.item.value"
+            v-for="funding_source in projectToSubmit.funding_sources"
+            :key="funding_source.item.value"
           >
-            <th>{{ fund_source.item.label }}</th>
-            <th>{{ fund_source.target_2016 }}</th>
-            <th>{{ fund_source.target_2017 }}</th>
-            <th>{{ fund_source.target_2018 }}</th>
-            <th>{{ fund_source.target_2019 }}</th>
-            <th>{{ fund_source.target_2020 }}</th>
-            <th>{{ fund_source.target_2021 }}</th>
-            <th>{{ fund_source.target_2022 }}</th>
-            <th>{{ fund_source.target_2023 }}</th>
-            <th>{{ fund_source.target_total }}</th>
+            <th>{{ funding_source.item.label }}</th>
+            <th>{{ funding_source.target_2016 }}</th>
+            <th>{{ funding_source.target_2017 }}</th>
+            <th>{{ funding_source.target_2018 }}</th>
+            <th>{{ funding_source.target_2019 }}</th>
+            <th>{{ funding_source.target_2020 }}</th>
+            <th>{{ funding_source.target_2021 }}</th>
+            <th>{{ funding_source.target_2022 }}</th>
+            <th>{{ funding_source.target_2023 }}</th>
+            <th>{{ funding_source.target_total }}</th>
           </tr>
         </tbody>
       </q-markup-table>
@@ -486,14 +488,14 @@
 
       <q-markup-table flat bordered separator="cell">
         <thead>
-          <th>Year</th>
-          <th>NEP</th>
-          <th>GAA</th>
-          <th>Disbursement</th>
+          <th style="width:25%">Year</th>
+          <th style="width:25%">NEP</th>
+          <th style="width:25%">GAA</th>
+          <th style="width:25%">Disbursement</th>
         </thead>
         <tbody>
           <tr>
-            <th>2017</th>
+            <td class="text-center">2017</td>
             <td class="text-right">
               {{ projectToSubmit.financialAccomplishment.nep_2017 }}
             </td>
@@ -505,7 +507,7 @@
             </td>
           </tr>
           <tr>
-            <th>2018</th>
+            <td class="text-center">2018</td>
             <td class="text-right">
               {{ projectToSubmit.financialAccomplishment.nep_2018 }}
             </td>
@@ -517,7 +519,7 @@
             </td>
           </tr>
           <tr>
-            <th>2019</th>
+            <td class="text-center">2019</td>
             <td class="text-right">
               {{ projectToSubmit.financialAccomplishment.nep_2019 }}
             </td>
@@ -529,7 +531,7 @@
             </td>
           </tr>
           <tr>
-            <th>2020</th>
+            <td class="text-center">2020</td>
             <td class="text-right">
               {{ projectToSubmit.financialAccomplishment.nep_2020 }}
             </td>
@@ -541,7 +543,7 @@
             </td>
           </tr>
           <tr>
-            <th>2021</th>
+            <td class="text-center">2021</td>
             <td class="text-right">
               {{ projectToSubmit.financialAccomplishment.nep_2021 }}
             </td>
@@ -553,7 +555,7 @@
             </td>
           </tr>
           <tr>
-            <th>2022</th>
+            <td class="text-center">2022</td>
             <td class="text-right">
               {{ projectToSubmit.financialAccomplishment.nep_2022 }}
             </td>
@@ -738,7 +740,7 @@ export default {
       this.addFundSourceDialog = true;
     },
     addToFundSource() {
-      this.projectToSubmit.fund_sources.push({
+      this.projectToSubmit.funding_sources.push({
         ...this.fundSourceToAdd
       });
       this.addFundSourceDialog = false;

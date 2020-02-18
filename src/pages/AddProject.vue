@@ -55,7 +55,7 @@ export default {
         employment_generated: "",
         spatial_coverage_id: "",
         regions: [],
-        fund_sources: [],
+        funding_sources: [],
         provinces: [],
         cities_municipalities: "",
         clearinghouse: false,
