@@ -6,14 +6,15 @@
       :label="label"
       stack-label
       :dense="dense"
-      outlined
+      filled
       @input="val => $emit('input', val)"
       :readonly="readonly"
       :rules="rules"
       :max-length="maxlength"
-      counter
+      :counter="type == 'textarea'"
       :hint="hint"
       clearable
+      label-color="orange-10"
     />
   </div>
 </template>

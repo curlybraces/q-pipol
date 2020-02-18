@@ -6,6 +6,7 @@
     :options="filterOptions"
     :label="label"
     stack-label
+    filled
     behavior="dialog"
     :dense="dense"
     :options-dense="optionsDense"
@@ -15,10 +16,8 @@
     emit-value
     use-chips
     use-input
+    label-color="orange-10"
   >
-    <template v-slot:prepend>
-      <q-icon name="swap_vert" />
-    </template>
     <template v-slot:before-options>
       <q-item>
         <q-item-section avatar>
@@ -37,7 +36,11 @@
       </q-item>
     </template>
     <template v-if="model.length" v-slot:append>
-      <q-icon name="cancel" @click.stop="model = []" class="cursor-pointer" />
+      <q-icon
+        name="cancel"
+        @click.stop="clearSelected"
+        class="cursor-pointer"
+      />
     </template>
   </q-select>
 </template>
@@ -90,6 +93,11 @@ export default {
       const { options } = this;
       this.model = [];
       options.forEach(option => this.model.push(option.value));
+      this.handleInput();
+    },
+    clearSelected() {
+      this.model = [];
+      this.$emit("clear");
     }
   }
 };

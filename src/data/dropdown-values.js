@@ -2089,3 +2089,34 @@ export const YEARS = [
     value: "2030"
   }
 ];
+
+export const TECHNICAL_READINESSES = [
+  {
+    value: "1",
+    label: "Concept Note"
+  },
+  {
+    value: "2",
+    label: "Project Proposal"
+  },
+  {
+    value: "3",
+    label: "Detailed Engineering Design"
+  },
+  {
+    value: "4",
+    label: "Business Plan"
+  },
+  {
+    value: "5",
+    label: "Feasibility Studies"
+  },
+  {
+    value: "6",
+    label: "Right of Way"
+  },
+  {
+    value: "7",
+    label: "Resettlement Action Plan"
+  }
+];

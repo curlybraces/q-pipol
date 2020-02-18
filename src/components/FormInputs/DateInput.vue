@@ -2,21 +2,23 @@
   <q-input
     v-model="model"
     mask="date"
-    placeholder="YYYY/MM/DD"
     :label="label"
     :dense="dense"
+    filled
     :hint="hint"
     stack-label
     outlined
+    readonly
+    label-color="orange-10"
   >
-    <template v-slot:prepend>
-      <q-icon name="event" class="cursor-pointer">
+    <template v-slot:append>
+      <q-icon name="event" color="orange-10" class="cursor-pointer">
         <q-popup-proxy
           ref="qDateProxy"
           transition-show="scale"
           transition-hide="scale"
         >
-          <q-date v-model="model" @input="handleInput" />
+          <q-date color="orange-10" v-model="model" @input="handleInput" />
         </q-popup-proxy>
       </q-icon>
     </template>

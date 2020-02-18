@@ -5,7 +5,6 @@
       :label="label"
       stack-label
       :dense="dense"
-      outlined
       @input="val => $emit('input', val)"
       :readonly="readonly"
       :rules="rules"
@@ -13,6 +12,8 @@
       clearable
       type="number"
       :suffix="suffix"
+      filled
+      label-color="orange-10"
     />
   </div>
 </template>

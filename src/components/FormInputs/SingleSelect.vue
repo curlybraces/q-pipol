@@ -17,11 +17,8 @@
     clearable
     :hint="hint"
     use-input
-  >
-    <template v-slot:prepend>
-      <q-icon name="swap_vert" />
-    </template>
-  </q-select>
+    label-color="orange-10"
+  />
 </template>
 
 <script>
@@ -51,7 +48,6 @@ export default {
   },
   methods: {
     handleInput() {
-      console.log(this.model);
       this.$emit("input", this.model);
     }
   }

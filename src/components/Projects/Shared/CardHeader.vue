@@ -1,8 +1,15 @@
 <template>
   <q-card-section>
-    <div class="text-h6">
-      <slot></slot>
-    </div>
+    <q-toolbar>
+      <q-avatar>
+        <q-icon name="edit" />
+      </q-avatar>
+      <q-toolbar-title>
+        <slot></slot>
+      </q-toolbar-title>
+      <q-space />
+      <slot name="right"></slot>
+    </q-toolbar>
   </q-card-section>
 </template>
 

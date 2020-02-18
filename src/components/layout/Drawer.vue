@@ -27,6 +27,7 @@
           expand-separator
           icon="list"
           label="Projects"
+          class="text-uppercase"
         >
           <q-item
             v-for="({ label, icon, url }, index) in submenu"
@@ -36,6 +37,7 @@
             :to="url"
             exact
             clickable
+            class="text-uppercase"
           >
             <q-item-section avatar>
               <q-icon :name="icon" />
@@ -45,7 +47,7 @@
         </q-expansion-item>
       </template>
       <template v-else>
-        <q-item :key="index" clickable :to="url" exact>
+        <q-item :key="index" clickable :to="url" exact class="text-uppercase">
           <q-item-section avatar>
             <q-icon :name="icon" />
           </q-item-section>

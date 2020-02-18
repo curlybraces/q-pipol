@@ -26,6 +26,10 @@
 
           <q-card-section class="q-pa-md">
             <q-form ref="loginForm" class="q-gutter-md" @submit="handleSubmit">
+              <div v-if="error" class="text-center text-red">
+                An error occurred: {{ errorMessage }}
+              </div>
+
               <q-input
                 outlined
                 placeholder="Full Name"
@@ -138,7 +142,9 @@ export default {
       username: null,
       password: null,
       tab: "login",
-      loading: false
+      loading: false,
+      error: false,
+      errorMessage: null
     };
   },
   methods: {
@@ -164,7 +170,8 @@ export default {
                 this.$router.push({ path: "/" });
               })
               .catch(err => {
-                console.log(err.message);
+                this.error = true;
+                this.errorMessage = err.message;
               })
               .finally(() => (this.loading = false));
           } else {

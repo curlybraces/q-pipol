@@ -8,6 +8,9 @@
     @input="handleInput"
     v-money="money"
     :dense="dense"
+    filled
+    label-color="orange-10"
+    :readonly="readonly"
   />
 </template>
 
@@ -16,7 +19,7 @@ import { VMoney } from "v-money";
 
 export default {
   name: "MoneyInput",
-  props: ["label", "value", "dense", "prefix"],
+  props: ["label", "value", "dense", "prefix", "readonly"],
   data() {
     return {
       money: {
@@ -24,7 +27,7 @@ export default {
         thousands: ",",
         prefix: "",
         suffix: "",
-        precision: 2,
+        precision: 0,
         masked: false /* doesn't work with directive */
       }
     };
