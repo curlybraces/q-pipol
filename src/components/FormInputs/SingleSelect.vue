@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     handleInput() {
-      console.log(this.model)
+      console.log(this.model);
       this.$emit("input", this.model);
     }
   }

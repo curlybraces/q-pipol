@@ -36,11 +36,11 @@ export default {
         `,
         result(data) {
           console.log("date from projectCreated: ", data);
-          const { id, title } = data.data.projectCreated;
+          const { title } = data.data.projectCreated;
           Notify.create({
             title: "New Project",
             message: `[NEW PROJECT] titled ${title} was created.`
-          })
+          });
         }
       },
       projectUpdated: {

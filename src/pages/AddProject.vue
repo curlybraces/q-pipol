@@ -67,20 +67,16 @@ export default {
         target_start_year: "",
         target_end_year: "",
         gad_score: "",
-        regions: [
-          {
-            id: "",
-            target_2016: "",
-            target_2017: "",
-            target_2018: "",
-            target_2019: "",
-            target_2020: "",
-            target_2021: "",
-            target_2022: "",
-            target_2023: "",
-            target_total: ""
-          }
-        ],
+        neda_submission: false,
+        neda_submission_date: "",
+        neda_secretariat_review: false,
+        neda_secretariat_review_date: "",
+        icc_endorsed: false,
+        icc_endorsed_date: "",
+        icc_approved: false,
+        icc_approved_date: "",
+        neda_board: false,
+        neda_board_date: "",
         updates: [
           {
             updates: "",
@@ -88,7 +84,7 @@ export default {
           }
         ]
       }
-    }
+    };
   }
 };
 </script>

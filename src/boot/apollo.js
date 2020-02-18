@@ -4,10 +4,10 @@
 import { ApolloClient } from "apollo-client";
 import { HttpLink } from "apollo-link-http";
 import { InMemoryCache } from "apollo-cache-inmemory";
-import { ApolloLink  } from "apollo-link";
+import { ApolloLink } from "apollo-link";
 import VueApollo from "vue-apollo";
 import { LocalStorage } from "quasar";
-import PusherLink from './pusher-link';
+import PusherLink from "./pusher-link";
 import Pusher from "pusher-js";
 
 // Pusher configuration

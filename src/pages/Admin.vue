@@ -73,7 +73,7 @@
                     dense
                     icon="verified_user"
                     color="green"
-                    @click="activateUser(user.id,user.active)"
+                    @click="activateUser(user.id, user.active)"
                     v-if="!user.active"
                   >
                     <q-tooltip>Activate User</q-tooltip>
@@ -170,19 +170,20 @@ export default {
         })
         .onOk(() => {
           this.loading = true;
-          this.$apollo.mutate({
-            mutation: ACTIVATE_USER,
-            variables: {
-              id: id,
-              active: !active
-            }
-          })
-          .then(data => {
-            console.log(data);
-          })
-          .catch(err => {
-            console.log(err);
-          })
+          this.$apollo
+            .mutate({
+              mutation: ACTIVATE_USER,
+              variables: {
+                id: id,
+                active: !active
+              }
+            })
+            .then(data => {
+              console.log(data);
+            })
+            .catch(err => {
+              console.log(err);
+            });
         });
     },
     selectAllUsers() {

@@ -21,7 +21,16 @@
 <script>
 export default {
   name: "TextInput",
-  props: ["type", "label", "dense", "value", "readonly", "rules", "maxlength", "hint"],
+  props: [
+    "type",
+    "label",
+    "dense",
+    "value",
+    "readonly",
+    "rules",
+    "maxlength",
+    "hint"
+  ],
   data() {
     return {
       model: null

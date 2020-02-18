@@ -594,7 +594,10 @@
             <th class="text-center">Date</th>
           </thead>
           <tbody>
-            <tr v-for="({updates, update_date}, index) in updates" :key="index">
+            <tr
+              v-for="({ updates, update_date }, index) in updates"
+              :key="index"
+            >
               <td>{{ index + 1 }}</td>
               <td class="text-center">{{ updates }}</td>
               <td class="text-center">{{ update_date }}</td>
@@ -612,12 +615,13 @@
 
 <script>
 import {
-  IMPLEMENTATION_BASES, 
-  STATUSES, 
+  IMPLEMENTATION_BASES,
+  STATUSES,
   TIERS,
-  TYPES, 
+  TYPES,
   TYPOLOGIES,
-  IMPLEMENTATION_MODES } from "../data/dropdown-values";
+  IMPLEMENTATION_MODES
+} from "../data/dropdown-values";
 import { OPERATING_UNITS } from "../data/operating_units.js";
 import { REGIONS_OPTIONS } from "../data/regions.js";
 import { PROVINCES_OPTIONS } from "../data/provinces.js";
@@ -684,7 +688,7 @@ export default {
           target_2016: 1000
         }
       ],
-      provinces: [1,2,3],
+      provinces: [1, 2, 3],
       target_start_year: null,
       target_end_year: null,
       implementation_start_date: null,
@@ -696,7 +700,7 @@ export default {
       trip: true,
       rdip: true,
       pcip: true,
-      bases: ["1","2"],
+      bases: ["1", "2"],
       tier_id: "1",
       typology_id: "1",
       project_status_id: "1",
@@ -812,8 +816,12 @@ export default {
         updates
       } = this.$data;
 
-      const financial_net_present_value_float = this.convertMoneyToFloat(financial_net_present_value);
-      const economic_net_present_value_float = this.convertMoneyToFloat(economic_net_present_value);
+      const financial_net_present_value_float = this.convertMoneyToFloat(
+        financial_net_present_value
+      );
+      const economic_net_present_value_float = this.convertMoneyToFloat(
+        economic_net_present_value
+      );
 
       this.$apollo
         .mutate({
@@ -930,8 +938,8 @@ export default {
       });
     },
     convertMoneyToFloat(val) {
-      const converted = val.replace(/^\W|,/g,"");
-    
+      const converted = val.replace(/^\W|,/g, "");
+
       return parseFloat(converted);
     },
     jumpTo(refName) {
@@ -950,12 +958,12 @@ export default {
       transitionShow: "fade",
       transitionHide: "fade"
     })
-    .onOk(() => {
-      next();
-    })
-    .onCancel(() => {
-      next(false);
-    });
+      .onOk(() => {
+        next();
+      })
+      .onCancel(() => {
+        next(false);
+      });
   }
 };
 </script>

@@ -575,7 +575,8 @@ export const IMPLEMENTATION_BASES = [
 export const IMPLEMENTATION_MODES = [
   {
     value: "1",
-    label: "Through Local Funds in accordance with RA 9184 or the Government Procurement Act"
+    label:
+      "Through Local Funds in accordance with RA 9184 or the Government Procurement Act"
   },
   {
     value: "2",

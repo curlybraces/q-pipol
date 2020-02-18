@@ -31,7 +31,7 @@ class PusherLink extends ApolloLink {
   }
 
   _getChannel(data, operation) {
-  	// console.log("getChannel: I am triggered")
+    // console.log("getChannel: I am triggered")
     return !!data.extensions &&
       !!data.extensions.lighthouse_subscriptions &&
       !!data.extensions.lighthouse_subscriptions.channels
@@ -46,7 +46,7 @@ class PusherLink extends ApolloLink {
     // console.log("pusherChannel: ", pusherChannel);
     // Subscribe for more update
     pusherChannel.bind("lighthouse-subscription", payload => {
-    	// console.log("payload of lighthouse-subscription: ", payload)
+      // console.log("payload of lighthouse-subscription: ", payload)
       if (!payload.more) {
         // This is the end, the server says to unsubscribe
         this.pusher.unsubscribe(subscriptionChannel);

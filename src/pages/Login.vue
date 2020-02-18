@@ -127,7 +127,6 @@ import { mapActions } from "vuex";
 import { laAtSolid } from "@quasar/extras/line-awesome";
 // import { LocalStorage } from "quasar";
 import { LOGIN_MUTATION, REGISTER_MUTATION } from "../constants/graphql";
-import { showErrorMessage } from "../functions/function-show-error-message";
 
 export default {
   name: "PageLogin",
@@ -165,7 +164,7 @@ export default {
                 this.$router.push({ path: "/" });
               })
               .catch(err => {
-                console.log("error in login");
+                console.log(err.message);
               })
               .finally(() => (this.loading = false));
           } else {

@@ -1,449 +1,445 @@
 <template>
-	<q-card square flat>
+  <q-card square flat>
+    <card-header>Add Project</card-header>
 
-		<card-header>Add Project</card-header>
+    <div class="q-pa-md q-gutter-md">
+      <q-item-label header>GENERAL INFORMATION</q-item-label>
 
-		<div class="q-pa-md q-gutter-md">
+      <div class="row justify-around">
+        <q-checkbox v-model="projectToSubmit.pip" :val="true">PIP</q-checkbox>
+        <q-checkbox v-model="projectToSubmit.cip" :val="true">CIP</q-checkbox>
+        <q-checkbox v-model="projectToSubmit.trip" :val="true">TRIP</q-checkbox>
+        <q-checkbox v-model="projectToSubmit.rdip" :val="true">RDIP</q-checkbox>
+        <q-checkbox v-model="projectToSubmit.pcip" :val="true">PCIP</q-checkbox>
+      </div>
 
-			<q-item-label header>GENERAL INFORMATION</q-item-label>
+      <text-input
+        v-model="projectToSubmit.title"
+        label="Program/Project Title"
+        :dense="dense"
+        hint="The title of the program or project"
+        maxlength="250"
+        required
+      />
 
-			<div class="row justify-around">
-				<q-checkbox v-model="projectToSubmit.pip" :val="true">PIP</q-checkbox>
-				<q-checkbox v-model="projectToSubmit.cip" :val="true">CIP</q-checkbox>
-				<q-checkbox v-model="projectToSubmit.trip" :val="true">TRIP</q-checkbox>
-				<q-checkbox v-model="projectToSubmit.rdip" :val="true">RDIP</q-checkbox>
-				<q-checkbox v-model="projectToSubmit.pcip" :val="true">PCIP</q-checkbox>
-			</div>
+      <q-option-group
+        v-model="projectToSubmit.type_id"
+        label="Type"
+        :options="TYPES"
+        inline
+        :dense="dense"
+      ></q-option-group>
 
-			<text-input
-				v-model="projectToSubmit.title"
-				label="Program/Project Title"
-				:dense="dense"
-				hint="The title of the program or project"
-				maxlength="250"
-				required
-			/>
+      <single-select
+        v-model="projectToSubmit.operating_unit_id"
+        label="Implementing Agency"
+        :dense="dense"
+        :options-dense="dense"
+        :options="OPERATING_UNITS"
+        hint="Proponent of the program/project"
+      />
 
-			<q-option-group
-				v-model="projectToSubmit.type_id"
-				label="Type"
-				:options="TYPES"
-				inline
-				:dense="dense"
-			></q-option-group>
+      <single-select
+        v-model="projectToSubmit.implementation_mode_id"
+        label="Implementation Mode"
+        :dense="dense"
+        :options-dense="dense"
+        :options="IMPLEMENTATION_MODES"
+      ></single-select>
 
-			<single-select
-				v-model="projectToSubmit.operating_unit_id"
-				label="Implementing Agency"
-				:dense="dense"
-				:options-dense="dense"
-				:options="OPERATING_UNITS"
-				hint="Proponent of the program/project"
-			/>
+      <single-select
+        v-model="projectToSubmit.tier_id"
+        label="Tier"
+        :dense="dense"
+        :options-dense="dense"
+        :options="TIERS"
+      ></single-select>
 
-			<single-select
-				v-model="projectToSubmit.implementation_mode_id"
-				label="Implementation Mode"
-				:dense="dense"
-				:options-dense="dense"
-				:options="IMPLEMENTATION_MODES"
-			></single-select>
+      <single-select
+        v-model="projectToSubmit.typology_id"
+        label="Typology"
+        :dense="dense"
+        :options-dense="dense"
+        :options="TYPOLOGIES"
+      ></single-select>
 
-			<single-select
-				v-model="projectToSubmit.tier_id"
-				label="Tier"
-				:dense="dense"
-				:options-dense="dense"
-				:options="TIERS"
-			></single-select>
+      <text-input
+        v-model="projectToSubmit.description"
+        label="Description"
+        type="textarea"
+        :dense="dense"
+        hint="Description of the program/project (e.g. location, components, design, etc.)"
+      />
 
-			<single-select
-				v-model="projectToSubmit.typology_id"
-				label="Typology"
-				:dense="dense"
-				:options-dense="dense"
-				:options="TYPOLOGIES"
-			></single-select>
+      <text-input
+        v-model="projectToSubmit.goals"
+        label="Goals"
+        type="textarea"
+        :dense="dense"
+      />
 
-			<text-input
-				v-model="projectToSubmit.description"
-				label="Description"
-				type="textarea"
-				:dense="dense"
-				hint="Description of the program/project (e.g. location, components, design, etc.)"
-			/>
+      <text-input
+        v-model="projectToSubmit.outcomes"
+        label="Outcomes"
+        type="textarea"
+        :dense="dense"
+        hint="Desired outcome of the program/project (e.g. Increase productivity)"
+      />
 
-			<text-input
-				v-model="projectToSubmit.goals"
-				label="Goals"
-				type="textarea"
-				:dense="dense"
-			/>
+      <text-input
+        v-model="projectToSubmit.purpose"
+        label="Purpose"
+        type="textarea"
+        :dense="dense"
+      />
 
-			<text-input
-				v-model="projectToSubmit.outcomes"
-				label="Outcomes"
-				type="textarea"
-				:dense="dense"
-				hint="Desired outcome of the program/project (e.g. Increase productivity)"
-			/>
+      <multi-select
+        label="Implementation Bases"
+        v-model="projectToSubmit.bases"
+        :options-dense="dense"
+        :options="IMPLEMENTATION_BASES"
+      ></multi-select>
 
-			<text-input
-				v-model="projectToSubmit.purpose"
-				label="Purpose"
-				type="textarea"
-				:dense="dense"
-			/>
+      <text-input
+        v-model="projectToSubmit.expected_outputs"
+        label="Expected Outputs"
+        type="textarea"
+        :dense="dense"
+        hint="Physical deliverables of the project (indicate unit)"
+      />
 
-			<multi-select
-				label="Implementation Bases"
-				v-model="projectToSubmit.bases"
-				:options-dense="dense"
-				:options="IMPLEMENTATION_BASES"
-			></multi-select>
+      <text-input
+        label="Beneficiaries"
+        v-model="projectToSubmit.beneficiaries"
+      />
 
-			<text-input
-				v-model="projectToSubmit.expected_outputs"
-				label="Expected Outputs"
-				type="textarea"
-				:dense="dense"
-				hint="Physical deliverables of the project (indicate unit)"
-			/>
+      <text-input
+        outlined
+        stack-label
+        label="Employment Generated"
+        v-model="projectToSubmit.employment_generated"
+      />
 
-			<text-input
-				label="Beneficiaries"
-				v-model="projectToSubmit.beneficiaries"
-			/>
+      <single-select
+        v-model="projectToSubmit.spatial_coverage_id"
+        label="Spatial Coverage"
+        :dense="dense"
+        :options-dense="dense"
+        :options="SPATIAL_COVERAGES"
+      />
 
-			<text-input
-				outlined
-				stack-label
-				label="Employment Generated"
-				v-model="projectToSubmit.employment_generated"
-			/>
+      <multi-select
+        v-model="projectToSubmit.provinces"
+        label="Province/s"
+        :options="filteredProvinces"
+        :dense="dense"
+        :options-dense="dense"
+        :readonly="projectToSubmit.spatial_coverage_id == '1'"
+      />
 
-			<single-select
-				v-model="projectToSubmit.spatial_coverage_id"
-				label="Spatial Coverage"
-				:dense="dense"
-				:options-dense="dense"
-				:options="SPATIAL_COVERAGES"
-			/>
+      <text-input
+        type="textarea"
+        label="Cities and Municipalities"
+        v-model="projectToSubmit.cities_municipalities"
+      />
 
-			<multi-select
-				v-model="projectToSubmit.provinces"
-				label="Province/s"
-				:options="filteredProvinces"
-				:dense="dense"
-				:options-dense="dense"
-				:readonly="projectToSubmit.spatial_coverage_id == '1'"
-			/>
+      <multi-select
+        label="Technical Readiness"
+        v-model="projectToSubmit.technical_readinesses"
+        :options="[]"
+      ></multi-select>
 
-			<text-input
-				type="textarea"
-				label="Cities and Municipalities"
-				v-model="projectToSubmit.cities_municipalities"
-			/>
+      <q-checkbox v-model="projectToSubmit.clearinghouse" :val="true"
+        >Approved by DA Clearinghouse</q-checkbox
+      >
 
-			<multi-select
-				label="Technical Readiness"
-				v-model="projectToSubmit.technical_readinesses"
-				:options="[]"
-			></multi-select>
+      <date-input
+        label="Date Approved by Clearinghouse Committee"
+        v-model="projectToSubmit.clearinghouse_date"
+      />
 
-			<q-checkbox v-model="projectToSubmit.clearinghouse" :val="true"
-				>Approved by DA Clearinghouse</q-checkbox
-			>
+      <single-select
+        v-model="projectToSubmit.target_start_year"
+        label="Target Start Year"
+        :options="YEARS"
+        :dense="dense"
+        :options-dense="dense"
+      >
+      </single-select>
 
-			<date-input
-				label="Date Approved by Clearinghouse Committee"
-				v-model="projectToSubmit.clearinghouse_date"
-			/>
+      <single-select
+        v-model="projectToSubmit.target_end_year"
+        label="Target Completion Year"
+        :options="YEARS"
+        :dense="dense"
+        :options-dense="dense"
+      >
+      </single-select>
 
-			<single-select
-				v-model="projectToSubmit.target_start_year"
-				label="Target Start Year"
-				:options="YEARS"
-				:dense="dense"
-				:options-dense="dense"
-			>
-			</single-select>
+      <date-input
+        v-model="projectToSubmit.implementation_start_date"
+        mask="date"
+        label="Implementation Start Date"
+        :dense="dense"
+        hint="Indicate what year the project is expected to start."
+      />
 
-			<single-select
-				v-model="projectToSubmit.target_end_year"
-				label="Target Completion Year"
-				:options="YEARS"
-				:dense="dense"
-				:options-dense="dense"
-			>
-			</single-select>
+      <date-input
+        v-model="projectToSubmit.implementation_end_date"
+        mask="date"
+        label="Implementation End Date"
+        :dense="dense"
+        hint="Indicate the date when the project is expected to start."
+      />
 
-			<date-input
-				v-model="projectToSubmit.implementation_start_date"
-				mask="date"
-				label="Implementation Start Date"
-				:dense="dense"
-				hint="Indicate what year the project is expected to start."
-			/>
+      <single-select
+        v-model="projectToSubmit.project_status_id"
+        label="Status"
+        :dense="dense"
+        :options-dense="dense"
+        :options="STATUSES"
+      />
 
-			<date-input
-				v-model="projectToSubmit.implementation_end_date"
-				mask="date"
-				label="Implementation End Date"
-				:dense="dense"
-				hint="Indicate the date when the project is expected to start."
-			/>
+      <number-input
+        label="GAD Score"
+        type="number"
+        v-model="projectToSubmit.gad_score"
+      />
 
-			<single-select
-				v-model="projectToSubmit.project_status_id"
-				label="Status"
-				:dense="dense"
-				:options-dense="dense"
-				:options="STATUSES"
-			/>
+      <money-input
+        label="Total Project Cost"
+        outlined
+        prefix="PhP"
+        v-model="projectToSubmit.total_project_cost"
+        :dense="dense"
+        hint="Indicative project cost in absolute PhP"
+      ></money-input>
 
-			<number-input
-				label="GAD Score"
-				type="number"
-				v-model="projectToSubmit.gad_score"
-			/>
+      <text-input
+        label="Implementation Risks"
+        type="textarea"
+        v-model="projectToSubmit.implementation_risk"
+      />
 
-			<money-input
-				label="Total Project Cost"
-				outlined
-				prefix="PhP"
-				v-model="projectToSubmit.total_project_cost"
-				:dense="dense"
-				hint="Indicative project cost in absolute PhP"
-			></money-input>
+      <text-input
+        label="Mitigation Strategies"
+        type="textarea"
+        v-model="projectToSubmit.mitigation_strategy"
+      />
 
-			<text-input
-				label="Implementation Risks"
-				type="textarea"
-				v-model="projectToSubmit.implementation_risk"
-			/>
+      <text-input
+        label="Updates"
+        type="textarea"
+        v-model="projectToSubmit.updates[0].updates"
+      />
 
-			<text-input
-				label="Mitigation Strategies"
-				type="textarea"
-				v-model="projectToSubmit.mitigation_strategy"
-			/>
+      <date-input
+        label="As Date"
+        v-model="projectToSubmit.updates[0].update_date"
+      ></date-input>
 
-			<text-input
-				label="Updates"
-				type="textarea"
-				v-model="projectToSubmit.updates[0].updates"
-			/>
+      <q-item-label header>CIP Processing Status</q-item-label>
 
-			<date-input
-				label="As Date"
-				v-model="projectToSubmit.updates[0].update_date"
-			></date-input>
+	    <q-checkbox v-model="projectToSubmit.neda_submission" :val="true"
+	      >NEDA Submission</q-checkbox
+	    >
+	    <q-input outlined type="date" v-model="projectToSubmit.neda_submission_date"></q-input>
+	    <q-checkbox v-model="projectToSubmit.neda_secretariat_review" :val="true"
+	      >NEDA Secretariat Review</q-checkbox
+	    >
+	    <q-input
+	      outlined
+	      type="date"
+	      v-model="projectToSubmit.neda_secretariat_review_date"
+	    ></q-input>
+	    <q-checkbox v-model="projectToSubmit.icc_endorsed" :val="true">ICC Endorsed</q-checkbox>
+	    <date-input label="ICC (Date of Endorsement)" v-model="projectToSubmit.icc_endorsed_date" />
+	    <q-checkbox v-model="projectToSubmit.icc_approved" :val="true">ICC Approved</q-checkbox>
+	    <date-input label="ICC (Date of Approval)" v-model="projectToSubmit.icc_approved_date" />
+	    <q-checkbox v-model="projectToSubmit.neda_board" :val="true">NEDA Board</q-checkbox>
+	    <q-input outlined type="date" v-model="projectToSubmit.neda_board_date"></q-input>
 
-			<money-input
-				label="Financial Net Present Value (FNPV)"
-				v-model="projectToSubmit.financial_net_present_value"
-				:dense="dense"
-			></money-input>
+      <money-input
+        label="Financial Net Present Value (FNPV)"
+        v-model="projectToSubmit.financial_net_present_value"
+        :dense="dense"
+      ></money-input>
 
-			<number-input
-				label="Financial Benefit-Cost Ratio (FBCR)"
-				v-model="projectToSubmit.financial_benefit_cost_ratio"
-				:dense="dense"
-				hint="Indicative project cost in absolute PhP"
-			/>
+      <number-input
+        label="Financial Benefit-Cost Ratio (FBCR)"
+        v-model="projectToSubmit.financial_benefit_cost_ratio"
+        :dense="dense"
+        hint="Indicative project cost in absolute PhP"
+      />
 
-			<number-input
-				label="Financial Internal Rate of Return (FIRR)"
-				v-model="projectToSubmit.financial_internal_rate_return"
-				:dense="dense"
-				suffix="%"
-			/>
+      <number-input
+        label="Financial Internal Rate of Return (FIRR)"
+        v-model="projectToSubmit.financial_internal_rate_return"
+        :dense="dense"
+        suffix="%"
+      />
 
-			<money-input
-				label="Economic Net Present Value (ENPV)"
-				v-model="projectToSubmit.economic_net_present_value"
-				:dense="dense"
-				hint="Indicative project cost in absolute PhP"
-			></money-input>
+      <money-input
+        label="Economic Net Present Value (ENPV)"
+        v-model="projectToSubmit.economic_net_present_value"
+        :dense="dense"
+        hint="Indicative project cost in absolute PhP"
+      ></money-input>
 
-			<number-input
-				label="Economic Benefit-Cost Ratio (EBCR)"
-				v-model="projectToSubmit.economic_benefit_cost_ratio"
-				:dense="dense"
-				hint="Indicative project cost in absolute PhP"
-			/>
+      <number-input
+        label="Economic Benefit-Cost Ratio (EBCR)"
+        v-model="projectToSubmit.economic_benefit_cost_ratio"
+        :dense="dense"
+        hint="Indicative project cost in absolute PhP"
+      />
 
-			<number-input
-				label="Economic Internal Rate Return (EIRR)"
-				v-model="projectToSubmit.economic_internal_rate_return"
-				:dense="dense"
-				suffix="%"
-			/>
+      <number-input
+        label="Economic Internal Rate Return (EIRR)"
+        v-model="projectToSubmit.economic_internal_rate_return"
+        :dense="dense"
+        suffix="%"
+      />
 
-			<q-btn @click="addRegion" label="Add Region" color="primary"/>
+      <q-btn @click="addRegion" label="Add Region" color="primary" />
 
-			<q-markup-table>
-				<thead>
-					<th>Region</th>
-					<th>2016</th>
-					<th>2017</th>
-					<th>2018</th>
-					<th>2019</th>
-					<th>2020</th>
-					<th>2021</th>
-					<th>2022</th>
-					<th>2023</th>
-					<th>Total</th>
-				</thead>
-				<tbody>
-					<template v-if="projectToSubmit.regions.length > 1">
-						<tr v-for="region in projectToSubmit.regions" :key="region.id">
-							<th>{{ region.id }}</th>
-							<th>{{ region.target_2016 }}</th>
-							<th>{{ region.target_2017 }}</th>
-							<th>{{ region.target_2018 }}</th>
-							<th>{{ region.target_2019 }}</th>
-							<th>{{ region.target_2020 }}</th>
-							<th>{{ region.target_2021 }}</th>
-							<th>{{ region.target_2022 }}</th>
-							<th>{{ region.target_2023 }}</th>
-							<th>{{ region.target_total }}</th>
-						</tr>
-					</template>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-				</tbody>
-			</q-markup-table>
+      <q-markup-table
+        v-if="projectToSubmit.regions.length"
+        flat
+        bordered
+        separator="cell"
+      >
+        <thead>
+          <th>Region</th>
+          <th>2016</th>
+          <th>2017</th>
+          <th>2018</th>
+          <th>2019</th>
+          <th>2020</th>
+          <th>2021</th>
+          <th>2022</th>
+          <th>2023</th>
+          <th>Total</th>
+        </thead>
+        <tbody>
+          <tr
+            v-for="region in projectToSubmit.regions"
+            :key="region.item.value"
+          >
+            <th>{{ region.item.label }}</th>
+            <th>{{ region.target_2016 }}</th>
+            <th>{{ region.target_2017 }}</th>
+            <th>{{ region.target_2018 }}</th>
+            <th>{{ region.target_2019 }}</th>
+            <th>{{ region.target_2020 }}</th>
+            <th>{{ region.target_2021 }}</th>
+            <th>{{ region.target_2022 }}</th>
+            <th>{{ region.target_2023 }}</th>
+            <th>{{ region.target_total }}</th>
+          </tr>
+        </tbody>
+      </q-markup-table>
 
-			<q-dialog v-model="addRegionDialog">
-				<q-card>
-					<div style="width:480px;" class="q-pa-md q-gutter-md">
-						<q-input label="Region" v-model="newRegion"></q-input>
-						<q-input label="2016" v-model="newTarget2016"></q-input>
-						<q-input label="2017" v-model="newTarget2017"></q-input>
-						<q-input label="2018" v-model="newTarget2018"></q-input>
-						<q-input label="2019" v-model="newTarget2019"></q-input>
-						<q-input label="2020" v-model="newTarget2020"></q-input>
-						<q-input label="2021" v-model="newTarget2021"></q-input>
-						<q-input label="2022" v-model="newTarget2022"></q-input>
-						<q-input label="2023" v-model="newTarget2023"></q-input>
-						<q-input label="Total" v-model="newTargetTotal"></q-input>
-						<div class="q-ml-md">
-							<q-btn class="full-width" color="primary" @click="addToRegionalData">Add</q-btn>
-						</div>
-					</div>
-				</q-card>
-			</q-dialog>
+      <q-dialog persistent v-model="addRegionDialog">
+        <add-item
+          :item.sync="regionToAdd"
+          @add="addToRegion"
+          @close="addRegionDialog = false"
+        />
+      </q-dialog>
+    </div>
 
-		</div>
-
-		<card-actions>Actions</card-actions>
-	</q-card>
+    <card-actions>Actions</card-actions>
+  </q-card>
 </template>
 
 <script>
 import {
-	IMPLEMENTATION_BASES,
-	IMPLEMENTATION_MODES,
-	SPATIAL_COVERAGES,
-	STATUSES,
-	TIERS,
-	TYPES,
-	TYPOLOGIES,
-	OPERATING_UNITS,
-	YEARS
-	} from "../../data/dropdown-values";
+  IMPLEMENTATION_BASES,
+  IMPLEMENTATION_MODES,
+  SPATIAL_COVERAGES,
+  STATUSES,
+  TIERS,
+  TYPES,
+  TYPOLOGIES,
+  OPERATING_UNITS,
+  YEARS
+} from "../../data/dropdown-values";
 
 export default {
-	components: {
-		"card-header": () => import("./Shared/CardHeader.vue"),
-		"card-actions": () => import("./Shared/CardActions.vue"),
-		"single-select": () => import("../FormInputs/SingleSelect.vue"),
-		"multi-select": () => import("../FormInputs/MultiSelect.vue"),
-		"date-input": () => import("../FormInputs/DateInput.vue"),
-		"money-input": () => import("../FormInputs/MoneyInput.vue"),
-		"number-input": () => import("../FormInputs/NumberInput.vue"),
-		"text-input": () => import("../FormInputs/TextInput.vue")
-	},
-	name: "AddProject",
-	props: ["project"],
-	data() {
-		return {
-			IMPLEMENTATION_BASES,
-			IMPLEMENTATION_MODES,
-			OPERATING_UNITS,
-			SPATIAL_COVERAGES,
-			STATUSES,
-			TIERS,
-			TYPES,
-			TYPOLOGIES,
-			YEARS,
-			filteredProvinces: [],
-			dense: false,
-			addRegionDialog: true,
-			newRegion: "",
-			newTarget2016: "",
-			newTarget2017: "",
-			newTarget2018: "",
-			newTarget2019: "",
-			newTarget2020: "",
-			newTarget2021: "",
-			newTarget2022: "",
-			newTarget2023: "",
-			newTargetTotal: ""
-		}
-	},
-	computed: {
-		projectToSubmit: {
-			get() {
-				return this.project;
-			},
-			set(projectToSubmit) {
-				this.$emit('update',projectToSubmit);
-			}
-		}
-	},
-	methods: {
-		addRegion() {
-			console.log("add region");
-			this.addRegionDialog = true;
-		},
-		addToRegionalData() {
-			const { newRegion,
-			newTarget2016,
-			newTarget2017,
-			newTarget2018,
-			newTarget2019,
-			newTarget2020,
-			newTarget2021,
-			newTarget2022,
-			newTarget2023,
-			newTargetTotal } = this.$data;
-
-			this.projectToSubmit.regions.push({
-				id: newRegion,
-				target_2016: newTarget2016,
-				target_2017: newTarget2017,
-				target_2018: newTarget2018,
-				target_2019: newTarget2019,
-				target_2020: newTarget2020,
-				target_2021: newTarget2021,
-				target_2022: newTarget2022,
-				target_2023: newTarget2023,
-				target_total: newTargetTotal
-			})
-		}
-	}
-}
+  components: {
+    "card-header": () => import("./Shared/CardHeader.vue"),
+    "card-actions": () => import("./Shared/CardActions.vue"),
+    "single-select": () => import("../FormInputs/SingleSelect.vue"),
+    "multi-select": () => import("../FormInputs/MultiSelect.vue"),
+    "date-input": () => import("../FormInputs/DateInput.vue"),
+    "money-input": () => import("../FormInputs/MoneyInput.vue"),
+    "number-input": () => import("../FormInputs/NumberInput.vue"),
+    "text-input": () => import("../FormInputs/TextInput.vue"),
+    "add-item": () => import("./Shared/AddItem.vue")
+  },
+  name: "AddProject",
+  props: ["project"],
+  data() {
+    return {
+      IMPLEMENTATION_BASES,
+      IMPLEMENTATION_MODES,
+      OPERATING_UNITS,
+      SPATIAL_COVERAGES,
+      STATUSES,
+      TIERS,
+      TYPES,
+      TYPOLOGIES,
+      YEARS,
+      filteredProvinces: [],
+      dense: false,
+      addRegionDialog: false,
+      newRegion: "",
+      newTarget2016: "",
+      newTarget2017: "",
+      newTarget2018: "",
+      newTarget2019: "",
+      newTarget2020: "",
+      newTarget2021: "",
+      newTarget2022: "",
+      newTarget2023: "",
+      newTargetTotal: "",
+      regionToAdd: {
+        item: {
+          label: "",
+          value: ""
+        },
+        target_2016: "",
+        target_2017: "",
+        target_2018: "",
+        target_2019: "",
+        target_2020: "",
+        target_2021: "",
+        target_2022: "",
+        target_2023: "",
+        target_total: ""
+      }
+    };
+  },
+  computed: {
+    projectToSubmit: {
+      get() {
+        return this.project;
+      },
+      set(projectToSubmit) {
+        this.$emit("update", projectToSubmit);
+      }
+    }
+  },
+  methods: {
+    addRegion() {
+      this.addRegionDialog = true;
+    },
+    addToRegion() {
+      this.projectToSubmit.regions.push({
+        ...this.regionToAdd
+      });
+      this.addRegionDialog = false;
+    }
+  }
+};
 </script>

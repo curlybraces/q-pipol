@@ -18,7 +18,7 @@ export const LOGIN_MUTATION = gql`
           }
           position
           unit
-        },
+        }
         notifications
         unreadNotifications
       }
@@ -51,14 +51,8 @@ export const REGISTER_MUTATION = gql`
 `;
 
 export const ACTIVATE_USER = gql`
-  mutation activateUser(
-    $id:ID!
-    $active:Boolean!
-  ) {
-    activateUser(input: {
-      id:$id
-      active:$active
-    }) {
+  mutation activateUser($id: ID!, $active: Boolean!) {
+    activateUser(input: { id: $id, active: $active }) {
       status
       message
     }
@@ -335,26 +329,20 @@ export const CREATE_PROJECT = gql`
   }
 `;
 
-export const VIEW_PROJECT = gql`query project($id: ID!) {
-  project(id: $id) {
-    id
-    title
+export const VIEW_PROJECT = gql`
+  query project($id: ID!) {
+    project(id: $id) {
+      id
+      title
+    }
   }
-}
 `;
 
-export const UPDATE_PROJECT = gql`mutation updateProject(
-  $id: ID!
-  $title: String
-) {
-  updateProject(
-    input: {
-      id: $id
-      title: $title
+export const UPDATE_PROJECT = gql`
+  mutation updateProject($id: ID!, $title: String) {
+    updateProject(input: { id: $id, title: $title }) {
+      id
+      title
     }
-  ) {
-    id
-    title
   }
-}
 `;
