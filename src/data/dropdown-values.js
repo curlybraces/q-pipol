@@ -1838,107 +1838,107 @@ export const OPERATING_UNITS = [
     label: "BPI"
   },
   {
-    value: "22",
+    value: 22,
     name: "Bureau of Soils and Water Management",
     label: "BSWM"
   },
   {
-    value: "23",
+    value: 23,
     name: "Bureau of Agricultural and Fisheries Engineering",
     label: "BAFE"
   },
   {
-    value: "24",
+    value: 24,
     name: "Agricultural Credit Policy Council ",
     label: "ACPC"
   },
   {
-    value: "25",
+    value: 25,
     name: "BFAR Central Office",
     label: "BFAR"
   },
   {
-    value: "26",
+    value: 26,
     name: "Fertilizer and Pesticvaluee Authority ",
     label: "FPA"
   },
   {
-    value: "27",
+    value: 27,
     name: "National Fisheries Research and Development Institute ",
     label: "NFRDI"
   },
   {
-    value: "28",
+    value: 28,
     name: "National Meat Inspection Service ",
     label: "NMIS"
   },
   {
-    value: "29",
+    value: 29,
     name: "Philippine Rubber Research Institute",
     label: "PRRI"
   },
   {
-    value: "30",
+    value: 30,
     name: "Philippine Carabao Center ",
     label: "PCC"
   },
   {
-    value: "31",
+    value: 31,
     name: "Philippine Center for Post-Harvest Development and Mechanization",
     label: "PHilMech"
   },
   {
-    value: "32",
+    value: 32,
     name: "Philippine Council for Agriculture and Fisheries",
     label: "PCAF"
   },
   {
-    value: "33",
+    value: 33,
     name: "Philippine Fiber Industry Development Authority ",
     label: "PhilFIDA"
   },
   {
-    value: "34",
+    value: 34,
     name: "National Dairy Authority",
     label: "NDA"
   },
   {
-    value: "35",
+    value: 35,
     name: "National Food Authority",
     label: "NFA"
   },
   {
-    value: "36",
+    value: 36,
     name: "National Irrigation Administration",
     label: "NIA"
   },
   {
-    value: "37",
+    value: 37,
     name: "National Tobacco Administration",
     label: "NTA"
   },
   {
-    value: "38",
+    value: 38,
     name: "Philippine Coconut Authority",
     label: "PCA"
   },
   {
-    value: "39",
+    value: 39,
     name: "Philippine Crop Insurance Corporation",
     label: "PCIC"
   },
   {
-    value: "40",
+    value: 40,
     name: "Philippine Fisheries Development Authority",
     label: "PFDA"
   },
   {
-    value: "41",
+    value: 41,
     name: "Philippine Rice Research Institute",
     label: "PhilRice"
   },
   {
-    value: "42",
+    value: 42,
     name: "Sugar Regulatory Administration",
     label: "SRA"
   }

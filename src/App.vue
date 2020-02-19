@@ -17,6 +17,7 @@ import { mapState, mapActions } from "vuex";
 import CookieLaw from "vue-cookie-law";
 import gql from "graphql-tag";
 import { Notify } from "quasar";
+import { ME } from "./constants/graphql";
 
 export default {
   components: {
@@ -66,28 +67,22 @@ export default {
     if (!this.userLoaded) {
       this.$apollo
         .query({
-          query: gql`
-            query {
-              me {
-                name
-                email
-                profile {
-                  operating_unit {
-                    name
-                    image
-                  }
-                  unit
-                  position
-                }
-                roles {
-                  name
-                }
-              }
-            }
-          `
+          query: ME
         })
-        .then(res => this.populateUser(res.data.me))
-        .catch(err => console.log(err.message));
+        .then(res => {
+          if (res.data.errors) {
+            return Promise.reject(res.data.errors);
+          }
+          this.populateUser(res.data.me);
+        })
+        .catch(err => {
+          // if (err.errors[0].debugMessage == "Unauthenticated.") {
+          //   alert("You are not logged in");
+          // } else {
+          //   alert("Unknown error");
+          // }
+          console.log(err);
+        });
     }
   }
 };

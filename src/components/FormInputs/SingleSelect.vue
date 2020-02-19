@@ -38,7 +38,7 @@ export default {
       default: false
     },
     options: Array,
-    value: String,
+    value: [String, Number],
     hint: { type: String }
   },
   data() {

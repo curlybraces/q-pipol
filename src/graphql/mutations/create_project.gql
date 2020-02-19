@@ -52,7 +52,8 @@ mutation createProject(
   $feasibility_study: CreateFeasibilityStudyBelongsTo
   $right_of_way: CreateRightOfWayBelongsTo
   $resettlement_action_plan: CreateResettlementActionPlanBelongsTo
-  $updates: CreateUpdatesHasMany
+  $updates: String
+  $updates_date: String
 ) {
   createProject(
     input: {
@@ -256,10 +257,8 @@ mutation createProject(
       affected_2021
       affected_2022
     }
-    updates {
-      updates
-      date
-    }
+    updates
+    updates_date
     created_by {
       name
     }

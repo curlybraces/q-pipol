@@ -9,7 +9,7 @@
       :variables="{ id: $route.params.id }"
     >
       <template
-        v-slot="{
+        slot-scope="{
           result: {
             data: { project }
           }
@@ -19,84 +19,263 @@
         <q-form class="q-pa-md q-gutter-md">
           <q-item-label header>GENERAL INFORMATION</q-item-label>
 
-          <div class="row justify-around">
-            <checkbox-input v-model="project.pip" label="PIP" />
-            <checkbox-input v-model="project.cip" label="CIP" />
-            <checkbox-input v-model="project.trip" label="TRIP" />
-            <checkbox-input v-model="project.rdip" label="RDIP" />
-            <checkbox-input v-model="project.pcip" label="PCIP" />
-          </div>
+          <q-card>
+            <q-card-section>
+              Programming Documents
+            </q-card-section>
+            <div class="row justify-around">
+              <checkbox-input v-model="project.pip" label="PIP" />
+              <checkbox-input v-model="project.cip" label="CIP" />
+              <checkbox-input v-model="project.trip" label="TRIP" />
+              <checkbox-input v-model="project.rdip" label="RDIP" />
+              <checkbox-input v-model="project.pcip" label="PCIP" />
+            </div>
+          </q-card>
 
-          <text-input
-            v-model="project.title"
-            label="Program/Project Title"
-            :dense="dense"
-            hint="The title of the program or project"
-            maxlength="250"
-            required
-          />
+          <q-card class="q-pa-md q-gutter-y-md">
+            <q-card-section class="text-weight-bolder">
+              General Information
+            </q-card-section>
 
-          <q-option-group
-            v-model="project.type_id"
-            label="Type"
-            :options="TYPES"
-            inline
-            :dense="dense"
-            color="orange-10"
-          ></q-option-group>
+            <text-input
+              v-model="project.title"
+              label="Program/Project Title"
+              :dense="dense"
+              hint="The title of the program or project"
+              maxlength="250"
+              required
+            />
 
-          <single-select
-            v-model="project.operating_unit_id"
-            label="Implementing Agency"
-            :dense="dense"
-            :options-dense="dense"
-            :options="OPERATING_UNITS"
-            hint="Proponent of the program/project"
-          />
+            <q-option-group
+              v-model="project.type_id"
+              label="Type"
+              :options="TYPES"
+              inline
+              :dense="dense"
+              color="orange-10"
+            ></q-option-group>
 
-          <single-select
-            v-model="project.tier_id"
-            label="Tier"
-            :dense="dense"
-            :options-dense="dense"
-            :options="TIERS"
-          ></single-select>
+            <single-select
+              v-model="project.operating_unit_id"
+              label="Implementing Agency"
+              :dense="dense"
+              :options-dense="dense"
+              :options="OPERATING_UNITS"
+              hint="Proponent of the program/project"
+            />
 
-          <single-select
-            v-model="project.implementation_mode_id"
-            label="Implementation Mode"
-            :dense="dense"
-            :options-dense="dense"
-            :options="IMPLEMENTATION_MODES"
-          ></single-select>
+            <text-input
+              v-model="project.description"
+              label="Description"
+              type="textarea"
+            />
 
-          <single-select
-            v-model="project.spatial_coverage_id"
-            label="Spatial Coverage"
-            :dense="dense"
-            :options-dense="dense"
-            :options="SPATIAL_COVERAGES"
-          ></single-select>
+            <text-input v-model="project.goals" label="Goals" type="textarea" />
 
-          <text-input
-            v-model="project.cities_municipalities"
-            label="Cities and Municipalities"
-            type="textarea"
-          />
+            <text-input
+              v-model="project.outcomes"
+              label="Outcomes"
+              type="textarea"
+            />
 
-          <text-input
-            v-model="project.description"
-            label="Description"
-            type="textarea"
-          />
+            <text-input
+              v-model="project.purpose"
+              label="Purpose"
+              type="textarea"
+            />
 
-          <text-input v-model="project.goals" label="Goals" type="textarea" />
+            <text-input
+              v-model="project.expected_outputs"
+              label="Expected Outputs"
+              type="textarea"
+            />
+          </q-card>
 
-          <text-input
-            v-model="project.outcomes"
-            label="Outcomes"
-            type="textarea"
-          />
+          <q-card class="q-pa-md q-gutter-y-md">
+            <q-card-section class="text-weight-bolder">
+              Categorization
+            </q-card-section>
+          </q-card>
+
+          <q-card class="q-pa-md q-gutter-y-md">
+            <q-card-section>
+              Spatial Coverage
+            </q-card-section>
+
+            <single-select
+              v-model="project.spatial_coverage_id"
+              label="Spatial Coverage"
+              :dense="dense"
+              :options-dense="dense"
+              :options="SPATIAL_COVERAGES"
+            ></single-select>
+
+            <text-input
+              v-model="project.cities_municipalities"
+              label="Cities and Municipalities"
+              type="textarea"
+            />
+          </q-card>
+
+          <q-card class="q-pa-md q-gutter-y-md">
+            <q-card-section class="text-weight-bolder">
+              Project Status
+            </q-card-section>
+
+            <single-select
+              v-model="project.project_status_id"
+              label="Status of the Project"
+              :dense="dense"
+              :options-dense="dense"
+              :options="STATUSES"
+            ></single-select>
+
+            <text-input
+              v-model="project.cities_municipalities"
+              label="Cities and Municipalities"
+              type="textarea"
+            />
+          </q-card>
+
+          <q-card class="q-pa-md q-gutter-y-md">
+            <q-card-section class="text-weight-bolder">
+              Financial Information
+            </q-card-section>
+
+            <single-select
+              v-model="project.tier_id"
+              label="Budget Tier"
+              :dense="dense"
+              :options-dense="dense"
+              :options="TIERS"
+            ></single-select>
+
+            <single-select
+              v-model="project.implementation_mode_id"
+              label="Implementation Mode"
+              :dense="dense"
+              :options-dense="dense"
+              :options="IMPLEMENTATION_MODES"
+            ></single-select>
+          </q-card>
+
+          <q-card class="q-pa-md q-gutter-y-md">
+            <q-card-section class="text-weight-bolder">
+              Physical &amp; Financial Accomplishments
+            </q-card-section>
+
+            <single-select
+              v-model="project.tier_id"
+              label="Budget Tier"
+              :dense="dense"
+              :options-dense="dense"
+              :options="TIERS"
+            ></single-select>
+
+            <text-input
+              class="col-9"
+              label="Updates"
+              type="textarea"
+              v-model="project.updates"
+            />
+
+            <date-input
+              class="col-3"
+              label="As of Date"
+              v-model="project.updates_date"
+            ></date-input>
+
+            <q-markup-table
+              flat
+              bordered
+              separator="cell"
+              v-if="
+                project.total_investment &&
+                  project.total_investment !== 'undefined'
+              "
+            >
+              <thead>
+                <th style="width:25%">Year</th>
+                <th style="width:25%">NEP</th>
+                <th style="width:25%">GAA</th>
+                <th style="width:25%">Disbursement</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="text-center">2017</td>
+                  <td class="text-right">
+                    {{ project.total_investment.nep_2017 }}
+                  </td>
+                  <td class="text-right">
+                    {{ project.total_investment.gaa_2017 }}
+                  </td>
+                  <td class="text-right">
+                    {{ project.total_investment.disbursement_2017 }}
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-center">2018</td>
+                  <td class="text-right">
+                    {{ project.total_investment.nep_2018 }}
+                  </td>
+                  <td class="text-right">
+                    {{ project.total_investment.gaa_2018 }}
+                  </td>
+                  <td class="text-right">
+                    {{ project.total_investment.disbursement_2018 }}
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-center">2019</td>
+                  <td class="text-right">
+                    {{ project.total_investment.nep_2019 }}
+                  </td>
+                  <td class="text-right">
+                    {{ project.total_investment.gaa_2019 }}
+                  </td>
+                  <td class="text-right">
+                    {{ project.total_investment.disbursement_2019 }}
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-center">2020</td>
+                  <td class="text-right">
+                    {{ project.total_investment.nep_2020 }}
+                  </td>
+                  <td class="text-right">
+                    {{ project.total_investment.gaa_2020 }}
+                  </td>
+                  <td class="text-right">
+                    {{ project.total_investment.disbursement_2020 }}
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-center">2021</td>
+                  <td class="text-right">
+                    {{ project.total_investment.nep_2021 }}
+                  </td>
+                  <td class="text-right">
+                    {{ project.total_investment.gaa_2021 }}
+                  </td>
+                  <td class="text-right">
+                    {{ project.total_investment.disbursement_2021 }}
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-center">2022</td>
+                  <td class="text-right">
+                    {{ project.total_investment.nep_2022 }}
+                  </td>
+                  <td class="text-right">
+                    {{ project.total_investment.gaa_2022 }}
+                  </td>
+                  <td class="text-right">
+                    {{ project.total_investment.disbursement_2022 }}
+                  </td>
+                </tr>
+              </tbody>
+            </q-markup-table>
+          </q-card>
         </q-form>
       </template>
     </ApolloQuery>
@@ -127,7 +306,7 @@ export default {
     "card-actions": () => import("./Shared/CardActions.vue"),
     "single-select": () => import("../FormInputs/SingleSelect.vue"),
     // "multi-select": () => import("../FormInputs/MultiSelect.vue"),
-    // "date-input": () => import("../FormInputs/DateInput.vue"),
+    "date-input": () => import("../FormInputs/DateInput.vue"),
     // "money-input": () => import("../FormInputs/MoneyInput.vue"),
     // "number-input": () => import("../FormInputs/NumberInput.vue"),
     "text-input": () => import("../FormInputs/TextInput.vue"),

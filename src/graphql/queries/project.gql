@@ -183,10 +183,8 @@ query project($id: ID!) {
       disbursement_2021
       disbursement_2022
     }
-    updates {
-      updates
-      update_date
-    }
+    updates
+    updates_date
     created_by {
       name
     }

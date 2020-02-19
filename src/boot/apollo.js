@@ -61,19 +61,19 @@ const apolloClient = new ApolloClient({
 });
 
 export const apolloProvider = new VueApollo({
-  defaultClient: apolloClient,
-  errorHandler({ graphQLErrors, networkError }) {
-    if (graphQLErrors) {
-      graphQLErrors.map(({ message, locations, path }) =>
-        console.log(
-          `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-        )
-      );
-    }
-    if (networkError) {
-      console.log(`[Network error]: ${networkError}`);
-    }
-  }
+  defaultClient: apolloClient
+  // errorHandler({ graphQLErrors, networkError }) {
+  //   if (graphQLErrors) {
+  //     graphQLErrors.map(({ message, locations, path }) =>
+  //       console.log(
+  //         `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+  //       )
+  //     );
+  //   }
+  //   if (networkError) {
+  //     console.log(`[Network error]: ${networkError}`);
+  //   }
+  // }
 });
 
 export default ({ app, Vue }) => {

@@ -59,6 +59,26 @@ export const ACTIVATE_USER = gql`
   }
 `;
 
+export const ME = gql`
+  query me {
+    me {
+      name
+      email
+      profile {
+        operating_unit {
+          name
+          image
+        }
+        unit
+        position
+      }
+      roles {
+        name
+      }
+    }
+  }
+`;
+
 export const CREATE_PROJECT = gql`
   mutation createProject(
     $pipol_url: String
