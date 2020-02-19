@@ -333,6 +333,7 @@ export const VIEW_PROJECT = gql`
   query project($id: ID!) {
     project(id: $id) {
       id
+      title
       pip
       cip
       trip
@@ -343,11 +344,13 @@ export const VIEW_PROJECT = gql`
         name
       }
       cities_municipalities
+      implementation_mode_id
       implementation_mode {
         id
       }
       regions {
         id
+        name
         pivot {
           target_2016
           target_2017

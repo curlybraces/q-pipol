@@ -661,11 +661,11 @@ export const NEW_THINKINGS = [
 export const TYPES = [
   {
     label: "Program",
-    value: "1"
+    value: 1
   },
   {
     label: "Project",
-    value: "2"
+    value: 2
   }
 ];
 
