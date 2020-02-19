@@ -55,6 +55,14 @@
           />
 
           <single-select
+            v-model="project.tier_id"
+            label="Tier"
+            :dense="dense"
+            :options-dense="dense"
+            :options="TIERS"
+          ></single-select>
+
+          <single-select
             v-model="project.implementation_mode_id"
             label="Implementation Mode"
             :dense="dense"
@@ -63,12 +71,32 @@
           ></single-select>
 
           <single-select
-            v-model="project.tier_id"
-            label="Tier"
+            v-model="project.spatial_coverage_id"
+            label="Spatial Coverage"
             :dense="dense"
             :options-dense="dense"
-            :options="TIERS"
+            :options="SPATIAL_COVERAGES"
           ></single-select>
+
+          <text-input
+            v-model="project.cities_municipalities"
+            label="Cities and Municipalities"
+            type="textarea"
+          />
+
+          <text-input
+            v-model="project.description"
+            label="Description"
+            type="textarea"
+          />
+
+          <text-input v-model="project.goals" label="Goals" type="textarea" />
+
+          <text-input
+            v-model="project.outcomes"
+            label="Outcomes"
+            type="textarea"
+          />
         </q-form>
       </template>
     </ApolloQuery>
