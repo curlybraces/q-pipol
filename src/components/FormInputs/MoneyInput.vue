@@ -2,10 +2,10 @@
   <q-input
     outlined
     stack-label
+    :value="value"
     :label="label"
     :prefix="prefix"
-    :value="value"
-    @input="handleInput"
+    @input="val => $emit('input', val)"
     v-money="money"
     :dense="dense"
     filled
@@ -31,11 +31,6 @@ export default {
         masked: false /* doesn't work with directive */
       }
     };
-  },
-  methods: {
-    handleInput(e) {
-      this.$emit("input", e);
-    }
   },
   directives: {
     money: VMoney

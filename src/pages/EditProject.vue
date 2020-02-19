@@ -1,96 +1,111 @@
 <template>
-  <q-card square flat>
-    <card-header>
-      Edit Project
-    </card-header>
+  <q-page padding>
+    <page-breadcrumbs :breadcrumbs="breadcrumbs" />
+    <q-card square flat>
+      <card-header>
+        Edit Project
+      </card-header>
 
-    <div v-if="loading">Loading...</div>
+      <div v-if="$apollo.loading">Loading...</div>
 
-    <ApolloQuery
-      :query="require('src/graphql/queries/project.gql')"
-      :variables="{ id: $route.params.id }"
-    >
-      <template
-        v-slot="{
-          result: {
-            data: { project }
-          }
-        }"
-      >
-        <pre>{{ project }}</pre>
-        <q-form class="q-pa-md q-gutter-md">
-          <q-item-label header>GENERAL INFORMATION</q-item-label>
-
+      <div class="row">
+        <q-form class="col-6 q-pa-md q-gutter-md">
           <q-card>
-            <q-card-section>
+            <q-item-label header>
               Programming Documents
-            </q-card-section>
-            <div class="row justify-around">
-              <checkbox-input v-model="project.pip" label="PIP" />
-              <checkbox-input v-model="project.cip" label="CIP" />
-              <checkbox-input v-model="project.trip" label="TRIP" />
-              <checkbox-input v-model="project.rdip" label="RDIP" />
-              <checkbox-input v-model="project.pcip" label="PCIP" />
-            </div>
+            </q-item-label>
+            <q-list>
+              <checkbox-item
+                v-model="project.pip"
+                label="PIP"
+                description="Public Investment Program"
+              />
+              <checkbox-item
+                v-model="project.cip"
+                label="CIP"
+                description="Core Investment Program"
+              />
+              <checkbox-item
+                v-model="project.trip"
+                label="TRIP"
+                description="Three-Year Rolling Investment Program"
+              />
+              <checkbox-item
+                v-model="project.rdip"
+                label="RDIP"
+                description="Regional Development Investment Program"
+              />
+              <checkbox-item
+                v-model="project.pcip"
+                label="PCIP"
+                description="Provincial Commodity Investment Plan"
+              />
+            </q-list>
           </q-card>
 
-          <q-card class="q-pa-md q-gutter-y-md">
-            <q-card-section class="text-weight-bolder">
+          <q-card>
+            <q-item-label header>
               General Information
-            </q-card-section>
+            </q-item-label>
 
-            <text-input
-              v-model="project.title"
-              label="Program/Project Title"
-              :dense="dense"
-              hint="The title of the program or project"
-              maxlength="250"
-              required
-            />
+            <div class="q-px-md q-gutter-y-md">
+              <text-input
+                v-model="project.title"
+                label="Program/Project Title"
+                :dense="dense"
+                hint="The title of the program or project"
+                maxlength="250"
+                required
+              />
 
-            <q-option-group
-              v-model="project.type_id"
-              label="Type"
-              :options="TYPES"
-              inline
-              :dense="dense"
-              color="orange-10"
-            ></q-option-group>
+              <q-option-group
+                v-model="project.type_id"
+                label="Type"
+                :options="TYPES"
+                inline
+                :dense="dense"
+                color="orange-10"
+              ></q-option-group>
 
-            <single-select
-              v-model="project.operating_unit_id"
-              label="Implementing Agency"
-              :dense="dense"
-              :options-dense="dense"
-              :options="OPERATING_UNITS"
-              hint="Proponent of the program/project"
-            />
+              <single-select
+                v-model="project.operating_unit_id"
+                label="Implementing Agency"
+                :dense="dense"
+                :options-dense="dense"
+                :options="OPERATING_UNITS"
+                hint="Proponent of the program/project"
+              />
 
-            <text-input
-              v-model="project.description"
-              label="Description"
-              type="textarea"
-            />
+              <text-input
+                v-model="project.description"
+                label="Description"
+                type="textarea"
+              />
 
-            <text-input v-model="project.goals" label="Goals" type="textarea" />
+              <text-input
+                v-model="project.goals"
+                label="Goals"
+                type="textarea"
+              />
 
-            <text-input
-              v-model="project.outcomes"
-              label="Outcomes"
-              type="textarea"
-            />
+              <text-input
+                v-model="project.outcomes"
+                label="Outcomes"
+                type="textarea"
+              />
 
-            <text-input
-              v-model="project.purpose"
-              label="Purpose"
-              type="textarea"
-            />
+              <text-input
+                v-model="project.purpose"
+                label="Purpose"
+                type="textarea"
+              />
 
-            <text-input
-              v-model="project.expected_outputs"
-              label="Expected Outputs"
-              type="textarea"
-            />
+              <text-input
+                v-model="project.expected_outputs"
+                label="Expected Outputs"
+                type="textarea"
+              />
+            </div>
           </q-card>
 
           <q-card class="q-pa-md q-gutter-y-md">
@@ -100,7 +115,7 @@
           </q-card>
 
           <q-card class="q-pa-md q-gutter-y-md">
-            <q-card-section>
+            <q-card-section class="text-weight-bolder">
               Spatial Coverage
             </q-card-section>
 
@@ -139,40 +154,79 @@
             />
           </q-card>
 
-          <q-card class="q-pa-md q-gutter-y-md">
+          <q-card>
             <q-card-section class="text-weight-bolder">
               Financial Information
             </q-card-section>
 
-            <single-select
-              v-model="project.tier_id"
-              label="Budget Tier"
-              :dense="dense"
-              :options-dense="dense"
-              :options="TIERS"
-            ></single-select>
+            <div class="q-pa-md q-gutter-y-md">
+              <single-select
+                v-model="project.tier_id"
+                label="Budget Tier"
+                :dense="dense"
+                :options-dense="dense"
+                :options="TIERS"
+              ></single-select>
 
-            <single-select
-              v-model="project.implementation_mode_id"
-              label="Implementation Mode"
-              :dense="dense"
-              :options-dense="dense"
-              :options="IMPLEMENTATION_MODES"
-            ></single-select>
+              <single-select
+                v-model="project.implementation_mode_id"
+                label="Implementation Mode"
+                :dense="dense"
+                :options-dense="dense"
+                :options="IMPLEMENTATION_MODES"
+              ></single-select>
+            </div>
           </q-card>
 
-          <q-card class="q-pa-md q-gutter-y-md">
+          <q-card>
+            <q-item-label header class="text-weight-bolder">
+              Financial &amp; Economic Analysis
+            </q-item-label>
+
+            <div class="q-pa-md q-gutter-y-md">
+              <text-input
+                v-model="project.estimated_project_life"
+                label="Estimated Project Life"
+              />
+
+              <div class="row q-pt-md q-col-gutter-md">
+                <div class="col-6 q-gutter-y-md">
+                  <money-input
+                    v-model="project.financial_net_present_value"
+                    label="Financial Net Present Value"
+                  />
+                  <number-input
+                    v-model="project.financial_benefit_cost_ratio"
+                    label="Financial Benefit Cost Ratio"
+                  />
+                  <number-input
+                    v-model="project.financial_internal_rate_return"
+                    label="Financial Internal Rate of Return"
+                  />
+                </div>
+
+                <div class="col-6 q-gutter-y-md">
+                  <money-input
+                    v-model="project.economic_net_present_value"
+                    label="Economic Net Present Value"
+                  />
+                  <number-input
+                    v-model="project.economic_benefit_cost_ratio"
+                    label="Economic Benefit Cost Ratio"
+                  />
+                  <number-input
+                    v-model="project.economic_internal_rate_return"
+                    label="Economic Internal Rate of Return"
+                  />
+                </div>
+              </div>
+            </div>
+          </q-card>
+
+          <q-card>
             <q-card-section class="text-weight-bolder">
               Physical &amp; Financial Accomplishments
             </q-card-section>
-
-            <single-select
-              v-model="project.tier_id"
-              label="Budget Tier"
-              :dense="dense"
-              :options-dense="dense"
-              :options="TIERS"
-            ></single-select>
 
             <q-markup-table
               flat
@@ -265,7 +319,7 @@
               </tbody>
             </q-markup-table>
 
-            <div class="row items-start q-gutter-y-md q-col-gutter-md">
+            <div class="row q-px-md items-start q-gutter-y-md q-col-gutter-md">
               <text-input
                 class="col-9"
                 label="Updates"
@@ -281,13 +335,16 @@
             </div>
           </q-card>
         </q-form>
-      </template>
-    </ApolloQuery>
+        <div class="col-6">
+          <pre>{{ projectToEdit }}</pre>
+        </div>
+      </div>
 
-    <card-actions>
-      <q-btn label="Save" @click="$emit('save')" color="primary" />
-    </card-actions>
-  </q-card>
+      <card-actions>
+        <q-btn label="Save" @click="$emit('save')" color="primary" />
+      </card-actions>
+    </q-card>
+  </q-page>
 </template>
 
 <script>
@@ -303,26 +360,42 @@ import {
   TECHNICAL_READINESSES,
   YEARS
 } from "../data/dropdown-values";
+import { VIEW_PROJECT } from "../constants/graphql";
 
 export default {
   components: {
+    "page-breadcrumbs": () => import("../components/PageBreadcrumbs.vue"),
     "card-header": () => import("../components/Projects/Shared/CardHeader.vue"),
     "card-actions": () =>
       import("../components/Projects/Shared/CardActions.vue"),
     "single-select": () => import("../components/FormInputs/SingleSelect.vue"),
     // "multi-select": () => import("../FormInputs/MultiSelect.vue"),
     "date-input": () => import("../components/FormInputs/DateInput.vue"),
-    // "money-input": () => import("../components/FormInputs/MoneyInput.vue"),
-    // "number-input": () => import("../components/FormInputs/NumberInput.vue"),
+    "money-input": () => import("../components/FormInputs/MoneyInput.vue"),
+    "number-input": () => import("../components/FormInputs/NumberInput.vue"),
     "text-input": () => import("../components/FormInputs/TextInput.vue"),
     // "add-item": () => import("../components/Shared/AddItem.vue"),
     // "fund-source": () => import("../components/Shared/FundSource.vue"),
-    "checkbox-input": () => import("../components/FormInputs/CheckboxInput.vue")
+    // "checkbox-input": () => import("../components/FormInputs/CheckboxInput.vue"),
+    "checkbox-item": () => import("../components/FormInputs/CheckboxItem.vue")
     // "financial-accomplishment": () => import("../components/Shared/FinancialAccomplishment.vue"),
   },
   name: "PageEditProject",
   data() {
     return {
+      breadcrumbs: [
+        {
+          title: "Home",
+          url: "/"
+        },
+        {
+          title: "Projects",
+          url: "/pip"
+        },
+        {
+          title: "Edit Project"
+        }
+      ],
       IMPLEMENTATION_BASES,
       IMPLEMENTATION_MODES,
       OPERATING_UNITS,
@@ -385,9 +458,21 @@ export default {
       },
       updateFinancialAccomplishmentDialog: false,
       addFundSourceDialog: false,
-      loading: true, // initializing variable for loading
-      result: {}
+      projectToEdit: {}
     };
+  },
+  apollo: {
+    project: {
+      query: VIEW_PROJECT,
+      variables() {
+        return {
+          id: this.$route.params.id
+        };
+      },
+      result({ data }) {
+        this.projectToEdit = Object.assign({}, data);
+      }
+    }
   },
   methods: {
     addRegion() {

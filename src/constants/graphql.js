@@ -499,6 +499,10 @@ export const VIEW_PROJECT = gql`
         affected_2021
         affected_2022
       }
+      operating_unit_id
+      project_status_id
+      spatial_coverage_id
+      tier_id
       total_investment {
         nep_2017
         nep_2018
@@ -519,10 +523,10 @@ export const VIEW_PROJECT = gql`
         disbursement_2021
         disbursement_2022
       }
-      updates {
-        updates
-        update_date
-      }
+      type_id
+      typology_id
+      updates
+      updates_date
       created_by {
         name
       }

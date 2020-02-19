@@ -15,8 +15,6 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import CookieLaw from "vue-cookie-law";
-import gql from "graphql-tag";
-import { Notify } from "quasar";
 import { ME } from "./constants/graphql";
 
 export default {
@@ -24,38 +22,6 @@ export default {
     CookieLaw
   },
   name: "App",
-  apollo: {
-    $subscribe: {
-      projectCreated: {
-        query: gql`
-          subscription projectCreated {
-            projectCreated {
-              id
-              title
-            }
-          }
-        `,
-        result(data) {
-          console.log("date from projectCreated: ", data);
-          const { title } = data.data.projectCreated;
-          Notify.create({
-            title: "New Project",
-            message: `[NEW PROJECT] titled ${title} was created.`
-          });
-        }
-      },
-      projectUpdated: {
-        query: gql`
-          subscription projectUpdated {
-            projectUpdated {
-              id
-              title
-            }
-          }
-        `
-      }
-    }
-  },
   computed: {
     ...mapState("auth", ["userLoaded"])
   },

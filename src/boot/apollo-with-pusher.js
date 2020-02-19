@@ -4,46 +4,58 @@
 import { ApolloClient } from "apollo-client";
 import { HttpLink } from "apollo-link-http";
 import { InMemoryCache } from "apollo-cache-inmemory";
-// import { ApolloLink } from "apollo-link";
+import { ApolloLink } from "apollo-link";
 import VueApollo from "vue-apollo";
 import { LocalStorage } from "quasar";
+import PusherLink from "./pusher-link";
+import Pusher from "pusher-js";
+
+// Pusher configuration
+const PUSHER_API_KEY = "43f35a023f84d4edd751";
+const PUSHER_CLUSTER = "ap1";
+const auth_token = LocalStorage.getItem("token");
 
 const uri = process.env.DEV
   ? "http://localhost:8000/graphql"
   : "https://e-planning.daplanningcentral.net/graphql";
 
-const getHeaders = () => {
-  const headers = {};
-  const token = LocalStorage.getItem("token");
-  if (token) {
-    headers.authorization = `Bearer ${token}`;
-  }
-  return headers;
-};
+const pusherLink = new PusherLink({
+  // Enter your API_KEY and CLUSTER.
+  pusher: new Pusher(PUSHER_API_KEY, {
+    cluster: PUSHER_CLUSTER,
+    forceTLS: true,
+    authEndpoint: `${uri}/subscriptions/auth`,
+    auth: {
+      headers: {
+        authorization: auth_token ? `Bearer ${auth_token}` : null
+      }
+    }
+  })
+});
 
 const httpLink = new HttpLink({
-  uri: uri,
-  fetch,
-  headers: getHeaders()
+  uri: uri
 });
 
 const cache = new InMemoryCache();
 
-// const authMiddleware = new ApolloLink((operation, forward) => {
-//   // add the authorization to the headers
-//   const token = LocalStorage.getItem("token");
-//   operation.setContext({
-//     headers: {
-//       authorization: token ? `Bearer ${token}` : null
-//     }
-//   });
+const authMiddleware = new ApolloLink((operation, forward) => {
+  // add the authorization to the headers
+  const token = LocalStorage.getItem("token");
+  operation.setContext({
+    headers: {
+      authorization: token ? `Bearer ${token}` : null
+    }
+  });
 
-//   return forward(operation);
-// });
+  return forward(operation);
+});
+
+const link = ApolloLink.from([pusherLink, httpLink]);
 
 const apolloClient = new ApolloClient({
   // link: authMiddleware.concat(httpLink),
-  link: httpLink,
+  link: authMiddleware.concat(link), // with pusher
   cache,
   connectToDevTools: true
 });

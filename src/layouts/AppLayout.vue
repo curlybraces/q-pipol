@@ -58,7 +58,7 @@ export default {
       copyright: "Made by Mark Lester A. Bolotaolo",
       menu: false,
       miniState: false,
-      drawerState: this.$q.screen.md || this.$q.screen.gt.md
+      drawerState: this.$q.screen.gt.lg
     };
   },
   computed: {

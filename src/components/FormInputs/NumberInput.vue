@@ -1,21 +1,19 @@
 <template>
-  <div class="col">
-    <q-input
-      v-model="model"
-      :label="label"
-      stack-label
-      :dense="dense"
-      @input="val => $emit('input', val)"
-      :readonly="readonly"
-      :rules="rules"
-      :hint="hint"
-      clearable
-      type="number"
-      :suffix="suffix"
-      filled
-      label-color="orange-10"
-    />
-  </div>
+  <q-input
+    v-model="model"
+    :label="label"
+    stack-label
+    :dense="dense"
+    @input="val => $emit('input', val)"
+    :readonly="readonly"
+    :rules="rules"
+    :hint="hint"
+    clearable
+    type="number"
+    :suffix="suffix"
+    filled
+    label-color="orange-10"
+  />
 </template>
 
 <script>

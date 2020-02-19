@@ -24,7 +24,7 @@ export default {
       type: Boolean,
       default: false
     },
-    val: Boolean
+    value: Boolean
   },
   data() {
     return {
@@ -37,7 +37,7 @@ export default {
     }
   },
   mounted() {
-    this.model = this.val;
+    this.model = this.value;
   }
 };
 </script>
