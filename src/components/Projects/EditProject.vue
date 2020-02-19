@@ -44,6 +44,31 @@
             :dense="dense"
             color="orange-10"
           ></q-option-group>
+
+          <single-select
+            v-model="project.operating_unit_id"
+            label="Implementing Agency"
+            :dense="dense"
+            :options-dense="dense"
+            :options="OPERATING_UNITS"
+            hint="Proponent of the program/project"
+          />
+
+          <single-select
+            v-model="project.implementation_mode_id"
+            label="Implementation Mode"
+            :dense="dense"
+            :options-dense="dense"
+            :options="IMPLEMENTATION_MODES"
+          ></single-select>
+
+          <single-select
+            v-model="project.tier_id"
+            label="Tier"
+            :dense="dense"
+            :options-dense="dense"
+            :options="TIERS"
+          ></single-select>
         </q-form>
       </template>
     </ApolloQuery>
@@ -72,7 +97,7 @@ export default {
   components: {
     "card-header": () => import("./Shared/CardHeader.vue"),
     "card-actions": () => import("./Shared/CardActions.vue"),
-    // "single-select": () => import("../FormInputs/SingleSelect.vue"),
+    "single-select": () => import("../FormInputs/SingleSelect.vue"),
     // "multi-select": () => import("../FormInputs/MultiSelect.vue"),
     // "date-input": () => import("../FormInputs/DateInput.vue"),
     // "money-input": () => import("../FormInputs/MoneyInput.vue"),

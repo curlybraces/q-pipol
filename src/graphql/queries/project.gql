@@ -9,7 +9,17 @@ query project($id: ID!) {
     rdip
     pcip
     gad_score
+    operating_unit_id
+    operating_unit {
+      id
+      name
+    }
     spatial_coverage {
+      name
+    }
+    tier_id
+    tier {
+      id
       name
     }
     cities_municipalities

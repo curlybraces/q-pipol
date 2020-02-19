@@ -1733,107 +1733,107 @@ export const COMMODITY_GROUP = [
 
 export const OPERATING_UNITS = [
   {
-    value: "1",
+    value: 1,
     name: "Central Office",
     label: "DA-CO"
   },
   {
-    value: "2",
+    value: 2,
     name: "Regional Field Office - CAR",
     label: "DA-RFO-CAR"
   },
   {
-    value: "3",
+    value: 3,
     name: "Regional Field Office - I",
     label: "DA-RFO-I"
   },
   {
-    value: "4",
+    value: 4,
     name: "Regional Field Office - II",
     label: "DA-RFO-II"
   },
   {
-    value: "5",
+    value: 5,
     name: "Regional Field Office - III",
     label: "DA-RFO-III"
   },
   {
-    value: "6",
+    value: 6,
     name: "Regional Field Office - IVA",
     label: "DA-RFO-IVA"
   },
   {
-    value: "7",
+    value: 7,
     name: "Regional Field Office - IVB",
     label: "DA-RFO-IVB"
   },
   {
-    value: "8",
+    value: 8,
     name: "Regional Field Office - IX",
     label: "DA-RFO-IX"
   },
   {
-    value: "9",
+    value: 9,
     name: "Regional Field Office - V",
     label: "DA-RFO-V"
   },
   {
-    value: "10",
+    value: 10,
     name: "Regional Field Office - VI",
     label: "DA-RFO-VI"
   },
   {
-    value: "11",
+    value: 11,
     name: "Regional Field Office - VII",
     label: "DA-RFO-VII"
   },
   {
-    value: "12",
+    value: 12,
     name: "Regional Field Office - VIII",
     label: "DA-RFO-VIII"
   },
   {
-    value: "13",
+    value: 13,
     name: "Regional Field Office - X",
     label: "DA-RFO-X"
   },
   {
-    value: "14",
+    value: 14,
     name: "Regional Field Office - XI",
     label: "DA-RFO-XI"
   },
   {
-    value: "15",
+    value: 15,
     name: "Regional Field Office - XII",
     label: "DA-RFO-XII"
   },
   {
-    value: "16",
+    value: 16,
     name: "Regional Field Office - XIII",
     label: "DA-RFO-XIII"
   },
   {
-    value: "17",
+    value: 17,
     name: "DAF-ARMM",
     label: "DAF-ARMM"
   },
   {
-    value: "18",
+    value: 18,
     name: "Agricultural Training Institute",
     label: "ATI"
   },
   {
-    value: "19",
+    value: 19,
     name: "Bureau of Animal Industry",
     label: "BAI"
   },
   {
-    value: "20",
+    value: 20,
     name: "Bureau of Agricultural Research",
     label: "BAR"
   },
   {
-    value: "21",
+    value: 21,
     name: "Bureau of Plant Industry",
     label: "BPI"
   },
