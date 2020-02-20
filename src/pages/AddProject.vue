@@ -99,12 +99,8 @@ export default {
           disbursement_2022: "",
           disbursement_total: ""
         },
-        updates: [
-          {
-            updates: "",
-            update_date: ""
-          }
-        ]
+        updates: "",
+        updates_date: ""
       },
       loading: false,
       project: {}
@@ -122,9 +118,8 @@ export default {
             pipol_code: project.pipol_code,
             title: project.title,
             type_id: project.type_id,
-            updates: {
-              create: project.updates
-            }
+            updates: project.updates,
+            updates_date: project.updates_date
           }
         })
         .then(data => {

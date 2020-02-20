@@ -594,13 +594,13 @@
             class="col-9"
             label="Updates"
             type="textarea"
-            v-model="projectToSubmit.updates[0].updates"
+            v-model="projectToSubmit.updates"
           />
 
           <date-input
             class="col-3"
             label="As of Date"
-            v-model="projectToSubmit.updates[0].update_date"
+            v-model="projectToSubmit.updates_date"
           ></date-input>
         </div>
       </div>

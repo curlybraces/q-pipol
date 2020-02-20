@@ -87,7 +87,7 @@ export const CREATE_PROJECT = gql`
     $cip: Boolean
     $trip: Boolean
     $title: String!
-    $type_id: Int!
+    $type_id: ID
     $operating_unit_id: Int
     $implementation_mode_id: Int
     $project_status_id: Int
@@ -127,14 +127,9 @@ export const CREATE_PROJECT = gql`
     $sustainable_development_goals: CreateSustainableDevelopmentGoalRelation
     $regions: CreateRegionRelation
     $provinces: CreateProvinceRelation
-    $cip_processing: CreateCipProcessingBelongsTo
-    $total_investment: CreateTotalInvestmentBelongsTo
-    $infrastructure_investment: CreateInfrastructureInvestmentBelongsTo
     $funding_sources: CreateFundingSourceRelation
-    $feasibility_study: CreateFeasibilityStudyBelongsTo
-    $right_of_way: CreateRightOfWayBelongsTo
-    $resettlement_action_plan: CreateResettlementActionPlanBelongsTo
-    $updates: CreateUpdatesHasMany
+    $updates: String
+    $updates_date: String
   ) {
     createProject(
       input: {
@@ -183,15 +178,10 @@ export const CREATE_PROJECT = gql`
         ten_point_agenda: $ten_point_agenda
         regions: $regions
         provinces: $provinces
-        total_investment: $total_investment
-        infrastructure_investment: $infrastructure_investment
-        cip_processing: $cip_processing
         sustainable_development_goals: $sustainable_development_goals
         funding_sources: $funding_sources
-        feasibility_study: $feasibility_study
-        resettlement_action_plan: $resettlement_action_plan
-        right_of_way: $right_of_way
         updates: $updates
+        updates_date: $updates_date
       }
     ) {
       id
@@ -239,42 +229,16 @@ export const CREATE_PROJECT = gql`
       economic_benefit_cost_ratio
       economic_internal_rate_return
       economic_net_present_value
-      total_investment {
-        id
-        target_2016
-        target_2017
-        target_2018
-        target_2019
-        target_2020
-        target_2021
-        target_2022
-        target_2023
-        target_total
-      }
-      infrastructure_investment {
-        id
-        target_2016
-        target_2017
-        target_2018
-        target_2019
-        target_2020
-        target_2021
-        target_2022
-        target_2023
-        target_total
-      }
-      cip_processing {
-        neda_submission
-        neda_submission_date
-        neda_secretariat_review
-        neda_secretariat_review_date
-        neda_board
-        neda_board_date
-        icc_endorsed
-        icc_endorsed_date
-        icc_approved
-        icc_approved_date
-      }
+      neda_submission
+      neda_submission_date
+      neda_secretariat_review
+      neda_secretariat_review_date
+      neda_board
+      neda_board_date
+      icc_endorsed
+      icc_endorsed_date
+      icc_approved
+      icc_approved_date
       bases {
         id
       }
@@ -299,49 +263,8 @@ export const CREATE_PROJECT = gql`
           target_total
         }
       }
-      feasibility_study {
-        target_2017
-        target_2018
-        target_2019
-        target_2020
-        target_2021
-        target_2022
-        target_total
-      }
-      right_of_way {
-        target_2017
-        target_2018
-        target_2019
-        target_2020
-        target_2021
-        target_2022
-        target_total
-        affected_2017
-        affected_2018
-        affected_2019
-        affected_2020
-        affected_2021
-        affected_2022
-      }
-      resettlement_action_plan {
-        target_2017
-        target_2018
-        target_2019
-        target_2020
-        target_2021
-        target_2022
-        target_total
-        affected_2017
-        affected_2018
-        affected_2019
-        affected_2020
-        affected_2021
-        affected_2022
-      }
-      updates {
-        updates
-        update_date
-      }
+      updates
+      updates_date
       created_by {
         name
       }

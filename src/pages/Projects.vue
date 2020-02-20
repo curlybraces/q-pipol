@@ -138,7 +138,8 @@ export default {
         return {
           page: this.current_page
         };
-      }
+      },
+      fetchPolicy: "network-only"
     }
   },
   computed: {
@@ -176,28 +177,39 @@ export default {
         },
         update: (store, { data: { deleteProject } }) => {
           // update store cache
-          this.updateStoreAfterDelete(store, deleteProject);
+          this.updateStoreAfterDelete(store, deleteProject, { id: id });
         }
       });
     },
     updateStoreAfterDelete(store, deleteProject) {
-      console.log("store: ", store);
+      // console.log("store: ", store);
 
-      const data = store.readQuery({
-        query: VIEW_PROJECTS,
-        variables: {
-          page: this.current_page
-        }
-      });
+      if (deleteProject.id) {
+        const data = store.readQuery({
+          query: VIEW_PROJECTS,
+          variables: {
+            page: this.current_page
+          }
+        });
 
-      data.projects.data = data.projects.data.filter(project => {
-        return project.id !== deleteProject.id;
-      });
+        data.projects.data = data.projects.data.filter(project => {
+          return project.id !== deleteProject.id;
+        });
 
-      store.writeQuery({
-        query: VIEW_PROJECTS,
-        data
-      });
+        data.projects.paginatorInfo.total =
+          data.projects.paginatorInfo.total - 1;
+
+        data.projects.paginatorInfo.lastPage =
+          data.projects.paginatorInfo.total /
+          data.projects.paginatorInfo.perPage;
+
+        store.writeQuery({
+          query: VIEW_PROJECTS,
+          data
+        });
+      } else {
+        alert("There was an error.");
+      }
     }
   },
   filters: {
