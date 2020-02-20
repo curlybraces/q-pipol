@@ -1,6 +1,5 @@
 {
   "hosting": {
-    "site": "eplanning-da",
     "public": "dist/spa",
     "ignore": [
       "firebase.json",

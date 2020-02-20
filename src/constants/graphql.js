@@ -53,6 +53,10 @@ export const REGISTER_MUTATION = gql`
 export const ACTIVATE_USER = gql`
   mutation activateUser($id: ID!, $active: Boolean!) {
     activateUser(input: { id: $id, active: $active }) {
+      user {
+        id
+        active
+      }
       status
       message
     }
@@ -74,6 +78,29 @@ export const ME = gql`
       }
       roles {
         name
+      }
+    }
+  }
+`;
+
+export const ALL_USERS = gql`
+  query users($page: Int!) {
+    users(page: $page) {
+      data {
+        id
+        name
+        email
+        active
+        roles {
+          id
+          name
+        }
+        created_at
+      }
+      paginatorInfo {
+        currentPage
+        lastPage
+        total
       }
     }
   }

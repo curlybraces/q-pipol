@@ -10,7 +10,7 @@ import { LocalStorage } from "quasar";
 
 const uri = process.env.DEV
   ? "http://localhost:8000/graphql"
-  : "https://e-planning.daplanningcentral.net/graphql";
+  : "https://da-ipms.herokuapp.com/graphql";
 
 const getHeaders = () => {
   const headers = {};
