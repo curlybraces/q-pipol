@@ -95,7 +95,7 @@ import { mapState } from "vuex";
 import { REGIONS } from "../data/dropdown-values";
 import { Dialog } from "quasar";
 
-import gql from "graphql-tag";
+import { VIEW_PROJECTS, DELETE_PROJECT } from "../constants/graphql";
 
 export default {
   components: {
@@ -133,28 +133,7 @@ export default {
   },
   apollo: {
     projects: {
-      query: gql`
-        query projects($page: Int) {
-          projects(page: $page) {
-            data {
-              id
-              title
-              operating_unit {
-                name
-                image
-              }
-              description
-              total_project_cost
-            }
-            paginatorInfo {
-              currentPage
-              total
-              perPage
-              lastPage
-            }
-          }
-        }
-      `,
+      query: VIEW_PROJECTS,
       variables() {
         return {
           page: this.current_page
@@ -186,7 +165,38 @@ export default {
         message: "Are you sure you want to move the project to trash?",
         cancel: true
       }).onOk(() => {
-        console.log(id);
+        this.deleteProject(id);
+      });
+    },
+    deleteProject(id) {
+      this.$apollo.mutate({
+        mutation: DELETE_PROJECT,
+        variables: {
+          id: id
+        },
+        update: (store, { data: { deleteProject } }) => {
+          // update store cache
+          this.updateStoreAfterDelete(store, deleteProject);
+        }
+      });
+    },
+    updateStoreAfterDelete(store, deleteProject) {
+      console.log("store: ", store);
+
+      const data = store.readQuery({
+        query: VIEW_PROJECTS,
+        variables: {
+          page: this.current_page
+        }
+      });
+
+      data.projects.data = data.projects.data.filter(project => {
+        return project.id !== deleteProject.id;
+      });
+
+      store.writeQuery({
+        query: VIEW_PROJECTS,
+        data
       });
     }
   },
