@@ -1,7 +1,9 @@
 // Basic Installation: https://vue-apollo.netlify.com/guide/installation.html#_1-apollo-client
 // Pusher Integration: https://medium.com/sjk5766/laravel-graphql-subscription-vue-apollo-or-nuxt-338108ffb1cb
+// Hasura reference: https://hasura.io/learn/graphql/vue/apollo-client/
 
 import { ApolloClient } from "apollo-client";
+import { ApolloLink } from "apollo-link";
 import { HttpLink } from "apollo-link-http";
 import { InMemoryCache } from "apollo-cache-inmemory";
 // import { ApolloLink } from "apollo-link";
@@ -12,38 +14,42 @@ const uri = process.env.DEV
   ? "http://localhost:8000/graphql"
   : "https://da-ipms.herokuapp.com/graphql";
 
-const getHeaders = () => {
-  const headers = {};
-  const token = LocalStorage.getItem("token");
-  if (token) {
-    headers.authorization = `Bearer ${token}`;
-  }
-  return headers;
-};
+// const getHeaders = () => {
+//   const headers = {};
+//   const token = LocalStorage.getItem("token");
+//   if (token) {
+//     headers.authorization = `Bearer ${token}`;
+//   }
+//   return headers;
+// };
+
+// const httpLink = new HttpLink({
+//   uri: uri,
+//   fetch,
+//   headers: getHeaders()
+// });
 
 const httpLink = new HttpLink({
-  uri: uri,
-  fetch,
-  headers: getHeaders()
+  uri: uri
 });
 
 const cache = new InMemoryCache();
 
-// const authMiddleware = new ApolloLink((operation, forward) => {
-//   // add the authorization to the headers
-//   const token = LocalStorage.getItem("token");
-//   operation.setContext({
-//     headers: {
-//       authorization: token ? `Bearer ${token}` : null
-//     }
-//   });
+const authMiddleware = new ApolloLink((operation, forward) => {
+  // add the authorization to the headers
+  const token = LocalStorage.getItem("token");
+  operation.setContext({
+    headers: {
+      authorization: token ? `Bearer ${token}` : null
+    }
+  });
 
-//   return forward(operation);
-// });
+  return forward(operation);
+});
 
-const apolloClient = new ApolloClient({
-  // link: authMiddleware.concat(httpLink),
-  link: httpLink,
+export const apolloClient = new ApolloClient({
+  link: authMiddleware.concat(httpLink),
+  // link: httpLink,
   cache,
   connectToDevTools: true
 });
