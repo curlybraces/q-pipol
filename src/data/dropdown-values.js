@@ -543,31 +543,31 @@ export const IMPLEMENTATION_READINESS = [
 
 export const IMPLEMENTATION_BASES = [
   {
-    value: "1",
+    value: 1,
     label: "National Expenditure Program (NEP)"
   },
   {
-    value: "2",
+    value: 2,
     label: "General Appropriations Act (GAA)"
   },
   {
-    value: "3",
+    value: 3,
     label: "Multi-Year Obligational Authority (MYOA)"
   },
   {
-    value: "4",
+    value: 4,
     label: "Existing masterplan/sector studies/procurement plan"
   },
   {
-    value: "5",
+    value: 5,
     label: "List of Regional Development Council-endorsed projects"
   },
   {
-    value: "6",
+    value: 6,
     label: "Agreements (e.g. Peace agreements)"
   },
   {
-    value: "7",
+    value: 7,
     label: "Existing laws, rules or regulations"
   }
 ];
@@ -809,19 +809,19 @@ export const REGIONS = [
 
 export const TYPOLOGIES = [
   {
-    value: "1",
+    value: 1,
     label: "Capital Investment Programs/Projects"
   },
   {
-    value: "2",
+    value: 2,
     label: "Technical Assistance"
   },
   {
-    value: "3",
+    value: 3,
     label: "Relending PAPs"
   },
   {
-    value: "4",
+    value: 4,
     label: "Government Building"
   }
 ];
@@ -1611,35 +1611,35 @@ export const PROVINCES = [
 
 export const STATUSES = [
   {
-    value: "0",
+    value: 0,
     label: "Conceptual Stage"
   },
   {
-    value: "1",
+    value: 1,
     label: "Proposed"
   },
   {
-    value: "2",
+    value: 2,
     label: "Approved but not yet ongoing"
   },
   {
-    value: "3",
+    value: 3,
     label: "Ongoing"
   },
   {
-    value: "4",
+    value: 4,
     label: "Temporarily Stopped"
   },
   {
-    value: "5",
+    value: 5,
     label: "Terminated"
   },
   {
-    value: "6",
+    value: 6,
     label: "Completed"
   },
   {
-    value: "7",
+    value: 7,
     label: "Dropped from pipeline"
   }
 ];
@@ -2092,31 +2092,66 @@ export const YEARS = [
 
 export const TECHNICAL_READINESSES = [
   {
-    value: "1",
+    value: 1,
     label: "Concept Note"
   },
   {
-    value: "2",
+    value: 2,
     label: "Project Proposal"
   },
   {
-    value: "3",
+    value: 3,
     label: "Detailed Engineering Design"
   },
   {
-    value: "4",
+    value: 4,
     label: "Business Plan"
   },
   {
-    value: "5",
+    value: 5,
     label: "Feasibility Studies"
   },
   {
-    value: "6",
+    value: 6,
     label: "Right of Way"
   },
   {
-    value: "7",
+    value: 7,
     label: "Resettlement Action Plan"
+  }
+];
+
+export const ROLES = [
+  {
+    value: 1,
+    label: "superadmin"
+  },
+  {
+    value: 2,
+    label: "admin"
+  },
+  {
+    value: 3,
+    label: "ipd"
+  },
+  {
+    value: 4,
+    label: "banner programs"
+  },
+  {
+    value: 5,
+    label: "spcmad"
+  },
+  {
+    value: 6,
+    label: "pds"
+  },
+  {
+    value: 7,
+    label: "supervisor"
+  },
+  {
+    value: 8,
+    label: "encoder"
   }
 ];

@@ -1,4 +1,5 @@
 import { LocalStorage } from "quasar";
+import { apolloClient } from "boot/apollo";
 
 export function populateUser({ commit }, payload) {
   commit("SET_USER_LOADED", true);
@@ -15,6 +16,9 @@ export function populateUser({ commit }, payload) {
 
 export function logoutUser() {
   LocalStorage.remove("token");
+  LocalStorage.remove("userId");
+
+  apolloClient.cache.data.clear();
 
   this.$router.replace("/login");
 }

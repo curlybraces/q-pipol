@@ -199,8 +199,10 @@ export default {
         data.projects.paginatorInfo.total =
           data.projects.paginatorInfo.total - 1;
 
-        data.projects.paginatorInfo.lastPage = Math.ceil(data.projects.paginatorInfo.total /
-          data.projects.paginatorInfo.perPage);
+        data.projects.paginatorInfo.lastPage = Math.ceil(
+          data.projects.paginatorInfo.total /
+            data.projects.paginatorInfo.perPage
+        );
 
         store.writeQuery({
           query: VIEW_PROJECTS,
