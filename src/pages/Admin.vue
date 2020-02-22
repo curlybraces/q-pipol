@@ -1,6 +1,12 @@
 <template>
   <q-page padding>
     <page-breadcrumbs :breadcrumbs="breadcrumbs" />
+
+    <div class="row">
+      <q-card>Users</q-card>
+      <q-card>Directory</q-card>
+    </div>
+
     <q-card>
       <q-card-section>
         <div class="row align-center">

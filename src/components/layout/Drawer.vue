@@ -1,11 +1,11 @@
 <template>
   <q-list>
-    <div class="q-pa-md bg-white text-center">
+    <!-- <div class="q-pa-md bg-white text-center">
       <q-img src="statics/logo.svg" alt="logo" style="max-width: 150px" />
       <br />
       <span class="text-h6">{{ appTitle }}</span>
     </div>
-    <q-separator />
+    <q-separator /> -->
 
     <q-item-label header>NAVIGATION</q-item-label>
 

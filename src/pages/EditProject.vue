@@ -40,6 +40,11 @@
                 label="PCIP"
                 description="Provincial Commodity Investment Plan"
               />
+              <checkbox-item
+                v-model="project.afmip"
+                label="AFMIP"
+                description="Agriculture and Fisheries Modernization and Industrialization Plan"
+              />
             </q-list>
           </q-card>
 

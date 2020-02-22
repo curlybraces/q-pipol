@@ -2,69 +2,127 @@
   <q-card square flat>
     <card-header>
       Add Project
+      <template v-slot:right>
+        <q-btn flat round icon="help" @click="$emit('showHelp')"/>
+      </template>
     </card-header>
 
     <q-form class="q-pa-md q-gutter-md">
-      <q-item-label header>GENERAL INFORMATION</q-item-label>
-
       <div class="row justify-around">
-        <checkbox-input v-model="projectToSubmit.pip" label="PIP" />
-        <checkbox-input v-model="projectToSubmit.cip" label="CIP" />
-        <checkbox-input v-model="projectToSubmit.trip" label="TRIP" />
-        <checkbox-input v-model="projectToSubmit.rdip" label="RDIP" />
-        <checkbox-input v-model="projectToSubmit.pcip" label="PCIP" />
+        GENERAL INFORMATION
+        <q-space/>
+        <q-btn dense label="Expand All" color="primary" @click="expanded = !expanded"/>
       </div>
 
-      <text-input
-        v-model="projectToSubmit.title"
-        label="Program/Project Title"
-        :dense="dense"
-        hint="The title of the program or project"
-        maxlength="250"
-        required
-      />
+       <q-expansion-item
+        v-model="expanded"
+        expand-separator
+        icon="layers"
+        label="Programming Documents"
+        caption="Documents where the PAP are included"
+        default-opened
+      >
+        <q-card>
+          <q-item-label header>
+            Programming Documents
+          </q-item-label>
+          <q-list>
+            <checkbox-item
+              v-model="projectToSubmit.pip"
+              label="PIP"
+              description="Public Investment Program"
+            />
+            <checkbox-item
+              v-model="projectToSubmit.cip"
+              label="CIP"
+              description="Core Investment Program"
+            />
+            <checkbox-item
+              v-model="projectToSubmit.trip"
+              label="TRIP"
+              description="Three-Year Rolling Investment Program"
+            />
+            <checkbox-item
+              v-model="projectToSubmit.rdip"
+              label="RDIP"
+              description="Regional Development Investment Program"
+            />
+            <checkbox-item
+              v-model="projectToSubmit.pcip"
+              label="PCIP"
+              description="Provincial Commodity Investment Plan"
+            />
+            <checkbox-item
+              v-model="projectToSubmit.afmip"
+              label="AFMIP"
+              description="Agriculture and Fisheries Modernization and Industrialization Plan"
+            />
+          </q-list>
+        </q-card>
+      </q-expansion-item>
 
-      <q-option-group
-        v-model="projectToSubmit.type_id"
-        label="Type"
-        :options="TYPES"
-        inline
-        :dense="dense"
-        color="orange-10"
-      ></q-option-group>
-
-      <single-select
-        v-model="projectToSubmit.operating_unit_id"
-        label="Implementing Agency"
-        :dense="dense"
-        :options-dense="dense"
-        :options="OPERATING_UNITS"
-        hint="Proponent of the program/project"
-      />
-
-      <single-select
-        v-model="projectToSubmit.implementation_mode_id"
-        label="Implementation Mode"
-        :dense="dense"
-        :options-dense="dense"
-        :options="IMPLEMENTATION_MODES"
-      ></single-select>
-
-      <single-select
-        v-model="projectToSubmit.tier_id"
-        label="Tier"
-        :dense="dense"
-        :options-dense="dense"
-        :options="TIERS"
-      ></single-select>
-
-      <single-select
-        v-model="projectToSubmit.typology_id"
-        label="Typology"
-        :dense="dense"
-        :options-dense="dense"
-        :options="TYPOLOGIES"
-      ></single-select>
+      <q-card>
+        <q-item-label header>
+          General Information
+        </q-item-label>
+        <q-item>
+          <text-input
+            v-model="projectToSubmit.title"
+            label="Program/Project Title"
+            :dense="dense"
+            hint="The title of the program or project"
+            maxlength="250"
+            required
+          />
+        </q-item>
+        <q-item>
+          <q-option-group
+            v-model="projectToSubmit.type_id"
+            label="Type"
+            :options="TYPES"
+            inline
+            :dense="dense"
+            color="orange-10"
+          />
+        </q-item>
+        <q-item>
+          <single-select
+            v-model="projectToSubmit.operating_unit_id"
+            label="Implementing Agency"
+            :dense="dense"
+            :options-dense="dense"
+            :options="OPERATING_UNITS"
+            hint="Proponent of the program/project"
+          />
+        </q-item>
+        <q-item>
+          <single-select
+            v-model="projectToSubmit.typology_id"
+            label="Typology"
+            :dense="dense"
+            :options-dense="dense"
+            :options="TYPOLOGIES"
+          ></single-select>
+        </q-item>
+        <q-item>
+          <single-select
+            v-model="projectToSubmit.implementation_mode_id"
+            label="Implementation Mode"
+            :dense="dense"
+            :options-dense="dense"
+            :options="IMPLEMENTATION_MODES"
+          />
+        </q-item>
+        <q-item>
+          <single-select
+            v-model="projectToSubmit.tier_id"
+            label="Tier"
+            :dense="dense"
+            :options-dense="dense"
+            :options="TIERS"
+          />
+        </q-item>
+      </q-card>
 
       <multi-select
         label="Implementation Bases"
@@ -74,43 +132,60 @@
         @clear="projectToSubmit.bases = []"
       ></multi-select>
 
-      <text-input
-        v-model="projectToSubmit.description"
-        label="Description"
-        type="textarea"
-        :dense="dense"
-        hint="Description of the program/project (e.g. location, components, design, etc.)"
-      />
+      <q-card>
+        <q-list>
+          <q-item-label header>
+            Additional Information
+          </q-item-label>
+          <q-item>
+            <text-input
+              v-model="projectToSubmit.description"
+              label="Description"
+              type="textarea"
+              :dense="dense"
+              hint="Description of the program/project (e.g. location, components, design, etc.)"
+            />
+          </q-item>
 
-      <text-input
-        v-model="projectToSubmit.goals"
-        label="Goals"
-        type="textarea"
-        :dense="dense"
-      />
+          <q-item>
+            <text-input
+              v-model="projectToSubmit.goals"
+              label="Goals"
+              type="textarea"
+              :dense="dense"
+            />
+          </q-item>
 
-      <text-input
-        v-model="projectToSubmit.outcomes"
-        label="Outcomes"
-        type="textarea"
-        :dense="dense"
-        hint="Desired outcome of the program/project (e.g. Increase productivity)"
-      />
+          <q-item>
+            <text-input
+              v-model="projectToSubmit.outcomes"
+              label="Outcomes"
+              type="textarea"
+              :dense="dense"
+              hint="Desired outcome of the program/project (e.g. Increase productivity)"
+            />
+          </q-item>
 
-      <text-input
-        v-model="projectToSubmit.purpose"
-        label="Purpose"
-        type="textarea"
-        :dense="dense"
-      />
+          <q-item>
+            <text-input
+              v-model="projectToSubmit.purpose"
+              label="Purpose"
+              type="textarea"
+              :dense="dense"
+            />
+          </q-item>
 
-      <text-input
-        v-model="projectToSubmit.expected_outputs"
-        label="Expected Outputs"
-        type="textarea"
-        :dense="dense"
-        hint="Physical deliverables of the project (indicate unit)"
-      />
+          <q-item>
+            <text-input
+              v-model="projectToSubmit.expected_outputs"
+              label="Expected Outputs"
+              type="textarea"
+              :dense="dense"
+              hint="Physical deliverables of the project (indicate unit)"
+            />
+          </q-item>
+        </q-list>
+      </q-card>
 
       <text-input
         label="Beneficiaries"
@@ -639,6 +714,7 @@ export default {
     "add-item": () => import("./Shared/AddItem.vue"),
     "fund-source": () => import("./Shared/FundSource.vue"),
     "checkbox-input": () => import("../FormInputs/CheckboxInput.vue"),
+    "checkbox-item": () => import("../FormInputs/CheckboxItem.vue"),
     "financial-accomplishment": () =>
       import("./Shared/FinancialAccomplishment.vue")
   },
@@ -646,6 +722,7 @@ export default {
   props: ["project"],
   data() {
     return {
+      expanded: true,
       IMPLEMENTATION_BASES,
       IMPLEMENTATION_MODES,
       OPERATING_UNITS,

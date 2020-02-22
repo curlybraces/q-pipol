@@ -3,8 +3,19 @@
     <page-breadcrumbs :breadcrumbs="breadcrumbs" />
 
     <div class="col">
-      <add-project :project.sync="project" @save="saveProject"></add-project>
+      <add-project
+        :project.sync="project"
+        @save="saveProject"
+        @showHelp="helpDialog = true">
+      </add-project>
     </div>
+
+    <q-dialog
+      v-model="helpDialog"
+      transition-hide="fade"
+      transition-show="fade" v-close-popup>
+      <help-dialog></help-dialog>
+    </q-dialog>
   </q-page>
 </template>
 
@@ -15,7 +26,8 @@ import { Loading } from "quasar";
 export default {
   components: {
     "page-breadcrumbs": () => import("../components/PageBreadcrumbs.vue"),
-    "add-project": () => import("../components/Projects/AddProject.vue")
+    "add-project": () => import("../components/Projects/AddProject.vue"),
+    "help-dialog": () => import("../components/Projects/HelpDialog.vue")
   },
   name: "PageAddProject",
   data() {
@@ -33,12 +45,14 @@ export default {
           title: "Add Project"
         }
       ],
+      helpDialog: false,
       initialState: {
         pip: false,
         cip: false,
         trip: false,
         rdip: false,
         pcip: false,
+        afmip: false,
         title: "",
         operating_unit_id: "",
         implementation_mode_id: "",
@@ -158,7 +172,9 @@ export default {
             economic_internal_rate_return:
               project.economic_internal_rate_return,
             economic_net_present_value: project.economic_net_present_value,
-            bases: project.bases,
+            bases: {
+              connect: project.bases
+            },
             regions: project.regions,
             provinces: project.provinces,
             funding_sources: project.funding_sources,
