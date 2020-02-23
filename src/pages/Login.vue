@@ -129,7 +129,7 @@
 <script>
 import { mapActions } from "vuex";
 import { laAtSolid } from "@quasar/extras/line-awesome";
-// import { LocalStorage } from "quasar";
+import { Dialog } from "quasar";
 import { LOGIN_MUTATION, REGISTER_MUTATION } from "../constants/graphql";
 
 export default {
@@ -153,6 +153,10 @@ export default {
       this.$refs.loginForm.validate().then(success => {
         if (success) {
           const { name, username, password } = this.$data;
+
+          this.username = "";
+          this.password = "";
+
           if (this.tab == "login") {
             this.loading = true;
             this.$apollo
@@ -172,13 +176,39 @@ export default {
               .catch(err => {
                 this.error = true;
                 this.errorMessage = err.message;
+                this.username = username;
+                this.password = password;
               })
               .finally(() => (this.loading = false));
           } else {
+            this.loading = true;
             this.$apollo.mutate({
-              mutation: REGISTER_MUTATION
+              mutation: REGISTER_MUTATION,
+              variables: {
+                name: name,
+                email: username,
+                password: password,
+                password_confirmation: password
+              }
+            })
+            .then(() => {
+              Dialog.create({
+                title: "Success",
+                message: "You have successfully registered. You will receive an email once your account has been activated. Thank you for using our app.",
+                transitionShow: "fade",
+                transitionHide: "fade"
+              });
+              this.name = "";
+              this.username = "";
+              this.password = "";
+            })
+            .catch(err => {
+              this.error = true;
+              this.errorMessage = err.message;
+            })
+            .finally(() => {
+              this.loading = false
             });
-            console.log(name);
           }
         }
       });

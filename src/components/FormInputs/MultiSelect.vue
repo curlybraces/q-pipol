@@ -7,7 +7,7 @@
     :label="label"
     stack-label
     filled
-    behavior="dialog"
+    behavior="menu"
     :dense="dense"
     :options-dense="optionsDense"
     outlined

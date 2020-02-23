@@ -574,24 +574,24 @@ export const IMPLEMENTATION_BASES = [
 
 export const IMPLEMENTATION_MODES = [
   {
-    value: "1",
+    value: 1,
     label:
       "Through Local Funds in accordance with RA 9184 or the Government Procurement Act"
   },
   {
-    value: "2",
+    value: 2,
     label: "Through ODA pursuant to RA 8182 or the ODA Act of 1996"
   },
   {
-    value: "3",
+    value: 3,
     label: "Through PPP under the Amended BOT Law and Its IRR"
   },
   {
-    value: "4",
+    value: 4,
     label: "Through Joint Venture Arrangement"
   },
   {
-    value: "5",
+    value: 5,
     label: "Others"
   }
 ];

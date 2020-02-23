@@ -5,7 +5,7 @@ const state = {
   // properties
   project: {
     title: "Title",
-    type: "Project",
+    type_id: 1,
     description: null,
     goals: null,
     outcomes: null,
@@ -28,6 +28,7 @@ const state = {
     afmip: false,
     operating_unit_id: null,
     tier_id: null,
+    typology_id: null,
     spatial_coverage_id: null,
     cities_municipalities: null,
     implementation_mode_id: null,

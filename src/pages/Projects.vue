@@ -95,7 +95,10 @@ import { mapState } from "vuex";
 import { REGIONS } from "../data/dropdown-values";
 import { Dialog } from "quasar";
 
-import { ALL_PROJECTS_QUERY, DELETE_PROJECT_MUTATION } from "../constants/graphql";
+import {
+  ALL_PROJECTS_QUERY,
+  DELETE_PROJECT_MUTATION
+} from "../constants/graphql";
 
 export default {
   components: {
