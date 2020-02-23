@@ -511,7 +511,7 @@ export const UPDATE_PROJECT_MUTATION = gql`
   }
 `;
 
-export const DELETE_PROJECT = gql`
+export const DELETE_PROJECT_MUTATION = gql`
   mutation deleteProject($id: ID!) {
     deleteProject(id: $id) {
       id

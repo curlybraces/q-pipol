@@ -4,9 +4,8 @@
     icon="layers"
     :label="label"
     :caption="caption"
-    default-opened
   >
-    <q-card class="q-pa-md">
+    <q-card>
       <q-list>
         <slot></slot>
       </q-list>

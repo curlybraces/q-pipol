@@ -1,71 +1,53 @@
 <template>
   <q-page padding>
+    <page-breadcrumbs :breadcrumbs="breadcrumbs" />
     <q-form>
       <div class="row">
         <div class="col-8">
-          <q-form class="q-pa-md q-gutter-md">
-            <div class="row justify-around">
-              GENERAL INFORMATION
-              <q-space />
-              <q-btn
-                dense
-                label="Expand All"
-                color="primary"
-                @click="expanded = !expanded"
-              />
-            </div>
-
-            <q-expansion-item
+          <q-form>
+            <expansion-item
               v-model="expanded"
-              expand-separator
-              icon="layers"
               label="Programming Documents"
               caption="Documents where the PAP are included"
-              default-opened
             >
-              <q-card>
-                <q-item-label header>
-                  Programming Documents
-                </q-item-label>
-                <q-list>
-                  <checkbox-item
-                    v-model="pip"
-                    label="PIP"
-                    description="Public Investment Program"
-                  />
-                  <checkbox-item
-                    v-model="cip"
-                    label="CIP"
-                    description="Core Investment Program"
-                  />
-                  <checkbox-item
-                    v-model="trip"
-                    label="TRIP"
-                    description="Three-Year Rolling Investment Program"
-                  />
-                  <checkbox-item
-                    v-model="rdip"
-                    label="RDIP"
-                    description="Regional Development Investment Program"
-                  />
-                  <checkbox-item
-                    v-model="pcip"
-                    label="PCIP"
-                    description="Provincial Commodity Investment Plan"
-                  />
-                  <checkbox-item
-                    v-model="afmip"
-                    label="AFMIP"
-                    description="Agriculture and Fisheries Modernization and Industrialization Plan"
-                  />
-                </q-list>
-              </q-card>
-            </q-expansion-item>
+              <q-list>
+                <checkbox-item
+                  v-model="pip"
+                  label="PIP"
+                  description="Public Investment Program"
+                />
+                <checkbox-item
+                  v-model="cip"
+                  label="CIP"
+                  description="Core Investment Program"
+                />
+                <checkbox-item
+                  v-model="trip"
+                  label="TRIP"
+                  description="Three-Year Rolling Investment Program"
+                />
+                <checkbox-item
+                  v-model="rdip"
+                  label="RDIP"
+                  description="Regional Development Investment Program"
+                />
+                <checkbox-item
+                  v-model="pcip"
+                  label="PCIP"
+                  description="Provincial Commodity Investment Plan"
+                />
+                <checkbox-item
+                  v-model="afmip"
+                  label="AFMIP"
+                  description="Agriculture and Fisheries Modernization and Industrialization Plan"
+                />
+              </q-list>
+            </expansion-item>
 
-            <q-card>
-              <q-item-label header>
-                General Information
-              </q-item-label>
+            <expansion-item
+              label="Basic Information"
+              caption="Basic Information"
+            >
               <q-item>
                 <text-input
                   v-model="title"
@@ -77,7 +59,7 @@
                 />
               </q-item>
               <q-item>
-                <q-option-group
+                <single-select
                   v-model="type_id"
                   label="Type"
                   :options="TYPES"
@@ -94,6 +76,15 @@
                   :options-dense="dense"
                   :options="OPERATING_UNITS"
                   hint="Proponent of the program/project"
+                />
+              </q-item>
+              <q-item>
+                <text-input
+                  v-model="description"
+                  label="Description"
+                  type="textarea"
+                  :dense="dense"
+                  hint="Description of the program/project (e.g. location, components, design, etc.)"
                 />
               </q-item>
               <q-item>
@@ -123,7 +114,7 @@
                   :options="TIERS"
                 />
               </q-item>
-            </q-card>
+            </expansion-item>
 
             <multi-select
               label="Implementation Bases"
@@ -133,93 +124,80 @@
               @clear="bases = []"
             ></multi-select>
 
-            <q-card>
-              <q-list>
-                <q-item-label header>
-                  Additional Information
-                </q-item-label>
-                <q-item>
-                  <text-input
-                    v-model="description"
-                    label="Description"
-                    type="textarea"
-                    :dense="dense"
-                    hint="Description of the program/project (e.g. location, components, design, etc.)"
-                  />
-                </q-item>
+            <expansion-item
+              label="Additional Information"
+              caption="Additional Information"
+            >
+              <q-item>
+                <text-input
+                  v-model="goals"
+                  label="Goals"
+                  type="textarea"
+                  :dense="dense"
+                />
+              </q-item>
 
-                <q-item>
-                  <text-input
-                    v-model="goals"
-                    label="Goals"
-                    type="textarea"
-                    :dense="dense"
-                  />
-                </q-item>
+              <q-item>
+                <text-input
+                  v-model="outcomes"
+                  label="Outcomes"
+                  type="textarea"
+                  :dense="dense"
+                  hint="Desired outcome of the program/project (e.g. Increase productivity)"
+                />
+              </q-item>
 
-                <q-item>
-                  <text-input
-                    v-model="outcomes"
-                    label="Outcomes"
-                    type="textarea"
-                    :dense="dense"
-                    hint="Desired outcome of the program/project (e.g. Increase productivity)"
-                  />
-                </q-item>
+              <q-item>
+                <text-input
+                  v-model="purpose"
+                  label="Purpose"
+                  type="textarea"
+                  :dense="dense"
+                />
+              </q-item>
 
-                <q-item>
-                  <text-input
-                    v-model="purpose"
-                    label="Purpose"
-                    type="textarea"
-                    :dense="dense"
-                  />
-                </q-item>
+              <q-item>
+                <text-input
+                  v-model="expected_outputs"
+                  label="Expected Outputs"
+                  type="textarea"
+                  :dense="dense"
+                  hint="Physical deliverables of the project (indicate unit)"
+                />
+              </q-item>
+            </expansion-item>
 
-                <q-item>
-                  <text-input
-                    v-model="expected_outputs"
-                    label="Expected Outputs"
-                    type="textarea"
-                    :dense="dense"
-                    hint="Physical deliverables of the project (indicate unit)"
-                  />
-                </q-item>
-              </q-list>
-            </q-card>
+            <expansion-item label="Spatial Coverage" caption="Spatial Coverage">
+              <q-item>
+                <single-select
+                  v-model="spatial_coverage_id"
+                  label="Spatial Coverage"
+                  :dense="dense"
+                  :options-dense="dense"
+                  :options="SPATIAL_COVERAGES"
+                />
+              </q-item>
 
-            <text-input label="Beneficiaries" v-model="beneficiaries" />
+              <q-item>
+                <multi-select
+                  v-model="provinces"
+                  label="Province/s"
+                  :options="PROVINCES"
+                  :dense="dense"
+                  :options-dense="dense"
+                  :readonly="spatial_coverage_id == '1'"
+                  @clear="provinces = []"
+                />
+              </q-item>
 
-            <text-input
-              outlined
-              stack-label
-              label="Employment Generated"
-              v-model="employment_generated"
-            />
-
-            <single-select
-              v-model="spatial_coverage_id"
-              label="Spatial Coverage"
-              :dense="dense"
-              :options-dense="dense"
-              :options="SPATIAL_COVERAGES"
-            />
-
-            <multi-select
-              v-model="provinces"
-              label="Province/s"
-              :options="PROVINCES"
-              :dense="dense"
-              :options-dense="dense"
-              :readonly="spatial_coverage_id == '1'"
-              @clear="provinces = []"
-            />
-
-            <text-input
-              type="textarea"
-              label="Cities and Municipalities"
-              v-model="cities_municipalities"
-            />
+              <q-item>
+                <text-input
+                  type="textarea"
+                  label="Cities and Municipalities"
+                  v-model="cities_municipalities"
+                />
+              </q-item>
+            </expansion-item>
 
             <div class="q-ml-md">
               <div class="row q-col-gutter-md">
@@ -284,115 +262,138 @@
               hint="Indicative project cost in absolute PhP"
             ></money-input>
 
-            <text-input
-              label="Implementation Risks"
-              type="textarea"
-              v-model="implementation_risk"
-            />
+            <expansion-item label="Readiness" caption="">
+              <q-item>
+                <multi-select
+                  label="Technical Readiness"
+                  v-model="technical_readinesses"
+                  :options="TECHNICAL_READINESSES"
+                  class="col"
+                ></multi-select>
+              </q-item>
 
-            <text-input
-              label="Mitigation Strategies"
-              type="textarea"
-              v-model="mitigation_strategy"
-            />
+              <q-item>
+                <q-item-section class="col-6">
+                  <checkbox-input
+                    v-model="clearinghouse"
+                    label="Approved by DA Clearinghouse"
+                  />
+                </q-item-section>
+                <q-item-section class="col-6">
+                  <date-input
+                    label="Date Approved by Clearinghouse Committee"
+                    v-model="clearinghouse_date"
+                  />
+                </q-item-section>
+              </q-item>
+              <div class="q-gutter-md">
+                <div class="row">
+                  <checkbox-input
+                    class="col-6"
+                    v-model="neda_submission"
+                    label="NEDA Submission"
+                  />
+                  <date-input
+                    class="col-6"
+                    label="Date submitted to NEDA"
+                    v-model="neda_submission_date"
+                  />
+                </div>
 
-            <q-item-label header>CIP Processing Status</q-item-label>
+                <div class="row">
+                  <checkbox-input
+                    class="col-6"
+                    v-model="neda_secretariat_review"
+                    label="NEDA Secretariat Review"
+                  />
+                  <date-input
+                    class="col-6"
+                    label="Date reviewed by NEDA Secretariat"
+                    v-model="neda_secretariat_review_date"
+                  />
+                </div>
 
-            <multi-select
-              label="Technical Readiness"
-              v-model="technical_readinesses"
-              :options="TECHNICAL_READINESSES"
-            ></multi-select>
+                <div class="row">
+                  <checkbox-input
+                    class="col-6"
+                    v-model="icc_endorsed"
+                    label="ICC Endorsed"
+                  />
+                  <date-input
+                    class="col-6"
+                    label="Date endorsed by ICC"
+                    v-model="icc_endorsed_date"
+                  />
+                </div>
 
-            <div class="row">
-              <checkbox-input
-                class="col-6"
-                v-model="clearinghouse"
-                label="Approved by DA Clearinghouse"
-              />
-              <date-input
-                class="col-6"
-                label="Date Approved by Clearinghouse Committee"
-                v-model="clearinghouse_date"
-              />
-            </div>
+                <div class="row">
+                  <checkbox-input
+                    class="col-6"
+                    v-model="icc_approved"
+                    label="ICC Approved"
+                  />
+                  <date-input
+                    class="col-6"
+                    label="Date approved by the ICC"
+                    v-model="icc_approved_date"
+                  />
+                </div>
+              </div>
 
-            <div class="row">
-              <checkbox-input
-                class="col-6"
-                v-model="neda_submission"
-                label="NEDA Submission"
-              />
-              <date-input
-                class="col-6"
-                label="Date submitted to NEDA"
-                v-model="neda_submission_date"
-              />
-            </div>
-
-            <div class="row">
-              <checkbox-input
-                class="col-6"
-                v-model="neda_secretariat_review"
-                label="NEDA Secretariat Review"
-              />
-              <date-input
-                class="col-6"
-                label="Date reviewed by NEDA Secretariat"
-                v-model="neda_secretariat_review_date"
-              />
-            </div>
-
-            <div class="row">
-              <checkbox-input
-                class="col-6"
-                v-model="icc_endorsed"
-                label="ICC Endorsed"
-              />
-              <date-input
-                class="col-6"
-                label="Date endorsed by ICC"
-                v-model="icc_endorsed_date"
-              />
-            </div>
-
-            <div class="row">
-              <checkbox-input
-                class="col-6"
-                v-model="icc_approved"
-                label="ICC Approved"
-              />
-              <date-input
-                class="col-6"
-                label="Date approved by the ICC"
-                v-model="icc_approved_date"
-              />
-            </div>
-
-            <div class="row">
-              <checkbox-input
-                class="col-6"
-                v-model="neda_board"
-                label="NEDA Board"
-              />
-              <date-input
-                class="col-6"
-                label="Date approved by the NEDA Board"
-                v-model="neda_board_date"
-              />
-            </div>
+              <div class="row">
+                <checkbox-input
+                  class="col-6"
+                  v-model="neda_board"
+                  label="NEDA Board"
+                />
+                <date-input
+                  class="col-6"
+                  label="Date approved by the NEDA Board"
+                  v-model="neda_board_date"
+                />
+              </div>
+            </expansion-item>
 
             <expansion-item
               label="Financial and Economic Analyses"
               caption="Financial and Economic Analyses"
             >
               <div>
-                <div class="row q-mb-md">
+                <q-item>
+                  <text-input label="Beneficiaries" v-model="beneficiaries" />
+                </q-item>
+
+                <q-item>
+                  <text-input
+                    outlined
+                    stack-label
+                    label="Employment Generated"
+                    v-model="employment_generated"
+                  />
+                </q-item>
+
+                <q-item>
+                  <text-input
+                    label="Implementation Risks"
+                    type="textarea"
+                    v-model="implementation_risk"
+                  />
+                </q-item>
+
+                <q-item>
+                  <text-input
+                    label="Mitigation Strategies"
+                    type="textarea"
+                    v-model="mitigation_strategy"
+                  />
+                </q-item>
+
+                <q-item>
                   <text-input
                     label="Estimated Project Life"
                     v-model="estimated_project_life"
                   />
-                </div>
+                </q-item>
 
                 <div class="row q-col-gutter-md">
                   <div class="col-6 q-gutter-y-md">
@@ -439,59 +440,6 @@
                 </div>
               </div>
             </expansion-item>
-
-            <q-item-label header>Financial and Economic Analyses</q-item-label>
-
-            <text-input
-              label="Estimated Project Life"
-              v-model="estimated_project_life"
-            />
-
-            <div class="q-ml-md">
-              <div class="row q-col-gutter-md">
-                <div class="col-6 q-gutter-y-md">
-                  <money-input
-                    label="Financial Net Present Value (FNPV)"
-                    v-model="financial_net_present_value"
-                    :dense="dense"
-                  ></money-input>
-
-                  <number-input
-                    label="Financial Benefit-Cost Ratio (FBCR)"
-                    v-model="financial_benefit_cost_ratio"
-                    :dense="dense"
-                  />
-
-                  <number-input
-                    label="Financial Internal Rate of Return (FIRR)"
-                    v-model="financial_internal_rate_return"
-                    :dense="dense"
-                    suffix="%"
-                  />
-                </div>
-
-                <div class="col-6 q-gutter-y-md">
-                  <money-input
-                    label="Economic Net Present Value (ENPV)"
-                    v-model="economic_net_present_value"
-                    :dense="dense"
-                  ></money-input>
-
-                  <number-input
-                    label="Economic Benefit-Cost Ratio (EBCR)"
-                    v-model="economic_benefit_cost_ratio"
-                    :dense="dense"
-                  />
-
-                  <number-input
-                    label="Economic Internal Rate Return (EIRR)"
-                    v-model="economic_internal_rate_return"
-                    :dense="dense"
-                    suffix="%"
-                  />
-                </div>
-              </div>
-            </div>
 
             <q-markup-table
               v-if="funding_sources.length"
@@ -669,21 +617,26 @@
               </tbody>
             </q-markup-table>
 
-            <div class="q-ml-md">
-              <div class="row items-start q-col-gutter-md">
-                <text-input
-                  class="col-9"
-                  label="Updates"
-                  type="textarea"
-                  v-model="updates"
-                />
+            <expansion-item label="Updates" caption="Updates">
+              <q-item>
+                <q-item-section class="col-9">
+                  <text-input
+                    label="Updates"
+                    type="textarea"
+                    v-model="updates"
+                  />
+                </q-item-section>
+                <q-item-section class="col-3" top>
+                  <date-input
+                    label="As of Date"
+                    v-model="updates_date"
+                  ></date-input>
+                </q-item-section>
+              </q-item>
+            </expansion-item>
 
-                <date-input
-                  class="col-3"
-                  label="As of Date"
-                  v-model="updates_date"
-                ></date-input>
-              </div>
+            <div class="q-ml-md">
+              <div class="row items-start q-col-gutter-md"></div>
             </div>
           </q-form>
         </div>
@@ -722,7 +675,8 @@ export default {
     "checkbox-input": () =>
       import("../components/FormInputs/CheckboxInput.vue"),
     "checkbox-item": () => import("../components/FormInputs/CheckboxItem.vue"),
-    "expansion-item": () => import("../components/Projects/ExpansionItem.vue")
+    "expansion-item": () => import("../components/Projects/ExpansionItem.vue"),
+    "page-breadcrumbs": () => import("../components/PageBreadcrumbs.vue")
   },
   name: "PageAddProject",
   computed: {
@@ -808,6 +762,19 @@ export default {
   },
   data() {
     return {
+      breadcrumbs: [
+        {
+          title: "Home",
+          url: "/"
+        },
+        {
+          title: "Projects",
+          url: "/pip"
+        },
+        {
+          title: "Add Project"
+        }
+      ],
       IMPLEMENTATION_BASES,
       IMPLEMENTATION_MODES,
       PROVINCES,

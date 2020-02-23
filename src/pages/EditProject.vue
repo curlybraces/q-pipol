@@ -365,7 +365,7 @@ import {
   TECHNICAL_READINESSES,
   YEARS
 } from "../data/dropdown-values";
-import { VIEW_PROJECT } from "../constants/graphql";
+import { FETCH_PROJECT_QUERY } from "../constants/graphql";
 
 export default {
   components: {
@@ -468,7 +468,7 @@ export default {
   },
   apollo: {
     project: {
-      query: VIEW_PROJECT,
+      query: FETCH_PROJECT_QUERY,
       variables() {
         return {
           id: this.$route.params.id

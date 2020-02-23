@@ -17,6 +17,7 @@
     use-chips
     use-input
     label-color="orange-10"
+    class="col"
   >
     <template v-slot:before-options>
       <q-item>

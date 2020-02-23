@@ -25,7 +25,12 @@
           <q-separator spaced />
 
           <q-card-section class="q-pa-md">
-            <q-form ref="loginForm" class="q-gutter-md" @submit="handleSubmit">
+            <q-form
+              ref="loginForm"
+              class="q-gutter-md"
+              @submit="handleSubmit"
+              novalidate="true"
+            >
               <div v-if="error" class="text-center text-red">
                 An error occurred: {{ errorMessage }}
               </div>
@@ -182,33 +187,35 @@ export default {
               .finally(() => (this.loading = false));
           } else {
             this.loading = true;
-            this.$apollo.mutate({
-              mutation: REGISTER_MUTATION,
-              variables: {
-                name: name,
-                email: username,
-                password: password,
-                password_confirmation: password
-              }
-            })
-            .then(() => {
-              Dialog.create({
-                title: "Success",
-                message: "You have successfully registered. You will receive an email once your account has been activated. Thank you for using our app.",
-                transitionShow: "fade",
-                transitionHide: "fade"
+            this.$apollo
+              .mutate({
+                mutation: REGISTER_MUTATION,
+                variables: {
+                  name: name,
+                  email: username,
+                  password: password,
+                  password_confirmation: password
+                }
+              })
+              .then(() => {
+                Dialog.create({
+                  title: "Success",
+                  message:
+                    "You have successfully registered. You will receive an email once your account has been activated. Thank you for using our app.",
+                  transitionShow: "fade",
+                  transitionHide: "fade"
+                });
+                this.name = "";
+                this.username = "";
+                this.password = "";
+              })
+              .catch(err => {
+                this.error = true;
+                this.errorMessage = err.message;
+              })
+              .finally(() => {
+                this.loading = false;
               });
-              this.name = "";
-              this.username = "";
-              this.password = "";
-            })
-            .catch(err => {
-              this.error = true;
-              this.errorMessage = err.message;
-            })
-            .finally(() => {
-              this.loading = false
-            });
           }
         }
       });
