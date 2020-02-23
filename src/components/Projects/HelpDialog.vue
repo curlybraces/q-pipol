@@ -8,7 +8,7 @@
           <th>Description</th>
         </thead>
         <tbody>
-          <tr v-for="({field,description},index) in helpItems" :key="index">
+          <tr v-for="({ field, description }, index) in helpItems" :key="index">
             <td class="text-center">{{ field }}</td>
             <td class="text-center">{{ description }}</td>
           </tr>
@@ -33,7 +33,7 @@ export default {
           description: "Indicate whether it is a program or project"
         }
       ]
-    }
+    };
   }
-}
+};
 </script>

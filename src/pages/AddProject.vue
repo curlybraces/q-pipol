@@ -6,14 +6,17 @@
       <add-project
         :project.sync="project"
         @save="saveProject"
-        @showHelp="helpDialog = true">
+        @showHelp="helpDialog = true"
+      >
       </add-project>
     </div>
 
     <q-dialog
       v-model="helpDialog"
       transition-hide="fade"
-      transition-show="fade" v-close-popup>
+      transition-show="fade"
+      v-close-popup
+    >
       <help-dialog></help-dialog>
     </q-dialog>
   </q-page>

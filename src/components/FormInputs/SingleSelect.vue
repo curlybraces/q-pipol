@@ -64,17 +64,19 @@ export default {
     filterFn(val, update) {
       const options = this.$props.options;
 
-      if (val === '') {
+      if (val === "") {
         update(() => {
           this.selectOptions = options;
-        })
-        return
+        });
+        return;
       }
 
       update(() => {
-        const needle = val.toLowerCase()
-        this.selectOptions = options.filter(v => v.label.toLowerCase().indexOf(needle) > -1)
-      })
+        const needle = val.toLowerCase();
+        this.selectOptions = options.filter(
+          v => v.label.toLowerCase().indexOf(needle) > -1
+        );
+      });
     }
   }
 };

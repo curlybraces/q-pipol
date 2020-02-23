@@ -1,13 +1,9 @@
 <template>
-  <q-card square flat>
-    <card-header>
-      Add Project
-      <template v-slot:right>
-        <q-btn flat round icon="help" @click="$emit('showHelp')" />
-      </template>
-    </card-header>
-
-    <q-form class="q-pa-md q-gutter-md">
+  <q-page padding>
+    <q-form>
+      <div class="row">
+        <div class="col-6">
+          <q-form class="q-pa-md q-gutter-md">
       <div class="row justify-around">
         GENERAL INFORMATION
         <q-space />
@@ -33,32 +29,32 @@
           </q-item-label>
           <q-list>
             <checkbox-item
-              v-model="projectToSubmit.pip"
+              v-model="pip"
               label="PIP"
               description="Public Investment Program"
             />
             <checkbox-item
-              v-model="projectToSubmit.cip"
+              v-model="cip"
               label="CIP"
               description="Core Investment Program"
             />
             <checkbox-item
-              v-model="projectToSubmit.trip"
+              v-model="trip"
               label="TRIP"
               description="Three-Year Rolling Investment Program"
             />
             <checkbox-item
-              v-model="projectToSubmit.rdip"
+              v-model="rdip"
               label="RDIP"
               description="Regional Development Investment Program"
             />
             <checkbox-item
-              v-model="projectToSubmit.pcip"
+              v-model="pcip"
               label="PCIP"
               description="Provincial Commodity Investment Plan"
             />
             <checkbox-item
-              v-model="projectToSubmit.afmip"
+              v-model="afmip"
               label="AFMIP"
               description="Agriculture and Fisheries Modernization and Industrialization Plan"
             />
@@ -72,7 +68,7 @@
         </q-item-label>
         <q-item>
           <text-input
-            v-model="projectToSubmit.title"
+            v-model="title"
             label="Program/Project Title"
             :dense="dense"
             hint="The title of the program or project"
@@ -82,7 +78,7 @@
         </q-item>
         <q-item>
           <q-option-group
-            v-model="projectToSubmit.type_id"
+            v-model="type_id"
             label="Type"
             :options="TYPES"
             inline
@@ -92,7 +88,7 @@
         </q-item>
         <q-item>
           <single-select
-            v-model="projectToSubmit.operating_unit_id"
+            v-model="operating_unit_id"
             label="Implementing Agency"
             :dense="dense"
             :options-dense="dense"
@@ -102,7 +98,7 @@
         </q-item>
         <q-item>
           <single-select
-            v-model="projectToSubmit.typology_id"
+            v-model="typology_id"
             label="Typology"
             :dense="dense"
             :options-dense="dense"
@@ -111,7 +107,7 @@
         </q-item>
         <q-item>
           <single-select
-            v-model="projectToSubmit.implementation_mode_id"
+            v-model="implementation_mode_id"
             label="Implementation Mode"
             :dense="dense"
             :options-dense="dense"
@@ -120,7 +116,7 @@
         </q-item>
         <q-item>
           <single-select
-            v-model="projectToSubmit.tier_id"
+            v-model="tier_id"
             label="Tier"
             :dense="dense"
             :options-dense="dense"
@@ -131,10 +127,10 @@
 
       <multi-select
         label="Implementation Bases"
-        v-model="projectToSubmit.bases"
+        v-model="bases"
         :options-dense="dense"
         :options="IMPLEMENTATION_BASES"
-        @clear="projectToSubmit.bases = []"
+        @clear="bases = []"
       ></multi-select>
 
       <q-card>
@@ -144,7 +140,7 @@
           </q-item-label>
           <q-item>
             <text-input
-              v-model="projectToSubmit.description"
+              v-model="description"
               label="Description"
               type="textarea"
               :dense="dense"
@@ -154,7 +150,7 @@
 
           <q-item>
             <text-input
-              v-model="projectToSubmit.goals"
+              v-model="goals"
               label="Goals"
               type="textarea"
               :dense="dense"
@@ -163,7 +159,7 @@
 
           <q-item>
             <text-input
-              v-model="projectToSubmit.outcomes"
+              v-model="outcomes"
               label="Outcomes"
               type="textarea"
               :dense="dense"
@@ -173,7 +169,7 @@
 
           <q-item>
             <text-input
-              v-model="projectToSubmit.purpose"
+              v-model="purpose"
               label="Purpose"
               type="textarea"
               :dense="dense"
@@ -182,7 +178,7 @@
 
           <q-item>
             <text-input
-              v-model="projectToSubmit.expected_outputs"
+              v-model="expected_outputs"
               label="Expected Outputs"
               type="textarea"
               :dense="dense"
@@ -194,18 +190,18 @@
 
       <text-input
         label="Beneficiaries"
-        v-model="projectToSubmit.beneficiaries"
+        v-model="beneficiaries"
       />
 
       <text-input
         outlined
         stack-label
         label="Employment Generated"
-        v-model="projectToSubmit.employment_generated"
+        v-model="employment_generated"
       />
 
       <single-select
-        v-model="projectToSubmit.spatial_coverage_id"
+        v-model="spatial_coverage_id"
         label="Spatial Coverage"
         :dense="dense"
         :options-dense="dense"
@@ -213,25 +209,25 @@
       />
 
       <multi-select
-        v-model="projectToSubmit.provinces"
+        v-model="provinces"
         label="Province/s"
         :options="filteredProvinces"
         :dense="dense"
         :options-dense="dense"
-        :readonly="projectToSubmit.spatial_coverage_id == '1'"
+        :readonly="spatial_coverage_id == '1'"
       />
 
       <text-input
         type="textarea"
         label="Cities and Municipalities"
-        v-model="projectToSubmit.cities_municipalities"
+        v-model="cities_municipalities"
       />
 
       <div class="q-ml-md">
         <div class="row q-col-gutter-md">
           <single-select
             class="col-6"
-            v-model="projectToSubmit.target_start_year"
+            v-model="target_start_year"
             label="Target Start Year"
             :options="YEARS"
             :dense="dense"
@@ -240,7 +236,7 @@
 
           <single-select
             class="col-6"
-            v-model="projectToSubmit.target_end_year"
+            v-model="target_end_year"
             label="Target Completion Year"
             :options="YEARS"
             :dense="dense"
@@ -253,7 +249,7 @@
         <div class="row q-col-gutter-md">
           <date-input
             class="col-6"
-            v-model="projectToSubmit.implementation_start_date"
+            v-model="implementation_start_date"
             mask="date"
             label="Implementation Start Date"
             :dense="dense"
@@ -262,7 +258,7 @@
 
           <date-input
             class="col-6"
-            v-model="projectToSubmit.implementation_end_date"
+            v-model="implementation_end_date"
             mask="date"
             label="Implementation End Date"
             :dense="dense"
@@ -272,7 +268,7 @@
       </div>
 
       <single-select
-        v-model="projectToSubmit.project_status_id"
+        v-model="project_status_id"
         label="Status"
         :dense="dense"
         :options-dense="dense"
@@ -282,14 +278,14 @@
       <number-input
         label="GAD Score"
         type="number"
-        v-model="projectToSubmit.gad_score"
+        v-model="gad_score"
       />
 
       <money-input
         label="Total Project Cost"
         outlined
         prefix="PhP"
-        v-model="projectToSubmit.total_project_cost"
+        v-model="total_project_cost"
         :dense="dense"
         hint="Indicative project cost in absolute PhP"
       ></money-input>
@@ -297,98 +293,98 @@
       <text-input
         label="Implementation Risks"
         type="textarea"
-        v-model="projectToSubmit.implementation_risk"
+        v-model="implementation_risk"
       />
 
       <text-input
         label="Mitigation Strategies"
         type="textarea"
-        v-model="projectToSubmit.mitigation_strategy"
+        v-model="mitigation_strategy"
       />
 
       <q-item-label header>CIP Processing Status</q-item-label>
 
       <multi-select
         label="Technical Readiness"
-        v-model="projectToSubmit.technical_readinesses"
+        v-model="technical_readinesses"
         :options="TECHNICAL_READINESSES"
       ></multi-select>
 
       <div class="row">
         <checkbox-input
           class="col-6"
-          v-model="projectToSubmit.clearinghouse"
+          v-model="clearinghouse"
           label="Approved by DA Clearinghouse"
         />
         <date-input
           class="col-6"
           label="Date Approved by Clearinghouse Committee"
-          v-model="projectToSubmit.clearinghouse_date"
+          v-model="clearinghouse_date"
         />
       </div>
 
       <div class="row">
         <checkbox-input
           class="col-6"
-          v-model="projectToSubmit.neda_submission"
+          v-model="neda_submission"
           label="NEDA Submission"
         />
         <date-input
           class="col-6"
           label="Date submitted to NEDA"
-          v-model="projectToSubmit.neda_submission_date"
+          v-model="neda_submission_date"
         />
       </div>
 
       <div class="row">
         <checkbox-input
           class="col-6"
-          v-model="projectToSubmit.neda_secretariat_review"
+          v-model="neda_secretariat_review"
           label="NEDA Secretariat Review"
         />
         <date-input
           class="col-6"
           label="Date reviewed by NEDA Secretariat"
-          v-model="projectToSubmit.neda_secretariat_review_date"
+          v-model="neda_secretariat_review_date"
         />
       </div>
 
       <div class="row">
         <checkbox-input
           class="col-6"
-          v-model="projectToSubmit.icc_endorsed"
+          v-model="icc_endorsed"
           label="ICC Endorsed"
         />
         <date-input
           class="col-6"
           label="Date endorsed by ICC"
-          v-model="projectToSubmit.icc_endorsed_date"
+          v-model="icc_endorsed_date"
         />
       </div>
 
       <div class="row">
         <checkbox-input
           class="col-6"
-          v-model="projectToSubmit.icc_approved"
+          v-model="icc_approved"
           label="ICC Approved"
         />
         <date-input
           class="col-6"
           label="Date approved by the ICC"
-          v-model="projectToSubmit.icc_approved_date"
+          v-model="icc_approved_date"
         />
       </div>
 
       <div class="row">
         <checkbox-input
           class="col-6"
-          v-model="projectToSubmit.neda_board"
+          v-model="neda_board"
           label="NEDA Board"
         />
         <date-input
           class="col-6"
           label="Date approved by the NEDA Board"
-          v-model="projectToSubmit.neda_board_date"
+          v-model="neda_board_date"
         />
       </div>
 
@@ -396,7 +392,7 @@
 
       <text-input
         label="Estimated Project Life"
-        v-model="projectToSubmit.estimated_project_life"
+        v-model="estimated_project_life"
       />
 
       <div class="q-ml-md">
@@ -404,19 +400,19 @@
           <div class="col-6 q-gutter-y-md">
             <money-input
               label="Financial Net Present Value (FNPV)"
-              v-model="projectToSubmit.financial_net_present_value"
+              v-model="financial_net_present_value"
               :dense="dense"
             ></money-input>
 
             <number-input
               label="Financial Benefit-Cost Ratio (FBCR)"
-              v-model="projectToSubmit.financial_benefit_cost_ratio"
+              v-model="financial_benefit_cost_ratio"
               :dense="dense"
             />
 
             <number-input
               label="Financial Internal Rate of Return (FIRR)"
-              v-model="projectToSubmit.financial_internal_rate_return"
+              v-model="financial_internal_rate_return"
               :dense="dense"
               suffix="%"
             />
@@ -425,19 +421,19 @@
           <div class="col-6 q-gutter-y-md">
             <money-input
               label="Economic Net Present Value (ENPV)"
-              v-model="projectToSubmit.economic_net_present_value"
+              v-model="economic_net_present_value"
               :dense="dense"
             ></money-input>
 
             <number-input
               label="Economic Benefit-Cost Ratio (EBCR)"
-              v-model="projectToSubmit.economic_benefit_cost_ratio"
+              v-model="economic_benefit_cost_ratio"
               :dense="dense"
             />
 
             <number-input
               label="Economic Internal Rate Return (EIRR)"
-              v-model="projectToSubmit.economic_internal_rate_return"
+              v-model="economic_internal_rate_return"
               :dense="dense"
               suffix="%"
             />
@@ -445,18 +441,8 @@
         </div>
       </div>
 
-      <q-item-label header>
-        Investment by Fund Source
-        <q-icon
-          name="edit"
-          @click="addFundSource"
-          class="cursor-pointer"
-          color="primary"
-        />
-      </q-item-label>
-
       <q-markup-table
-        v-if="projectToSubmit.funding_sources.length"
+        v-if="funding_sources.length"
         flat
         bordered
         separator="cell"
@@ -475,7 +461,7 @@
         </thead>
         <tbody>
           <tr
-            v-for="funding_source in projectToSubmit.funding_sources"
+            v-for="funding_source in funding_sources"
             :key="funding_source.item.value"
           >
             <th>{{ funding_source.item.label }}</th>
@@ -492,14 +478,6 @@
         </tbody>
       </q-markup-table>
 
-      <q-dialog persistent v-model="addFundSourceDialog">
-        <fund-source
-          :item.sync="fundSourceToAdd"
-          @add="addToFundSource"
-          @close="addFundSourceDialog = false"
-        />
-      </q-dialog>
-
       <q-item-label header>
         Regional Investment
         <q-icon
@@ -512,7 +490,7 @@
       </q-item-label>
 
       <q-markup-table
-        v-if="projectToSubmit.regions.length"
+        v-if="regions.length"
         flat
         bordered
         separator="cell"
@@ -531,7 +509,7 @@
         </thead>
         <tbody>
           <tr
-            v-for="region in projectToSubmit.regions"
+            v-for="region in regions"
             :key="region.item.value"
           >
             <th>{{ region.item.label }}</th>
@@ -548,24 +526,6 @@
         </tbody>
       </q-markup-table>
 
-      <q-dialog persistent v-model="addRegionDialog">
-        <add-item
-          :item.sync="regionToAdd"
-          @add="addToRegion"
-          @close="addRegionDialog = false"
-        />
-      </q-dialog>
-
-      <q-item-label header>
-        Physical &amp; Financial Accomplishments
-        <q-icon
-          name="edit"
-          color="primary"
-          class="cursor-pointer"
-          @click="updateFinancialAccomplishmentDialog = true"
-        ></q-icon>
-      </q-item-label>
-
       <q-markup-table flat bordered separator="cell">
         <thead>
           <th style="width:25%">Year</th>
@@ -577,96 +537,89 @@
           <tr>
             <td class="text-center">2017</td>
             <td class="text-right">
-              {{ projectToSubmit.financialAccomplishment.nep_2017 }}
+              {{ nep_2017 }}
             </td>
             <td class="text-right">
-              {{ projectToSubmit.financialAccomplishment.gaa_2017 }}
+              {{ gaa_2017 }}
             </td>
             <td class="text-right">
-              {{ projectToSubmit.financialAccomplishment.disbursement_2017 }}
+              {{ disbursement_2017 }}
             </td>
           </tr>
           <tr>
             <td class="text-center">2018</td>
             <td class="text-right">
-              {{ projectToSubmit.financialAccomplishment.nep_2018 }}
+              {{ nep_2018 }}
             </td>
             <td class="text-right">
-              {{ projectToSubmit.financialAccomplishment.gaa_2018 }}
+              {{ gaa_2018 }}
             </td>
             <td class="text-right">
-              {{ projectToSubmit.financialAccomplishment.disbursement_2018 }}
+              {{ disbursement_2018 }}
             </td>
           </tr>
           <tr>
             <td class="text-center">2019</td>
             <td class="text-right">
-              {{ projectToSubmit.financialAccomplishment.nep_2019 }}
+              {{ nep_2019 }}
             </td>
             <td class="text-right">
-              {{ projectToSubmit.financialAccomplishment.gaa_2019 }}
+              {{ gaa_2019 }}
             </td>
             <td class="text-right">
-              {{ projectToSubmit.financialAccomplishment.disbursement_2019 }}
+              {{ disbursement_2019 }}
             </td>
           </tr>
           <tr>
             <td class="text-center">2020</td>
             <td class="text-right">
-              {{ projectToSubmit.financialAccomplishment.nep_2020 }}
+              {{ nep_2020 }}
             </td>
             <td class="text-right">
-              {{ projectToSubmit.financialAccomplishment.gaa_2020 }}
+              {{ gaa_2020 }}
             </td>
             <td class="text-right">
-              {{ projectToSubmit.financialAccomplishment.disbursement_2020 }}
+              {{ disbursement_2020 }}
             </td>
           </tr>
           <tr>
             <td class="text-center">2021</td>
             <td class="text-right">
-              {{ projectToSubmit.financialAccomplishment.nep_2021 }}
+              {{ nep_2021 }}
             </td>
             <td class="text-right">
-              {{ projectToSubmit.financialAccomplishment.gaa_2021 }}
+              {{ gaa_2021 }}
             </td>
             <td class="text-right">
-              {{ projectToSubmit.financialAccomplishment.disbursement_2021 }}
+              {{ disbursement_2021 }}
             </td>
           </tr>
           <tr>
             <td class="text-center">2022</td>
             <td class="text-right">
-              {{ projectToSubmit.financialAccomplishment.nep_2022 }}
+              {{ nep_2022 }}
             </td>
             <td class="text-right">
-              {{ projectToSubmit.financialAccomplishment.gaa_2022 }}
+              {{ gaa_2022 }}
             </td>
             <td class="text-right">
-              {{ projectToSubmit.financialAccomplishment.disbursement_2022 }}
+              {{ disbursement_2022 }}
             </td>
           </tr>
           <!-- <tr>
             <th>Total</th>
             <td class="text-right">
-              {{ projectToSubmit.financialAccomplishment.nep_total }}
+              {{ nep_total }}
             </td>
             <td class="text-right">
-              {{ projectToSubmit.financialAccomplishment.gaa_total }}
+              {{ gaa_total }}
             </td>
             <td class="text-right">
-              {{ projectToSubmit.financialAccomplishment.disbursement_total }}
+              {{ disbursement_total }}
             </td>
           </tr> -->
         </tbody>
       </q-markup-table>
-
-      <q-dialog v-model="updateFinancialAccomplishmentDialog" persistent>
-        <financial-accomplishment
-          :data.sync="projectToSubmit.financialAccomplishment"
-          @close="updateFinancialAccomplishmentDialog = false"
-        />
-      </q-dialog>
 
       <div class="q-ml-md">
         <div class="row items-start q-col-gutter-md">
@@ -674,25 +627,26 @@
             class="col-9"
             label="Updates"
             type="textarea"
-            v-model="projectToSubmit.updates"
+            v-model="updates"
           />
 
           <date-input
             class="col-3"
             label="As of Date"
-            v-model="projectToSubmit.updates_date"
+            v-model="updates_date"
           ></date-input>
         </div>
       </div>
     </q-form>
-
-    <card-actions>
-      <q-btn label="Save" @click="$emit('save')" color="primary" />
-    </card-actions>
-  </q-card>
+        </div>
+        <div class="col-6">Project</div>
+      </div>
+    </q-form>
+  </q-page>
 </template>
 
 <script>
+import { mapFields } from "vuex-map-fields";
 import {
   IMPLEMENTATION_BASES,
   IMPLEMENTATION_MODES,
@@ -704,136 +658,115 @@ import {
   OPERATING_UNITS,
   TECHNICAL_READINESSES,
   YEARS
-} from "../../data/dropdown-values";
+} from "../data/dropdown-values";
 
 export default {
   components: {
-    "card-header": () => import("./Shared/CardHeader.vue"),
-    "card-actions": () => import("./Shared/CardActions.vue"),
-    "single-select": () => import("../FormInputs/SingleSelect.vue"),
-    "multi-select": () => import("../FormInputs/MultiSelect.vue"),
-    "date-input": () => import("../FormInputs/DateInput.vue"),
-    "money-input": () => import("../FormInputs/MoneyInput.vue"),
-    "number-input": () => import("../FormInputs/NumberInput.vue"),
-    "text-input": () => import("../FormInputs/TextInput.vue"),
-    "add-item": () => import("./Shared/AddItem.vue"),
-    "fund-source": () => import("./Shared/FundSource.vue"),
-    "checkbox-input": () => import("../FormInputs/CheckboxInput.vue"),
-    "checkbox-item": () => import("../FormInputs/CheckboxItem.vue"),
-    "financial-accomplishment": () =>
-      import("./Shared/FinancialAccomplishment.vue")
+    "single-select": () => import("../components/FormInputs/SingleSelect.vue"),
+    "multi-select": () => import("../components/FormInputs/MultiSelect.vue"),
+    "date-input": () => import("../components/FormInputs/DateInput.vue"),
+    "money-input": () => import("../components/FormInputs/MoneyInput.vue"),
+    "number-input": () => import("../components/FormInputs/NumberInput.vue"),
+    "text-input": () => import("../components/FormInputs/TextInput.vue"),
+    "checkbox-input": () => import("../components/FormInputs/CheckboxInput.vue"),
+    "checkbox-item": () => import("../components/FormInputs/CheckboxItem.vue")
   },
-  name: "AddProject",
-  props: ["project"],
+  name: "PageAddProject",
+  computed: {
+    ...mapFields("project",[
+      "project.title",
+      "project.type_id",
+      "project.description",
+      "project.goals",
+      "project.outcomes",
+      "project.purpose",
+      "project.expected_outputs",
+      "project.beneficiaries",
+      "project.employment_generated",
+      "project.spatial_coverage_id",
+      "project.gad_score",
+      "project.project_status_id",
+      "project.total_project_cost",
+      "project.target_start_year",
+      "project.target_end_year",
+      "project.implementation_start_date",
+      "project.implementation_end_date",
+      "project.cities_municipalities",
+      "project.pip",
+      "project.cip",
+      "project.trip",
+      "project.rdip",
+      "project.pcip",
+      "project.afmip",
+      "project.operating_unit_id",
+      "project.typology_id",
+      "project.tier_id",
+      "project.implementation_mode_id",
+      "project.estimated_project_life",
+      "project.financial_benefit_cost_ratio",
+      "project.financial_net_present_value",
+      "project.financial_internal_rate_return",
+      "project.economic_benefit_cost_ratio",
+      "project.economic_net_present_value",
+      "project.economic_internal_rate_return",
+      "project.bases",
+      "project.regions",
+      "project.funding_sources",
+      "project.implementation_risk",
+      "project.mitigation_strategy",
+      "project.clearinghouse",
+      "project.clearinghouse_date",
+      "project.neda_submission",
+      "project.neda_submission_date",
+      "project.neda_secretariat_review",
+      "project.neda_secretariat_review_date",
+      "project.neda_board",
+      "project.neda_board_date",
+      "project.icc_approved",
+      "project.icc_approved_date",
+      "project.icc_endorsed",
+      "project.icc_endorsed_date",
+      "project.nep_2017",
+      "project.nep_2018",
+      "project.nep_2019",
+      "project.nep_2020",
+      "project.nep_2021",
+      "project.nep_2022",
+      "project.nep_2023",
+      "project.nep_total",
+      "project.gaa_2017",
+      "project.gaa_2018",
+      "project.gaa_2019",
+      "project.gaa_2020",
+      "project.gaa_2021",
+      "project.gaa_2022",
+      "project.disbursement_2017",
+      "project.disbursement_2018",
+      "project.disbursement_2019",
+      "project.disbursement_2020",
+      "project.disbursement_2021",
+      "project.disbursement_2022",
+      "project.technical_readinesses",
+      "project.provinces",
+      "project.updates",
+      "project.updates_date"
+    ])
+  },
   data() {
     return {
-      expanded: true,
       IMPLEMENTATION_BASES,
       IMPLEMENTATION_MODES,
-      OPERATING_UNITS,
       SPATIAL_COVERAGES,
       STATUSES,
-      TECHNICAL_READINESSES,
       TIERS,
       TYPES,
       TYPOLOGIES,
+      OPERATING_UNITS,
+      TECHNICAL_READINESSES,
       YEARS,
-      filteredProvinces: [],
       dense: false,
-      addRegionDialog: false,
-      fundSourceToAdd: {
-        item: {
-          label: "",
-          value: ""
-        },
-        target_2016: "",
-        target_2017: "",
-        target_2018: "",
-        target_2019: "",
-        target_2020: "",
-        target_2021: "",
-        target_2022: "",
-        target_2023: "",
-        target_total: ""
-      },
-      regionToAdd: {
-        item: {
-          label: "",
-          value: ""
-        },
-        target_2016: "",
-        target_2017: "",
-        target_2018: "",
-        target_2019: "",
-        target_2020: "",
-        target_2021: "",
-        target_2022: "",
-        target_2023: "",
-        target_total: ""
-      },
-      financialAccomplishment: {
-        nep_2017: "",
-        nep_2018: "",
-        nep_2019: "",
-        nep_2020: "",
-        nep_2021: "",
-        nep_2022: "",
-        nep_total: "",
-        gaa_2017: "",
-        gaa_2018: "",
-        gaa_2019: "",
-        gaa_2020: "",
-        gaa_2021: "",
-        gaa_2022: "",
-        gaa_total: "",
-        disbursement_2017: "",
-        disbursement_2018: "",
-        disbursement_2019: "",
-        disbursement_2020: "",
-        disbursement_2021: "",
-        disbursement_2022: "",
-        disbursement_total: ""
-      },
-      updateFinancialAccomplishmentDialog: false,
-      addFundSourceDialog: false
+      expanded: false
     };
-  },
-  computed: {
-    projectToSubmit: {
-      get() {
-        return this.project;
-      },
-      set(projectToSubmit) {
-        this.$emit("update", projectToSubmit);
-      }
-    }
-  },
-  methods: {
-    addRegion() {
-      this.addRegionDialog = true;
-    },
-    addToRegion() {
-      this.projectToSubmit.regions.push({
-        ...this.regionToAdd
-      });
-      this.addRegionDialog = false;
-    },
-    addFundSource() {
-      this.addFundSourceDialog = true;
-    },
-    addToFundSource() {
-      this.projectToSubmit.funding_sources.push({
-        ...this.fundSourceToAdd
-      });
-      this.addFundSourceDialog = false;
-    }
   }
 };
 </script>
-
-<style>
-.q-table th,
-.q-table td {
-  padding: 5px !important;
-}
-</style>

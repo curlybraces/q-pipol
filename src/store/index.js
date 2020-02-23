@@ -3,6 +3,7 @@ import Vuex from "vuex";
 
 import auth from "./store-auth/";
 import projects from "./store-projects/";
+import project from "./store-project";
 
 Vue.use(Vuex);
 
@@ -15,7 +16,8 @@ export default function(/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
       auth,
-      projects
+      projects,
+      project
     },
 
     // enable strict mode (adds overhead!)

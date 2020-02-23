@@ -106,7 +106,7 @@ export const ALL_USERS = gql`
   }
 `;
 
-export const CREATE_PROJECT = gql`
+export const CREATE_PROJECT_MUTATION = gql`
   mutation createProject(
     $pipol_url: String
     $pipol_code: String
@@ -299,7 +299,7 @@ export const CREATE_PROJECT = gql`
   }
 `;
 
-export const VIEW_PROJECT = gql`
+export const FETCH_PROJECT_QUERY = gql`
   query project($id: ID!) {
     project(id: $id) {
       id
@@ -478,8 +478,8 @@ export const VIEW_PROJECT = gql`
   }
 `;
 
-export const VIEW_PROJECTS = gql`
-  query projects($page: Int) {
+export const ALL_PROJECTS_QUERY = gql`
+  query projects($page: Int!) {
     projects(page: $page) {
       data {
         id
@@ -492,16 +492,17 @@ export const VIEW_PROJECTS = gql`
         total_project_cost
       }
       paginatorInfo {
-        currentPage
         total
+        count
         perPage
+        currentPage
         lastPage
       }
     }
   }
 `;
 
-export const UPDATE_PROJECT = gql`
+export const UPDATE_PROJECT_MUTATION = gql`
   mutation updateProject($id: ID!, $title: String) {
     updateProject(input: { id: $id, title: $title }) {
       id

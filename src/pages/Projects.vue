@@ -95,7 +95,7 @@ import { mapState } from "vuex";
 import { REGIONS } from "../data/dropdown-values";
 import { Dialog } from "quasar";
 
-import { VIEW_PROJECTS, DELETE_PROJECT } from "../constants/graphql";
+import { ALL_PROJECTS_QUERY, DELETE_PROJECT_MUTATION } from "../constants/graphql";
 
 export default {
   components: {
@@ -133,7 +133,7 @@ export default {
   },
   apollo: {
     projects: {
-      query: VIEW_PROJECTS,
+      query: ALL_PROJECTS_QUERY,
       variables() {
         return {
           page: this.current_page
@@ -171,7 +171,7 @@ export default {
     },
     deleteProject(id) {
       this.$apollo.mutate({
-        mutation: DELETE_PROJECT,
+        mutation: DELETE_PROJECT_MUTATION,
         variables: {
           id: id
         },
@@ -186,7 +186,7 @@ export default {
 
       if (deleteProject.id) {
         const data = store.readQuery({
-          query: VIEW_PROJECTS,
+          query: ALL_PROJECTS_QUERY,
           variables: {
             page: this.current_page
           }
@@ -205,7 +205,7 @@ export default {
         );
 
         store.writeQuery({
-          query: VIEW_PROJECTS,
+          query: ALL_PROJECTS_QUERY,
           data
         });
       } else {
