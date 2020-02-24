@@ -7,8 +7,8 @@ import { convertToNumber } from "../functions/function-convert-to-number";
 const state = {
   // properties
   project: {
-    title: "Title",
-    type_id: 1,
+    title: null,
+    type_id: null,
     description: null,
     goals: null,
     outcomes: null,
