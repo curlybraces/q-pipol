@@ -77,16 +77,6 @@
               :options="TYPOLOGIES"
             ></single-select>
           </q-item>
-          <q-item>
-            <single-select
-              v-model="implementation_mode_id"
-              label="Implementation Mode"
-              :dense="dense"
-              :options-dense="dense"
-              :options="IMPLEMENTATION_MODES"
-            />
-          </q-item>
-
           <stepper-navigation @next="step = 2"></stepper-navigation>
         </q-step>
 
@@ -522,6 +512,15 @@
           caption="Financial Information"
           prefix="8"
         >
+          <q-item>
+            <single-select
+              v-model="implementation_mode_id"
+              label="Implementation Mode"
+              :dense="dense"
+              :options-dense="dense"
+              :options="IMPLEMENTATION_MODES"
+            />
+          </q-item>
           <q-markup-table
             v-if="funding_sources.length"
             flat
@@ -559,127 +558,7 @@
             </tbody>
           </q-markup-table>
 
-          <q-item-label header>
-            Regional Investment
-            <q-icon
-              name="edit"
-              label="Add Region"
-              class="cursor-pointer"
-              color="primary"
-            />
-          </q-item-label>
-
-          <q-markup-table v-if="regions.length" flat bordered separator="cell">
-            <thead>
-              <th>Region</th>
-              <th>2016</th>
-              <th>2017</th>
-              <th>2018</th>
-              <th>2019</th>
-              <th>2020</th>
-              <th>2021</th>
-              <th>2022</th>
-              <th>2023</th>
-              <th>Total</th>
-            </thead>
-            <tbody>
-              <tr v-for="region in regions" :key="region.item.value">
-                <th>{{ region.item.label }}</th>
-                <th>{{ region.target_2016 }}</th>
-                <th>{{ region.target_2017 }}</th>
-                <th>{{ region.target_2018 }}</th>
-                <th>{{ region.target_2019 }}</th>
-                <th>{{ region.target_2020 }}</th>
-                <th>{{ region.target_2021 }}</th>
-                <th>{{ region.target_2022 }}</th>
-                <th>{{ region.target_2023 }}</th>
-                <th>{{ region.target_total }}</th>
-              </tr>
-            </tbody>
-          </q-markup-table>
-
-          <q-markup-table flat bordered separator="cell">
-            <thead>
-              <th style="width:25%">Year</th>
-              <th style="width:25%">NEP</th>
-              <th style="width:25%">GAA</th>
-              <th style="width:25%">Disbursement</th>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="text-center">2017</td>
-                <td class="text-right">
-                  {{ nep_2017 }}
-                </td>
-                <td class="text-right">
-                  {{ gaa_2017 }}
-                </td>
-                <td class="text-right">
-                  {{ disbursement_2017 }}
-                </td>
-              </tr>
-              <tr>
-                <td class="text-center">2018</td>
-                <td class="text-right">
-                  {{ nep_2018 }}
-                </td>
-                <td class="text-right">
-                  {{ gaa_2018 }}
-                </td>
-                <td class="text-right">
-                  {{ disbursement_2018 }}
-                </td>
-              </tr>
-              <tr>
-                <td class="text-center">2019</td>
-                <td class="text-right">
-                  {{ nep_2019 }}
-                </td>
-                <td class="text-right">
-                  {{ gaa_2019 }}
-                </td>
-                <td class="text-right">
-                  {{ disbursement_2019 }}
-                </td>
-              </tr>
-              <tr>
-                <td class="text-center">2020</td>
-                <td class="text-right">
-                  {{ nep_2020 }}
-                </td>
-                <td class="text-right">
-                  {{ gaa_2020 }}
-                </td>
-                <td class="text-right">
-                  {{ disbursement_2020 }}
-                </td>
-              </tr>
-              <tr>
-                <td class="text-center">2021</td>
-                <td class="text-right">
-                  {{ nep_2021 }}
-                </td>
-                <td class="text-right">
-                  {{ gaa_2021 }}
-                </td>
-                <td class="text-right">
-                  {{ disbursement_2021 }}
-                </td>
-              </tr>
-              <tr>
-                <td class="text-center">2022</td>
-                <td class="text-right">
-                  {{ nep_2022 }}
-                </td>
-                <td class="text-right">
-                  {{ gaa_2022 }}
-                </td>
-                <td class="text-right">
-                  {{ disbursement_2022 }}
-                </td>
-              </tr>
-            </tbody>
-          </q-markup-table>
+          <region-financial></region-financial>
 
           <stepper-navigation
             @next="step = 9"
@@ -692,7 +571,7 @@
           color="orange-10"
           :name="9"
           title="Updates"
-          caption="Updates"
+          caption="Applicable to Ongoing and Completed Projects Only"
           prefix="9"
         >
           <q-item>
@@ -714,6 +593,98 @@
                 v-model="updates_date"
               ></date-input>
             </q-item-section>
+          </q-item>
+          <q-item>
+            <q-markup-table flat bordered separator="cell" class="col">
+              <thead>
+                <th style="width:25%">Year</th>
+                <th style="width:25%">NEP</th>
+                <th style="width:25%">GAA</th>
+                <th style="width:25%">Disbursement</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="text-center">2017</td>
+                  <td class="text-right">
+                    {{ nep_2017 }}
+                  </td>
+                  <td class="text-right">
+                    {{ gaa_2017 }}
+                  </td>
+                  <td class="text-right">
+                    {{ disbursement_2017 }}
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-center">2018</td>
+                  <td class="text-right">
+                    {{ nep_2018 }}
+                  </td>
+                  <td class="text-right">
+                    {{ gaa_2018 }}
+                  </td>
+                  <td class="text-right">
+                    {{ disbursement_2018 }}
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-center">2019</td>
+                  <td class="text-right">
+                    {{ nep_2019 }}
+                  </td>
+                  <td class="text-right">
+                    {{ gaa_2019 }}
+                  </td>
+                  <td class="text-right">
+                    {{ disbursement_2019 }}
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-center">2020</td>
+                  <td class="text-right">
+                    {{ nep_2020 }}
+                  </td>
+                  <td class="text-right">
+                    {{ gaa_2020 }}
+                  </td>
+                  <td class="text-right">
+                    {{ disbursement_2020 }}
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-center">2021</td>
+                  <td class="text-right">
+                    {{ nep_2021 }}
+                  </td>
+                  <td class="text-right">
+                    {{ gaa_2021 }}
+                  </td>
+                  <td class="text-right">
+                    {{ disbursement_2021 }}
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-center">2022</td>
+                  <td class="text-right">
+                    {{ nep_2022 }}
+                  </td>
+                  <td class="text-right">
+                    {{ gaa_2022 }}
+                  </td>
+                  <td class="text-right">
+                    {{ disbursement_2022 }}
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Total</th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </tfoot>
+            </q-markup-table>
           </q-item>
           <q-stepper-navigation>
             <q-btn
@@ -783,7 +754,9 @@ export default {
     "checkbox-item": () => import("../components/FormInputs/CheckboxItem.vue"),
     "page-breadcrumbs": () => import("../components/PageBreadcrumbs.vue"),
     "stepper-navigation": () =>
-      import("../components/Projects/StepperNavigation.vue")
+      import("../components/Projects/StepperNavigation.vue"),
+    "region-financial": () =>
+      import("../components/Projects/RegionFinancial.vue")
   },
   name: "PageAddProject",
   methods: {
