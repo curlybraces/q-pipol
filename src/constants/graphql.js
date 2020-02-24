@@ -63,7 +63,7 @@ export const ACTIVATE_USER = gql`
   }
 `;
 
-export const ME = gql`
+export const ME_QUERY = gql`
   query me {
     me {
       name
@@ -79,6 +79,7 @@ export const ME = gql`
       roles {
         name
       }
+      unreadNotifications
     }
   }
 `;
@@ -501,6 +502,28 @@ export const ALL_PROJECTS_QUERY = gql`
     }
   }
 `;
+
+export const DELETED_PROJECTS_QUERY = gql`
+query projects {
+  projects(trashed: ONLY) {
+    data {
+      id
+      title
+      operating_unit {
+        name
+        image
+      }
+      description
+      total_project_cost
+    }
+    paginatorInfo {
+      currentPage
+      total
+      perPage
+      lastPage
+    }
+  }
+}`;
 
 export const UPDATE_PROJECT_MUTATION = gql`
   mutation updateProject($id: ID!, $title: String) {

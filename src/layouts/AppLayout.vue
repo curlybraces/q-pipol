@@ -10,7 +10,7 @@
         />
         <q-toolbar-title class="text-primary">{{ appTitle }}</q-toolbar-title>
         <q-space />
-        <q-btn flat round icon="notifications" class="q-mr-md text-grey-6" />
+        <q-btn flat round icon="notifications" class="q-mr-md text-grey-6" @click="rightDrawer = !rightDrawer"/>
         <q-btn
           class="bg-primary text-white"
           round
@@ -25,6 +25,10 @@
 
     <q-drawer v-model="drawer" content-class="bg-grey-2" bordered>
       <drawer-content />
+    </q-drawer>
+
+    <q-drawer v-model="rightDrawer" side="right" content-class="bg-grey-2" bordered>
+      <right-drawer />
     </q-drawer>
 
     <q-footer>
@@ -47,9 +51,10 @@ import { mapState } from "vuex";
 
 import DrawerContent from "../components/layout/Drawer";
 import DropdownMenu from "../components/layout/Dropdown";
+import RightDrawer from "../components/layout/RightDrawer";
 
 export default {
-  components: { DrawerContent, DropdownMenu },
+  components: { DrawerContent, DropdownMenu, RightDrawer },
   name: "AppLayout",
   data() {
     return {
@@ -58,7 +63,8 @@ export default {
       copyright: "Made by Mark Lester A. Bolotaolo",
       menu: false,
       miniState: false,
-      drawerState: this.$q.screen.gt.lg
+      drawerState: this.$q.screen.gt.lg,
+      rightDrawer: false
     };
   },
   computed: {

@@ -15,7 +15,9 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import CookieLaw from "vue-cookie-law";
-import { ME } from "./constants/graphql";
+import { ME_QUERY } from "./constants/graphql";
+import { graphQLErrorMessages } from "./functions/function-graphql-error-messages";
+import { Dialog } from "quasar";
 
 export default {
   components: {
@@ -26,30 +28,31 @@ export default {
     ...mapState("auth", ["userLoaded"])
   },
   methods: {
-    ...mapActions("auth", ["populateUser"])
+    ...mapActions("auth", ["populateUser","logoutUser"])
   },
-  created() {
-    this.$q.addressbarColor.set("primary");
+  mounted() {
     if (!this.userLoaded) {
       this.$apollo
         .query({
-          query: ME
+          query: ME_QUERY
         })
         .then(res => {
-          if (res.data.errors) {
-            return Promise.reject(res.data.errors);
-          }
           this.populateUser(res.data.me);
         })
-        .catch(err => {
-          // if (err.errors[0].debugMessage == "Unauthenticated.") {
-          //   alert("You are not logged in");
-          // } else {
-          //   alert("Unknown error");
-          // }
-          console.log(err);
+        .catch(error => {
+          console.log(error);
+          Dialog.create({
+            title: "Error",
+            message: graphQLErrorMessages(error)[0]
+          })
+          .onOk(() => {
+            this.logoutUser();
+          });
         });
     }
+  },
+  created() {
+    this.$q.addressbarColor.set("primary");
   }
 };
 </script>
