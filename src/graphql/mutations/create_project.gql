@@ -45,6 +45,7 @@ mutation createProject(
   $sustainable_development_goals: CreateSustainableDevelopmentGoalRelation
   $regions: CreateRegionRelation
   $provinces: CreateProvinceRelation
+  $districts: CreateDistrictRelation
   $funding_sources: CreateFundingSourceRelation
   $fs_target_2017: Float
   $fs_target_2018: Float
@@ -142,6 +143,7 @@ mutation createProject(
       typology_id: $typology_id
       tier_id: $tier_id
       spatial_coverage_id: $spatial_coverage_id
+      districts: $districts
       cities_municipalities: $cities_municipalities
       rdip: $rdip
       pcip: $pcip
@@ -194,6 +196,9 @@ mutation createProject(
     gad_score
     spatial_coverage {
       name
+    }
+    districts {
+      id
     }
     cities_municipalities
     implementation_mode {

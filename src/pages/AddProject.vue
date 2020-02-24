@@ -23,7 +23,8 @@
 </template>
 
 <script>
-import { CREATE_PROJECT } from "../constants/graphql.js";
+import { mapActions } from "vuex";
+import { CREATE_PROJECT_MUTATION } from "../constants/graphql.js";
 import { Loading } from "quasar";
 
 export default {
@@ -124,12 +125,13 @@ export default {
     };
   },
   methods: {
+    ...mapActions("projects", ["createProject"]),
     saveProject() {
       const { project } = this.$data;
       Loading.show();
       this.$apollo
         .mutate({
-          mutation: CREATE_PROJECT,
+          mutation: CREATE_PROJECT_MUTATION,
           variables: {
             pip: project.pip,
             cip: project.cip,

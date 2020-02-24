@@ -91,14 +91,11 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 import { REGIONS } from "../data/dropdown-values";
 import { Dialog } from "quasar";
 
-import {
-  ALL_PROJECTS_QUERY,
-  DELETE_PROJECT_MUTATION
-} from "../constants/graphql";
+import { ALL_PROJECTS_QUERY } from "../constants/graphql";
 
 export default {
   components: {
@@ -157,6 +154,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions("projects", ["deleteProject"]),
     goTo(id) {
       this.$router.push("/pip/" + id);
     },
@@ -171,49 +169,6 @@ export default {
       }).onOk(() => {
         this.deleteProject(id);
       });
-    },
-    deleteProject(id) {
-      this.$apollo.mutate({
-        mutation: DELETE_PROJECT_MUTATION,
-        variables: {
-          id: id
-        },
-        update: (store, { data: { deleteProject } }) => {
-          // update store cache
-          this.updateStoreAfterDelete(store, deleteProject, { id: id });
-        }
-      });
-    },
-    updateStoreAfterDelete(store, deleteProject) {
-      // console.log("store: ", store);
-
-      if (deleteProject.id) {
-        const data = store.readQuery({
-          query: ALL_PROJECTS_QUERY,
-          variables: {
-            page: this.current_page
-          }
-        });
-
-        data.projects.data = data.projects.data.filter(project => {
-          return project.id !== deleteProject.id;
-        });
-
-        data.projects.paginatorInfo.total =
-          data.projects.paginatorInfo.total - 1;
-
-        data.projects.paginatorInfo.lastPage = Math.ceil(
-          data.projects.paginatorInfo.total /
-            data.projects.paginatorInfo.perPage
-        );
-
-        store.writeQuery({
-          query: ALL_PROJECTS_QUERY,
-          data
-        });
-      } else {
-        alert("There was an error.");
-      }
     }
   },
   filters: {

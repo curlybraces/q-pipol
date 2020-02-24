@@ -1,7 +1,7 @@
 <template>
   <q-expansion-item
     expand-separator
-    icon="layers"
+    :icon="icon"
     :label="label"
     :caption="caption"
   >
@@ -16,6 +16,6 @@
 <script>
 export default {
   name: "ExpansionItem",
-  props: ["label", "caption"]
+  props: ["label", "caption", "icon"]
 };
 </script>

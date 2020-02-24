@@ -2,15 +2,99 @@
   <q-page padding>
     <page-breadcrumbs :breadcrumbs="breadcrumbs" />
     <q-form>
-      <div class="row">
-        <div class="col-8">
-          <q-form>
-            <expansion-item
-              v-model="expanded"
-              label="Programming Documents"
-              caption="Documents where the PAP are included"
-            >
-              <q-list>
+      <q-card>
+        <q-card-section>
+          <div class="row">
+            <div class="col-8">
+              <expansion-item
+                label="Basic Information"
+                caption="Basic Information"
+                icon="filter_1"
+              >
+                <q-item>
+                  <text-input
+                    v-model="title"
+                    label="Program/Project Title"
+                    :dense="dense"
+                    hint="The title of the program or project"
+                    maxlength="250"
+                    required
+                  />
+                </q-item>
+                <q-item>
+                  <single-select
+                    v-model="type_id"
+                    label="Type"
+                    :options="TYPES"
+                    inline
+                    :dense="dense"
+                    color="orange-10"
+                  />
+                </q-item>
+                <q-item>
+                  <single-select
+                    v-model="operating_unit_id"
+                    label="Implementing Agency"
+                    :dense="dense"
+                    :options-dense="dense"
+                    :options="OPERATING_UNITS"
+                    hint="Proponent of the program/project"
+                  />
+                </q-item>
+                <q-item>
+                  <text-input
+                    v-model="description"
+                    label="Description"
+                    type="textarea"
+                    :dense="dense"
+                    hint="Description of the program/project (e.g. location, components, design, etc.)"
+                  />
+                </q-item>
+                <q-item>
+                  <money-input
+                    label="Total Project Cost"
+                    outlined
+                    prefix="PhP"
+                    v-model="total_project_cost"
+                    :dense="dense"
+                    hint="Indicative project cost in absolute PhP"
+                  ></money-input>
+                </q-item>
+                <q-item>
+                  <single-select
+                    v-model="project_status_id"
+                    label="Status"
+                    :dense="dense"
+                    :options-dense="dense"
+                    :options="STATUSES"
+                  />
+                </q-item>
+                <q-item>
+                  <single-select
+                    v-model="typology_id"
+                    label="Typology"
+                    :dense="dense"
+                    :options-dense="dense"
+                    :options="TYPOLOGIES"
+                  ></single-select>
+                </q-item>
+                <q-item>
+                  <single-select
+                    v-model="implementation_mode_id"
+                    label="Implementation Mode"
+                    :dense="dense"
+                    :options-dense="dense"
+                    :options="IMPLEMENTATION_MODES"
+                  />
+                </q-item>
+              </expansion-item>
+
+              <expansion-item
+                v-model="expanded"
+                label="Programming Documents"
+                caption="Documents where the PAP are included"
+                icon="filter_2"
+              >
                 <checkbox-item
                   v-model="pip"
                   label="PIP"
@@ -41,616 +125,572 @@
                   label="AFMIP"
                   description="Agriculture and Fisheries Modernization and Industrialization Plan"
                 />
-              </q-list>
-            </expansion-item>
+              </expansion-item>
 
-            <expansion-item
-              label="Basic Information"
-              caption="Basic Information"
-            >
-              <q-item>
-                <text-input
-                  v-model="title"
-                  label="Program/Project Title"
-                  :dense="dense"
-                  hint="The title of the program or project"
-                  maxlength="250"
-                  required
-                />
-              </q-item>
-              <q-item>
-                <single-select
-                  v-model="type_id"
-                  label="Type"
-                  :options="TYPES"
-                  inline
-                  :dense="dense"
-                  color="orange-10"
-                />
-              </q-item>
-              <q-item>
-                <single-select
-                  v-model="operating_unit_id"
-                  label="Implementing Agency"
-                  :dense="dense"
-                  :options-dense="dense"
-                  :options="OPERATING_UNITS"
-                  hint="Proponent of the program/project"
-                />
-              </q-item>
-              <q-item>
-                <text-input
-                  v-model="description"
-                  label="Description"
-                  type="textarea"
-                  :dense="dense"
-                  hint="Description of the program/project (e.g. location, components, design, etc.)"
-                />
-              </q-item>
-              <q-item>
-                <single-select
-                  v-model="typology_id"
-                  label="Typology"
-                  :dense="dense"
-                  :options-dense="dense"
-                  :options="TYPOLOGIES"
-                ></single-select>
-              </q-item>
-              <q-item>
-                <single-select
-                  v-model="implementation_mode_id"
-                  label="Implementation Mode"
-                  :dense="dense"
-                  :options-dense="dense"
-                  :options="IMPLEMENTATION_MODES"
-                />
-              </q-item>
-              <q-item>
-                <single-select
-                  v-model="tier_id"
-                  label="Tier"
-                  :dense="dense"
-                  :options-dense="dense"
-                  :options="TIERS"
-                />
-              </q-item>
-            </expansion-item>
-
-            <multi-select
-              label="Implementation Bases"
-              v-model="bases"
-              :options-dense="dense"
-              :options="IMPLEMENTATION_BASES"
-              @clear="bases = []"
-            ></multi-select>
-
-            <expansion-item
-              label="Additional Information"
-              caption="Additional Information"
-            >
-              <q-item>
-                <text-input
-                  v-model="goals"
-                  label="Goals"
-                  type="textarea"
-                  :dense="dense"
-                />
-              </q-item>
-
-              <q-item>
-                <text-input
-                  v-model="outcomes"
-                  label="Outcomes"
-                  type="textarea"
-                  :dense="dense"
-                  hint="Desired outcome of the program/project (e.g. Increase productivity)"
-                />
-              </q-item>
-
-              <q-item>
-                <text-input
-                  v-model="purpose"
-                  label="Purpose"
-                  type="textarea"
-                  :dense="dense"
-                />
-              </q-item>
-
-              <q-item>
-                <text-input
-                  v-model="expected_outputs"
-                  label="Expected Outputs"
-                  type="textarea"
-                  :dense="dense"
-                  hint="Physical deliverables of the project (indicate unit)"
-                />
-              </q-item>
-            </expansion-item>
-
-            <expansion-item label="Spatial Coverage" caption="Spatial Coverage">
-              <q-item>
-                <single-select
-                  v-model="spatial_coverage_id"
-                  label="Spatial Coverage"
-                  :dense="dense"
-                  :options-dense="dense"
-                  :options="SPATIAL_COVERAGES"
-                />
-              </q-item>
-
-              <q-item>
-                <multi-select
-                  v-model="provinces"
-                  label="Province/s"
-                  :options="PROVINCES"
-                  :dense="dense"
-                  :options-dense="dense"
-                  :readonly="spatial_coverage_id == '1'"
-                  @clear="provinces = []"
-                />
-              </q-item>
-
-              <q-item>
-                <text-input
-                  type="textarea"
-                  label="Cities and Municipalities"
-                  v-model="cities_municipalities"
-                />
-              </q-item>
-            </expansion-item>
-
-            <div class="q-ml-md">
-              <div class="row q-col-gutter-md">
-                <single-select
-                  class="col-6"
-                  v-model="target_start_year"
-                  label="Target Start Year"
-                  :options="YEARS"
-                  :dense="dense"
-                  :options-dense="dense"
-                />
-
-                <single-select
-                  class="col-6"
-                  v-model="target_end_year"
-                  label="Target Completion Year"
-                  :options="YEARS"
-                  :dense="dense"
-                  :options-dense="dense"
-                />
-              </div>
-            </div>
-
-            <div class="q-ml-md">
-              <div class="row q-col-gutter-md">
-                <date-input
-                  class="col-6"
-                  v-model="implementation_start_date"
-                  mask="date"
-                  label="Implementation Start Date"
-                  :dense="dense"
-                  hint="Indicate what year the project is expected to start."
-                />
-
-                <date-input
-                  class="col-6"
-                  v-model="implementation_end_date"
-                  mask="date"
-                  label="Implementation End Date"
-                  :dense="dense"
-                  hint="Indicate the date when the project is expected to start."
-                />
-              </div>
-            </div>
-
-            <single-select
-              v-model="project_status_id"
-              label="Status"
-              :dense="dense"
-              :options-dense="dense"
-              :options="STATUSES"
-            />
-
-            <number-input label="GAD Score" type="number" v-model="gad_score" />
-
-            <money-input
-              label="Total Project Cost"
-              outlined
-              prefix="PhP"
-              v-model="total_project_cost"
-              :dense="dense"
-              hint="Indicative project cost in absolute PhP"
-            ></money-input>
-
-            <expansion-item label="Readiness" caption="">
-              <q-item>
-                <multi-select
-                  label="Technical Readiness"
-                  v-model="technical_readinesses"
-                  :options="TECHNICAL_READINESSES"
-                  class="col"
-                ></multi-select>
-              </q-item>
-
-              <q-item>
-                <q-item-section class="col-6">
-                  <checkbox-input
-                    v-model="clearinghouse"
-                    label="Approved by DA Clearinghouse"
-                  />
-                </q-item-section>
-                <q-item-section class="col-6">
-                  <date-input
-                    label="Date Approved by Clearinghouse Committee"
-                    v-model="clearinghouse_date"
-                  />
-                </q-item-section>
-              </q-item>
-              <div class="q-gutter-md">
-                <div class="row">
-                  <checkbox-input
-                    class="col-6"
-                    v-model="neda_submission"
-                    label="NEDA Submission"
-                  />
-                  <date-input
-                    class="col-6"
-                    label="Date submitted to NEDA"
-                    v-model="neda_submission_date"
-                  />
-                </div>
-
-                <div class="row">
-                  <checkbox-input
-                    class="col-6"
-                    v-model="neda_secretariat_review"
-                    label="NEDA Secretariat Review"
-                  />
-                  <date-input
-                    class="col-6"
-                    label="Date reviewed by NEDA Secretariat"
-                    v-model="neda_secretariat_review_date"
-                  />
-                </div>
-
-                <div class="row">
-                  <checkbox-input
-                    class="col-6"
-                    v-model="icc_endorsed"
-                    label="ICC Endorsed"
-                  />
-                  <date-input
-                    class="col-6"
-                    label="Date endorsed by ICC"
-                    v-model="icc_endorsed_date"
-                  />
-                </div>
-
-                <div class="row">
-                  <checkbox-input
-                    class="col-6"
-                    v-model="icc_approved"
-                    label="ICC Approved"
-                  />
-                  <date-input
-                    class="col-6"
-                    label="Date approved by the ICC"
-                    v-model="icc_approved_date"
-                  />
-                </div>
-              </div>
-
-              <div class="row">
-                <checkbox-input
-                  class="col-6"
-                  v-model="neda_board"
-                  label="NEDA Board"
-                />
-                <date-input
-                  class="col-6"
-                  label="Date approved by the NEDA Board"
-                  v-model="neda_board_date"
-                />
-              </div>
-            </expansion-item>
-
-            <expansion-item
-              label="Financial and Economic Analyses"
-              caption="Financial and Economic Analyses"
-            >
-              <div>
+              <expansion-item
+                label="Additional Project Information"
+                caption="Additional Information"
+                icon="filter_3"
+              >
                 <q-item>
-                  <text-input label="Beneficiaries" v-model="beneficiaries" />
-                </q-item>
-
-                <q-item>
-                  <text-input
-                    outlined
-                    stack-label
-                    label="Employment Generated"
-                    v-model="employment_generated"
+                  <multi-select
+                    label="Implementation Bases"
+                    v-model="bases"
+                    :options-dense="dense"
+                    :options="IMPLEMENTATION_BASES"
+                    @clear="bases = []"
                   />
                 </q-item>
 
                 <q-item>
                   <text-input
-                    label="Implementation Risks"
+                    v-model="goals"
+                    label="Goals"
                     type="textarea"
-                    v-model="implementation_risk"
+                    :dense="dense"
                   />
                 </q-item>
 
                 <q-item>
                   <text-input
-                    label="Mitigation Strategies"
+                    v-model="outcomes"
+                    label="Outcomes"
                     type="textarea"
-                    v-model="mitigation_strategy"
+                    :dense="dense"
+                    hint="Desired outcome of the program/project (e.g. Increase productivity)"
                   />
                 </q-item>
 
                 <q-item>
                   <text-input
-                    label="Estimated Project Life"
-                    v-model="estimated_project_life"
+                    v-model="purpose"
+                    label="Purpose"
+                    type="textarea"
+                    :dense="dense"
                   />
                 </q-item>
 
-                <div class="row q-col-gutter-md">
-                  <div class="col-6 q-gutter-y-md">
-                    <money-input
-                      label="Financial Net Present Value (FNPV)"
-                      v-model="financial_net_present_value"
-                      :dense="dense"
-                    ></money-input>
+                <q-item>
+                  <text-input
+                    v-model="expected_outputs"
+                    label="Expected Outputs"
+                    type="textarea"
+                    :dense="dense"
+                    hint="Physical deliverables of the project (indicate unit)"
+                  />
+                </q-item>
+              </expansion-item>
 
-                    <number-input
-                      label="Financial Benefit-Cost Ratio (FBCR)"
-                      v-model="financial_benefit_cost_ratio"
+              <expansion-item
+                label="Spatial Coverage"
+                caption="Spatial Coverage"
+                icon="filter_4"
+              >
+                <q-item>
+                  <single-select
+                    v-model="spatial_coverage_id"
+                    label="Spatial Coverage"
+                    :dense="dense"
+                    :options-dense="dense"
+                    :options="SPATIAL_COVERAGES"
+                  />
+                </q-item>
+
+                <q-item>
+                  <multi-select
+                    v-model="provinces"
+                    label="Province/s"
+                    :options="PROVINCES"
+                    :dense="dense"
+                    :options-dense="dense"
+                    :readonly="spatial_coverage_id == '1'"
+                    @clear="provinces = []"
+                  />
+                </q-item>
+
+                <q-item>
+                  <multi-select
+                    v-model="districts"
+                    label="District/s"
+                    :options="DISTRICTS"
+                    :dense="dense"
+                    :options-dense="dense"
+                    :readonly="spatial_coverage_id == '1'"
+                    @clear="districts = []"
+                  />
+                </q-item>
+
+                <q-item>
+                  <text-input
+                    type="textarea"
+                    label="Cities and Municipalities"
+                    v-model="cities_municipalities"
+                  />
+                </q-item>
+              </expansion-item>
+
+              <expansion-item
+                label="Implementation Period"
+                caption="Implementation Period"
+                icon="filter_5"
+              >
+                <q-item>
+                  <q-item-section class="col-6">
+                    <single-select
+                      v-model="target_start_year"
+                      label="Target Start Year"
+                      :options="YEARS"
                       :dense="dense"
+                      :options-dense="dense"
                     />
+                  </q-item-section>
 
-                    <number-input
-                      label="Financial Internal Rate of Return (FIRR)"
-                      v-model="financial_internal_rate_return"
+                  <q-item-section class="col-6">
+                    <single-select
+                      v-model="target_end_year"
+                      label="Target Completion Year"
+                      :options="YEARS"
                       :dense="dense"
-                      suffix="%"
+                      :options-dense="dense"
                     />
-                  </div>
+                  </q-item-section>
+                </q-item>
 
-                  <div class="col-6 q-gutter-y-md">
-                    <money-input
-                      label="Economic Net Present Value (ENPV)"
-                      v-model="economic_net_present_value"
-                      :dense="dense"
-                    ></money-input>
-
-                    <number-input
-                      label="Economic Benefit-Cost Ratio (EBCR)"
-                      v-model="economic_benefit_cost_ratio"
-                      :dense="dense"
+                <q-item>
+                  <q-item-section class="col-6">
+                    <date-input
+                      v-model="implementation_start_date"
+                      mask="date"
+                      label="Implementation Start Date"
+                      hint="Indicate what year the project is expected to start."
                     />
-
-                    <number-input
-                      label="Economic Internal Rate Return (EIRR)"
-                      v-model="economic_internal_rate_return"
+                  </q-item-section>
+                  <q-item-section class="col-6">
+                    <date-input
+                      v-model="implementation_end_date"
+                      label="Implementation End Date"
                       :dense="dense"
-                      suffix="%"
+                      hint="Indicate the date when the project is expected to end."
                     />
-                  </div>
+                  </q-item-section>
+                </q-item>
+              </expansion-item>
+
+              <expansion-item label="Readiness" caption="" icon="filter_6">
+                <q-item>
+                  <multi-select
+                    label="Technical Readiness"
+                    v-model="technical_readinesses"
+                    :options="TECHNICAL_READINESSES"
+                    class="col"
+                  ></multi-select>
+                </q-item>
+
+                <q-item>
+                  <q-item-section class="col-6">
+                    <checkbox-input
+                      v-model="clearinghouse"
+                      label="Approved by DA Clearinghouse"
+                    />
+                  </q-item-section>
+                  <q-item-section class="col-6">
+                    <date-input
+                      label="Date Approved by Clearinghouse Committee"
+                      v-model="clearinghouse_date"
+                    />
+                  </q-item-section>
+                </q-item>
+                <q-item>
+                  <q-item-section class="col-6">
+                    <checkbox-input
+                      v-model="neda_submission"
+                      label="NEDA Submission"
+                    />
+                  </q-item-section>
+                  <q-item-section class="col-6">
+                    <date-input
+                      class="col-6"
+                      label="Date submitted to NEDA"
+                      v-model="neda_submission_date"
+                    />
+                  </q-item-section>
+                </q-item>
+
+                <q-item>
+                  <q-item-section class="col-6">
+                    <checkbox-input
+                      v-model="neda_secretariat_review"
+                      label="NEDA Secretariat Review"
+                    />
+                  </q-item-section>
+                  <q-item-section class="col-6">
+                    <date-input
+                      label="Date reviewed by NEDA Secretariat"
+                      v-model="neda_secretariat_review_date"
+                    />
+                  </q-item-section>
+                </q-item>
+
+                <q-item>
+                  <q-item-section class="col-6">
+                    <checkbox-input
+                      v-model="icc_endorsed"
+                      label="ICC Endorsed"
+                    />
+                  </q-item-section>
+                  <q-item-section class="col-6">
+                    <date-input
+                      label="Date endorsed by ICC"
+                      v-model="icc_endorsed_date"
+                    />
+                  </q-item-section>
+                </q-item>
+
+                <q-item>
+                  <q-item-section class="col-6">
+                    <checkbox-input
+                      v-model="icc_approved"
+                      label="ICC Approved"
+                    />
+                  </q-item-section>
+                  <q-item-section class="col-6">
+                    <date-input
+                      label="Date approved by the ICC"
+                      v-model="icc_approved_date"
+                    />
+                  </q-item-section>
+                </q-item>
+
+                <q-item>
+                  <q-item-section class="col-6">
+                    <checkbox-input v-model="neda_board" label="NEDA Board" />
+                  </q-item-section>
+                  <q-item-section class="col-6">
+                    <date-input
+                      label="Date approved by the NEDA Board"
+                      v-model="neda_board_date"
+                    />
+                  </q-item-section>
+                </q-item>
+              </expansion-item>
+
+              <expansion-item
+                label="Financial and Economic Analyses"
+                caption="Financial and Economic Analyses"
+                icon="filter_7"
+              >
+                <div>
+                  <q-item>
+                    <text-input label="Beneficiaries" v-model="beneficiaries" />
+                  </q-item>
+
+                  <q-item>
+                    <text-input
+                      outlined
+                      stack-label
+                      label="Employment Generated"
+                      v-model="employment_generated"
+                    />
+                  </q-item>
+
+                  <q-item>
+                    <number-input
+                      label="GAD Score"
+                      type="number"
+                      v-model="gad_score"
+                    />
+                  </q-item>
+
+                  <q-item>
+                    <text-input
+                      label="Implementation Risks"
+                      type="textarea"
+                      v-model="implementation_risk"
+                    />
+                  </q-item>
+
+                  <q-item>
+                    <text-input
+                      label="Mitigation Strategies"
+                      type="textarea"
+                      v-model="mitigation_strategy"
+                    />
+                  </q-item>
+
+                  <q-item>
+                    <text-input
+                      label="Estimated Project Life"
+                      v-model="estimated_project_life"
+                    />
+                  </q-item>
+
+                  <q-item>
+                    <q-item-section class="col-6 q-gutter-y-md">
+                      <money-input
+                        label="Financial Net Present Value (FNPV)"
+                        v-model="financial_net_present_value"
+                        :dense="dense"
+                      ></money-input>
+
+                      <number-input
+                        label="Financial Benefit-Cost Ratio (FBCR)"
+                        v-model="financial_benefit_cost_ratio"
+                        :dense="dense"
+                      />
+
+                      <number-input
+                        label="Financial Internal Rate of Return (FIRR)"
+                        v-model="financial_internal_rate_return"
+                        :dense="dense"
+                        suffix="%"
+                      />
+                    </q-item-section>
+
+                    <q-item-section class="col-6 q-gutter-y-md">
+                      <money-input
+                        label="Economic Net Present Value (ENPV)"
+                        v-model="economic_net_present_value"
+                        :dense="dense"
+                      ></money-input>
+
+                      <number-input
+                        label="Economic Benefit-Cost Ratio (EBCR)"
+                        v-model="economic_benefit_cost_ratio"
+                        :dense="dense"
+                      />
+
+                      <number-input
+                        label="Economic Internal Rate Return (EIRR)"
+                        v-model="economic_internal_rate_return"
+                        :dense="dense"
+                        suffix="%"
+                      />
+                    </q-item-section>
+                  </q-item>
                 </div>
-              </div>
-            </expansion-item>
+              </expansion-item>
 
-            <q-markup-table
-              v-if="funding_sources.length"
-              flat
-              bordered
-              separator="cell"
-            >
-              <thead>
-                <th>Fund Source</th>
-                <th>2016</th>
-                <th>2017</th>
-                <th>2018</th>
-                <th>2019</th>
-                <th>2020</th>
-                <th>2021</th>
-                <th>2022</th>
-                <th>2023</th>
-                <th>Total</th>
-              </thead>
-              <tbody>
-                <tr
-                  v-for="funding_source in funding_sources"
-                  :key="funding_source.item.value"
+              <expansion-item
+                label="Financial Information"
+                caption="Financial Information"
+                icon="filter_8"
+              >
+                <q-markup-table
+                  v-if="funding_sources.length"
+                  flat
+                  bordered
+                  separator="cell"
                 >
-                  <th>{{ funding_source.item.label }}</th>
-                  <th>{{ funding_source.target_2016 }}</th>
-                  <th>{{ funding_source.target_2017 }}</th>
-                  <th>{{ funding_source.target_2018 }}</th>
-                  <th>{{ funding_source.target_2019 }}</th>
-                  <th>{{ funding_source.target_2020 }}</th>
-                  <th>{{ funding_source.target_2021 }}</th>
-                  <th>{{ funding_source.target_2022 }}</th>
-                  <th>{{ funding_source.target_2023 }}</th>
-                  <th>{{ funding_source.target_total }}</th>
-                </tr>
-              </tbody>
-            </q-markup-table>
+                  <thead>
+                    <th>Fund Source</th>
+                    <th>2016</th>
+                    <th>2017</th>
+                    <th>2018</th>
+                    <th>2019</th>
+                    <th>2020</th>
+                    <th>2021</th>
+                    <th>2022</th>
+                    <th>2023</th>
+                    <th>Total</th>
+                  </thead>
+                  <tbody>
+                    <tr
+                      v-for="funding_source in funding_sources"
+                      :key="funding_source.item.value"
+                    >
+                      <th>{{ funding_source.item.label }}</th>
+                      <th>{{ funding_source.target_2016 }}</th>
+                      <th>{{ funding_source.target_2017 }}</th>
+                      <th>{{ funding_source.target_2018 }}</th>
+                      <th>{{ funding_source.target_2019 }}</th>
+                      <th>{{ funding_source.target_2020 }}</th>
+                      <th>{{ funding_source.target_2021 }}</th>
+                      <th>{{ funding_source.target_2022 }}</th>
+                      <th>{{ funding_source.target_2023 }}</th>
+                      <th>{{ funding_source.target_total }}</th>
+                    </tr>
+                  </tbody>
+                </q-markup-table>
 
-            <q-item-label header>
-              Regional Investment
-              <q-icon
-                name="edit"
-                label="Add Region"
-                class="cursor-pointer"
-                color="primary"
-              />
-            </q-item-label>
-
-            <q-markup-table
-              v-if="regions.length"
-              flat
-              bordered
-              separator="cell"
-            >
-              <thead>
-                <th>Region</th>
-                <th>2016</th>
-                <th>2017</th>
-                <th>2018</th>
-                <th>2019</th>
-                <th>2020</th>
-                <th>2021</th>
-                <th>2022</th>
-                <th>2023</th>
-                <th>Total</th>
-              </thead>
-              <tbody>
-                <tr v-for="region in regions" :key="region.item.value">
-                  <th>{{ region.item.label }}</th>
-                  <th>{{ region.target_2016 }}</th>
-                  <th>{{ region.target_2017 }}</th>
-                  <th>{{ region.target_2018 }}</th>
-                  <th>{{ region.target_2019 }}</th>
-                  <th>{{ region.target_2020 }}</th>
-                  <th>{{ region.target_2021 }}</th>
-                  <th>{{ region.target_2022 }}</th>
-                  <th>{{ region.target_2023 }}</th>
-                  <th>{{ region.target_total }}</th>
-                </tr>
-              </tbody>
-            </q-markup-table>
-
-            <q-markup-table flat bordered separator="cell">
-              <thead>
-                <th style="width:25%">Year</th>
-                <th style="width:25%">NEP</th>
-                <th style="width:25%">GAA</th>
-                <th style="width:25%">Disbursement</th>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="text-center">2017</td>
-                  <td class="text-right">
-                    {{ nep_2017 }}
-                  </td>
-                  <td class="text-right">
-                    {{ gaa_2017 }}
-                  </td>
-                  <td class="text-right">
-                    {{ disbursement_2017 }}
-                  </td>
-                </tr>
-                <tr>
-                  <td class="text-center">2018</td>
-                  <td class="text-right">
-                    {{ nep_2018 }}
-                  </td>
-                  <td class="text-right">
-                    {{ gaa_2018 }}
-                  </td>
-                  <td class="text-right">
-                    {{ disbursement_2018 }}
-                  </td>
-                </tr>
-                <tr>
-                  <td class="text-center">2019</td>
-                  <td class="text-right">
-                    {{ nep_2019 }}
-                  </td>
-                  <td class="text-right">
-                    {{ gaa_2019 }}
-                  </td>
-                  <td class="text-right">
-                    {{ disbursement_2019 }}
-                  </td>
-                </tr>
-                <tr>
-                  <td class="text-center">2020</td>
-                  <td class="text-right">
-                    {{ nep_2020 }}
-                  </td>
-                  <td class="text-right">
-                    {{ gaa_2020 }}
-                  </td>
-                  <td class="text-right">
-                    {{ disbursement_2020 }}
-                  </td>
-                </tr>
-                <tr>
-                  <td class="text-center">2021</td>
-                  <td class="text-right">
-                    {{ nep_2021 }}
-                  </td>
-                  <td class="text-right">
-                    {{ gaa_2021 }}
-                  </td>
-                  <td class="text-right">
-                    {{ disbursement_2021 }}
-                  </td>
-                </tr>
-                <tr>
-                  <td class="text-center">2022</td>
-                  <td class="text-right">
-                    {{ nep_2022 }}
-                  </td>
-                  <td class="text-right">
-                    {{ gaa_2022 }}
-                  </td>
-                  <td class="text-right">
-                    {{ disbursement_2022 }}
-                  </td>
-                </tr>
-                <!-- <tr>
-            <th>Total</th>
-            <td class="text-right">
-              {{ nep_total }}
-            </td>
-            <td class="text-right">
-              {{ gaa_total }}
-            </td>
-            <td class="text-right">
-              {{ disbursement_total }}
-            </td>
-          </tr> -->
-              </tbody>
-            </q-markup-table>
-
-            <expansion-item label="Updates" caption="Updates">
-              <q-item>
-                <q-item-section class="col-9">
-                  <text-input
-                    label="Updates"
-                    type="textarea"
-                    v-model="updates"
+                <q-item-label header>
+                  Regional Investment
+                  <q-icon
+                    name="edit"
+                    label="Add Region"
+                    class="cursor-pointer"
+                    color="primary"
                   />
-                </q-item-section>
-                <q-item-section class="col-3" top>
-                  <date-input
-                    label="As of Date"
-                    v-model="updates_date"
-                  ></date-input>
-                </q-item-section>
-              </q-item>
-            </expansion-item>
+                </q-item-label>
 
-            <div class="q-ml-md">
-              <div class="row items-start q-col-gutter-md"></div>
+                <q-markup-table
+                  v-if="regions.length"
+                  flat
+                  bordered
+                  separator="cell"
+                >
+                  <thead>
+                    <th>Region</th>
+                    <th>2016</th>
+                    <th>2017</th>
+                    <th>2018</th>
+                    <th>2019</th>
+                    <th>2020</th>
+                    <th>2021</th>
+                    <th>2022</th>
+                    <th>2023</th>
+                    <th>Total</th>
+                  </thead>
+                  <tbody>
+                    <tr v-for="region in regions" :key="region.item.value">
+                      <th>{{ region.item.label }}</th>
+                      <th>{{ region.target_2016 }}</th>
+                      <th>{{ region.target_2017 }}</th>
+                      <th>{{ region.target_2018 }}</th>
+                      <th>{{ region.target_2019 }}</th>
+                      <th>{{ region.target_2020 }}</th>
+                      <th>{{ region.target_2021 }}</th>
+                      <th>{{ region.target_2022 }}</th>
+                      <th>{{ region.target_2023 }}</th>
+                      <th>{{ region.target_total }}</th>
+                    </tr>
+                  </tbody>
+                </q-markup-table>
+
+                <q-markup-table flat bordered separator="cell">
+                  <thead>
+                    <th style="width:25%">Year</th>
+                    <th style="width:25%">NEP</th>
+                    <th style="width:25%">GAA</th>
+                    <th style="width:25%">Disbursement</th>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="text-center">2017</td>
+                      <td class="text-right">
+                        {{ nep_2017 }}
+                      </td>
+                      <td class="text-right">
+                        {{ gaa_2017 }}
+                      </td>
+                      <td class="text-right">
+                        {{ disbursement_2017 }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="text-center">2018</td>
+                      <td class="text-right">
+                        {{ nep_2018 }}
+                      </td>
+                      <td class="text-right">
+                        {{ gaa_2018 }}
+                      </td>
+                      <td class="text-right">
+                        {{ disbursement_2018 }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="text-center">2019</td>
+                      <td class="text-right">
+                        {{ nep_2019 }}
+                      </td>
+                      <td class="text-right">
+                        {{ gaa_2019 }}
+                      </td>
+                      <td class="text-right">
+                        {{ disbursement_2019 }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="text-center">2020</td>
+                      <td class="text-right">
+                        {{ nep_2020 }}
+                      </td>
+                      <td class="text-right">
+                        {{ gaa_2020 }}
+                      </td>
+                      <td class="text-right">
+                        {{ disbursement_2020 }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="text-center">2021</td>
+                      <td class="text-right">
+                        {{ nep_2021 }}
+                      </td>
+                      <td class="text-right">
+                        {{ gaa_2021 }}
+                      </td>
+                      <td class="text-right">
+                        {{ disbursement_2021 }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="text-center">2022</td>
+                      <td class="text-right">
+                        {{ nep_2022 }}
+                      </td>
+                      <td class="text-right">
+                        {{ gaa_2022 }}
+                      </td>
+                      <td class="text-right">
+                        {{ disbursement_2022 }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </q-markup-table>
+              </expansion-item>
+
+              <expansion-item label="Updates" caption="Updates" icon="filter_9">
+                <q-item>
+                  <single-select
+                    v-model="tier_id"
+                    label="Tier"
+                    :dense="dense"
+                    :options-dense="dense"
+                    :options="TIERS"
+                  />
+                </q-item>
+                <q-item>
+                  <q-item-section class="col-9">
+                    <text-input
+                      label="Updates"
+                      type="textarea"
+                      v-model="updates"
+                    />
+                  </q-item-section>
+                  <q-item-section class="col-3" top>
+                    <date-input
+                      label="As of Date"
+                      v-model="updates_date"
+                    ></date-input>
+                  </q-item-section>
+                </q-item>
+              </expansion-item>
+
+              <div class="q-ml-md">
+                <div class="row items-start q-col-gutter-md"></div>
+              </div>
             </div>
-          </q-form>
-        </div>
-        <div class="col-4">
-          <pre>{{ project }}</pre>
-        </div>
-      </div>
+          </div>
+        </q-card-section>
+        <q-card-actions align="right">
+          <q-btn
+            type="submit"
+            label="Create Project"
+            @click="createProject"
+            color="primary"
+          />
+        </q-card-actions>
+      </q-card>
     </q-form>
   </q-page>
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import { mapFields } from "vuex-map-fields";
 import {
+  DISTRICTS,
   IMPLEMENTATION_BASES,
   IMPLEMENTATION_MODES,
   PROVINCES,
@@ -679,6 +719,9 @@ export default {
     "page-breadcrumbs": () => import("../components/PageBreadcrumbs.vue")
   },
   name: "PageAddProject",
+  methods: {
+    ...mapActions("project", ["createProject"])
+  },
   computed: {
     ...mapFields("project", [
       "project",
@@ -719,6 +762,7 @@ export default {
       "project.economic_internal_rate_return",
       "project.bases",
       "project.regions",
+      "project.districts",
       "project.funding_sources",
       "project.implementation_risk",
       "project.mitigation_strategy",
@@ -775,6 +819,7 @@ export default {
           title: "Add Project"
         }
       ],
+      DISTRICTS,
       IMPLEMENTATION_BASES,
       IMPLEMENTATION_MODES,
       PROVINCES,

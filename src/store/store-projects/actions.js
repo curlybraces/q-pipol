@@ -1,32 +1,22 @@
-import { Notify } from "quasar";
+import { apolloClient } from "boot/apollo";
+import { DELETE_PROJECT_MUTATION } from "../../constants/graphql";
 
-export function addProject({ dispatch }, project) {
-  if (!project.title) {
-    Notify.create({
-      message: "Please enter program/project title.",
-      color: "red"
+export function deleteProject({}, id) {
+  console.log(id);
+  apolloClient
+    .mutate({
+      mutation: DELETE_PROJECT_MUTATION,
+      variables: {
+        id: id
+      }
+    })
+    .then(data => {
+      if (!data.data.deleteProject) {
+        console.log("Project was already deleted.");
+      } else {
+        console.log("Project successfully deleted.");
+      }
     });
-  } else {
-    dispatch("fbAddProject", project);
-  }
-}
-
-export function updateProject({ dispatch }, payload) {
-  dispatch("fbUpdateProject", payload);
-}
-
-export function deleteProject({ dispatch }, id) {
-  dispatch("fbDeleteProject", id);
-}
-
-export function updateProjectStatus({ dispatch }, payload) {
-  dispatch("fbUpdateProjectStatus", payload);
-}
-
-export function fbReadData({}) {}
-
-export function fbAddProject({}, payload) {
-  console.log(payload);
 }
 
 export function setSearch({ commit }, value) {

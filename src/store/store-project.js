@@ -1,5 +1,8 @@
 // Project Store
 import { getField, updateField } from "vuex-map-fields";
+import { apolloClient } from "boot/apollo";
+import { CREATE_PROJECT_MUTATION } from "../constants/graphql";
+import { convertToNumber } from "../functions/function-convert-to-number";
 
 const state = {
   // properties
@@ -135,6 +138,7 @@ const state = {
     updates_date: null,
     technical_readinesses: [],
     bases: [],
+    districts: [],
     regions: [],
     provinces: [],
     funding_sources: []
@@ -147,6 +151,74 @@ const mutations = {
 
 const actions = {
   // actions
+  createProject({ state }) {
+    const { project } = state;
+    apolloClient
+      .mutate({
+        mutation: CREATE_PROJECT_MUTATION,
+        variables: {
+          pip: project.pip,
+          cip: project.cip,
+          trip: project.trip,
+          title: project.title,
+          type_id: project.type_id,
+          operating_unit_id: project.operating_unit_id,
+          implementation_mode_id: project.implementation_mode_id,
+          project_status_id: project.project_status_id,
+          typology_id: project.typology_id,
+          tier_id: project.tier_id,
+          spatial_coverage_id: project.spatial_coverage_id,
+          cities_municipalities: project.cities_municipalities,
+          rdip: project.rdip,
+          pcip: project.pcip,
+          description: project.description,
+          components: project.components,
+          goals: project.goals,
+          outcomes: project.outcomes,
+          purpose: project.purpose,
+          expected_outputs: project.expected_outputs,
+          beneficiaries: project.beneficiaries,
+          employment_generated: project.employment_generated,
+          target_start_year: project.target_start_year,
+          target_end_year: project.target_end_year,
+          implementation_start_date: project.implementation_start_date,
+          implementation_end_date: project.implementation_end_date,
+          clearinghouse: project.clearinghouse,
+          clearinghouse_date: project.clearinghouse_date,
+          total_project_cost: convertToNumber(project.total_project_cost),
+          implementation_risk: project.implementation_risk,
+          mitigation_strategy: project.mitigation_strategy,
+          income_increase: project.income_increase,
+          gad_score: project.gad_score,
+          estimated_project_life: project.estimated_project_life,
+          financial_benefit_cost_ratio: project.financial_benefit_cost_ratio,
+          financial_internal_rate_return:
+            project.financial_internal_rate_return,
+          financial_net_present_value: project.financial_net_present_value,
+          economic_benefit_cost_ratio: project.economic_benefit_cost_ratio,
+          economic_internal_rate_return: project.economic_internal_rate_return,
+          economic_net_present_value: project.economic_net_present_value,
+          bases: {
+            connect: project.bases
+          },
+          regions: project.regions,
+          provinces: project.provinces,
+          funding_sources: project.funding_sources,
+          updates: project.updates,
+          updates_date: project.updates_date
+        }
+      })
+      .then(data => {
+        console.log(data);
+        this.onReset();
+      })
+      .catch(err => {
+        console.log(err.message);
+      })
+      .finally(() => {
+        console.log("done");
+      });
+  }
 };
 
 const getters = {

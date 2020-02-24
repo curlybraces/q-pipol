@@ -11,6 +11,7 @@
     filled
     label-color="orange-10"
     :readonly="readonly"
+    class="col"
   />
 </template>
 
