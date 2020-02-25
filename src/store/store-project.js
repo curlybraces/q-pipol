@@ -148,11 +148,11 @@ const mutations = {
     state.project.regions.push(value);
   },
   deleteRegion(state, index) {
-    state.project.regions.splice(index,1);
+    state.project.regions.splice(index, 1);
   },
   updateRegionRow(state, payload) {
     state.project.regions.splice(payload.index, 1, payload.region);
-  } 
+  }
 };
 
 const actions = {

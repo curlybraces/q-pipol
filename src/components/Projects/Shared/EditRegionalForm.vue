@@ -54,7 +54,9 @@
         v-model="regionToEdit.target_total"
       ></money-input>
       <div class="q-ml-md">
-        <q-btn class="full-width" color="primary" @click="saveRegion">Add</q-btn>
+        <q-btn class="full-width" color="primary" @click="saveRegion"
+          >Add</q-btn
+        >
       </div>
     </q-form>
   </q-card>
@@ -68,7 +70,7 @@ export default {
   components: {
     "money-input": () => import("../../../components/FormInputs/MoneyInput.vue")
   },
-  props: ["region","id"],
+  props: ["region", "id"],
   name: "EditRegionalForm",
   data() {
     return {
@@ -77,12 +79,12 @@ export default {
     };
   },
   methods: {
-    ...mapMutations("project",["updateRegionRow"]),
+    ...mapMutations("project", ["updateRegionRow"]),
     saveRegion() {
       this.updateRegionRow({
         index: this.$props.id,
         region: this.regionToEdit
-      })
+      });
     }
   },
   mounted() {

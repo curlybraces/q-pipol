@@ -27,10 +27,11 @@
       <tbody>
         <template v-if="regions.length">
           <template v-for="(region, index) in regions">
-            <region-row 
-              :region="region" 
-              :key="index" 
-              @deleteRow="deleteThis(index)" />
+            <region-row
+              :region="region"
+              :key="index"
+              @deleteRow="deleteThis(index)"
+            />
           </template>
         </template>
         <template v-else>
@@ -66,7 +67,7 @@ export default {
     };
   },
   methods: {
-    ...mapMutations("project",["deleteRegion"]),
+    ...mapMutations("project", ["deleteRegion"]),
     deleteThis(index) {
       this.deleteRegion(index);
     }

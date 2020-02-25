@@ -11,11 +11,29 @@
     <th>{{ region.target_2023 }}</th>
     <th>{{ region.target_total }}</th>
     <th>
-      <q-btn flat round dense icon="edit" color="blue" @click="editRegionDialog = true"/>
-      <q-btn flat round dense icon="delete" color="red" @click="$emit('deleteRow')" />
+      <q-btn
+        flat
+        round
+        dense
+        icon="edit"
+        color="blue"
+        @click="editRegionDialog = true"
+      />
+      <q-btn
+        flat
+        round
+        dense
+        icon="delete"
+        color="red"
+        @click="$emit('deleteRow')"
+      />
     </th>
 
-    <q-dialog v-model="editRegionDialog" transition-hide="fade" transition-show="fade">
+    <q-dialog
+      v-model="editRegionDialog"
+      transition-hide="fade"
+      transition-show="fade"
+    >
       <edit-regional-form :region="region" :id="id" />
     </q-dialog>
   </tr>
@@ -27,11 +45,11 @@ export default {
     "edit-regional-form": () => import("./EditRegionalForm.vue")
   },
   name: "RegionRow",
-  props: ["region","id"],
+  props: ["region", "id"],
   data() {
     return {
       editRegionDialog: false
-    }
+    };
   }
-}
+};
 </script>
