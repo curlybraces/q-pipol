@@ -504,26 +504,27 @@ export const ALL_PROJECTS_QUERY = gql`
 `;
 
 export const DELETED_PROJECTS_QUERY = gql`
-query projects {
-  projects(trashed: ONLY) {
-    data {
-      id
-      title
-      operating_unit {
-        name
-        image
+  query projects {
+    projects(trashed: ONLY) {
+      data {
+        id
+        title
+        operating_unit {
+          name
+          image
+        }
+        description
+        total_project_cost
       }
-      description
-      total_project_cost
-    }
-    paginatorInfo {
-      currentPage
-      total
-      perPage
-      lastPage
+      paginatorInfo {
+        currentPage
+        total
+        perPage
+        lastPage
+      }
     }
   }
-}`;
+`;
 
 export const UPDATE_PROJECT_MUTATION = gql`
   mutation updateProject($id: ID!, $title: String) {

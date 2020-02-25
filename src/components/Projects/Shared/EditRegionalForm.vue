@@ -2,7 +2,7 @@
   <q-card>
     <q-card-section>
       <div class="row justify item-center">
-        Add Region
+        Edit Region
         <q-space />
         <q-btn flat round dense icon="close" @click="$emit('close')" />
       </div>
@@ -12,49 +12,49 @@
         outlined
         stack-label
         label="Region"
-        v-model="itemToSubmit.id"
+        v-model="regionToEdit.id"
         :options="REGIONS"
         emit-value
         map-options
       ></q-select>
       <money-input
         label="2016"
-        v-model="itemToSubmit.target_2016"
+        v-model="regionToEdit.target_2016"
       ></money-input>
       <money-input
         label="2017"
-        v-model="itemToSubmit.target_2017"
+        v-model="regionToEdit.target_2017"
       ></money-input>
       <money-input
         label="2018"
-        v-model="itemToSubmit.target_2018"
+        v-model="regionToEdit.target_2018"
       ></money-input>
       <money-input
         label="2019"
-        v-model="itemToSubmit.target_2019"
+        v-model="regionToEdit.target_2019"
       ></money-input>
       <money-input
         label="2020"
-        v-model="itemToSubmit.target_2020"
+        v-model="regionToEdit.target_2020"
       ></money-input>
       <money-input
         label="2021"
-        v-model="itemToSubmit.target_2021"
+        v-model="regionToEdit.target_2021"
       ></money-input>
       <money-input
         label="2022"
-        v-model="itemToSubmit.target_2022"
+        v-model="regionToEdit.target_2022"
       ></money-input>
       <money-input
         label="2023"
-        v-model="itemToSubmit.target_2023"
+        v-model="regionToEdit.target_2023"
       ></money-input>
       <money-input
         label="Total"
-        v-model="itemToSubmit.target_total"
+        v-model="regionToEdit.target_total"
       ></money-input>
       <div class="q-ml-md">
-        <q-btn class="full-width" color="primary" @click="addRegion">Add</q-btn>
+        <q-btn class="full-width" color="primary" @click="saveRegion">Add</q-btn>
       </div>
     </q-form>
   </q-card>
@@ -63,27 +63,30 @@
 <script>
 import { REGIONS } from "../../../data/dropdown-values";
 import { mapMutations } from "vuex";
-import { mapMultiRowFields } from "vuex-map-fields";
 
 export default {
   components: {
     "money-input": () => import("../../../components/FormInputs/MoneyInput.vue")
   },
-  computed: {
-    ...mapMultiRowFields("project", ["project.regions"])
-  },
-  name: "RegionalForm",
+  props: ["region","id"],
+  name: "EditRegionalForm",
   data() {
     return {
       REGIONS,
-      itemToSubmit: {}
+      regionToEdit: {}
     };
   },
   methods: {
-    ...mapMutations("project", ["addRegionRow"]),
-    addRegion() {
-      this.addRegionRow(this.itemToSubmit);
+    ...mapMutations("project",["updateRegionRow"]),
+    saveRegion() {
+      this.updateRegionRow({
+        index: this.$props.id,
+        region: this.regionToEdit
+      })
     }
+  },
+  mounted() {
+    this.regionToEdit = Object.assign({}, this.$props.region);
   }
 };
 </script>

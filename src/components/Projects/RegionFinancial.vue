@@ -22,36 +22,40 @@
         <th>2022</th>
         <th>2023</th>
         <th>Total</th>
+        <th>Actions</th>
       </thead>
       <tbody>
-        <tr v-for="region in regions" :key="region.item.value">
-          <th>{{ region.item.label }}</th>
-          <th>{{ region.target_2016 }}</th>
-          <th>{{ region.target_2017 }}</th>
-          <th>{{ region.target_2018 }}</th>
-          <th>{{ region.target_2019 }}</th>
-          <th>{{ region.target_2020 }}</th>
-          <th>{{ region.target_2021 }}</th>
-          <th>{{ region.target_2022 }}</th>
-          <th>{{ region.target_2023 }}</th>
-          <th>{{ region.target_total }}</th>
-        </tr>
+        <template v-if="regions.length">
+          <template v-for="(region, index) in regions">
+            <region-row 
+              :region="region" 
+              :key="index" 
+              @deleteRow="deleteThis(index)" />
+          </template>
+        </template>
+        <template v-else>
+          <tr>
+            <th colspan="10">No data to show.</th>
+          </tr>
+        </template>
       </tbody>
     </q-markup-table>
 
-    <q-dialog v-model="addRegion">
+    <q-dialog v-model="addRegion" transition-hide="fade" transition-show="fade">
       <regional-form @close="addRegion = false"></regional-form>
     </q-dialog>
   </div>
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 import { mapFields } from "vuex-map-fields";
 
 export default {
   name: "RegionInformation",
   components: {
-    "regional-form": () => import("../Projects/Shared/RegionalForm.vue")
+    "regional-form": () => import("../Projects/Shared/RegionalForm.vue"),
+    "region-row": () => import("../Projects/Shared/RegionRow.vue")
   },
   computed: {
     ...mapFields("project", ["project.regions"])
@@ -60,6 +64,12 @@ export default {
     return {
       addRegion: false
     };
+  },
+  methods: {
+    ...mapMutations("project",["deleteRegion"]),
+    deleteThis(index) {
+      this.deleteRegion(index);
+    }
   }
 };
 </script>

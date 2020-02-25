@@ -115,7 +115,6 @@ const state = {
     nep_2021: null,
     nep_2022: null,
     nep_2023: null,
-    nep_total: null,
     gaa_2016: null,
     gaa_2017: null,
     gaa_2018: null,
@@ -124,7 +123,6 @@ const state = {
     gaa_2021: null,
     gaa_2022: null,
     gaa_2023: null,
-    gaa_total: null,
     disbursement_2016: null,
     disbursement_2017: null,
     disbursement_2018: null,
@@ -133,7 +131,6 @@ const state = {
     disbursement_2021: null,
     disbursement_2022: null,
     disbursement_2023: null,
-    disbursement_total: null,
     updates: null,
     updates_date: null,
     technical_readinesses: [],
@@ -146,7 +143,16 @@ const state = {
 };
 
 const mutations = {
-  updateField
+  updateField,
+  addRegionRow(state, value) {
+    state.project.regions.push(value);
+  },
+  deleteRegion(state, index) {
+    state.project.regions.splice(index,1);
+  },
+  updateRegionRow(state, payload) {
+    state.project.regions.splice(payload.index, 1, payload.region);
+  } 
 };
 
 const actions = {
@@ -201,8 +207,15 @@ const actions = {
           bases: {
             connect: project.bases
           },
-          regions: project.regions,
-          provinces: project.provinces,
+          regions: {
+            connect: project.regions
+          },
+          provinces: {
+            connect: project.provinces
+          },
+          districts: {
+            connect: project.districts
+          },
           funding_sources: project.funding_sources,
           updates: project.updates,
           updates_date: project.updates_date
@@ -222,7 +235,28 @@ const actions = {
 };
 
 const getters = {
-  getField
+  getField,
+  nep_total: state =>
+    convertToNumber(state.project.nep_2017) +
+    convertToNumber(state.project.nep_2018) +
+    convertToNumber(state.project.nep_2019) +
+    convertToNumber(state.project.nep_2020) +
+    convertToNumber(state.project.nep_2021) +
+    convertToNumber(state.project.nep_2022),
+  gaa_total: state =>
+    convertToNumber(state.project.gaa_2017) +
+    convertToNumber(state.project.gaa_2018) +
+    convertToNumber(state.project.gaa_2019) +
+    convertToNumber(state.project.gaa_2020) +
+    convertToNumber(state.project.gaa_2021) +
+    convertToNumber(state.project.gaa_2022),
+  disbursement_total: state =>
+    convertToNumber(state.project.disbursement_2017) +
+    convertToNumber(state.project.disbursement_2018) +
+    convertToNumber(state.project.disbursement_2019) +
+    convertToNumber(state.project.disbursement_2020) +
+    convertToNumber(state.project.disbursement_2021) +
+    convertToNumber(state.project.disbursement_2022)
 };
 
 export default {

@@ -10,7 +10,13 @@
         />
         <q-toolbar-title class="text-primary">{{ appTitle }}</q-toolbar-title>
         <q-space />
-        <q-btn flat round icon="notifications" class="q-mr-md text-grey-6" @click="rightDrawer = !rightDrawer"/>
+        <q-btn
+          flat
+          round
+          icon="notifications"
+          class="q-mr-md text-grey-6"
+          @click="rightDrawer = !rightDrawer"
+        />
         <q-btn
           class="bg-primary text-white"
           round
@@ -27,7 +33,12 @@
       <drawer-content />
     </q-drawer>
 
-    <q-drawer v-model="rightDrawer" side="right" content-class="bg-grey-2" bordered>
+    <q-drawer
+      v-model="rightDrawer"
+      side="right"
+      content-class="bg-grey-2"
+      bordered
+    >
       <right-drawer />
     </q-drawer>
 

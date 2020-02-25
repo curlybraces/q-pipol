@@ -28,7 +28,7 @@ export default {
     ...mapState("auth", ["userLoaded"])
   },
   methods: {
-    ...mapActions("auth", ["populateUser","logoutUser"])
+    ...mapActions("auth", ["populateUser", "logoutUser"])
   },
   mounted() {
     if (!this.userLoaded) {
@@ -44,8 +44,7 @@ export default {
           Dialog.create({
             title: "Error",
             message: graphQLErrorMessages(error)[0]
-          })
-          .onOk(() => {
+          }).onOk(() => {
             this.logoutUser();
           });
         });

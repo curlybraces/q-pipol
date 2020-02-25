@@ -13,6 +13,7 @@
     :suffix="suffix"
     filled
     label-color="orange-10"
+    class="col"
   />
 </template>
 

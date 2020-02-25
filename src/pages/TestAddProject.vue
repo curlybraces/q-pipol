@@ -1,14 +1,23 @@
 <template>
   <q-page padding>
     <page-breadcrumbs :breadcrumbs="breadcrumbs" />
+    <pre>{{ project }}</pre>
     <q-form>
-      <q-stepper v-model="step" vertical animated header-nav>
+      <q-stepper
+        v-model="step"
+        vertical
+        animated
+        header-nav
+        active-color="orange-10"
+        inactive-color="grey-9"
+      >
         <q-step
-          color="orange-10"
           :name="1"
           prefix="1"
           title="Basic Information"
           caption="Basic Information"
+          :done="basicInformationDone"
+          done-color="positive"
         >
           <q-item>
             <text-input
@@ -17,7 +26,6 @@
               :dense="dense"
               hint="The title of the program or project"
               maxlength="250"
-              required
             />
           </q-item>
           <q-item>
@@ -81,11 +89,12 @@
         </q-step>
 
         <q-step
-          color="orange-10"
           :name="2"
           prefix="2"
           title="Programming Documents"
           caption="Documents where the PAP are included"
+          :done="programmingDocumentsDone"
+          done-color="positive"
         >
           <checkbox-item
             v-model="pip"
@@ -125,7 +134,6 @@
         </q-step>
 
         <q-step
-          color="orange-10"
           :name="3"
           title="Additional Project Information"
           caption="Additional Information"
@@ -187,11 +195,12 @@
         </q-step>
 
         <q-step
-          color="orange-10"
           :name="4"
           title="Spatial Coverage"
           caption="Spatial Coverage"
           prefix="4"
+          :done="spatialCoverageDone"
+          done-color="positive"
         >
           <q-item>
             <single-select
@@ -243,7 +252,6 @@
         </q-step>
 
         <q-step
-          color="orange-10"
           :name="5"
           title="Implementation Period"
           caption="Implementation Period"
@@ -297,102 +305,8 @@
           ></stepper-navigation>
         </q-step>
 
-        <q-step
-          color="orange-10"
-          :name="6"
-          title="Readiness"
-          caption=""
-          prefix="6"
-        >
-          <q-item>
-            <multi-select
-              label="Technical Readiness"
-              v-model="technical_readinesses"
-              :options="TECHNICAL_READINESSES"
-              class="col"
-            ></multi-select>
-          </q-item>
-
-          <q-item>
-            <q-item-section class="col-6">
-              <checkbox-input
-                v-model="clearinghouse"
-                label="Approved by DA Clearinghouse"
-              />
-            </q-item-section>
-            <q-item-section class="col-6">
-              <date-input
-                label="Date Approved by Clearinghouse Committee"
-                v-model="clearinghouse_date"
-              />
-            </q-item-section>
-          </q-item>
-          <q-item>
-            <q-item-section class="col-6">
-              <checkbox-input
-                v-model="neda_submission"
-                label="NEDA Submission"
-              />
-            </q-item-section>
-            <q-item-section class="col-6">
-              <date-input
-                class="col-6"
-                label="Date submitted to NEDA"
-                v-model="neda_submission_date"
-              />
-            </q-item-section>
-          </q-item>
-
-          <q-item>
-            <q-item-section class="col-6">
-              <checkbox-input
-                v-model="neda_secretariat_review"
-                label="NEDA Secretariat Review"
-              />
-            </q-item-section>
-            <q-item-section class="col-6">
-              <date-input
-                label="Date reviewed by NEDA Secretariat"
-                v-model="neda_secretariat_review_date"
-              />
-            </q-item-section>
-          </q-item>
-
-          <q-item>
-            <q-item-section class="col-6">
-              <checkbox-input v-model="icc_endorsed" label="ICC Endorsed" />
-            </q-item-section>
-            <q-item-section class="col-6">
-              <date-input
-                label="Date endorsed by ICC"
-                v-model="icc_endorsed_date"
-              />
-            </q-item-section>
-          </q-item>
-
-          <q-item>
-            <q-item-section class="col-6">
-              <checkbox-input v-model="icc_approved" label="ICC Approved" />
-            </q-item-section>
-            <q-item-section class="col-6">
-              <date-input
-                label="Date approved by the ICC"
-                v-model="icc_approved_date"
-              />
-            </q-item-section>
-          </q-item>
-
-          <q-item>
-            <q-item-section class="col-6">
-              <checkbox-input v-model="neda_board" label="NEDA Board" />
-            </q-item-section>
-            <q-item-section class="col-6">
-              <date-input
-                label="Date approved by the NEDA Board"
-                v-model="neda_board_date"
-              />
-            </q-item-section>
-          </q-item>
+        <q-step :name="6" title="Readiness" caption="" prefix="6">
+          <technical-readiness />
 
           <stepper-navigation
             @next="step = 7"
@@ -402,7 +316,6 @@
         </q-step>
 
         <q-step
-          color="orange-10"
           :name="7"
           title="Financial and Economic Analyses"
           caption="Financial and Economic Analyses"
@@ -506,7 +419,6 @@
         </q-step>
 
         <q-step
-          color="orange-10"
           :name="8"
           title="Financial Information"
           caption="Financial Information"
@@ -568,7 +480,6 @@
         </q-step>
 
         <q-step
-          color="orange-10"
           :name="9"
           title="Updates"
           caption="Applicable to Ongoing and Completed Projects Only"
@@ -595,114 +506,23 @@
             </q-item-section>
           </q-item>
           <q-item>
-            <q-markup-table flat bordered separator="cell" class="col">
-              <thead>
-                <th style="width:25%">Year</th>
-                <th style="width:25%">NEP</th>
-                <th style="width:25%">GAA</th>
-                <th style="width:25%">Disbursement</th>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="text-center">2017</td>
-                  <td class="text-right">
-                    {{ nep_2017 }}
-                  </td>
-                  <td class="text-right">
-                    {{ gaa_2017 }}
-                  </td>
-                  <td class="text-right">
-                    {{ disbursement_2017 }}
-                  </td>
-                </tr>
-                <tr>
-                  <td class="text-center">2018</td>
-                  <td class="text-right">
-                    {{ nep_2018 }}
-                  </td>
-                  <td class="text-right">
-                    {{ gaa_2018 }}
-                  </td>
-                  <td class="text-right">
-                    {{ disbursement_2018 }}
-                  </td>
-                </tr>
-                <tr>
-                  <td class="text-center">2019</td>
-                  <td class="text-right">
-                    {{ nep_2019 }}
-                  </td>
-                  <td class="text-right">
-                    {{ gaa_2019 }}
-                  </td>
-                  <td class="text-right">
-                    {{ disbursement_2019 }}
-                  </td>
-                </tr>
-                <tr>
-                  <td class="text-center">2020</td>
-                  <td class="text-right">
-                    {{ nep_2020 }}
-                  </td>
-                  <td class="text-right">
-                    {{ gaa_2020 }}
-                  </td>
-                  <td class="text-right">
-                    {{ disbursement_2020 }}
-                  </td>
-                </tr>
-                <tr>
-                  <td class="text-center">2021</td>
-                  <td class="text-right">
-                    {{ nep_2021 }}
-                  </td>
-                  <td class="text-right">
-                    {{ gaa_2021 }}
-                  </td>
-                  <td class="text-right">
-                    {{ disbursement_2021 }}
-                  </td>
-                </tr>
-                <tr>
-                  <td class="text-center">2022</td>
-                  <td class="text-right">
-                    {{ nep_2022 }}
-                  </td>
-                  <td class="text-right">
-                    {{ gaa_2022 }}
-                  </td>
-                  <td class="text-right">
-                    {{ disbursement_2022 }}
-                  </td>
-                </tr>
-              </tbody>
-              <tfoot>
-                <tr>
-                  <th>Total</th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
-              </tfoot>
-            </q-markup-table>
+            <q-item-label>Financial Accomplishments</q-item-label>
+          </q-item>
+          <q-item>
+            <financial-accomplishment />
           </q-item>
           <q-stepper-navigation>
             <q-btn
               color="orange-10"
               @click="step = 10"
               label="Finish"
-              class="q-ml-sm"
+              class="q-mr-sm"
             />
             <q-btn color="orange-5" flat @click="step = 8" label="Back" />
           </q-stepper-navigation>
         </q-step>
-        <q-step
-          color="orange-10"
-          :name="10"
-          title="Submit"
-          caption="Save project"
-          prefix="10"
-        >
+
+        <q-step :name="10" title="Submit" caption="Save project" prefix="10">
           <div class="row q-pa-md q-gutter-md justify-center">
             <q-btn
               flat
@@ -749,14 +569,18 @@ export default {
     "money-input": () => import("../components/FormInputs/MoneyInput.vue"),
     "number-input": () => import("../components/FormInputs/NumberInput.vue"),
     "text-input": () => import("../components/FormInputs/TextInput.vue"),
-    "checkbox-input": () =>
-      import("../components/FormInputs/CheckboxInput.vue"),
+    // "checkbox-input": () =>
+    // import("../components/FormInputs/CheckboxInput.vue"),
     "checkbox-item": () => import("../components/FormInputs/CheckboxItem.vue"),
     "page-breadcrumbs": () => import("../components/PageBreadcrumbs.vue"),
     "stepper-navigation": () =>
       import("../components/Projects/StepperNavigation.vue"),
     "region-financial": () =>
-      import("../components/Projects/RegionFinancial.vue")
+      import("../components/Projects/RegionFinancial.vue"),
+    "financial-accomplishment": () =>
+      import("../components/Projects/FinancialAccomplishment.vue"),
+    "technical-readiness": () =>
+      import("../components/Projects/TechnicalReadiness.vue")
   },
   name: "PageAddProject",
   methods: {
@@ -806,18 +630,6 @@ export default {
       "project.funding_sources",
       "project.implementation_risk",
       "project.mitigation_strategy",
-      "project.clearinghouse",
-      "project.clearinghouse_date",
-      "project.neda_submission",
-      "project.neda_submission_date",
-      "project.neda_secretariat_review",
-      "project.neda_secretariat_review_date",
-      "project.neda_board",
-      "project.neda_board_date",
-      "project.icc_approved",
-      "project.icc_approved_date",
-      "project.icc_endorsed",
-      "project.icc_endorsed_date",
       "project.nep_2017",
       "project.nep_2018",
       "project.nep_2019",
@@ -842,7 +654,29 @@ export default {
       "project.provinces",
       "project.updates",
       "project.updates_date"
-    ])
+    ]),
+    programmingDocumentsDone() {
+      return (
+        this.pip ||
+        this.cip ||
+        this.trip ||
+        this.rdip ||
+        this.pcip ||
+        this.afmip
+      );
+    },
+    basicInformationDone() {
+      return (
+        !!this.title &&
+        !!this.operating_unit_id &&
+        !!this.description &&
+        !!this.type_id &&
+        !!this.total_project_cost
+      );
+    },
+    spatialCoverageDone() {
+      return !!this.spatial_coverage_id;
+    }
   },
   data() {
     return {
