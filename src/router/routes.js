@@ -38,13 +38,6 @@ const routes = [
           import(/* webpackChunkName: 'AddProject' */ "pages/AddProject.vue")
       },
       {
-        path: "pip/add",
-        component: () =>
-          import(
-            /* webpackChunkName: 'CreateProject' */ "pages/CreateProject.vue"
-          )
-      },
-      {
         path: "pip/:id/edit",
         name: "EditProject",
         component: () =>

@@ -32,36 +32,8 @@
           :done="programmingDocumentsDone"
           done-color="positive"
         >
-          <checkbox-item
-            v-model="pip"
-            label="PIP"
-            description="Public Investment Program"
-          />
-          <checkbox-item
-            v-model="cip"
-            label="CIP"
-            description="Core Investment Program"
-          />
-          <checkbox-item
-            v-model="trip"
-            label="TRIP"
-            description="Three-Year Rolling Investment Program"
-          />
-          <checkbox-item
-            v-model="rdip"
-            label="RDIP"
-            description="Regional Development Investment Program"
-          />
-          <checkbox-item
-            v-model="pcip"
-            label="PCIP"
-            description="Provincial Commodity Investment Plan"
-          />
-          <checkbox-item
-            v-model="afmip"
-            label="AFMIP"
-            description="Agriculture and Fisheries Modernization and Industrialization Plan"
-          />
+          <programming-documents :dense="dense" />
+
           <stepper-navigation
             @next="step = 3"
             @back="step = 1"
@@ -75,53 +47,7 @@
           caption="Additional Information"
           prefix="3"
         >
-          <q-item>
-            <multi-select
-              label="Implementation Bases"
-              v-model="bases"
-              :options-dense="dense"
-              :options="IMPLEMENTATION_BASES"
-              @clear="bases = []"
-            />
-          </q-item>
-
-          <q-item>
-            <text-input
-              v-model="goals"
-              label="Goals"
-              type="textarea"
-              :dense="dense"
-            />
-          </q-item>
-
-          <q-item>
-            <text-input
-              v-model="outcomes"
-              label="Outcomes"
-              type="textarea"
-              :dense="dense"
-              hint="Desired outcome of the program/project (e.g. Increase productivity)"
-            />
-          </q-item>
-
-          <q-item>
-            <text-input
-              v-model="purpose"
-              label="Purpose"
-              type="textarea"
-              :dense="dense"
-            />
-          </q-item>
-
-          <q-item>
-            <text-input
-              v-model="expected_outputs"
-              label="Expected Outputs"
-              type="textarea"
-              :dense="dense"
-              hint="Physical deliverables of the project (indicate unit)"
-            />
-          </q-item>
+          <additional-information :dense="dense" />
 
           <stepper-navigation
             @next="step = 4"
@@ -178,95 +104,7 @@
           caption="Financial and Economic Analyses"
           prefix="7"
         >
-          <div>
-            <q-item>
-              <text-input label="Beneficiaries" v-model="beneficiaries" />
-            </q-item>
-
-            <q-item>
-              <text-input
-                outlined
-                stack-label
-                label="Employment Generated"
-                v-model="employment_generated"
-              />
-            </q-item>
-
-            <q-item>
-              <number-input
-                label="GAD Score"
-                type="number"
-                v-model="gad_score"
-              />
-            </q-item>
-
-            <q-item>
-              <text-input
-                label="Implementation Risks"
-                type="textarea"
-                v-model="implementation_risk"
-              />
-            </q-item>
-
-            <q-item>
-              <text-input
-                label="Mitigation Strategies"
-                type="textarea"
-                v-model="mitigation_strategy"
-              />
-            </q-item>
-
-            <q-item>
-              <text-input
-                label="Estimated Project Life"
-                v-model="estimated_project_life"
-              />
-            </q-item>
-
-            <q-item>
-              <q-item-section class="col-6 q-gutter-y-md">
-                <money-input
-                  label="Financial Net Present Value (FNPV)"
-                  v-model="financial_net_present_value"
-                  :dense="dense"
-                ></money-input>
-
-                <number-input
-                  label="Financial Benefit-Cost Ratio (FBCR)"
-                  v-model="financial_benefit_cost_ratio"
-                  :dense="dense"
-                />
-
-                <number-input
-                  label="Financial Internal Rate of Return (FIRR)"
-                  v-model="financial_internal_rate_return"
-                  :dense="dense"
-                  suffix="%"
-                />
-              </q-item-section>
-
-              <q-item-section class="col-6 q-gutter-y-md">
-                <money-input
-                  label="Economic Net Present Value (ENPV)"
-                  v-model="economic_net_present_value"
-                  :dense="dense"
-                ></money-input>
-
-                <number-input
-                  label="Economic Benefit-Cost Ratio (EBCR)"
-                  v-model="economic_benefit_cost_ratio"
-                  :dense="dense"
-                />
-
-                <number-input
-                  label="Economic Internal Rate Return (EIRR)"
-                  v-model="economic_internal_rate_return"
-                  :dense="dense"
-                  suffix="%"
-                />
-              </q-item-section>
-            </q-item>
-          </div>
+          <financial-analysis :dense="dense" />
 
           <stepper-navigation
             @next="step = 8"
@@ -404,11 +242,8 @@
 import { mapActions } from "vuex";
 import { mapFields } from "vuex-map-fields";
 import {
-  DISTRICTS,
   IMPLEMENTATION_BASES,
   IMPLEMENTATION_MODES,
-  PROVINCES,
-  SPATIAL_COVERAGES,
   TIERS,
   TECHNICAL_READINESSES
 } from "../data/dropdown-values";
@@ -416,14 +251,8 @@ import {
 export default {
   components: {
     "single-select": () => import("../components/FormInputs/SingleSelect.vue"),
-    "multi-select": () => import("../components/FormInputs/MultiSelect.vue"),
     "date-input": () => import("../components/FormInputs/DateInput.vue"),
-    "money-input": () => import("../components/FormInputs/MoneyInput.vue"),
-    "number-input": () => import("../components/FormInputs/NumberInput.vue"),
     "text-input": () => import("../components/FormInputs/TextInput.vue"),
-    // "checkbox-input": () =>
-    // import("../components/FormInputs/CheckboxInput.vue"),
-    "checkbox-item": () => import("../components/FormInputs/CheckboxItem.vue"),
     "page-breadcrumbs": () => import("../components/PageBreadcrumbs.vue"),
     "stepper-navigation": () =>
       import("../components/Projects/StepperNavigation.vue"),
@@ -438,7 +267,13 @@ export default {
     "spatial-coverage": () =>
       import("../components/Projects/SpatialCoverage.vue"),
     "implementation-period": () =>
-      import("../components/Projects/ImplementationPeriod.vue")
+      import("../components/Projects/ImplementationPeriod.vue"),
+    "financial-analysis": () =>
+      import("../components/Projects/FinancialAnalysis.vue"),
+    "programming-documents": () =>
+      import("../components/Projects/ProgrammingDocuments.vue"),
+    "additional-information": () =>
+      import("../components/Projects/AdditionalInformation.vue")
   },
   name: "PageAddProject",
   methods: {
@@ -449,36 +284,12 @@ export default {
       "project",
       "project.title",
       "project.type_id",
-      "project.description",
-      "project.goals",
-      "project.outcomes",
-      "project.purpose",
-      "project.expected_outputs",
-      "project.beneficiaries",
-      "project.employment_generated",
-      "project.gad_score",
       "project.project_status_id",
       "project.total_project_cost",
-      "project.pip",
-      "project.cip",
-      "project.trip",
-      "project.rdip",
-      "project.pcip",
-      "project.afmip",
       "project.tier_id",
       "project.implementation_mode_id",
-      "project.estimated_project_life",
-      "project.financial_benefit_cost_ratio",
-      "project.financial_net_present_value",
-      "project.financial_internal_rate_return",
-      "project.economic_benefit_cost_ratio",
-      "project.economic_net_present_value",
-      "project.economic_internal_rate_return",
-      "project.bases",
       "project.regions",
       "project.funding_sources",
-      "project.implementation_risk",
-      "project.mitigation_strategy",
       "project.nep_2017",
       "project.nep_2018",
       "project.nep_2019",
@@ -541,11 +352,8 @@ export default {
           title: "Add Project"
         }
       ],
-      DISTRICTS,
       IMPLEMENTATION_BASES,
       IMPLEMENTATION_MODES,
-      PROVINCES,
-      SPATIAL_COVERAGES,
       TIERS,
       TECHNICAL_READINESSES,
       dense: false,
