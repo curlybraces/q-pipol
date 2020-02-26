@@ -91,15 +91,17 @@ export default {
     };
   },
   methods: {
-    ...mapMutations("project", ["addFundingSourceRow","deleteFundingSourceRow","updateFundingSourceRow"]),
+    ...mapMutations("project", [
+      "addFundingSourceRow",
+      "deleteFundingSourceRow",
+      "updateFundingSourceRow"
+    ]),
     deleteThis(index) {
       Dialog.create({
         title: "Delete",
         message: "Are you sure you want to delete this row?",
         cancel: true
-      })
-      .onOk(() => this.deleteFundingSourceRow(index));
-
+      }).onOk(() => this.deleteFundingSourceRow(index));
     },
     addFundingSource() {
       this.addFundingSourceRow(this.newFundingSource);

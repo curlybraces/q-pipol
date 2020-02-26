@@ -158,10 +158,10 @@ const mutations = {
     state.project.funding_sources.push(value);
   },
   deleteFundingSourceRow(state, index) {
-    state.project.funding_sources.splice(index,1);
+    state.project.funding_sources.splice(index, 1);
   },
   updateFundingSourceRow(state, payload) {
-    Vue.set(state.project.funding_sources,payload.index,payload.value);
+    Vue.set(state.project.funding_sources, payload.index, payload.value);
   }
 };
 

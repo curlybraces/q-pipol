@@ -33,8 +33,13 @@
       v-model="editRegionDialog"
       transition-hide="fade"
       transition-show="fade"
+      persistent
     >
-      <edit-regional-form :region="region" :id="id" />
+      <edit-region
+        :region="region"
+        :index="index"
+        @close="editRegionDialog = false"
+      />
     </q-dialog>
   </tr>
 </template>
@@ -42,10 +47,10 @@
 <script>
 export default {
   components: {
-    "edit-regional-form": () => import("../../Shared/EditRegionalForm.vue")
+    "edit-region": () => import("./EditRegion.vue")
   },
   name: "RegionRow",
-  props: ["region", "id"],
+  props: ["region", "index"],
   data() {
     return {
       editRegionDialog: false

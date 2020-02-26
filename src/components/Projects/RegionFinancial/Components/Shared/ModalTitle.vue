@@ -9,8 +9,8 @@
 </template>
 
 <script>
-  export default {
-    name: "ModalTitle",
-    props: ["title"]
-  }
+export default {
+  name: "ModalTitle",
+  props: ["title"]
+};
 </script>

@@ -51,7 +51,7 @@ export default {
     "fund-source-form": () => import("./FundSourceForm")
   },
   name: "FundingSourceRow",
-  props: ["funding_source","index"],
+  props: ["funding_source", "index"],
   data() {
     return {
       editFundingSourceDialog: false

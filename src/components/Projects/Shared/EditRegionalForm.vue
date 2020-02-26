@@ -3,9 +3,7 @@
     <modal-title title="Edit Region" />
     <modal-body />
     <div class="q-ml-md">
-      <q-btn class="full-width" color="primary" @click="saveRegion"
-      >Add</q-btn
-      >
+      <q-btn class="full-width" color="primary" @click="saveRegion">Add</q-btn>
     </div>
   </q-card>
 </template>

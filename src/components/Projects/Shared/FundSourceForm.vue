@@ -64,7 +64,7 @@ import { FUNDING_SOURCES } from "../../../data/dropdown-values";
 export default {
   components: {
     "money-input": () => import("../../FormInputs/MoneyInput.vue"),
-    "single-select": () => import("../../FormInputs/SingleSelect.vue"),
+    "single-select": () => import("../../FormInputs/SingleSelect.vue")
   },
   name: "FundSource",
   props: ["title", "funding_source"],
@@ -72,7 +72,6 @@ export default {
     return {
       FUNDING_SOURCES
     };
-  },
-
+  }
 };
 </script>
