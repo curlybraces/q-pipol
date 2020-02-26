@@ -717,7 +717,7 @@ export default {
     "number-input": () => import("../FormInputs/NumberInput.vue"),
     "text-input": () => import("../FormInputs/TextInput.vue"),
     "add-item": () => import("./Shared/AddItem.vue"),
-    "fund-source": () => import("./Shared/FundSource.vue"),
+    "fund-source": () => import("./Shared/FundSourceForm.vue"),
     "checkbox-input": () => import("../FormInputs/CheckboxInput.vue"),
     "checkbox-item": () => import("../FormInputs/CheckboxItem.vue"),
     "financial-accomplishment": () =>

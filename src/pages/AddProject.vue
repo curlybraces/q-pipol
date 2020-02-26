@@ -128,42 +128,10 @@
               :options="IMPLEMENTATION_MODES"
             />
           </q-item>
-          <q-markup-table
-            v-if="funding_sources.length"
-            flat
-            bordered
-            separator="cell"
-          >
-            <thead>
-              <th>Fund Source</th>
-              <th>2016</th>
-              <th>2017</th>
-              <th>2018</th>
-              <th>2019</th>
-              <th>2020</th>
-              <th>2021</th>
-              <th>2022</th>
-              <th>2023</th>
-              <th>Total</th>
-            </thead>
-            <tbody>
-              <tr
-                v-for="funding_source in funding_sources"
-                :key="funding_source.item.value"
-              >
-                <th>{{ funding_source.item.label }}</th>
-                <th>{{ funding_source.target_2016 }}</th>
-                <th>{{ funding_source.target_2017 }}</th>
-                <th>{{ funding_source.target_2018 }}</th>
-                <th>{{ funding_source.target_2019 }}</th>
-                <th>{{ funding_source.target_2020 }}</th>
-                <th>{{ funding_source.target_2021 }}</th>
-                <th>{{ funding_source.target_2022 }}</th>
-                <th>{{ funding_source.target_2023 }}</th>
-                <th>{{ funding_source.target_total }}</th>
-              </tr>
-            </tbody>
-          </q-markup-table>
+
+          <target-investment></target-investment>
+
+          <funding-sources :dense="dense" />
 
           <region-financial></region-financial>
 
@@ -273,7 +241,11 @@ export default {
     "programming-documents": () =>
       import("../components/Projects/ProgrammingDocuments.vue"),
     "additional-information": () =>
-      import("../components/Projects/AdditionalInformation.vue")
+      import("../components/Projects/AdditionalInformation.vue"),
+    "funding-sources": () =>
+      import("../components/Projects/FundingSources.vue"),
+    "target-investment": () =>
+      import("../components/Projects/TargetInvestment.vue")
   },
   name: "PageAddProject",
   methods: {

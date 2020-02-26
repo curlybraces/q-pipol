@@ -338,31 +338,31 @@ export const CIP_TYPES = [
 export const FUNDING_SOURCES = [
   {
     label: "NG-Local",
-    value: "NG-Local"
+    value: 1
   },
   {
     label: "NG-ODA Loan",
-    value: "NG-ODA Loan"
+    value: 2
   },
   {
     label: "NG-ODA Grant",
-    value: "NG-ODA Grant"
+    value: 3
   },
   {
     label: "GOCC/GFIs",
-    value: "GOCC/GFIs"
+    value: 4
   },
   {
     label: "LGUs",
-    value: "LGUs"
+    value: 5
   },
   {
     label: "Private Sector",
-    value: "Private Sector"
+    value: 6
   },
   {
     label: "Others",
-    value: "Others"
+    value: 7
   }
 ];
 

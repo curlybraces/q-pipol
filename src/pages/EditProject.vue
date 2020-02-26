@@ -380,7 +380,7 @@ export default {
     "number-input": () => import("../components/FormInputs/NumberInput.vue"),
     "text-input": () => import("../components/FormInputs/TextInput.vue"),
     // "add-item": () => import("../components/Shared/AddItem.vue"),
-    // "fund-source": () => import("../components/Shared/FundSource.vue"),
+    // "fund-source": () => import("../components/Shared/FundSourceForm.vue"),
     // "checkbox-input": () => import("../components/FormInputs/CheckboxInput.vue"),
     "checkbox-item": () => import("../components/FormInputs/CheckboxItem.vue")
     // "financial-accomplishment": () => import("../components/Shared/FinancialAccomplishment.vue"),

@@ -152,6 +152,9 @@ const mutations = {
   },
   updateRegionRow(state, payload) {
     state.project.regions.splice(payload.index, 1, payload.region);
+  },
+  addFundingSourceRow(state, value) {
+    state.project.funding_sources.push(value);
   }
 };
 

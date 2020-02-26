@@ -10,7 +10,7 @@
         @click="addRegion = true"
       />
     </q-item-label>
-    <q-markup-table v-if="regions.length" flat bordered separator="cell">
+    <q-markup-table flat bordered separator="cell">
       <thead>
         <th>Region</th>
         <th>2016</th>
