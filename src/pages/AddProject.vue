@@ -203,8 +203,6 @@
         </q-step>
       </q-stepper>
     </q-form>
-
-    <pre>{{ project }}</pre>
   </q-page>
 </template>
 
@@ -245,7 +243,7 @@ export default {
     "additional-information": () =>
       import("../components/Projects/AdditionalInformation.vue"),
     "funding-sources": () =>
-      import("../components/Projects/FundingSources.vue"),
+      import("../components/Projects/FundingSources/FundingSources.vue"),
     "target-investment": () =>
       import("../components/Projects/TargetInvestment.vue")
   },

@@ -35,11 +35,10 @@
       transition-show="fade"
       persistent
     >
-      <fund-source-form
-        title="Edit Funding Source"
-        @close="editFundingSourceDialog = false"
+      <edit-funding-source
         :funding_source="funding_source"
         :index="index"
+        @close="editFundingSourceDialog = false"
       />
     </q-dialog>
   </tr>
@@ -48,7 +47,7 @@
 <script>
 export default {
   components: {
-    "fund-source-form": () => import("./FundSourceForm")
+    "edit-funding-source": () => import("../Components/EditFundingSource")
   },
   name: "FundingSourceRow",
   props: ["funding_source", "index"],
