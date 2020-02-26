@@ -7,7 +7,7 @@
         label="Add Funding Source"
         class="cursor-pointer"
         color="primary"
-        @click="showAddFundingSource = true"
+        @click="showAddFundingSourceDialog"
       />
     </q-item-label>
     <q-markup-table flat bordered separator="cell">
@@ -22,6 +22,7 @@
         <th>2022</th>
         <th>2023</th>
         <th>Total</th>
+        <th>Actions</th>
       </thead>
       <tbody>
         <template v-if="funding_sources.length">
@@ -29,6 +30,7 @@
             <funding-source-row
               :funding_source="funding_source"
               :key="index"
+              :index="index"
               @deleteRow="deleteThis(index)"
             />
           </template>
@@ -60,6 +62,7 @@
 <script>
 import { mapMutations } from "vuex";
 import { mapFields } from "vuex-map-fields";
+import { Dialog } from "quasar";
 
 export default {
   components: {
@@ -88,13 +91,22 @@ export default {
     };
   },
   methods: {
-    ...mapMutations("project", ["addFundingSourceRow"]),
+    ...mapMutations("project", ["addFundingSourceRow","deleteFundingSourceRow","updateFundingSourceRow"]),
     deleteThis(index) {
-      console.log(index);
+      Dialog.create({
+        title: "Delete",
+        message: "Are you sure you want to delete this row?",
+        cancel: true
+      })
+      .onOk(() => this.deleteFundingSourceRow(index));
+
     },
     addFundingSource() {
-      console.log("add funding source");
       this.addFundingSourceRow(this.newFundingSource);
+    },
+    showAddFundingSourceDialog() {
+      this.newFundingSource = {};
+      this.showAddFundingSource = true;
     }
   }
 };

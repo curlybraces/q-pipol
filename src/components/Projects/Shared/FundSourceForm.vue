@@ -8,13 +8,11 @@
       </div>
     </q-card-section>
     <q-form style="width:480px;" class="q-pa-md q-gutter-md">
-      <q-select
-        outlined
-        stack-label
+      <single-select
         label="Fund Source"
-        v-model="funding_source.item"
+        v-model="funding_source.id"
         :options="FUNDING_SOURCES"
-      ></q-select>
+      ></single-select>
       <money-input
         label="2016"
         v-model="funding_source.target_2016"
@@ -65,7 +63,8 @@ import { FUNDING_SOURCES } from "../../../data/dropdown-values";
 
 export default {
   components: {
-    "money-input": () => import("../../FormInputs/MoneyInput.vue")
+    "money-input": () => import("../../FormInputs/MoneyInput.vue"),
+    "single-select": () => import("../../FormInputs/SingleSelect.vue"),
   },
   name: "FundSource",
   props: ["title", "funding_source"],
@@ -73,6 +72,7 @@ export default {
     return {
       FUNDING_SOURCES
     };
-  }
+  },
+
 };
 </script>

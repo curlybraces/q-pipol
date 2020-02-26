@@ -3,6 +3,7 @@ import { getField, updateField } from "vuex-map-fields";
 import { apolloClient } from "boot/apollo";
 import { CREATE_PROJECT_MUTATION } from "../constants/graphql";
 import { convertToNumber } from "../functions/function-convert-to-number";
+import Vue from "vue";
 
 const state = {
   // properties
@@ -155,6 +156,12 @@ const mutations = {
   },
   addFundingSourceRow(state, value) {
     state.project.funding_sources.push(value);
+  },
+  deleteFundingSourceRow(state, index) {
+    state.project.funding_sources.splice(index,1);
+  },
+  updateFundingSourceRow(state, payload) {
+    Vue.set(state.project.funding_sources,payload.index,payload.value);
   }
 };
 
