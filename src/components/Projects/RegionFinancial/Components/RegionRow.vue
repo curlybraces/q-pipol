@@ -42,7 +42,7 @@
 <script>
 export default {
   components: {
-    "edit-regional-form": () => import("./EditRegionalForm.vue")
+    "edit-regional-form": () => import("../../Shared/EditRegionalForm.vue")
   },
   name: "RegionRow",
   props: ["region", "id"],

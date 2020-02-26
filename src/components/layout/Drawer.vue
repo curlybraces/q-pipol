@@ -110,6 +110,11 @@ export default {
           icon: "bubble_chart"
         },
         {
+          label: "Resources",
+          icon: "folder_open",
+          url: "/resources"
+        },
+        {
           label: "Account",
           icon: "person",
           url: "/account"

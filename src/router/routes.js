@@ -33,6 +33,11 @@ const routes = [
           import(/* webpackChunkName: 'Account' */ "pages/Account.vue")
       },
       {
+        path: "resources",
+        component: () =>
+          import(/* webpackChunkName: 'Resources' */ "pages/Resources.vue")
+      },
+      {
         path: "pip/new",
         component: () =>
           import(/* webpackChunkName: 'AddProject' */ "pages/AddProject.vue")

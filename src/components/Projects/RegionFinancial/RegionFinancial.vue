@@ -43,20 +43,23 @@
     </q-markup-table>
 
     <q-dialog v-model="addRegion" transition-hide="fade" transition-show="fade">
-      <regional-form @close="addRegion = false"></regional-form>
+<!--      <regional-form @close="addRegion = false"></regional-form>-->
+      <add-region @close="addRegion = false"></add-region>
     </q-dialog>
   </div>
 </template>
 
 <script>
+import { Dialog } from "quasar";
 import { mapMutations } from "vuex";
 import { mapFields } from "vuex-map-fields";
 
 export default {
   name: "RegionInformation",
   components: {
-    "regional-form": () => import("../Projects/Shared/RegionalForm.vue"),
-    "region-row": () => import("../Projects/Shared/RegionRow.vue")
+    // "regional-form": () => import("../Shared/RegionalForm.vue"),
+    "region-row": () => import("./Components/RegionRow.vue"),
+    "add-region": () => import("./Components/AddRegion.vue")
   },
   computed: {
     ...mapFields("project", ["project.regions"])
@@ -69,7 +72,12 @@ export default {
   methods: {
     ...mapMutations("project", ["deleteRegion"]),
     deleteThis(index) {
-      this.deleteRegion(index);
+      Dialog.create({
+        title: "Delete",
+        message: "Are you sure you want to delete this item?",
+        cancel: true
+      })
+      .onOk(() => this.deleteRegion(index));
     }
   }
 };

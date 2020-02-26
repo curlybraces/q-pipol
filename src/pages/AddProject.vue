@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <page-breadcrumbs :breadcrumbs="breadcrumbs" />
-    <pre>{{ project }}</pre>
+
     <q-form>
       <q-stepper
         v-model="step"
@@ -203,6 +203,8 @@
         </q-step>
       </q-stepper>
     </q-form>
+
+    <pre>{{ project }}</pre>
   </q-page>
 </template>
 
@@ -225,7 +227,7 @@ export default {
     "stepper-navigation": () =>
       import("../components/Projects/StepperNavigation.vue"),
     "region-financial": () =>
-      import("../components/Projects/RegionFinancial.vue"),
+      import("../components/Projects/RegionFinancial/RegionFinancial.vue"),
     "financial-accomplishment": () =>
       import("../components/Projects/FinancialAccomplishment.vue"),
     "technical-readiness": () =>
@@ -260,28 +262,6 @@ export default {
       "project.total_project_cost",
       "project.tier_id",
       "project.implementation_mode_id",
-      "project.regions",
-      "project.funding_sources",
-      "project.nep_2017",
-      "project.nep_2018",
-      "project.nep_2019",
-      "project.nep_2020",
-      "project.nep_2021",
-      "project.nep_2022",
-      "project.nep_2023",
-      "project.nep_total",
-      "project.gaa_2017",
-      "project.gaa_2018",
-      "project.gaa_2019",
-      "project.gaa_2020",
-      "project.gaa_2021",
-      "project.gaa_2022",
-      "project.disbursement_2017",
-      "project.disbursement_2018",
-      "project.disbursement_2019",
-      "project.disbursement_2020",
-      "project.disbursement_2021",
-      "project.disbursement_2022",
       "project.technical_readinesses",
       "project.updates",
       "project.updates_date"
