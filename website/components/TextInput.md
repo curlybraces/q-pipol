@@ -5,15 +5,17 @@
 <!-- @vuese:TextInput:props:start -->
 |Name|Description|Type|Required|Default|
 |---|---|---|---|---|
-|type|-|—|`false`|-|
 |label|-|—|`false`|-|
 |dense|-|—|`false`|-|
 |value|-|—|`false`|-|
 |readonly|-|—|`false`|-|
 |rules|-|—|`false`|-|
-|maxlength|-|—|`false`|-|
 |hint|-|—|`false`|-|
+|suffix|-|—|`false`|-|
 
 <!-- @vuese:TextInput:props:end -->
+
+
+TextInput:props:end -->
 
 

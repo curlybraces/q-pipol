@@ -6,7 +6,7 @@
 |Name|Description|Type|Required|Default|
 |---|---|---|---|---|
 |region|-|—|`false`|-|
-|id|-|—|`false`|-|
+|index|-|—|`false`|-|
 
 <!-- @vuese:RegionRow:props:end -->
 

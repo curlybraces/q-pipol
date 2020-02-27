@@ -1,5 +1,7 @@
 # DateInput
 
+This is a template for date inputs
+
 ## Props
 
 <!-- @vuese:DateInput:props:start -->
