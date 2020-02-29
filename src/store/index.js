@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { vuexLocal } from "boot/vuex-persist";
+// import vuexLocal from 'vuex-persistedstate'
 
 import auth from "./store-auth";
 import projects from "./store-projects";

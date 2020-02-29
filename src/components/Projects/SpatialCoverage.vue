@@ -6,7 +6,7 @@
         label="Spatial Coverage"
         :dense="dense"
         :options-dense="dense"
-        :options="SPATIAL_COVERAGES"
+        :options="spatial_coverages"
       />
     </q-item>
 
@@ -14,7 +14,7 @@
       <multi-select
         v-model="provinces"
         label="Province/s"
-        :options="PROVINCES"
+        :options="provinces_options"
         :dense="dense"
         :options-dense="dense"
         :readonly="spatial_coverage_id == '1'"
@@ -26,7 +26,7 @@
       <multi-select
         v-model="districts"
         label="District/s"
-        :options="DISTRICTS"
+        :options="districts_options"
         :dense="dense"
         :options-dense="dense"
         :readonly="spatial_coverage_id == '1'"
@@ -45,12 +45,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import { mapFields } from "vuex-map-fields";
-import {
-  DISTRICTS,
-  PROVINCES,
-  SPATIAL_COVERAGES
-} from "../../data/dropdown-values";
 
 export default {
   components: {
@@ -66,14 +62,8 @@ export default {
       "project.provinces",
       "project.districts",
       "project.cities_municipalities"
-    ])
-  },
-  data() {
-    return {
-      DISTRICTS,
-      PROVINCES,
-      SPATIAL_COVERAGES
-    };
+    ]),
+    ...mapState("options",["districts_options","provinces_options","spatial_coverages"])
   }
 };
 </script>

@@ -56,3 +56,13 @@ export function fetchSpatialCoverages({ commit }) {
       commit("SET_SPATIAL_COVERAGES", res.data.spatial_coverages);
     });
 }
+
+export function initializeOptions({ state, dispatch, commit }) {
+  if (!state.initialized) {
+    dispatch("options/fetchDistricts", null, { root: true });
+    dispatch("options/fetchProvinces", null, { root: true });
+    dispatch("options/fetchRegions", null, { root: true });
+    dispatch("options/fetchSpatialCoverages", null, { root: true });
+    commit("SET_INITIALIZED", true);
+  }
+}

@@ -4,6 +4,8 @@
     @input="handleInput"
     @filter="filterFn"
     :options="filterOptions"
+    option-label="name"
+    option-value="id"
     :label="label"
     stack-label
     filled
@@ -29,10 +31,10 @@
     <template v-slot:option="scope">
       <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
         <q-item-section avatar>
-          <q-checkbox v-model="model" :val="scope.opt.value" />
+          <q-checkbox v-model="model" :val="scope.opt.id" />
         </q-item-section>
         <q-item-section>
-          <q-item-label v-html="scope.opt.label"></q-item-label>
+          <q-item-label v-html="scope.opt.name"></q-item-label>
         </q-item-section>
       </q-item>
     </template>
