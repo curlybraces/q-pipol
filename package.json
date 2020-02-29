@@ -22,7 +22,8 @@
     "v-money": "^0.8.1",
     "vue-apollo": "^3.0.3",
     "vue-cookie-law": "^1.11.0",
-    "vuex-map-fields": "^1.4.0"
+    "vuex-map-fields": "^1.4.0",
+    "vuex-persist": "^2.2.0"
   },
   "devDependencies": {
     "@quasar/app": "^1.5.3",
