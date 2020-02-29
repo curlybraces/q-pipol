@@ -25,10 +25,16 @@ export default {
   },
   name: "App",
   computed: {
-    ...mapState("auth", ["userLoaded"])
+    ...mapState("auth", ["userLoaded"]),
+    ...mapState("options", ["provinces", "regions", "districts"])
   },
   methods: {
-    ...mapActions("auth", ["populateUser", "logoutUser"])
+    ...mapActions("auth", ["populateUser", "logoutUser"]),
+    ...mapActions("options", [
+      "fetchProvinces",
+      "fetchRegions",
+      "fetchDistricts"
+    ])
   },
   mounted() {
     if (!this.userLoaded) {
@@ -52,6 +58,9 @@ export default {
   },
   created() {
     this.$q.addressbarColor.set("primary");
+    this.fetchProvinces();
+    this.fetchRegions();
+    this.fetchDistricts();
   }
 };
 </script>

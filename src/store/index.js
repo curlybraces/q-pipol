@@ -1,10 +1,11 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import { vuexLocal } from "boot/vuex-persist";
 
-import auth from "./store-auth/";
-import projects from "./store-projects/";
+import auth from "./store-auth";
+import projects from "./store-projects";
 import project from "./store-project";
-import options from "../store-options
+import options from "./store-options";
 
 Vue.use(Vuex);
 
@@ -24,7 +25,8 @@ export default function(/* { ssrContext } */) {
 
     // enable strict mode (adds overhead!)
     // for dev mode only
-    strict: process.env.DEV
+    strict: process.env.DEV,
+    plugins: [vuexLocal.plugin]
   });
 
   return Store;

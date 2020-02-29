@@ -10,7 +10,8 @@ module.exports = function(ctx) {
       "router-auth",
       "loading-defaults",
       "addressbar-color",
-      "notify-defaults"
+      "notify-defaults",
+      "vuex-persist"
     ],
 
     css: ["app.styl"],

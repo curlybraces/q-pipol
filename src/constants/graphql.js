@@ -647,3 +647,50 @@ export const DELETE_PROJECT_MUTATION = gql`
     }
   }
 `;
+
+export const FETCH_DISTRICTS = gql`
+  query districts {
+    districts {
+      id
+      name
+      province_id
+    }
+  }
+`;
+
+export const FETCH_OPERATING_UNITS = gql`
+  query operating_units {
+    operating_units {
+      id
+      name
+    }
+  }
+`;
+
+export const FETCH_PROVINCES = gql`
+  query provinces {
+    provinces {
+      id
+      name
+      region_id
+    }
+  }
+`;
+
+export const FETCH_REGIONS = gql`
+  query regions {
+    regions {
+      id
+      name
+    }
+  }
+`;
+
+export const FETCH_SPATIAL_COVERAGES = gql`
+  query spatial_coverages {
+    spatial_coverages {
+      id
+      name
+    }
+  }
+`;

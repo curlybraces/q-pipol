@@ -137,7 +137,7 @@ const INITIAL_STATE = {
   regions: [],
   provinces: [],
   funding_sources: []
-}
+};
 
 const state = {
   // properties

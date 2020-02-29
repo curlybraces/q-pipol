@@ -1,5 +1,28 @@
 import { LocalStorage } from "quasar";
 import { apolloClient } from "boot/apollo";
+import { LOGIN_MUTATION } from "../../constants/graphql";
+
+export function loginUser({ dispatch }, payload) {
+  console.log("username: ", payload.username);
+  console.log("password: ", payload.password);
+  apolloClient
+    .mutate({
+      mutation: LOGIN_MUTATION,
+      variables: {
+        username: payload.username,
+        password: payload.password
+      }
+    })
+    .then(res => {
+      dispatch("auth/populateUser", res.data.login.user, { root: true });
+      localStorage.setItem("token", res.data.login.access_token);
+      localStorage.setItem("userId", res.data.login.user.id);
+      this.$router.push({ path: "/" });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+}
 
 export function populateUser({ commit }, payload) {
   commit("SET_USER_LOADED", true);

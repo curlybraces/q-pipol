@@ -68,13 +68,13 @@
         </q-card>
       </div>
     </div>
-    <div class="row">
+    <!-- <div class="row">
       <svg width="500" height="270">
         <g style="transform: translate(0, 10px)">
           <path :d="line" />
         </g>
       </svg>
-    </div>
+    </div> -->
   </q-page>
 </template>
 
