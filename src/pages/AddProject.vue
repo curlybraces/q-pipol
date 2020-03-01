@@ -309,7 +309,7 @@ export default {
       dense: false,
       expanded: false,
       filteredProvinces: [],
-      step: null
+      step: 1
     };
   }
 };

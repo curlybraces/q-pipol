@@ -3,11 +3,12 @@ export default function() {
     initialized: false,
     operating_units: [],
     districts_options: [],
+    project_statuses: [],
     provinces_options: [],
     regions_options: [],
     spatial_coverages: [],
     statuses: [],
-    technical_readinesses: [],
+    technical_readinesses_options: [],
     years: []
   };
 }

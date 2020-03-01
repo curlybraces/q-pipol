@@ -8,11 +8,11 @@
       clickable
     >
       <q-item-section avatar>
-        <q-checkbox color="orange-10" v-model="model" :val="option.value" />
+        <q-checkbox color="orange-10" v-model="model" :val="option.id" />
       </q-item-section>
       <q-item-section>
         <q-item-label>
-          {{ option.label }}
+          {{ option.name }}
         </q-item-label>
       </q-item-section>
     </q-item>

@@ -63,7 +63,11 @@ export default {
       "project.districts",
       "project.cities_municipalities"
     ]),
-    ...mapState("options",["districts_options","provinces_options","spatial_coverages"])
+    ...mapState("options", [
+      "districts_options",
+      "provinces_options",
+      "spatial_coverages"
+    ])
   }
 };
 </script>

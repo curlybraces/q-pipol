@@ -1,391 +1,314 @@
 <template>
   <q-page padding>
     <page-breadcrumbs :breadcrumbs="breadcrumbs" />
-    <q-card square flat>
-      <card-header>
-        Edit Project
-      </card-header>
 
-      <div v-if="$apollo.loading">Loading...</div>
+    <template v-if="getLoading">
+      LOADING...
+    </template>
+    <template v-else>
+      <q-banner class="q-my-md bg-grey-3">
+        <q-list>
+          <q-item>
+            <q-item-section>
+              <q-item-label caption>Created by: </q-item-label>
+              <q-item-label>{{ project.created_by.name }}</q-item-label>
+            </q-item-section>
+            <q-item-section>
+              <q-item-label caption>Created on: </q-item-label>
+              <q-item-label>{{ project.created_at }}</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item></q-item>
+        </q-list>
+      </q-banner>
 
-      <div class="row">
-        <q-form class="col-6 q-pa-md q-gutter-md">
-          <q-card>
-            <q-item-label header>
-              Programming Documents
-            </q-item-label>
-            <q-list>
-              <checkbox-item
-                v-model="project.pip"
-                label="PIP"
-                description="Public Investment Program"
-              />
-              <checkbox-item
-                v-model="project.cip"
-                label="CIP"
-                description="Core Investment Program"
-              />
-              <checkbox-item
-                v-model="project.trip"
-                label="TRIP"
-                description="Three-Year Rolling Investment Program"
-              />
-              <checkbox-item
-                v-model="project.rdip"
-                label="RDIP"
-                description="Regional Development Investment Program"
-              />
-              <checkbox-item
-                v-model="project.pcip"
-                label="PCIP"
-                description="Provincial Commodity Investment Plan"
-              />
-              <checkbox-item
-                v-model="project.afmip"
-                label="AFMIP"
-                description="Agriculture and Fisheries Modernization and Industrialization Plan"
-              />
-            </q-list>
-          </q-card>
+      <q-form>
+        <q-stepper
+          v-model="step"
+          vertical
+          animated
+          header-nav
+          active-color="orange-10"
+          inactive-color="grey-9"
+        >
+          <q-step
+            :name="1"
+            prefix="1"
+            title="Basic Information"
+            caption="Basic Information"
+            :done="basicInformationDone"
+            done-color="positive"
+          >
+            <basic-information />
 
-          <q-card>
-            <q-item-label header>
-              General Information
-            </q-item-label>
+            <stepper-navigation @next="step = 2"></stepper-navigation>
+          </q-step>
 
-            <div class="q-px-md q-gutter-y-md">
-              <text-input
-                v-model="project.title"
-                label="Program/Project Title"
-                :dense="dense"
-                hint="The title of the program or project"
-                maxlength="250"
-                required
-              />
+          <q-step
+            :name="2"
+            prefix="2"
+            title="Programming Documents"
+            caption="Documents where the PAP are included"
+            :done="programmingDocumentsDone"
+            done-color="positive"
+          >
+            <programming-documents :dense="dense" />
 
-              <q-option-group
-                v-model="project.type_id"
-                label="Type"
-                :options="TYPES"
-                inline
-                :dense="dense"
-                color="orange-10"
-              ></q-option-group>
+            <stepper-navigation
+              @next="step = 3"
+              @back="step = 1"
+              withBack="true"
+            ></stepper-navigation>
+          </q-step>
 
+          <q-step
+            :name="3"
+            title="Additional Project Information"
+            caption="Additional Information"
+            prefix="3"
+          >
+            <additional-information :dense="dense" />
+
+            <stepper-navigation
+              @next="step = 4"
+              @back="step = 2"
+              withBack="true"
+            ></stepper-navigation>
+          </q-step>
+
+          <q-step
+            :name="4"
+            title="Spatial Coverage"
+            caption="Spatial Coverage"
+            prefix="4"
+            :done="spatialCoverageDone"
+            done-color="positive"
+          >
+            <spatial-coverage :dense="dense" />
+
+            <stepper-navigation
+              @next="step = 5"
+              @back="step = 3"
+              withBack="true"
+            ></stepper-navigation>
+          </q-step>
+
+          <q-step
+            :name="5"
+            title="Implementation Period"
+            caption="Implementation Period"
+            prefix="5"
+          >
+            <implementation-period :dense="dense" />
+
+            <stepper-navigation
+              @next="step = 6"
+              @back="step = 4"
+              withBack="true"
+            ></stepper-navigation>
+          </q-step>
+
+          <q-step :name="6" title="Readiness" caption="" prefix="6">
+            <technical-readiness />
+
+            <stepper-navigation
+              @next="step = 7"
+              @back="step = 5"
+              withBack="true"
+            ></stepper-navigation>
+          </q-step>
+
+          <q-step
+            :name="7"
+            title="Financial and Economic Analyses"
+            caption="Financial and Economic Analyses"
+            prefix="7"
+          >
+            <financial-analysis :dense="dense" />
+
+            <stepper-navigation
+              @next="step = 8"
+              @back="step = 6"
+              withBack="true"
+            ></stepper-navigation>
+          </q-step>
+
+          <q-step
+            :name="8"
+            title="Financial Information"
+            caption="Financial Information"
+            prefix="8"
+          >
+            <q-item>
               <single-select
-                v-model="project.operating_unit_id"
-                label="Implementing Agency"
-                :dense="dense"
-                :options-dense="dense"
-                :options="OPERATING_UNITS"
-                hint="Proponent of the program/project"
-              />
-
-              <text-input
-                v-model="project.description"
-                label="Description"
-                type="textarea"
-              />
-
-              <text-input
-                v-model="project.goals"
-                label="Goals"
-                type="textarea"
-              />
-
-              <text-input
-                v-model="project.outcomes"
-                label="Outcomes"
-                type="textarea"
-              />
-
-              <text-input
-                v-model="project.purpose"
-                label="Purpose"
-                type="textarea"
-              />
-
-              <text-input
-                v-model="project.expected_outputs"
-                label="Expected Outputs"
-                type="textarea"
-              />
-            </div>
-          </q-card>
-
-          <q-card class="q-pa-md q-gutter-y-md">
-            <q-card-section class="text-weight-bolder">
-              Categorization
-            </q-card-section>
-          </q-card>
-
-          <q-card class="q-pa-md q-gutter-y-md">
-            <q-card-section class="text-weight-bolder">
-              Spatial Coverage
-            </q-card-section>
-
-            <single-select
-              v-model="project.spatial_coverage_id"
-              label="Spatial Coverage"
-              :dense="dense"
-              :options-dense="dense"
-              :options="SPATIAL_COVERAGES"
-            ></single-select>
-
-            <text-input
-              v-model="project.cities_municipalities"
-              label="Cities and Municipalities"
-              type="textarea"
-            />
-          </q-card>
-
-          <q-card class="q-pa-md q-gutter-y-md">
-            <q-card-section class="text-weight-bolder">
-              Project Status
-            </q-card-section>
-
-            <single-select
-              v-model="project.project_status_id"
-              label="Status of the Project"
-              :dense="dense"
-              :options-dense="dense"
-              :options="STATUSES"
-            ></single-select>
-
-            <text-input
-              v-model="project.cities_municipalities"
-              label="Cities and Municipalities"
-              type="textarea"
-            />
-          </q-card>
-
-          <q-card>
-            <q-card-section class="text-weight-bolder">
-              Financial Information
-            </q-card-section>
-
-            <div class="q-pa-md q-gutter-y-md">
-              <single-select
-                v-model="project.tier_id"
-                label="Budget Tier"
-                :dense="dense"
-                :options-dense="dense"
-                :options="TIERS"
-              ></single-select>
-
-              <single-select
-                v-model="project.implementation_mode_id"
+                v-model="implementation_mode_id"
                 label="Implementation Mode"
                 :dense="dense"
                 :options-dense="dense"
                 :options="IMPLEMENTATION_MODES"
-              ></single-select>
-            </div>
-          </q-card>
-
-          <q-card>
-            <q-item-label header class="text-weight-bolder">
-              Financial &amp; Economic Analysis
-            </q-item-label>
-
-            <div class="q-pa-md q-gutter-y-md">
-              <text-input
-                v-model="project.estimated_project_life"
-                label="Estimated Project Life"
               />
+            </q-item>
 
-              <div class="row q-pt-md q-col-gutter-md">
-                <div class="col-6 q-gutter-y-md">
-                  <money-input
-                    v-model="project.financial_net_present_value"
-                    label="Financial Net Present Value"
-                  />
-                  <number-input
-                    v-model="project.financial_benefit_cost_ratio"
-                    label="Financial Benefit Cost Ratio"
-                  />
-                  <number-input
-                    v-model="project.financial_internal_rate_return"
-                    label="Financial Internal Rate of Return"
-                  />
-                </div>
+            <target-investment></target-investment>
 
-                <div class="col-6 q-gutter-y-md">
-                  <money-input
-                    v-model="project.economic_net_present_value"
-                    label="Economic Net Present Value"
-                  />
-                  <number-input
-                    v-model="project.economic_benefit_cost_ratio"
-                    label="Economic Benefit Cost Ratio"
-                  />
-                  <number-input
-                    v-model="project.economic_internal_rate_return"
-                    label="Economic Internal Rate of Return"
-                  />
-                </div>
-              </div>
-            </div>
-          </q-card>
+            <funding-sources :dense="dense" />
 
-          <q-card>
-            <q-card-section class="text-weight-bolder">
-              Physical &amp; Financial Accomplishments
-            </q-card-section>
+            <region-financial></region-financial>
 
-            <q-markup-table
-              flat
-              bordered
-              separator="cell"
-              v-if="
-                project.total_investment &&
-                  project.total_investment !== 'undefined'
-              "
-            >
-              <thead>
-                <th style="width:25%">Year</th>
-                <th style="width:25%">NEP</th>
-                <th style="width:25%">GAA</th>
-                <th style="width:25%">Disbursement</th>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="text-center">2017</td>
-                  <td class="text-right">
-                    {{ project.total_investment.nep_2017 }}
-                  </td>
-                  <td class="text-right">
-                    {{ project.total_investment.gaa_2017 }}
-                  </td>
-                  <td class="text-right">
-                    {{ project.total_investment.disbursement_2017 }}
-                  </td>
-                </tr>
-                <tr>
-                  <td class="text-center">2018</td>
-                  <td class="text-right">
-                    {{ project.total_investment.nep_2018 }}
-                  </td>
-                  <td class="text-right">
-                    {{ project.total_investment.gaa_2018 }}
-                  </td>
-                  <td class="text-right">
-                    {{ project.total_investment.disbursement_2018 }}
-                  </td>
-                </tr>
-                <tr>
-                  <td class="text-center">2019</td>
-                  <td class="text-right">
-                    {{ project.total_investment.nep_2019 }}
-                  </td>
-                  <td class="text-right">
-                    {{ project.total_investment.gaa_2019 }}
-                  </td>
-                  <td class="text-right">
-                    {{ project.total_investment.disbursement_2019 }}
-                  </td>
-                </tr>
-                <tr>
-                  <td class="text-center">2020</td>
-                  <td class="text-right">
-                    {{ project.total_investment.nep_2020 }}
-                  </td>
-                  <td class="text-right">
-                    {{ project.total_investment.gaa_2020 }}
-                  </td>
-                  <td class="text-right">
-                    {{ project.total_investment.disbursement_2020 }}
-                  </td>
-                </tr>
-                <tr>
-                  <td class="text-center">2021</td>
-                  <td class="text-right">
-                    {{ project.total_investment.nep_2021 }}
-                  </td>
-                  <td class="text-right">
-                    {{ project.total_investment.gaa_2021 }}
-                  </td>
-                  <td class="text-right">
-                    {{ project.total_investment.disbursement_2021 }}
-                  </td>
-                </tr>
-                <tr>
-                  <td class="text-center">2022</td>
-                  <td class="text-right">
-                    {{ project.total_investment.nep_2022 }}
-                  </td>
-                  <td class="text-right">
-                    {{ project.total_investment.gaa_2022 }}
-                  </td>
-                  <td class="text-right">
-                    {{ project.total_investment.disbursement_2022 }}
-                  </td>
-                </tr>
-              </tbody>
-            </q-markup-table>
+            <stepper-navigation
+              @next="step = 9"
+              @back="step = 7"
+              withBack="true"
+            ></stepper-navigation>
+          </q-step>
 
-            <div class="row q-px-md items-start q-gutter-y-md q-col-gutter-md">
-              <text-input
-                class="col-9"
-                label="Updates"
-                type="textarea"
-                v-model="project.updates"
+          <q-step
+            :name="9"
+            title="Updates"
+            caption="Applicable to Ongoing and Completed Projects Only"
+            prefix="9"
+          >
+            <q-item>
+              <single-select
+                v-model="tier_id"
+                label="Tier"
+                :dense="dense"
+                :options-dense="dense"
+                :options="TIERS"
               />
+            </q-item>
+            <q-item>
+              <q-item-section class="col-9">
+                <text-input label="Updates" type="textarea" v-model="updates" />
+              </q-item-section>
+              <q-item-section class="col-3" top>
+                <date-input
+                  label="As of Date"
+                  v-model="updates_date"
+                ></date-input>
+              </q-item-section>
+            </q-item>
+            <q-item>
+              <q-item-label>Financial Accomplishments</q-item-label>
+            </q-item>
+            <q-item>
+              <financial-accomplishment />
+            </q-item>
+            <q-stepper-navigation>
+              <q-btn
+                color="orange-10"
+                @click="step = 10"
+                label="Finish"
+                class="q-mr-sm"
+              />
+              <q-btn color="orange-5" flat @click="step = 8" label="Back" />
+            </q-stepper-navigation>
+          </q-step>
 
-              <date-input
-                class="col-3"
-                label="As of Date"
-                v-model="project.updates_date"
-              ></date-input>
+          <q-step :name="10" title="Submit" caption="Save project" prefix="10">
+            <div class="row q-pa-md q-gutter-md justify-center">
+              <q-btn
+                flat
+                @click="step = 1"
+                label="Go back to Start"
+                color="orange-10"
+              />
+              <q-btn
+                type="submit"
+                @click="updateProject"
+                label="Save Project"
+                color="orange-10"
+              />
             </div>
-          </q-card>
-        </q-form>
-        <div class="col-6">
-          <pre>{{ projectToEdit }}</pre>
-        </div>
-      </div>
-
-      <card-actions>
-        <q-btn label="Save" @click="$emit('save')" color="primary" />
-      </card-actions>
-    </q-card>
+          </q-step>
+        </q-stepper>
+      </q-form>
+    </template>
   </q-page>
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
+import { mapFields } from "vuex-map-fields";
 import {
   IMPLEMENTATION_BASES,
   IMPLEMENTATION_MODES,
-  SPATIAL_COVERAGES,
-  STATUSES,
   TIERS,
-  TYPES,
-  TYPOLOGIES,
-  OPERATING_UNITS,
-  TECHNICAL_READINESSES,
-  YEARS
+  TECHNICAL_READINESSES
 } from "../data/dropdown-values";
-import { FETCH_PROJECT_QUERY } from "../constants/graphql";
 
 export default {
   components: {
-    "page-breadcrumbs": () => import("../components/PageBreadcrumbs.vue"),
-    "card-header": () => import("../components/Projects/Shared/CardHeader.vue"),
-    "card-actions": () =>
-      import("../components/Projects/Shared/CardActions.vue"),
     "single-select": () => import("../components/FormInputs/SingleSelect.vue"),
-    // "multi-select": () => import("../FormInputs/MultiSelect.vue"),
     "date-input": () => import("../components/FormInputs/DateInput.vue"),
-    "money-input": () => import("../components/FormInputs/MoneyInput.vue"),
-    "number-input": () => import("../components/FormInputs/NumberInput.vue"),
     "text-input": () => import("../components/FormInputs/TextInput.vue"),
-    // "add-item": () => import("../components/Shared/AddItem.vue"),
-    // "fund-source": () => import("../components/Shared/FundSourceForm.vue"),
-    // "checkbox-input": () => import("../components/FormInputs/CheckboxInput.vue"),
-    "checkbox-item": () => import("../components/FormInputs/CheckboxItem.vue")
-    // "financial-accomplishment": () => import("../components/Shared/FinancialAccomplishment.vue"),
+    "page-breadcrumbs": () => import("../components/PageBreadcrumbs.vue"),
+    "stepper-navigation": () =>
+      import("../components/Projects/StepperNavigation.vue"),
+    "region-financial": () =>
+      import("../components/Projects/RegionFinancial/RegionFinancial.vue"),
+    "financial-accomplishment": () =>
+      import("../components/Projects/FinancialAccomplishment.vue"),
+    "technical-readiness": () =>
+      import("../components/Projects/TechnicalReadiness.vue"),
+    "basic-information": () =>
+      import("../components/Projects/BasicInformation.vue"),
+    "spatial-coverage": () =>
+      import("../components/Projects/SpatialCoverage.vue"),
+    "implementation-period": () =>
+      import("../components/Projects/ImplementationPeriod.vue"),
+    "financial-analysis": () =>
+      import("../components/Projects/FinancialAnalysis.vue"),
+    "programming-documents": () =>
+      import("../components/Projects/ProgrammingDocuments.vue"),
+    "additional-information": () =>
+      import("../components/Projects/AdditionalInformation.vue"),
+    "funding-sources": () =>
+      import("../components/Projects/FundingSources/FundingSources.vue"),
+    "target-investment": () =>
+      import("../components/Projects/TargetInvestment.vue")
   },
-  name: "PageEditProject",
+  name: "PageAddProject",
+  methods: {
+    ...mapActions("project", ["updateProject", "fetchProject"])
+  },
+  computed: {
+    ...mapGetters("project", ["getLoading"]),
+    ...mapFields("project", [
+      "project",
+      "project.title",
+      "project.type_id",
+      "project.project_status_id",
+      "project.total_project_cost",
+      "project.tier_id",
+      "project.implementation_mode_id",
+      "project.technical_readinesses",
+      "project.updates",
+      "project.updates_date"
+    ]),
+    programmingDocumentsDone() {
+      return (
+        this.pip ||
+        this.cip ||
+        this.trip ||
+        this.rdip ||
+        this.pcip ||
+        this.afmip
+      );
+    },
+    basicInformationDone() {
+      return (
+        !!this.title &&
+        !!this.operating_unit_id &&
+        !!this.description &&
+        !!this.type_id &&
+        !!this.total_project_cost
+      );
+    },
+    spatialCoverageDone() {
+      return !!this.spatial_coverage_id;
+    }
+  },
   data() {
     return {
       breadcrumbs: [
@@ -398,113 +321,21 @@ export default {
           url: "/pip"
         },
         {
-          title: "Edit Project"
+          title: "Add Project"
         }
       ],
       IMPLEMENTATION_BASES,
       IMPLEMENTATION_MODES,
-      OPERATING_UNITS,
-      SPATIAL_COVERAGES,
-      STATUSES,
-      TECHNICAL_READINESSES,
       TIERS,
-      TYPES,
-      TYPOLOGIES,
-      YEARS,
-      filteredProvinces: [],
+      TECHNICAL_READINESSES,
       dense: false,
-      addRegionDialog: false,
-      fundSourceToAdd: {
-        id: "",
-        target_2016: "",
-        target_2017: "",
-        target_2018: "",
-        target_2019: "",
-        target_2020: "",
-        target_2021: "",
-        target_2022: "",
-        target_2023: "",
-        target_total: ""
-      },
-      regionToAdd: {
-        id: "",
-        target_2016: "",
-        target_2017: "",
-        target_2018: "",
-        target_2019: "",
-        target_2020: "",
-        target_2021: "",
-        target_2022: "",
-        target_2023: "",
-        target_total: ""
-      },
-      total_investment: {
-        nep_2017: "",
-        nep_2018: "",
-        nep_2019: "",
-        nep_2020: "",
-        nep_2021: "",
-        nep_2022: "",
-        nep_total: "",
-        gaa_2017: "",
-        gaa_2018: "",
-        gaa_2019: "",
-        gaa_2020: "",
-        gaa_2021: "",
-        gaa_2022: "",
-        gaa_total: "",
-        disbursement_2017: "",
-        disbursement_2018: "",
-        disbursement_2019: "",
-        disbursement_2020: "",
-        disbursement_2021: "",
-        disbursement_2022: "",
-        disbursement_total: ""
-      },
-      updateFinancialAccomplishmentDialog: false,
-      addFundSourceDialog: false,
-      projectToEdit: {}
+      expanded: false,
+      filteredProvinces: [],
+      step: 1
     };
   },
-  apollo: {
-    project: {
-      query: FETCH_PROJECT_QUERY,
-      variables() {
-        return {
-          id: this.$route.params.id
-        };
-      },
-      result({ data }) {
-        this.projectToEdit = Object.assign({}, data);
-      }
-    }
-  },
-  methods: {
-    addRegion() {
-      this.addRegionDialog = true;
-    },
-    addToRegion() {
-      this.projectToSubmit.regions.push({
-        ...this.regionToAdd
-      });
-      this.addRegionDialog = false;
-    },
-    addFundSource() {
-      this.addFundSourceDialog = true;
-    },
-    addToFundSource() {
-      this.projectToSubmit.funding_sources.push({
-        ...this.fundSourceToAdd
-      });
-      this.addFundSourceDialog = false;
-    }
+  mounted() {
+    this.fetchProject(this.$route.params.id);
   }
 };
 </script>
-
-<style>
-.q-table th,
-.q-table td {
-  padding: 5px !important;
-}
-</style>

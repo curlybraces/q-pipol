@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     ...mapActions("auth", ["populateUser", "logoutUser"]),
-    ...mapActions("options",["initializeOptions"])
+    ...mapActions("options", ["initializeOptions"])
   },
   mounted() {
     if (!this.userLoaded) {
