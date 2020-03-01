@@ -33,6 +33,7 @@
               icon="create"
               to="/pip/new"
               color="primary"
+              v-if="projects.length"
             />
           </div>
 
@@ -41,6 +42,22 @@
           </template>
 
           <template v-else>
+            <div v-if="!projects.length">
+              <q-banner class="q-my-md bg-grey-3">
+                <template v-slot:avatar>
+                  <q-icon name="warning" color="red" />
+                </template>
+                No project added yet.
+                <template v-slot:action>
+                  <q-btn
+                    flat
+                    color="primary"
+                    label="Add Project"
+                    to="/pip/new"
+                  />
+                </template>
+              </q-banner>
+            </div>
             <project-item
               v-for="{
                 id,

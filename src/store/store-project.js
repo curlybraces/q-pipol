@@ -473,7 +473,7 @@ const actions = {
             sync: project.regions
           },
           provinces: {
-            sync: project.provinces
+            sync: getters.provincesArray
           },
           districts: {
             sync: project.districts
@@ -537,7 +537,8 @@ const getters = {
     convertToNumber(state.project.disbursement_2020) +
     convertToNumber(state.project.disbursement_2021) +
     convertToNumber(state.project.disbursement_2022),
-  getLoading: state => state.loading
+  getLoading: state => state.loading,
+  provincesArray: state => state.project.provinces.map(province => province.id)
 };
 
 export default {
