@@ -26,6 +26,7 @@
 </template>
 
 <script>
+// This is a template for date inputs
 export default {
   name: "DateInput",
   props: {

@@ -4,6 +4,7 @@ import Vuex from "vuex";
 import auth from "./store-auth/";
 import projects from "./store-projects/";
 import project from "./store-project";
+import options from "../store-options
 
 Vue.use(Vuex);
 
@@ -17,7 +18,8 @@ export default function(/* { ssrContext } */) {
     modules: {
       auth,
       projects,
-      project
+      project,
+      options
     },
 
     // enable strict mode (adds overhead!)

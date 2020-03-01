@@ -11,7 +11,7 @@ import VueApollo from "vue-apollo";
 import { LocalStorage } from "quasar";
 
 const uri = process.env.DEV
-  ? "http://localhost:8000/graphql"
+  ? "https://da-ipms.herokuapp.com/graphql"
   : "https://da-ipms.herokuapp.com/graphql";
 
 // const getHeaders = () => {

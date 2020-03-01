@@ -1,0 +1,7 @@
+# .graphqlconfig.yml
+projects:
+  prod:
+    schemaPath: schema/schema.graphql
+    extensions:
+      endpoints:
+        default: https://da-ipms.herokuapp.com/graphql
