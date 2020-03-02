@@ -135,7 +135,8 @@
 import { mapActions } from "vuex";
 import { laAtSolid } from "@quasar/extras/line-awesome";
 import { Dialog } from "quasar";
-import { LOGIN_MUTATION, REGISTER_MUTATION } from "../constants/graphql";
+// import { LOGIN_MUTATION, REGISTER_MUTATION } from "../constants/graphql";
+import { REGISTER_MUTATION } from "../constants/graphql";
 
 export default {
   name: "PageLogin",
@@ -153,7 +154,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions("auth", ["populateUser"]),
+    ...mapActions("auth", ["populateUser", "loginUser"]),
     handleSubmit() {
       this.$refs.loginForm.validate().then(success => {
         if (success) {
@@ -164,27 +165,33 @@ export default {
 
           if (this.tab == "login") {
             this.loading = true;
-            this.$apollo
-              .mutate({
-                mutation: LOGIN_MUTATION,
-                variables: {
-                  username,
-                  password
-                }
-              })
-              .then(res => {
-                this.populateUser(res.data.login.user);
-                localStorage.setItem("token", res.data.login.access_token);
-                localStorage.setItem("userId", res.data.login.user.id);
-                this.$router.push({ path: "/" });
-              })
-              .catch(err => {
-                this.error = true;
-                this.errorMessage = err.message;
-                this.username = username;
-                this.password = password;
-              })
-              .finally(() => (this.loading = false));
+            // this.$apollo
+            //   .mutate({
+            //     mutation: LOGIN_MUTATION,
+            //     variables: {
+            //       username,
+            //       password
+            //     }
+            //   })
+            //   .then(res => {
+            //     this.populateUser(res.data.login.user);
+            //     localStorage.setItem("token", res.data.login.access_token);
+            //     localStorage.setItem("userId", res.data.login.user.id);
+            //     this.$router.push({ path: "/" });
+            //   })
+            //   .catch(err => {
+            //     this.error = true;
+            //     this.errorMessage = err.message;
+            //     this.username = username;
+            //     this.password = password;
+            //   })
+            //   .finally(() => (this.loading = false));
+            const payload = {
+              username: username,
+              password: password
+            };
+
+            this.loginUser(payload);
           } else {
             this.loading = true;
             this.$apollo

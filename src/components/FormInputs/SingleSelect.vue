@@ -5,8 +5,8 @@
     @input="handleInput"
     :options="selectOptions"
     :label="label"
-    option-label="label"
-    option-value="value"
+    option-label="name"
+    option-value="id"
     stack-label
     behavior="menu"
     @filter="filterFn"

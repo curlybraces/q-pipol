@@ -17,12 +17,14 @@
     "firebase": "^6.6.0",
     "graphql": "^14.6.0",
     "graphql-config": "^3.0.0-alpha.17",
+    "localforage": "^1.7.3",
     "moment": "^2.24.0",
     "quasar": "^1.8.5",
     "v-money": "^0.8.1",
     "vue-apollo": "^3.0.3",
     "vue-cookie-law": "^1.11.0",
-    "vuex-map-fields": "^1.4.0"
+    "vuex-map-fields": "^1.4.0",
+    "vuex-persist": "^2.2.0"
   },
   "devDependencies": {
     "@quasar/app": "^1.5.3",

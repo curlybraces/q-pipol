@@ -25,7 +25,7 @@
         label="Implementing Agency"
         :dense="dense"
         :options-dense="dense"
-        :options="OPERATING_UNITS"
+        :options="operating_units"
         hint="Proponent of the program/project"
       />
     </q-item>
@@ -54,7 +54,7 @@
         label="Status"
         :dense="dense"
         :options-dense="dense"
-        :options="STATUSES"
+        :options="project_statuses"
       />
     </q-item>
     <q-item>
@@ -70,13 +70,9 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import { mapFields } from "vuex-map-fields";
-import {
-  OPERATING_UNITS,
-  STATUSES,
-  TYPES,
-  TYPOLOGIES
-} from "../../data/dropdown-values.js";
+import { TYPES, TYPOLOGIES } from "../../data/dropdown-values.js";
 
 export default {
   components: {
@@ -94,14 +90,13 @@ export default {
       "project.total_project_cost",
       "project.operating_unit_id",
       "project.typology_id"
-    ])
+    ]),
+    ...mapState("options", ["operating_units", "project_statuses"])
   },
   data() {
     return {
       TYPES,
       TYPOLOGIES,
-      STATUSES,
-      OPERATING_UNITS,
       dense: false
     };
   }

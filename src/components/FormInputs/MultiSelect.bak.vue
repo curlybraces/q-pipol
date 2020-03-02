@@ -14,8 +14,6 @@
     :options-dense="optionsDense"
     outlined
     multiple
-    map-options
-    emit-value
     use-chips
     use-input
     label-color="orange-10"

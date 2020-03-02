@@ -4,7 +4,7 @@
     <q-item-label header>Project Preparation Documents</q-item-label>
     <list-option-group
       v-model="technical_readinesses"
-      :options="TECHNICAL_READINESSES"
+      :options="technical_readinesses_options"
     />
 
     <q-item>
@@ -90,6 +90,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import { mapFields } from "vuex-map-fields";
 import { TECHNICAL_READINESSES } from "../../data/dropdown-values";
 
@@ -118,7 +119,8 @@ export default {
       "project.icc_approved_date",
       "project.icc_endorsed",
       "project.icc_endorsed_date"
-    ])
+    ]),
+    ...mapState("options", ["technical_readinesses_options"])
   },
   data() {
     return {

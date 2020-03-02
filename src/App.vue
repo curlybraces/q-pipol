@@ -28,7 +28,8 @@ export default {
     ...mapState("auth", ["userLoaded"])
   },
   methods: {
-    ...mapActions("auth", ["populateUser", "logoutUser"])
+    ...mapActions("auth", ["populateUser", "logoutUser"]),
+    ...mapActions("options", ["initializeOptions"])
   },
   mounted() {
     if (!this.userLoaded) {
@@ -52,6 +53,7 @@ export default {
   },
   created() {
     this.$q.addressbarColor.set("primary");
+    this.initializeOptions();
   }
 };
 </script>

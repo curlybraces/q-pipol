@@ -1,6 +1,7 @@
 <template>
   <q-page padding>
     <page-breadcrumbs :breadcrumbs="breadcrumbs" />
+    {{ project }}
 
     <q-form>
       <q-stepper
@@ -309,7 +310,7 @@ export default {
       dense: false,
       expanded: false,
       filteredProvinces: [],
-      step: null
+      step: 1
     };
   }
 };
