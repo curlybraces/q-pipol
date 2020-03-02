@@ -65,7 +65,7 @@ export default {
     },
     options: Array,
     value: {
-      type: [Number, String, Array]
+      type: Array
     }
   },
   data() {

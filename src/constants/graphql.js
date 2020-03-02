@@ -764,6 +764,7 @@ export const FETCH_PROJECT_QUERY = gql`
           target_total
         }
       }
+      selected_provinces
       provinces {
         id
         name
@@ -782,6 +783,7 @@ export const FETCH_PROJECT_QUERY = gql`
       economic_benefit_cost_ratio
       economic_internal_rate_return
       economic_net_present_value
+      selected_technical_readinesses
       technical_readinesses {
         id
         name
@@ -797,6 +799,7 @@ export const FETCH_PROJECT_QUERY = gql`
       neda_board
       neda_board_date
       total_project_cost
+      selected_bases
       bases {
         id
       }

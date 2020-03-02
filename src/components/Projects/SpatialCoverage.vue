@@ -12,7 +12,7 @@
 
     <q-item>
       <multi-select
-        v-model="provinces"
+        v-model="selected_provinces"
         label="Province/s"
         :options="provinces_options"
         :dense="dense"
@@ -24,7 +24,7 @@
 
     <q-item>
       <multi-select
-        v-model="districts"
+        v-model="selected_districts"
         label="District/s"
         :options="districts_options"
         :dense="dense"
@@ -59,8 +59,8 @@ export default {
   computed: {
     ...mapFields("project", [
       "project.spatial_coverage_id",
-      "project.provinces",
-      "project.districts",
+      "project.selected_provinces",
+      "project.selected_districts",
       "project.cities_municipalities"
     ]),
     ...mapState("options", [
