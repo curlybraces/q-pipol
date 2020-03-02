@@ -42,7 +42,7 @@
           </template>
 
           <template v-else>
-            <div v-if="!projects.length">
+            <div v-if="projects.length === 0">
               <q-banner class="q-my-md bg-grey-3">
                 <template v-slot:avatar>
                   <q-icon name="warning" color="red" />

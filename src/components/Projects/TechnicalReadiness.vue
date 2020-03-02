@@ -3,7 +3,7 @@
   <q-list>
     <q-item-label header>Project Preparation Documents</q-item-label>
     <list-option-group
-      v-model="technical_readinesses"
+      v-model="selected_technical_readinesses"
       :options="technical_readinesses_options"
     />
 
@@ -106,7 +106,7 @@ export default {
   name: "TechnicalReadiness",
   computed: {
     ...mapFields("project", [
-      "project.technical_readinesses",
+      "project.selected_technical_readinesses",
       "project.clearinghouse",
       "project.clearinghouse_date",
       "project.neda_submission",

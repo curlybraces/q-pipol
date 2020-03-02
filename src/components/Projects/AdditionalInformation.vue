@@ -3,10 +3,10 @@
     <q-item>
       <multi-select
         label="Implementation Bases"
-        v-model="bases"
+        v-model="selected_bases"
         :options-dense="dense"
         :options="IMPLEMENTATION_BASES"
-        @clear="bases = []"
+        @clear="selected_bases = []"
       />
     </q-item>
 
@@ -63,7 +63,7 @@ export default {
   props: ["dense"],
   computed: {
     ...mapFields("project", [
-      "project.bases",
+      "project.selected_bases",
       "project.description",
       "project.goals",
       "project.outcomes",
