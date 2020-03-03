@@ -1,7 +1,6 @@
 <template>
   <q-page padding>
     <page-breadcrumbs :breadcrumbs="breadcrumbs" />
-    {{ project }}
 
     <q-form>
       <q-stepper

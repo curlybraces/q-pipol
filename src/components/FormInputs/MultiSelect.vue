@@ -70,10 +70,19 @@ export default {
       type: [Number, String, Array]
     }
   },
+  computed: {
+    model: {
+      get() {
+        return this.$props.value;
+      },
+      set(val) {
+        this.$emit("input", val);
+      }
+    }
+  },
   data() {
     return {
-      filterOptions: [],
-      model: []
+      filterOptions: []
     };
   },
   methods: {
@@ -103,6 +112,9 @@ export default {
       this.model = [];
       this.$emit("clear");
     }
+  },
+  mounted() {
+    this.filterOptions = this.$props.options;
   }
 };
 </script>

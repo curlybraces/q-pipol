@@ -137,10 +137,10 @@ const INITIAL_STATE = {
   updates: null,
   updates_date: null,
   technical_readinesses: [],
-  bases: [],
-  districts: [],
+  selected_bases: [],
+  selected_districts: [],
   regions: [],
-  provinces: [],
+  selected_provinces: [],
   funding_sources: []
 };
 
@@ -312,16 +312,16 @@ const actions = {
           disbursement_2023: project.disbursement_2023,
           disbursement_total: getters.disbursement_total,
           bases: {
-            connect: project.bases
+            connect: project.selected_bases
           },
           regions: {
             connect: project.regions
           },
           provinces: {
-            connect: project.provinces
+            connect: project.selected_provinces
           },
           districts: {
-            connect: project.districts
+            connect: project.selected_districts
           },
           funding_sources: project.funding_sources,
           updates: project.updates,
