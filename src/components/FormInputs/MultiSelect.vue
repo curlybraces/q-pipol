@@ -1,7 +1,6 @@
 <template>
   <q-select
     v-model="model"
-    @input="handleInput"
     @filter="filterFn"
     :options="filterOptions"
     option-label="name"
@@ -67,7 +66,7 @@ export default {
     },
     options: Array,
     value: {
-      type: [Number, String, Array]
+      type: Array
     }
   },
   computed: {
@@ -86,9 +85,6 @@ export default {
     };
   },
   methods: {
-    handleInput() {
-      this.$emit("input", this.model);
-    },
     filterFn(val, update) {
       const { options } = this;
       update(() => {
@@ -97,7 +93,7 @@ export default {
         } else {
           const needle = val.toLowerCase();
           this.filterOptions = options.filter(
-            ({ label }) => label.toLowerCase().indexOf(needle) > -1
+            ({ name }) => name.toLowerCase().indexOf(needle) > -1
           );
         }
       });
@@ -105,8 +101,7 @@ export default {
     selectAllOptions() {
       const { options } = this;
       this.model = [];
-      options.forEach(option => this.model.push(option.value));
-      this.handleInput();
+      options.forEach(option => this.model.push(option.id));
     },
     clearSelected() {
       this.model = [];

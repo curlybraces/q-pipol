@@ -207,7 +207,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 import { mapFields } from "vuex-map-fields";
 import {
   IMPLEMENTATION_BASES,
@@ -249,7 +249,8 @@ export default {
   },
   name: "PageAddProject",
   methods: {
-    ...mapActions("project", ["createProject"])
+    ...mapActions("project", ["createProject"]),
+    ...mapMutations("project",["clearProject"])
   },
   computed: {
     ...mapFields("project", [
@@ -311,6 +312,9 @@ export default {
       filteredProvinces: [],
       step: 1
     };
+  },
+  mounted() {
+    this.clearProject();
   }
 };
 </script>

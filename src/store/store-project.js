@@ -136,7 +136,7 @@ const INITIAL_STATE = {
   disbursement_2023: null,
   updates: null,
   updates_date: null,
-  technical_readinesses: [],
+  selected_technical_readinesses: [],
   selected_bases: [],
   selected_districts: [],
   regions: [],
@@ -151,8 +151,8 @@ const state = {
 
 const mutations = {
   updateField,
-  clearProject(state, value) {
-    state.project = value;
+  clearProject(state) {
+    state.project = INITIAL_STATE;
   },
   addRegionRow(state, value) {
     state.project.regions.push(value);
@@ -315,13 +315,16 @@ const actions = {
             connect: project.selected_bases
           },
           regions: {
-            connect: project.regions
+            connect: project.selected_regions
           },
           provinces: {
             connect: project.selected_provinces
           },
           districts: {
             connect: project.selected_districts
+          },
+          technical_readinesses: {
+            connect: project.selected_technical_readinesses
           },
           funding_sources: project.funding_sources,
           updates: project.updates,
@@ -467,16 +470,16 @@ const actions = {
           disbursement_2023: project.disbursement_2023,
           disbursement_total: getters.disbursement_total,
           bases: {
-            sync: project.bases
+            sync: project.selected_bases
           },
           regions: {
             sync: project.regions
           },
           provinces: {
-            sync: getters.provincesArray
+            sync: project.selected_provinces
           },
           districts: {
-            sync: project.districts
+            sync: project.selected_districts
           },
           ten_point_agenda: {
             sync: project.ten_point_agenda
@@ -537,8 +540,7 @@ const getters = {
     convertToNumber(state.project.disbursement_2020) +
     convertToNumber(state.project.disbursement_2021) +
     convertToNumber(state.project.disbursement_2022),
-  getLoading: state => state.loading,
-  provincesArray: state => state.project.provinces.map(province => province.id)
+  getLoading: state => state.loading
 };
 
 export default {
