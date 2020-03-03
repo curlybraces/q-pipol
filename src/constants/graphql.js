@@ -984,6 +984,15 @@ export const FETCH_DISTRICTS = gql`
   }
 `;
 
+export const FETCH_FUNDING_SOURCES = gql`
+  query funding_sources {
+    funding_sources {
+      id
+      name
+    }
+  }
+`;
+
 export const FETCH_OPERATING_UNITS = gql`
   query operating_units {
     operating_units {

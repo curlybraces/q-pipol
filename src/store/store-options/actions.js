@@ -1,6 +1,7 @@
 import { apolloClient } from "boot/apollo";
 import {
   FETCH_DISTRICTS,
+  FETCH_FUNDING_SOURCES,
   FETCH_OPERATING_UNITS,
   FETCH_PROVINCES,
   FETCH_REGIONS,
@@ -16,6 +17,16 @@ export function fetchDistricts({ commit }) {
     })
     .then(res => {
       commit("SET_DISTRICTS", res.data.districts);
+    });
+}
+
+export function fetchFundingSources({ commit }) {
+  apolloClient
+    .query({
+      query: FETCH_FUNDING_SOURCES
+    })
+    .then(res => {
+      commit("SET_FUNDING_SOURCES_OPTIONS", res.data.funding_sources);
     });
 }
 
@@ -84,6 +95,7 @@ export function initializeOptions({ state, dispatch, commit }) {
   // console.log(getters["options/getInitialized"]);
   if (!state.initialized) {
     dispatch("options/fetchDistricts", null, { root: true });
+    dispatch("options/fetchFundingSources", null, { root: true });
     dispatch("options/fetchOperatingUnits", null, { root: true });
     dispatch("options/fetchProjectStatuses", null, { root: true });
     dispatch("options/fetchProvinces", null, { root: true });

@@ -3,7 +3,7 @@
     <single-select
       label="Funding Source"
       v-model="fundSourceToEdit.id"
-      :options="FUNDING_SOURCES"
+      :options="funding_sources_options"
     ></single-select>
     <money-input
       label="2016"
@@ -45,9 +45,9 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import MoneyInput from "../../../../FormInputs/MoneyInput";
 import SingleSelect from "../../../../FormInputs/SingleSelect";
-import { FUNDING_SOURCES } from "../../../../../data/dropdown-values";
 
 export default {
   components: {
@@ -55,13 +55,9 @@ export default {
     MoneyInput
   },
   name: "ModalBody",
-  data() {
-    return {
-      FUNDING_SOURCES
-    };
-  },
   props: ["value"],
   computed: {
+    ...mapState("options", ["funding_sources_options"]),
     fundSourceToEdit: {
       get() {
         return this.value;

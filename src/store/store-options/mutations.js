@@ -2,6 +2,10 @@ export function SET_DISTRICTS(state, value) {
   state.districts_options = value;
 }
 
+export function SET_FUNDING_SOURCES_OPTIONS(state, value) {
+  state.funding_sources_options = value;
+}
+
 export function SET_PROJECT_STATUSES(state, value) {
   state.project_statuses = value;
 }

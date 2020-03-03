@@ -3,6 +3,7 @@ export default function() {
     initialized: false,
     operating_units: [],
     districts_options: [],
+    funding_sources_options: [],
     project_statuses: [],
     provinces_options: [],
     regions_options: [],

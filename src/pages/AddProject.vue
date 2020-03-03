@@ -129,7 +129,7 @@
             />
           </q-item>
 
-          <target-investment></target-investment>
+          <target-investment />
 
           <funding-sources :dense="dense" />
 
@@ -250,7 +250,7 @@ export default {
   name: "PageAddProject",
   methods: {
     ...mapActions("project", ["createProject"]),
-    ...mapMutations("project",["clearProject"])
+    ...mapMutations("project", ["clearProject"])
   },
   computed: {
     ...mapFields("project", [
