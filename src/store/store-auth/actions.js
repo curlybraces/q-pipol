@@ -3,8 +3,6 @@ import { apolloClient } from "boot/apollo";
 import { LOGIN_MUTATION } from "../../constants/graphql";
 
 export function loginUser({ dispatch }, payload) {
-  console.log("username: ", payload.username);
-  console.log("password: ", payload.password);
   apolloClient
     .mutate({
       mutation: LOGIN_MUTATION,

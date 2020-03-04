@@ -1,6 +1,6 @@
 <template>
   <tr>
-    <th>{{ funding_source.id }}</th>
+    <th>{{ fundingSource(funding_source.id) }}</th>
     <th>{{ funding_source.target_2016 }}</th>
     <th>{{ funding_source.target_2017 }}</th>
     <th>{{ funding_source.target_2018 }}</th>
@@ -45,16 +45,26 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   components: {
     "edit-funding-source": () => import("../Components/EditFundingSource")
   },
   name: "FundingSourceRow",
   props: ["funding_source", "index"],
+  computed: {
+    ...mapState("options",["funding_sources_options"])
+  },
   data() {
     return {
       editFundingSourceDialog: false
     };
+  },
+  methods: {
+    fundingSource(id) {
+      return this.funding_sources_options.filter(fs => fs.id === id).map(obj => obj.name).reduce(val => val);
+    }
   }
 };
 </script>

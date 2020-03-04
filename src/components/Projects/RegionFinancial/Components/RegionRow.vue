@@ -1,6 +1,6 @@
 <template>
   <tr>
-    <th>{{ region.id }}</th>
+    <th>{{ selectedRegion(region.id) }}</th>
     <th>{{ region.target_2016 }}</th>
     <th>{{ region.target_2017 }}</th>
     <th>{{ region.target_2018 }}</th>
@@ -45,16 +45,26 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   components: {
     "edit-region": () => import("./EditRegion.vue")
   },
   name: "RegionRow",
   props: ["region", "index"],
+  computed: {
+    ...mapState("options",["regions_options"])
+  },
   data() {
     return {
       editRegionDialog: false
     };
+  },
+  methods: {
+    selectedRegion(id) {
+      return this.regions_options.filter(region => region.id === id).map(obj => obj.name).reduce(val => val);
+    }
   }
 };
 </script>

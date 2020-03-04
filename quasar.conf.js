@@ -11,7 +11,9 @@ module.exports = function(ctx) {
       "loading-defaults",
       "addressbar-color",
       "notify-defaults",
-      "vuex-persist"
+      "vuex-persist",
+      "offline",
+      "dexie"
     ],
 
     css: ["app.styl"],
