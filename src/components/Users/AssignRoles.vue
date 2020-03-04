@@ -1,19 +1,23 @@
 <template>
-  <q-card>
-    <div style="width:300px;">
-      {{ model }}
+  <q-card square>
+    <div class="text-h6 q-pa-md">Assign Roles</div>
+    <q-separator/>
+    <div style="width:300px;" class="q-pa-md">
       <q-option-group
+        :options="optionRoles"
         v-model="model"
-        :options="ROLES"
-        color="orange-10"
-        type="toggle"
-      ></q-option-group>
+        type="checkbox"
+      />
     </div>
+    <q-card-actions align="right">
+      <q-btn flat label="Cancel" @click="$emit('close')"/>
+      <q-btn label="Save" color="primary" @click="saveRoles"/>
+    </q-card-actions>
   </q-card>
 </template>
 
 <script>
-import { ROLES } from "../../data/dropdown-values";
+import { mapState } from "vuex";
 
 export default {
   name: "AssignRoles",
@@ -24,18 +28,25 @@ export default {
   },
   data() {
     return {
-      ROLES
+      model: []
     };
   },
   computed: {
-    model: {
-      get() {
-        return this.value;
-      },
-      set(val) {
-        this.$emit("input", val);
-      }
+    ...mapState("options",["roles"]),
+    optionRoles() {
+      return this.roles.map(role => {
+        return { value: role.id, label: role.name }
+      });
     }
+  },
+  methods: {
+    saveRoles() {
+      console.log(this.model);
+    }
+  },
+  mounted() {
+    const selected = this.$props.value.map(val => val.id)
+    this.model = selected;
   }
 };
 </script>

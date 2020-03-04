@@ -14,26 +14,19 @@
           <q-space />
         </div>
       </q-card-section>
+
       <q-separator />
+
       <q-list separator>
         <template v-if="$apollo.loading">
           <user-skeleton></user-skeleton>
         </template>
         <template v-else>
-          <template v-for="user in users.data">
+          <template v-for="user in users">
             <user v-model="selectedUsers" :key="user.id" :user="user"></user>
           </template>
         </template>
       </q-list>
-      <q-card-actions align="right">
-        <q-pagination
-          v-model="currentPage"
-          :max="lastPage"
-          :max-pages="5"
-          boundary-links
-          boundary-numbers
-        />
-      </q-card-actions>
     </q-card>
   </q-page>
 </template>
@@ -42,11 +35,12 @@
 import PageBreadcrumbs from "../components/PageBreadcrumbs";
 import User from "../components/Users/User";
 import UserSkeleton from "../components/Users/UserSkeleton";
-import { ALL_USERS, ACTIVATE_USER } from "../constants/graphql.js";
 
 import { date } from "quasar";
 
 import { ROLES } from "../data/roles";
+
+import { mapState, mapActions } from "vuex";
 
 export default {
   components: { PageBreadcrumbs, User, UserSkeleton },
@@ -64,7 +58,6 @@ export default {
       ],
       selectedUsers: [],
       ROLES_OPTIONS: ROLES,
-      users: [],
       loading: false,
       currentPage: 1,
       lastPage: 1,
@@ -80,82 +73,14 @@ export default {
       page: 1
     };
   },
-  apollo: {
-    users: {
-      query: ALL_USERS,
-      variables() {
-        return {
-          page: this.page
-        };
-      }
-    }
-  },
   methods: {
-    activateUser(id, active) {
-      this.$q
-        .dialog({
-          title: active ? "Deactivate user" : "Activate user",
-          message: "You are about to toggle activation status of user #" + id,
-          persistent: true,
-          cancel: true,
-          transitionShow: "fade",
-          transitionHide: "fade"
-        })
-        .onOk(() => {
-          this.loading = true;
-          this.$apollo
-            .mutate({
-              mutation: ACTIVATE_USER,
-              variables: {
-                id: id,
-                active: !active
-              },
-              update: (store, { data: { activateUser } }) => {
-                if (activateUser.status == "SUCCESS") {
-                  const data = store.readQuery({
-                    query: ALL_USERS,
-                    variables: {
-                      page: this.page
-                    }
-                  });
-
-                  const user = data.users.data.find(user => user.id === id);
-
-                  user.active = true;
-
-                  store.writeQuery({
-                    query: ALL_USERS,
-                    data
-                  });
-                }
-              },
-              optimisticResponse: {
-                __typename: "Mutation",
-                activateUser: {
-                  __typename: "ActivatePayload",
-                  user: {
-                    id: id,
-                    active: true,
-                    __typename: "User"
-                  },
-                  status: "SUCCESS",
-                  message: "Successfully activated user"
-                }
-              }
-            })
-            .then(data => {
-              console.log(data);
-            })
-            .catch(err => {
-              console.log(err);
-            });
-        });
-    },
+    ...mapActions("users",["fetchUsers"]),
     selectAllUsers() {
       //
     }
   },
   computed: {
+    ...mapState("users",["users"]),
     allUsersSelected: {
       get() {
         return false;
@@ -174,6 +99,9 @@ export default {
         return "Member since " + date.getDateDiff(today, val, "days") + " days";
       }
     }
+  },
+  mounted() {
+    this.fetchUsers();
   }
 };
 </script>

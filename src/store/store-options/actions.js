@@ -7,7 +7,8 @@ import {
   FETCH_REGIONS,
   FETCH_SPATIAL_COVERAGES,
   FETCH_PROJECT_STATUSES,
-  FETCH_TECHNICAL_READINESSES
+  FETCH_TECHNICAL_READINESSES,
+  FETCH_ROLES
 } from "../../constants/graphql";
 
 export function fetchDistricts({ commit }) {
@@ -90,6 +91,15 @@ export function fetchTechnicalReadinesses({ commit }) {
     });
 }
 
+export function fetchRoles({ commit }) {
+  apolloClient.query({
+    query: FETCH_ROLES
+  })
+    .then(res => {
+      commit("SET_ROLES", res.data.roles);
+    })
+}
+
 export function initializeOptions({ state, dispatch, commit }) {
   // export function initializeOptions({ getters }) {
   // console.log(getters["options/getInitialized"]);
@@ -102,6 +112,7 @@ export function initializeOptions({ state, dispatch, commit }) {
     dispatch("options/fetchRegions", null, { root: true });
     dispatch("options/fetchSpatialCoverages", null, { root: true });
     dispatch("options/fetchTechnicalReadinesses", null, { root: true });
+    dispatch("options/fetchRoles", null, { root: true });
     commit("SET_INITIALIZED", true);
   }
 }

@@ -7,6 +7,7 @@ import auth from "./store-auth";
 import projects from "./store-projects";
 import project from "./store-project";
 import options from "./store-options";
+import users from "./store-users";
 
 Vue.use(Vuex);
 
@@ -21,7 +22,8 @@ export default function(/* { ssrContext } */) {
       auth,
       projects,
       project,
-      options
+      options,
+      users
     },
 
     // enable strict mode (adds overhead!)

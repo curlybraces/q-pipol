@@ -85,24 +85,17 @@ export const ME_QUERY = gql`
 `;
 
 export const ALL_USERS = gql`
-  query users($page: Int!) {
-    users(page: $page) {
-      data {
+  query users {
+    users {
+      id
+      name
+      email
+      active
+      roles {
         id
         name
-        email
-        active
-        roles {
-          id
-          name
-        }
-        created_at
       }
-      paginatorInfo {
-        currentPage
-        lastPage
-        total
-      }
+      created_at
     }
   }
 `;
@@ -1046,4 +1039,13 @@ export const FETCH_TECHNICAL_READINESSES = gql`
       name
     }
   }
+`;
+
+export const FETCH_ROLES = gql`
+    query roles {
+      roles {
+        id
+        name
+      }
+    }
 `;

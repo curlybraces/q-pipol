@@ -29,8 +29,9 @@
         dense
         icon="verified_user"
         color="green"
-        @click="activateUser(user.id, user.active)"
+        @click="toggleUserActivation"
         v-if="!user.active"
+        :loading="loading"
       >
         <q-tooltip>Activate User</q-tooltip>
       </q-btn>
@@ -40,7 +41,8 @@
         dense
         icon="person_add_disabled"
         color="red"
-        @click="deactivateUser(user.id)"
+        @click="toggleUserActivation"
+        :loading="loading"
         v-else
       >
         <q-tooltip>Deactivate User</q-tooltip>
@@ -53,13 +55,16 @@
       v-model="assignRoleDialog"
       transition-hide="fade"
       transition-show="fade"
+      persistent
     >
-      <assign-roles v-model="user.roles"></assign-roles>
+      <assign-roles v-model="user.roles" @close="assignRoleDialog = false"></assign-roles>
     </q-dialog>
   </q-item>
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   components: {
     "assign-roles": () => import("../Users/AssignRoles.vue")
@@ -76,9 +81,36 @@ export default {
       }
     }
   },
+  methods: {
+    ...mapActions("users",["activateUser"]),
+    toggleUserActivation() {
+      const { id, active } = this.$props.user;
+
+      const payload = {
+        id: id,
+        active: !active
+      };
+
+      this.$q
+        .dialog({
+          title: active ? "Deactivate user" : "Activate user",
+          message: "You are about to toggle activation status of user #" + id,
+          persistent: true,
+          cancel: true,
+          transitionShow: "fade",
+          transitionHide: "fade"
+        })
+        .onOk(() => {
+          this.loading = true;
+          this.activateUser(payload).then(data => console.log(data)).finally(() => this.loading = false);
+        })
+      ;
+    },
+  },
   data() {
     return {
-      assignRoleDialog: false
+      assignRoleDialog: false,
+      loading: false
     };
   }
 };

@@ -33,3 +33,7 @@ export function SET_INITIALIZED(state, value) {
 export function SET_OPERATING_UNITS(state, value) {
   state.operating_units = value;
 }
+
+export function SET_ROLES(state, value) {
+  state.roles = value;
+}
