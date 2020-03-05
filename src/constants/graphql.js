@@ -1059,9 +1059,21 @@ export const FETCH_ROLES = gql`
 `;
 
 export const FETCH_CONTACTS = gql`
-  query contacts {
+  query {
     contacts {
-      
+      id
+      user_id
+      name
+      email
+      phone_number
+      fax_number
+      email
+      operating_unit {
+        id
+        name
+        image
+      }
+      operating_unit_id
     }
   }
 `;

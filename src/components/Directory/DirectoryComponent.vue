@@ -1,7 +1,9 @@
 <template>
 <q-card>
   <q-card-section>
-    Directory
+    {{loading}}
+    {{error}}
+    <pre>{{contacts}}</pre>
   </q-card-section>
   <q-card-section>
 
@@ -10,7 +12,18 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+
 export default {
-  name: "Directory"
+  name: "Directory",
+  computed: {
+    ...mapState("contacts",["contacts",'loading','error'])
+  },
+  methods: {
+    ...mapActions("contacts",["fetchContacts"])
+  },
+  mounted() {
+    this.fetchContacts();
+  }
 }
 </script>
