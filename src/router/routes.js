@@ -22,6 +22,11 @@ const routes = [
           import(/* webpackChunkName: 'Programs' */ "pages/Programs.vue")
       },
       {
+        path: "directory",
+        name: "directory",
+        component: () => import(/* webpackChunkName: 'Programs' */ "pages/Directory.vue")
+      },
+      {
         path: "pip",
         name: "pip",
         component: () =>

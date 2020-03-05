@@ -18,6 +18,7 @@
         </div>
       </div>
     </div>
+
     <div class="row">
       <div class="col">
         <q-card class="q-pa-sm fit bg-grey-1">
@@ -37,7 +38,7 @@
             />
           </div>
 
-          <template v-if="$apollo.loading">
+          <template v-if="loading">
             <list-placeholder />
           </template>
 
@@ -182,7 +183,9 @@ export default {
       Dialog.create({
         title: "Delete Project",
         message: "Are you sure you want to move the project to trash?",
-        cancel: true
+        cancel: true,
+        transitionHide: 'fade',
+        transitionShow: 'fade'
       }).onOk(() => {
         this.deleteProject(id);
       });
@@ -204,15 +207,3 @@ export default {
   }
 };
 </script>
-
-<style>
-.q-scroll-area-projects {
-  display: flex;
-  flex-grow: 1;
-}
-
-.project-card:hover {
-  opacity: 0.9;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-</style>

@@ -57,7 +57,10 @@
       transition-show="fade"
       persistent
     >
-      <assign-roles v-model="user.roles" @close="assignRoleDialog = false"></assign-roles>
+      <assign-roles
+        v-model="user.roles"
+        @close="assignRoleDialog = false"
+      ></assign-roles>
     </q-dialog>
   </q-item>
 </template>
@@ -82,7 +85,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("users",["activateUser"]),
+    ...mapActions("users", ["activateUser"]),
     toggleUserActivation() {
       const { id, active } = this.$props.user;
 
@@ -102,10 +105,11 @@ export default {
         })
         .onOk(() => {
           this.loading = true;
-          this.activateUser(payload).then(data => console.log(data)).finally(() => this.loading = false);
-        })
-      ;
-    },
+          this.activateUser(payload)
+            .then(data => console.log(data))
+            .finally(() => (this.loading = false));
+        });
+    }
   },
   data() {
     return {

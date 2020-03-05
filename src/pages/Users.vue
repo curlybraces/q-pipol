@@ -2,10 +2,7 @@
   <q-page padding>
     <q-list separator>
       <q-item-label header class="text-uppercase">Users</q-item-label>
-      <q-item
-        v-for="{ id, name, email, active } in users"
-        :key="id"
-      >
+      <q-item v-for="{ id, name, email, active } in users" :key="id">
         <q-item-section avatar>
           <q-avatar
             class="text-white text-uppercase"
@@ -51,7 +48,7 @@ import { mapState, mapActions } from "vuex";
 export default {
   name: "PageUsers",
   computed: {
-    ...mapState("users",["users"])
+    ...mapState("users", ["users"])
   },
   data() {
     return {
@@ -59,7 +56,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions("users",["fetchUsers"])
+    ...mapActions("users", ["fetchUsers"])
   },
   created() {
     this.fetchUsers();

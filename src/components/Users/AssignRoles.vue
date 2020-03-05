@@ -1,17 +1,13 @@
 <template>
   <q-card square>
     <div class="text-h6 q-pa-md">Assign Roles</div>
-    <q-separator/>
+    <q-separator />
     <div style="width:300px;" class="q-pa-md">
-      <q-option-group
-        :options="optionRoles"
-        v-model="model"
-        type="checkbox"
-      />
+      <q-option-group :options="optionRoles" v-model="model" type="checkbox" />
     </div>
     <q-card-actions align="right">
-      <q-btn flat label="Cancel" @click="$emit('close')"/>
-      <q-btn label="Save" color="primary" @click="saveRoles"/>
+      <q-btn flat label="Cancel" @click="$emit('close')" />
+      <q-btn label="Save" color="primary" @click="saveRoles" />
     </q-card-actions>
   </q-card>
 </template>
@@ -32,10 +28,10 @@ export default {
     };
   },
   computed: {
-    ...mapState("options",["roles"]),
+    ...mapState("options", ["roles"]),
     optionRoles() {
       return this.roles.map(role => {
-        return { value: role.id, label: role.name }
+        return { value: role.id, label: role.name };
       });
     }
   },
@@ -45,7 +41,7 @@ export default {
     }
   },
   mounted() {
-    const selected = this.$props.value.map(val => val.id)
+    const selected = this.$props.value.map(val => val.id);
     this.model = selected;
   }
 };

@@ -74,13 +74,13 @@ export default {
     };
   },
   methods: {
-    ...mapActions("users",["fetchUsers"]),
+    ...mapActions("users", ["fetchUsers"]),
     selectAllUsers() {
       //
     }
   },
   computed: {
-    ...mapState("users",["users"]),
+    ...mapState("users", ["users"]),
     allUsersSelected: {
       get() {
         return false;

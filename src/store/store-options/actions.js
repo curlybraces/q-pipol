@@ -92,12 +92,13 @@ export function fetchTechnicalReadinesses({ commit }) {
 }
 
 export function fetchRoles({ commit }) {
-  apolloClient.query({
-    query: FETCH_ROLES
-  })
+  apolloClient
+    .query({
+      query: FETCH_ROLES
+    })
     .then(res => {
       commit("SET_ROLES", res.data.roles);
-    })
+    });
 }
 
 export function initializeOptions({ state, dispatch, commit }) {

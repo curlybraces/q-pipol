@@ -2,7 +2,7 @@
   <q-page padding>
     <page-breadcrumbs :breadcrumbs="breadcrumbs" />
 
-    <q-form>
+    <q-form @submit.prevent="createProject">
       <q-stepper
         v-model="step"
         vertical
@@ -193,12 +193,7 @@
               label="Go back to Start"
               color="orange-10"
             />
-            <q-btn
-              type="submit"
-              @click="createProject"
-              label="Save Project"
-              color="orange-10"
-            />
+            <q-btn type="submit" label="Save Project" color="orange-10" />
           </div>
         </q-step>
       </q-stepper>

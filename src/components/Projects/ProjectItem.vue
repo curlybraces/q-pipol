@@ -9,7 +9,7 @@
         <q-img v-else src="statics/agency_logos/da-co.svg" />
       </q-avatar>
     </q-item-section>
-    <q-item-section class="col-2" v-if="$q.screen.gt.md">
+    <q-item-section class="col-2 gt-sm">
       <q-item-label>
         {{ operating_unit != null ? operating_unit.name : null }}
       </q-item-label>
@@ -21,8 +21,8 @@
     <q-item-section class="col-2 text-right">
       <q-item-label>{{ total_project_cost | currency }} </q-item-label>
     </q-item-section>
-    <q-item-section class="col-1" top side>
-      <q-item-label>
+    <q-item-section class="col-1" side>
+      <div class="text-grey-8 q-gutter-xs">
         <q-btn
           class="gt-xs"
           size="12px"
@@ -43,7 +43,7 @@
           color="red"
           @click.stop="promptDelete"
         />
-      </q-item-label>
+      </div>
     </q-item-section>
   </q-item>
 </template>

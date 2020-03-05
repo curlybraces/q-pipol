@@ -54,7 +54,7 @@ export default {
   name: "RegionRow",
   props: ["region", "index"],
   computed: {
-    ...mapState("options",["regions_options"])
+    ...mapState("options", ["regions_options"])
   },
   data() {
     return {
@@ -63,7 +63,10 @@ export default {
   },
   methods: {
     selectedRegion(id) {
-      return this.regions_options.filter(region => region.id === id).map(obj => obj.name).reduce(val => val);
+      return this.regions_options
+        .filter(region => region.id === id)
+        .map(obj => obj.name)
+        .reduce(val => val);
     }
   }
 };

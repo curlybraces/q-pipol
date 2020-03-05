@@ -2,22 +2,18 @@
   <q-page padding>
     <page-breadcrumbs :breadcrumbs="breadcrumbs" />
     <div class="row">
-      <q-card square class="col q-mt-sm q-pa-md q-gutter-y-md">
-        <ApolloQuery
-          :query="require('src/graphql/queries/project.gql')"
-          :variables="{ id: $route.params.id }"
-        >
-          <template slot-scope="{ result: { data }, isLoading }">
-            <div v-if="isLoading">Loading</div>
-            <pre>{{ data }}</pre>
-          </template>
-        </ApolloQuery>
+      <div v-if="loading">Loading</div>
+      <q-card square class="col q-mt-sm q-pa-md q-gutter-y-md" v-else>
+        <pre>
+          {{ project }}
+        </pre>
       </q-card>
     </div>
   </q-page>
 </template>
 
 <script>
+  import { mapState, mapActions } from "vuex";
 import PageBreadcrumbs from "../components/PageBreadcrumbs";
 
 export default {
@@ -25,6 +21,9 @@ export default {
     PageBreadcrumbs
   },
   name: "ViewProject",
+  computed: {
+    ...mapState('project',['project','loading'])
+  },
   data() {
     return {
       breadcrumbs: [
@@ -39,9 +38,14 @@ export default {
         {
           title: "View Project"
         }
-      ],
-      project: {}
+      ]
     };
+  },
+  methods: {
+    ...mapActions('project',['fetchProject'])
+  },
+  created() {
+    this.fetchProject(this.$route.params.id);
   }
 };
 </script>

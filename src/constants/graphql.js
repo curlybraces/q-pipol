@@ -902,7 +902,14 @@ export const FETCH_PROJECT_QUERY = gql`
         id
         name
       }
-      created_by {
+      created_by
+      creator {
+        id
+        name
+      }
+      updated_by
+      updater {
+        id
         name
       }
       created_at
@@ -923,6 +930,7 @@ export const ALL_PROJECTS_QUERY = gql`
         }
         description
         total_project_cost
+        can_update
       }
       paginatorInfo {
         total
@@ -1042,10 +1050,18 @@ export const FETCH_TECHNICAL_READINESSES = gql`
 `;
 
 export const FETCH_ROLES = gql`
-    query roles {
-      roles {
-        id
-        name
-      }
+  query roles {
+    roles {
+      id
+      name
     }
+  }
+`;
+
+export const FETCH_CONTACTS = gql`
+  query contacts {
+    contacts {
+      
+    }
+  }
 `;

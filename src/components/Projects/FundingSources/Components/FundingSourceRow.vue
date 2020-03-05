@@ -54,7 +54,7 @@ export default {
   name: "FundingSourceRow",
   props: ["funding_source", "index"],
   computed: {
-    ...mapState("options",["funding_sources_options"])
+    ...mapState("options", ["funding_sources_options"])
   },
   data() {
     return {
@@ -63,7 +63,10 @@ export default {
   },
   methods: {
     fundingSource(id) {
-      return this.funding_sources_options.filter(fs => fs.id === id).map(obj => obj.name).reduce(val => val);
+      return this.funding_sources_options
+        .filter(fs => fs.id === id)
+        .map(obj => obj.name)
+        .reduce(val => val);
     }
   }
 };
