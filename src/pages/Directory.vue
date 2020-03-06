@@ -1,16 +1,25 @@
 <template>
   <q-page padding>
-    <page-breadcrumbs :breadcrumbs="breadcrumbs"/>
-    <directory></directory>
+    <page-breadcrumbs :breadcrumbs="breadcrumbs" />
+    <directory @addContact="addContactDialog = true"></directory>
+    <q-dialog
+      v-model="addContactDialog"
+      persistent
+      transition-hide="fade"
+      transition-show="fade"
+    >
+      <add-contact @close="addContactDialog = false"></add-contact>
+    </q-dialog>
   </q-page>
 </template>
 
 <script>
 import PageBreadcrumbs from "../components/PageBreadcrumbs";
 import Directory from "../components/Directory/DirectoryComponent";
+import AddContact from "../components/Directory/AddEditContact/AddContact";
 
 export default {
-  components: {PageBreadcrumbs,Directory},
+  components: { AddContact, PageBreadcrumbs, Directory },
   name: "PageDirectory",
   data() {
     return {
@@ -20,10 +29,11 @@ export default {
           url: "/"
         },
         {
-            title: "Directory"
-        },
-      ]
-    }
+          title: "Directory"
+        }
+      ],
+      addContactDialog: false
+    };
   }
-}
+};
 </script>

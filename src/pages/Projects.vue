@@ -184,8 +184,8 @@ export default {
         title: "Delete Project",
         message: "Are you sure you want to move the project to trash?",
         cancel: true,
-        transitionHide: 'fade',
-        transitionShow: 'fade'
+        transitionHide: "fade",
+        transitionShow: "fade"
       }).onOk(() => {
         this.deleteProject(id);
       });

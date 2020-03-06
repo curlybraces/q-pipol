@@ -1,0 +1,51 @@
+<template>
+  <q-card style="width:400px;">
+    <contact-header title="Create Contact" />
+    <contact-form :contact.sync="contact"></contact-form>
+    <contact-actions>
+      <q-btn flat label="Cancel" @click="$emit('close')" />
+      <q-btn
+        label="Save"
+        color="primary"
+        icon="save"
+        @click="addContact"
+        :loading="loading"
+      ></q-btn>
+    </contact-actions>
+  </q-card>
+</template>
+
+<script>
+import { mapActions } from "vuex";
+import ContactHeader from "./Shared/ContactHeader";
+import ContactForm from "./Shared/ContactForm";
+import ContactActions from "./Shared/ContactActions";
+
+export default {
+  name: "AddContact",
+  components: { ContactActions, ContactForm, ContactHeader },
+  data() {
+    return {
+      contact: {
+        name: "",
+        designation: "",
+        office: "",
+        email: "",
+        phone_number: "",
+        fax_number: ""
+      },
+      loading: false
+    };
+  },
+  methods: {
+    ...mapActions("contacts", ["createContact"]),
+    addContact() {
+      this.loading = true;
+      this.createContact(this.contact).then(() => {
+        this.loading = false;
+        this.$emit("close");
+      });
+    }
+  }
+};
+</script>

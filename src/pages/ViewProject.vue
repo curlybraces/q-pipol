@@ -13,7 +13,7 @@
 </template>
 
 <script>
-  import { mapState, mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 import PageBreadcrumbs from "../components/PageBreadcrumbs";
 
 export default {
@@ -22,7 +22,7 @@ export default {
   },
   name: "ViewProject",
   computed: {
-    ...mapState('project',['project','loading'])
+    ...mapState("project", ["project", "loading"])
   },
   data() {
     return {
@@ -42,7 +42,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions('project',['fetchProject'])
+    ...mapActions("project", ["fetchProject"])
   },
   created() {
     this.fetchProject(this.$route.params.id);

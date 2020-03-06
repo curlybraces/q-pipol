@@ -29,44 +29,6 @@
             ></q-select>
           </div>
           <q-separator spaced />
-          <ApolloQuery
-            :query="require('src/graphql/queries/deleted_projects.gql')"
-          >
-            <template slot-scope="{ result: { data }, isLoading }">
-              <list-placeholder v-if="isLoading" />
-              <template v-else>
-                <project-item
-                  v-for="{
-                    id,
-                    title,
-                    description,
-                    operating_unit,
-                    total_project_cost
-                  } in data.projects.data"
-                  :key="id"
-                  :id="id"
-                  :title="title"
-                  :description="description"
-                  :operating_unit="operating_unit"
-                  :total_project_cost="total_project_cost"
-                  @promptDelete="promptDelete(id)"
-                ></project-item>
-                <div
-                  class="row q-mt-md justify-between items-center"
-                  v-if="data.projects.data.length > 0"
-                >
-                  <q-space />
-                  <q-pagination
-                    v-model="current_page"
-                    :max-pages="5"
-                    :max="data.projects.paginatorInfo.lastPage"
-                    boundary-links
-                    boundary-numbers
-                  ></q-pagination>
-                </div>
-              </template>
-            </template>
-          </ApolloQuery>
         </q-card>
       </div>
     </div>
@@ -76,10 +38,7 @@
 <script>
 export default {
   components: {
-    "page-breadcrumbs": () => import("../components/PageBreadcrumbs.vue"),
-    "project-item": () => import("../components/Projects/ProjectItem.vue"),
-    "list-placeholder": () =>
-      import("../components/Projects/ListPlaceholder.vue")
+    "page-breadcrumbs": () => import("../components/PageBreadcrumbs.vue")
   },
   name: "PageDeletedProjects",
   data() {

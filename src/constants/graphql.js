@@ -1068,12 +1068,38 @@ export const FETCH_CONTACTS = gql`
       phone_number
       fax_number
       email
+      designation
       operating_unit {
         id
         name
         image
       }
       operating_unit_id
+    }
+  }
+`;
+
+export const CREATE_CONTACT_MUTATION = gql`
+  mutation createContact(
+    $name: String
+    $designation: String
+    $operating_unit_id: ID
+    $email: String
+    $phone_number: String
+    $fax_number: String
+  ) {
+    createContact(
+      input: {
+        name: $name
+        designation: $designation
+        operating_unit_id: $operating_unit_id
+        email: $email
+        phone_number: $phone_number
+        fax_number: $fax_number
+      }
+    ) {
+      id
+      name
     }
   }
 `;

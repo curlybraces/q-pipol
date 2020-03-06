@@ -6,6 +6,6 @@ export function SET_LOADING(state, value) {
   state.loading = value;
 }
 
-export  function SET_ERROR(state, value) {
+export function SET_ERROR(state, value) {
   state.error = value;
 }
