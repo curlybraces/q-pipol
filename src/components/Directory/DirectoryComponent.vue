@@ -10,9 +10,10 @@
           rounded
           class="col-6"
           placeholder="Search contacts..."
+          v-model="searchTerm"
         >
           <template v-slot:append>
-            <q-icon name="search"></q-icon>
+            <q-icon name="search" @click="searchContacts"></q-icon>
           </template>
         </q-input>
       </q-toolbar>
@@ -32,7 +33,7 @@
       </q-inner-loading>
       <div v-if="error">An error occurred. Please reload the page.</div>
       <div v-if="!loading">
-        <template v-if="contacts.length">
+        <template v-if="contactsFiltered.length">
           <q-item>
             <q-item-section>Name/Designation</q-item-section>
             <q-item-section>Email</q-item-section>
@@ -40,8 +41,8 @@
             <q-item-section>Office</q-item-section>
           </q-item>
           <q-separator spaced></q-separator>
-          <q-list>
-            <q-item v-for="contact in contacts" :key="contact.id">
+          <q-list separator>
+            <q-item v-for="contact in contactsFiltered" :key="contact.id">
               <q-item-section avatar>
                 <q-avatar
                   class="text-white text-weight-bold"
@@ -82,15 +83,21 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Directory",
   computed: {
-    ...mapState("contacts", ["contacts", "loading", "error"])
+    ...mapState("contacts", ["loading", "error", "search"]),
+    ...mapGetters("contacts", ["contactsFiltered"])
   },
   methods: {
-    ...mapActions("contacts", ["fetchContacts"])
+    ...mapActions("contacts", ["fetchContacts", "setSearch"])
+  },
+  data() {
+    return {
+      searchTerm: ""
+    };
   },
   mounted() {
     this.fetchContacts();

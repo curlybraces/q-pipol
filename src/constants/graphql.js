@@ -1103,3 +1103,11 @@ export const CREATE_CONTACT_MUTATION = gql`
     }
   }
 `;
+
+export const DELETE_CONTACT_MUTATION = gql`
+  mutation deleteContact($id: ID!) {
+    deleteContact(id: $id) {
+      id
+    }
+  }
+`;

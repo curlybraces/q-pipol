@@ -1,7 +1,8 @@
 import { apolloClient } from "../../boot/apollo";
 import {
   FETCH_CONTACTS,
-  CREATE_CONTACT_MUTATION
+  CREATE_CONTACT_MUTATION,
+  DELETE_CONTACT_MUTATION
 } from "../../constants/graphql";
 
 export function fetchContacts({ commit }) {
@@ -29,7 +30,7 @@ export function createContact({ commit }, payload) {
       variables: {
         name: payload.name,
         designation: payload.designation,
-        office: payload.office,
+        operating_unit_id: payload.office,
         email: payload.email,
         phone_number: payload.phone_number,
         fax_number: payload.fax_number
@@ -38,4 +39,21 @@ export function createContact({ commit }, payload) {
     .then(() => {
       return;
     });
+}
+
+export function deleteContact({}, id) {
+  return apolloClient
+    .mutate({
+      mutation: DELETE_CONTACT_MUTATION,
+      variables: {
+        id: id
+      }
+    })
+    .then(() => {
+      return;
+    });
+}
+
+export function setSearch({ commit }, value) {
+  commit("SET_SEARCH", value);
 }

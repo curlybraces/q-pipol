@@ -2,6 +2,7 @@ export default function() {
   return {
     contacts: [],
     loading: false,
-    error: false
+    error: false,
+    search: ""
   };
 }

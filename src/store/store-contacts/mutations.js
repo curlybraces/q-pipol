@@ -9,3 +9,7 @@ export function SET_LOADING(state, value) {
 export function SET_ERROR(state, value) {
   state.error = value;
 }
+
+export function SET_SEARCH(state, value) {
+  state.search = value;
+}
