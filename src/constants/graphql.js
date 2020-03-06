@@ -1100,6 +1100,36 @@ export const CREATE_CONTACT_MUTATION = gql`
     ) {
       id
       name
+      operating_unit {
+        name
+      }
+    }
+  }
+`;
+
+export const UPDATE_CONTACT_MUTATION = gql`
+  mutation updateContact(
+    $id: ID!
+    $name: String
+    $designation: String
+    $operating_unit_id: ID
+    $email: String
+    $phone_number: String
+    $fax_number: String
+  ) {
+    updateContact(
+      input: {
+        id: $id
+        name: $name
+        designation: $designation
+        operating_unit_id: $operating_unit_id
+        email: $email
+        phone_number: $phone_number
+        fax_number: $fax_number
+      }
+    ) {
+      id
+      name
     }
   }
 `;

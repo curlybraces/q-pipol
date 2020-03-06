@@ -2,6 +2,7 @@ import { apolloClient } from "../../boot/apollo";
 import {
   FETCH_CONTACTS,
   CREATE_CONTACT_MUTATION,
+  UPDATE_CONTACT_MUTATION,
   DELETE_CONTACT_MUTATION
 } from "../../constants/graphql";
 
@@ -23,25 +24,32 @@ export function fetchContacts({ commit }) {
 }
 
 export function createContact({ commit }, payload) {
-  console.log(commit);
   return apolloClient
     .mutate({
       mutation: CREATE_CONTACT_MUTATION,
       variables: {
         name: payload.name,
         designation: payload.designation,
-        operating_unit_id: payload.office,
+        operating_unit_id: payload.operating_unit_id,
         email: payload.email,
         phone_number: payload.phone_number,
         fax_number: payload.fax_number
       }
     })
-    .then(() => {
+    .then(res => {
+      const newContact = {
+        id: res.data.createContact.id,
+        operating_unit: {
+          name: res.data.createContact.operating_unit.name
+        },
+        ...payload
+      }
+      commit("ADD_CONTACT", newContact);
       return;
     });
 }
 
-export function deleteContact({}, id) {
+export function deleteContact({ commit }, id) {
   return apolloClient
     .mutate({
       mutation: DELETE_CONTACT_MUTATION,
@@ -49,6 +57,26 @@ export function deleteContact({}, id) {
         id: id
       }
     })
+    .then(() => {
+      commit("DELETE_CONTACT", id);
+      return;
+    });
+}
+
+export function updateContact({}, payload) {
+  console.log(payload);
+  return apolloClient.mutate({
+    mutation: UPDATE_CONTACT_MUTATION,
+    variables: {
+      id: payload.id,
+      name: payload.name,
+      designation: payload.designation,
+      operating_unit_id: payload.operating_unit_id,
+      email: payload.email,
+      phone_number: payload.phone_number,
+      fax_number: payload.fax_number
+    }
+  })
     .then(() => {
       return;
     });

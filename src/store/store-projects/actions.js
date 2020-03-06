@@ -1,8 +1,22 @@
 import { apolloClient } from "boot/apollo";
-import { DELETE_PROJECT_MUTATION } from "../../constants/graphql";
+import { ALL_PROJECTS_QUERY, DELETE_PROJECT_MUTATION } from "../../constants/graphql";
+
+export  function fetchProjects({commit}, page = 1) {
+  commit("SET_LOADING",true);
+  apolloClient.query({
+    query: ALL_PROJECTS_QUERY,
+    variables: {
+      page: page
+    }
+  })
+    .then(res => {
+      commit("SET_PROJECTS",res.data.projects.data);
+      commit("SET_PAGINATOR_INFO",res.data.projects.paginatorInfo);
+      commit("SET_LOADING",false);
+    });
+}
 
 export function deleteProject({}, id) {
-  console.log(id);
   apolloClient
     .mutate({
       mutation: DELETE_PROJECT_MUTATION,

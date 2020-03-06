@@ -4,7 +4,7 @@
     <text-input label="Designation" v-model="contact.designation"></text-input>
     <single-select
       label="Office"
-      v-model="contact.office"
+      v-model="contact.operating_unit_id"
       :options="operating_units"
     ></single-select>
     <text-input label="Email" v-model="contact.email"></text-input>

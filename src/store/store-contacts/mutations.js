@@ -13,3 +13,12 @@ export function SET_ERROR(state, value) {
 export function SET_SEARCH(state, value) {
   state.search = value;
 }
+
+export function DELETE_CONTACT(state, id) {
+  const index = state.contacts.find(contact => contact.id == id);
+  state.contacts.splice(index,1);
+}
+
+export function ADD_CONTACT(state, value) {
+  state.contacts.push(value);
+}

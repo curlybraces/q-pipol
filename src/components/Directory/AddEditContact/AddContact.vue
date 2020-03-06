@@ -29,7 +29,7 @@ export default {
       contact: {
         name: "",
         designation: "",
-        office: "",
+        operating_unit_id: "",
         email: "",
         phone_number: "",
         fax_number: ""
@@ -41,10 +41,16 @@ export default {
     ...mapActions("contacts", ["createContact"]),
     addContact() {
       this.loading = true;
-      this.createContact(this.contact).then(() => {
+      if (this.contact.name == '') {
+        alert("Name is required.");
         this.loading = false;
-        this.$emit("close");
-      });
+      } else {
+        this.createContact(this.contact).then(() => {
+          this.loading = false;
+          this.$emit("close");
+        });
+      }
+
     }
   }
 };

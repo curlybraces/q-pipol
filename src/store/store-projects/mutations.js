@@ -31,3 +31,15 @@ export function setProjectsDownloaded(state, value) {
 export function clearProjects(state) {
   state.projects = [];
 }
+
+export function SET_PROJECTS(state, value) {
+  state.projects = value;
+}
+
+export function SET_LOADING(state, value) {
+  state.loading = value;
+}
+
+export function SET_PAGINATOR_INFO(state, value) {
+  state.paginatorInfo = value;
+}

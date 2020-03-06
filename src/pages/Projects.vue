@@ -66,7 +66,7 @@
                 description,
                 operating_unit,
                 total_project_cost
-              } in projects.data"
+              } in projects"
               :key="id"
               :id="id"
               :title="title"
@@ -81,21 +81,21 @@
             <div class="row justify-between items-center">
               <div>
                 Showing
-                {{ (current_page - 1) * projects.paginatorInfo.perPage + 1 }}
+                {{ (paginatorInfo.currentPage - 1) * paginatorInfo.perPage + 1 }}
                 -
                 {{
-                  current_page * projects.paginatorInfo.perPage >
-                  projects.paginatorInfo.total
-                    ? projects.paginatorInfo.total
-                    : current_page * projects.paginatorInfo.perPage
+                paginatorInfo.currentPage * paginatorInfo.perPage >
+                  paginatorInfo.total
+                    ? paginatorInfo.total
+                    : currentPage * paginatorInfo.perPage
                 }}
-                of {{ projects.paginatorInfo.total }} projects
+                of {{ paginatorInfo.total }} projects
               </div>
-              <div>
+              <div v-if="!loading">
                 <q-pagination
-                  v-model="current_page"
+                  v-model="paginatorInfo.currentPage"
                   :max-pages="5"
-                  :max="projects.paginatorInfo.lastPage"
+                  :max="paginatorInfo.lastPage"
                   boundary-links
                   boundary-numbers
                 />
@@ -112,8 +112,6 @@
 import { mapState, mapActions } from "vuex";
 import { REGIONS } from "../data/dropdown-values";
 import { Dialog } from "quasar";
-
-import { ALL_PROJECTS_QUERY } from "../constants/graphql";
 
 export default {
   components: {
@@ -140,39 +138,17 @@ export default {
       error: null,
       sortOptions: [],
       sort: "",
-      projects: [],
-      total: null,
-      per_page: null,
-      current_page: 1,
-      last_page: null,
       filter: false,
-      REGIONS
+      REGIONS,
+      currentPage: 1
     };
   },
-  apollo: {
-    projects: {
-      query: ALL_PROJECTS_QUERY,
-      variables() {
-        return {
-          page: this.current_page
-        };
-      },
-      fetchPolicy: "network-only"
-    }
-  },
   computed: {
-    ...mapState("projects", ["search", "projectsDownloaded"]),
-    ...mapState("auth", ["emailVerified"]),
-    max() {
-      let total_pages = Math.ceil(this.total / this.per_page);
-      if (total_pages > 5) {
-        return 5;
-      }
-      return total_pages;
-    }
+    ...mapState("projects", ["search", "projectsDownloaded","loading","projects","paginatorInfo"]),
+    ...mapState("auth", ["emailVerified"])
   },
   methods: {
-    ...mapActions("projects", ["deleteProject"]),
+    ...mapActions("projects", ["fetchProjects","deleteProject"]),
     goTo(id) {
       this.$router.push("/pip/" + id);
     },
@@ -204,6 +180,9 @@ export default {
     currency(value) {
       return "PhP " + value.toLocaleString();
     }
+  },
+  mounted() {
+    this.fetchProjects(1);
   }
 };
 </script>
