@@ -932,6 +932,9 @@ export const ALL_PROJECTS_QUERY = gql`
           description
           total_project_cost
           can_update
+          creator {
+            name
+          }
           created_at
           updated_at
         }

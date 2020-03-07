@@ -1,8 +1,5 @@
 <template>
-  <transition
-    appear
-    leave-active-class="animated zoomOut"
-  >
+  <transition appear leave-active-class="animated zoomOut">
     <q-item @click="goTo" clickable>
       <q-item-section avatar>
         <q-avatar color="white">
@@ -13,19 +10,31 @@
           <q-img v-else src="statics/agency_logos/da-co.svg" />
         </q-avatar>
       </q-item-section>
-      <q-item-section class="col-2 gt-sm">
-        <q-item-label>
-          {{ operating_unit != null ? operating_unit.name : null }}
-        </q-item-label>
-      </q-item-section>
-      <q-item-section>
-        <q-item-label v-html="$options.filters.searchHighlight(title,search)"></q-item-label>
+      <q-item-section class="col-6">
+        <q-item-label class="text-weight-bold"
+          >[{{
+            operating_unit != null ? operating_unit.name : null
+          }}]</q-item-label
+        >
+        <q-item-label
+          v-html="$options.filters.searchHighlight(title, search)"
+        ></q-item-label>
         <q-item-label caption :lines="2">{{ description }}</q-item-label>
       </q-item-section>
-      <q-item-section class="col-2 text-right">
+      <q-item-section class="text-right q-mr-md">
         <q-item-label>{{ total_project_cost | currency }} </q-item-label>
       </q-item-section>
-      <q-item-section class="col-1" side>
+      <q-item-section>
+        <q-item-label caption>
+          <q-icon name="person" class="text-grey-9" /> {{ creator.name }}
+        </q-item-label>
+        <q-item-label caption>
+          <q-icon name="event" class="text-grey-9" />
+          {{ created_at | dateDiff }}
+        </q-item-label>
+      </q-item-section>
+      <q-separator vertical />
+      <q-item-section side>
         <div class="text-grey-8 q-gutter-xs">
           <q-btn
             class="gt-xs"
@@ -55,13 +64,21 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
-import { Dialog } from "quasar";
+import { Dialog, date } from "quasar";
 
 export default {
   name: "ProjectItem",
-  props: ["id", "title", "operating_unit", "total_project_cost", "description"],
+  props: [
+    "id",
+    "title",
+    "operating_unit",
+    "total_project_cost",
+    "description",
+    "created_at",
+    "creator"
+  ],
   computed: {
-    ...mapState("projects",["search"])
+    ...mapState("projects", ["search"])
   },
   filters: {
     searchHighlight(value, search) {
@@ -75,10 +92,15 @@ export default {
     },
     currency(value) {
       return "PhP " + value.toLocaleString();
+    },
+    dateDiff(value) {
+      const today = new Date();
+      const diff = date.getDateDiff(today, value, "hours");
+      return diff + " hr ago";
     }
   },
   methods: {
-    ...mapActions("projects",["deleteProject"]),
+    ...mapActions("projects", ["deleteProject"]),
     goTo() {
       this.$emit("goTo");
     },

@@ -16,17 +16,14 @@
             v-model="searchField"
           >
             <template v-slot:append>
-              <q-icon
-                name="search"
-                class="cursor-pointer"
-              ></q-icon>
+              <q-icon name="search" class="cursor-pointer"></q-icon>
             </template>
           </q-input>
         </q-toolbar>
       </q-card-section>
 
-      <q-separator spaced/>
-      {{projects.length}}
+      <q-separator spaced />
+      {{ projects.length }}
       <template v-if="loading && projects.length == 0">
         <list-placeholder />
       </template>
@@ -39,12 +36,7 @@
             </template>
             No project added yet.
             <template v-slot:action>
-              <q-btn
-                flat
-                color="primary"
-                label="Add Project"
-                to="/pip/new"
-              />
+              <q-btn flat color="primary" label="Add Project" to="/pip/new" />
             </template>
           </q-banner>
         </div>
@@ -55,7 +47,9 @@
               title,
               description,
               operating_unit,
-              total_project_cost
+              total_project_cost,
+              created_at,
+              creator
             } in projects"
             :key="id"
             :id="id"
@@ -63,6 +57,8 @@
             :description="description"
             :operating_unit="operating_unit"
             :total_project_cost="total_project_cost"
+            :created_at="created_at"
+            :creator="creator"
             @goTo="goTo(id)"
             @editProject="goToEdit(id)"
           ></project-item>
@@ -117,11 +113,11 @@ export default {
       "pageInfo",
       "search"
     ]),
-    ...mapGetters("projects",["projects"]),
+    ...mapGetters("projects", ["projects"]),
     ...mapState("auth", ["emailVerified"]),
     searchField: {
       get() {
-        return this.search
+        return this.search;
       },
       set(val) {
         this.setSearch(val);
@@ -129,7 +125,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("projects", ["fetchProjects","setSearch"]),
+    ...mapActions("projects", ["fetchProjects", "setSearch"]),
     goTo(id) {
       this.$router.push("/pip/" + id);
     },
@@ -143,8 +139,7 @@ export default {
           this.fetchProjects({
             first: this.first,
             after: this.pageInfo.endCursor
-          })
-            .then(() => done());
+          }).then(() => done());
         } else {
           console.log("this is the last page");
         }
