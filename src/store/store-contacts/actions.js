@@ -43,7 +43,7 @@ export function createContact({ commit }, payload) {
           name: res.data.createContact.operating_unit.name
         },
         ...payload
-      }
+      };
       commit("ADD_CONTACT", newContact);
       return;
     });
@@ -65,18 +65,19 @@ export function deleteContact({ commit }, id) {
 
 export function updateContact({}, payload) {
   console.log(payload);
-  return apolloClient.mutate({
-    mutation: UPDATE_CONTACT_MUTATION,
-    variables: {
-      id: payload.id,
-      name: payload.name,
-      designation: payload.designation,
-      operating_unit_id: payload.operating_unit_id,
-      email: payload.email,
-      phone_number: payload.phone_number,
-      fax_number: payload.fax_number
-    }
-  })
+  return apolloClient
+    .mutate({
+      mutation: UPDATE_CONTACT_MUTATION,
+      variables: {
+        id: payload.id,
+        name: payload.name,
+        designation: payload.designation,
+        operating_unit_id: payload.operating_unit_id,
+        email: payload.email,
+        phone_number: payload.phone_number,
+        fax_number: payload.fax_number
+      }
+    })
     .then(() => {
       return;
     });

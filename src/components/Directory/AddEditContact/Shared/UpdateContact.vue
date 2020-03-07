@@ -3,7 +3,7 @@
     <contact-header title="Edit Contact"></contact-header>
     <contact-form :contact.sync="contactToEdit"></contact-form>
     <contact-actions>
-      <q-btn flat label="Cancel" @click="$emit('close')"/>
+      <q-btn flat label="Cancel" @click="$emit('close')" />
     </contact-actions>
   </q-card>
 </template>
@@ -24,10 +24,10 @@ export default {
   data() {
     return {
       contactToEdit: {}
-    }
+    };
   },
   mounted() {
     this.contactToEdit = Object.assign({}, this.contact);
   }
-}
+};
 </script>

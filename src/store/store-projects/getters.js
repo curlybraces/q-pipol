@@ -6,60 +6,46 @@ export function projects(state, getters) {
   return state.projects;
 }
 
-export function projectsFiltered(state, getters) {
-  let projectsSorted = getters.projectsSorted,
-    projectsFiltered = [];
+export function projectsFiltered(state) {
+  // initiate empty object for filtered projects
+  let projectsFiltered = {};
+
+  // check if state.search is not empty
   if (state.search) {
+    // change state.search to lowercase
     var searchLowerCase = state.search.toLowerCase();
-    // return items that contain. need two returns.
-    // projectsFiltered = state.projects.filter(project => {
-    projectsFiltered = projectsSorted.filter(project => {
-      return (
-        project.title.toLowerCase().includes(searchLowerCase) ||
-        project.description.toLowerCase().includes(searchLowerCase)
-      );
+
+    // loop through the objects to check if the title includes search term
+    Object.keys(state.projects).forEach(key => {
+      let project = state.projects[key];
+      let projectTitleLowerCase = project.title.toLowerCase();
+
+      // Add the project to projects filtered if title matches search
+      if (projectTitleLowerCase.includes(searchLowerCase)) {
+        projectsFiltered[key] = project;
+      }
     });
+    // return projectsFiltered
     return projectsFiltered;
   }
-  return projectsSorted;
+
+  return state.projects;
 }
 
-export function projectsSorted(state, getters, rootState) {
-  let projectsSorted = [],
-    showAll = rootState.settings.showAll;
-
-  if (!showAll) {
-    let projects = getters.myProjects;
-    projectsSorted = projects.sort((a, b) => {
-      let aProp = a[state.sort].toLowerCase(),
-        bProp = b[state.sort].toLowerCase();
-      if (aProp > bProp) {
-        return 1;
-      } else if (aProp < bProp) {
-        return -1;
-      } else {
-        return 0;
-      }
-    });
-  } else {
-    projectsSorted = [...state.projects].sort((a, b) => {
-      let aProp = a[state.sort].toLowerCase(),
-        bProp = b[state.sort].toLowerCase();
-      if (aProp > bProp) {
-        return 1;
-      } else if (aProp < bProp) {
-        return -1;
-      } else {
-        return 0;
-      }
-    });
-  }
-
-  return projectsSorted;
-}
-
-export function myProjects() {
-  let myProjects = [];
-
-  return myProjects;
-}
+// export function projectsSorted(state) {
+//   let projectsSorted = [];
+//
+//   projectsSorted = [...state.projects].sort((a, b) => {
+//     let aProp = a[state.sort].toLowerCase(),
+//       bProp = b[state.sort].toLowerCase();
+//     if (aProp > bProp) {
+//       return 1;
+//     } else if (aProp < bProp) {
+//       return -1;
+//     } else {
+//       return 0;
+//     }
+//   });
+//
+//   return projectsSorted;
+// }

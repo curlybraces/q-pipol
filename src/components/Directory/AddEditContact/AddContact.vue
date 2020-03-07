@@ -41,7 +41,7 @@ export default {
     ...mapActions("contacts", ["createContact"]),
     addContact() {
       this.loading = true;
-      if (this.contact.name == '') {
+      if (this.contact.name == "") {
         alert("Name is required.");
         this.loading = false;
       } else {
@@ -50,7 +50,6 @@ export default {
           this.$emit("close");
         });
       }
-
     }
   }
 };

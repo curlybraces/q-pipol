@@ -115,6 +115,11 @@ export default {
           url: "/resources"
         },
         {
+          label: "Directory",
+          icon: "call",
+          url: "/directory"
+        },
+        {
           label: "Account",
           icon: "person",
           url: "/account"

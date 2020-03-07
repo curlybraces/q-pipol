@@ -14,7 +14,11 @@
           @input="searchContacts"
         >
           <template v-slot:append>
-            <q-icon name="search" @click="searchContacts" class="cursor-pointer"></q-icon>
+            <q-icon
+              name="search"
+              @click="searchContacts"
+              class="cursor-pointer"
+            ></q-icon>
           </template>
         </q-input>
       </q-toolbar>
@@ -36,7 +40,11 @@
       <div v-if="!loading">
         <template v-if="contactsFiltered.length > 0">
           <q-list separator>
-            <contact-item v-for="contact in contactsFiltered" :contact="contact" :key="contact.id"></contact-item>
+            <contact-item
+              v-for="contact in contactsFiltered"
+              :contact="contact"
+              :key="contact.id"
+            ></contact-item>
           </q-list>
         </template>
         <template v-else>
@@ -52,7 +60,7 @@ import { mapState, mapActions, mapGetters } from "vuex";
 import ContactItem from "./ContactItem";
 
 export default {
-  components:{ContactItem},
+  components: { ContactItem },
   name: "Directory",
   computed: {
     ...mapState("contacts", ["loading", "error", "search"]),

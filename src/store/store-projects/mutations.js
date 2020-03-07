@@ -1,5 +1,7 @@
-export function addProject(state, payload) {
-  state.projects.push(payload);
+import Vue from "vue";
+
+export function ADD_PROJECT(state, payload) {
+  Vue.set(state.projects, payload.id, payload.project);
 }
 
 export function updateProject(state, payload) {
@@ -9,19 +11,12 @@ export function updateProject(state, payload) {
   state.projects.splice(projectIndex, 1, payload.project);
 }
 
-export function deleteProject(state, id) {
-  let projectIndex = state.projects.findIndex(project => {
-    return project.id == id;
-  });
-  state.projects.splice(projectIndex, 1);
+export function DELETE_PROJECT(state, id) {
+  Vue.delete(state.projects, id);
 }
 
 export function setSearch(state, value) {
   state.search = value;
-}
-
-export function setProject(state, value) {
-  state.project = value;
 }
 
 export function setProjectsDownloaded(state, value) {
@@ -33,13 +28,14 @@ export function clearProjects(state) {
 }
 
 export function SET_PROJECTS(state, value) {
-  state.projects = value;
+  // state.projects = value;
+  state.projects.push(value);
 }
 
 export function SET_LOADING(state, value) {
   state.loading = value;
 }
 
-export function SET_PAGINATOR_INFO(state, value) {
-  state.paginatorInfo = value;
+export function SET_PAGE_INFO(state, value) {
+  state.pageInfo = value;
 }

@@ -919,25 +919,31 @@ export const FETCH_PROJECT_QUERY = gql`
 `;
 
 export const ALL_PROJECTS_QUERY = gql`
-  query projects($page: Int!) {
-    projects(page: $page) {
-      data {
-        id
-        title
-        operating_unit {
-          name
-          image
+  query projects($first: Int!, $after: String) {
+    projects(first: $first, after: $after) {
+      edges {
+        node {
+          id
+          title
+          operating_unit {
+            name
+            image
+          }
+          description
+          total_project_cost
+          can_update
+          created_at
+          updated_at
         }
-        description
-        total_project_cost
-        can_update
       }
-      paginatorInfo {
+      pageInfo {
         total
         count
-        perPage
         currentPage
-        lastPage
+        endCursor
+        startCursor
+        hasNextPage
+        hasPreviousPage
       }
     }
   }
