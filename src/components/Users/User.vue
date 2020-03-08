@@ -1,9 +1,6 @@
 <template>
   <q-item>
     <q-item-section avatar>
-      <q-checkbox v-model="selected" :val="user.id"></q-checkbox>
-    </q-item-section>
-    <q-item-section avatar>
       <q-avatar
         class="text-white text-uppercase"
         :color="user.active ? 'primary' : 'grey'"
@@ -17,8 +14,8 @@
     </q-item-section>
     <q-item-section>
       <q-item-label>
-        <q-badge v-for="role in user.roles" :key="role.id">
-          {{ role.name }}
+        <q-badge>
+          {{ user.role ? user.role.name : "" }}
         </q-badge>
       </q-item-label>
     </q-item-section>
@@ -58,7 +55,8 @@
       persistent
     >
       <assign-roles
-        v-model="user.roles"
+        :role="roleId"
+        :id="user.id"
         @close="assignRoleDialog = false"
       ></assign-roles>
     </q-dialog>
@@ -82,6 +80,9 @@ export default {
       set(val) {
         this.$emit("input", val);
       }
+    },
+    roleId() {
+      return this.user.role ? this.user.role.id : null;
     }
   },
   methods: {

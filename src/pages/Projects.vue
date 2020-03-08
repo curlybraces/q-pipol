@@ -23,13 +23,13 @@
       </q-card-section>
 
       <q-separator spaced />
-      {{ projects.length }}
-      <template v-if="loading && projects.length == 0">
+
+      <template v-if="loading">
         <list-placeholder />
       </template>
 
       <template v-else>
-        <div v-if="projects.length === 0">
+        <div v-if="Object.keys(projects).length === 0" class="q-pa-md">
           <q-banner class="q-my-md bg-grey-3">
             <template v-slot:avatar>
               <q-icon name="warning" color="red" />
@@ -40,6 +40,7 @@
             </template>
           </q-banner>
         </div>
+
         <q-infinite-scroll @load="onLoad" :offset="100">
           <project-item
             v-for="{
@@ -96,7 +97,6 @@ export default {
           title: "PIP"
         }
       ],
-      view: "grid",
       error: null,
       sortOptions: [],
       sort: "",
@@ -114,7 +114,6 @@ export default {
       "search"
     ]),
     ...mapGetters("projects", ["projects"]),
-    ...mapState("auth", ["emailVerified"]),
     searchField: {
       get() {
         return this.search;

@@ -26,11 +26,17 @@ export function populateUser({ commit }, payload) {
   commit("SET_USER_LOADED", true);
   commit("SET_NAME", payload.name);
   commit("SET_EMAIL", payload.email);
-  commit("SET_IMAGE", payload.profile.operating_unit.image);
-  commit("SET_OPERATING_UNIT", payload.profile.operating_unit.id);
-  commit("SET_POSITION", payload.profile.position);
-  commit("SET_UNIT", payload.profile.unit);
-  commit("SET_ROLES", payload.roles);
+  commit(
+    "SET_IMAGE",
+    payload.operating_unit ? payload.operating_unit.image : ""
+  );
+  commit(
+    "SET_OPERATING_UNIT",
+    payload.operating_unit ? payload.operating_unit.id : ""
+  );
+  commit("SET_POSITION", payload.position);
+  // commit("SET_UNIT", payload.unit);
+  commit("SET_ROLE", payload.role.name);
   commit("SET_UNREAD_NOTIFICATIONS", payload.unreadNotifications);
   commit("SET_NOTIFICATIONS", payload.notifications);
 }

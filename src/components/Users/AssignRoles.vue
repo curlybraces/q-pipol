@@ -2,8 +2,9 @@
   <q-card square>
     <div class="text-h6 q-pa-md">Assign Roles</div>
     <q-separator />
+
     <div style="width:300px;" class="q-pa-md">
-      <q-option-group :options="optionRoles" v-model="model" type="checkbox" />
+      <q-option-group :options="optionRoles" v-model="model" type="radio" />
     </div>
     <q-card-actions align="right">
       <q-btn flat label="Cancel" @click="$emit('close')" />
@@ -13,18 +14,14 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "AssignRoles",
-  props: {
-    value: {
-      type: Array
-    }
-  },
+  props: ["id", "role"],
   data() {
     return {
-      model: []
+      model: null
     };
   },
   computed: {
@@ -36,13 +33,18 @@ export default {
     }
   },
   methods: {
+    ...mapActions("users", ["assignRole"]),
     saveRoles() {
-      console.log(this.model);
+      const payload = {
+        user_id: this.$props.id,
+        role_id: this.model
+      };
+      console.log("id: ", this.$props.id, "result: ", this.model);
+      this.assignRole(payload);
     }
   },
   mounted() {
-    const selected = this.$props.value.map(val => val.id);
-    this.model = selected;
+    this.model = this.role;
   }
 };
 </script>

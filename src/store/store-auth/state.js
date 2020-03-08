@@ -7,7 +7,7 @@ export default {
   operating_unit: null,
   unit: null,
   position: null,
-  roles: [],
+  role: null,
   userLoaded: false,
   notifications: [],
   unreadNotifications: []

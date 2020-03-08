@@ -7,20 +7,9 @@ export const LOGIN_MUTATION = gql`
         id
         name
         email
-        roles {
+        role {
           name
         }
-        profile {
-          operating_unit {
-            id
-            name
-            image
-          }
-          position
-          unit
-        }
-        notifications
-        unreadNotifications
       }
       access_token
     }
@@ -51,8 +40,21 @@ export const REGISTER_MUTATION = gql`
 `;
 
 export const ACTIVATE_USER = gql`
-  mutation activateUser($id: ID!, $active: Boolean!) {
-    activateUser(input: { id: $id, active: $active }) {
+  mutation activateUser($id: ID!) {
+    activateUser(id: $id) {
+      user {
+        id
+        active
+      }
+      status
+      message
+    }
+  }
+`;
+
+export const DEACTIVATE_USER = gql`
+  mutation deactivateUser($id: ID!) {
+    deactivateUser(id: $id) {
       user {
         id
         active
@@ -68,18 +70,28 @@ export const ME_QUERY = gql`
     me {
       name
       email
-      profile {
-        operating_unit {
-          name
-          image
-        }
-        unit
-        position
+      position
+      operating_unit {
+        id
+        image
       }
-      roles {
+      role {
         name
       }
+      notifications
       unreadNotifications
+    }
+  }
+`;
+
+export const ASSIGN_ROLE_MUTATION = gql`
+  mutation assignRole($user_id: ID!, $role_id: ID) {
+    assignRole(user_id: $user_id, role_id: $role_id) {
+      user {
+        id
+      }
+      status
+      message
     }
   }
 `;
@@ -91,7 +103,7 @@ export const ALL_USERS = gql`
       name
       email
       active
-      roles {
+      role {
         id
         name
       }

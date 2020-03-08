@@ -30,8 +30,8 @@ export function SET_POSITION(state, value) {
   state.position = value;
 }
 
-export function SET_ROLES(state, value) {
-  value.forEach(val => state.roles.push(val.name));
+export function SET_ROLE(state, value) {
+  state.role = value;
 }
 
 export function SET_USER_LOADED(state, value) {

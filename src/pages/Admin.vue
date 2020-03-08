@@ -2,17 +2,27 @@
   <q-page padding>
     <page-breadcrumbs :breadcrumbs="breadcrumbs" />
 
-    <div class="row">
-      <q-card>Users</q-card>
-      <q-card>Directory</q-card>
-    </div>
-
     <q-card>
       <q-card-section>
-        <div class="row align-center">
-          Manage Users
-          <q-space />
-        </div>
+        <q-toolbar>
+          <q-avatar color="primary" icon="people" class="text-white">
+          </q-avatar>
+          <q-toolbar-title>
+            Users
+          </q-toolbar-title>
+          <q-input
+            outlined
+            dense
+            rounded
+            class="col-6"
+            placeholder="Search in users..."
+            v-model="searchField"
+          >
+            <template v-slot:append>
+              <q-icon name="search" class="cursor-pointer"></q-icon>
+            </template>
+          </q-input>
+        </q-toolbar>
       </q-card-section>
 
       <q-separator />
@@ -40,7 +50,7 @@ import { date } from "quasar";
 
 import { ROLES } from "../data/roles";
 
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapGetters } from "vuex";
 
 export default {
   components: { PageBreadcrumbs, User, UserSkeleton },
@@ -74,19 +84,28 @@ export default {
     };
   },
   methods: {
-    ...mapActions("users", ["fetchUsers"]),
+    ...mapActions("users", ["fetchUsers", "setSearch"]),
     selectAllUsers() {
       //
     }
   },
   computed: {
-    ...mapState("users", ["users"]),
+    ...mapState("users", ["search"]),
+    ...mapGetters("users", ["users"]),
     allUsersSelected: {
       get() {
         return false;
       },
       set(val) {
         console.log(val);
+      }
+    },
+    searchField: {
+      get() {
+        return this.search;
+      },
+      set(val) {
+        this.setSearch(val);
       }
     }
   },

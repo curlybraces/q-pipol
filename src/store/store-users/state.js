@@ -1,5 +1,9 @@
 export default function() {
   return {
-    users: []
+    users: {},
+    search: "",
+    loading: false,
+    error: false,
+    errorMessage: ""
   };
 }
