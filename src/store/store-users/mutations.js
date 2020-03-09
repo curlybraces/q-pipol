@@ -4,15 +4,22 @@ export function ADD_USER(state, payload) {
   Vue.set(state.users, payload.id, payload.user);
 }
 
-export function SET_USERS(state, value) {
-  state.users = value;
+export function ACTIVATE_USER(state, payload) {
+  state.users[payload.id].active = true;
 }
 
-export function UPDATE_USER(state, payload) {
-  const index = state.users.findIndex(user => user.id == payload.id);
-  state.users[index].active = payload.active;
+export function DEACTIVATE_USER(state, payload) {
+  state.users[payload.id].active = false;
+}
+
+export function ASSIGN_ROLE(state, payload) {
+  state.users[payload.id].role = payload.role;
 }
 
 export function SET_SEARCH(state, value) {
   state.search = value;
+}
+
+export function SET_LOADING(state, value) {
+  state.loading = value;
 }

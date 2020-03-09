@@ -23,8 +23,8 @@ export function setProjectsDownloaded(state, value) {
   state.projectsDownloaded = value;
 }
 
-export function clearProjects(state) {
-  state.projects = [];
+export function CLEAR_PROJECTS(state) {
+  state.projects = {};
 }
 
 export function SET_LOADING(state, value) {

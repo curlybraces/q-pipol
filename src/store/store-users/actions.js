@@ -7,6 +7,7 @@ import {
 } from "../../constants/graphql";
 
 export function fetchUsers({ commit }) {
+  commit("SET_LOADING", true);
   apolloClient
     .query({
       query: ALL_USERS
@@ -18,8 +19,8 @@ export function fetchUsers({ commit }) {
           user: user
         };
         commit("ADD_USER", payload);
+        commit("SET_LOADING", false);
       });
-      // commit("SET_USERS", res.data.users);
     });
 }
 
@@ -32,7 +33,7 @@ export function activateUser({ commit }, payload) {
       }
     })
     .then(res => {
-      commit("UPDATE_USER", payload);
+      commit("ACTIVATE_USER", payload);
       return res.data;
     });
 }
@@ -46,7 +47,7 @@ export function deactivateUser({ commit }, payload) {
       }
     })
     .then(res => {
-      commit("UPDATE_USER", payload);
+      commit("DEACTIVATE_USER", payload);
       return res.data;
     });
 }
@@ -61,8 +62,12 @@ export function assignRole({ commit }, payload) {
       }
     })
     .then(res => {
-      console.log(commit);
-      return res;
+      const newRole = {
+        id: payload.user_id,
+        role: res.data.assignRole.user.role
+      };
+      commit("ASSIGN_ROLE", newRole);
+      return;
     });
 }
 

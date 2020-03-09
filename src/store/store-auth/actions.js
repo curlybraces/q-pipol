@@ -48,7 +48,9 @@ export function populateUser({ commit }) {
     });
 }
 
-export function logoutUser() {
+export function logoutUser({ commit }) {
+  commit("projects/CLEAR_PROJECTS", null, { root: true });
+
   LocalStorage.remove("token");
   LocalStorage.remove("userId");
 

@@ -1,6 +1,6 @@
 <template>
   <q-card square>
-    <div class="text-h6 q-pa-md">Assign Roles</div>
+    <q-card-section class="text-h6 q-pa-md">Assign Roles</q-card-section>
     <q-separator />
 
     <div style="width:300px;" class="q-pa-md">
@@ -8,7 +8,12 @@
     </div>
     <q-card-actions align="right">
       <q-btn flat label="Cancel" @click="$emit('close')" />
-      <q-btn label="Save" color="primary" @click="saveRoles" />
+      <q-btn
+        label="Save"
+        color="primary"
+        @click="saveRoles"
+        :loading="loading"
+      />
     </q-card-actions>
   </q-card>
 </template>
@@ -21,7 +26,8 @@ export default {
   props: ["id", "role"],
   data() {
     return {
-      model: null
+      model: null,
+      loading: false
     };
   },
   computed: {
@@ -35,12 +41,16 @@ export default {
   methods: {
     ...mapActions("users", ["assignRole"]),
     saveRoles() {
+      this.loading = true;
       const payload = {
         user_id: this.$props.id,
         role_id: this.model
       };
-      console.log("id: ", this.$props.id, "result: ", this.model);
-      this.assignRole(payload);
+
+      this.assignRole(payload).then(() => {
+        this.loading = false;
+        this.$emit("close");
+      });
     }
   },
   mounted() {

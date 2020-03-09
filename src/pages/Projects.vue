@@ -1,76 +1,85 @@
 <template>
-  <q-page padding>
+  <q-page>
     <page-breadcrumbs :breadcrumbs="breadcrumbs" />
 
-    <q-card>
-      <q-card-section>
-        <q-toolbar>
-          <q-avatar icon="storage" color="primary" class="text-white" />
-          <q-toolbar-title>Projects</q-toolbar-title>
-          <q-input
-            outlined
-            dense
-            rounded
-            class="col-6"
-            placeholder="Search in project title..."
-            v-model="searchField"
-          >
-            <template v-slot:append>
-              <q-icon name="search" class="cursor-pointer"></q-icon>
-            </template>
-          </q-input>
-        </q-toolbar>
-      </q-card-section>
+    <div class="q-pa-sm">
+      <q-card>
+        <q-card-section>
+          <q-toolbar>
+            <q-avatar icon="storage" color="primary" class="text-white" />
+            <q-toolbar-title>Projects</q-toolbar-title>
+            <q-input
+              outlined
+              dense
+              rounded
+              class="col-6"
+              placeholder="Search in project title..."
+              v-model="searchField"
+            >
+              <template v-slot:append>
+                <q-icon name="search" class="cursor-pointer"></q-icon>
+              </template>
+            </q-input>
+          </q-toolbar>
+        </q-card-section>
 
-      <q-separator spaced />
+        <q-separator spaced />
 
-      <template v-if="loading">
-        <list-placeholder />
-      </template>
-
-      <template v-else>
-        <div v-if="Object.keys(projects).length === 0" class="q-pa-md">
-          <q-banner class="q-my-md bg-grey-3">
-            <template v-slot:avatar>
-              <q-icon name="warning" color="red" />
-            </template>
-            No project added yet.
-            <template v-slot:action>
-              <q-btn flat color="primary" label="Add Project" to="/pip/new" />
-            </template>
-          </q-banner>
-        </div>
-
-        <q-infinite-scroll @load="onLoad" :offset="100">
-          <project-item
-            v-for="{
-              id,
-              title,
-              description,
-              operating_unit,
-              total_project_cost,
-              created_at,
-              creator
-            } in projects"
-            :key="id"
-            :id="id"
-            :title="title"
-            :description="description"
-            :operating_unit="operating_unit"
-            :total_project_cost="total_project_cost"
-            :created_at="created_at"
-            :creator="creator"
-            @goTo="goTo(id)"
-            @editProject="goToEdit(id)"
-          ></project-item>
-          <template v-if="loading" v-slot:loading>
-            <div class="row justify-center q-my-md">
-              <q-spinner-dots color="primary" size="40px" />
-            </div>
+        <q-card-section>
+          <template v-if="loading">
+            <list-placeholder />
           </template>
-        </q-infinite-scroll>
-      </template>
-    </q-card>
+
+          <template v-else>
+            <div v-if="Object.keys(projects).length === 0">
+              <q-banner class="q-my-md bg-grey-3">
+                <template v-slot:avatar>
+                  <q-icon name="warning" color="red" />
+                </template>
+                No project added yet.
+                <template v-slot:action>
+                  <q-btn
+                    flat
+                    color="primary"
+                    label="Add Project"
+                    to="/pip/new"
+                  />
+                </template>
+              </q-banner>
+            </div>
+
+            <q-infinite-scroll @load="onLoad" :offset="100">
+              <project-item
+                v-for="{
+                  id,
+                  title,
+                  description,
+                  operating_unit,
+                  total_project_cost,
+                  created_at,
+                  creator
+                } in projects"
+                :key="id"
+                :id="id"
+                :title="title"
+                :description="description"
+                :operating_unit="operating_unit"
+                :total_project_cost="total_project_cost"
+                :created_at="created_at"
+                :creator="creator"
+                @goTo="goTo(id)"
+                @editProject="goToEdit(id)"
+              ></project-item>
+              <template v-if="loading" v-slot:loading>
+                <div class="row justify-center q-my-md">
+                  <q-spinner-dots color="primary" size="40px" />
+                </div>
+              </template>
+            </q-infinite-scroll>
+          </template>
+        </q-card-section>
+      </q-card>
+    </div>
   </q-page>
 </template>
 

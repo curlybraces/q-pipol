@@ -47,7 +47,12 @@
         />
       </q-item-label>
     </q-item-section>
-    <q-dialog v-model="updateContactDialog" persistent>
+    <q-dialog
+      v-model="updateContactDialog"
+      persistent
+      transition-hide="fade"
+      transition-show="fade"
+    >
       <q-card style="width:400px;">
         <contact-header title="Edit Contact"></contact-header>
         <contact-form :contact="contactToEdit"></contact-form>

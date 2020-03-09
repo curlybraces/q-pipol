@@ -86,7 +86,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("users", ["activateUser"]),
+    ...mapActions("users", ["activateUser", "deactivateUser"]),
     toggleUserActivation() {
       const { id, active } = this.$props.user;
 
@@ -106,9 +106,15 @@ export default {
         })
         .onOk(() => {
           this.loading = true;
-          this.activateUser(payload)
-            .then(data => console.log(data))
-            .finally(() => (this.loading = false));
+          if (!active) {
+            this.activateUser(payload)
+              .then(data => console.log(data))
+              .finally(() => (this.loading = false));
+          } else {
+            this.deactivateUser(payload)
+              .then(data => console.log(data))
+              .finally(() => (this.loading = false));
+          }
         });
     }
   },
