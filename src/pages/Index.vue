@@ -1,7 +1,8 @@
 <template>
-  <q-page padding>
+  <q-page>
     <page-breadcrumbs :breadcrumbs="breadcrumbs" />
-    <div class="row q-col-gutter-x-md">
+
+    <div class="row q-pa-sm q-col-gutter-x-md">
       <div class="col-3">
         <q-card square fit class="no-margin full-height">
           <q-item>

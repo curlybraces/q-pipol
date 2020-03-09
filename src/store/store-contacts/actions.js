@@ -81,7 +81,7 @@ export function updateContact({ commit }, payload) {
       const updatedContact = {
         payload: payload.id,
         contact: payload
-      }
+      };
       commit("UPDATE_CONTACT", updatedContact);
       return;
     });

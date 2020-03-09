@@ -49,7 +49,11 @@
         </div>
         <q-separator spaced />
         <div class="row q-pa-md q-mx-xl">
-          <q-form class="col q-gutter-md" ref="profile" @submit="updateProfile()">
+          <q-form
+            class="col q-gutter-md"
+            ref="profile"
+            @submit="updateProfile()"
+          >
             <div class="row">
               <q-item-label header>Profile</q-item-label>
               <q-space />
@@ -158,7 +162,13 @@ export default {
     };
   },
   computed: {
-    ...mapState("auth",["email","operating_unit","position","name","contact_number"])
+    ...mapState("auth", [
+      "email",
+      "operating_unit",
+      "position",
+      "name",
+      "contact_number"
+    ])
   },
   methods: {
     updateProfile() {

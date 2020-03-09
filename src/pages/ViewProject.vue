@@ -1,9 +1,11 @@
 <template>
-  <q-page padding>
+  <q-page>
     <page-breadcrumbs :breadcrumbs="breadcrumbs" />
-    <div class="row">
-      <div v-if="loading">Loading</div>
-      <q-card square class="col q-mt-sm q-pa-md q-gutter-y-md" v-else>
+
+    <div v-if="loading">Loading</div>
+
+    <div class="q-pa-sm" v-else>
+      <q-card square>
         <pre>
           {{ project }}
         </pre>

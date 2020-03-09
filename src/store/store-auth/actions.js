@@ -23,29 +23,27 @@ export function loginUser({ dispatch }, payload) {
 }
 
 export function populateUser({ commit }) {
-  apolloClient.query({
-    query: ME_QUERY
-  })
+  apolloClient
+    .query({
+      query: ME_QUERY
+    })
     .then(res => {
-      const { email, name, contact_number, role, operating_unit, position } = res.data.me;
-      commit("SET_ME",res.data.me);
+      const {
+        email,
+        name,
+        contact_number,
+        role,
+        operating_unit,
+        position
+      } = res.data.me;
+      commit("SET_ME", res.data.me);
       commit("SET_USER_LOADED", true);
       commit("SET_NAME", name);
       commit("SET_EMAIL", email);
-      commit(
-        "SET_IMAGE",
-        operating_unit ? operating_unit.image : ""
-      );
-      commit(
-        "SET_OPERATING_UNIT",
-        operating_unit ? operating_unit.id : ""
-      );
-      commit(
-        "SET_CONTACT_NUMBER", contact_number
-      );
-      commit(
-        "SET_ROLE", role.name
-      );
+      commit("SET_IMAGE", operating_unit ? operating_unit.image : "");
+      commit("SET_OPERATING_UNIT", operating_unit ? operating_unit.id : "");
+      commit("SET_CONTACT_NUMBER", contact_number);
+      commit("SET_ROLE", role.name);
       commit("SET_POSITION", position);
     });
 }

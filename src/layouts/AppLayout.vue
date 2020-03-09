@@ -39,7 +39,7 @@
         />
         <q-toolbar-title>IPMS</q-toolbar-title>
       </q-toolbar>
-      <q-separator/>
+      <q-separator />
       <drawer-content />
     </q-drawer>
 
