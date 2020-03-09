@@ -6,6 +6,12 @@
 
     <div class="q-pa-sm" v-else>
       <q-card square>
+        <q-card-section>
+          <q-toolbar>
+            <q-toolbar-title>{{ project.title }}</q-toolbar-title>
+          </q-toolbar>
+        </q-card-section>
+
         <pre>
           {{ project }}
         </pre>
