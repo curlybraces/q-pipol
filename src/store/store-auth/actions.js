@@ -1,6 +1,6 @@
 import { LocalStorage } from "quasar";
 import { apolloClient } from "boot/apollo";
-import { LOGIN_MUTATION } from "../../constants/graphql";
+import { LOGIN_MUTATION, ME_QUERY } from "../../constants/graphql";
 
 export function loginUser({ dispatch }, payload) {
   apolloClient
@@ -12,7 +12,7 @@ export function loginUser({ dispatch }, payload) {
       }
     })
     .then(res => {
-      dispatch("auth/populateUser", res.data.login.user, { root: true });
+      dispatch("auth/populateUser", null, { root: true });
       localStorage.setItem("token", res.data.login.access_token);
       localStorage.setItem("userId", res.data.login.user.id);
       this.$router.push({ path: "/" });
@@ -22,23 +22,32 @@ export function loginUser({ dispatch }, payload) {
     });
 }
 
-export function populateUser({ commit }, payload) {
-  commit("SET_USER_LOADED", true);
-  commit("SET_NAME", payload.name);
-  commit("SET_EMAIL", payload.email);
-  commit(
-    "SET_IMAGE",
-    payload.operating_unit ? payload.operating_unit.image : ""
-  );
-  commit(
-    "SET_OPERATING_UNIT",
-    payload.operating_unit ? payload.operating_unit.id : ""
-  );
-  commit("SET_POSITION", payload.position);
-  // commit("SET_UNIT", payload.unit);
-  commit("SET_ROLE", payload.role.name);
-  commit("SET_UNREAD_NOTIFICATIONS", payload.unreadNotifications);
-  commit("SET_NOTIFICATIONS", payload.notifications);
+export function populateUser({ commit }) {
+  apolloClient.query({
+    query: ME_QUERY
+  })
+    .then(res => {
+      const { email, name, contact_number, role, operating_unit, position } = res.data.me;
+      commit("SET_ME",res.data.me);
+      commit("SET_USER_LOADED", true);
+      commit("SET_NAME", name);
+      commit("SET_EMAIL", email);
+      commit(
+        "SET_IMAGE",
+        operating_unit ? operating_unit.image : ""
+      );
+      commit(
+        "SET_OPERATING_UNIT",
+        operating_unit ? operating_unit.id : ""
+      );
+      commit(
+        "SET_CONTACT_NUMBER", contact_number
+      );
+      commit(
+        "SET_ROLE", role.name
+      );
+      commit("SET_POSITION", position);
+    });
 }
 
 export function logoutUser() {

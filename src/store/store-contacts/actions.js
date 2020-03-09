@@ -63,8 +63,7 @@ export function deleteContact({ commit }, id) {
     });
 }
 
-export function updateContact({}, payload) {
-  console.log(payload);
+export function updateContact({ commit }, payload) {
   return apolloClient
     .mutate({
       mutation: UPDATE_CONTACT_MUTATION,
@@ -79,6 +78,11 @@ export function updateContact({}, payload) {
       }
     })
     .then(() => {
+      const updatedContact = {
+        payload: payload.id,
+        contact: payload
+      }
+      commit("UPDATE_CONTACT", updatedContact);
       return;
     });
 }

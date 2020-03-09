@@ -75,6 +75,7 @@ export const ME_QUERY = gql`
         id
         image
       }
+      contact_number
       role {
         name
       }

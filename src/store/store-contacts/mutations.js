@@ -1,3 +1,5 @@
+import Vue from "vue";
+
 export function SET_CONTACTS(state, value) {
   state.contacts = value;
 }
@@ -21,4 +23,8 @@ export function DELETE_CONTACT(state, id) {
 
 export function ADD_CONTACT(state, value) {
   state.contacts.push(value);
+}
+
+export function UPDATE_CONTACT(state, payload) {
+  Vue.set(state.contacts, payload.id, payload.contact);
 }

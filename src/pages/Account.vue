@@ -1,117 +1,120 @@
 <template>
-  <q-page padding>
+  <q-page>
     <page-breadcrumbs :breadcrumbs="breadcrumbs" />
-    <q-card square>
-      <div class="q-pt-xl text-center">
-        <span class="text-h6 text-weight-bold">Account</span>
-        <br />
-        <span class="text-subtitle1">
-          Edit your account settings and change your password here.
-        </span>
-      </div>
-      <q-separator spaced></q-separator>
-      <div class="row q-pa-md q-mx-xl">
-        <q-form class="col q-gutter-md">
-          <q-input
-            outlined
-            prefix="Your Email is"
-            v-model="me.email"
-            readonly
-          ></q-input>
-        </q-form>
-      </div>
-      <q-separator spaced />
-      <div class="row q-pa-md q-mx-xl">
-        <q-form class="col q-gutter-md" @submit="updatePassword">
-          <q-item-label header>Change Password</q-item-label>
-          <q-input
-            outlined
-            label="New Password"
-            :type="showPassword ? 'text' : 'password'"
-            v-model="password"
-            :rules="[
-              val => (val && val.length > 0) || 'Password cannot be empty'
-            ]"
-          >
-            <template v-slot:append>
-              <q-icon
-                :name="showPassword ? 'visibility_off' : 'visibility'"
-                @click="showPassword = !showPassword"
-              ></q-icon>
-            </template>
-          </q-input>
-          <div class="row justify-center">
-            <q-btn color="primary" type="submit">SAVE CHANGES</q-btn>
-          </div>
-        </q-form>
-      </div>
-      <q-separator spaced />
-      <div class="row q-pa-md q-mx-xl">
-        <q-form class="col q-gutter-md" ref="profile" @submit="updateProfile()">
-          <div class="row">
-            <q-item-label header>Profile</q-item-label>
-            <q-space />
-            <q-avatar
-              flat
-              dense
-              class="text-grey-8 cursor-pointer"
-              @click="isEditing = !isEditing"
-              v-if="!isEditing"
-            >
-              <q-icon name="edit" />
-            </q-avatar>
-          </div>
 
-          <div v-if="$apollo.loading">Loading User Profile...</div>
-          <div class="q-gutter-y-md" v-else>
+    <div class="q-pa-sm">
+      <q-card square>
+        <div class="text-center">
+          <span class="text-h6 text-weight-bold">Account</span>
+          <br />
+          <span class="text-subtitle1">
+            Edit your account settings and change your password here.
+          </span>
+        </div>
+        <q-separator spaced></q-separator>
+        <div class="row q-pa-md q-mx-xl">
+          <q-form class="col q-gutter-md">
             <q-input
               outlined
-              label="Full Name"
-              v-model="me.name"
-              lazy-rules
-              :rules="rules.required"
-              :readonly="!isEditing"
+              prefix="Your Email is"
+              v-model="email"
+              readonly
             ></q-input>
-            <q-select
-              outlined
-              label="Office"
-              :options="OPERATING_UNITS"
-              v-model="me.profile.operating_unit.id"
-              emit-value
-              map-options
-              :readonly="!isEditing"
-            ></q-select>
+          </q-form>
+        </div>
+        <q-separator spaced />
+        <div class="row q-pa-md q-mx-xl">
+          <q-form class="col q-gutter-md" @submit="updatePassword">
+            <q-item-label header>Change Password</q-item-label>
             <q-input
               outlined
-              v-model="me.profile.unit"
-              label="Service/Division/Unit"
-              hint="Do not abbreviate"
-              :rules="rules.required"
-              :readonly="!isEditing"
-            />
-            <q-input
-              outlined
-              v-model="me.profile.position"
-              label="Position/Designation"
-              hint="Do not abbreviate"
-              :rules="rules.required"
-              :readonly="!isEditing"
-            />
-          </div>
-
-          <div class="row justify-center">
-            <q-btn
-              color="primary"
-              type="submit"
-              :loading="loading"
-              v-if="isEditing"
-              @click="updateProfile()"
-              >SAVE CHANGES</q-btn
+              label="New Password"
+              :type="showPassword ? 'text' : 'password'"
+              v-model="password"
+              :rules="[
+                val => (val && val.length > 0) || 'Password cannot be empty'
+              ]"
             >
-          </div>
-        </q-form>
-      </div>
-    </q-card>
+              <template v-slot:append>
+                <q-icon
+                  :name="showPassword ? 'visibility_off' : 'visibility'"
+                  @click="showPassword = !showPassword"
+                ></q-icon>
+              </template>
+            </q-input>
+            <div class="row justify-center">
+              <q-btn color="primary" type="submit">SAVE CHANGES</q-btn>
+            </div>
+          </q-form>
+        </div>
+        <q-separator spaced />
+        <div class="row q-pa-md q-mx-xl">
+          <q-form class="col q-gutter-md" ref="profile" @submit="updateProfile()">
+            <div class="row">
+              <q-item-label header>Profile</q-item-label>
+              <q-space />
+              <q-avatar
+                flat
+                dense
+                class="text-grey-8 cursor-pointer"
+                @click="isEditing = !isEditing"
+                v-if="!isEditing"
+              >
+                <q-icon name="edit" />
+              </q-avatar>
+            </div>
+
+            <div v-if="$apollo.loading">Loading User Profile...</div>
+            <div class="q-gutter-y-md" v-else>
+              <q-input
+                outlined
+                label="Full Name"
+                v-model="nameToEdit"
+                lazy-rules
+                :rules="rules.required"
+                :readonly="!isEditing"
+              ></q-input>
+              <q-select
+                outlined
+                label="Office"
+                :options="OPERATING_UNITS"
+                v-model="officeToEdit"
+                emit-value
+                map-options
+                :readonly="!isEditing"
+              ></q-select>
+              <q-input
+                outlined
+                v-model="positionToEdit"
+                label="Position/Designation"
+                hint="Do not abbreviate"
+                :rules="rules.required"
+                :readonly="!isEditing"
+              />
+              <q-input
+                outlined
+                v-model="contactNumberToEdit"
+                label="Contact No."
+                hint="Include area code"
+                :rules="rules.required"
+                :readonly="!isEditing"
+              />
+            </div>
+
+            <div class="row justify-center">
+              <q-btn
+                color="primary"
+                type="submit"
+                :loading="loading"
+                v-if="isEditing"
+                @click="updateProfile()"
+                >SAVE CHANGES</q-btn
+              >
+            </div>
+          </q-form>
+        </div>
+      </q-card>
+    </div>
   </q-page>
 </template>
 
@@ -124,9 +127,11 @@ import { Loading } from "quasar";
 
 import gql from "graphql-tag";
 
+import { mapState } from "vuex";
+
 export default {
   components: { PageBreadcrumbs },
-  name: "UserPage",
+  name: "PageAccount",
   data() {
     return {
       breadcrumbs: [
@@ -146,28 +151,14 @@ export default {
       },
       loading: false,
       isEditing: false,
-      me: {}
+      officeToEdit: null,
+      nameToEdit: null,
+      contactNumberToEdit: null,
+      positionToEdit: null
     };
   },
-  apollo: {
-    me: {
-      query: gql`
-        query {
-          me {
-            name
-            email
-            profile {
-              operating_unit {
-                id
-                name
-              }
-              position
-              unit
-            }
-          }
-        }
-      `
-    }
+  computed: {
+    ...mapState("auth",["email","operating_unit","position","name","contact_number"])
   },
   methods: {
     updateProfile() {
@@ -219,6 +210,12 @@ export default {
     updatePassword() {
       Loading.show();
     }
+  },
+  mounted() {
+    this.officeToEdit = this.operating_unit;
+    this.nameToEdit = this.name;
+    this.contactNumberToEdit = this.contact_number;
+    this.positionToEdit = this.position;
   }
 };
 </script>

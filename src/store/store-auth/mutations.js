@@ -22,8 +22,8 @@ export function SET_OPERATING_UNIT(state, value) {
   state.operating_unit = value;
 }
 
-export function SET_UNIT(state, value) {
-  state.unit = value;
+export function SET_CONTACT_NUMBER(state, value) {
+  state.contact_number = value;
 }
 
 export function SET_POSITION(state, value) {
@@ -44,4 +44,8 @@ export function SET_UNREAD_NOTIFICATIONS(state, value) {
 
 export function SET_NOTIFICATIONS(state, value) {
   state.notifications = value;
+}
+
+export function SET_ME(state, value) {
+  state.me = value;
 }

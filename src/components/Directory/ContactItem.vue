@@ -100,7 +100,7 @@ export default {
         });
     },
     updateThisContact() {
-      this.updateContact(this.contactToEdit);
+      this.updateContact(this.contactToEdit).then(() => this.updateContactDialog = false);
     }
   },
   filters: {

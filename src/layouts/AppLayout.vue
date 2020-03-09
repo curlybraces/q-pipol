@@ -1,6 +1,6 @@
 <template>
   <q-layout view="LHh lpR lff">
-    <q-header bordered class="bg-grey-1">
+    <q-header bordered class="bg-white">
       <q-toolbar class="text-grey-9 app-toolbar">
         <img
           src="statics/logo.svg"
@@ -30,6 +30,16 @@
     </q-header>
 
     <q-drawer v-model="drawer" content-class="bg-grey-2" bordered>
+      <q-toolbar class="app-toolbar">
+        <img
+          src="statics/logo.svg"
+          height="35px;"
+          @click="drawer = !drawer"
+          class="cursor-pointer"
+        />
+        <q-toolbar-title>IPMS</q-toolbar-title>
+      </q-toolbar>
+      <q-separator/>
       <drawer-content />
     </q-drawer>
 

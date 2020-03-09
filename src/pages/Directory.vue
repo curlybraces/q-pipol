@@ -1,7 +1,11 @@
 <template>
-  <q-page padding>
+  <q-page>
     <page-breadcrumbs :breadcrumbs="breadcrumbs" />
-    <directory @addContact="addContactDialog = true"></directory>
+
+    <div class="q-pa-sm">
+      <directory @addContact="addContactDialog = true"></directory>
+    </div>
+
     <q-dialog
       v-model="addContactDialog"
       persistent
