@@ -151,7 +151,7 @@ const state = {
 
 const mutations = {
   updateField,
-  clearProject(state) {
+  CLEAR_PROJECT(state) {
     state.project = INITIAL_STATE;
   },
   addRegionRow(state, value) {
@@ -186,6 +186,7 @@ const mutations = {
 
 const actions = {
   createProject({ state, getters, commit }) {
+    commit("setLoading", true);
     const { project } = state;
     apolloClient
       .mutate({
@@ -333,13 +334,13 @@ const actions = {
       })
       .then(data => {
         console.log(data);
-        commit("clearProject", INITIAL_STATE);
+        commit("CLEAR_PROJECT");
       })
       .catch(err => {
         console.log(err.message);
       })
       .finally(() => {
-        console.log("done");
+        commit("setLoading", false);
       });
   },
   updateProject({ state, getters, commit }) {
@@ -514,6 +515,9 @@ const actions = {
       })
       .catch(err => console.log(err))
       .finally(() => commit("setLoading", false));
+  },
+  clearProject({ commit }) {
+    commit("CLEAR_PROJECT");
   }
 };
 

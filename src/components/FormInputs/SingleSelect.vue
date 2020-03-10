@@ -20,6 +20,7 @@
     :hint="hint"
     use-input
     label-color="orange-10"
+    :rules="rules"
   >
     <template v-slot:no-option>
       <q-item>
@@ -49,12 +50,13 @@ export default {
     },
     options: Array,
     value: [String, Number],
-    hint: { type: String }
+    hint: { type: String },
+    rules: Array
   },
   data() {
     return {
       model: this.value,
-      selectOptions: this.$props.options
+      selectOptions: []
     };
   },
   methods: {
@@ -78,6 +80,9 @@ export default {
         );
       });
     }
+  },
+  mounted() {
+    this.selectOptions = this.$props.options;
   }
 };
 </script>

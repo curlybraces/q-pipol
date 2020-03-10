@@ -7,6 +7,7 @@
         :dense="dense"
         hint="The title of the program or project"
         maxlength="250"
+        :rules="[val => !!val || '* Required']"
       />
     </q-item>
     <q-item>
@@ -17,6 +18,7 @@
         inline
         :dense="dense"
         color="orange-10"
+        :rules="[val => !!val || '* Required']"
       />
     </q-item>
     <q-item>
@@ -27,6 +29,7 @@
         :options-dense="dense"
         :options="operating_units"
         hint="Proponent of the program/project"
+        :rules="[val => !!val || '* Required']"
       />
     </q-item>
     <q-item>
@@ -36,6 +39,7 @@
         type="textarea"
         :dense="dense"
         hint="Description of the program/project (e.g. location, components, design, etc.)"
+        :rules="[val => !!val || '* Required']"
       />
     </q-item>
     <q-item>
@@ -46,6 +50,7 @@
         v-model="total_project_cost"
         :dense="dense"
         hint="Indicative project cost in absolute PhP"
+        :rules="[positive]"
       ></money-input>
     </q-item>
     <q-item>
@@ -55,6 +60,7 @@
         :dense="dense"
         :options-dense="dense"
         :options="project_statuses"
+        :rules="[val => !!val || '* Required']"
       />
     </q-item>
     <q-item>
@@ -64,7 +70,8 @@
         :dense="dense"
         :options-dense="dense"
         :options="TYPOLOGIES"
-      ></single-select>
+        :rules="[val => !!val || '* Required']"
+      />
     </q-item>
   </q-list>
 </template>
@@ -99,6 +106,11 @@ export default {
       TYPOLOGIES,
       dense: false
     };
+  },
+  methods: {
+    positive(val) {
+      return val.replace(/,/g, "") > 0 || "* Required";
+    }
   }
 };
 </script>

@@ -13,6 +13,7 @@
     :readonly="readonly"
     class="col"
     input-class="text-right"
+    :rules="rules"
   />
 </template>
 
@@ -21,7 +22,7 @@ import { VMoney } from "v-money";
 
 export default {
   name: "MoneyInput",
-  props: ["label", "value", "dense", "prefix", "readonly"],
+  props: ["label", "value", "dense", "prefix", "readonly", "rules"],
   data() {
     return {
       money: {
