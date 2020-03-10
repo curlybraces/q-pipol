@@ -14,6 +14,7 @@
       class="q-ml-sm"
       v-if="withBack"
     />
+    <slot></slot>
   </q-stepper-navigation>
 </template>
 

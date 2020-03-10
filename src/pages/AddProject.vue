@@ -22,7 +22,15 @@
           >
             <basic-information />
 
-            <stepper-navigation @next="step = 2"></stepper-navigation>
+            <stepper-navigation @next="step = 2">
+              <q-btn
+                outline
+                color="orange-10"
+                label="Save Project"
+                class="q-ml-md"
+                @click="createProject"
+              />
+            </stepper-navigation>
           </q-step>
 
           <q-step
