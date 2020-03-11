@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import { vuexLocal } from "boot/vuex-persist";
 // import vuexLocal from 'vuex-persistedstate'
 
+import activities from "./store-activities";
 import auth from "./store-auth";
 import contacts from "./store-contacts";
 import projects from "./store-projects";
@@ -20,6 +21,7 @@ Vue.use(Vuex);
 export default function(/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
+      activities,
       auth,
       contacts,
       projects,

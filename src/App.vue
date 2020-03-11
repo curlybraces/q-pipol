@@ -15,9 +15,6 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import CookieLaw from "vue-cookie-law";
-import { ME_QUERY } from "./constants/graphql";
-import { graphQLErrorMessages } from "./functions/function-graphql-error-messages";
-import { Dialog } from "quasar";
 
 export default {
   components: {
@@ -25,30 +22,17 @@ export default {
   },
   name: "App",
   computed: {
-    ...mapState("auth", ["userLoaded"])
+    ...mapState("auth", ["userLoaded","loggedIn"])
   },
   methods: {
-    ...mapActions("auth", ["populateUser", "logoutUser"]),
+    ...mapActions("auth", ["populateUser", "logoutUser","populateUser"]),
     ...mapActions("options", ["initializeOptions"])
   },
   mounted() {
-    if (!this.userLoaded) {
-      this.$apollo
-        .query({
-          query: ME_QUERY
-        })
-        .then(res => {
-          this.populateUser(res.data.me);
-        })
-        .catch(error => {
-          console.log(error);
-          Dialog.create({
-            title: "Error",
-            message: graphQLErrorMessages(error)[0]
-          }).onOk(() => {
-            this.logoutUser();
-          });
-        });
+    if (this.loggedIn) {
+      this.populateUser();
+    } else {
+      console.log("User is not logged in");
     }
   },
   created() {

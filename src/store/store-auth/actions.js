@@ -2,7 +2,7 @@ import { LocalStorage } from "quasar";
 import { apolloClient } from "boot/apollo";
 import { LOGIN_MUTATION, ME_QUERY } from "../../constants/graphql";
 
-export function loginUser({ dispatch }, payload) {
+export function loginUser({ commit, dispatch }, payload) {
   apolloClient
     .mutate({
       mutation: LOGIN_MUTATION,
@@ -13,8 +13,13 @@ export function loginUser({ dispatch }, payload) {
     })
     .then(res => {
       dispatch("auth/populateUser", null, { root: true });
-      localStorage.setItem("token", res.data.login.access_token);
-      localStorage.setItem("userId", res.data.login.user.id);
+
+      commit("SET_LOGGED_IN", true);
+
+      LocalStorage.set("loggedIn", true);
+      LocalStorage.set("token", res.data.login.access_token);
+      LocalStorage.set("userId", res.data.login.user.id);
+
       this.$router.push({ path: "/" });
     })
     .catch(err => {
@@ -53,6 +58,7 @@ export function logoutUser({ commit }) {
 
   LocalStorage.remove("token");
   LocalStorage.remove("userId");
+  LocalStorage.remove("loggedIn");
 
   apolloClient.cache.data.clear();
 

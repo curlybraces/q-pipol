@@ -1167,3 +1167,26 @@ export const DELETE_CONTACT_MUTATION = gql`
     }
   }
 `;
+
+export const FETCH_ACTIVITIES = gql`
+  query {
+    me {
+      activities {
+        id
+        description
+        properties
+        subject {
+          id
+          name
+          title
+        }
+        causer {
+          id
+          name
+        }
+        created_at
+        updated_at
+      }
+    }
+  }
+`;
