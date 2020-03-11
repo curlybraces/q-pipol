@@ -49,3 +49,14 @@ export function SET_NOTIFICATIONS(state, value) {
 export function SET_ME(state, value) {
   state.me = value;
 }
+
+export function CLEAR_USER(state) {
+  state.email = null;
+  state.name = null;
+  state.image = null;
+  state.operating_unit = null;
+  state.contact_number = null;
+  state.position = null;
+  state.role = null;
+  state.me = {};
+}

@@ -10,20 +10,29 @@
         </q-card-section>
         <q-separator/>
         <q-card-section>
-          <q-item v-for="(activity,key) in activities" :key="key">
-            <q-item-section avatar>
-              <q-avatar color="primary" class="text-white">{{activity.causer.name.charAt(0)}}</q-avatar>
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>{{activity.causer.name}}</q-item-label>
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>{{activity.description}}</q-item-label>
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>{{activity.subject ? activity.subject.title : null }}</q-item-label>
-            </q-item-section>
-          </q-item>
+          <template v-if="!Object.keys(activities).length">
+            <q-item>
+              <q-item-label>
+                Nothing to show.
+              </q-item-label>
+            </q-item>
+          </template>
+          <template v-else>
+            <q-item v-for="(activity,key) in activities" :key="key">
+              <q-item-section avatar>
+                <q-avatar color="primary" class="text-white">{{activity.causer.name.charAt(0)}}</q-avatar>
+              </q-item-section>
+              <q-item-section>
+                <q-item-label>{{activity.causer.name}}</q-item-label>
+              </q-item-section>
+              <q-item-section>
+                <q-item-label>{{activity.description}}</q-item-label>
+              </q-item-section>
+              <q-item-section>
+                <q-item-label>{{activity.subject ? activity.subject.title : null }}</q-item-label>
+              </q-item-section>
+            </q-item>
+          </template>
         </q-card-section>
       </q-card>
     </div>

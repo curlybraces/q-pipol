@@ -12,8 +12,6 @@ export function loginUser({ commit, dispatch }, payload) {
       }
     })
     .then(res => {
-      dispatch("auth/populateUser", null, { root: true });
-
       commit("SET_LOGGED_IN", true);
 
       LocalStorage.set("loggedIn", true);
@@ -22,12 +20,16 @@ export function loginUser({ commit, dispatch }, payload) {
 
       this.$router.push({ path: "/" });
     })
+    .then(() => {
+      dispatch('populateUser');
+    })
     .catch(err => {
-      console.log(err);
+      alert(err.message);
     });
 }
 
 export function populateUser({ commit }) {
+  console.log("loading user");
   apolloClient
     .query({
       query: ME_QUERY
@@ -50,11 +52,15 @@ export function populateUser({ commit }) {
       commit("SET_CONTACT_NUMBER", contact_number);
       commit("SET_ROLE", role.name);
       commit("SET_POSITION", position);
+    })
+    .catch(err => {
+      console.log(err.message);
     });
 }
 
 export function logoutUser({ commit }) {
   commit("projects/CLEAR_PROJECTS", null, { root: true });
+  commit("CLEAR_USER");
 
   LocalStorage.remove("token");
   LocalStorage.remove("userId");

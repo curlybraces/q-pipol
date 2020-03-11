@@ -25,19 +25,16 @@ export default {
     ...mapState("auth", ["userLoaded","loggedIn"])
   },
   methods: {
-    ...mapActions("auth", ["populateUser", "logoutUser","populateUser"]),
+    ...mapActions("auth", ["populateUser", "logoutUser"]),
     ...mapActions("options", ["initializeOptions"])
   },
   mounted() {
     if (this.loggedIn) {
       this.populateUser();
+      this.initializeOptions();
     } else {
       console.log("User is not logged in");
     }
-  },
-  created() {
-    this.$q.addressbarColor.set("primary");
-    this.initializeOptions();
   }
 };
 </script>
