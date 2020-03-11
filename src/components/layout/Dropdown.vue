@@ -22,8 +22,8 @@
       <q-item clickable v-close-popup to="/account">
         <q-item-section>Account</q-item-section>
       </q-item>
-      <q-item clickable v-close-popup>
-        <q-item-section>History</q-item-section>
+      <q-item clickable v-close-popup to="/activity">
+        <q-item-section>Activity</q-item-section>
       </q-item>
       <q-item clickable v-close-popup to="/settings">
         <q-item-section>Settings</q-item-section>

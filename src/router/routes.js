@@ -78,6 +78,10 @@ const routes = [
         path: "users",
         component: () =>
           import(/* webpackChunkName: 'Users' */ "pages/Users.vue")
+      },
+      {
+        path: "activity",
+        component: () => import(/* webpackChunkName: 'Activity' */ "pages/Activity.vue")
       }
     ]
   },
