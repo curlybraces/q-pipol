@@ -44,13 +44,11 @@
 </template>
 
 <script>
+import { mapState, mapActions, mapGetters } from "vuex";
 import PageBreadcrumbs from "../components/PageBreadcrumbs";
 import User from "../components/Users/User";
 import UserSkeleton from "../components/Users/UserSkeleton";
-
 import { date } from "quasar";
-
-import { mapState, mapActions, mapGetters } from "vuex";
 
 export default {
   components: { PageBreadcrumbs, User, UserSkeleton },
@@ -78,7 +76,8 @@ export default {
       rules: {
         required: [val => (val && val.length > 0) || "Please type something"]
       },
-      page: 1
+      page: 1,
+      tab: "users"
     };
   },
   methods: {

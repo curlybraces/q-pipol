@@ -1,6 +1,6 @@
 import Vue from "vue";
 import { apolloClient } from "../boot/apollo";
-import {FETCH_ACTIVITIES} from "../constants/graphql";
+import { FETCH_ACTIVITIES } from "../constants/graphql";
 
 const state = {
   activities: {}
@@ -14,25 +14,24 @@ const mutations = {
 
 const actions = {
   fetchActivities({ commit }) {
-    apolloClient.query({
-      query: FETCH_ACTIVITIES
-    })
+    apolloClient
+      .query({
+        query: FETCH_ACTIVITIES
+      })
       .then(res => {
         res.data.me.activities.forEach(activity => {
           console.log(activity);
           const payload = {
             id: activity.id,
             activity: activity
-          }
+          };
           commit("ADD_ACTIVITY", payload);
         });
       });
   }
 };
 
-const getters = {
-
-};
+const getters = {};
 
 export default {
   namespaced: true,

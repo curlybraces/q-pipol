@@ -10,17 +10,17 @@
       />
     </q-item>
 
-<!--    <q-item>-->
-<!--      <multi-select-->
-<!--        v-model="selected_provinces"-->
-<!--        label="Province/s"-->
-<!--        :options="provinces_options"-->
-<!--        :dense="dense"-->
-<!--        :options-dense="dense"-->
-<!--        :readonly="spatial_coverage_id == '1'"-->
-<!--        @clear="selected_provinces = []"-->
-<!--      />-->
-<!--    </q-item>-->
+    <!--    <q-item>-->
+    <!--      <multi-select-->
+    <!--        v-model="selected_provinces"-->
+    <!--        label="Province/s"-->
+    <!--        :options="provinces_options"-->
+    <!--        :dense="dense"-->
+    <!--        :options-dense="dense"-->
+    <!--        :readonly="spatial_coverage_id == '1'"-->
+    <!--        @clear="selected_provinces = []"-->
+    <!--      />-->
+    <!--    </q-item>-->
 
     <q-item>
       <multi-select

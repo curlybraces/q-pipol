@@ -21,7 +21,7 @@ export function loginUser({ commit, dispatch }, payload) {
       this.$router.push({ path: "/" });
     })
     .then(() => {
-      dispatch('populateUser');
+      dispatch("populateUser");
     })
     .catch(err => {
       alert(err.message);

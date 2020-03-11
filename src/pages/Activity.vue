@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <page-breadcrumbs :breadcrumbs="breadcrumbs"/>
+    <page-breadcrumbs :breadcrumbs="breadcrumbs" />
     <div class="q-pa-sm">
       <q-card>
         <q-card-section>
@@ -8,7 +8,7 @@
             <q-toolbar-title>Activities</q-toolbar-title>
           </q-toolbar>
         </q-card-section>
-        <q-separator/>
+        <q-separator />
         <q-card-section>
           <template v-if="!Object.keys(activities).length">
             <q-item>
@@ -18,18 +18,22 @@
             </q-item>
           </template>
           <template v-else>
-            <q-item v-for="(activity,key) in activities" :key="key">
+            <q-item v-for="(activity, key) in activities" :key="key">
               <q-item-section avatar>
-                <q-avatar color="primary" class="text-white">{{activity.causer.name.charAt(0)}}</q-avatar>
+                <q-avatar color="primary" class="text-white">{{
+                  activity.causer.name.charAt(0)
+                }}</q-avatar>
               </q-item-section>
               <q-item-section>
-                <q-item-label>{{activity.causer.name}}</q-item-label>
+                <q-item-label>{{ activity.causer.name }}</q-item-label>
               </q-item-section>
               <q-item-section>
-                <q-item-label>{{activity.description}}</q-item-label>
+                <q-item-label>{{ activity.description }}</q-item-label>
               </q-item-section>
               <q-item-section>
-                <q-item-label>{{activity.subject ? activity.subject.title : null }}</q-item-label>
+                <q-item-label>{{
+                  activity.subject ? activity.subject.title : null
+                }}</q-item-label>
               </q-item-section>
             </q-item>
           </template>
@@ -44,8 +48,8 @@ import { mapState, mapActions } from "vuex";
 import PageBreadcrumbs from "../components/PageBreadcrumbs";
 
 export default {
-  name: 'PageActivity',
-  components: {PageBreadcrumbs},
+  name: "PageActivity",
+  components: { PageBreadcrumbs },
   data() {
     return {
       breadcrumbs: [
@@ -57,16 +61,16 @@ export default {
           title: "Activity"
         }
       ]
-    }
+    };
   },
   computed: {
-    ...mapState("activities",["activities"])
+    ...mapState("activities", ["activities"])
   },
   methods: {
-    ...mapActions("activities",["fetchActivities"])
+    ...mapActions("activities", ["fetchActivities"])
   },
   mounted() {
     this.fetchActivities();
   }
-}
+};
 </script>

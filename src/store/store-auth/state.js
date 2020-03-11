@@ -3,7 +3,7 @@ import { LocalStorage } from "quasar";
 export default function() {
   return {
     me: {},
-    loggedIn: LocalStorage.getItem('loggedIn') || false,
+    loggedIn: LocalStorage.getItem("loggedIn") || false,
     token: null,
     email: null,
     name: null,
@@ -15,5 +15,5 @@ export default function() {
     userLoaded: false,
     notifications: [],
     unreadNotifications: []
-  }
-};
+  };
+}

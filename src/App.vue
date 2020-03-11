@@ -22,7 +22,7 @@ export default {
   },
   name: "App",
   computed: {
-    ...mapState("auth", ["userLoaded","loggedIn"])
+    ...mapState("auth", ["userLoaded", "loggedIn"])
   },
   methods: {
     ...mapActions("auth", ["populateUser", "logoutUser"]),

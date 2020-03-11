@@ -2,11 +2,10 @@
 
 // "async" is optional
 
-
-import Vue from 'vue'
-import VueApollo from 'vue-apollo';
-import ApolloClient from 'apollo-boost'
-import {LocalStorage} from "quasar";
+import Vue from "vue";
+import VueApollo from "vue-apollo";
+import ApolloClient from "apollo-boost";
+import { LocalStorage } from "quasar";
 
 Vue.use(VueApollo);
 
@@ -16,12 +15,11 @@ const client = new ApolloClient({
   request: operation => {
     operation.setContext({
       headers: {
-        authorization: 'Bearer ' + LocalStorage.getItem("token") || null
-      },
+        authorization: "Bearer " + LocalStorage.getItem("token") || null
+      }
     });
   }
 });
-
 
 const apolloProvider = new VueApollo({
   defaultClient: client
@@ -30,4 +28,4 @@ const apolloProvider = new VueApollo({
 export default async ({ app, Vue }) => {
   Vue.use(VueApollo);
   app.apolloProvider = apolloProvider;
-}
+};
