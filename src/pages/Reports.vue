@@ -1,23 +1,24 @@
 <template>
   <q-page>
-
-    <page-breadcrumbs :breadcrumbs="breadcrumbs"/>
+    <page-breadcrumbs :breadcrumbs="breadcrumbs" />
 
     <div class="q-pa-sm">
       <q-card class="q-pa-sm">
         <pie-chart :data="chartData" />
+
+        <line-chart :data="chartData" title="Column Chart" />
       </q-card>
     </div>
-
   </q-page>
 </template>
 
 <script>
 import PieChart from "../components/amcharts/PieChart";
 import PageBreadcrumbs from "../components/PageBreadcrumbs";
+import LineChart from "../components/amcharts/LineChart";
 export default {
   name: "PageReports",
-  components: { PageBreadcrumbs, PieChart },
+  components: { LineChart, PageBreadcrumbs, PieChart },
   data() {
     return {
       breadcrumbs: [
@@ -67,7 +68,7 @@ export default {
           litres: 50
         }
       ]
-    }
+    };
   }
-}
+};
 </script>
