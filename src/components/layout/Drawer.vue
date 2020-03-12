@@ -107,7 +107,8 @@ export default {
         },
         {
           label: "Reports",
-          icon: "bubble_chart"
+          icon: "bubble_chart",
+          url: "/reports"
         },
         {
           label: "Resources",

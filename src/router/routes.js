@@ -83,6 +83,10 @@ const routes = [
         path: "activity",
         component: () =>
           import(/* webpackChunkName: 'Activity' */ "pages/Activity.vue")
+      },
+      {
+        path: "reports",
+        component: () => import(/* webpackChunkName: 'Reports' */ "pages/Reports.vue")
       }
     ]
   },

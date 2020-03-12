@@ -12,11 +12,7 @@
               </q-item-section>
               <q-separator class="gt-sm" vertical />
               <q-item-section side top>
-                <q-icon
-                  :name="link.icon"
-                  size="xl"
-                  :color="link.color"
-                ></q-icon>
+                <q-icon :name="link.icon" size="xl" :color="link.color" />
               </q-item-section>
             </q-item>
           </q-card>
