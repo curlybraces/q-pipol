@@ -1,73 +1,94 @@
 <template>
-  <q-item>
-    <q-item-section avatar>
-      <q-avatar class="text-white text-weight-bold" color="orange-10">{{
-        contact.name.charAt(0)
-      }}</q-avatar>
-    </q-item-section>
-    <q-item-section class="col-3">
-      <q-item-label
-        v-html="$options.filters.searchHighlight(contact.name, search)"
-      ></q-item-label>
-      <q-item-label>
-        {{ contact.designation }}
-      </q-item-label>
-    </q-item-section>
-    <q-item-section class="col-2">
-      <q-item-label>
-        {{ contact.email }}
-      </q-item-label>
-    </q-item-section>
-    <q-item-section class="col-2">
-      <q-item-label> Phone: {{ contact.phone_number }} </q-item-label>
-      <q-item-label> Fax: {{ contact.fax_number }} </q-item-label>
-    </q-item-section>
-    <q-item-section class="col-2">
-      <q-item-label>
-        {{ contact.operating_unit ? contact.operating_unit.name : null }}
-      </q-item-label>
-    </q-item-section>
-    <q-item-section class="col-2 text-center">
-      <q-item-label>
+  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12">
+    <q-card flat bordered square>
+      <q-item>
+        <q-item-section avatar>
+          <q-avatar class="text-white text-weight-bold" color="orange-10">
+            {{ contact.name.charAt(0) }}
+          </q-avatar>
+        </q-item-section>
+        <q-item-section>
+          <q-item-label
+            v-html="$options.filters.searchHighlight(contact.name, search)"
+          ></q-item-label>
+          <q-item-label>
+            {{ contact.designation }}
+          </q-item-label>
+        </q-item-section>
+      </q-item>
+      <q-separator/>
+      <q-item>
+        <q-item-section avatar>
+          <q-icon name="domain"/>
+        </q-item-section>
+        <q-item-section>
+          <q-item-label>
+            {{ contact.operating_unit ? contact.operating_unit.name : null }}
+          </q-item-label>
+        </q-item-section>
+      </q-item>
+      <q-item>
+        <q-item-section avatar>
+          <q-icon name="mail"/>
+        </q-item-section>
+        <q-item-section>
+          <q-item-label>
+            {{ contact.email }}
+          </q-item-label>
+        </q-item-section>
+      </q-item>
+      <q-item>
+        <q-item-section avatar>
+          <q-icon name="local_phone"/>
+        </q-item-section>
+        <q-item-section>
+          <q-item-label>
+            {{ contact.phone_number }}
+          </q-item-label>
+        </q-item-section>
+      </q-item>
+      <q-card-actions align="right">
         <q-btn
           flat
-          icon="edit"
-          @click="updateContactDialog = true"
-          dense
-          rounded
-          color="blue"
-        />
-        <q-btn
-          flat
+          label="Delete"
           icon="delete"
           @click="deleteContactDialog(contact.id)"
           dense
-          rounded
           color="red"
         />
-      </q-item-label>
-    </q-item-section>
-    <q-dialog
-      v-model="updateContactDialog"
-      persistent
-      transition-hide="fade"
-      transition-show="fade"
-    >
-      <q-card style="width:400px;">
-        <contact-header title="Edit Contact"></contact-header>
-        <contact-form :contact="contactToEdit"></contact-form>
-        <contact-actions>
-          <q-btn flat label="Cancel" @click="updateContactDialog = false" />
-          <q-btn
-            label="Save"
-            icon="save"
-            @click="updateThisContact"
-            color="primary"
-          />
-        </contact-actions>
-      </q-card>
-    </q-dialog>
-  </q-item>
+        <q-btn
+          outline
+          icon="edit"
+          label="Edit"
+          @click="updateContactDialog = true"
+          dense
+          color="blue"
+        />
+      </q-card-actions>
+
+      <q-dialog
+        v-model="updateContactDialog"
+        persistent
+        transition-hide="fade"
+        transition-show="fade"
+        maximized
+      >
+        <q-card>
+          <contact-header title="Edit Contact"></contact-header>
+          <contact-form :contact="contactToEdit"></contact-form>
+          <contact-actions>
+            <q-btn flat label="Cancel" @click="updateContactDialog = false" />
+            <q-btn
+              label="Save"
+              icon="save"
+              @click="updateThisContact"
+              color="primary"
+            />
+          </contact-actions>
+        </q-card>
+      </q-dialog>
+    </q-card>
+  </div>
 </template>
 
 <script>

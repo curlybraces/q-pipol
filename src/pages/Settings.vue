@@ -5,7 +5,7 @@
     <div class="q-pa-sm">
       <q-card square>
         <q-toolbar class="bg-primary text-white shadow-2">
-          <q-avatar flat round dense icon="settings" text-color="white"/>
+          <q-avatar flat round dense icon="settings" color="white" class="text-primary"/>
           <q-toolbar-title>Settings</q-toolbar-title>
         </q-toolbar>
         <q-list>

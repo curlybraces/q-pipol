@@ -1,57 +1,52 @@
 <template>
   <q-card square>
-    <q-card-section>
-      <q-toolbar>
-        <q-avatar icon="person" color="primary" class="text-white" />
-        <q-toolbar-title>Contacts</q-toolbar-title>
-        <q-input
-          outlined
-          dense
-          rounded
-          class="col-6"
-          placeholder="Search contacts..."
-          v-model="searchTerm"
-          @input="searchContacts"
-        >
-          <template v-slot:append>
-            <q-icon
-              name="search"
-              @click="searchContacts"
-              class="cursor-pointer"
-            ></q-icon>
-          </template>
-        </q-input>
-      </q-toolbar>
-    </q-card-section>
-    <q-separator spaced />
-    <q-card-section>
-      <q-btn
+    <q-toolbar class="bg-primary text-white shadow-2">
+      <q-avatar flat dense icon="person" color="white" class="text-primary" />
+      <q-toolbar-title>Directory</q-toolbar-title>
+      <q-input
+        dark
+        dense
         rounded
-        label="Create contact"
-        icon="add"
-        @click="$emit('addContact')"
-      />
-    </q-card-section>
+        class="col-6"
+        placeholder="Search contacts..."
+        v-model="searchTerm"
+        @input="searchContacts"
+        standout
+      >
+        <template v-slot:append>
+          <q-icon
+            name="search"
+            @click="searchContacts"
+            class="cursor-pointer"
+          ></q-icon>
+        </template>
+      </q-input>
+    </q-toolbar>
+
     <q-card-section>
       <q-inner-loading :showing="loading">
-        <q-spinner-gears size="50px" color="primary" />
+        <q-spinner-dots size="50px" color="primary" />
       </q-inner-loading>
       <div v-if="error">An error occurred. Please reload the page.</div>
       <div v-if="!loading">
         <template v-if="contactsFiltered.length > 0">
-          <q-list separator>
+          <div class="row item-start q-gutter-sm">
             <contact-item
               v-for="contact in contactsFiltered"
               :contact="contact"
               :key="contact.id"
             ></contact-item>
-          </q-list>
+          </div>
         </template>
         <template v-else>
           <q-banner>No contacts yet.</q-banner>
         </template>
       </div>
     </q-card-section>
+
+    <q-page-sticky position="bottom-right" :offset="[18, 18]">
+      <q-btn fab icon="create" color="primary" @click="$emit('addContact')" />
+    </q-page-sticky>
   </q-card>
 </template>
 

@@ -11,6 +11,7 @@
       persistent
       transition-hide="fade"
       transition-show="fade"
+      maximized
     >
       <add-contact @close="addContactDialog = false"></add-contact>
     </q-dialog>

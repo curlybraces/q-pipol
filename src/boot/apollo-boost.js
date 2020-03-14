@@ -93,7 +93,7 @@ const client = new ApolloClient({
             LocalStorage.remove('token');
             LocalStorage.remove('userId');
             LocalStorage.remove('loggedIn');
-            
+
             Router.replace('/login')
           });
         }
