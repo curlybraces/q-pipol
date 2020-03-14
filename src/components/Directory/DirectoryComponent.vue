@@ -30,7 +30,7 @@
       <div v-if="error">An error occurred. Please reload the page.</div>
       <div v-if="!loading">
         <template v-if="contactsFiltered.length > 0">
-          <div class="row item-start q-gutter-sm">
+          <div class="row item-start q-col-gutter-md">
             <contact-item
               v-for="contact in contactsFiltered"
               :contact="contact"
