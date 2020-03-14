@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: "ContactActions"
+  name: 'ContactActions'
 };
 </script>

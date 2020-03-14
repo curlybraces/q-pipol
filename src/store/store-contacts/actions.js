@@ -1,25 +1,25 @@
-import { apolloClient } from "../../boot/apollo";
+import { apolloClient } from '../../boot/apollo';
 import {
   FETCH_CONTACTS,
   CREATE_CONTACT_MUTATION,
   UPDATE_CONTACT_MUTATION,
   DELETE_CONTACT_MUTATION
-} from "../../constants/graphql";
+} from '../../constants/graphql';
 
 export function fetchContacts({ commit }) {
-  commit("SET_LOADING", true);
+  commit('SET_LOADING', true);
   apolloClient
     .query({
       query: FETCH_CONTACTS
     })
     .then(res => {
-      commit("SET_CONTACTS", res.data.contacts);
-      commit("SET_LOADING", false);
+      commit('SET_CONTACTS', res.data.contacts);
+      commit('SET_LOADING', false);
     })
     .catch(err => {
-      console.log("An error occurred: ", err);
-      commit("SET_ERROR", true);
-      commit("SET_LOADING", false);
+      console.log('An error occurred: ', err);
+      commit('SET_ERROR', true);
+      commit('SET_LOADING', false);
     });
 }
 
@@ -44,7 +44,7 @@ export function createContact({ commit }, payload) {
         },
         ...payload
       };
-      commit("ADD_CONTACT", newContact);
+      commit('ADD_CONTACT', newContact);
       return;
     });
 }
@@ -58,7 +58,7 @@ export function deleteContact({ commit }, id) {
       }
     })
     .then(() => {
-      commit("DELETE_CONTACT", id);
+      commit('DELETE_CONTACT', id);
       return;
     });
 }
@@ -82,11 +82,11 @@ export function updateContact({ commit }, payload) {
         payload: payload.id,
         contact: payload
       };
-      commit("UPDATE_CONTACT", updatedContact);
+      commit('UPDATE_CONTACT', updatedContact);
       return;
     });
 }
 
 export function setSearch({ commit }, value) {
-  commit("SET_SEARCH", value);
+  commit('SET_SEARCH', value);
 }

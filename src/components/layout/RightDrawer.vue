@@ -24,10 +24,10 @@
 </template>
 
 <script>
-import { ME_QUERY } from "../../constants/graphql";
+import { ME_QUERY } from '../../constants/graphql';
 
 export default {
-  name: "RightDrawer",
+  name: 'RightDrawer',
   data() {
     return {
       notifications: []

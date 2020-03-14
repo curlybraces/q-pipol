@@ -11,7 +11,7 @@
     behavior="menu"
     @filter="filterFn"
     :dense="dense"
-    :options-dense="optionsDense"
+    :options-dense="dense"
     outlined
     filled
     map-options
@@ -33,16 +33,14 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
-  name: "SingleSelect",
+  name: 'SingleSelect',
   props: {
     label: {
       type: String,
-      default: ""
-    },
-    dense: {
-      type: Boolean,
-      default: false
+      default: ''
     },
     optionsDense: {
       type: Boolean,
@@ -53,6 +51,9 @@ export default {
     hint: { type: String },
     rules: Array
   },
+  computed: {
+    ...mapState('settings', ['dense'])
+  },
   data() {
     return {
       model: this.value,
@@ -61,12 +62,12 @@ export default {
   },
   methods: {
     handleInput() {
-      this.$emit("input", this.model);
+      this.$emit('input', this.model);
     },
     filterFn(val, update) {
       const options = this.$props.options;
 
-      if (val === "") {
+      if (val === '') {
         update(() => {
           this.selectOptions = options;
         });

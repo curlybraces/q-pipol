@@ -123,35 +123,35 @@
 </template>
 
 <script>
-import PageBreadcrumbs from "../components/PageBreadcrumbs";
+import PageBreadcrumbs from '../components/PageBreadcrumbs';
 
-import { OPERATING_UNITS } from "../data/dropdown-values";
+import { OPERATING_UNITS } from '../data/dropdown-values';
 
-import { Loading } from "quasar";
+import { Loading } from 'quasar';
 
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
 
 export default {
   components: { PageBreadcrumbs },
-  name: "PageAccount",
+  name: 'PageAccount',
   data() {
     return {
       breadcrumbs: [
         {
-          title: "Home",
-          url: "/"
+          title: 'Home',
+          url: '/'
         },
         {
-          title: "Account"
+          title: 'Account'
         }
       ],
       OPERATING_UNITS,
       password: null,
       showPassword: false,
       rules: {
-        required: [val => (val && val.length > 0) || "Please type something"]
+        required: [val => (val && val.length > 0) || 'Please type something']
       },
       loading: false,
       isEditing: false,
@@ -162,12 +162,12 @@ export default {
     };
   },
   computed: {
-    ...mapState("auth", [
-      "email",
-      "operating_unit",
-      "position",
-      "name",
-      "contact_number"
+    ...mapState('auth', [
+      'email',
+      'operating_unit',
+      'position',
+      'name',
+      'contact_number'
     ])
   },
   methods: {
@@ -213,7 +213,7 @@ export default {
               console.log(err.message);
             });
         } else {
-          alert("Please check form inputs");
+          alert('Please check form inputs');
         }
       });
     },

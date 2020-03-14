@@ -83,33 +83,33 @@
 </template>
 
 <script>
-import { mapFields } from "vuex-map-fields";
+import { mapFields } from 'vuex-map-fields';
 
 export default {
   components: {
-    "money-input": () => import("../../components/FormInputs/MoneyInput.vue")
+    'money-input': () => import('../../components/FormInputs/MoneyInput.vue')
   },
-  name: "TargetInvestment",
+  name: 'TargetInvestment',
   computed: {
-    ...mapFields("project", [
-      "project.investment_target_2016",
-      "project.investment_target_2017",
-      "project.investment_target_2018",
-      "project.investment_target_2019",
-      "project.investment_target_2020",
-      "project.investment_target_2021",
-      "project.investment_target_2022",
-      "project.investment_target_2023",
-      "project.investment_target_total",
-      "project.infrastructure_target_2016",
-      "project.infrastructure_target_2017",
-      "project.infrastructure_target_2018",
-      "project.infrastructure_target_2019",
-      "project.infrastructure_target_2020",
-      "project.infrastructure_target_2021",
-      "project.infrastructure_target_2022",
-      "project.infrastructure_target_2023",
-      "project.infrastructure_target_total"
+    ...mapFields('project', [
+      'project.investment_target_2016',
+      'project.investment_target_2017',
+      'project.investment_target_2018',
+      'project.investment_target_2019',
+      'project.investment_target_2020',
+      'project.investment_target_2021',
+      'project.investment_target_2022',
+      'project.investment_target_2023',
+      'project.investment_target_total',
+      'project.infrastructure_target_2016',
+      'project.infrastructure_target_2017',
+      'project.infrastructure_target_2018',
+      'project.infrastructure_target_2019',
+      'project.infrastructure_target_2020',
+      'project.infrastructure_target_2021',
+      'project.infrastructure_target_2022',
+      'project.infrastructure_target_2023',
+      'project.infrastructure_target_total'
     ])
   }
 };

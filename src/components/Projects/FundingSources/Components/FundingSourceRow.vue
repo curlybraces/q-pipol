@@ -45,16 +45,16 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
 
 export default {
   components: {
-    "edit-funding-source": () => import("../Components/EditFundingSource")
+    'edit-funding-source': () => import('../Components/EditFundingSource')
   },
-  name: "FundingSourceRow",
-  props: ["funding_source", "index"],
+  name: 'FundingSourceRow',
+  props: ['funding_source', 'index'],
   computed: {
-    ...mapState("options", ["funding_sources_options"])
+    ...mapState('options', ['funding_sources_options'])
   },
   data() {
     return {

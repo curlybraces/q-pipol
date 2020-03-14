@@ -1,5 +1,5 @@
 <template>
-  <q-card>
+  <q-card square>
     <q-card-section>
       <q-toolbar>
         <q-avatar icon="person" color="primary" class="text-white" />
@@ -56,18 +56,18 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from "vuex";
-import ContactItem from "./ContactItem";
+import { mapState, mapActions, mapGetters } from 'vuex';
+import ContactItem from './ContactItem';
 
 export default {
   components: { ContactItem },
-  name: "Directory",
+  name: 'Directory',
   computed: {
-    ...mapState("contacts", ["loading", "error", "search"]),
-    ...mapGetters("contacts", ["contactsFiltered"])
+    ...mapState('contacts', ['loading', 'error', 'search']),
+    ...mapGetters('contacts', ['contactsFiltered'])
   },
   methods: {
-    ...mapActions("contacts", ["fetchContacts", "setSearch"]),
+    ...mapActions('contacts', ['fetchContacts', 'setSearch']),
     searchContacts() {
       const searchTerm = this.searchTerm;
       this.setSearch(searchTerm);
@@ -75,7 +75,7 @@ export default {
   },
   data() {
     return {
-      searchTerm: ""
+      searchTerm: ''
     };
   },
   mounted() {

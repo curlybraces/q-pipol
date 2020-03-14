@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "ContactHeader",
-  props: ["title"]
+  name: 'ContactHeader',
+  props: ['title']
 };
 </script>

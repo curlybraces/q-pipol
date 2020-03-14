@@ -44,30 +44,30 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
-import PageBreadcrumbs from "../components/PageBreadcrumbs";
+import { mapState, mapActions } from 'vuex';
+import PageBreadcrumbs from '../components/PageBreadcrumbs';
 
 export default {
-  name: "PageActivity",
+  name: 'PageActivity',
   components: { PageBreadcrumbs },
   data() {
     return {
       breadcrumbs: [
         {
-          title: "Home",
-          url: "/"
+          title: 'Home',
+          url: '/'
         },
         {
-          title: "Activity"
+          title: 'Activity'
         }
       ]
     };
   },
   computed: {
-    ...mapState("activities", ["activities"])
+    ...mapState('activities', ['activities'])
   },
   methods: {
-    ...mapActions("activities", ["fetchActivities"])
+    ...mapActions('activities', ['fetchActivities'])
   },
   mounted() {
     this.fetchActivities();

@@ -45,16 +45,16 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
 
 export default {
   components: {
-    "edit-region": () => import("./EditRegion.vue")
+    'edit-region': () => import('./EditRegion.vue')
   },
-  name: "RegionRow",
-  props: ["region", "index"],
+  name: 'RegionRow',
+  props: ['region', 'index'],
   computed: {
-    ...mapState("options", ["regions_options"])
+    ...mapState('options', ['regions_options'])
   },
   data() {
     return {

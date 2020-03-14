@@ -92,37 +92,37 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import { mapFields } from "vuex-map-fields";
+import { mapGetters } from 'vuex';
+import { mapFields } from 'vuex-map-fields';
 
 export default {
   components: {
-    "money-input": () => import("../../components/FormInputs/MoneyInput.vue")
+    'money-input': () => import('../../components/FormInputs/MoneyInput.vue')
   },
-  name: "FinancialAccomplishment",
+  name: 'FinancialAccomplishment',
   computed: {
-    ...mapFields("project", [
-      "project.nep_2017",
-      "project.nep_2018",
-      "project.nep_2019",
-      "project.nep_2020",
-      "project.nep_2021",
-      "project.nep_2022",
-      "project.nep_2023",
-      "project.gaa_2017",
-      "project.gaa_2018",
-      "project.gaa_2019",
-      "project.gaa_2020",
-      "project.gaa_2021",
-      "project.gaa_2022",
-      "project.disbursement_2017",
-      "project.disbursement_2018",
-      "project.disbursement_2019",
-      "project.disbursement_2020",
-      "project.disbursement_2021",
-      "project.disbursement_2022"
+    ...mapFields('project', [
+      'project.nep_2017',
+      'project.nep_2018',
+      'project.nep_2019',
+      'project.nep_2020',
+      'project.nep_2021',
+      'project.nep_2022',
+      'project.nep_2023',
+      'project.gaa_2017',
+      'project.gaa_2018',
+      'project.gaa_2019',
+      'project.gaa_2020',
+      'project.gaa_2021',
+      'project.gaa_2022',
+      'project.disbursement_2017',
+      'project.disbursement_2018',
+      'project.disbursement_2019',
+      'project.disbursement_2020',
+      'project.disbursement_2021',
+      'project.disbursement_2022'
     ]),
-    ...mapGetters("project", ["nep_total", "gaa_total", "disbursement_total"])
+    ...mapGetters('project', ['nep_total', 'gaa_total', 'disbursement_total'])
   },
   nepTotal: {
     get() {

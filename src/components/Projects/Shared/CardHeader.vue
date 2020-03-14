@@ -16,6 +16,6 @@
 
 <script>
 export default {
-  name: "CardHeader"
+  name: 'CardHeader'
 };
 </script>

@@ -704,27 +704,27 @@ import {
   OPERATING_UNITS,
   TECHNICAL_READINESSES,
   YEARS
-} from "../../data/dropdown-values";
+} from '../../data/dropdown-values';
 
 export default {
   components: {
-    "card-header": () => import("./Shared/CardHeader.vue"),
-    "card-actions": () => import("./Shared/CardActions.vue"),
-    "single-select": () => import("../FormInputs/SingleSelect.vue"),
-    "multi-select": () => import("../FormInputs/MultiSelect.vue"),
-    "date-input": () => import("../FormInputs/DateInput.vue"),
-    "money-input": () => import("../FormInputs/MoneyInput.vue"),
-    "number-input": () => import("../FormInputs/NumberInput.vue"),
-    "text-input": () => import("../FormInputs/TextInput.vue"),
-    "add-item": () => import("./Shared/AddItem.vue"),
-    "fund-source": () => import("./Shared/FundSourceForm.vue"),
-    "checkbox-input": () => import("../FormInputs/CheckboxInput.vue"),
-    "checkbox-item": () => import("../FormInputs/CheckboxItem.vue"),
-    "financial-accomplishment": () =>
-      import("./Shared/FinancialAccomplishment.vue")
+    'card-header': () => import('./Shared/CardHeader.vue'),
+    'card-actions': () => import('./Shared/CardActions.vue'),
+    'single-select': () => import('../FormInputs/SingleSelect.vue'),
+    'multi-select': () => import('../FormInputs/MultiSelect.vue'),
+    'date-input': () => import('../FormInputs/DateInput.vue'),
+    'money-input': () => import('../FormInputs/MoneyInput.vue'),
+    'number-input': () => import('../FormInputs/NumberInput.vue'),
+    'text-input': () => import('../FormInputs/TextInput.vue'),
+    'add-item': () => import('./Shared/AddItem.vue'),
+    'fund-source': () => import('./Shared/FundSourceForm.vue'),
+    'checkbox-input': () => import('../FormInputs/CheckboxInput.vue'),
+    'checkbox-item': () => import('../FormInputs/CheckboxItem.vue'),
+    'financial-accomplishment': () =>
+      import('./Shared/FinancialAccomplishment.vue')
   },
-  name: "AddProject",
-  props: ["project"],
+  name: 'AddProject',
+  props: ['project'],
   data() {
     return {
       expanded: true,
@@ -743,56 +743,56 @@ export default {
       addRegionDialog: false,
       fundSourceToAdd: {
         item: {
-          label: "",
-          value: ""
+          label: '',
+          value: ''
         },
-        target_2016: "",
-        target_2017: "",
-        target_2018: "",
-        target_2019: "",
-        target_2020: "",
-        target_2021: "",
-        target_2022: "",
-        target_2023: "",
-        target_total: ""
+        target_2016: '',
+        target_2017: '',
+        target_2018: '',
+        target_2019: '',
+        target_2020: '',
+        target_2021: '',
+        target_2022: '',
+        target_2023: '',
+        target_total: ''
       },
       regionToAdd: {
         item: {
-          label: "",
-          value: ""
+          label: '',
+          value: ''
         },
-        target_2016: "",
-        target_2017: "",
-        target_2018: "",
-        target_2019: "",
-        target_2020: "",
-        target_2021: "",
-        target_2022: "",
-        target_2023: "",
-        target_total: ""
+        target_2016: '',
+        target_2017: '',
+        target_2018: '',
+        target_2019: '',
+        target_2020: '',
+        target_2021: '',
+        target_2022: '',
+        target_2023: '',
+        target_total: ''
       },
       financialAccomplishment: {
-        nep_2017: "",
-        nep_2018: "",
-        nep_2019: "",
-        nep_2020: "",
-        nep_2021: "",
-        nep_2022: "",
-        nep_total: "",
-        gaa_2017: "",
-        gaa_2018: "",
-        gaa_2019: "",
-        gaa_2020: "",
-        gaa_2021: "",
-        gaa_2022: "",
-        gaa_total: "",
-        disbursement_2017: "",
-        disbursement_2018: "",
-        disbursement_2019: "",
-        disbursement_2020: "",
-        disbursement_2021: "",
-        disbursement_2022: "",
-        disbursement_total: ""
+        nep_2017: '',
+        nep_2018: '',
+        nep_2019: '',
+        nep_2020: '',
+        nep_2021: '',
+        nep_2022: '',
+        nep_total: '',
+        gaa_2017: '',
+        gaa_2018: '',
+        gaa_2019: '',
+        gaa_2020: '',
+        gaa_2021: '',
+        gaa_2022: '',
+        gaa_total: '',
+        disbursement_2017: '',
+        disbursement_2018: '',
+        disbursement_2019: '',
+        disbursement_2020: '',
+        disbursement_2021: '',
+        disbursement_2022: '',
+        disbursement_total: ''
       },
       updateFinancialAccomplishmentDialog: false,
       addFundSourceDialog: false
@@ -804,7 +804,7 @@ export default {
         return this.project;
       },
       set(projectToSubmit) {
-        this.$emit("update", projectToSubmit);
+        this.$emit('update', projectToSubmit);
       }
     }
   },

@@ -26,14 +26,14 @@
       @click="expanded = !expanded"
       v-if="options.length > 5"
     >
-      + See {{ expanded ? "Less" : "More" }}
+      + See {{ expanded ? 'Less' : 'More' }}
     </a>
   </div>
 </template>
 
 <script>
 export default {
-  name: "FilterMenu",
+  name: 'FilterMenu',
   props: {
     title: String,
     options: Array,
@@ -74,7 +74,7 @@ export default {
   },
   watch: {
     selected() {
-      this.$emit("input", this.selected);
+      this.$emit('input', this.selected);
     }
   }
 };

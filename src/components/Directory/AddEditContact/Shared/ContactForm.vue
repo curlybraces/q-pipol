@@ -14,16 +14,16 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import TextInput from "../../../FormInputs/TextInput";
-import SingleSelect from "../../../FormInputs/SingleSelect";
+import { mapState } from 'vuex';
+import TextInput from '../../../FormInputs/TextInput';
+import SingleSelect from '../../../FormInputs/SingleSelect';
 
 export default {
-  name: "ContactForm",
+  name: 'ContactForm',
   components: { SingleSelect, TextInput },
-  props: ["contact"],
+  props: ['contact'],
   computed: {
-    ...mapState("options", ["operating_units"])
+    ...mapState('options', ['operating_units'])
   }
 };
 </script>

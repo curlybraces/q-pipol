@@ -1,6 +1,6 @@
-import Vue from "vue";
-import { apolloClient } from "../boot/apollo";
-import { FETCH_ACTIVITIES } from "../constants/graphql";
+import Vue from 'vue';
+import { apolloClient } from '../boot/apollo';
+import { FETCH_ACTIVITIES } from '../constants/graphql';
 
 const state = {
   activities: {}
@@ -25,7 +25,7 @@ const actions = {
             id: activity.id,
             activity: activity
           };
-          commit("ADD_ACTIVITY", payload);
+          commit('ADD_ACTIVITY', payload);
         });
       });
   }

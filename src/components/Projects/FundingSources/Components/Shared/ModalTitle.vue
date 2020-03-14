@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: "ModalTitle",
-  props: ["title"]
+  name: 'ModalTitle',
+  props: ['title']
 };
 </script>

@@ -23,65 +23,65 @@
 </template>
 
 <script>
-import PageBreadcrumbs from "../components/PageBreadcrumbs";
+import PageBreadcrumbs from '../components/PageBreadcrumbs';
 
 export default {
   components: { PageBreadcrumbs },
-  name: "PageIndex",
+  name: 'PageIndex',
   data() {
     return {
       breadcrumbs: [
         {
-          title: "Home"
+          title: 'Home'
         }
       ],
       links: [
         {
-          label: "View Projects",
-          icon: "list",
-          url: "/pip",
-          color: "blue"
+          label: 'View Projects',
+          icon: 'list',
+          url: '/pip',
+          color: 'blue'
         },
         {
-          label: "Add Project",
-          icon: "playlist_add",
-          url: "/pip/new",
-          color: "green"
+          label: 'Add Project',
+          icon: 'playlist_add',
+          url: '/pip/new',
+          color: 'green'
         },
         {
-          label: "Deleted Projects",
-          icon: "delete",
-          url: "/trash",
-          color: "red"
+          label: 'Deleted Projects',
+          icon: 'delete',
+          url: '/trash',
+          color: 'red'
         },
         {
-          label: "Reports",
-          icon: "bubble_chart",
-          url: "/reports",
-          color: "yellow"
+          label: 'Reports',
+          icon: 'bubble_chart',
+          url: '/reports',
+          color: 'yellow'
         },
         {
-          label: "Resources",
-          icon: "folder_open",
-          url: "/resources",
-          color: "amber"
+          label: 'Resources',
+          icon: 'folder_open',
+          url: '/resources',
+          color: 'amber'
         },
         {
-          label: "Directory",
-          icon: "call",
-          url: "/directory",
-          color: "black"
+          label: 'Directory',
+          icon: 'call',
+          url: '/directory',
+          color: 'black'
         },
         {
-          label: "Account",
-          icon: "person",
-          url: "/account",
-          color: "lime"
+          label: 'Account',
+          icon: 'person',
+          url: '/account',
+          color: 'lime'
         },
         {
-          label: "Settings",
-          icon: "settings",
-          url: "/settings"
+          label: 'Settings',
+          icon: 'settings',
+          url: '/settings'
         }
       ]
     };

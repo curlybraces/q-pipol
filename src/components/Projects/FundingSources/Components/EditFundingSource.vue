@@ -18,31 +18,31 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
-import ModalTitle from "./Shared/ModalTitle";
-import ModalBody from "./Shared/ModalBody";
+import { mapMutations } from 'vuex';
+import ModalTitle from './Shared/ModalTitle';
+import ModalBody from './Shared/ModalBody';
 
 export default {
   components: {
     ModalBody,
     ModalTitle
   },
-  props: ["funding_source", "index"],
-  name: "EditFundingSource",
+  props: ['funding_source', 'index'],
+  name: 'EditFundingSource',
   data() {
     return {
       fundingSourceToEdit: {}
     };
   },
   methods: {
-    ...mapMutations("project", ["updateFundingSourceRow"]),
+    ...mapMutations('project', ['updateFundingSourceRow']),
     updateThisFundingSourceRow() {
       const payload = {
         index: this.$props.index,
         funding_source: this.fundingSourceToEdit
       };
       this.updateFundingSourceRow(payload);
-      this.$emit("close");
+      this.$emit('close');
     }
   },
   created() {

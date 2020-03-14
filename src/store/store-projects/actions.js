@@ -1,13 +1,13 @@
-import { apolloClient } from "boot/apollo";
+import { apolloClient } from 'boot/apollo';
 import {
   ALL_PROJECTS_QUERY,
   DELETE_PROJECT_MUTATION
-} from "../../constants/graphql";
-import { Notify } from "quasar";
+} from '../../constants/graphql';
+import { Notify } from 'quasar';
 
 export function fetchProjects({ commit }, payload) {
   const { first, after } = payload;
-  commit("SET_LOADING", true);
+  commit('SET_LOADING', true);
   return apolloClient
     .query({
       query: ALL_PROJECTS_QUERY,
@@ -22,10 +22,10 @@ export function fetchProjects({ commit }, payload) {
           id: edge.node.id,
           project: edge.node
         };
-        commit("ADD_PROJECT", payload);
+        commit('ADD_PROJECT', payload);
       });
-      commit("SET_PAGE_INFO", res.data.projects.pageInfo);
-      commit("SET_LOADING", false);
+      commit('SET_PAGE_INFO', res.data.projects.pageInfo);
+      commit('SET_LOADING', false);
       return;
     });
 }
@@ -40,14 +40,14 @@ export function deleteProject({ commit }, id) {
     })
     .then(data => {
       if (!data.data.deleteProject) {
-        console.log("Project was already deleted.");
+        console.log('Project was already deleted.');
       } else {
-        commit("DELETE_PROJECT", id);
-        Notify.create("Project successfully deleted.");
+        commit('DELETE_PROJECT', id);
+        Notify.create('Project successfully deleted.');
       }
     });
 }
 
 export function setSearch({ commit }, value) {
-  commit("setSearch", value);
+  commit('setSearch', value);
 }

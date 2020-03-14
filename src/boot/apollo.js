@@ -2,16 +2,16 @@
 // Pusher Integration: https://medium.com/sjk5766/laravel-graphql-subscription-vue-apollo-or-nuxt-338108ffb1cb
 // Hasura reference: https://hasura.io/learn/graphql/vue/apollo-client/
 
-import { ApolloClient } from "apollo-client";
-import { ApolloLink } from "apollo-link";
-import { HttpLink } from "apollo-link-http";
-import { InMemoryCache } from "apollo-cache-inmemory";
-import VueApollo from "vue-apollo";
-import { LocalStorage } from "quasar";
+import { ApolloClient } from 'apollo-client';
+import { ApolloLink } from 'apollo-link';
+import { HttpLink } from 'apollo-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import VueApollo from 'vue-apollo';
+import { LocalStorage } from 'quasar';
 
 const uri = process.env.DEV
-  ? "https://da-ipms.herokuapp.com/graphql"
-  : "https://da-ipms.herokuapp.com/graphql";
+  ? 'https://da-ipms.herokuapp.com/graphql'
+  : 'https://da-ipms.herokuapp.com/graphql';
 
 const httpLink = new HttpLink({
   uri: uri
@@ -23,7 +23,7 @@ const cache = new InMemoryCache({
 
 const authMiddleware = new ApolloLink((operation, forward) => {
   // add the authorization to the headers
-  const token = LocalStorage.getItem("token");
+  const token = LocalStorage.getItem('token');
   operation.setContext({
     headers: {
       authorization: token ? `Bearer ${token}` : null

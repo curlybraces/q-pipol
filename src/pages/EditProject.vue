@@ -234,63 +234,63 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-import { mapFields } from "vuex-map-fields";
+import { mapActions, mapGetters } from 'vuex';
+import { mapFields } from 'vuex-map-fields';
 import {
   IMPLEMENTATION_BASES,
   IMPLEMENTATION_MODES,
   TIERS,
   TECHNICAL_READINESSES
-} from "../data/dropdown-values";
+} from '../data/dropdown-values';
 
 export default {
   components: {
-    "single-select": () => import("../components/FormInputs/SingleSelect.vue"),
-    "date-input": () => import("../components/FormInputs/DateInput.vue"),
-    "text-input": () => import("../components/FormInputs/TextInput.vue"),
-    "page-breadcrumbs": () => import("../components/PageBreadcrumbs.vue"),
-    "stepper-navigation": () =>
-      import("../components/Projects/StepperNavigation.vue"),
-    "region-financial": () =>
-      import("../components/Projects/RegionFinancial/RegionFinancial.vue"),
-    "financial-accomplishment": () =>
-      import("../components/Projects/FinancialAccomplishment.vue"),
-    "technical-readiness": () =>
-      import("../components/Projects/TechnicalReadiness.vue"),
-    "basic-information": () =>
-      import("../components/Projects/BasicInformation.vue"),
-    "spatial-coverage": () =>
-      import("../components/Projects/SpatialCoverage.vue"),
-    "implementation-period": () =>
-      import("../components/Projects/ImplementationPeriod.vue"),
-    "financial-analysis": () =>
-      import("../components/Projects/FinancialAnalysis.vue"),
-    "programming-documents": () =>
-      import("../components/Projects/ProgrammingDocuments.vue"),
-    "additional-information": () =>
-      import("../components/Projects/AdditionalInformation.vue"),
-    "funding-sources": () =>
-      import("../components/Projects/FundingSources/FundingSources.vue"),
-    "target-investment": () =>
-      import("../components/Projects/TargetInvestment.vue")
+    'single-select': () => import('../components/FormInputs/SingleSelect.vue'),
+    'date-input': () => import('../components/FormInputs/DateInput.vue'),
+    'text-input': () => import('../components/FormInputs/TextInput.vue'),
+    'page-breadcrumbs': () => import('../components/PageBreadcrumbs.vue'),
+    'stepper-navigation': () =>
+      import('../components/Projects/StepperNavigation.vue'),
+    'region-financial': () =>
+      import('../components/Projects/RegionFinancial/RegionFinancial.vue'),
+    'financial-accomplishment': () =>
+      import('../components/Projects/FinancialAccomplishment.vue'),
+    'technical-readiness': () =>
+      import('../components/Projects/TechnicalReadiness.vue'),
+    'basic-information': () =>
+      import('../components/Projects/BasicInformation.vue'),
+    'spatial-coverage': () =>
+      import('../components/Projects/SpatialCoverage.vue'),
+    'implementation-period': () =>
+      import('../components/Projects/ImplementationPeriod.vue'),
+    'financial-analysis': () =>
+      import('../components/Projects/FinancialAnalysis.vue'),
+    'programming-documents': () =>
+      import('../components/Projects/ProgrammingDocuments.vue'),
+    'additional-information': () =>
+      import('../components/Projects/AdditionalInformation.vue'),
+    'funding-sources': () =>
+      import('../components/Projects/FundingSources/FundingSources.vue'),
+    'target-investment': () =>
+      import('../components/Projects/TargetInvestment.vue')
   },
-  name: "PageEditProject",
+  name: 'PageEditProject',
   methods: {
-    ...mapActions("project", ["updateProject", "fetchProject"])
+    ...mapActions('project', ['updateProject', 'fetchProject'])
   },
   computed: {
-    ...mapGetters("project", ["getLoading"]),
-    ...mapFields("project", [
-      "project",
-      "project.title",
-      "project.type_id",
-      "project.project_status_id",
-      "project.total_project_cost",
-      "project.tier_id",
-      "project.implementation_mode_id",
-      "project.technical_readinesses",
-      "project.updates",
-      "project.updates_date"
+    ...mapGetters('project', ['getLoading']),
+    ...mapFields('project', [
+      'project',
+      'project.title',
+      'project.type_id',
+      'project.project_status_id',
+      'project.total_project_cost',
+      'project.tier_id',
+      'project.implementation_mode_id',
+      'project.technical_readinesses',
+      'project.updates',
+      'project.updates_date'
     ]),
     programmingDocumentsDone() {
       return (
@@ -319,15 +319,15 @@ export default {
     return {
       breadcrumbs: [
         {
-          title: "Home",
-          url: "/"
+          title: 'Home',
+          url: '/'
         },
         {
-          title: "Projects",
-          url: "/pip"
+          title: 'Projects',
+          url: '/pip'
         },
         {
-          title: "Edit Project"
+          title: 'Edit Project'
         }
       ],
       IMPLEMENTATION_BASES,

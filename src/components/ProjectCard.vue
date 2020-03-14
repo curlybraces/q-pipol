@@ -66,32 +66,32 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
-import moment from "moment";
-import { Dialog } from "quasar";
+import { mapActions } from 'vuex';
+import moment from 'moment';
+import { Dialog } from 'quasar';
 
 export default {
-  name: "ProjectCard",
-  props: ["project"],
+  name: 'ProjectCard',
+  props: ['project'],
   filters: {
     date(val) {
-      const dateOnly = moment(val).format("dddd, MMM d, YYYY");
+      const dateOnly = moment(val).format('dddd, MMM d, YYYY');
       return dateOnly;
     },
     time(val) {
-      const timeOnly = moment(val).format("LT");
+      const timeOnly = moment(val).format('LT');
       return timeOnly;
     }
   },
   methods: {
-    ...mapActions("projects", ["deleteProject"]),
+    ...mapActions('projects', ['deleteProject']),
     promptDelete(id) {
       Dialog.create({
-        title: "Delete Project",
-        message: "Are you sure you want to delete this project?",
+        title: 'Delete Project',
+        message: 'Are you sure you want to delete this project?',
         cancel: true,
-        transitionHide: "fade",
-        transitionShow: "fade"
+        transitionHide: 'fade',
+        transitionShow: 'fade'
       }).onOk(() => {
         alert(id);
       });

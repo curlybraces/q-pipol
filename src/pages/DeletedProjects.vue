@@ -36,18 +36,18 @@
 <script>
 export default {
   components: {
-    "page-breadcrumbs": () => import("../components/PageBreadcrumbs.vue")
+    'page-breadcrumbs': () => import('../components/PageBreadcrumbs.vue')
   },
-  name: "PageDeletedProjects",
+  name: 'PageDeletedProjects',
   data() {
     return {
       breadcrumbs: [
         {
-          title: "Home",
-          url: "/"
+          title: 'Home',
+          url: '/'
         },
         {
-          title: "Deleted Projects"
+          title: 'Deleted Projects'
         }
       ],
       projects: [],
@@ -71,7 +71,7 @@ export default {
   },
   filters: {
     currency(value) {
-      return "PhP " + value.toLocaleString();
+      return 'PhP ' + value.toLocaleString();
     }
   }
 };

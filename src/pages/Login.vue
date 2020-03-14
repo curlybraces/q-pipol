@@ -16,9 +16,9 @@
         <q-card class="my-card">
           <div class="row q-pa-md text-weight-light text-h6">
             {{
-              tab == "login"
-                ? "Login to your account"
-                : "Sign up to create account"
+              tab == 'login'
+                ? 'Login to your account'
+                : 'Sign up to create account'
             }}
           </div>
 
@@ -92,7 +92,7 @@
                   unelevated
                   :loading="loading"
                 >
-                  {{ tab == "login" ? "Login" : "Sign up" }}
+                  {{ tab == 'login' ? 'Login' : 'Sign up' }}
                 </q-btn>
               </div>
               <div class="text-center">
@@ -132,38 +132,38 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
-import { laAtSolid } from "@quasar/extras/line-awesome";
-import { Dialog } from "quasar";
+import { mapActions } from 'vuex';
+import { laAtSolid } from '@quasar/extras/line-awesome';
+import { Dialog } from 'quasar';
 // import { LOGIN_MUTATION, REGISTER_MUTATION } from "../constants/graphql";
-import { REGISTER_MUTATION } from "../constants/graphql";
+import { REGISTER_MUTATION } from '../constants/graphql';
 
 export default {
-  name: "PageLogin",
+  name: 'PageLogin',
   data() {
     return {
       passwordVisibility: false,
-      appTitle: "IP Online System",
+      appTitle: 'IP Online System',
       name: null,
       username: null,
       password: null,
-      tab: "login",
+      tab: 'login',
       loading: false,
       error: false,
       errorMessage: null
     };
   },
   methods: {
-    ...mapActions("auth", ["populateUser", "loginUser"]),
+    ...mapActions('auth', ['populateUser', 'loginUser']),
     handleSubmit() {
       this.$refs.loginForm.validate().then(success => {
         if (success) {
           const { name, username, password } = this.$data;
 
-          this.username = "";
-          this.password = "";
+          this.username = '';
+          this.password = '';
 
-          if (this.tab == "login") {
+          if (this.tab == 'login') {
             this.loading = true;
             // this.$apollo
             //   .mutate({
@@ -206,15 +206,15 @@ export default {
               })
               .then(() => {
                 Dialog.create({
-                  title: "Success",
+                  title: 'Success',
                   message:
-                    "You have successfully registered. You will receive an email once your account has been activated. Thank you for using our app.",
-                  transitionShow: "fade",
-                  transitionHide: "fade"
+                    'You have successfully registered. You will receive an email once your account has been activated. Thank you for using our app.',
+                  transitionShow: 'fade',
+                  transitionHide: 'fade'
                 });
-                this.name = "";
-                this.username = "";
-                this.password = "";
+                this.name = '';
+                this.username = '';
+                this.password = '';
               })
               .catch(err => {
                 this.error = true;

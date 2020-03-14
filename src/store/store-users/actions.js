@@ -1,13 +1,13 @@
-import { apolloClient } from "../../boot/apollo";
+import { apolloClient } from '../../boot/apollo';
 import {
   ACTIVATE_USER,
   DEACTIVATE_USER,
   ALL_USERS,
   ASSIGN_ROLE_MUTATION
-} from "../../constants/graphql";
+} from '../../constants/graphql';
 
 export function fetchUsers({ commit }) {
-  commit("SET_LOADING", true);
+  commit('SET_LOADING', true);
   apolloClient
     .query({
       query: ALL_USERS
@@ -18,8 +18,8 @@ export function fetchUsers({ commit }) {
           id: user.id,
           user: user
         };
-        commit("ADD_USER", payload);
-        commit("SET_LOADING", false);
+        commit('ADD_USER', payload);
+        commit('SET_LOADING', false);
       });
     });
 }
@@ -33,7 +33,7 @@ export function activateUser({ commit }, payload) {
       }
     })
     .then(res => {
-      commit("ACTIVATE_USER", payload);
+      commit('ACTIVATE_USER', payload);
       return res.data;
     });
 }
@@ -47,7 +47,7 @@ export function deactivateUser({ commit }, payload) {
       }
     })
     .then(res => {
-      commit("DEACTIVATE_USER", payload);
+      commit('DEACTIVATE_USER', payload);
       return res.data;
     });
 }
@@ -66,11 +66,11 @@ export function assignRole({ commit }, payload) {
         id: payload.user_id,
         role: res.data.assignRole.user.role
       };
-      commit("ASSIGN_ROLE", newRole);
+      commit('ASSIGN_ROLE', newRole);
       return;
     });
 }
 
 export function setSearch({ commit }, payload) {
-  commit("SET_SEARCH", payload);
+  commit('SET_SEARCH', payload);
 }

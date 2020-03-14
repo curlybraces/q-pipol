@@ -18,9 +18,14 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
-  name: "TextInput",
-  props: ["label", "dense", "value", "readonly", "rules", "hint", "suffix"],
+  name: 'TextInput',
+  props: ['label', 'value', 'readonly', 'rules', 'hint', 'suffix'],
+  computed: {
+    ...mapState('settings', ['dense'])
+  },
   data() {
     return {
       model: null
@@ -33,8 +38,8 @@ export default {
 </script>
 
 <style>
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }

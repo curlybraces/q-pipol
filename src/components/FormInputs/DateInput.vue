@@ -26,16 +26,17 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 // This is a template for date inputs
 export default {
-  name: "DateInput",
+  name: 'DateInput',
   props: {
     label: String,
-    hint: String,
-    dense: {
-      type: Boolean,
-      default: false
-    }
+    hint: String
+  },
+  computed: {
+    ...mapState('settings', ['dense'])
   },
   data() {
     return {
@@ -45,7 +46,7 @@ export default {
   methods: {
     handleInput() {
       this.$refs.qDateProxy.hide();
-      this.$emit("input", this.model);
+      this.$emit('input', this.model);
     }
   }
 };

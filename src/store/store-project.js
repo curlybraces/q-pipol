@@ -1,12 +1,12 @@
 // Project Store
-import { getField, updateField } from "vuex-map-fields";
-import { apolloClient } from "boot/apollo";
+import { getField, updateField } from 'vuex-map-fields';
+import { apolloClient } from 'boot/apollo';
 import {
   CREATE_PROJECT_MUTATION,
   UPDATE_PROJECT_MUTATION,
   FETCH_PROJECT_QUERY
-} from "../constants/graphql";
-import { convertToNumber } from "../functions/function-convert-to-number";
+} from '../constants/graphql';
+import { convertToNumber } from '../functions/function-convert-to-number';
 
 const INITIAL_STATE = {
   id: null,
@@ -186,7 +186,7 @@ const mutations = {
 
 const actions = {
   createProject({ state, getters, commit }) {
-    commit("setLoading", true);
+    commit('setLoading', true);
     const { project } = state;
     apolloClient
       .mutate({
@@ -334,13 +334,13 @@ const actions = {
       })
       .then(data => {
         console.log(data);
-        commit("CLEAR_PROJECT");
+        commit('CLEAR_PROJECT');
       })
       .catch(err => {
         console.log(err.message);
       })
       .finally(() => {
-        commit("setLoading", false);
+        commit('setLoading', false);
       });
   },
   updateProject({ state, getters, commit }) {
@@ -492,17 +492,17 @@ const actions = {
       })
       .then(data => {
         console.log(data);
-        commit("clearProject", INITIAL_STATE);
+        commit('clearProject', INITIAL_STATE);
       })
       .catch(err => {
         console.log(err.message);
       })
       .finally(() => {
-        console.log("done");
+        console.log('done');
       });
   },
   fetchProject({ commit }, id) {
-    commit("setLoading", true);
+    commit('setLoading', true);
     apolloClient
       .query({
         query: FETCH_PROJECT_QUERY,
@@ -511,13 +511,13 @@ const actions = {
         }
       })
       .then(res => {
-        commit("setProject", res.data.project);
+        commit('setProject', res.data.project);
       })
       .catch(err => console.log(err))
-      .finally(() => commit("setLoading", false));
+      .finally(() => commit('setLoading', false));
   },
   clearProject({ commit }) {
-    commit("CLEAR_PROJECT");
+    commit('CLEAR_PROJECT');
   }
 };
 

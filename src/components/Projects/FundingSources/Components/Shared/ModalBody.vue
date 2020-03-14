@@ -45,25 +45,25 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import MoneyInput from "../../../../FormInputs/MoneyInput";
-import SingleSelect from "../../../../FormInputs/SingleSelect";
+import { mapState } from 'vuex';
+import MoneyInput from '../../../../FormInputs/MoneyInput';
+import SingleSelect from '../../../../FormInputs/SingleSelect';
 
 export default {
   components: {
     SingleSelect,
     MoneyInput
   },
-  name: "ModalBody",
-  props: ["value"],
+  name: 'ModalBody',
+  props: ['value'],
   computed: {
-    ...mapState("options", ["funding_sources_options"]),
+    ...mapState('options', ['funding_sources_options']),
     fundSourceToEdit: {
       get() {
         return this.value;
       },
       set(val) {
-        this.$emit("input", val);
+        this.$emit('input', val);
       }
     }
   }

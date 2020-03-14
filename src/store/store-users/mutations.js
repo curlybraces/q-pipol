@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue from 'vue';
 
 export function ADD_USER(state, payload) {
   Vue.set(state.users, payload.id, payload.user);

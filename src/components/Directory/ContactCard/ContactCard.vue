@@ -4,6 +4,6 @@
 
 <script>
 export default {
-  name: "ContactCard"
+  name: 'ContactCard'
 };
 </script>

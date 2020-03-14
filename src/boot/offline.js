@@ -1,17 +1,17 @@
 // import something here
-import { Notify } from "quasar";
+import { Notify } from 'quasar';
 
-window.addEventListener("offline", () => {
+window.addEventListener('offline', () => {
   Notify.create({
     progress: true,
-    message: "You are offline. Some features of the application may not work.",
-    color: "end",
-    avatar: "https://cdn.quasar.dev/img/boy-avatar.png",
+    message: 'You are offline. Some features of the application may not work.',
+    color: 'end',
+    avatar: 'https://cdn.quasar.dev/img/boy-avatar.png',
     timeout: 5000,
     actions: [
       {
-        label: "LEARN MORE",
-        color: "yellow",
+        label: 'LEARN MORE',
+        color: 'yellow',
         handler: () => {
           /* ... */
         }

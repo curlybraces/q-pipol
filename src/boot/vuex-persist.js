@@ -1,11 +1,11 @@
 // import something here
-import VuexPersistence from "vuex-persist";
-import localforage from "localforage";
+import VuexPersistence from 'vuex-persist';
+import localforage from 'localforage';
 
 export const vuexLocal = new VuexPersistence({
-  key: "vuex",
+  key: 'vuex',
   storage: localforage,
-  modules: ["options"],
+  modules: ['options'],
   asyncStorage: true
 });
 

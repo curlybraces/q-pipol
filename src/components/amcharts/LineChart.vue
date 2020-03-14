@@ -6,22 +6,22 @@
 </template>
 
 <script>
-import * as am4core from "@amcharts/amcharts4/core";
-import * as am4charts from "@amcharts/amcharts4/charts";
-import am4themes_animated from "@amcharts/amcharts4/themes/animated";
+import * as am4core from '@amcharts/amcharts4/core';
+import * as am4charts from '@amcharts/amcharts4/charts';
+import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 
 am4core.useTheme(am4themes_animated);
 
 export default {
-  name: "LineChart",
-  props: ["data", "chartTitle"],
+  name: 'LineChart',
+  props: ['data', 'chartTitle'],
   data() {
     return {
       chart: {},
-      xData: "",
-      yData: "",
-      xAxis: "",
-      yAxis: ""
+      xData: '',
+      yData: '',
+      xAxis: '',
+      yAxis: ''
     };
   },
   methods: {
@@ -29,10 +29,10 @@ export default {
       const config = {
         series: [
           {
-            type: "ColumnSeries",
+            type: 'ColumnSeries',
             dataFields: {
-              value: "litres",
-              category: "country"
+              value: 'litres',
+              category: 'country'
             }
           }
         ],

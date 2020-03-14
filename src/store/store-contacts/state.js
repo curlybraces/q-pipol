@@ -3,6 +3,6 @@ export default function() {
     contacts: [],
     loading: false,
     error: false,
-    search: ""
+    search: ''
   };
 }

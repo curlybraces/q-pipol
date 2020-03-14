@@ -183,12 +183,12 @@
 </template>
 
 <script>
-import { Notify } from "quasar";
-import { mapState } from "vuex";
-import { firebaseAuth, firebaseDb } from "boot/firebase";
+import { Notify } from 'quasar';
+import { mapState } from 'vuex';
+import { firebaseAuth, firebaseDb } from 'boot/firebase';
 
 export default {
-  name: "ReviewProject",
+  name: 'ReviewProject',
   props: {
     project: {
       type: Object,
@@ -211,7 +211,7 @@ export default {
     };
   },
   computed: {
-    ...mapState("settings", ["dark"]),
+    ...mapState('settings', ['dark']),
     overall() {
       let val1 = parseInt(this.rating.criteria1) || 0;
       let val2 = parseInt(this.rating.criteria2) || 0;
@@ -227,11 +227,11 @@ export default {
   },
   methods: {
     closeDialog() {
-      this.$emit("close");
+      this.$emit('close');
     },
     saveRating() {
       let userName = firebaseAuth.currentUser.displayName;
-      let ref = firebaseDb.collection("ratings").doc(this.project.id);
+      let ref = firebaseDb.collection('ratings').doc(this.project.id);
       let rating = this.rating;
       rating.projectTitle = this.project.title;
       rating.overall = this.overall;
@@ -243,7 +243,7 @@ export default {
         })
         .then(() => {
           Notify.create({
-            message: "Successfully rated project."
+            message: 'Successfully rated project.'
           });
           this.closeDialog();
         })
@@ -252,7 +252,7 @@ export default {
         });
     },
     loadRating() {
-      let ratingRef = firebaseDb.collection("ratings").doc(this.project.id);
+      let ratingRef = firebaseDb.collection('ratings').doc(this.project.id);
       ratingRef
         .get()
         .then(doc => {

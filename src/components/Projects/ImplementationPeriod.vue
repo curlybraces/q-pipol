@@ -44,22 +44,22 @@
 </template>
 
 <script>
-import { mapFields } from "vuex-map-fields";
-import { YEARS } from "../../data/dropdown-values";
+import { mapFields } from 'vuex-map-fields';
+import { YEARS } from '../../data/dropdown-values';
 
 export default {
   components: {
-    "single-select": () => import("../FormInputs/SingleSelect.vue"),
-    "date-input": () => import("../FormInputs/DateInput.vue")
+    'single-select': () => import('../FormInputs/SingleSelect.vue'),
+    'date-input': () => import('../FormInputs/DateInput.vue')
   },
-  name: "ImplementationPeriod",
-  props: ["dense"],
+  name: 'ImplementationPeriod',
+  props: ['dense'],
   computed: {
-    ...mapFields("project", [
-      "project.target_start_year",
-      "project.target_end_year",
-      "project.implementation_start_date",
-      "project.implementation_end_date"
+    ...mapFields('project', [
+      'project.target_start_year',
+      'project.target_end_year',
+      'project.implementation_start_date',
+      'project.implementation_end_date'
     ])
   },
   data() {

@@ -15,31 +15,31 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
-import ModalTitle from "./Shared/ModalTitle";
-import ModalBody from "./Shared/ModalBody";
+import { mapMutations } from 'vuex';
+import ModalTitle from './Shared/ModalTitle';
+import ModalBody from './Shared/ModalBody';
 
 export default {
   components: {
     ModalBody,
     ModalTitle
   },
-  props: ["region", "index"],
-  name: "EditRegion",
+  props: ['region', 'index'],
+  name: 'EditRegion',
   data() {
     return {
       regionToEdit: {}
     };
   },
   methods: {
-    ...mapMutations("project", ["updateRegionRow"]),
+    ...mapMutations('project', ['updateRegionRow']),
     updateThisRegionRow() {
       const payload = {
         index: this.$props.index,
         region: this.regionToEdit
       };
       this.updateRegionRow(payload);
-      this.$emit("close");
+      this.$emit('close');
     }
   },
   created() {

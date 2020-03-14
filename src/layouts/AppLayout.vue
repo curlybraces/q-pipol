@@ -1,14 +1,16 @@
 <template>
   <q-layout view="LHh lpR lff">
-    <q-header bordered class="bg-white">
-      <q-toolbar class="text-grey-9 app-toolbar">
+    <q-header bordered :class="dark ? 'bg-grey-9' : 'bg-primary'">
+      <q-toolbar :class="dark ? 'text-white' : 'text-primary'" class="app-toolbar">
         <img
           src="statics/logo.svg"
           height="35px;"
           @click="drawer = !drawer"
           class="cursor-pointer"
         />
-        <q-toolbar-title class="text-primary">{{ appTitle }}</q-toolbar-title>
+        <q-toolbar-title>
+          {{ appTitle }}
+        </q-toolbar-title>
         <q-space />
         <q-btn
           flat
@@ -29,7 +31,7 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="drawer" content-class="bg-grey-2" bordered>
+    <q-drawer v-model="drawer" :content-class="dark ? 'bg-grey-9' : 'bg-grey-2'" bordered>
       <q-toolbar class="app-toolbar">
         <img
           src="statics/logo.svg"
@@ -46,7 +48,7 @@
     <q-drawer
       v-model="rightDrawer"
       side="right"
-      content-class="bg-grey-2"
+      :content-class="dark ? 'bg-grey-9' : 'bg-grey-2'"
       bordered
     >
       <right-drawer />
@@ -68,20 +70,20 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
 
-import DrawerContent from "../components/layout/Drawer";
-import DropdownMenu from "../components/layout/Dropdown";
-import RightDrawer from "../components/layout/RightDrawer";
+import DrawerContent from '../components/layout/Drawer';
+import DropdownMenu from '../components/layout/Dropdown';
+import RightDrawer from '../components/layout/RightDrawer';
 
 export default {
   components: { DrawerContent, DropdownMenu, RightDrawer },
-  name: "AppLayout",
+  name: 'AppLayout',
   data() {
     return {
-      appTitle: "IPMS",
-      appTitleFooter: "Investment Programming & Management System",
-      copyright: "Made by Mark Lester A. Bolotaolo",
+      appTitle: 'IPMS',
+      appTitleFooter: 'Investment Programming & Management System',
+      copyright: 'Made by Mark Lester A. Bolotaolo',
       menu: false,
       miniState: false,
       drawerState: this.$q.screen.gt.lg,
@@ -89,7 +91,8 @@ export default {
     };
   },
   computed: {
-    ...mapState("auth", ["name"]),
+    ...mapState('auth', ['name']),
+    ...mapState('settings', ['dark']),
     darkMode() {
       return this.$q.dark.isActive;
     },

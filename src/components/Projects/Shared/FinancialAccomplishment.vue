@@ -155,31 +155,31 @@
 <script>
 export default {
   components: {
-    "money-input": () => import("../../FormInputs/MoneyInput.vue")
+    'money-input': () => import('../../FormInputs/MoneyInput.vue')
   },
-  name: "FinancialAccomplishment",
-  props: ["data"],
+  name: 'FinancialAccomplishment',
+  props: ['data'],
   computed: {
     nep_total: {
       get() {
         return (
           parseInt(
-            this.updatedFinancialAccomplishment.nep_2017.replace(/,/g, "")
+            this.updatedFinancialAccomplishment.nep_2017.replace(/,/g, '')
           ) +
           parseInt(
-            this.updatedFinancialAccomplishment.nep_2018.replace(/,/g, "")
+            this.updatedFinancialAccomplishment.nep_2018.replace(/,/g, '')
           ) +
           parseInt(
-            this.updatedFinancialAccomplishment.nep_2019.replace(/,/g, "")
+            this.updatedFinancialAccomplishment.nep_2019.replace(/,/g, '')
           ) +
           parseInt(
-            this.updatedFinancialAccomplishment.nep_2020.replace(/,/g, "")
+            this.updatedFinancialAccomplishment.nep_2020.replace(/,/g, '')
           ) +
           parseInt(
-            this.updatedFinancialAccomplishment.nep_2021.replace(/,/g, "")
+            this.updatedFinancialAccomplishment.nep_2021.replace(/,/g, '')
           ) +
           parseInt(
-            this.updatedFinancialAccomplishment.nep_2022.replace(/,/g, "")
+            this.updatedFinancialAccomplishment.nep_2022.replace(/,/g, '')
           )
         );
       },
@@ -192,22 +192,22 @@ export default {
       get() {
         return (
           parseInt(
-            this.updatedFinancialAccomplishment.gaa_2017.replace(/,/g, "")
+            this.updatedFinancialAccomplishment.gaa_2017.replace(/,/g, '')
           ) +
           parseInt(
-            this.updatedFinancialAccomplishment.gaa_2018.replace(/,/g, "")
+            this.updatedFinancialAccomplishment.gaa_2018.replace(/,/g, '')
           ) +
           parseInt(
-            this.updatedFinancialAccomplishment.gaa_2019.replace(/,/g, "")
+            this.updatedFinancialAccomplishment.gaa_2019.replace(/,/g, '')
           ) +
           parseInt(
-            this.updatedFinancialAccomplishment.gaa_2020.replace(/,/g, "")
+            this.updatedFinancialAccomplishment.gaa_2020.replace(/,/g, '')
           ) +
           parseInt(
-            this.updatedFinancialAccomplishment.gaa_2021.replace(/,/g, "")
+            this.updatedFinancialAccomplishment.gaa_2021.replace(/,/g, '')
           ) +
           parseInt(
-            this.updatedFinancialAccomplishment.gaa_2022.replace(/,/g, "")
+            this.updatedFinancialAccomplishment.gaa_2022.replace(/,/g, '')
           )
         );
       },
@@ -221,37 +221,37 @@ export default {
           parseInt(
             this.updatedFinancialAccomplishment.disbursement_2017.replace(
               /,/g,
-              ""
+              ''
             )
           ) +
           parseInt(
             this.updatedFinancialAccomplishment.disbursement_2018.replace(
               /,/g,
-              ""
+              ''
             )
           ) +
           parseInt(
             this.updatedFinancialAccomplishment.disbursement_2019.replace(
               /,/g,
-              ""
+              ''
             )
           ) +
           parseInt(
             this.updatedFinancialAccomplishment.disbursement_2020.replace(
               /,/g,
-              ""
+              ''
             )
           ) +
           parseInt(
             this.updatedFinancialAccomplishment.disbursement_2021.replace(
               /,/g,
-              ""
+              ''
             )
           ) +
           parseInt(
             this.updatedFinancialAccomplishment.disbursement_2022.replace(
               /,/g,
-              ""
+              ''
             )
           )
         );
@@ -268,11 +268,11 @@ export default {
   },
   methods: {
     closeDialog() {
-      this.$emit("close");
+      this.$emit('close');
     },
     saveFinancialAccomplishment() {
-      this.$emit("update:data", this.updatedFinancialAccomplishment);
-      setTimeout(() => this.$emit("close"), 500);
+      this.$emit('update:data', this.updatedFinancialAccomplishment);
+      setTimeout(() => this.$emit('close'), 500);
     }
   },
   created() {

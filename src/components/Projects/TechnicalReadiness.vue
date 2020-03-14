@@ -90,37 +90,37 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import { mapFields } from "vuex-map-fields";
-import { TECHNICAL_READINESSES } from "../../data/dropdown-values";
+import { mapState } from 'vuex';
+import { mapFields } from 'vuex-map-fields';
+import { TECHNICAL_READINESSES } from '../../data/dropdown-values';
 
 export default {
   components: {
-    "checkbox-input": () =>
-      import("../../components/FormInputs/CheckboxInput.vue"),
-    "date-input": () => import("../../components/FormInputs/DateInput.vue"),
-    "list-option-group": () =>
-      import("../../components/FormInputs/ListOptionGroup.vue"),
-    "other-costs": () => import("../../components/Projects/OtherCosts.vue")
+    'checkbox-input': () =>
+      import('../../components/FormInputs/CheckboxInput.vue'),
+    'date-input': () => import('../../components/FormInputs/DateInput.vue'),
+    'list-option-group': () =>
+      import('../../components/FormInputs/ListOptionGroup.vue'),
+    'other-costs': () => import('../../components/Projects/OtherCosts.vue')
   },
-  name: "TechnicalReadiness",
+  name: 'TechnicalReadiness',
   computed: {
-    ...mapFields("project", [
-      "project.selected_technical_readinesses",
-      "project.clearinghouse",
-      "project.clearinghouse_date",
-      "project.neda_submission",
-      "project.neda_submission_date",
-      "project.neda_secretariat_review",
-      "project.neda_secretariat_review_date",
-      "project.neda_board",
-      "project.neda_board_date",
-      "project.icc_approved",
-      "project.icc_approved_date",
-      "project.icc_endorsed",
-      "project.icc_endorsed_date"
+    ...mapFields('project', [
+      'project.selected_technical_readinesses',
+      'project.clearinghouse',
+      'project.clearinghouse_date',
+      'project.neda_submission',
+      'project.neda_submission_date',
+      'project.neda_secretariat_review',
+      'project.neda_secretariat_review_date',
+      'project.neda_board',
+      'project.neda_board_date',
+      'project.icc_approved',
+      'project.icc_approved_date',
+      'project.icc_endorsed',
+      'project.icc_endorsed_date'
     ]),
-    ...mapState("options", ["technical_readinesses_options"])
+    ...mapState('options', ['technical_readinesses_options'])
   },
   data() {
     return {

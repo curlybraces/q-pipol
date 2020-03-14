@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import PageBreadcrumbs from "../components/PageBreadcrumbs";
-import TextInput from "../components/FormInputs/TextInput";
+import PageBreadcrumbs from '../components/PageBreadcrumbs';
+import TextInput from '../components/FormInputs/TextInput';
 
 export default {
   components: { PageBreadcrumbs, TextInput },
@@ -31,15 +31,15 @@ export default {
     return {
       breadcrumbs: [
         {
-          title: "Home",
-          url: "/"
+          title: 'Home',
+          url: '/'
         },
         {
-          title: "Projects",
-          url: "/projects"
+          title: 'Projects',
+          url: '/projects'
         },
         {
-          title: "Create Project"
+          title: 'Create Project'
         }
       ]
     };

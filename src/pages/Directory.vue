@@ -18,22 +18,22 @@
 </template>
 
 <script>
-import PageBreadcrumbs from "../components/PageBreadcrumbs";
-import Directory from "../components/Directory/DirectoryComponent";
-import AddContact from "../components/Directory/AddEditContact/AddContact";
+import PageBreadcrumbs from '../components/PageBreadcrumbs';
+import Directory from '../components/Directory/DirectoryComponent';
+import AddContact from '../components/Directory/AddEditContact/AddContact';
 
 export default {
   components: { AddContact, PageBreadcrumbs, Directory },
-  name: "PageDirectory",
+  name: 'PageDirectory',
   data() {
     return {
       breadcrumbs: [
         {
-          title: "Home",
-          url: "/"
+          title: 'Home',
+          url: '/'
         },
         {
-          title: "Directory"
+          title: 'Directory'
         }
       ],
       addContactDialog: false

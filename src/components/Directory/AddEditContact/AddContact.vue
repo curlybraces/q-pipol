@@ -16,38 +16,38 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
-import ContactHeader from "./Shared/ContactHeader";
-import ContactForm from "./Shared/ContactForm";
-import ContactActions from "./Shared/ContactActions";
+import { mapActions } from 'vuex';
+import ContactHeader from './Shared/ContactHeader';
+import ContactForm from './Shared/ContactForm';
+import ContactActions from './Shared/ContactActions';
 
 export default {
-  name: "AddContact",
+  name: 'AddContact',
   components: { ContactActions, ContactForm, ContactHeader },
   data() {
     return {
       contact: {
-        name: "",
-        designation: "",
-        operating_unit_id: "",
-        email: "",
-        phone_number: "",
-        fax_number: ""
+        name: '',
+        designation: '',
+        operating_unit_id: '',
+        email: '',
+        phone_number: '',
+        fax_number: ''
       },
       loading: false
     };
   },
   methods: {
-    ...mapActions("contacts", ["createContact"]),
+    ...mapActions('contacts', ['createContact']),
     addContact() {
       this.loading = true;
-      if (this.contact.name == "") {
-        alert("Name is required.");
+      if (this.contact.name == '') {
+        alert('Name is required.');
         this.loading = false;
       } else {
         this.createContact(this.contact).then(() => {
           this.loading = false;
-          this.$emit("close");
+          this.$emit('close');
         });
       }
     }

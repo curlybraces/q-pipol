@@ -10,7 +10,7 @@
     filled
     behavior="menu"
     :dense="dense"
-    :options-dense="optionsDense"
+    :options-dense="dense"
     outlined
     multiple
     map-options
@@ -49,16 +49,14 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
-  name: "MultiSelect",
+  name: 'MultiSelect',
   props: {
     label: {
       type: String,
-      default: ""
-    },
-    dense: {
-      type: Boolean,
-      default: false
+      default: ''
     },
     optionsDense: {
       type: Boolean,
@@ -70,12 +68,13 @@ export default {
     }
   },
   computed: {
+    ...mapState('settings', ['dense']),
     model: {
       get() {
         return this.$props.value;
       },
       set(val) {
-        this.$emit("input", val);
+        this.$emit('input', val);
       }
     }
   },
@@ -88,7 +87,7 @@ export default {
     filterFn(val, update) {
       const { options } = this;
       update(() => {
-        if (val === "") {
+        if (val === '') {
           this.filterOptions = options;
         } else {
           const needle = val.toLowerCase();
@@ -105,7 +104,7 @@ export default {
     },
     clearSelected() {
       this.model = [];
-      this.$emit("clear");
+      this.$emit('clear');
     }
   },
   mounted() {

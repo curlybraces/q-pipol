@@ -71,17 +71,17 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
-import ContactForm from "./AddEditContact/Shared/ContactForm";
-import ContactActions from "./AddEditContact/Shared/ContactActions";
-import ContactHeader from "./AddEditContact/Shared/ContactHeader";
+import { mapState, mapActions } from 'vuex';
+import ContactForm from './AddEditContact/Shared/ContactForm';
+import ContactActions from './AddEditContact/Shared/ContactActions';
+import ContactHeader from './AddEditContact/Shared/ContactHeader';
 
 export default {
-  name: "ContactItem",
+  name: 'ContactItem',
   components: { ContactHeader, ContactActions, ContactForm },
-  props: ["contact"],
+  props: ['contact'],
   computed: {
-    ...mapState("contacts", ["search"])
+    ...mapState('contacts', ['search'])
   },
   data() {
     return {
@@ -90,15 +90,15 @@ export default {
     };
   },
   methods: {
-    ...mapActions("contacts", ["deleteContact", "updateContact"]),
+    ...mapActions('contacts', ['deleteContact', 'updateContact']),
     deleteContactDialog(id) {
       this.$q
         .dialog({
-          title: "Delete Contact",
-          message: "Are you sure you want to delete this contact?",
+          title: 'Delete Contact',
+          message: 'Are you sure you want to delete this contact?',
           cancel: true,
-          transitionShow: "fade",
-          transitionHide: "fade"
+          transitionShow: 'fade',
+          transitionHide: 'fade'
         })
         .onOk(() => {
           this.deleteContact(id);
@@ -112,9 +112,9 @@ export default {
   },
   filters: {
     searchHighlight(val, search) {
-      let searchRegExp = new RegExp(search, "ig");
+      let searchRegExp = new RegExp(search, 'ig');
       return val.replace(searchRegExp, match => {
-        return '<span class="bg-yellow-6">' + match + "</span>";
+        return '<span class="bg-yellow-6">' + match + '</span>';
       });
     }
   },

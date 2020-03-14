@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue from 'vue';
 
 export function SET_CONTACTS(state, value) {
   state.contacts = value;

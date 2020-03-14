@@ -14,6 +14,6 @@
 
 <script>
 export default {
-  name: "NoProject"
+  name: 'NoProject'
 };
 </script>

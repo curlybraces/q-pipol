@@ -34,22 +34,22 @@
 </template>
 
 <script>
-import { mapFields } from "vuex-map-fields";
+import { mapFields } from 'vuex-map-fields';
 
 export default {
   components: {
-    "checkbox-item": () => import("../FormInputs/CheckboxItem.vue")
+    'checkbox-item': () => import('../FormInputs/CheckboxItem.vue')
   },
-  name: "ProgrammingDocuments",
-  props: ["dense"],
+  name: 'ProgrammingDocuments',
+  props: ['dense'],
   computed: {
-    ...mapFields("project", [
-      "project.pip",
-      "project.cip",
-      "project.trip",
-      "project.rdip",
-      "project.pcip",
-      "project.afmip"
+    ...mapFields('project', [
+      'project.pip',
+      'project.cip',
+      'project.trip',
+      'project.rdip',
+      'project.pcip',
+      'project.afmip'
     ])
   }
 };

@@ -1,12 +1,12 @@
-import Dexie from "dexie";
+import Dexie from 'dexie';
 
 /**
  * Define the database
  * @type { Dexie }
  */
-var db = new Dexie("ipms");
+var db = new Dexie('ipms');
 db.version(1).stores({
-  projects: "++id,title"
+  projects: '++id,title'
 });
 
 //

@@ -8,7 +8,7 @@
             class="text-white text-uppercase"
             :color="active ? 'primary' : 'grey'"
           >
-            {{ name ? name.charAt(0) : "?" }}
+            {{ name ? name.charAt(0) : '?' }}
           </q-avatar>
         </q-item-section>
         <q-item-section>
@@ -25,7 +25,7 @@
               @click.stop="showActivateDialog(id, active)"
             >
               <q-tooltip>
-                {{ active ? "Deactivate" : "Activate" }}
+                {{ active ? 'Deactivate' : 'Activate' }}
               </q-tooltip>
             </q-btn>
             <q-btn
@@ -43,12 +43,12 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions } from 'vuex';
 
 export default {
-  name: "PageUsers",
+  name: 'PageUsers',
   computed: {
-    ...mapState("users", ["users"])
+    ...mapState('users', ['users'])
   },
   data() {
     return {
@@ -56,7 +56,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions("users", ["fetchUsers"])
+    ...mapActions('users', ['fetchUsers'])
   },
   created() {
     this.fetchUsers();

@@ -84,45 +84,45 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from "vuex";
-import { REGIONS } from "../data/dropdown-values";
+import { mapState, mapActions, mapGetters } from 'vuex';
+import { REGIONS } from '../data/dropdown-values';
 
 export default {
   components: {
-    "page-breadcrumbs": () => import("../components/PageBreadcrumbs.vue"),
-    "project-item": () => import("../components/Projects/ProjectItem.vue"),
-    "list-placeholder": () =>
-      import("../components/Projects/ListPlaceholder.vue")
+    'page-breadcrumbs': () => import('../components/PageBreadcrumbs.vue'),
+    'project-item': () => import('../components/Projects/ProjectItem.vue'),
+    'list-placeholder': () =>
+      import('../components/Projects/ListPlaceholder.vue')
   },
-  name: "PageProjects",
+  name: 'PageProjects',
   data() {
     return {
       breadcrumbs: [
         {
-          url: "/",
-          title: "Home"
+          url: '/',
+          title: 'Home'
         },
         {
-          title: "PIP"
+          title: 'PIP'
         }
       ],
       error: null,
       sortOptions: [],
-      sort: "",
+      sort: '',
       filter: false,
       REGIONS,
       first: 25
     };
   },
   computed: {
-    ...mapState("projects", [
-      "search",
-      "projectsDownloaded",
-      "loading",
-      "pageInfo",
-      "search"
+    ...mapState('projects', [
+      'search',
+      'projectsDownloaded',
+      'loading',
+      'pageInfo',
+      'search'
     ]),
-    ...mapGetters("projects", ["projects"]),
+    ...mapGetters('projects', ['projects']),
     searchField: {
       get() {
         return this.search;
@@ -133,15 +133,15 @@ export default {
     }
   },
   methods: {
-    ...mapActions("projects", ["fetchProjects", "setSearch"]),
+    ...mapActions('projects', ['fetchProjects', 'setSearch']),
     goTo(id) {
-      this.$router.push("/pip/" + id);
+      this.$router.push('/pip/' + id);
     },
     goToEdit(id) {
-      this.$router.push("/pip/" + id + "/edit");
+      this.$router.push('/pip/' + id + '/edit');
     },
     onLoad(index, done) {
-      console.log("onload is being called");
+      console.log('onload is being called');
       if (this.projects) {
         if (this.pageInfo.hasNextPage) {
           this.fetchProjects({
@@ -149,25 +149,25 @@ export default {
             after: this.pageInfo.endCursor
           }).then(() => done());
         } else {
-          console.log("this is the last page");
+          console.log('this is the last page');
         }
       } else {
-        console.log("first time loading");
+        console.log('first time loading');
       }
     }
   },
   filters: {
     currency(value) {
-      if (value === "undefined" || !value) {
-        return "PhP 0";
+      if (value === 'undefined' || !value) {
+        return 'PhP 0';
       }
-      return "PhP " + value.toLocaleString();
+      return 'PhP ' + value.toLocaleString();
     }
   },
   mounted() {
     this.fetchProjects({
       first: this.first,
-      after: ""
+      after: ''
     });
   }
 };

@@ -13,27 +13,28 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
-import CookieLaw from "vue-cookie-law";
+import { mapState, mapActions } from 'vuex';
+import CookieLaw from 'vue-cookie-law';
 
 export default {
   components: {
     CookieLaw
   },
-  name: "App",
+  name: 'App',
   computed: {
-    ...mapState("auth", ["userLoaded", "loggedIn"])
+    ...mapState('auth', ['userLoaded', 'loggedIn']),
+    ...mapState('settings',['dark'])
   },
   methods: {
-    ...mapActions("auth", ["populateUser", "logoutUser"]),
-    ...mapActions("options", ["initializeOptions"])
+    ...mapActions('auth', ['populateUser', 'logoutUser']),
+    ...mapActions('options', ['initializeOptions'])
   },
   mounted() {
     if (this.loggedIn) {
       this.populateUser();
       this.initializeOptions();
     } else {
-      console.log("User is not logged in");
+      console.log('User is not logged in');
     }
   }
 };

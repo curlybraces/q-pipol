@@ -51,24 +51,24 @@
 </template>
 
 <script>
-import { mapFields } from "vuex-map-fields";
-import { IMPLEMENTATION_BASES } from "../../data/dropdown-values";
+import { mapFields } from 'vuex-map-fields';
+import { IMPLEMENTATION_BASES } from '../../data/dropdown-values';
 
 export default {
   components: {
-    "multi-select": () => import("../FormInputs/MultiSelect.vue"),
-    "text-input": () => import("../FormInputs/TextInput.vue")
+    'multi-select': () => import('../FormInputs/MultiSelect.vue'),
+    'text-input': () => import('../FormInputs/TextInput.vue')
   },
-  name: "AdditionalInformation",
-  props: ["dense"],
+  name: 'AdditionalInformation',
+  props: ['dense'],
   computed: {
-    ...mapFields("project", [
-      "project.selected_bases",
-      "project.description",
-      "project.goals",
-      "project.outcomes",
-      "project.purpose",
-      "project.expected_outputs"
+    ...mapFields('project', [
+      'project.selected_bases',
+      'project.description',
+      'project.goals',
+      'project.outcomes',
+      'project.purpose',
+      'project.expected_outputs'
     ])
   },
   data() {

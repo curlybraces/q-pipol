@@ -44,24 +44,24 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from "vuex";
-import PageBreadcrumbs from "../components/PageBreadcrumbs";
-import User from "../components/Users/User";
-import UserSkeleton from "../components/Users/UserSkeleton";
-import { date } from "quasar";
+import { mapState, mapActions, mapGetters } from 'vuex';
+import PageBreadcrumbs from '../components/PageBreadcrumbs';
+import User from '../components/Users/User';
+import UserSkeleton from '../components/Users/UserSkeleton';
+import { date } from 'quasar';
 
 export default {
   components: { PageBreadcrumbs, User, UserSkeleton },
-  name: "PageAdmin",
+  name: 'PageAdmin',
   data() {
     return {
       breadcrumbs: [
         {
-          title: "Home",
-          url: "/"
+          title: 'Home',
+          url: '/'
         },
         {
-          title: "Admin"
+          title: 'Admin'
         }
       ],
       selectedUsers: [],
@@ -69,23 +69,23 @@ export default {
       lastPage: 1,
       total: null,
       assignRoleDialog: false,
-      name: "",
-      email: "",
-      password: "password",
+      name: '',
+      email: '',
+      password: 'password',
       selectedRoles: [],
       rules: {
-        required: [val => (val && val.length > 0) || "Please type something"]
+        required: [val => (val && val.length > 0) || 'Please type something']
       },
       page: 1,
-      tab: "users"
+      tab: 'users'
     };
   },
   methods: {
-    ...mapActions("users", ["fetchUsers", "setSearch"])
+    ...mapActions('users', ['fetchUsers', 'setSearch'])
   },
   computed: {
-    ...mapState("users", ["search", "loading"]),
-    ...mapGetters("users", ["users"]),
+    ...mapState('users', ['search', 'loading']),
+    ...mapGetters('users', ['users']),
     searchField: {
       get() {
         return this.search;
@@ -98,10 +98,10 @@ export default {
   filters: {
     memberSince(val) {
       if (!val) {
-        return "";
+        return '';
       } else {
         var today = new Date();
-        return "Member since " + date.getDateDiff(today, val, "days") + " days";
+        return 'Member since ' + date.getDateDiff(today, val, 'days') + ' days';
       }
     }
   },

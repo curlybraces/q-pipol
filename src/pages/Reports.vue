@@ -20,59 +20,59 @@
 </template>
 
 <script>
-import PieChart from "../components/amcharts/PieChart";
-import PageBreadcrumbs from "../components/PageBreadcrumbs";
-import ColumnChart from "../components/amcharts/ColumnChart";
+import PieChart from '../components/amcharts/PieChart';
+import PageBreadcrumbs from '../components/PageBreadcrumbs';
+import ColumnChart from '../components/amcharts/ColumnChart';
 
 export default {
-  name: "PageReports",
+  name: 'PageReports',
   components: { ColumnChart, PageBreadcrumbs, PieChart },
   data() {
     return {
       breadcrumbs: [
         {
-          title: "Home",
-          url: "/"
+          title: 'Home',
+          url: '/'
         },
         {
-          title: "Reports"
+          title: 'Reports'
         }
       ],
       chartData: [
         {
-          country: "Lithuania",
+          country: 'Lithuania',
           litres: 501.9
         },
         {
-          country: "Czech Republic",
+          country: 'Czech Republic',
           litres: 301.9
         },
         {
-          country: "Ireland",
+          country: 'Ireland',
           litres: 201.1
         },
         {
-          country: "Germany",
+          country: 'Germany',
           litres: 165.8
         },
         {
-          country: "Australia",
+          country: 'Australia',
           litres: 139.9
         },
         {
-          country: "Austria",
+          country: 'Austria',
           litres: 128.3
         },
         {
-          country: "UK",
+          country: 'UK',
           litres: 99
         },
         {
-          country: "Belgium",
+          country: 'Belgium',
           litres: 60
         },
         {
-          country: "The Netherlands",
+          country: 'The Netherlands',
           litres: 50
         }
       ]

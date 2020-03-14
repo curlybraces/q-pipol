@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name: "CheckboxInput",
+  name: 'CheckboxInput',
   props: {
     label: String,
     hint: String,
@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     handleInput() {
-      this.$emit("input", this.model);
+      this.$emit('input', this.model);
     }
   },
   mounted() {

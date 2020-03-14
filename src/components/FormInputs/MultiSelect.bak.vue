@@ -49,11 +49,11 @@
 
 <script>
 export default {
-  name: "MultiSelect",
+  name: 'MultiSelect',
   props: {
     label: {
       type: String,
-      default: ""
+      default: ''
     },
     dense: {
       type: Boolean,
@@ -76,12 +76,12 @@ export default {
   },
   methods: {
     handleInput() {
-      this.$emit("input", this.model);
+      this.$emit('input', this.model);
     },
     filterFn(val, update) {
       const { options } = this;
       update(() => {
-        if (val === "") {
+        if (val === '') {
           this.filterOptions = options;
         } else {
           const needle = val.toLowerCase();
@@ -99,7 +99,7 @@ export default {
     },
     clearSelected() {
       this.model = [];
-      this.$emit("clear");
+      this.$emit('clear');
     }
   }
 };

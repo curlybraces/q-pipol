@@ -77,28 +77,28 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import { mapFields } from "vuex-map-fields";
-import { TYPES, TYPOLOGIES } from "../../data/dropdown-values.js";
+import { mapState } from 'vuex';
+import { mapFields } from 'vuex-map-fields';
+import { TYPES, TYPOLOGIES } from '../../data/dropdown-values.js';
 
 export default {
   components: {
-    "money-input": () => import("../FormInputs/MoneyInput.vue"),
-    "single-select": () => import("../FormInputs/SingleSelect.vue"),
-    "text-input": () => import("../FormInputs/TextInput.vue")
+    'money-input': () => import('../FormInputs/MoneyInput.vue'),
+    'single-select': () => import('../FormInputs/SingleSelect.vue'),
+    'text-input': () => import('../FormInputs/TextInput.vue')
   },
-  name: "BasicInformation",
+  name: 'BasicInformation',
   computed: {
-    ...mapFields("project", [
-      "project.title",
-      "project.type_id",
-      "project.description",
-      "project.project_status_id",
-      "project.total_project_cost",
-      "project.operating_unit_id",
-      "project.typology_id"
+    ...mapFields('project', [
+      'project.title',
+      'project.type_id',
+      'project.description',
+      'project.project_status_id',
+      'project.total_project_cost',
+      'project.operating_unit_id',
+      'project.typology_id'
     ]),
-    ...mapState("options", ["operating_units", "project_statuses"])
+    ...mapState('options', ['operating_units', 'project_statuses'])
   },
   data() {
     return {
@@ -109,7 +109,7 @@ export default {
   },
   methods: {
     positive(val) {
-      return val.replace(/,/g, "") > 0 || "* Required";
+      return val.replace(/,/g, '') > 0 || '* Required';
     }
   }
 };

@@ -19,11 +19,11 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions } from 'vuex';
 
 export default {
-  name: "AssignRoles",
-  props: ["id", "role"],
+  name: 'AssignRoles',
+  props: ['id', 'role'],
   data() {
     return {
       model: null,
@@ -31,7 +31,7 @@ export default {
     };
   },
   computed: {
-    ...mapState("options", ["roles"]),
+    ...mapState('options', ['roles']),
     optionRoles() {
       return this.roles.map(role => {
         return { value: role.id, label: role.name };
@@ -39,7 +39,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("users", ["assignRole"]),
+    ...mapActions('users', ['assignRole']),
     saveRoles() {
       this.loading = true;
       const payload = {
@@ -49,7 +49,7 @@ export default {
 
       this.assignRole(payload).then(() => {
         this.loading = false;
-        this.$emit("close");
+        this.$emit('close');
       });
     }
   },

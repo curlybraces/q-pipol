@@ -122,50 +122,50 @@
 </template>
 
 <script>
-import { mapFields } from "vuex-map-fields";
+import { mapFields } from 'vuex-map-fields';
 
 export default {
   components: {
-    "money-input": () => import("../../components/FormInputs/MoneyInput.vue"),
-    "number-input": () => import("../../components/FormInputs/NumberInput.vue")
+    'money-input': () => import('../../components/FormInputs/MoneyInput.vue'),
+    'number-input': () => import('../../components/FormInputs/NumberInput.vue')
   },
-  name: "OtherCosts",
+  name: 'OtherCosts',
   computed: {
-    ...mapFields("project", [
-      "project.fs_target_2017",
-      "project.fs_target_2018",
-      "project.fs_target_2019",
-      "project.fs_target_2020",
-      "project.fs_target_2021",
-      "project.fs_target_2022",
-      "project.fs_target_total",
-      "project.row_target_2017",
-      "project.row_target_2018",
-      "project.row_target_2019",
-      "project.row_target_2020",
-      "project.row_target_2021",
-      "project.row_target_2022",
-      "project.row_target_total",
-      "project.row_affected_2017",
-      "project.row_affected_2018",
-      "project.row_affected_2019",
-      "project.row_affected_2020",
-      "project.row_affected_2021",
-      "project.row_affected_2022",
-      "project.rap_target_2017",
-      "project.rap_target_2018",
-      "project.rap_target_2019",
-      "project.rap_target_2020",
-      "project.rap_target_2021",
-      "project.rap_target_2022",
-      "project.rap_target_total",
-      "project.rap_affected_2017",
-      "project.rap_affected_2018",
-      "project.rap_affected_2019",
-      "project.rap_affected_2020",
-      "project.rap_affected_2021",
-      "project.rap_affected_2022",
-      "project.technical_readinesses"
+    ...mapFields('project', [
+      'project.fs_target_2017',
+      'project.fs_target_2018',
+      'project.fs_target_2019',
+      'project.fs_target_2020',
+      'project.fs_target_2021',
+      'project.fs_target_2022',
+      'project.fs_target_total',
+      'project.row_target_2017',
+      'project.row_target_2018',
+      'project.row_target_2019',
+      'project.row_target_2020',
+      'project.row_target_2021',
+      'project.row_target_2022',
+      'project.row_target_total',
+      'project.row_affected_2017',
+      'project.row_affected_2018',
+      'project.row_affected_2019',
+      'project.row_affected_2020',
+      'project.row_affected_2021',
+      'project.row_affected_2022',
+      'project.rap_target_2017',
+      'project.rap_target_2018',
+      'project.rap_target_2019',
+      'project.rap_target_2020',
+      'project.rap_target_2021',
+      'project.rap_target_2022',
+      'project.rap_target_total',
+      'project.rap_affected_2017',
+      'project.rap_affected_2018',
+      'project.rap_affected_2019',
+      'project.rap_affected_2020',
+      'project.rap_affected_2021',
+      'project.rap_affected_2022',
+      'project.technical_readinesses'
     ]),
     showIf() {
       return (

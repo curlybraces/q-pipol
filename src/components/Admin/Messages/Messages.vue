@@ -5,9 +5,9 @@
 </template>
 
 <script>
-import Message from "./Message";
+import Message from './Message';
 export default {
-  name: "Messages",
+  name: 'Messages',
   components: { Message }
 };
 </script>

@@ -31,28 +31,28 @@
 //   app.apolloProvider = apolloProvider;
 // };
 
-import { ApolloClient } from "apollo-client";
-import { InMemoryCache } from "apollo-cache-inmemory";
-import { HttpLink } from "apollo-link-http";
-import { onError } from "apollo-link-error";
-import { ApolloLink, Observable } from "apollo-link";
-import VueApollo from "vue-apollo";
-import { LocalStorage, Notify } from "quasar";
+import { ApolloClient } from 'apollo-client';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { HttpLink } from 'apollo-link-http';
+import { onError } from 'apollo-link-error';
+import { ApolloLink, Observable } from 'apollo-link';
+import VueApollo from 'vue-apollo';
+import { LocalStorage, Notify } from 'quasar';
 
 const cache = new InMemoryCache({
   cacheRedirects: {
     Query: {
       movie: (_, { id }, { getCacheKey }) =>
-        getCacheKey({ __typename: "Movie", id })
+        getCacheKey({ __typename: 'Movie', id })
     }
   }
 });
 
 const request = async operation => {
-  const token = await LocalStorage.getItem("token");
+  const token = await LocalStorage.getItem('token');
   operation.setContext({
     headers: {
-      authorization: "Bearer " + token
+      authorization: 'Bearer ' + token
     }
   });
 };
@@ -85,7 +85,7 @@ const client = new ApolloClient({
         console.log(graphQLErrors);
       }
       if (networkError) {
-        console.log("throw log out");
+        console.log('throw log out');
         Notify.create({
           title: networkError
         });
@@ -93,7 +93,7 @@ const client = new ApolloClient({
     }),
     requestLink,
     new HttpLink({
-      uri: "https://da-ipms.herokuapp.com/graphql"
+      uri: 'https://da-ipms.herokuapp.com/graphql'
     })
   ]),
   cache

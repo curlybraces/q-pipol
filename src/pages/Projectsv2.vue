@@ -30,30 +30,30 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from "vuex";
-import PageBreadcrumbs from "../components/PageBreadcrumbs";
-import ProjectCard from "../components/ProjectCard";
+import { mapState, mapActions, mapGetters } from 'vuex';
+import PageBreadcrumbs from '../components/PageBreadcrumbs';
+import ProjectCard from '../components/ProjectCard';
 
 export default {
-  name: "Projects",
+  name: 'Projects',
   components: { PageBreadcrumbs, ProjectCard },
   data() {
     return {
       breadcrumbs: [
         {
-          title: "Home",
-          url: "/"
+          title: 'Home',
+          url: '/'
         },
         {
-          title: "Projects"
+          title: 'Projects'
         }
       ],
       expanded: false
     };
   },
   computed: {
-    ...mapState("projects", ["loading", "search"]),
-    ...mapGetters("projects", ["projects"]),
+    ...mapState('projects', ['loading', 'search']),
+    ...mapGetters('projects', ['projects']),
     searchField: {
       get() {
         return this.search;
@@ -64,7 +64,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("projects", ["fetchProjects", "setSearch"])
+    ...mapActions('projects', ['fetchProjects', 'setSearch'])
   },
   mounted() {
     this.fetchProjects({

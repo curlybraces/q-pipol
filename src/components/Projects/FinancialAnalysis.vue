@@ -87,30 +87,30 @@
 </template>
 
 <script>
-import { mapFields } from "vuex-map-fields";
+import { mapFields } from 'vuex-map-fields';
 
 export default {
   components: {
-    "money-input": () => import("../FormInputs/MoneyInput.vue"),
-    "number-input": () => import("../FormInputs/NumberInput.vue"),
-    "text-input": () => import("../FormInputs/TextInput.vue")
+    'money-input': () => import('../FormInputs/MoneyInput.vue'),
+    'number-input': () => import('../FormInputs/NumberInput.vue'),
+    'text-input': () => import('../FormInputs/TextInput.vue')
   },
-  name: "FinancialAnalysis",
-  props: ["dense"],
+  name: 'FinancialAnalysis',
+  props: ['dense'],
   computed: {
-    ...mapFields("project", [
-      "project.beneficiaries",
-      "project.employment_generated",
-      "project.gad_score",
-      "project.implementation_risk",
-      "project.mitigation_strategy",
-      "project.estimated_project_life",
-      "project.financial_benefit_cost_ratio",
-      "project.financial_net_present_value",
-      "project.financial_internal_rate_return",
-      "project.economic_benefit_cost_ratio",
-      "project.economic_net_present_value",
-      "project.economic_internal_rate_return"
+    ...mapFields('project', [
+      'project.beneficiaries',
+      'project.employment_generated',
+      'project.gad_score',
+      'project.implementation_risk',
+      'project.mitigation_strategy',
+      'project.estimated_project_life',
+      'project.financial_benefit_cost_ratio',
+      'project.financial_net_present_value',
+      'project.financial_internal_rate_return',
+      'project.economic_benefit_cost_ratio',
+      'project.economic_net_present_value',
+      'project.economic_internal_rate_return'
     ])
   }
 };

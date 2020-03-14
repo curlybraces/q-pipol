@@ -10,7 +10,7 @@
 export default {
   data() {
     return {
-      tab: "login"
+      tab: 'login'
     };
   }
 };

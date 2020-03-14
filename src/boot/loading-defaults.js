@@ -1,8 +1,8 @@
-import { Loading, QSpinner } from "quasar";
+import { Loading, QSpinner } from 'quasar';
 
 Loading.setDefaults({
-  message: "Processing your request",
-  messageColor: "orange-6",
+  message: 'Processing your request',
+  messageColor: 'orange-6',
   spinner: QSpinner,
-  spinnerColor: "orange-6"
+  spinnerColor: 'orange-6'
 });

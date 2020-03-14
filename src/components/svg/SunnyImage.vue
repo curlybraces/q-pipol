@@ -428,7 +428,7 @@
 
 <script>
 export default {
-  name: "SunnyImage"
+  name: 'SunnyImage'
 };
 </script>
 

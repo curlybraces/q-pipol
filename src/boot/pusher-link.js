@@ -1,6 +1,6 @@
 // For more info: https://lighthouse-php.com/master/subscriptions/client-implementations.html#apollo
 // import Pusher from "pusher-js"; // enable pusher
-import { ApolloLink, Observable } from "apollo-link"; // enable pusher
+import { ApolloLink, Observable } from 'apollo-link'; // enable pusher
 
 class PusherLink extends ApolloLink {
   constructor(options) {
@@ -45,7 +45,7 @@ class PusherLink extends ApolloLink {
     const pusherChannel = this.pusher.subscribe(subscriptionChannel);
     // console.log("pusherChannel: ", pusherChannel);
     // Subscribe for more update
-    pusherChannel.bind("lighthouse-subscription", payload => {
+    pusherChannel.bind('lighthouse-subscription', payload => {
       // console.log("payload of lighthouse-subscription: ", payload)
       if (!payload.more) {
         // This is the end, the server says to unsubscribe

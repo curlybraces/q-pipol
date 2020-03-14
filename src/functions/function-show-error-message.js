@@ -1,11 +1,11 @@
-import { Dialog, Loading } from "quasar";
+import { Dialog, Loading } from 'quasar';
 
 export function showErrorMessage(errorMessage) {
   Loading.hide();
   Dialog.create({
-    title: "Error",
+    title: 'Error',
     message: errorMessage,
-    transitionHide: "fade",
-    transitionShow: "fade"
+    transitionHide: 'fade',
+    transitionShow: 'fade'
   });
 }

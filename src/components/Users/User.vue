@@ -15,7 +15,7 @@
     <q-item-section>
       <q-item-label>
         <q-badge>
-          {{ user.role ? user.role.name : "" }}
+          {{ user.role ? user.role.name : '' }}
         </q-badge>
       </q-item-label>
     </q-item-section>
@@ -64,21 +64,21 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions } from 'vuex';
 
 export default {
   components: {
-    "assign-roles": () => import("../Users/AssignRoles.vue")
+    'assign-roles': () => import('../Users/AssignRoles.vue')
   },
-  name: "User",
-  props: ["id", "user", "value"],
+  name: 'User',
+  props: ['id', 'user', 'value'],
   computed: {
     selected: {
       get() {
         return this.value;
       },
       set(val) {
-        this.$emit("input", val);
+        this.$emit('input', val);
       }
     },
     roleId() {
@@ -86,7 +86,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("users", ["activateUser", "deactivateUser"]),
+    ...mapActions('users', ['activateUser', 'deactivateUser']),
     toggleUserActivation() {
       const { id, active } = this.$props.user;
 
@@ -97,12 +97,12 @@ export default {
 
       this.$q
         .dialog({
-          title: active ? "Deactivate user" : "Activate user",
-          message: "You are about to toggle activation status of user #" + id,
+          title: active ? 'Deactivate user' : 'Activate user',
+          message: 'You are about to toggle activation status of user #' + id,
           persistent: true,
           cancel: true,
-          transitionShow: "fade",
-          transitionHide: "fade"
+          transitionShow: 'fade',
+          transitionHide: 'fade'
         })
         .onOk(() => {
           this.loading = true;

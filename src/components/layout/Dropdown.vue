@@ -40,23 +40,23 @@
 </template>
 
 <script>
-import { Dialog } from "quasar";
-import { mapState, mapActions } from "vuex";
+import { Dialog } from 'quasar';
+import { mapState, mapActions } from 'vuex';
 
 export default {
-  name: "DropdownMenu",
+  name: 'DropdownMenu',
   computed: {
-    ...mapState("auth", ["email", "name", "image"])
+    ...mapState('auth', ['email', 'name', 'image'])
   },
   methods: {
-    ...mapActions("auth", ["logoutUser"]),
+    ...mapActions('auth', ['logoutUser']),
     showLogout() {
       Dialog.create({
-        title: "Logout",
-        message: "Are you sure you want to log out?",
+        title: 'Logout',
+        message: 'Are you sure you want to log out?',
         cancel: true,
-        transitionShow: "fade",
-        transitionHide: "fade"
+        transitionShow: 'fade',
+        transitionHide: 'fade'
       }).onOk(() => this.logoutUser());
     }
   }

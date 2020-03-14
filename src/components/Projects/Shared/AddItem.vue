@@ -59,21 +59,21 @@
 </template>
 
 <script>
-import { REGIONS } from "../../../data/dropdown-values.js";
+import { REGIONS } from '../../../data/dropdown-values.js';
 
 export default {
-  name: "AddItem",
+  name: 'AddItem',
   components: {
-    "money-input": () => import("../../FormInputs/MoneyInput.vue")
+    'money-input': () => import('../../FormInputs/MoneyInput.vue')
   },
-  props: ["item"],
+  props: ['item'],
   computed: {
     itemToSubmit: {
       get() {
         return this.item;
       },
       set(itemToSubmit) {
-        this.$emit("update", itemToSubmit);
+        this.$emit('update', itemToSubmit);
       }
     }
   },
@@ -82,27 +82,27 @@ export default {
       REGIONS,
       initialState: {
         item: {
-          value: "",
-          label: ""
+          value: '',
+          label: ''
         },
-        target_2016: "",
-        target_2017: "",
-        target_2018: "",
-        target_2019: "",
-        target_2020: "",
-        target_2021: "",
-        target_2022: "",
-        target_2023: "",
-        target_total: ""
+        target_2016: '',
+        target_2017: '',
+        target_2018: '',
+        target_2019: '',
+        target_2020: '',
+        target_2021: '',
+        target_2022: '',
+        target_2023: '',
+        target_total: ''
       }
     };
   },
   methods: {
     addToItem() {
       if (!this.itemToSubmit.item.value) {
-        alert("ID field is required");
+        alert('ID field is required');
       } else {
-        this.$emit("add");
+        this.$emit('add');
       }
       this.itemToSubmit = Object.assign({}, this.initialState);
     }

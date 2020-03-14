@@ -9,18 +9,18 @@
 </template>
 
 <script>
-import ContactHeader from "./ContactHeader";
-import ContactForm from "./ContactForm";
-import ContactActions from "./ContactActions";
+import ContactHeader from './ContactHeader';
+import ContactForm from './ContactForm';
+import ContactActions from './ContactActions';
 
 export default {
-  name: "UpdateContact",
+  name: 'UpdateContact',
   components: {
     ContactActions,
     ContactForm,
     ContactHeader
   },
-  props: ["contact"],
+  props: ['contact'],
   data() {
     return {
       contactToEdit: {}

@@ -45,28 +45,28 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import { mapFields } from "vuex-map-fields";
+import { mapState } from 'vuex';
+import { mapFields } from 'vuex-map-fields';
 
 export default {
   components: {
-    "single-select": () => import("../FormInputs/SingleSelect.vue"),
-    "text-input": () => import("../FormInputs/TextInput.vue"),
-    "multi-select": () => import("../FormInputs/MultiSelect.vue")
+    'single-select': () => import('../FormInputs/SingleSelect.vue'),
+    'text-input': () => import('../FormInputs/TextInput.vue'),
+    'multi-select': () => import('../FormInputs/MultiSelect.vue')
   },
-  name: "SpatialCoverage",
-  props: ["dense"],
+  name: 'SpatialCoverage',
+  props: ['dense'],
   computed: {
-    ...mapFields("project", [
-      "project.spatial_coverage_id",
-      "project.selected_provinces",
-      "project.selected_districts",
-      "project.cities_municipalities"
+    ...mapFields('project', [
+      'project.spatial_coverage_id',
+      'project.selected_provinces',
+      'project.selected_districts',
+      'project.cities_municipalities'
     ]),
-    ...mapState("options", [
-      "districts_options",
-      "provinces_options",
-      "spatial_coverages"
+    ...mapState('options', [
+      'districts_options',
+      'provinces_options',
+      'spatial_coverages'
     ])
   }
 };

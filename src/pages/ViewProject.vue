@@ -26,36 +26,36 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
-import PageBreadcrumbs from "../components/PageBreadcrumbs";
+import { mapState, mapActions } from 'vuex';
+import PageBreadcrumbs from '../components/PageBreadcrumbs';
 
 export default {
   components: {
     PageBreadcrumbs
   },
-  name: "ViewProject",
+  name: 'ViewProject',
   computed: {
-    ...mapState("project", ["project", "loading"])
+    ...mapState('project', ['project', 'loading'])
   },
   data() {
     return {
       breadcrumbs: [
         {
-          title: "Home",
-          url: "/"
+          title: 'Home',
+          url: '/'
         },
         {
-          title: "Projects",
-          url: "/pip"
+          title: 'Projects',
+          url: '/pip'
         },
         {
-          title: "View Project"
+          title: 'View Project'
         }
       ]
     };
   },
   methods: {
-    ...mapActions("project", ["fetchProject"])
+    ...mapActions('project', ['fetchProject'])
   },
   created() {
     this.fetchProject(this.$route.params.id);

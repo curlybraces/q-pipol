@@ -1,15 +1,16 @@
-import Vue from "vue";
-import Vuex from "vuex";
-import { vuexLocal } from "boot/vuex-persist";
+import Vue from 'vue';
+import Vuex from 'vuex';
+import { vuexLocal } from 'boot/vuex-persist';
 // import vuexLocal from 'vuex-persistedstate'
 
-import activities from "./store-activities";
-import auth from "./store-auth";
-import contacts from "./store-contacts";
-import projects from "./store-projects";
-import project from "./store-project";
-import options from "./store-options";
-import users from "./store-users";
+import activities from './store-activities';
+import auth from './store-auth';
+import contacts from './store-contacts';
+import projects from './store-projects';
+import project from './store-project';
+import options from './store-options';
+import settings from './store-settings';
+import users from './store-users';
 
 Vue.use(Vuex);
 
@@ -27,7 +28,8 @@ export default function(/* { ssrContext } */) {
       projects,
       project,
       options,
-      users
+      users,
+      settings
     },
 
     // enable strict mode (adds overhead!)

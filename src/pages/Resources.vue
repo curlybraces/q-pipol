@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: "PageResources"
+  name: 'PageResources'
 };
 </script>

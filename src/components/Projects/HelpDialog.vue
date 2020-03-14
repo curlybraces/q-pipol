@@ -20,17 +20,17 @@
 
 <script>
 export default {
-  name: "HelpDialog",
+  name: 'HelpDialog',
   data() {
     return {
       helpItems: [
         {
-          field: "Title",
-          description: "Title of the program or project"
+          field: 'Title',
+          description: 'Title of the program or project'
         },
         {
-          field: "Type",
-          description: "Indicate whether it is a program or project"
+          field: 'Type',
+          description: 'Indicate whether it is a program or project'
         }
       ]
     };

@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: "CardActions"
+  name: 'CardActions'
 };
 </script>

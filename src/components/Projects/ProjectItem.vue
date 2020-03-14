@@ -63,60 +63,60 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
-import { Dialog, date } from "quasar";
+import { mapState, mapActions } from 'vuex';
+import { Dialog, date } from 'quasar';
 
 export default {
-  name: "ProjectItem",
+  name: 'ProjectItem',
   props: [
-    "id",
-    "title",
-    "operating_unit",
-    "total_project_cost",
-    "description",
-    "created_at",
-    "creator"
+    'id',
+    'title',
+    'operating_unit',
+    'total_project_cost',
+    'description',
+    'created_at',
+    'creator'
   ],
   computed: {
-    ...mapState("projects", ["search"])
+    ...mapState('projects', ['search'])
   },
   filters: {
     searchHighlight(value, search) {
       if (search) {
-        let searchRegExp = new RegExp(search, "ig");
+        let searchRegExp = new RegExp(search, 'ig');
         return value.replace(searchRegExp, match => {
-          return "<span class='bg-yellow-6'>" + match + "</span>";
+          return "<span class='bg-yellow-6'>" + match + '</span>';
         });
       }
       return value;
     },
     currency(value) {
-      return "PhP " + value.toLocaleString();
+      return 'PhP ' + value.toLocaleString();
     },
     dateDiff(value) {
       const today = new Date();
-      const diff = date.getDateDiff(today, value, "hours");
-      return diff + " hr ago";
+      const diff = date.getDateDiff(today, value, 'hours');
+      return diff + ' hr ago';
     }
   },
   methods: {
-    ...mapActions("projects", ["deleteProject"]),
+    ...mapActions('projects', ['deleteProject']),
     goTo() {
-      this.$emit("goTo");
+      this.$emit('goTo');
     },
     promptDelete(id) {
       Dialog.create({
-        title: "Delete Project",
-        message: "Are you sure you want to move the project to trash?",
+        title: 'Delete Project',
+        message: 'Are you sure you want to move the project to trash?',
         cancel: true,
-        transitionHide: "fade",
-        transitionShow: "fade"
+        transitionHide: 'fade',
+        transitionShow: 'fade'
       }).onOk(() => {
         this.deleteProject(id);
       });
     },
     editProject() {
-      this.$emit("editProject");
+      this.$emit('editProject');
     }
   }
 };

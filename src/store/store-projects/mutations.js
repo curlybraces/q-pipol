@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue from 'vue';
 
 export function ADD_PROJECT(state, payload) {
   Vue.set(state.projects, payload.id, payload.project);

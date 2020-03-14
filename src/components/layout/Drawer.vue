@@ -73,62 +73,62 @@
 
 <script>
 export default {
-  name: "DrawerContent",
+  name: 'DrawerContent',
   data() {
     return {
-      appTitle: "IPMS",
+      appTitle: 'IPMS',
       drawerItems: [
         {
-          label: "Home",
-          icon: "home",
-          url: "/"
+          label: 'Home',
+          icon: 'home',
+          url: '/'
         },
         {
-          label: "Projects",
-          icon: "list",
-          url: "/pip",
+          label: 'Projects',
+          icon: 'list',
+          url: '/pip',
           submenu: [
             {
-              label: "Add Project",
-              icon: "playlist_add",
-              url: "/pip/new"
+              label: 'Add Project',
+              icon: 'playlist_add',
+              url: '/pip/new'
             },
             {
-              label: "View Projects",
-              icon: "list",
-              url: "/pip"
+              label: 'View Projects',
+              icon: 'list',
+              url: '/pip'
             },
             {
-              label: "Deleted Projects",
-              icon: "delete",
-              url: "/trash"
+              label: 'Deleted Projects',
+              icon: 'delete',
+              url: '/trash'
             }
           ]
         },
         {
-          label: "Reports",
-          icon: "bubble_chart",
-          url: "/reports"
+          label: 'Reports',
+          icon: 'bubble_chart',
+          url: '/reports'
         },
         {
-          label: "Resources",
-          icon: "folder_open",
-          url: "/resources"
+          label: 'Resources',
+          icon: 'folder_open',
+          url: '/resources'
         },
         {
-          label: "Directory",
-          icon: "call",
-          url: "/directory"
+          label: 'Directory',
+          icon: 'call',
+          url: '/directory'
         },
         {
-          label: "Account",
-          icon: "person",
-          url: "/account"
+          label: 'Account',
+          icon: 'person',
+          url: '/account'
         },
         {
-          label: "Settings",
-          icon: "settings",
-          url: "/settings"
+          label: 'Settings',
+          icon: 'settings',
+          url: '/settings'
         }
       ]
     };
@@ -136,8 +136,8 @@ export default {
   computed: {
     admin() {
       return (
-        this.$store.state.auth.role == "admin" ||
-        this.$store.state.auth.role == "superadmin"
+        this.$store.state.auth.role == 'admin' ||
+        this.$store.state.auth.role == 'superadmin'
       );
     }
   },
@@ -145,17 +145,17 @@ export default {
     showHelp() {
       this.$q
         .dialog({
-          title: "Help",
-          message: "Need help? Send us a message.",
+          title: 'Help',
+          message: 'Need help? Send us a message.',
           prompt: {
-            model: "",
-            type: "text",
+            model: '',
+            type: 'text',
             isValid: val => val.length > 5
           },
           cancel: true,
           persistent: true,
-          transitionShow: "fade",
-          transitionHide: "fade"
+          transitionShow: 'fade',
+          transitionHide: 'fade'
         })
         .onOk(data => alert(data));
     }

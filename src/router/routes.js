@@ -1,121 +1,121 @@
 const routes = [
   {
-    path: "/",
-    component: () => import("layouts/AppLayout.vue"),
+    path: '/',
+    component: () => import('layouts/AppLayout.vue'),
     children: [
       {
-        path: "",
-        name: "home",
+        path: '',
+        name: 'home',
         component: () =>
-          import(/* webpackChunkName: 'Index' */ "pages/Index.vue")
+          import(/* webpackChunkName: 'Index' */ 'pages/Index.vue')
       },
       {
-        path: "admin",
-        name: "admin",
+        path: 'admin',
+        name: 'admin',
         component: () =>
-          import(/* webpackChunkName: 'Admin' */ "pages/Admin.vue")
+          import(/* webpackChunkName: 'Admin' */ 'pages/Admin.vue')
       },
       {
-        path: "programs",
-        name: "programs",
+        path: 'programs',
+        name: 'programs',
         component: () =>
-          import(/* webpackChunkName: 'Programs' */ "pages/Programs.vue")
+          import(/* webpackChunkName: 'Programs' */ 'pages/Programs.vue')
       },
       {
-        path: "directory",
-        name: "directory",
+        path: 'directory',
+        name: 'directory',
         component: () =>
-          import(/* webpackChunkName: 'Programs' */ "pages/Directory.vue")
+          import(/* webpackChunkName: 'Programs' */ 'pages/Directory.vue')
       },
       {
-        path: "pip",
-        name: "pip",
+        path: 'pip',
+        name: 'pip',
         // component: () =>
         //   import(/* webpackChunkName: 'Projects' */ "pages/Projects.vue")
         component: () =>
-          import(/* webpackChunkName: 'Projects' */ "pages/Projectsv2.vue")
+          import(/* webpackChunkName: 'Projects' */ 'pages/Projectsv2.vue')
       },
       {
-        path: "account",
+        path: 'account',
         component: () =>
-          import(/* webpackChunkName: 'Account' */ "pages/Account.vue")
+          import(/* webpackChunkName: 'Account' */ 'pages/Account.vue')
       },
       {
-        path: "resources",
+        path: 'resources',
         component: () =>
-          import(/* webpackChunkName: 'Resources' */ "pages/Resources.vue")
+          import(/* webpackChunkName: 'Resources' */ 'pages/Resources.vue')
       },
       {
-        path: "pip/new",
+        path: 'pip/new',
         component: () =>
-          import(/* webpackChunkName: 'AddProject' */ "pages/AddProject.vue")
+          import(/* webpackChunkName: 'AddProject' */ 'pages/AddProject.vue')
       },
       {
-        path: "pip/:id/edit",
-        name: "EditProject",
+        path: 'pip/:id/edit',
+        name: 'EditProject',
         component: () =>
           import(
-            /* webpackChunkName: 'UpdateProject' */ "pages/EditProject.vue"
+            /* webpackChunkName: 'UpdateProject' */ 'pages/EditProject.vue'
           )
       },
       {
-        path: "pip/:id",
-        name: "pipDetails",
+        path: 'pip/:id',
+        name: 'pipDetails',
         component: () =>
-          import(/* webpackChunkName: 'ViewProject' */ "pages/ViewProject.vue")
+          import(/* webpackChunkName: 'ViewProject' */ 'pages/ViewProject.vue')
       },
       {
-        path: "trash",
+        path: 'trash',
         component: () =>
           import(
-            /* webpackChunkName: 'DeletedProjects' */ "pages/DeletedProjects.vue"
+            /* webpackChunkName: 'DeletedProjects' */ 'pages/DeletedProjects.vue'
           )
       },
       {
-        path: "settings",
+        path: 'settings',
         component: () =>
-          import(/* webpackChunkName: 'Settings' */ "pages/Settings.vue")
+          import(/* webpackChunkName: 'Settings' */ 'pages/Settings.vue')
       },
       {
-        path: "users",
+        path: 'users',
         component: () =>
-          import(/* webpackChunkName: 'Users' */ "pages/Users.vue")
+          import(/* webpackChunkName: 'Users' */ 'pages/Users.vue')
       },
       {
-        path: "activity",
+        path: 'activity',
         component: () =>
-          import(/* webpackChunkName: 'Activity' */ "pages/Activity.vue")
+          import(/* webpackChunkName: 'Activity' */ 'pages/Activity.vue')
       },
       {
-        path: "reports",
+        path: 'reports',
         component: () =>
-          import(/* webpackChunkName: 'Reports' */ "pages/Reports.vue")
+          import(/* webpackChunkName: 'Reports' */ 'pages/Reports.vue')
       }
     ]
   },
   {
-    path: "/login",
-    component: () => import("layouts/AuthLayout.vue"),
+    path: '/login',
+    component: () => import('layouts/AuthLayout.vue'),
     children: [
       {
-        path: "",
+        path: '',
         component: () =>
-          import(/* webpackChunkName: 'Login' */ "pages/Login.vue")
+          import(/* webpackChunkName: 'Login' */ 'pages/Login.vue')
       }
     ]
   },
   {
-    path: "/error",
-    name: "error",
-    component: () => import("pages/Error404.vue")
+    path: '/error',
+    name: 'error',
+    component: () => import('pages/Error404.vue')
   }
 ];
 
 // Always leave this as last one
-if (process.env.MODE !== "ssr") {
+if (process.env.MODE !== 'ssr') {
   routes.push({
-    path: "*",
-    component: () => import("pages/Error404.vue")
+    path: '*',
+    component: () => import('pages/Error404.vue')
   });
 }
 

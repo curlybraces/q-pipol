@@ -21,29 +21,29 @@
 </template>
 
 <script>
-import MoneyInput from "../../../../FormInputs/MoneyInput";
-import SingleSelect from "../../../../FormInputs/SingleSelect";
-import { REGIONS } from "../../../../../data/dropdown-values";
+import MoneyInput from '../../../../FormInputs/MoneyInput';
+import SingleSelect from '../../../../FormInputs/SingleSelect';
+import { REGIONS } from '../../../../../data/dropdown-values';
 
 export default {
   components: {
     SingleSelect,
     MoneyInput
   },
-  name: "ModalBody",
+  name: 'ModalBody',
   data() {
     return {
       REGIONS
     };
   },
-  props: ["value"],
+  props: ['value'],
   computed: {
     regionToEdit: {
       get() {
         return this.value;
       },
       set(val) {
-        this.$emit("input", val);
+        this.$emit('input', val);
       }
     }
   }

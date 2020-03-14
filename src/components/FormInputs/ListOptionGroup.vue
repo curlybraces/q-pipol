@@ -6,6 +6,7 @@
       :key="index"
       v-ripple
       clickable
+      :dense="dense"
     >
       <q-item-section avatar>
         <q-checkbox color="orange-10" v-model="model" :val="option.id" />
@@ -20,16 +21,19 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
-  name: "ListOptionGroup",
-  props: ["options", "value"],
+  name: 'ListOptionGroup',
+  props: ['options', 'value'],
   computed: {
+    ...mapState('settings', ['dense']),
     model: {
       get() {
         return this.$props.value;
       },
       set(val) {
-        this.$emit("input", val);
+        this.$emit('input', val);
       }
     }
   }

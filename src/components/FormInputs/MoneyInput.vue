@@ -18,18 +18,22 @@
 </template>
 
 <script>
-import { VMoney } from "v-money";
+import { mapState } from 'vuex';
+import { VMoney } from 'v-money';
 
 export default {
-  name: "MoneyInput",
-  props: ["label", "value", "dense", "prefix", "readonly", "rules"],
+  name: 'MoneyInput',
+  props: ['label', 'value', 'prefix', 'readonly', 'rules'],
+  computed: {
+    ...mapState('settings', ['dense'])
+  },
   data() {
     return {
       money: {
-        decimal: ".",
-        thousands: ",",
-        prefix: "",
-        suffix: "",
+        decimal: '.',
+        thousands: ',',
+        prefix: '',
+        suffix: '',
         precision: 0,
         masked: false /* doesn't work with directive */
       }

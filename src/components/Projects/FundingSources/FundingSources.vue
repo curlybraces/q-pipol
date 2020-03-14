@@ -57,46 +57,46 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
-import { mapFields } from "vuex-map-fields";
-import { Dialog } from "quasar";
+import { mapMutations } from 'vuex';
+import { mapFields } from 'vuex-map-fields';
+import { Dialog } from 'quasar';
 
 export default {
   components: {
-    "funding-source-row": () => import("./Components/FundingSourceRow"),
-    "add-funding-source": () => import("./Components/AddFundingSource.vue")
+    'funding-source-row': () => import('./Components/FundingSourceRow'),
+    'add-funding-source': () => import('./Components/AddFundingSource.vue')
   },
-  name: "FundingSources",
+  name: 'FundingSources',
   computed: {
-    ...mapFields("project", ["project.funding_sources"])
+    ...mapFields('project', ['project.funding_sources'])
   },
   data() {
     return {
       showAddFundingSourceDialog: false,
       newFundingSource: {
-        id: "",
-        target_2016: "",
-        target_2017: "",
-        target_2018: "",
-        target_2019: "",
-        target_2020: "",
-        target_2021: "",
-        target_2022: "",
-        target_2023: "",
-        target_total: ""
+        id: '',
+        target_2016: '',
+        target_2017: '',
+        target_2018: '',
+        target_2019: '',
+        target_2020: '',
+        target_2021: '',
+        target_2022: '',
+        target_2023: '',
+        target_total: ''
       }
     };
   },
   methods: {
-    ...mapMutations("project", [
-      "addFundingSourceRow",
-      "deleteFundingSourceRow",
-      "updateFundingSourceRow"
+    ...mapMutations('project', [
+      'addFundingSourceRow',
+      'deleteFundingSourceRow',
+      'updateFundingSourceRow'
     ]),
     deleteThis(index) {
       Dialog.create({
-        title: "Delete",
-        message: "Are you sure you want to delete this row?",
+        title: 'Delete',
+        message: 'Are you sure you want to delete this row?',
         cancel: true
       }).onOk(() => this.deleteFundingSourceRow(index));
     },

@@ -16,12 +16,12 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions } from 'vuex';
 
 export default {
-  name: "SearchComponent",
+  name: 'SearchComponent',
   computed: {
-    ...mapState("projects", ["search"]),
+    ...mapState('projects', ['search']),
     searchField: {
       get() {
         return this.search;
@@ -32,7 +32,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("projects", ["setSearch"])
+    ...mapActions('projects', ['setSearch'])
   }
 };
 </script>

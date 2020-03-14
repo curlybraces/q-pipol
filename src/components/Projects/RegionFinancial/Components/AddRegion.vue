@@ -15,41 +15,41 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
-import ModalTitle from "./Shared/ModalTitle";
-import ModalBody from "./Shared/ModalBody";
+import { mapMutations } from 'vuex';
+import ModalTitle from './Shared/ModalTitle';
+import ModalBody from './Shared/ModalBody';
 
 export default {
   components: {
     ModalBody,
     ModalTitle
   },
-  name: "AddRegion",
+  name: 'AddRegion',
   data() {
     return {
       regionToAdd: {
         id: null,
-        target_2016: "",
-        target_2017: "",
-        target_2018: "",
-        target_2019: "",
-        target_2020: "",
-        target_2021: "",
-        target_2022: "",
-        target_2023: "",
-        target_total: ""
+        target_2016: '',
+        target_2017: '',
+        target_2018: '',
+        target_2019: '',
+        target_2020: '',
+        target_2021: '',
+        target_2022: '',
+        target_2023: '',
+        target_total: ''
       }
     };
   },
   methods: {
-    ...mapMutations("project", ["addRegionRow"]),
+    ...mapMutations('project', ['addRegionRow']),
     addToRegionRow() {
       if (!this.regionToAdd.id) {
-        alert("Please select a region.");
+        alert('Please select a region.');
       } else {
         this.addRegionRow(this.regionToAdd);
         this.regionToAdd = {};
-        this.$emit("close");
+        this.$emit('close');
       }
     }
   }

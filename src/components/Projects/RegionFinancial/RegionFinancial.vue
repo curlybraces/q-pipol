@@ -50,19 +50,19 @@
 </template>
 
 <script>
-import { Dialog } from "quasar";
-import { mapMutations } from "vuex";
-import { mapFields } from "vuex-map-fields";
+import { Dialog } from 'quasar';
+import { mapMutations } from 'vuex';
+import { mapFields } from 'vuex-map-fields';
 
 export default {
-  name: "RegionInformation",
+  name: 'RegionInformation',
   components: {
     // "regional-form": () => import("../Shared/RegionalForm.vue"),
-    "region-row": () => import("./Components/RegionRow.vue"),
-    "add-region": () => import("./Components/AddRegion.vue")
+    'region-row': () => import('./Components/RegionRow.vue'),
+    'add-region': () => import('./Components/AddRegion.vue')
   },
   computed: {
-    ...mapFields("project", ["project.regions"])
+    ...mapFields('project', ['project.regions'])
   },
   data() {
     return {
@@ -70,11 +70,11 @@ export default {
     };
   },
   methods: {
-    ...mapMutations("project", ["deleteRegion"]),
+    ...mapMutations('project', ['deleteRegion']),
     deleteThis(index) {
       Dialog.create({
-        title: "Delete",
-        message: "Are you sure you want to delete this item?",
+        title: 'Delete',
+        message: 'Are you sure you want to delete this item?',
         cancel: true
       }).onOk(() => this.deleteRegion(index));
     }
