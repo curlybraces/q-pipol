@@ -23,17 +23,31 @@
             </template>
           </q-input>
         </q-toolbar>
+        <q-card-section v-if="loading">
+          <q-inner-loading :showing="loading">
+            <q-spinner-dots size="50px" color="primary" />
+          </q-inner-loading>
+        </q-card-section>
         <div class="q-pa-sm row item-start q-col-gutter-sm">
-          <div v-if="loading">Loading projects...</div>
-
-          <project-card
-            v-for="(project, key) in projects"
-            :key="key"
-            :project="project"
-          />
+          <template v-if="Object.keys(projects).length > 0">
+            <project-card
+              v-for="(project, key) in projects"
+              :key="key"
+              :project="project"
+            />
+          </template>
+          <q-item-section v-else>
+            <q-banner>
+              No project yet.
+            </q-banner>
+          </q-item-section>
         </div>
       </q-card>
     </div>
+
+    <q-page-sticky position="bottom-right" :offset="[18, 18]">
+      <q-btn fab icon="create" color="primary" to="/pip/new" />
+    </q-page-sticky>
 
   </q-page>
 </template>
