@@ -5,7 +5,7 @@
     <div class="q-pa-sm">
       <q-card square>
         <q-toolbar class="bg-primary text-white">
-          <q-avatar icon="list" color="white" class="text-primary"/>
+          <q-avatar icon="list" color="white" class="text-primary" />
           <q-toolbar-title>
             Projects
           </q-toolbar-title>
@@ -48,7 +48,6 @@
     <q-page-sticky position="bottom-right" :offset="[18, 18]">
       <q-btn fab icon="create" color="primary" to="/pip/new" />
     </q-page-sticky>
-
   </q-page>
 </template>
 

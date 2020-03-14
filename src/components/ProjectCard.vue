@@ -2,7 +2,7 @@
   <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12 flex">
     <q-card class="fit" flat bordered square>
       <q-item>
-        <q-space/>
+        <q-space />
         <q-item-section side class="text-orange-9 text-weight-bolder text-h6">
           PhP {{ project.total_project_cost.toLocaleString(2) }}
         </q-item-section>
@@ -13,7 +13,10 @@
           <q-item-label overline>
             {{ project.operating_unit.name }}
           </q-item-label>
-          <q-item-label class="text-subtitle1" v-html="$options.filters.searchHighlight(project.title, search)" />
+          <q-item-label
+            class="text-subtitle1"
+            v-html="$options.filters.searchHighlight(project.title, search)"
+          />
         </q-item-section>
       </q-item>
 
@@ -76,7 +79,7 @@ export default {
   name: 'ProjectCard',
   props: ['project'],
   computed: {
-    ...mapState("projects",["search"])
+    ...mapState('projects', ['search'])
   },
   filters: {
     searchHighlight(value, search) {
