@@ -8,8 +8,13 @@
       <q-card square>
         <q-card-section>
           <q-toolbar>
-            <q-toolbar-title>{{ project.title }}</q-toolbar-title>
+            <q-toolbar-title>Project Profile</q-toolbar-title>
           </q-toolbar>
+        </q-card-section>
+        <q-separator />
+        <q-card-section>
+          <div class="text-h6">{{ project.title }}</div>
+          <div class="text-subtitle2">{{ project.operating_unit.name }}</div>
         </q-card-section>
 
         <pre>

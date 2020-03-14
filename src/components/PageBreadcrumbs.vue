@@ -1,6 +1,6 @@
 <template>
-  <q-card square class="row q-pa-md bg-white text-uppercase" elevated>
-    <q-breadcrumbs>
+  <q-toolbar inset class="bg-white">
+    <q-breadcrumbs gutter="sm">
       <q-breadcrumbs-el
         v-for="({ title, url }, index) in breadcrumbs"
         :key="index"
@@ -9,7 +9,7 @@
         {{ title }}
       </q-breadcrumbs-el>
     </q-breadcrumbs>
-  </q-card>
+  </q-toolbar>
 </template>
 
 <script>

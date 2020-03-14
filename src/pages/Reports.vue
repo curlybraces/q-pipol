@@ -2,11 +2,18 @@
   <q-page>
     <page-breadcrumbs :breadcrumbs="breadcrumbs" />
 
-    <div class="q-pa-sm">
+    <div class="q-pa-sm q-gutter-y-md">
       <q-card class="q-pa-sm">
         <pie-chart :data="chartData" />
-
-        <line-chart :data="chartData" title="Column Chart" />
+      </q-card>
+      <q-card class="q-pa-sm">
+        <column-chart
+          :data="chartData"
+          category="country"
+          value="litres"
+          categoryTitle="Liters sold (M)"
+          seriesName="Sales"
+        />
       </q-card>
     </div>
   </q-page>
@@ -15,10 +22,11 @@
 <script>
 import PieChart from "../components/amcharts/PieChart";
 import PageBreadcrumbs from "../components/PageBreadcrumbs";
-import LineChart from "../components/amcharts/LineChart";
+import ColumnChart from "../components/amcharts/ColumnChart";
+
 export default {
   name: "PageReports",
-  components: { LineChart, PageBreadcrumbs, PieChart },
+  components: { ColumnChart, PageBreadcrumbs, PieChart },
   data() {
     return {
       breadcrumbs: [
