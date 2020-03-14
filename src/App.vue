@@ -1,5 +1,5 @@
 <template>
-  <div id="q-app" class="bg-grey-1">
+  <div id="q-app">
     <router-view />
 
     <cookie-law
@@ -23,7 +23,7 @@ export default {
   name: 'App',
   computed: {
     ...mapState('auth', ['userLoaded', 'loggedIn']),
-    ...mapState('settings',['dark'])
+    ...mapState('settings', ['dark'])
   },
   methods: {
     ...mapActions('auth', ['populateUser', 'logoutUser']),

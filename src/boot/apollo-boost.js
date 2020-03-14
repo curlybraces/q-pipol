@@ -38,7 +38,7 @@ import { onError } from 'apollo-link-error';
 import { ApolloLink, Observable } from 'apollo-link';
 import VueApollo from 'vue-apollo';
 import { LocalStorage, Dialog, Notify } from 'quasar';
-import Router from "../router/index";
+import Router from '../router/index';
 
 const cache = new InMemoryCache({
   cacheRedirects: {
@@ -88,13 +88,12 @@ const client = new ApolloClient({
             title: 'Error',
             message: graphQLErrors[0].debugMessage + '. Login again.',
             persistent: true
-          })
-          .onOk(() => {
+          }).onOk(() => {
             LocalStorage.remove('token');
             LocalStorage.remove('userId');
             LocalStorage.remove('loggedIn');
 
-            Router.replace('/login')
+            Router.replace('/login');
           });
         }
       }

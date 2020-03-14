@@ -1,11 +1,11 @@
 <template>
-  <q-toolbar inset :class="dark ? 'bg-grey-9' : 'bg-white'">
+  <q-toolbar inset :class="dark ? 'bg-grey-9' : 'bg-white'" class="shadow-2">
     <q-breadcrumbs gutter="sm">
       <q-breadcrumbs-el
         v-for="({ title, url }, index) in breadcrumbs"
         :key="index"
         :to="url"
-        :class="dark ? 'text-white': null"
+        :class="dark ? 'text-white' : null"
       >
         {{ title }}
       </q-breadcrumbs-el>
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
 
 export default {
   name: 'PageBreadcrumbs',
@@ -22,7 +22,7 @@ export default {
     breadcrumbs: Array
   },
   computed: {
-    ...mapState("settings",["dark"])
+    ...mapState('settings', ['dark'])
   }
 };
 </script>

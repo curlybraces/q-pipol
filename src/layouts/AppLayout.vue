@@ -1,14 +1,17 @@
 <template>
   <q-layout view="LHh lpR lff">
     <q-header bordered :class="dark ? 'bg-grey-9' : 'bg-primary'">
-      <q-toolbar :class="dark ? 'text-white' : 'text-primary'" class="app-toolbar">
+      <q-toolbar
+        :class="dark ? 'text-white' : 'text-primary'"
+        class="app-toolbar"
+      >
         <img
           src="statics/logo.svg"
           height="35px;"
           @click="drawer = !drawer"
           class="cursor-pointer"
         />
-        <q-toolbar-title>
+        <q-toolbar-title class="text-white">
           {{ appTitle }}
         </q-toolbar-title>
         <q-space />
@@ -31,7 +34,11 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="drawer" :content-class="dark ? 'bg-grey-9' : 'bg-grey-2'" bordered>
+    <q-drawer
+      v-model="drawer"
+      :content-class="dark ? 'bg-grey-9' : 'bg-grey-2'"
+      bordered
+    >
       <q-toolbar class="app-toolbar">
         <img
           src="statics/logo.svg"
@@ -103,11 +110,6 @@ export default {
       set(val) {
         this.drawerState = val;
       }
-    }
-  },
-  methods: {
-    toggleDarkMode() {
-      this.$q.dark.toggle();
     }
   }
 };

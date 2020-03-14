@@ -15,7 +15,7 @@ import iconSet from 'quasar/icon-set/svg-material-icons'
 
 import Vue from 'vue'
 
-import {Quasar,Dialog,AddressbarColor,LocalStorage,Notify,LoadingBar} from 'quasar'
+import {Quasar,Dialog,AddressbarColor,LocalStorage,Notify,LoadingBar,Dark} from 'quasar'
 
 
-Vue.use(Quasar, { config: {},iconSet: iconSet,plugins: {Dialog,AddressbarColor,LocalStorage,Notify,LoadingBar} })
+Vue.use(Quasar, { config: {},iconSet: iconSet,plugins: {Dialog,AddressbarColor,LocalStorage,Notify,LoadingBar,Dark} })

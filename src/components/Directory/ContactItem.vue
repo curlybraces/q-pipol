@@ -16,10 +16,10 @@
           </q-item-label>
         </q-item-section>
       </q-item>
-      <q-separator/>
+      <q-separator />
       <q-item>
         <q-item-section avatar>
-          <q-icon name="domain"/>
+          <q-icon name="domain" />
         </q-item-section>
         <q-item-section>
           <q-item-label>
@@ -29,7 +29,7 @@
       </q-item>
       <q-item>
         <q-item-section avatar>
-          <q-icon name="mail"/>
+          <q-icon name="mail" />
         </q-item-section>
         <q-item-section>
           <q-item-label>
@@ -39,7 +39,7 @@
       </q-item>
       <q-item>
         <q-item-section avatar>
-          <q-icon name="local_phone"/>
+          <q-icon name="local_phone" />
         </q-item-section>
         <q-item-section>
           <q-item-label>

@@ -1,7 +1,7 @@
 <template>
   <q-card>
     <contact-header title="Create Contact"></contact-header>
-    <q-separator/>
+    <q-separator />
     <contact-form :contact.sync="contact"></contact-form>
     <contact-actions>
       <q-btn flat label="Cancel" @click="$emit('close')" />

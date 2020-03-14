@@ -3,29 +3,38 @@
     <page-breadcrumbs :breadcrumbs="breadcrumbs" />
 
     <div class="q-pa-sm">
-      <q-input
-        class="col"
-        dense
-        outlined
-        rounded
-        placeholder="Search"
-        v-model="searchField"
-      >
-        <template v-slot:append>
-          <q-icon name="search" color="primary" />
-        </template>
-      </q-input>
+      <q-card square>
+        <q-toolbar class="bg-primary text-white">
+          <q-avatar icon="list" color="white" class="text-primary"/>
+          <q-toolbar-title>
+            Projects
+          </q-toolbar-title>
+          <q-input
+            class="col-6"
+            dense
+            standout
+            dark
+            rounded
+            placeholder="Search"
+            v-model="searchField"
+          >
+            <template v-slot:append>
+              <q-icon name="search" />
+            </template>
+          </q-input>
+        </q-toolbar>
+        <div class="q-pa-sm row item-start q-col-gutter-sm">
+          <div v-if="loading">Loading projects...</div>
+
+          <project-card
+            v-for="(project, key) in projects"
+            :key="key"
+            :project="project"
+          />
+        </div>
+      </q-card>
     </div>
 
-    <div class="q-pa-sm row q-gutter-md">
-      <div v-if="loading">Loading projects...</div>
-
-      <project-card
-        v-for="(project, key) in projects"
-        :key="key"
-        :project="project"
-      />
-    </div>
   </q-page>
 </template>
 

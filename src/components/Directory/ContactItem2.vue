@@ -27,7 +27,7 @@
         {{ contact.operating_unit ? contact.operating_unit.name : null }}
       </q-item-label>
     </q-item-section>
-    <q-separator vertical/>
+    <q-separator vertical />
     <q-item-section class="col-2 text-right">
       <q-item-label>
         <q-btn

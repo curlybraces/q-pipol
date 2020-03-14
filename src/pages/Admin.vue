@@ -3,28 +3,27 @@
     <page-breadcrumbs :breadcrumbs="breadcrumbs" />
 
     <div class="q-pa-sm">
-      <q-card>
-        <q-card-section>
-          <q-toolbar>
-            <q-avatar color="primary" icon="people" class="text-white">
-            </q-avatar>
-            <q-toolbar-title>
-              Users
-            </q-toolbar-title>
-            <q-input
-              outlined
-              dense
-              rounded
-              class="col-6"
-              placeholder="Search in users..."
-              v-model="searchField"
-            >
-              <template v-slot:append>
-                <q-icon name="search" class="cursor-pointer"></q-icon>
-              </template>
-            </q-input>
-          </q-toolbar>
-        </q-card-section>
+      <q-card square>
+        <q-toolbar class="bg-primary text-white">
+          <q-avatar color="white" icon="people" class="text-primary">
+          </q-avatar>
+          <q-toolbar-title>
+            Manage Users
+          </q-toolbar-title>
+          <q-input
+            standout
+            dark
+            dense
+            rounded
+            class="col-6"
+            placeholder="Search in users..."
+            v-model="searchField"
+          >
+            <template v-slot:append>
+              <q-icon name="search" class="cursor-pointer"></q-icon>
+            </template>
+          </q-input>
+        </q-toolbar>
 
         <q-separator />
 
