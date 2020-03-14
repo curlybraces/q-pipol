@@ -37,7 +37,8 @@ import { HttpLink } from 'apollo-link-http';
 import { onError } from 'apollo-link-error';
 import { ApolloLink, Observable } from 'apollo-link';
 import VueApollo from 'vue-apollo';
-import { LocalStorage, Notify } from 'quasar';
+import { LocalStorage, Dialog, Notify } from 'quasar';
+import Router from "../router/index";
 
 const cache = new InMemoryCache({
   cacheRedirects: {
@@ -70,7 +71,7 @@ const requestLink = new ApolloLink(
             complete: observer.complete.bind(observer)
           });
         })
-        .catch(observer.error.bind(observer));
+        .catch(() => observer.error.bind(observer));
 
       return () => {
         if (handle) handle.unsubscribe();
@@ -82,7 +83,20 @@ const client = new ApolloClient({
   link: ApolloLink.from([
     onError(({ graphQLErrors, networkError }) => {
       if (graphQLErrors) {
-        console.log(graphQLErrors);
+        if (graphQLErrors[0].debugMessage === 'Unauthenticated.') {
+          Dialog.create({
+            title: 'Error',
+            message: graphQLErrors[0].debugMessage + '. Login again.',
+            persistent: true
+          })
+          .onOk(() => {
+            LocalStorage.remove('token');
+            LocalStorage.remove('userId');
+            LocalStorage.remove('loggedIn');
+            
+            Router.replace('/login')
+          });
+        }
       }
       if (networkError) {
         console.log('throw log out');

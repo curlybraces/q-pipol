@@ -27,6 +27,9 @@ export function fetchProjects({ commit }, payload) {
       commit('SET_PAGE_INFO', res.data.projects.pageInfo);
       commit('SET_LOADING', false);
       return;
+    })
+    .catch(err => {
+      alert(err.message);
     });
 }
 
@@ -45,6 +48,9 @@ export function deleteProject({ commit }, id) {
         commit('DELETE_PROJECT', id);
         Notify.create('Project successfully deleted.');
       }
+    })
+    .catch(err => {
+      alert(err.message);
     });
 }
 

@@ -29,7 +29,6 @@ export function loginUser({ commit, dispatch }, payload) {
 }
 
 export function populateUser({ commit }) {
-  console.log('loading user');
   apolloClient
     .query({
       query: ME_QUERY
@@ -55,6 +54,10 @@ export function populateUser({ commit }) {
     })
     .catch(err => {
       console.log(err.message);
+      // Notify.create({
+      //   title: 'Error',
+      //   message: 'Something went wrong.'
+      // });
     });
 }
 
