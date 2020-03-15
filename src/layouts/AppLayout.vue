@@ -32,6 +32,19 @@
           <dropdown-menu v-model="menu" />
         </q-btn>
       </q-toolbar>
+
+      <q-separator :color="dark ? 'purple-2' : 'orange-10'" class="header-separator"/>
+
+      <q-tabs align="left" class="bg-white text-grey-9" dense>
+        <q-route-tab to="/" label="Home" />
+        <q-route-tab to="/pip" label="Projects" />
+        <q-route-tab to="/reports" label="Reports" />
+        <q-route-tab to="/resources" label="Resources" />
+        <q-route-tab to="/directory" label="Directory" />
+        <q-route-tab to="/account" label="Account" />
+        <q-route-tab to="/settings" label="Settings" />
+        <q-route-tab to="/help" label="Help" />
+      </q-tabs>
     </q-header>
 
     <q-drawer
@@ -117,7 +130,7 @@ export default {
 </script>
 
 <style>
-.app-toolbar {
-  height: 70px;
+hr.q-separator.header-separator {
+  height: 3px;
 }
 </style>
