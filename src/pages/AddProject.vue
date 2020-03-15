@@ -288,8 +288,9 @@ export default {
     validateAndCreate() {
       this.$refs.form.validate().then(success => {
         if (success) {
-          this.createProject()
-            .then(id => this.$router.push('/pip/' + id + '/edit'));
+          this.createProject().then(id =>
+            this.$router.push('/pip/' + id + '/edit')
+          );
         }
       });
     }

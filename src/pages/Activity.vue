@@ -1,6 +1,5 @@
 <template>
   <q-page>
-    <page-breadcrumbs :breadcrumbs="breadcrumbs" />
     <div class="q-pa-sm">
       <q-card>
         <q-card-section>
@@ -45,11 +44,9 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import PageBreadcrumbs from '../components/PageBreadcrumbs';
 
 export default {
   name: 'PageActivity',
-  components: { PageBreadcrumbs },
   data() {
     return {
       breadcrumbs: [

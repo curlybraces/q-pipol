@@ -1,6 +1,6 @@
 <template>
   <q-page>
-<!--    <page-breadcrumbs :breadcrumbs="breadcrumbs" />-->
+    <!--    <page-breadcrumbs :breadcrumbs="breadcrumbs" />-->
 
     <div class="row q-pa-sm q-col-gutter-x-md q-gutter-y-md">
       <template v-for="(link, index) in links">

@@ -88,8 +88,7 @@ const routes = [
       },
       {
         path: 'help',
-        component: () =>
-          import(/* webpackChunkName: 'Help' */ 'pages/Help.vue')
+        component: () => import(/* webpackChunkName: 'Help' */ 'pages/Help.vue')
       }
     ]
   },

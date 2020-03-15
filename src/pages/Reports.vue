@@ -1,6 +1,6 @@
 <template>
   <q-page>
-<!--    <page-breadcrumbs :breadcrumbs="breadcrumbs" />-->
+    <!--    <page-breadcrumbs :breadcrumbs="breadcrumbs" />-->
 
     <div class="q-pa-sm q-gutter-y-md">
       <q-card class="q-pa-sm">

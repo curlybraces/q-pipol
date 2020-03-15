@@ -2,15 +2,14 @@
   <q-layout view="hHh lpR lff">
     <q-header bordered :class="dark ? 'bg-grey-9' : 'bg-white'">
       <q-toolbar>
-        <img
-          src="statics/logo.svg"
-          height="35px;"
-          class="cursor-pointer"
-        />
+        <img src="statics/logo.svg" height="35px;" class="cursor-pointer" />
+
         <q-toolbar-title :class="dark ? 'text-white' : 'text-primary'">
           {{ appTitle }}
         </q-toolbar-title>
+
         <q-space />
+
         <q-btn
           flat
           round
@@ -18,10 +17,12 @@
           class="q-mr-md text-grey-6"
           @click="rightDrawer = !rightDrawer"
         />
+
         <q-btn
-          class="bg-primary text-white"
-          round
+          :color="dark ? 'purple' : 'primary'"
+          text-color="white"
           flat
+          round
           :label="name ? name.charAt(0) : 'DA'"
           @mouseenter="menu = true"
           size="sm"
@@ -30,11 +31,24 @@
         </q-btn>
       </q-toolbar>
 
-      <q-separator :color="dark ? 'purple-2' : 'orange-10'" class="header-separator"/>
+      <q-separator
+        :color="dark ? 'purple-2' : 'orange-10'"
+        class="header-separator"
+      />
 
-      <q-tabs align="left" :class="dark ? 'bg-grey-9 text-white' : 'bg-white text-grey-9'" dense>
-        <template v-for="({to,label,icon}, index) in pages">
-          <q-route-tab :key="index" :to="to" :label="$q.screen.gt.sm ? label : void 0" :icon="$q.screen.lt.md ? icon : void 0" class="text-capitalize" />
+      <q-tabs
+        align="left"
+        :class="dark ? 'bg-grey-9 text-white' : 'bg-white text-grey-9'"
+        dense
+      >
+        <template v-for="({ to, label, icon }, index) in pages">
+          <q-route-tab
+            :key="index"
+            :to="to"
+            :label="$q.screen.gt.sm ? label : void 0"
+            :icon="$q.screen.lt.md ? icon : void 0"
+            class="text-capitalize"
+          />
         </template>
       </q-tabs>
     </q-header>
@@ -49,12 +63,14 @@
       <right-drawer />
     </q-drawer>
 
-    <q-footer>
-      <q-toolbar>
+    <q-footer elevated>
+      <q-toolbar
+        :class="dark ? 'bg-grey-9 text-white' : 'bg-white text-grey-9'"
+      >
         <q-toolbar-title>{{ appTitleFooter }}</q-toolbar-title>
-        <q-avatar color="white">
-          <q-img src="statics/ani-at-kita-logo.svg"></q-img>
-        </q-avatar>
+        <div :class="dark ? 'text-white' : 'text-grey-9'">
+          <q-icon name="copyright" /> 2020
+        </div>
       </q-toolbar>
     </q-footer>
 
@@ -84,44 +100,44 @@ export default {
       rightDrawer: false,
       pages: [
         {
-          label: "Home",
-          icon: "home",
-          to: "/"
+          label: 'Home',
+          icon: 'home',
+          to: '/'
         },
         {
-          label: "Projects",
-          icon: "list",
-          to: "/pip"
+          label: 'Projects',
+          icon: 'list',
+          to: '/pip'
         },
         {
-          label: "Reports",
-          icon: "bubble_chart",
-          to: "/reports"
+          label: 'Reports',
+          icon: 'bubble_chart',
+          to: '/reports'
         },
         {
-          label: "Resources",
-          icon: "attach_file",
-          to: "/resources"
+          label: 'Resources',
+          icon: 'attach_file',
+          to: '/resources'
         },
         {
-          label: "Directory",
-          icon: "phone",
-          to: "/directory"
+          label: 'Directory',
+          icon: 'phone',
+          to: '/directory'
         },
         {
-          label: "Account",
-          icon: "account_box",
-          to: "/account"
+          label: 'Account',
+          icon: 'account_box',
+          to: '/account'
         },
         {
-          label: "Settings",
-          icon: "settings",
-          to: "/settings"
+          label: 'Settings',
+          icon: 'settings',
+          to: '/settings'
         },
         {
-          label: "Help",
-          icon: "help_outline",
-          to: "/help"
+          label: 'Help',
+          icon: 'help_outline',
+          to: '/help'
         }
       ]
     };
