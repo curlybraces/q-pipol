@@ -1,27 +1,24 @@
 <template>
   <q-page>
-    <div class="q-mt-lg q-pa-sm">
-      <div class="row q-mb-sm">
+    <q-toolbar class="q-mt-lg">
+      <q-item-label header class="q-pl-none">Projects</q-item-label>
+      <q-space/>
+      <q-btn outline label="Add Project" dense color="primary" to="/pip/new"></q-btn>
+    </q-toolbar>
+
+    <div class="q-mt-md q-pa-sm">
+      <div class="row q-mb-lg">
         <q-input
-          class="col"
+          class="col-3"
           dense
           outlined
-          placeholder="Search"
+          placeholder="Filter Programs and Projects"
           v-model="searchField"
         >
           <template v-slot:prepend>
             <q-icon name="search" />
           </template>
         </q-input>
-      </div>
-
-      <div class="row justify-between">
-        <div class="col-6">
-          <q-item-label header class="q-pl-none">Projects</q-item-label>
-        </div>
-        <div class="col-6 text-right">
-          <q-btn outline label="Add Project" dense color="primary" to="/pip/new"></q-btn>
-        </div>
       </div>
 
       <q-card-section v-if="loading">

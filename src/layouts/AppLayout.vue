@@ -2,7 +2,7 @@
   <q-layout view="hHh lpR lff">
     <q-header bordered :class="dark ? 'bg-grey-9' : 'bg-white'">
       <q-toolbar>
-        <img src="statics/logo.svg" height="35px;" class="cursor-pointer" />
+        <img src="statics/logo.svg" height="35px;" />
 
         <q-toolbar-title :class="dark ? 'text-white' : 'text-primary'">
           {{ appTitle }}
