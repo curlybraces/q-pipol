@@ -110,7 +110,7 @@ export default {
         transitionHide: 'fade',
         transitionShow: 'fade'
       }).onOk(() => {
-        alert(id);
+        this.deleteProject(id);
       });
     }
   }

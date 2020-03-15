@@ -27,7 +27,7 @@
 
         <q-separator />
 
-        <q-list separator>
+        <div class="row q-pa-sm item-start q-col-gutter-sm">
           <template v-if="loading">
             <user-skeleton></user-skeleton>
           </template>
@@ -36,7 +36,7 @@
               <user v-model="selectedUsers" :key="user.id" :user="user"></user>
             </template>
           </template>
-        </q-list>
+        </div>
       </q-card>
     </div>
   </q-page>

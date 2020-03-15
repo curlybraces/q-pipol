@@ -1,11 +1,18 @@
 <template>
   <q-card square>
-    <q-card-section class="text-h6 q-pa-md">Assign Roles</q-card-section>
+    <q-toolbar dense class="bg-primary text-white">
+      <q-toolbar-title>
+        Assign Role
+      </q-toolbar-title>
+    </q-toolbar>
+
     <q-separator />
 
     <div style="width:300px;" class="q-pa-md">
+      <q-item-label class="q-mb-md">Select role to assign to user</q-item-label>
       <q-option-group :options="optionRoles" v-model="model" type="radio" />
     </div>
+
     <q-card-actions align="right">
       <q-btn flat label="Cancel" @click="$emit('close')" />
       <q-btn

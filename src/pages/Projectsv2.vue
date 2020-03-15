@@ -22,26 +22,35 @@
               <q-icon name="search" />
             </template>
           </q-input>
+
+          <json-excel class="q-ml-sm">
+            <q-btn outline rounded>
+              Save
+            </q-btn>
+          </json-excel>
         </q-toolbar>
         <q-card-section v-if="loading">
           <q-inner-loading :showing="loading">
             <q-spinner-dots size="50px" color="primary" />
           </q-inner-loading>
         </q-card-section>
-        <div class="q-pa-sm row item-start q-col-gutter-sm">
-          <template v-if="Object.keys(projects).length > 0">
-            <project-card
-              v-for="(project, key) in projects"
-              :key="key"
-              :project="project"
-            />
-          </template>
-          <q-item-section v-else>
-            <q-banner>
-              No project yet.
-            </q-banner>
-          </q-item-section>
-        </div>
+
+        <template v-if="Object.keys(projects).length > 0">
+          <q-infinite-scroll @load="onLoad" :offset="100">
+            <div class="q-pa-sm row item-start q-col-gutter-sm">
+              <project-card
+                v-for="(project, key) in projects"
+                :key="key"
+                :project="project"
+              />
+            </div>
+          </q-infinite-scroll>
+        </template>
+        <q-item-section v-else>
+          <q-banner>
+            No project yet.
+          </q-banner>
+        </q-item-section>
       </q-card>
     </div>
 
@@ -55,10 +64,11 @@
 import { mapState, mapActions, mapGetters } from 'vuex';
 import PageBreadcrumbs from '../components/PageBreadcrumbs';
 import ProjectCard from '../components/ProjectCard';
+import JsonExcel from 'vue-json-excel';
 
 export default {
   name: 'Projects',
-  components: { PageBreadcrumbs, ProjectCard },
+  components: { PageBreadcrumbs, ProjectCard, JsonExcel },
   data() {
     return {
       breadcrumbs: [
@@ -74,7 +84,7 @@ export default {
     };
   },
   computed: {
-    ...mapState('projects', ['loading', 'search']),
+    ...mapState('projects', ['loading', 'search', 'pageInfo']),
     ...mapGetters('projects', ['projects']),
     searchField: {
       get() {
@@ -86,7 +96,22 @@ export default {
     }
   },
   methods: {
-    ...mapActions('projects', ['fetchProjects', 'setSearch'])
+    ...mapActions('projects', ['fetchProjects', 'setSearch']),
+    onLoad(index, done) {
+      console.log('onload is being called');
+      if (this.projects) {
+        if (this.pageInfo.hasNextPage) {
+          this.fetchProjects({
+            first: this.first,
+            after: this.pageInfo.endCursor
+          }).then(() => done());
+        } else {
+          console.log('this is the last page');
+        }
+      } else {
+        console.log('first time loading');
+      }
+    }
   },
   mounted() {
     this.fetchProjects({

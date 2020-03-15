@@ -1,12 +1,5 @@
 <template>
-  <q-list>
-    <!-- <div class="q-pa-md bg-white text-center">
-      <q-img src="statics/logo.svg" alt="logo" style="max-width: 150px" />
-      <br />
-      <span class="text-h6">{{ appTitle }}</span>
-    </div>
-    <q-separator /> -->
-
+  <q-list :dense="dense">
     <q-item-label header>NAVIGATION</q-item-label>
 
     <q-item v-if="admin" clickable to="/admin">
@@ -28,8 +21,10 @@
           icon="list"
           label="Projects"
           class="text-uppercase"
+          :dense="dense"
         >
           <q-item
+            :dense="dense"
             v-for="({ label, icon, url }, index) in submenu"
             :header-inset-level="1"
             expand-separator
@@ -72,6 +67,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   name: 'DrawerContent',
   data() {
@@ -134,6 +131,7 @@ export default {
     };
   },
   computed: {
+    ...mapState('settings', ['dense']),
     admin() {
       return (
         this.$store.state.auth.role == 'admin' ||

@@ -25,6 +25,7 @@
     "v-money": "^0.8.1",
     "vue-apollo": "^3.0.3",
     "vue-cookie-law": "^1.11.0",
+    "vue-json-excel": "^0.2.98",
     "vuex-map-fields": "^1.4.0",
     "vuex-persist": "^2.2.0"
   },

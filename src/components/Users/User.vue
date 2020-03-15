@@ -1,66 +1,79 @@
 <template>
-  <q-item>
-    <q-item-section avatar>
-      <q-avatar
-        class="text-white text-uppercase"
-        :color="user.active ? 'primary' : 'grey'"
-      >
-        {{ user.name.charAt(0) }}
-      </q-avatar>
-    </q-item-section>
-    <q-item-section>
-      <q-item-label class="text-uppercase">{{ user.name }} </q-item-label>
-      <q-item-label caption>{{ user.email }}</q-item-label>
-    </q-item-section>
-    <q-item-section>
-      <q-item-label>
-        <q-badge>
-          {{ user.role ? user.role.name : '' }}
-        </q-badge>
-      </q-item-label>
-    </q-item-section>
-    <q-item-section side>
-      <q-btn
-        round
-        flat
-        dense
-        icon="verified_user"
-        color="green"
-        @click="toggleUserActivation"
-        v-if="!user.active"
-        :loading="loading"
-      >
-        <q-tooltip>Activate User</q-tooltip>
-      </q-btn>
-      <q-btn
-        round
-        flat
-        dense
-        icon="person_add_disabled"
-        color="red"
-        @click="toggleUserActivation"
-        :loading="loading"
-        v-else
-      >
-        <q-tooltip>Deactivate User</q-tooltip>
-      </q-btn>
-      <q-btn round flat dense icon="settings" @click="assignRoleDialog = true">
-        <q-tooltip>Assign Roles</q-tooltip>
-      </q-btn>
-    </q-item-section>
-    <q-dialog
-      v-model="assignRoleDialog"
-      transition-hide="fade"
-      transition-show="fade"
-      persistent
-    >
-      <assign-roles
-        :role="roleId"
-        :id="user.id"
-        @close="assignRoleDialog = false"
-      ></assign-roles>
-    </q-dialog>
-  </q-item>
+  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12 flex">
+    <q-card class="fit" flat bordered>
+      <q-item>
+        <q-item-section avatar>
+          <q-avatar
+            class="text-white text-uppercase"
+            :color="user.active ? 'primary' : 'grey'"
+          >
+            {{ user.name.charAt(0) }}
+          </q-avatar>
+        </q-item-section>
+        <q-item-section>
+          <q-item-label>
+            <span class="text-uppercase">
+              {{ user.name }}
+            </span>
+            <q-badge>
+              {{ user.role ? user.role.name : '' }}
+            </q-badge>
+          </q-item-label>
+          <q-item-label caption>{{ user.email }}</q-item-label>
+        </q-item-section>
+        <q-item-section side>
+          <q-btn
+            round
+            flat
+            dense
+            icon="verified_user"
+            color="green"
+            @click="toggleUserActivation"
+            v-if="!user.active"
+            :loading="loading"
+          >
+            <q-tooltip>Activate User</q-tooltip>
+          </q-btn>
+
+          <q-btn
+            round
+            flat
+            dense
+            icon="person_add_disabled"
+            color="red"
+            @click="toggleUserActivation"
+            :loading="loading"
+            v-else
+          >
+            <q-tooltip>Deactivate User</q-tooltip>
+          </q-btn>
+
+          <q-btn
+            round
+            flat
+            dense
+            icon="settings"
+            @click="assignRoleDialog = true"
+          >
+            <q-tooltip>Assign Roles</q-tooltip>
+          </q-btn>
+        </q-item-section>
+
+        <q-dialog
+          v-model="assignRoleDialog"
+          transition-hide="fade"
+          transition-show="fade"
+          persistent
+        >
+          <assign-roles
+            :role="roleId"
+            :id="user.id"
+            @close="assignRoleDialog = false"
+          ></assign-roles>
+        </q-dialog>
+      </q-item>
+    </q-card>
+  </div>
 </template>
 
 <script>
