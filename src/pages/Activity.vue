@@ -70,9 +70,7 @@ export default {
       return null;
     },
     timeDiff(val) {
-      return moment(val)
-        .subtract(6, 'days')
-        .calendar();
+      return moment(val).calendar();
     }
   },
   methods: {
