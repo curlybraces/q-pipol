@@ -188,7 +188,7 @@ const actions = {
   createProject({ state, getters, commit }) {
     commit('setLoading', true);
     const { project } = state;
-    apolloClient
+    return apolloClient
       .mutate({
         mutation: CREATE_PROJECT_MUTATION,
         variables: {
@@ -332,9 +332,11 @@ const actions = {
           updates_date: project.updates_date
         }
       })
-      .then(data => {
-        console.log(data);
+      .then(res => {
         commit('CLEAR_PROJECT');
+        console.log(res.data);
+        console.log(res.data.createProject.id);
+        return res.data.createProject.id;
       })
       .catch(err => {
         console.log(err.message);

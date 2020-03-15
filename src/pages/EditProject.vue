@@ -12,7 +12,7 @@
             <q-item>
               <q-item-section>
                 <q-item-label caption>Created by: </q-item-label>
-                <q-item-label>{{ project.created_by.name }}</q-item-label>
+                <q-item-label>{{ project.creator.name }}</q-item-label>
               </q-item-section>
               <q-item-section>
                 <q-item-label caption>Created on: </q-item-label>
