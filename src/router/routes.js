@@ -30,10 +30,8 @@ const routes = [
       {
         path: 'pip',
         name: 'pip',
-        // component: () =>
-        //   import(/* webpackChunkName: 'Projects' */ "pages/Projects.vue")
         component: () =>
-          import(/* webpackChunkName: 'Projects' */ 'pages/Projectsv2.vue')
+          import(/* webpackChunkName: 'Projects' */ 'pages/Projectsv3.vue')
       },
       {
         path: 'account',

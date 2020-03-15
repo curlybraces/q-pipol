@@ -1,7 +1,7 @@
 <template>
   <q-page>
-    <div class="q-pa-sm">
-      <q-item-label header>Activity Feed</q-item-label>
+    <div class="q-mt-lg q-pa-sm">
+      <q-item-label class="q-pl-none" header>Activity Feed</q-item-label>
 
       <q-list separator>
         <q-item
