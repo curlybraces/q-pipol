@@ -1,49 +1,48 @@
 <template>
   <q-page>
     <div class="q-pa-sm">
-      <q-card>
-        <q-card-section>
-          <q-toolbar>
-            <q-toolbar-title>Activities</q-toolbar-title>
-          </q-toolbar>
-        </q-card-section>
-        <q-separator />
-        <q-card-section>
-          <template v-if="!Object.keys(activities).length">
-            <q-item>
-              <q-item-label>
-                Nothing to show.
-              </q-item-label>
-            </q-item>
-          </template>
-          <template v-else>
-            <q-item v-for="(activity, key) in activities" :key="key">
-              <q-item-section avatar>
-                <q-avatar color="primary" class="text-white">{{
-                  activity.causer.name.charAt(0)
-                }}</q-avatar>
-              </q-item-section>
-              <q-item-section>
-                <q-item-label>{{ activity.causer.name }}</q-item-label>
-              </q-item-section>
-              <q-item-section>
-                <q-item-label>{{ activity.description }}</q-item-label>
-              </q-item-section>
-              <q-item-section>
-                <q-item-label>{{
-                  activity.subject ? activity.subject.title : null
-                }}</q-item-label>
-              </q-item-section>
-            </q-item>
-          </template>
-        </q-card-section>
-      </q-card>
+      <q-item-label header>Activity Feed</q-item-label>
+
+      <q-list separator>
+        <q-item
+          v-for="(activity, index) in activities"
+          :key="index"
+          class="q-py-sm"
+        >
+          <q-item-section avatar>
+            <q-avatar color="primary" class="text-white" size="sm">
+              {{ activity.causer.name.charAt(0) }}
+            </q-avatar>
+          </q-item-section>
+          <q-item-section>
+            <q-item-label lines="1">
+              <span class="text-weight-bolder">
+                {{ activity.causer.name }}:
+              </span>
+              <span>
+                {{ activity.description | subject }}:
+                <q-badge outline color="primary">
+                  {{
+                    activity.subject
+                      ? activity.subject.title.slice(0, 50)
+                      : null
+                  }}
+                </q-badge>
+              </span>
+            </q-item-label>
+            <q-item-label caption>
+              {{ activity.created_at | timeDiff }}
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+      </q-list>
     </div>
   </q-page>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import moment from 'moment';
 
 export default {
   name: 'PageActivity',
@@ -62,6 +61,19 @@ export default {
   },
   computed: {
     ...mapState('activities', ['activities'])
+  },
+  filters: {
+    subject(val) {
+      if (val.includes('created')) {
+        return 'Created';
+      }
+      return null;
+    },
+    timeDiff(val) {
+      return moment(val)
+        .subtract(6, 'days')
+        .calendar();
+    }
   },
   methods: {
     ...mapActions('activities', ['fetchActivities'])

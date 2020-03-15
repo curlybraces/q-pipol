@@ -20,7 +20,6 @@ const actions = {
       })
       .then(res => {
         res.data.me.activities.forEach(activity => {
-          console.log(activity);
           const payload = {
             id: activity.id,
             activity: activity

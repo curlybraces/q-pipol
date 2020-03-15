@@ -19,7 +19,7 @@
         />
 
         <q-btn
-          :color="dark ? 'purple' : 'primary'"
+          :class="dark ? 'bg-purple-4' : 'bg-primary'"
           text-color="white"
           flat
           round
@@ -39,7 +39,6 @@
       <q-tabs
         align="left"
         :class="dark ? 'bg-grey-9 text-white' : 'bg-white text-grey-9'"
-        dense
       >
         <template v-for="({ to, label, icon }, index) in pages">
           <q-route-tab
