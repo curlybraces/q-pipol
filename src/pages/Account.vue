@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <page-breadcrumbs :breadcrumbs="breadcrumbs" />
+<!--    <page-breadcrumbs :breadcrumbs="breadcrumbs" />-->
 
     <div class="q-pa-sm">
       <q-card square>
@@ -123,7 +123,7 @@
 </template>
 
 <script>
-import PageBreadcrumbs from '../components/PageBreadcrumbs';
+// import PageBreadcrumbs from '../components/PageBreadcrumbs';
 
 import { OPERATING_UNITS } from '../data/dropdown-values';
 
@@ -134,7 +134,7 @@ import gql from 'graphql-tag';
 import { mapState } from 'vuex';
 
 export default {
-  components: { PageBreadcrumbs },
+  // components: { PageBreadcrumbs },
   name: 'PageAccount',
   data() {
     return {

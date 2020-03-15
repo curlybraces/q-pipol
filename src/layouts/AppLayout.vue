@@ -1,17 +1,13 @@
 <template>
-  <q-layout view="LHh lpR lff">
-    <q-header bordered :class="dark ? 'bg-grey-9' : 'bg-primary'">
-      <q-toolbar
-        :class="dark ? 'text-white' : 'text-primary'"
-        class="app-toolbar"
-      >
+  <q-layout view="hHh lpR lff">
+    <q-header bordered :class="dark ? 'bg-grey-9' : 'bg-white'">
+      <q-toolbar>
         <img
           src="statics/logo.svg"
           height="35px;"
-          @click="drawer = !drawer"
           class="cursor-pointer"
         />
-        <q-toolbar-title class="text-white">
+        <q-toolbar-title :class="dark ? 'text-white' : 'text-primary'">
           {{ appTitle }}
         </q-toolbar-title>
         <q-space />
@@ -28,6 +24,7 @@
           flat
           :label="name ? name.charAt(0) : 'DA'"
           @mouseenter="menu = true"
+          size="sm"
         >
           <dropdown-menu v-model="menu" />
         </q-btn>
@@ -35,35 +32,12 @@
 
       <q-separator :color="dark ? 'purple-2' : 'orange-10'" class="header-separator"/>
 
-      <q-tabs align="left" class="bg-white text-grey-9" dense>
-        <q-route-tab to="/" label="Home" />
-        <q-route-tab to="/pip" label="Projects" />
-        <q-route-tab to="/reports" label="Reports" />
-        <q-route-tab to="/resources" label="Resources" />
-        <q-route-tab to="/directory" label="Directory" />
-        <q-route-tab to="/account" label="Account" />
-        <q-route-tab to="/settings" label="Settings" />
-        <q-route-tab to="/help" label="Help" />
+      <q-tabs align="left" :class="dark ? 'bg-grey-9 text-white' : 'bg-white text-grey-9'" dense>
+        <template v-for="({to,label,icon}, index) in pages">
+          <q-route-tab :key="index" :to="to" :label="$q.screen.gt.sm ? label : void 0" :icon="$q.screen.lt.md ? icon : void 0" class="text-capitalize" />
+        </template>
       </q-tabs>
     </q-header>
-
-    <q-drawer
-      v-model="drawer"
-      :content-class="dark ? 'bg-grey-9' : 'bg-grey-2'"
-      bordered
-    >
-      <q-toolbar class="app-toolbar">
-        <img
-          src="statics/logo.svg"
-          height="35px;"
-          @click="drawer = !drawer"
-          class="cursor-pointer"
-        />
-        <q-toolbar-title>IPMS</q-toolbar-title>
-      </q-toolbar>
-      <q-separator />
-      <drawer-content />
-    </q-drawer>
 
     <q-drawer
       v-model="rightDrawer"
@@ -92,13 +66,14 @@
 
 <script>
 import { mapState } from 'vuex';
-
-import DrawerContent from '../components/layout/Drawer';
 import DropdownMenu from '../components/layout/Dropdown';
 import RightDrawer from '../components/layout/RightDrawer';
 
 export default {
-  components: { DrawerContent, DropdownMenu, RightDrawer },
+  components: {
+    DropdownMenu,
+    RightDrawer
+  },
   name: 'AppLayout',
   data() {
     return {
@@ -106,9 +81,49 @@ export default {
       appTitleFooter: 'Investment Programming & Management System',
       copyright: 'Made by Mark Lester A. Bolotaolo',
       menu: false,
-      miniState: false,
-      drawerState: this.$q.screen.gt.lg,
-      rightDrawer: false
+      rightDrawer: false,
+      pages: [
+        {
+          label: "Home",
+          icon: "home",
+          to: "/"
+        },
+        {
+          label: "Projects",
+          icon: "list",
+          to: "/pip"
+        },
+        {
+          label: "Reports",
+          icon: "bubble_chart",
+          to: "/reports"
+        },
+        {
+          label: "Resources",
+          icon: "attach_file",
+          to: "/resources"
+        },
+        {
+          label: "Directory",
+          icon: "phone",
+          to: "/directory"
+        },
+        {
+          label: "Account",
+          icon: "account_box",
+          to: "/account"
+        },
+        {
+          label: "Settings",
+          icon: "settings",
+          to: "/settings"
+        },
+        {
+          label: "Help",
+          icon: "help_outline",
+          to: "/help"
+        }
+      ]
     };
   },
   computed: {

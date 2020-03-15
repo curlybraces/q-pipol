@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <page-breadcrumbs :breadcrumbs="breadcrumbs" />
+<!--    <page-breadcrumbs :breadcrumbs="breadcrumbs" />-->
 
     <div class="q-pa-sm q-gutter-y-md">
       <q-card class="q-pa-sm">
@@ -21,12 +21,13 @@
 
 <script>
 import PieChart from '../components/amcharts/PieChart';
-import PageBreadcrumbs from '../components/PageBreadcrumbs';
+// import PageBreadcrumbs from '../components/PageBreadcrumbs';
 import ColumnChart from '../components/amcharts/ColumnChart';
 
 export default {
+  components: { ColumnChart, PieChart },
+  // components: { ColumnChart, PageBreadcrumbs, PieChart },
   name: 'PageReports',
-  components: { ColumnChart, PageBreadcrumbs, PieChart },
   data() {
     return {
       breadcrumbs: [

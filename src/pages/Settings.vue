@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <page-breadcrumbs :breadcrumbs="breadcrumbs" />
+<!--    <page-breadcrumbs :breadcrumbs="breadcrumbs" />-->
 
     <div class="q-pa-sm">
       <q-card square>
@@ -50,11 +50,11 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import PageBreadcrumbs from '../components/PageBreadcrumbs';
+// import PageBreadcrumbs from '../components/PageBreadcrumbs';
 
 export default {
+  // components: { PageBreadcrumbs },
   name: 'PageSettings',
-  components: { PageBreadcrumbs },
   computed: {
     ...mapState('settings', ['dark', 'dense']),
     darkMode: {

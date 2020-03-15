@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <page-breadcrumbs :breadcrumbs="breadcrumbs" />
+<!--    <page-breadcrumbs :breadcrumbs="breadcrumbs" />-->
 
     <div class="q-pa-sm">
       <q-card square>
@@ -62,13 +62,13 @@
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex';
-import PageBreadcrumbs from '../components/PageBreadcrumbs';
+// import PageBreadcrumbs from '../components/PageBreadcrumbs';
 import ProjectCard from '../components/ProjectCard';
 import JsonExcel from 'vue-json-excel';
 
 export default {
   name: 'Projects',
-  components: { PageBreadcrumbs, ProjectCard, JsonExcel },
+  components: { ProjectCard, JsonExcel },
   data() {
     return {
       breadcrumbs: [

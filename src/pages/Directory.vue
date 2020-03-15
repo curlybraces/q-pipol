@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <page-breadcrumbs :breadcrumbs="breadcrumbs" />
+<!--    <page-breadcrumbs :breadcrumbs="breadcrumbs" />-->
 
     <div class="q-pa-sm">
       <directory @addContact="addContactDialog = true"></directory>
@@ -19,12 +19,13 @@
 </template>
 
 <script>
-import PageBreadcrumbs from '../components/PageBreadcrumbs';
+// import PageBreadcrumbs from '../components/PageBreadcrumbs';
 import Directory from '../components/Directory/DirectoryComponent';
 import AddContact from '../components/Directory/AddEditContact/AddContact';
 
 export default {
-  components: { AddContact, PageBreadcrumbs, Directory },
+  // components: { AddContact, PageBreadcrumbs, Directory },
+  components: { AddContact, Directory },
   name: 'PageDirectory',
   data() {
     return {

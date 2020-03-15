@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <page-breadcrumbs :breadcrumbs="breadcrumbs" />
+<!--    <page-breadcrumbs :breadcrumbs="breadcrumbs" />-->
 
     <div class="q-pa-sm">
       <q-card square>
@@ -44,13 +44,14 @@
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex';
-import PageBreadcrumbs from '../components/PageBreadcrumbs';
+// import PageBreadcrumbs from '../components/PageBreadcrumbs';
 import User from '../components/Users/User';
 import UserSkeleton from '../components/Users/UserSkeleton';
 import { date } from 'quasar';
 
 export default {
-  components: { PageBreadcrumbs, User, UserSkeleton },
+  // components: { PageBreadcrumbs, User, UserSkeleton },
+  components: { User, UserSkeleton },
   name: 'PageAdmin',
   data() {
     return {
