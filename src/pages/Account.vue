@@ -1,5 +1,44 @@
 <template>
   <q-page>
+    <q-item-label header class="q-pa-sm q-mt-lg">Account</q-item-label>
+
+    <div class="row q-pa-sm">
+      <div class="col-4">
+        <span class="text-subtitle1 text-primary">Profile</span>
+        <p class="text-caption">Your email address is your identity on IPM Online System and is used to log in.</p>
+      </div>
+      <div class="col-8">
+        <span class="text-weight-bold">Email Address</span>
+        <q-input outlined dense></q-input>
+        <p/>
+        <span class="text-weight-bold">Name</span>
+        <q-input outlined dense></q-input>
+      </div>
+    </div>
+
+    <q-separator inset spaced/>
+
+    <div class="row q-pa-sm">
+      <div class="col-4">
+        <span class="text-subtitle1 text-primary">Password</span>
+        <p class="text-caption">Your email address is your identity on IPM Online System and is used to log in.</p>
+      </div>
+      <div class="col-8">
+        <span class="text-weight-bold">Current Password</span>
+        <q-input outlined dense></q-input>
+        <p/>
+        <span class="text-weight-bold">New Password</span>
+        <q-input outlined dense></q-input>
+        <p/>
+        <span class="text-weight-bold">Confirm New Password</span>
+        <q-input outlined dense></q-input>
+        <p/>
+        <q-btn outline label="Update Password" class="text-capitalize" dense color="primary" />
+      </div>
+    </div>
+
+    <q-separator inset spaced/>
+
     <div class="q-pa-sm">
       <q-card square>
         <div class="text-center">
