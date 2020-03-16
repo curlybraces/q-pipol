@@ -2,8 +2,14 @@
   <q-page>
     <q-toolbar class="q-mt-lg">
       <q-item-label header class="q-pl-none">Projects</q-item-label>
-      <q-space/>
-      <q-btn outline label="Add Project" dense color="primary" to="/pip/new"></q-btn>
+      <q-space />
+      <q-btn
+        outline
+        label="Add Project"
+        dense
+        color="primary"
+        to="/pip/new"
+      ></q-btn>
     </q-toolbar>
 
     <div class="q-mt-md q-pa-sm">
@@ -69,19 +75,27 @@
                   size="sm"
                 >
                   <q-menu
-                    :offset="[0,2]"
+                    :offset="[0, 2]"
                     transition-show="jump-down"
                     transition-hide="jump-up"
                   >
                     <q-list style="min-width: 100px" dense>
-                      <q-item clickable v-close-popup :to="'/pip/' + project.id">
+                      <q-item
+                        clickable
+                        v-close-popup
+                        :to="'/pip/' + project.id"
+                      >
                         <q-item-section>
                           <q-item-label>
                             <q-icon name="open_in_new" /> View
                           </q-item-label>
                         </q-item-section>
                       </q-item>
-                      <q-item clickable v-close-popup :to="'/pip/' + project.id + '/edit'">
+                      <q-item
+                        clickable
+                        v-close-popup
+                        :to="'/pip/' + project.id + '/edit'"
+                      >
                         <q-item-section>
                           <q-item-label>
                             <q-icon name="edit" /> Edit
@@ -89,7 +103,12 @@
                         </q-item-section>
                       </q-item>
                       <q-separator />
-                      <q-item clickable v-close-popup class="text-negative" @click="promptDelete(project.id)">
+                      <q-item
+                        clickable
+                        v-close-popup
+                        class="text-negative"
+                        @click="promptDelete(project.id)"
+                      >
                         <q-item-section>
                           <q-item-label>
                             <q-icon name="close" />
@@ -143,7 +162,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('projects', ['fetchProjects', 'setSearch','deleteProject']),
+    ...mapActions('projects', ['fetchProjects', 'setSearch', 'deleteProject']),
     onLoad(index, done) {
       console.log('onload is being called');
       if (this.projects) {
@@ -165,14 +184,12 @@ export default {
         message: 'Are you sure you want to delete this project?',
         transitionShow: 'fade',
         cancel: true
-      })
-      .onOk(() => {
-        this.deleteproject(id)
-          .then(() => {
-            Notify.create({
-              message: 'The project has been successfully deleted.'
-            });
+      }).onOk(() => {
+        this.deleteproject(id).then(() => {
+          Notify.create({
+            message: 'The project has been successfully deleted.'
           });
+        });
       });
     }
   },
