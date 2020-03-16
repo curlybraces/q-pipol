@@ -101,6 +101,26 @@ export const ASSIGN_ROLE_MUTATION = gql`
   }
 `;
 
+export const UPDATE_PROFILE_MUTATION = gql`
+  mutation updateProfile(
+    $name: String!
+    $operating_unit_id: Int!
+    $unit: String!
+    $position: String!
+  ) {
+    updateProfile(
+      input: {
+        name: $name
+        operating_unit_id: $operating_unit_id
+        unit: $unit
+        position: $position
+      }
+    ) {
+      id
+    }
+  }
+`;
+
 export const ALL_USERS = gql`
   query users {
     users {

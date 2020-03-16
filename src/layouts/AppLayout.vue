@@ -2,11 +2,12 @@
   <q-layout view="hHh lpR lff">
     <q-header bordered :class="dark ? 'bg-grey-9' : 'bg-white'">
       <q-toolbar>
-        <img src="statics/app-logo-128x128.png" height="35px;" />
-
-        <q-toolbar-title :class="dark ? 'text-white' : 'text-primary'">
-          {{ appTitle }}
-        </q-toolbar-title>
+        <img
+          :src="dark ? 'statics/app-logo-dark.png' : 'statics/app-logo.png'"
+          height="35px;"
+          @click="$router.push('/')"
+          class="cursor-pointer"
+        />
 
         <q-space />
 
@@ -62,15 +63,22 @@
       <right-drawer />
     </q-drawer>
 
-    <q-footer elevated>
-      <q-toolbar
-        :class="dark ? 'bg-grey-9 text-white' : 'bg-white text-grey-9'"
-      >
-        <q-toolbar-title>{{ appTitleFooter }}</q-toolbar-title>
-        <div :class="dark ? 'text-white' : 'text-grey-9'">
+    <q-footer bordered class="bg-transparent text-grey-9 text-lowercase items-center">
+      <div class="row q-pa-sm q-gutter-sm">
+        <q-btn flat dense type="a" class="text-lowercase">
+          da-ipms2020.web.app
+        </q-btn>
+        <q-btn flat dense type="a" class="text-capitalize">
+          Documentation
+        </q-btn>
+        <q-btn flat dense type="a" class="text-capitalize">
+          About
+        </q-btn>
+        <q-space/>
+        <span>
           <q-icon name="copyright" /> 2020
-        </div>
-      </q-toolbar>
+        </span>
+      </div>
     </q-footer>
 
     <q-page-container>

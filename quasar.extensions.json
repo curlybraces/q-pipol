@@ -9,9 +9,6 @@
     "build_always": true,
     "__internal": {
       "dev": {
-        "spa": {
-          "iconHash": "814869c620e21fd73e116e0f1b554c27"
-        },
         "pwa": {
           "iconHash": "4eb1351f7d724833d7170676960eb321"
         }

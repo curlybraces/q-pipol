@@ -1,6 +1,10 @@
 <template>
   <q-page>
-    <div class="q-mt-lg q-pa-sm">
+    <q-inner-loading :showing="loading">
+      <q-spinner-dots size="50px" color="primary"></q-spinner-dots>
+    </q-inner-loading>
+
+    <div class="q-mt-lg q-pa-sm" v-if="!loading">
       <q-item-label class="q-pl-none" header>Activity Feed</q-item-label>
 
       <q-list separator>
@@ -60,7 +64,7 @@ export default {
     };
   },
   computed: {
-    ...mapState('activities', ['activities'])
+    ...mapState('activities', ['activities','loading'])
   },
   filters: {
     subject(val) {

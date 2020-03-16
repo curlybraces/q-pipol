@@ -1,7 +1,5 @@
 <template>
   <q-page>
-    <page-breadcrumbs :breadcrumbs="breadcrumbs" />
-
     <div v-if="loading">Loading</div>
 
     <div class="q-pa-sm" v-else>
@@ -27,12 +25,8 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import PageBreadcrumbs from '../components/PageBreadcrumbs';
 
 export default {
-  components: {
-    PageBreadcrumbs
-  },
   name: 'ViewProject',
   computed: {
     ...mapState('project', ['project', 'loading'])

@@ -21,7 +21,7 @@
     "graphql-config": "^3.0.0-alpha.17",
     "localforage": "^1.7.3",
     "moment": "^2.24.0",
-    "quasar": "^1.9.9",
+    "quasar": "^1.9.10",
     "v-money": "^0.8.1",
     "vue-apollo": "^3.0.3",
     "vue-cookie-law": "^1.11.0",

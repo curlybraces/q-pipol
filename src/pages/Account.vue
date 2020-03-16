@@ -1,7 +1,5 @@
 <template>
   <q-page>
-    <!--    <page-breadcrumbs :breadcrumbs="breadcrumbs" />-->
-
     <div class="q-pa-sm">
       <q-card square>
         <div class="text-center">
@@ -81,7 +79,7 @@
               <q-select
                 outlined
                 label="Office"
-                :options="OPERATING_UNITS"
+                :options="operating_units"
                 v-model="officeToEdit"
                 emit-value
                 map-options
@@ -123,31 +121,14 @@
 </template>
 
 <script>
-// import PageBreadcrumbs from '../components/PageBreadcrumbs';
-
-import { OPERATING_UNITS } from '../data/dropdown-values';
-
 import { Loading } from 'quasar';
-
 import gql from 'graphql-tag';
-
 import { mapState } from 'vuex';
 
 export default {
-  // components: { PageBreadcrumbs },
   name: 'PageAccount',
   data() {
     return {
-      breadcrumbs: [
-        {
-          title: 'Home',
-          url: '/'
-        },
-        {
-          title: 'Account'
-        }
-      ],
-      OPERATING_UNITS,
       password: null,
       showPassword: false,
       rules: {
@@ -168,7 +149,8 @@ export default {
       'position',
       'name',
       'contact_number'
-    ])
+    ]),
+    ...mapState('options',['operating_units'])
   },
   methods: {
     updateProfile() {

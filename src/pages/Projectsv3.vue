@@ -15,7 +15,7 @@
     <div class="q-mt-md q-pa-sm">
       <div class="row q-mb-lg">
         <q-input
-          class="col-3"
+          class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12"
           dense
           outlined
           placeholder="Filter Programs and Projects"
@@ -27,11 +27,9 @@
         </q-input>
       </div>
 
-      <q-card-section v-if="loading">
-        <q-inner-loading :showing="loading">
-          <q-spinner-dots size="50px" color="primary" />
-        </q-inner-loading>
-      </q-card-section>
+      <q-inner-loading :showing="loading">
+        <q-spinner-dots size="50px" color="primary" />
+      </q-inner-loading>
 
       <template v-if="Object.keys(projects).length > 0">
         <q-infinite-scroll @load="onLoad" :offset="100">
