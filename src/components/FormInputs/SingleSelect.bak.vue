@@ -16,17 +16,10 @@
       emit-value
       clearable
       :hint="hint ? hint : void 0"
+      use-input
       label-color="orange-10"
       :rules="rules"
-      dropdown-icon="unfold_more"
     >
-      <template v-slot:before-options>
-        <q-item>
-          <q-item-section class="text-grey">
-            <q-input placeholder="Filter" v-model="filterText" outlined :dense="dense" @input="filterFn"/>
-          </q-item-section>
-        </q-item>
-      </template>
       <template v-slot:no-option>
         <q-item>
           <q-item-section class="text-grey">
@@ -63,8 +56,7 @@ export default {
   data() {
     return {
       model: this.value,
-      selectOptions: [],
-      filterText: ''
+      selectOptions: []
     };
   },
   methods: {

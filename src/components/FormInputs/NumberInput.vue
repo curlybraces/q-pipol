@@ -1,20 +1,20 @@
 <template>
-  <q-input
-    v-model="model"
-    :label="label"
-    stack-label
-    :dense="dense"
-    @input="val => $emit('input', val)"
-    :readonly="readonly"
-    :rules="rules"
-    :hint="hint"
-    clearable
-    type="number"
-    :suffix="suffix"
-    filled
-    label-color="orange-10"
-    class="col"
-  />
+  <div class="col">
+    <span class="text-caption text-weight-bold">{{ label }}</span>
+    <q-input
+      v-model="model"
+      :dense="dense"
+      @input="val => $emit('input', val)"
+      :readonly="readonly"
+      :rules="rules"
+      :hint="hint"
+      clearable
+      type="number"
+      :suffix="suffix"
+      outlined
+      label-color="orange-10"
+    />
+  </div>
 </template>
 
 <script>

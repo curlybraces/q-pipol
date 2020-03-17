@@ -1,20 +1,20 @@
 <template>
-  <q-input
-    outlined
-    stack-label
-    :value="value"
-    :label="label"
-    :prefix="prefix"
-    @input="val => $emit('input', val)"
-    v-money="money"
-    :dense="dense"
-    filled
-    label-color="orange-10"
-    :readonly="readonly"
-    class="col"
-    input-class="text-right"
-    :rules="rules"
-  />
+  <div class="col">
+    <span class="text-caption text-weight-bold">{{ label }}</span>
+    <q-input
+      :value="value"
+      :prefix="prefix"
+      @input="val => $emit('input', val)"
+      v-money="money"
+      :dense="dense"
+      outlined
+      label-color="orange-10"
+      :readonly="readonly"
+      class="col"
+      input-class="text-right"
+      :rules="rules"
+    />
+  </div>
 </template>
 
 <script>

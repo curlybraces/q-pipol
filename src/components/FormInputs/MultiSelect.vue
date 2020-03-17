@@ -1,51 +1,50 @@
 <template>
-  <q-select
-    v-model="model"
-    @filter="filterFn"
-    :options="filterOptions"
-    option-label="name"
-    option-value="id"
-    :label="label"
-    stack-label
-    filled
-    behavior="menu"
-    :dense="dense"
-    :options-dense="dense"
-    outlined
-    multiple
-    map-options
-    emit-value
-    use-chips
-    use-input
-    label-color="orange-10"
-    class="col"
-    counter
-  >
-    <template v-slot:before-options>
-      <q-item>
-        <q-item-section avatar>
-          <q-btn label="Select all" @click.stop="selectAllOptions" />
-        </q-item-section>
-      </q-item>
-    </template>
-    <template v-slot:option="scope">
-      <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
-        <q-item-section avatar>
-          <q-checkbox v-model="model" :val="scope.opt.id" />
-        </q-item-section>
-        <q-item-section>
-          <q-item-label v-html="scope.opt.name"></q-item-label>
-        </q-item-section>
-      </q-item>
-    </template>
-    <template v-if="model.length" v-slot:append>
-      <q-icon
-        name="cancel"
-        @click.stop="clearSelected"
-        class="cursor-pointer"
-      />
-    </template>
-  </q-select>
+  <div class="col">
+    <span class="text-caption text-weight-bold">{{ label }}</span>
+    <q-select
+      v-model="model"
+      @filter="filterFn"
+      :options="filterOptions"
+      option-label="name"
+      option-value="id"
+      behavior="menu"
+      :dense="dense"
+      :options-dense="dense"
+      outlined
+      multiple
+      map-options
+      emit-value
+      use-chips
+      use-input
+      label-color="orange-10"
+      counter
+    >
+      <template v-slot:before-options>
+        <q-item>
+          <q-item-section avatar>
+            <q-btn label="Select all" @click.stop="selectAllOptions" />
+          </q-item-section>
+        </q-item>
+      </template>
+      <template v-slot:option="scope">
+        <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
+          <q-item-section avatar>
+            <q-checkbox v-model="model" :val="scope.opt.id" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label v-html="scope.opt.name"></q-item-label>
+          </q-item-section>
+        </q-item>
+      </template>
+      <template v-if="model.length" v-slot:append>
+        <q-icon
+          name="cancel"
+          @click.stop="clearSelected"
+          class="cursor-pointer"
+        />
+      </template>
+    </q-select>
+  </div>
 </template>
 
 <script>

@@ -2,16 +2,6 @@
   <q-page>
     <div class="q-pa-sm">
       <q-card square>
-        <q-toolbar class="bg-primary text-white">
-          <q-avatar
-            color="white"
-            icon="playlist_add"
-            class="text-primary"
-          ></q-avatar>
-          <q-toolbar-title>Add Project</q-toolbar-title>
-        </q-toolbar>
-        <q-separator />
-
         <q-form @submit.prevent="validateAndCreate" ref="form">
           <q-stepper
             v-model="step"
@@ -32,6 +22,7 @@
               <div class="text-negative text-caption q-my-md">
                 * All information here are required.
               </div>
+
               <basic-information />
 
               <stepper-navigation @next="step = 2">
