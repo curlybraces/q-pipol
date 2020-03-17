@@ -1,7 +1,5 @@
 <template>
   <q-page>
-    <page-breadcrumbs :breadcrumbs="breadcrumbs" />
-
     <div class="q-pa-sm">
       <q-card square>
         <q-toolbar class="bg-primary text-white">
@@ -256,7 +254,6 @@ export default {
     'single-select': () => import('../components/FormInputs/SingleSelect.vue'),
     'date-input': () => import('../components/FormInputs/DateInput.vue'),
     'text-input': () => import('../components/FormInputs/TextInput.vue'),
-    'page-breadcrumbs': () => import('../components/PageBreadcrumbs.vue'),
     'stepper-navigation': () =>
       import('../components/Projects/StepperNavigation.vue'),
     'region-financial': () =>

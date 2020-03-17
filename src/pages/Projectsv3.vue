@@ -82,6 +82,8 @@
                         clickable
                         v-close-popup
                         :to="'/pip/' + project.id"
+                        tag="a"
+                        target="_blank"
                       >
                         <q-item-section>
                           <q-item-label>
