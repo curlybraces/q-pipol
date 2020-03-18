@@ -1,9 +1,43 @@
 <template>
   <q-page>
-    <!--    <page-breadcrumbs :breadcrumbs="breadcrumbs" />-->
+    <q-toolbar class="q-mt-lg">
+      <q-item-label header class="q-pl-none">Directory</q-item-label>
+      <q-space />
+      <q-btn
+        outline
+        label="Add Contact"
+        dense
+        color="primary"
+        @click="addContactDialog = true"
+      ></q-btn>
+    </q-toolbar>
 
-    <div class="q-pa-sm">
-      <directory @addContact="addContactDialog = true"></directory>
+    <div class="q-mt-md q-pa-sm">
+      <div class="row q-mb-lg">
+        <q-input
+          class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12"
+          dense
+          outlined
+          placeholder="Filter Contacts"
+          v-model="searchField"
+        >
+          <template v-slot:prepend>
+            <q-icon name="search" />
+          </template>
+        </q-input>
+      </div>
+
+      <q-inner-loading :showing="loading">
+        <q-spinner-dots size="50px" color="primary" />
+      </q-inner-loading>
+
+      <div class="row item-start q-col-gutter-md">
+        <contact-item
+          v-for="contact in contactsFiltered"
+          :contact="contact"
+          :key="contact.id"
+        ></contact-item>
+      </div>
     </div>
 
     <q-dialog
@@ -19,27 +53,35 @@
 </template>
 
 <script>
-// import PageBreadcrumbs from '../components/PageBreadcrumbs';
-import Directory from '../components/Directory/DirectoryComponent';
 import AddContact from '../components/Directory/AddEditContact/AddContact';
+import ContactItem from '../components/Directory/ContactItem';
+import { mapState, mapActions, mapGetters } from 'vuex';
 
 export default {
-  // components: { AddContact, PageBreadcrumbs, Directory },
-  components: { AddContact, Directory },
+  components: { AddContact, ContactItem },
   name: 'PageDirectory',
+  computed: {
+    ...mapState('contacts', ['search', 'loading', 'error']),
+    ...mapGetters('contacts', ['contactsFiltered']),
+    searchField: {
+      get() {
+        return this.search;
+      },
+      set(val) {
+        this.setSearch(val);
+      }
+    }
+  },
   data() {
     return {
-      breadcrumbs: [
-        {
-          title: 'Home',
-          url: '/'
-        },
-        {
-          title: 'Directory'
-        }
-      ],
       addContactDialog: false
     };
+  },
+  methods: {
+    ...mapActions('contacts', ['fetchContacts', 'setSearch'])
+  },
+  mounted() {
+    this.fetchContacts();
   }
 };
 </script>

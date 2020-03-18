@@ -5,157 +5,121 @@
     <div class="row q-pa-sm">
       <div class="col-4">
         <span class="text-subtitle1 text-primary">Profile</span>
-        <p class="text-caption">Your email address is your identity on IPM Online System and is used to log in.</p>
+        <p class="text-caption">
+          Your email address is your identity on IPM Online System and is used
+          to log in.
+        </p>
       </div>
-      <div class="col-8">
-        <span class="text-weight-bold">Email Address</span>
-        <q-input outlined dense></q-input>
-        <p/>
-        <span class="text-weight-bold">Name</span>
-        <q-input outlined dense></q-input>
+      <div class="col-8 q-gutter-y-sm">
+        <text-input outlined dense label="Email Address" v-model="email"></text-input>
+
+        <text-input outlined dense label="Name" v-model="nameToEdit"></text-input>
+
+        <single-select
+          label="Office"
+          :options="operating_units"
+          v-model="officeToEdit"
+        ></single-select>
+
+        <text-input
+          v-model="positionToEdit"
+          label="Position/Designation"
+          :rules="rules.required"
+        />
+
+        <text-input
+          v-model="contactNumberToEdit"
+          label="Contact No."
+          hint="Include area code"
+        />
+
+        <q-btn
+          label="Save Changes"
+          class="text-capitalize"
+          dense
+          color="primary"
+          glossy
+        />
       </div>
     </div>
 
-    <q-separator inset spaced/>
+    <q-separator inset spaced />
 
     <div class="row q-pa-sm">
       <div class="col-4">
         <span class="text-subtitle1 text-primary">Password</span>
-        <p class="text-caption">Your email address is your identity on IPM Online System and is used to log in.</p>
+        <p class="text-caption">
+          Your email address is your identity on IPM Online System and is used
+          to log in.
+        </p>
       </div>
       <div class="col-8">
         <span class="text-weight-bold">Current Password</span>
         <q-input outlined dense></q-input>
-        <p/>
+        <p />
         <span class="text-weight-bold">New Password</span>
         <q-input outlined dense></q-input>
-        <p/>
+        <p />
         <span class="text-weight-bold">Confirm New Password</span>
         <q-input outlined dense></q-input>
-        <p/>
-        <q-btn outline label="Update Password" class="text-capitalize" dense color="primary" />
+        <p />
+        <q-btn
+          glossy
+          label="Update Password"
+          class="text-capitalize"
+          dense
+          color="primary"
+        />
       </div>
     </div>
 
-    <q-separator inset spaced/>
+    <q-separator inset spaced />
 
-    <div class="q-pa-sm">
-      <q-card square>
-        <div class="text-center">
-          <span class="text-h6 text-weight-bold">Account</span>
-          <br />
-          <span class="text-subtitle1">
-            Edit your account settings and change your password here.
-          </span>
+    <div class="row q-pa-sm">
+      <div class="col-4">
+        <span class="text-subtitle1 text-primary">Deactivate Account</span>
+        <div class="text-caption">
+          You will not be able to login once you deactivate your account.
+          <p>
+            <b>Warning: Closing your account is irreversible.</b>
+          </p>
         </div>
-        <q-separator spaced></q-separator>
-        <div class="row q-pa-md q-mx-xl">
-          <q-form class="col q-gutter-md">
-            <q-input
-              outlined
-              prefix="Your Email is"
-              v-model="email"
-              readonly
-            ></q-input>
-          </q-form>
-        </div>
-        <q-separator spaced />
-        <div class="row q-pa-md q-mx-xl">
-          <q-form class="col q-gutter-md" @submit="updatePassword">
-            <q-item-label header>Change Password</q-item-label>
-            <q-input
-              outlined
-              label="New Password"
-              :type="showPassword ? 'text' : 'password'"
-              v-model="password"
-              :rules="[
-                val => (val && val.length > 0) || 'Password cannot be empty'
-              ]"
-            >
-              <template v-slot:append>
-                <q-icon
-                  :name="showPassword ? 'visibility_off' : 'visibility'"
-                  @click="showPassword = !showPassword"
-                ></q-icon>
-              </template>
-            </q-input>
-            <div class="row justify-center">
-              <q-btn color="primary" type="submit">SAVE CHANGES</q-btn>
-            </div>
-          </q-form>
-        </div>
-        <q-separator spaced />
-        <div class="row q-pa-md q-mx-xl">
-          <q-form
-            class="col q-gutter-md"
-            ref="profile"
-            @submit="updateProfile()"
-          >
-            <div class="row">
-              <q-item-label header>Profile</q-item-label>
-              <q-space />
-              <q-avatar
-                flat
-                dense
-                class="text-grey-8 cursor-pointer"
-                @click="isEditing = !isEditing"
-                v-if="!isEditing"
-              >
-                <q-icon name="edit" />
-              </q-avatar>
-            </div>
 
-            <div v-if="$apollo.loading">Loading User Profile...</div>
-            <div class="q-gutter-y-md" v-else>
-              <q-input
-                outlined
-                label="Full Name"
-                v-model="nameToEdit"
-                lazy-rules
-                :rules="rules.required"
-                :readonly="!isEditing"
-              ></q-input>
-              <q-select
-                outlined
-                label="Office"
-                :options="operating_units"
-                v-model="officeToEdit"
-                emit-value
-                map-options
-                :readonly="!isEditing"
-              ></q-select>
-              <q-input
-                outlined
-                v-model="positionToEdit"
-                label="Position/Designation"
-                hint="Do not abbreviate"
-                :rules="rules.required"
-                :readonly="!isEditing"
-              />
-              <q-input
-                outlined
-                v-model="contactNumberToEdit"
-                label="Contact No."
-                hint="Include area code"
-                :rules="rules.required"
-                :readonly="!isEditing"
-              />
-            </div>
-
-            <div class="row justify-center">
-              <q-btn
-                color="primary"
-                type="submit"
-                :loading="loading"
-                v-if="isEditing"
-                @click="updateProfile()"
-                >SAVE CHANGES</q-btn
-              >
-            </div>
-          </q-form>
-        </div>
-      </q-card>
+      </div>
+      <div class="col-8">
+        <q-btn outline dense class="text-capitalize" color="orange-10" label="Deactivate Account" @click="deactivateAccount = true"></q-btn>
+      </div>
     </div>
+
+    <q-dialog v-model="deactivateAccount">
+      <q-card>
+        <q-toolbar>
+          <q-item class="col">
+            <q-item-section>
+              <q-item-label>
+                Deactivate Account ({{ email }})
+              </q-item-label>
+            </q-item-section>
+            <q-item-section side>
+              <q-btn flat round dense icon="close" @click.stop="deactivateAccount = false"></q-btn>
+            </q-item-section>
+          </q-item>
+        </q-toolbar>
+        <q-separator></q-separator>
+        <div class="q-pa-sm q-gutter-y-md">
+          <div>
+            Deactivating your account is irreversible. Enter your IPMS password to confirm you want to deactivate this account:
+          </div>
+          <q-input v-model="password" outlined dense></q-input>
+        </div>
+        <q-separator></q-separator>
+        <q-card-actions align="right">
+          <q-btn flat label="Cancel" @click="deactivateAccount = false"></q-btn>
+          <q-btn label="Deactivate Account" glossy color="orange-10" @click="deactivateMyAccount"></q-btn>
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+
   </q-page>
 </template>
 
@@ -163,10 +127,13 @@
 import { Loading } from 'quasar';
 import gql from 'graphql-tag';
 import { mapState } from 'vuex';
+import TextInput from "../components/FormInputs/TextInput";
+import SingleSelect from "../components/FormInputs/SingleSelect";
 
 export default {
   name: 'PageAccount',
-  data() {
+    components: {SingleSelect, TextInput},
+    data() {
     return {
       password: null,
       showPassword: false,
@@ -178,7 +145,8 @@ export default {
       officeToEdit: null,
       nameToEdit: null,
       contactNumberToEdit: null,
-      positionToEdit: null
+      positionToEdit: null,
+      deactivateAccount: false
     };
   },
   computed: {
@@ -189,7 +157,7 @@ export default {
       'name',
       'contact_number'
     ]),
-    ...mapState('options',['operating_units'])
+    ...mapState('options', ['operating_units'])
   },
   methods: {
     updateProfile() {
@@ -240,6 +208,9 @@ export default {
     },
     updatePassword() {
       Loading.show();
+    },
+    deactivateMyAccount() {
+      alert("deactivate account");
     }
   },
   mounted() {

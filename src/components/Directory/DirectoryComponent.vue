@@ -1,28 +1,5 @@
 <template>
-  <q-card square>
-    <q-toolbar class="bg-primary text-white shadow-2">
-      <q-avatar flat dense icon="person" color="white" class="text-primary" />
-      <q-toolbar-title>Directory</q-toolbar-title>
-      <q-input
-        dark
-        dense
-        rounded
-        class="col-6"
-        placeholder="Search contacts..."
-        v-model="searchTerm"
-        @input="searchContacts"
-        standout
-      >
-        <template v-slot:append>
-          <q-icon
-            name="search"
-            @click="searchContacts"
-            class="cursor-pointer"
-          ></q-icon>
-        </template>
-      </q-input>
-    </q-toolbar>
-
+  <q-card>
     <q-card-section>
       <q-inner-loading :showing="loading">
         <q-spinner-dots size="50px" color="primary" />
@@ -43,10 +20,6 @@
         </template>
       </div>
     </q-card-section>
-
-    <q-page-sticky position="bottom-right" :offset="[18, 18]">
-      <q-btn fab icon="create" color="primary" @click="$emit('addContact')" />
-    </q-page-sticky>
   </q-card>
 </template>
 

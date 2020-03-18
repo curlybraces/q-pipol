@@ -33,7 +33,7 @@ const actions = {
         });
       })
       .catch(err => console.log(err.message))
-      .finally(() => commit('SET_LOADING',false));
+      .finally(() => commit('SET_LOADING', false));
   }
 };
 

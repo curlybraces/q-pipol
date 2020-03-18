@@ -28,7 +28,8 @@
               outlined
               :dense="dense"
               :loading="filtering"
-              @input="filterOptions"/>
+              @input="filterOptions"
+            />
           </q-item-section>
         </q-item>
       </template>
@@ -78,23 +79,23 @@ export default {
       this.$emit('input', this.model);
     },
     filterOptions(e) {
-        const options = this.$props.options;
+      const options = this.$props.options;
 
-        if (e === '') {
-          this.selectOptions = options;
-          return;
-        } else {
-          this.filtering = true;
-          const needle = e.toLowerCase();
-          this.selectOptions = options.filter(
-              v => v.name.toLowerCase().indexOf(needle) > -1
-          );
-          setTimeout(() => {
-            this.filtering = false;
-          }, 1000);
+      if (e === '') {
+        this.selectOptions = options;
+        return;
+      } else {
+        this.filtering = true;
+        const needle = e.toLowerCase();
+        this.selectOptions = options.filter(
+          v => v.name.toLowerCase().indexOf(needle) > -1
+        );
+        setTimeout(() => {
+          this.filtering = false;
+        }, 1000);
 
-          return;
-        }
+        return;
+      }
     },
     filterFn(val, update) {
       console.log(val);

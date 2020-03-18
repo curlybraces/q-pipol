@@ -63,7 +63,10 @@
       <right-drawer />
     </q-drawer>
 
-    <q-footer bordered class="bg-transparent text-grey-9 text-lowercase items-center">
+    <q-footer
+      bordered
+      class="bg-transparent text-grey-9 text-lowercase items-center"
+    >
       <div class="row q-pa-sm q-gutter-sm">
         <q-btn flat dense type="a" class="text-lowercase">
           da-ipms2020.web.app
@@ -74,10 +77,8 @@
         <q-btn flat dense type="a" class="text-capitalize">
           About
         </q-btn>
-        <q-space/>
-        <span>
-          <q-icon name="copyright" /> 2020
-        </span>
+        <q-space />
+        <span> <q-icon name="copyright" /> 2020 </span>
       </div>
     </q-footer>
 

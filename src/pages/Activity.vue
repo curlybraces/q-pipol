@@ -64,7 +64,7 @@ export default {
     };
   },
   computed: {
-    ...mapState('activities', ['activities','loading'])
+    ...mapState('activities', ['activities', 'loading'])
   },
   filters: {
     subject(val) {
