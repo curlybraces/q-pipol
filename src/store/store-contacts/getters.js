@@ -27,8 +27,6 @@ export const contactsSorted = state => {
     let taskAProp = state.contacts[a][state.sort].toLowerCase(),
       taskBProp = state.contacts[b][state.sort].toLowerCase();
 
-    console.log("A: ",taskAProp,"B: ",taskBProp);
-
     if (taskAProp > taskBProp) return 1
     else if (taskAProp < taskBProp) return -1
     else return 0;
