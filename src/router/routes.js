@@ -28,8 +28,8 @@ const routes = [
           import(/* webpackChunkName: 'Programs' */ 'pages/Directory.vue')
       },
       {
-        path: 'pip',
-        name: 'pip',
+        path: 'projects',
+        name: 'projects',
         component: () =>
           import(/* webpackChunkName: 'Projects' */ 'pages/Projectsv3.vue')
       },
@@ -44,12 +44,12 @@ const routes = [
           import(/* webpackChunkName: 'Resources' */ 'pages/Resources.vue')
       },
       {
-        path: 'pip/new',
+        path: 'projects/new',
         component: () =>
           import(/* webpackChunkName: 'AddProject' */ 'pages/AddProject.vue')
       },
       {
-        path: 'pip/:id/edit',
+        path: 'projects/:id/edit',
         name: 'EditProject',
         component: () =>
           import(
@@ -57,13 +57,13 @@ const routes = [
           )
       },
       {
-        path: 'pip/:id',
-        name: 'pipDetails',
+        path: 'projects/:id',
+        name: 'project_details',
         component: () =>
           import(/* webpackChunkName: 'ViewProject' */ 'pages/ViewProject.vue')
       },
       {
-        path: 'trash',
+        path: 'projects/deleted',
         component: () =>
           import(
             /* webpackChunkName: 'DeletedProjects' */ 'pages/DeletedProjects.vue'

@@ -115,7 +115,7 @@ export default {
         {
           label: 'Projects',
           icon: 'list',
-          to: '/pip'
+          to: '/projects'
         },
         {
           label: 'Reports',

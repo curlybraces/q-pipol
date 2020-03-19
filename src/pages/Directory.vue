@@ -36,6 +36,9 @@
       </q-inner-loading>
 
       <div class="row item-start q-col-gutter-md">
+        <template v-if="loading">
+          <contact-loading v-for="i in 4" :key="i"></contact-loading>
+        </template>
         <contact-item
           v-for="contact in contactsFiltered"
           :contact="contact"
@@ -61,9 +64,10 @@ import AddContact from '../components/Directory/AddEditContact/AddContact';
 import ContactItem from '../components/Directory/ContactItem';
 import { mapState, mapActions, mapGetters } from 'vuex';
 import JsonExcel from 'vue-json-excel';
+import ContactLoading from "../components/Directory/ContactLoading";
 
 export default {
-  components: { AddContact, ContactItem, JsonExcel },
+  components: {ContactLoading, AddContact, ContactItem, JsonExcel },
   name: 'PageDirectory',
   computed: {
     ...mapState('contacts', ['search', 'loading', 'error']),
