@@ -8,7 +8,7 @@
         label="Add Project"
         dense
         color="primary"
-        to="/pip/new"
+        to="/projects/new"
       ></q-btn>
     </q-toolbar>
 
@@ -30,6 +30,34 @@
       <q-inner-loading :showing="loading">
         <q-spinner-dots size="50px" color="primary" />
       </q-inner-loading>
+
+      <template  v-if="loading">
+        <q-item class="col" v-for="i in 5" :key="i">
+          <q-item-section avatar>
+            <q-skeleton type="QAvatar" />
+          </q-item-section>
+          <q-item-section class="col-6">
+            <q-item-label>
+              <q-skeleton type="text" />
+            </q-item-label>
+            <q-item-label caption>
+              <q-skeleton type="text" width="65%" />
+            </q-item-label>
+            <q-item-label caption>
+              <q-skeleton type="text" width="35%" />
+            </q-item-label>
+          </q-item-section>
+          <q-item-section></q-item-section>
+          <q-item-section>
+            <q-item-label >
+              <q-skeleton type="text"/>
+            </q-item-label>
+          </q-item-section>
+          <q-item-section side>
+            <q-skeleton type="QBtn" width="25px" dense/>
+          </q-item-section>
+        </q-item>
+      </template>
 
       <template v-if="Object.keys(projects).length > 0">
         <q-infinite-scroll @load="onLoad" :offset="100">
@@ -90,7 +118,7 @@
                       <q-item
                         clickable
                         v-close-popup
-                        :to="'/pip/' + project.id"
+                        :to="'/projects/' + project.id"
                         tag="a"
                         target="_blank"
                       >
@@ -103,7 +131,7 @@
                       <q-item
                         clickable
                         v-close-popup
-                        :to="'/pip/' + project.id + '/edit'"
+                        :to="'/projects/' + project.id + '/edit'"
                         tag="a"
                         target="_blank"
                       >
