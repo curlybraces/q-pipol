@@ -20,7 +20,6 @@ export function fetchContacts({ commit }) {
         }
         commit("ADD_CONTACT", payload);
       });
-
       commit('SET_LOADING', false);
     })
     .catch(err => {
@@ -44,14 +43,11 @@ export function createContact({ commit }, payload) {
       }
     })
     .then(res => {
-      const newContact = {
+      const payload = {
         id: res.data.createContact.id,
-        operating_unit: {
-          name: res.data.createContact.operating_unit.name
-        },
-        ...payload
+        contact: res.data.createContact
       };
-      commit('ADD_CONTACT', newContact);
+      commit('ADD_CONTACT', payload);
       return;
     });
 }

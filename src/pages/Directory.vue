@@ -62,7 +62,7 @@ export default {
   name: 'PageDirectory',
   computed: {
     ...mapState('contacts', ['search', 'loading', 'error']),
-    ...mapGetters('contacts', ['contactsFiltered']),
+    ...mapGetters('contacts', ['contactsFiltered','contactsSorted']),
     searchField: {
       get() {
         return this.search;
@@ -82,7 +82,6 @@ export default {
   },
   mounted() {
     this.fetchContacts();
-    console.log(this.contactsFiltered)
   }
 };
 </script>

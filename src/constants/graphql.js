@@ -1147,8 +1147,14 @@ export const CREATE_CONTACT_MUTATION = gql`
       id
       name
       operating_unit {
+        id
         name
       }
+      designation
+      operating_unit_id
+      email
+      phone_number
+      fax_number
     }
   }
 `;

@@ -86,14 +86,13 @@ export default {
         return;
       } else {
         this.filtering = true;
-        const needle = e.toLowerCase();
-        this.selectOptions = options.filter(
-          v => v.name.toLowerCase().indexOf(needle) > -1
-        );
         setTimeout(() => {
+          const needle = e.toLowerCase();
+          this.selectOptions = options.filter(
+              v => v.name.toLowerCase().indexOf(needle) > -1
+          );
           this.filtering = false;
-        }, 1000);
-
+        }, 500);
         return;
       }
     },
