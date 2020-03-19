@@ -23,7 +23,14 @@
         </q-item-section>
         <q-item-section>
           <q-item-label>
-            {{ contact.operating_unit ? contact.operating_unit.name : null }}
+            {{
+              contact.operating_unit
+                ? contact.operating_unit.name +
+                  ' (' +
+                  contact.operating_unit.acronym +
+                  ')'
+                : null
+            }}
           </q-item-label>
         </q-item-section>
       </q-item>

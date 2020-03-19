@@ -3,6 +3,9 @@
     <q-toolbar class="q-mt-lg">
       <q-item-label header class="q-pl-none">Directory</q-item-label>
       <q-space />
+      <json-excel :data="contactsArray">
+        <q-btn dense class="q-mr-sm" glossy color="primary" label="Download" />
+      </json-excel>
       <q-btn
         outline
         label="Add Contact"
@@ -20,6 +23,7 @@
           outlined
           placeholder="Filter Contacts"
           v-model="searchField"
+          ref="searchBox"
         >
           <template v-slot:prepend>
             <q-icon name="search" />
@@ -56,13 +60,14 @@
 import AddContact from '../components/Directory/AddEditContact/AddContact';
 import ContactItem from '../components/Directory/ContactItem';
 import { mapState, mapActions, mapGetters } from 'vuex';
+import JsonExcel from 'vue-json-excel';
 
 export default {
-  components: { AddContact, ContactItem },
+  components: { AddContact, ContactItem, JsonExcel },
   name: 'PageDirectory',
   computed: {
     ...mapState('contacts', ['search', 'loading', 'error']),
-    ...mapGetters('contacts', ['contactsFiltered','contactsSorted']),
+    ...mapGetters('contacts', ['contactsFiltered']),
     searchField: {
       get() {
         return this.search;
@@ -70,6 +75,22 @@ export default {
       set(val) {
         this.setSearch(val);
       }
+    },
+    contactsArray() {
+      let contactsArray = [];
+
+      Object.keys(this.contactsFiltered).map(key => {
+        const contact = {
+          id: this.contactsFiltered[key]['id'],
+          name: this.contactsFiltered[key]['name'],
+          office: this.contactsFiltered[key]['operating_unit']['acronym'],
+          email: this.contactsFiltered[key]['email'],
+          phone_number: this.contactsFiltered[key]['phone_number']
+        };
+        contactsArray.push(contact);
+      });
+
+      return contactsArray;
     }
   },
   data() {
@@ -82,6 +103,13 @@ export default {
   },
   mounted() {
     this.fetchContacts();
+
+    window.addEventListener('keydown', e => {
+      if (e.ctrlKey && e.keyCode === 70) {
+        e.preventDefault();
+        this.$refs.searchBox.$el.focus();
+      }
+    });
   }
 };
 </script>

@@ -965,6 +965,7 @@ export const ALL_PROJECTS_QUERY = gql`
           operating_unit {
             name
             image
+            acronym
           }
           description
           total_project_cost
@@ -1119,6 +1120,7 @@ export const FETCH_CONTACTS = gql`
         id
         name
         image
+        acronym
       }
       operating_unit_id
     }

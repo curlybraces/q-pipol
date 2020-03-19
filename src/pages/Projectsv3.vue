@@ -47,11 +47,20 @@
                 </q-avatar>
               </q-item-section>
               <q-item-section class="col-6">
-                <q-item-label
-                  v-html="
-                    $options.filters.searchHighlight(project.title, search)
-                  "
-                />
+                <q-item-label>
+                  <span class="text-weight-bold">
+                    {{
+                      project.operating_unit
+                        ? '[' + project.operating_unit.acronym + '] '
+                        : ''
+                    }}
+                  </span>
+                  <span
+                    v-html="
+                      $options.filters.searchHighlight(project.title, search)
+                    "
+                  ></span>
+                </q-item-label>
                 <q-item-label caption lines="2">
                   {{ project.description }}
                 </q-item-label>

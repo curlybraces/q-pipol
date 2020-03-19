@@ -27,13 +27,13 @@ export const contactsSorted = state => {
     let taskAProp = state.contacts[a][state.sort].toLowerCase(),
       taskBProp = state.contacts[b][state.sort].toLowerCase();
 
-    if (taskAProp > taskBProp) return 1
-    else if (taskAProp < taskBProp) return -1
+    if (taskAProp > taskBProp) return 1;
+    else if (taskAProp < taskBProp) return -1;
     else return 0;
   });
 
   keysOrdered.forEach(key => {
-    contactsSorted[key] = state.contacts[key]
+    contactsSorted[key] = state.contacts[key];
   });
 
   return contactsSorted;

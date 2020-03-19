@@ -89,7 +89,7 @@ export default {
         setTimeout(() => {
           const needle = e.toLowerCase();
           this.selectOptions = options.filter(
-              v => v.name.toLowerCase().indexOf(needle) > -1
+            v => v.name.toLowerCase().indexOf(needle) > -1
           );
           this.filtering = false;
         }, 500);

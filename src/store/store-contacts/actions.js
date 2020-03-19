@@ -17,8 +17,8 @@ export function fetchContacts({ commit }) {
         const payload = {
           id: contact.id,
           contact: contact
-        }
-        commit("ADD_CONTACT", payload);
+        };
+        commit('ADD_CONTACT', payload);
       });
       commit('SET_LOADING', false);
     })

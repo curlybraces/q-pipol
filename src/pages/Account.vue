@@ -11,9 +11,19 @@
         </p>
       </div>
       <div class="col-8 q-gutter-y-sm">
-        <text-input outlined dense label="Email Address" v-model="email"></text-input>
+        <text-input
+          outlined
+          dense
+          label="Email Address"
+          v-model="email"
+        ></text-input>
 
-        <text-input outlined dense label="Name" v-model="nameToEdit"></text-input>
+        <text-input
+          outlined
+          dense
+          label="Name"
+          v-model="nameToEdit"
+        ></text-input>
 
         <single-select
           label="Office"
@@ -84,10 +94,16 @@
             <b>Warning: Closing your account is irreversible.</b>
           </p>
         </div>
-
       </div>
       <div class="col-8">
-        <q-btn outline dense class="text-capitalize" color="orange-10" label="Deactivate Account" @click="deactivateAccount = true"></q-btn>
+        <q-btn
+          outline
+          dense
+          class="text-capitalize"
+          color="orange-10"
+          label="Deactivate Account"
+          @click="deactivateAccount = true"
+        ></q-btn>
       </div>
     </div>
 
@@ -96,30 +112,39 @@
         <q-toolbar>
           <q-item class="col">
             <q-item-section>
-              <q-item-label>
-                Deactivate Account ({{ email }})
-              </q-item-label>
+              <q-item-label> Deactivate Account ({{ email }}) </q-item-label>
             </q-item-section>
             <q-item-section side>
-              <q-btn flat round dense icon="close" @click.stop="deactivateAccount = false"></q-btn>
+              <q-btn
+                flat
+                round
+                dense
+                icon="close"
+                @click.stop="deactivateAccount = false"
+              ></q-btn>
             </q-item-section>
           </q-item>
         </q-toolbar>
         <q-separator></q-separator>
         <div class="q-pa-sm q-gutter-y-md">
           <div>
-            Deactivating your account is irreversible. Enter your IPMS password to confirm you want to deactivate this account:
+            Deactivating your account is irreversible. Enter your IPMS password
+            to confirm you want to deactivate this account:
           </div>
           <q-input v-model="password" outlined dense></q-input>
         </div>
         <q-separator></q-separator>
         <q-card-actions align="right">
           <q-btn flat label="Cancel" @click="deactivateAccount = false"></q-btn>
-          <q-btn label="Deactivate Account" glossy color="orange-10" @click="deactivateMyAccount"></q-btn>
+          <q-btn
+            label="Deactivate Account"
+            glossy
+            color="orange-10"
+            @click="deactivateMyAccount"
+          ></q-btn>
         </q-card-actions>
       </q-card>
     </q-dialog>
-
   </q-page>
 </template>
 
@@ -127,13 +152,13 @@
 import { Loading } from 'quasar';
 import gql from 'graphql-tag';
 import { mapState } from 'vuex';
-import TextInput from "../components/FormInputs/TextInput";
-import SingleSelect from "../components/FormInputs/SingleSelect";
+import TextInput from '../components/FormInputs/TextInput';
+import SingleSelect from '../components/FormInputs/SingleSelect';
 
 export default {
   name: 'PageAccount',
-    components: {SingleSelect, TextInput},
-    data() {
+  components: { SingleSelect, TextInput },
+  data() {
     return {
       password: null,
       showPassword: false,
@@ -210,7 +235,7 @@ export default {
       Loading.show();
     },
     deactivateMyAccount() {
-      alert("deactivate account");
+      alert('deactivate account');
     }
   },
   mounted() {
