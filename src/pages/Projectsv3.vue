@@ -104,6 +104,8 @@
                         clickable
                         v-close-popup
                         :to="'/pip/' + project.id + '/edit'"
+                        tag="a"
+                        target="_blank"
                       >
                         <q-item-section>
                           <q-item-label>
@@ -146,20 +148,12 @@ export default {
   name: 'Projects',
   data() {
     return {
-      breadcrumbs: [
-        {
-          title: 'Home',
-          url: '/'
-        },
-        {
-          title: 'Projects'
-        }
-      ],
       expanded: false
     };
   },
   computed: {
     ...mapState('projects', ['loading', 'search', 'pageInfo']),
+    ...mapState('settings', ['dark']),
     ...mapGetters('projects', ['projects']),
     searchField: {
       get() {

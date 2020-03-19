@@ -1,24 +1,28 @@
 <template>
   <q-page>
-    <div v-if="loading">Loading</div>
+    <q-inner-loading :showing="loading">
+      <q-spinner-dots size="50px" color="primary"></q-spinner-dots>
+    </q-inner-loading>
 
-    <div class="q-pa-sm" v-else>
-      <q-card square>
-        <q-card-section>
-          <q-toolbar>
-            <q-toolbar-title>Project Profile</q-toolbar-title>
-          </q-toolbar>
-        </q-card-section>
-        <q-separator />
-        <q-card-section>
-          <div class="text-h6">{{ project.title }}</div>
-          <div class="text-subtitle2">{{ project.operating_unit.name }}</div>
-        </q-card-section>
+    <q-item-label class="q-mt-lg" header>View Project</q-item-label>
 
-        <pre>
-          {{ project }}
-        </pre>
-      </q-card>
+    <div class="row q-pa-sm q-col-gutter-sm" v-if="!loading">
+      <div class="text-h6 q-gutter-xs">
+        {{ project.title }}
+        <q-badge v-if="project.pip">PIP</q-badge>
+        <q-badge v-if="project.cip">CIP</q-badge>
+        <q-badge v-if="project.trip">TRIP</q-badge>
+        <q-badge v-if="project.rdip">RDIP</q-badge>
+        <q-badge v-if="project.pcip">PCIP</q-badge>
+        <q-badge v-if="project.afmip">AFMIP</q-badge>
+      </div>
+      <div class="text-subtitle2">{{ project.operating_unit.name }}</div>
+
+      <pre>
+        {{
+          project
+        }}
+      </pre>
     </div>
   </q-page>
 </template>
@@ -33,19 +37,10 @@ export default {
   },
   data() {
     return {
-      breadcrumbs: [
-        {
-          title: 'Home',
-          url: '/'
-        },
-        {
-          title: 'Projects',
-          url: '/pip'
-        },
-        {
-          title: 'View Project'
-        }
-      ]
+      nav: [{
+        label: 'Basic Information',
+        ref: '#basicInformation'
+      }]
     };
   },
   methods: {
