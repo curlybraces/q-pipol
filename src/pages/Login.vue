@@ -125,7 +125,7 @@
       </div>
 
       <div class="row justify-center q-my-xl">
-        &copy; 2019 Mark Lester Bolotaolo
+        &copy; 2020 Mark Lester Bolotaolo
       </div>
     </div>
   </q-page>
