@@ -82,6 +82,7 @@ export default {
   },
   mounted() {
     this.fetchContacts();
+    console.log(this.contactsFiltered)
   }
 };
 </script>

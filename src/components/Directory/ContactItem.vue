@@ -83,6 +83,7 @@
               icon="save"
               @click="updateThisContact"
               color="primary"
+              :loading="loading"
             />
           </contact-actions>
         </q-card>
@@ -107,7 +108,8 @@ export default {
   data() {
     return {
       updateContactDialog: false,
-      contactToEdit: {}
+      contactToEdit: {},
+      loading: false
     };
   },
   methods: {
@@ -126,6 +128,7 @@ export default {
         });
     },
     updateThisContact() {
+      this.loading = true;
       this.updateContact(this.contactToEdit).then(
         () => (this.updateContactDialog = false)
       );

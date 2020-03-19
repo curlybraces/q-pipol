@@ -1,6 +1,6 @@
 export default function() {
   return {
-    contacts: [],
+    contacts: {},
     loading: false,
     error: false,
     search: ''

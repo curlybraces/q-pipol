@@ -13,7 +13,14 @@ export function fetchContacts({ commit }) {
       query: FETCH_CONTACTS
     })
     .then(res => {
-      commit('SET_CONTACTS', res.data.contacts);
+      res.data.contacts.forEach(contact => {
+        const payload = {
+          id: contact.id,
+          contact: contact
+        }
+        commit("ADD_CONTACT", payload);
+      });
+
       commit('SET_LOADING', false);
     })
     .catch(err => {
