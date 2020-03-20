@@ -28,7 +28,13 @@
           size="sm"
         >
           <q-avatar size="42px">
-            <img :src="image_url ? 'statics/avatar/' + image_url + '.svg': 'statics/avatar-placeholder.png' ">
+            <img
+              :src="
+                image_url
+                  ? 'statics/avatar/' + image_url + '.svg'
+                  : 'statics/avatar-placeholder.png'
+              "
+            />
           </q-avatar>
           <dropdown-menu v-model="menu" />
         </q-btn>
@@ -148,7 +154,7 @@ export default {
     };
   },
   computed: {
-    ...mapState('auth', ['name','image_url']),
+    ...mapState('auth', ['name', 'image_url']),
     ...mapState('settings', ['dark']),
     darkMode() {
       return this.$q.dark.isActive;

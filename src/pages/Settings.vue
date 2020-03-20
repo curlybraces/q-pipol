@@ -8,7 +8,11 @@
 
     <div class="row q-pa-sm">
       <div class="col-lg-4 col-md-6 col-xs-12">
-        <span class="text-subtitle1" :class="dark ? 'text-purple' : 'text-primary'">Appearance</span>
+        <span
+          class="text-subtitle1"
+          :class="dark ? 'text-purple' : 'text-primary'"
+          >Appearance</span
+        >
         <p class="text-caption">
           Change the appearance of the app.
         </p>

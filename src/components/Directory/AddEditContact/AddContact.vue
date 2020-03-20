@@ -6,7 +6,7 @@
       <div class="q-ma-sm q-pa-sm bg-red-1" v-if="errors.length">
         <p>Please check the following.</p>
         <ul>
-          <li v-for="(error,index) in errors" :key="index">{{ error }}</li>
+          <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
         </ul>
       </div>
       <contact-form :contact.sync="contact"></contact-form>
@@ -50,7 +50,14 @@ export default {
   methods: {
     ...mapActions('contacts', ['createContact']),
     checkForm(e) {
-      const { name, designation, operating_unit_id, email, phone_number, fax_number } = this.contact;
+      const {
+        name,
+        designation,
+        operating_unit_id,
+        email,
+        phone_number,
+        fax_number
+      } = this.contact;
 
       this.errors = [];
 
@@ -94,7 +101,6 @@ export default {
         this.loading = false;
         this.$emit('close');
       });
-
     }
   }
 };

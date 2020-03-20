@@ -1,6 +1,11 @@
 import { LocalStorage } from 'quasar';
 import { apolloClient } from 'boot/apollo';
-import {LOGIN_MUTATION, ME_QUERY, UPDATE_IMAGE_URL_MUTATION} from '../../constants/graphql';
+import {
+  LOGIN_MUTATION,
+  ME_QUERY,
+  UPDATE_IMAGE_URL_MUTATION,
+  UPDATE_PROFILE_MUTATION
+} from '../../constants/graphql';
 
 export function loginUser({ commit, dispatch }, payload) {
   apolloClient
@@ -35,20 +40,22 @@ export function populateUser({ commit }) {
     })
     .then(res => {
       const {
+        id,
         email,
         name,
         contact_number,
         role,
-        operating_unit,
+        operating_unit_id,
         position,
         image_url
       } = res.data.me;
       commit('SET_ME', res.data.me);
+      commit('SET_ID', id);
       commit('SET_USER_LOADED', true);
       commit('SET_NAME', name);
       commit('SET_EMAIL', email);
       commit('SET_IMAGE_URL', image_url);
-      commit('SET_OPERATING_UNIT', operating_unit ? operating_unit.id : '');
+      commit('SET_OPERATING_UNIT_ID', operating_unit_id);
       commit('SET_CONTACT_NUMBER', contact_number);
       commit('SET_ROLE', role.name);
       commit('SET_POSITION', position);
@@ -76,15 +83,37 @@ export function logoutUser({ commit }) {
 }
 
 export function setImageUrl({ commit }, payload) {
-  apolloClient.mutate({
-    mutation: UPDATE_IMAGE_URL_MUTATION,
-    variables: {
-      image_url: payload
-    }
-  })
-  .then(res => {
-    console.log(res.data);
-    commit('SET_IMAGE_URL', payload);
-  })
-  .catch(err => console.log(err.message));
+  apolloClient
+    .mutate({
+      mutation: UPDATE_IMAGE_URL_MUTATION,
+      variables: {
+        image_url: payload
+      }
+    })
+    .then(res => {
+      console.log(res.data);
+      commit('SET_IMAGE_URL', payload);
+    })
+    .catch(err => console.log(err.message));
+}
+
+export function updateProfile({ dispatch }, payload) {
+  const { operating_unit_id, position, name, contact_number } = payload;
+
+  return apolloClient
+    .mutate({
+      mutation: UPDATE_PROFILE_MUTATION,
+      variables: {
+        operating_unit_id: operating_unit_id,
+        position: position,
+        name: name,
+        contact_number: contact_number
+      }
+    })
+    .then(res => {
+      dispatch('populateUser');
+      console.log(res);
+      return;
+    })
+    .catch(err => console.log(err.message));
 }

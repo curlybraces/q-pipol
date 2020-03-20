@@ -10,53 +10,65 @@
           to log in.
         </p>
       </div>
-      <div class="row col-lg-8 col-md-6 col-xs-12 q-col-gutter-sm q-gutter-y-sm">
+      <div
+        class="row col-lg-8 col-md-6 col-xs-12 q-col-gutter-sm q-gutter-y-sm"
+      >
         <div class="col-lg-1 col-md-2 text-center q-mt-md">
-          <q-avatar @click="chooseAvatar = true" class="cursor-pointer" color="green">
-            <q-img :src="image_url ? 'statics/avatar/' + image_url + '.svg' : 'statics/avatar-placeholder.png' "/>
+          <q-avatar
+            @click="chooseAvatar = true"
+            class="cursor-pointer"
+            color="green"
+          >
+            <q-img
+              :src="
+                image_url
+                  ? 'statics/avatar/' + image_url + '.svg'
+                  : 'statics/avatar-placeholder.png'
+              "
+            />
           </q-avatar>
         </div>
 
         <div class="col-lg-11 col-md-10 col-sm col-xs">
-          <text-input
-            outlined
-            dense
-            label="Email Address"
-            v-model="email"
-          ></text-input>
+          <q-form @submit="checkForm">
+            <div class="bg-red-1 q-mb-sm q-pa-sm" v-if="errors.length">
+              Please check the following:
+              <ul>
+                <li v-for="error in errors" :key="error">{{ error }}</li>
+              </ul>
+            </div>
 
-          <text-input
-            outlined
-            dense
-            label="Name"
-            v-model="nameToEdit"
-          ></text-input>
+            <text-input
+              outlined
+              dense
+              label="Name"
+              v-model="user.name"
+            ></text-input>
 
-          <single-select
-            label="Office"
-            :options="operating_units"
-            v-model="officeToEdit"
-          ></single-select>
+            <single-select
+              label="Office"
+              :options="operating_units"
+              v-model="user.operating_unit_id"
+            ></single-select>
 
-          <text-input
-            v-model="positionToEdit"
-            label="Position/Designation"
-            :rules="rules.required"
-          />
+            <text-input v-model="user.position" label="Position/Designation" />
 
-          <text-input
-            v-model="contactNumberToEdit"
-            label="Contact No."
-            hint="Include area code"
-          />
+            <text-input
+              v-model="user.contact_number"
+              label="Contact No."
+              hint="Include area code"
+            />
 
-          <q-btn
-            label="Save Changes"
-            class="text-capitalize"
-            dense
-            color="primary"
-            glossy
-          />
+            <q-btn
+              label="Save Changes"
+              class="text-capitalize"
+              dense
+              color="primary"
+              glossy
+              type="submit"
+              :loading="loading"
+            />
+          </q-form>
         </div>
       </div>
     </div>
@@ -157,17 +169,15 @@
     <q-dialog v-model="chooseAvatar">
       <choose-avatar @close="chooseAvatar = false"></choose-avatar>
     </q-dialog>
-
   </q-page>
 </template>
 
 <script>
 import { Loading } from 'quasar';
-import gql from 'graphql-tag';
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import TextInput from '../components/FormInputs/TextInput';
 import SingleSelect from '../components/FormInputs/SingleSelect';
-import ChooseAvatar from "../components/Account/ChooseAvatar";
+import ChooseAvatar from '../components/Account/ChooseAvatar';
 
 export default {
   name: 'PageAccount',
@@ -187,66 +197,60 @@ export default {
       positionToEdit: null,
       deactivateAccount: false,
       chooseAvatar: false,
-      avatar: '001-lego'
+      user: {
+        operating_unit_id: null,
+        position: null,
+        name: null,
+        contact_number: null
+      },
+      errors: []
     };
   },
   computed: {
     ...mapState('auth', [
+      'me',
       'email',
-      'operating_unit',
+      'operating_unit_id',
       'position',
       'name',
       'contact_number',
-      'image_url'
+      'image_url',
+      'operating_unit_id'
     ]),
     ...mapState('options', ['operating_units'])
   },
   methods: {
-    updateProfile() {
-      this.$refs.profile.validate().then(success => {
-        if (success) {
-          this.loading = true;
-          this.$apollo
-            .mutate({
-              mutation: gql`
-                mutation updateProfile(
-                  $name: String!
-                  $operating_unit_id: Int!
-                  $unit: String!
-                  $position: String!
-                ) {
-                  updateProfile(
-                    input: {
-                      name: $name
-                      operating_unit_id: $operating_unit_id
-                      unit: $unit
-                      position: $position
-                    }
-                  ) {
-                    id
-                  }
-                }
-              `,
-              variables: {
-                name: this.me.name,
-                operating_unit_id: this.me.profile.operating_unit.id,
-                unit: this.me.profile.unit,
-                position: this.me.profile.position
-              }
-            })
-            .then(data => {
-              this.loading = false;
-              this.isEditing = false;
-              console.log(data);
-            })
-            .catch(err => {
-              this.loading = false;
-              console.log(err.message);
-            });
-        } else {
-          alert('Please check form inputs');
-        }
-      });
+    ...mapActions('auth', ['populateUser', 'updateProfile']),
+    checkForm() {
+      this.errors = [];
+      const { name, operating_unit_id, position, contact_number } = this.user;
+
+      if (!name) {
+        this.errors.push('Name is required');
+      }
+
+      if (!operating_unit_id) {
+        this.errors.push('Office is required');
+      }
+
+      if (!position) {
+        this.errors.push('Position/designation is required');
+      }
+
+      if (!contact_number) {
+        this.errors.push('Contact number is required');
+      }
+
+      if (!this.errors.length) {
+        this.loading = true;
+        this.updateProfile({
+          name: name,
+          operating_unit_id: operating_unit_id,
+          position: position,
+          contact_number: contact_number
+        })
+        .then(() => this.loading = false);
+      }
     },
     updatePassword() {
       Loading.show();
@@ -256,11 +260,10 @@ export default {
     }
   },
   mounted() {
-    this.officeToEdit = this.operating_unit;
-    this.nameToEdit = this.name;
-    this.contactNumberToEdit = this.contact_number;
-    this.positionToEdit = this.position;
-    console.log(this.avatar);
+    this.user = Object.assign({}, this.me);
+  },
+  created() {
+    this.populateUser();
   }
 };
 </script>

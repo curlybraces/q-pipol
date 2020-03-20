@@ -267,51 +267,87 @@ const actions = {
           rap_affected_2020: project.rap_affected_2020,
           rap_affected_2021: project.rap_affected_2021,
           rap_affected_2022: project.rap_affected_2022,
-          investment_target_2016: project.investment_target_2016,
-          investment_target_2017: project.investment_target_2017,
-          investment_target_2018: project.investment_target_2018,
-          investment_target_2019: project.investment_target_2019,
-          investment_target_2020: project.investment_target_2020,
-          investment_target_2021: project.investment_target_2021,
-          investment_target_2022: project.investment_target_2022,
-          investment_target_2023: project.investment_target_2023,
-          investment_target_total: project.investment_target_total,
-          infrastructure_target_2016: project.infrastructure_target_2016,
-          infrastructure_target_2017: project.infrastructure_target_2017,
-          infrastructure_target_2018: project.infrastructure_target_2018,
-          infrastructure_target_2019: project.infrastructure_target_2019,
-          infrastructure_target_2020: project.infrastructure_target_2020,
-          infrastructure_target_2021: project.infrastructure_target_2021,
-          infrastructure_target_2022: project.infrastructure_target_2022,
-          infrastructure_target_2023: project.infrastructure_target_2023,
-          infrastructure_target_total: project.infrastructure_target_total,
-          nep_2016: project.nep_2016,
-          nep_2017: project.nep_2017,
-          nep_2018: project.nep_2018,
-          nep_2019: project.nep_2019,
-          nep_2020: project.nep_2020,
-          nep_2021: project.nep_2021,
-          nep_2022: project.nep_2022,
-          nep_2023: project.nep_2023,
-          nep_total: getters.nep_total,
-          gaa_2016: project.gaa_2016,
-          gaa_2017: project.gaa_2017,
-          gaa_2018: project.gaa_2018,
-          gaa_2019: project.gaa_2019,
-          gaa_2020: project.gaa_2020,
-          gaa_2021: project.gaa_2021,
-          gaa_2022: project.gaa_2022,
-          gaa_2023: project.gaa_2023,
-          gaa_total: getters.gaa_total,
-          disbursement_2016: project.disbursement_2016,
-          disbursement_2017: project.disbursement_2017,
-          disbursement_2018: project.disbursement_2018,
-          disbursement_2019: project.disbursement_2019,
-          disbursement_2020: project.disbursement_2020,
-          disbursement_2021: project.disbursement_2021,
-          disbursement_2022: project.disbursement_2022,
-          disbursement_2023: project.disbursement_2023,
-          disbursement_total: getters.disbursement_total,
+          investment_target_2016: convertToNumber(
+            project.investment_target_2016
+          ),
+          investment_target_2017: convertToNumber(
+            project.investment_target_2017
+          ),
+          investment_target_2018: convertToNumber(
+            project.investment_target_2018
+          ),
+          investment_target_2019: convertToNumber(
+            project.investment_target_2019
+          ),
+          investment_target_2020: convertToNumber(
+            project.investment_target_2020
+          ),
+          investment_target_2021: convertToNumber(
+            project.investment_target_2021
+          ),
+          investment_target_2022: convertToNumber(
+            project.investment_target_2022
+          ),
+          investment_target_2023: convertToNumber(
+            project.investment_target_2023
+          ),
+          investment_target_total: convertToNumber(
+            project.investment_target_total
+          ),
+          infrastructure_target_2016: convertToNumber(
+            project.infrastructure_target_2016
+          ),
+          infrastructure_target_2017: convertToNumber(
+            project.infrastructure_target_2017
+          ),
+          infrastructure_target_2018: convertToNumber(
+            project.infrastructure_target_2018
+          ),
+          infrastructure_target_2019: convertToNumber(
+            project.infrastructure_target_2019
+          ),
+          infrastructure_target_2020: convertToNumber(
+            project.infrastructure_target_2020
+          ),
+          infrastructure_target_2021: convertToNumber(
+            project.infrastructure_target_2021
+          ),
+          infrastructure_target_2022: convertToNumber(
+            project.infrastructure_target_2022
+          ),
+          infrastructure_target_2023: convertToNumber(
+            project.infrastructure_target_2023
+          ),
+          infrastructure_target_total: convertToNumber(
+            project.infrastructure_target_total
+          ),
+          nep_2016: convertToNumber(project.nep_2016),
+          nep_2017: convertToNumber(project.nep_2017),
+          nep_2018: convertToNumber(project.nep_2018),
+          nep_2019: convertToNumber(project.nep_2019),
+          nep_2020: convertToNumber(project.nep_2020),
+          nep_2021: convertToNumber(project.nep_2021),
+          nep_2022: convertToNumber(project.nep_2022),
+          nep_2023: convertToNumber(project.nep_2023),
+          nep_total: convertToNumber(getters.nep_total),
+          gaa_2016: convertToNumber(project.gaa_2016),
+          gaa_2017: convertToNumber(project.gaa_2017),
+          gaa_2018: convertToNumber(project.gaa_2018),
+          gaa_2019: convertToNumber(project.gaa_2019),
+          gaa_2020: convertToNumber(project.gaa_2020),
+          gaa_2021: convertToNumber(project.gaa_2021),
+          gaa_2022: convertToNumber(project.gaa_2022),
+          gaa_2023: convertToNumber(project.gaa_2023),
+          gaa_total: convertToNumber(getters.gaa_total),
+          disbursement_2016: convertToNumber(project.disbursement_2016),
+          disbursement_2017: convertToNumber(project.disbursement_2017),
+          disbursement_2018: convertToNumber(project.disbursement_2018),
+          disbursement_2019: convertToNumber(project.disbursement_2019),
+          disbursement_2020: convertToNumber(project.disbursement_2020),
+          disbursement_2021: convertToNumber(project.disbursement_2021),
+          disbursement_2022: convertToNumber(project.disbursement_2022),
+          disbursement_2023: convertToNumber(project.disbursement_2023),
+          disbursement_total: convertToNumber(getters.disbursement_total),
           bases: {
             connect: project.selected_bases
           },

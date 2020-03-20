@@ -68,9 +68,11 @@ export const DEACTIVATE_USER = gql`
 export const ME_QUERY = gql`
   query me {
     me {
+      id
       name
       email
       position
+      operating_unit_id
       operating_unit {
         id
         image
@@ -103,30 +105,26 @@ export const ASSIGN_ROLE_MUTATION = gql`
 `;
 
 export const UPDATE_IMAGE_URL_MUTATION = gql`
-  mutation updateImageUrlMutation(
-    $image_url: String!
-  ) {
-    updateImageUrlMutation(
-      image_url: $image_url
-    ) {
+  mutation updateImageUrlMutation($image_url: String!) {
+    updateImageUrlMutation(image_url: $image_url) {
       id
     }
   }
 `;
 
 export const UPDATE_PROFILE_MUTATION = gql`
-  mutation updateProfile(
-    $name: String!
-    $operating_unit_id: Int!
-    $unit: String!
-    $position: String!
+  mutation updateUser(
+    $name: String
+    $operating_unit_id: ID
+    $position: String
+    $contact_number: String
   ) {
-    updateProfile(
+    updateUser(
       input: {
         name: $name
         operating_unit_id: $operating_unit_id
-        unit: $unit
         position: $position
+        contact_number: $contact_number
       }
     ) {
       id
@@ -763,6 +761,10 @@ export const FETCH_PROJECT_QUERY = gql`
         id
         name
       }
+      target_start_year
+      target_end_year
+      implementation_end_date
+      implementation_start_date
       operating_unit_id
       operating_unit {
         id

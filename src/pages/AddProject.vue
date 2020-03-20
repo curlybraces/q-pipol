@@ -277,7 +277,7 @@ export default {
       this.$refs.form.validate().then(success => {
         if (success) {
           this.createProject().then(id =>
-            this.$router.push('/pip/' + id + '/edit')
+            this.$router.push('/projects/' + id + '/edit')
           );
         }
       });

@@ -10,6 +10,10 @@ export function SET_EMAIL(state, value) {
   state.email = value;
 }
 
+export function SET_ID(state, value) {
+  state.id = value;
+}
+
 export function SET_NAME(state, value) {
   state.name = value;
 }
@@ -20,6 +24,10 @@ export function SET_IMAGE_URL(state, value) {
 
 export function SET_OPERATING_UNIT(state, value) {
   state.operating_unit = value;
+}
+
+export function SET_OPERATING_UNIT_ID(state, value) {
+  state.operating_unit_id = value;
 }
 
 export function SET_CONTACT_NUMBER(state, value) {

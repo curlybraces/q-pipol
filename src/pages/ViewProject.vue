@@ -4,26 +4,96 @@
       <q-spinner-dots size="50px" color="primary"></q-spinner-dots>
     </q-inner-loading>
 
-    <q-item-label class="q-mt-lg" header>View Project</q-item-label>
+    <q-item-label class="q-mt-lg" header>
+      View Project
+    </q-item-label>
 
-    <div class="row q-pa-sm q-col-gutter-sm" v-if="!loading">
-      <div class="text-h6 q-gutter-xs">
-        {{ project.title }}
-        <q-badge v-if="project.pip">PIP</q-badge>
-        <q-badge v-if="project.cip">CIP</q-badge>
-        <q-badge v-if="project.trip">TRIP</q-badge>
-        <q-badge v-if="project.rdip">RDIP</q-badge>
-        <q-badge v-if="project.pcip">PCIP</q-badge>
-        <q-badge v-if="project.afmip">AFMIP</q-badge>
+    <div class="row q-col-gutter-sm">
+      <div class="col-8 q-pa-sm">
+        <q-list>
+          <q-item>
+            <q-item-section>
+              <q-item-label>Title</q-item-label>
+              <q-item-label caption>{{ project.title }}</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item>
+            <q-item-section>
+              <q-item-label>
+                Implementing Agency
+              </q-item-label>
+              <q-item-label caption>
+                {{ project.operating_unit.name }}
+              </q-item-label>
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>Implementation Period</q-item-label>
+              <q-item-label caption>
+                {{
+                  project.target_start_year + ' - ' + project.target_end_year
+                }}
+              </q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item>
+            <q-item-section>
+              <q-item-label>Description</q-item-label>
+              <q-item-label caption>{{ project.description }}</q-item-label>
+            </q-item-section>
+          </q-item>
+        </q-list>
       </div>
-      <div class="text-subtitle2">{{ project.operating_unit.name }}</div>
-
-      <pre>
-        {{
-          project
-        }}
-      </pre>
+      <div class="col-4 bg-blue-2 q-pa-sm">
+        <q-list>
+          <q-item>
+            <q-item-section>
+              <q-item-label caption>
+                Goals
+              </q-item-label>
+              <q-item-label>
+                {{ project.goals }}
+              </q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item>
+            <q-item-section>
+              <q-item-label caption>
+                Outcomes
+              </q-item-label>
+              <q-item-label>
+                {{ project.outcomes }}
+              </q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item>
+            <q-item-section>
+              <q-item-label caption>
+                Objectives
+              </q-item-label>
+              <q-item-label>
+                {{ project.purpose }}
+              </q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item>
+            <q-item-section>
+              <q-item-label caption>
+                Expected Outputs
+              </q-item-label>
+              <q-item-label>
+                {{ project.expected_outputs }}
+              </q-item-label>
+            </q-item-section>
+          </q-item>
+        </q-list>
+      </div>
     </div>
+
+    <q-separator />
+
+    <pre>
+      {{ project }}
+    </pre>
   </q-page>
 </template>
 
@@ -37,10 +107,12 @@ export default {
   },
   data() {
     return {
-      nav: [{
-        label: 'Basic Information',
-        ref: '#basicInformation'
-      }]
+      nav: [
+        {
+          label: 'Basic Information',
+          ref: '#basicInformation'
+        }
+      ]
     };
   },
   methods: {

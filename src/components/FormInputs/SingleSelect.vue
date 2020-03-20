@@ -64,11 +64,18 @@ export default {
     rules: Array
   },
   computed: {
-    ...mapState('settings', ['dense'])
+    ...mapState('settings', ['dense']),
+    model: {
+      get() {
+        return this.$props.value;
+      },
+      set(val) {
+        this.$emit('input',val);
+      }
+    }
   },
   data() {
     return {
-      model: this.value,
       selectOptions: [],
       filterText: '',
       filtering: false

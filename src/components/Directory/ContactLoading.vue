@@ -14,14 +14,14 @@
           </q-item-label>
         </q-item-section>
       </q-item>
-      <q-separator/>
+      <q-separator />
       <q-item>
         <q-item-section avatar>
           <q-skeleton type="QAvatar" />
         </q-item-section>
         <q-item-section>
           <q-item-label>
-            <q-skeleton type="text" width="70%"/>
+            <q-skeleton type="text" width="70%" />
           </q-item-label>
         </q-item-section>
       </q-item>
@@ -31,7 +31,7 @@
         </q-item-section>
         <q-item-section>
           <q-item-label>
-            <q-skeleton type="text" width="60%"/>
+            <q-skeleton type="text" width="60%" />
           </q-item-label>
         </q-item-section>
       </q-item>
@@ -41,7 +41,7 @@
         </q-item-section>
         <q-item-section>
           <q-item-label>
-            <q-skeleton type="text" width="40%"/>
+            <q-skeleton type="text" width="40%" />
           </q-item-label>
         </q-item-section>
       </q-item>
@@ -56,5 +56,5 @@
 <script>
 export default {
   name: 'ContactLoading'
-}
+};
 </script>

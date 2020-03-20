@@ -31,7 +31,7 @@
         <q-spinner-dots size="50px" color="primary" />
       </q-inner-loading>
 
-      <template  v-if="loading">
+      <template v-if="loading">
         <q-item class="col" v-for="i in 5" :key="i">
           <q-item-section avatar>
             <q-skeleton type="QAvatar" />
@@ -49,12 +49,12 @@
           </q-item-section>
           <q-item-section></q-item-section>
           <q-item-section>
-            <q-item-label >
-              <q-skeleton type="text"/>
+            <q-item-label>
+              <q-skeleton type="text" />
             </q-item-label>
           </q-item-section>
           <q-item-section side>
-            <q-skeleton type="QBtn" width="25px" dense/>
+            <q-skeleton type="QBtn" width="25px" dense />
           </q-item-section>
         </q-item>
       </template>

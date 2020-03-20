@@ -64,10 +64,10 @@ import AddContact from '../components/Directory/AddEditContact/AddContact';
 import ContactItem from '../components/Directory/ContactItem';
 import { mapState, mapActions, mapGetters } from 'vuex';
 import JsonExcel from 'vue-json-excel';
-import ContactLoading from "../components/Directory/ContactLoading";
+import ContactLoading from '../components/Directory/ContactLoading';
 
 export default {
-  components: {ContactLoading, AddContact, ContactItem, JsonExcel },
+  components: { ContactLoading, AddContact, ContactItem, JsonExcel },
   name: 'PageDirectory',
   computed: {
     ...mapState('contacts', ['search', 'loading', 'error']),
