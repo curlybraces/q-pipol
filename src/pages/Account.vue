@@ -11,7 +11,7 @@
         </p>
       </div>
       <div class="row col-lg-8 col-md-6 col-xs-12 q-col-gutter-sm q-gutter-y-sm">
-        <div class="col-lg-1 col-md-2 text-right">
+        <div class="col-lg-1 col-md-2 text-center q-mt-md">
           <q-avatar @click="chooseAvatar = true" class="cursor-pointer" color="green">
             <q-img :src="image_url ? 'statics/avatar/' + image_url + '.svg' : 'statics/avatar-placeholder.png' "/>
           </q-avatar>
