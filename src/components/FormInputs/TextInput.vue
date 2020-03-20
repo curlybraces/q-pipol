@@ -25,15 +25,15 @@ export default {
   name: 'TextInput',
   props: ['type', 'label', 'value', 'readonly', 'rules', 'maxlength', 'hint'],
   computed: {
-    ...mapState('settings', ['dense'])
-  },
-  data() {
-    return {
-      model: null
-    };
-  },
-  mounted() {
-    this.model = this.value;
+    ...mapState('settings', ['dense']),
+    model: {
+      get() {
+        return this.$props.value;
+      },
+      set(val) {
+        this.$emit('input', val);
+      }
+    }
   }
 };
 </script>
