@@ -79,6 +79,7 @@ export const ME_QUERY = gql`
       role {
         name
       }
+      image_url
       notifications
       unreadNotifications
     }
@@ -97,6 +98,18 @@ export const ASSIGN_ROLE_MUTATION = gql`
       }
       status
       message
+    }
+  }
+`;
+
+export const UPDATE_IMAGE_URL_MUTATION = gql`
+  mutation updateImageUrlMutation(
+    $image_url: String!
+  ) {
+    updateImageUrlMutation(
+      image_url: $image_url
+    ) {
+      id
     }
   }
 `;

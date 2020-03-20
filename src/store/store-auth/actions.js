@@ -1,6 +1,6 @@
 import { LocalStorage } from 'quasar';
 import { apolloClient } from 'boot/apollo';
-import { LOGIN_MUTATION, ME_QUERY } from '../../constants/graphql';
+import {LOGIN_MUTATION, ME_QUERY, UPDATE_IMAGE_URL_MUTATION} from '../../constants/graphql';
 
 export function loginUser({ commit, dispatch }, payload) {
   apolloClient
@@ -40,13 +40,14 @@ export function populateUser({ commit }) {
         contact_number,
         role,
         operating_unit,
-        position
+        position,
+        image_url
       } = res.data.me;
       commit('SET_ME', res.data.me);
       commit('SET_USER_LOADED', true);
       commit('SET_NAME', name);
       commit('SET_EMAIL', email);
-      commit('SET_IMAGE', operating_unit ? operating_unit.image : '');
+      commit('SET_IMAGE_URL', image_url);
       commit('SET_OPERATING_UNIT', operating_unit ? operating_unit.id : '');
       commit('SET_CONTACT_NUMBER', contact_number);
       commit('SET_ROLE', role.name);
@@ -72,4 +73,18 @@ export function logoutUser({ commit }) {
   apolloClient.cache.data.clear();
 
   this.$router.replace('/login');
+}
+
+export function setImageUrl({ commit }, payload) {
+  apolloClient.mutate({
+    mutation: UPDATE_IMAGE_URL_MUTATION,
+    variables: {
+      image_url: payload
+    }
+  })
+  .then(res => {
+    console.log(res.data);
+    commit('SET_IMAGE_URL', payload);
+  })
+  .catch(err => console.log(err.message));
 }

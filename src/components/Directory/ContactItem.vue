@@ -9,6 +9,7 @@
         </q-item-section>
         <q-item-section>
           <q-item-label
+            class="text-weight-bold text-uppercase"
             v-html="$options.filters.searchHighlight(contact.name, search)"
           ></q-item-label>
           <q-item-label>

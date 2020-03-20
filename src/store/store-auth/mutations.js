@@ -14,8 +14,8 @@ export function SET_NAME(state, value) {
   state.name = value;
 }
 
-export function SET_IMAGE(state, value) {
-  state.image = value;
+export function SET_IMAGE_URL(state, value) {
+  state.image_url = value;
 }
 
 export function SET_OPERATING_UNIT(state, value) {
@@ -53,7 +53,7 @@ export function SET_ME(state, value) {
 export function CLEAR_USER(state) {
   state.email = null;
   state.name = null;
-  state.image = null;
+  state.image_url = null;
   state.operating_unit = null;
   state.contact_number = null;
   state.position = null;

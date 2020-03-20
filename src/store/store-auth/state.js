@@ -7,7 +7,7 @@ export default function() {
     token: null,
     email: null,
     name: null,
-    image: null,
+    image_url: null,
     operating_unit: null,
     contact_number: null,
     position: null,

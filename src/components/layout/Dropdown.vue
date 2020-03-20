@@ -4,8 +4,8 @@
       <q-avatar>
         <q-img
           :src="
-            image
-              ? 'statics/agency_logos/' + image
+            image_url
+              ? 'statics/avatar/' + image_url + '.svg'
               : 'statics/avatar-placeholder.png'
           "
         />
@@ -67,7 +67,7 @@ import { mapState, mapActions } from 'vuex';
 export default {
   name: 'DropdownMenu',
   computed: {
-    ...mapState('auth', ['email', 'name', 'image'])
+    ...mapState('auth', ['email', 'name', 'image_url'])
   },
   methods: {
     ...mapActions('auth', ['logoutUser']),

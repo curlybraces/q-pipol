@@ -5,7 +5,7 @@
         <img
           :src="dark ? 'statics/app-logo-dark.png' : 'statics/app-logo.png'"
           height="35px;"
-          @click="$router.push('/')"
+          @click="$router.push({ name: 'home' })"
           class="cursor-pointer"
         />
 
@@ -24,10 +24,12 @@
           text-color="white"
           flat
           round
-          :label="name ? name.charAt(0) : 'DA'"
           @mouseenter="menu = true"
           size="sm"
         >
+          <q-avatar size="42px">
+            <img :src="image_url ? 'statics/avatar/' + image_url + '.svg': 'statics/avatar-placeholder.png' ">
+          </q-avatar>
           <dropdown-menu v-model="menu" />
         </q-btn>
       </q-toolbar>
@@ -141,28 +143,15 @@ export default {
           label: 'Settings',
           icon: 'settings',
           to: '/settings'
-        },
-        {
-          label: 'Help',
-          icon: 'help_outline',
-          to: '/help'
         }
       ]
     };
   },
   computed: {
-    ...mapState('auth', ['name']),
+    ...mapState('auth', ['name','image_url']),
     ...mapState('settings', ['dark']),
     darkMode() {
       return this.$q.dark.isActive;
-    },
-    drawer: {
-      get() {
-        return this.drawerState;
-      },
-      set(val) {
-        this.drawerState = val;
-      }
     }
   }
 };

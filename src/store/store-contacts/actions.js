@@ -49,7 +49,8 @@ export function createContact({ commit }, payload) {
       };
       commit('ADD_CONTACT', payload);
       return;
-    });
+    })
+    .catch(err => console.log(err.message));
 }
 
 export function deleteContact({ commit }, id) {
@@ -63,7 +64,8 @@ export function deleteContact({ commit }, id) {
     .then(() => {
       commit('DELETE_CONTACT', id);
       return;
-    });
+    })
+    .catch(err => console.log(err.message));
 }
 
 export function updateContact({ commit }, payload) {
@@ -87,7 +89,8 @@ export function updateContact({ commit }, payload) {
       };
       commit('UPDATE_CONTACT', updatedContact);
       return;
-    });
+    })
+    .catch(err => console.log(err.message));
 }
 
 export function setSearch({ commit }, value) {

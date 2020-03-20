@@ -3,67 +3,75 @@
     <q-item-label header class="q-pa-sm q-mt-lg">Account</q-item-label>
 
     <div class="row q-pa-sm">
-      <div class="col-4">
+      <div class="col-lg-4 col-md-6 col-xs-12">
         <span class="text-subtitle1 text-primary">Profile</span>
         <p class="text-caption">
           Your email address is your identity on IPM Online System and is used
           to log in.
         </p>
       </div>
-      <div class="col-8 q-gutter-y-sm">
-        <text-input
-          outlined
-          dense
-          label="Email Address"
-          v-model="email"
-        ></text-input>
+      <div class="row col-lg-8 col-md-6 col-xs-12 q-col-gutter-sm q-gutter-y-sm">
+        <div class="col-lg-1 col-md-2 text-right">
+          <q-avatar @click="chooseAvatar = true" class="cursor-pointer" color="green">
+            <q-img :src="image_url ? 'statics/avatar/' + image_url + '.svg' : 'statics/avatar-placeholder.png' "/>
+          </q-avatar>
+        </div>
 
-        <text-input
-          outlined
-          dense
-          label="Name"
-          v-model="nameToEdit"
-        ></text-input>
+        <div class="col-lg-11 col-md-10 col-sm col-xs">
+          <text-input
+            outlined
+            dense
+            label="Email Address"
+            v-model="email"
+          ></text-input>
 
-        <single-select
-          label="Office"
-          :options="operating_units"
-          v-model="officeToEdit"
-        ></single-select>
+          <text-input
+            outlined
+            dense
+            label="Name"
+            v-model="nameToEdit"
+          ></text-input>
 
-        <text-input
-          v-model="positionToEdit"
-          label="Position/Designation"
-          :rules="rules.required"
-        />
+          <single-select
+            label="Office"
+            :options="operating_units"
+            v-model="officeToEdit"
+          ></single-select>
 
-        <text-input
-          v-model="contactNumberToEdit"
-          label="Contact No."
-          hint="Include area code"
-        />
+          <text-input
+            v-model="positionToEdit"
+            label="Position/Designation"
+            :rules="rules.required"
+          />
 
-        <q-btn
-          label="Save Changes"
-          class="text-capitalize"
-          dense
-          color="primary"
-          glossy
-        />
+          <text-input
+            v-model="contactNumberToEdit"
+            label="Contact No."
+            hint="Include area code"
+          />
+
+          <q-btn
+            label="Save Changes"
+            class="text-capitalize"
+            dense
+            color="primary"
+            glossy
+          />
+        </div>
       </div>
     </div>
 
     <q-separator inset spaced />
 
     <div class="row q-pa-sm">
-      <div class="col-4">
+      <div class="col-lg-4 col-md-6 col-xs-12">
         <span class="text-subtitle1 text-primary">Password</span>
         <p class="text-caption">
           Your email address is your identity on IPM Online System and is used
           to log in.
         </p>
       </div>
-      <div class="col-8">
+      <div class="col-lg-8 col-md-6 col-xs-12">
         <span class="text-weight-bold">Current Password</span>
         <q-input outlined dense></q-input>
         <p />
@@ -86,7 +94,7 @@
     <q-separator inset spaced />
 
     <div class="row q-pa-sm">
-      <div class="col-4">
+      <div class="col-lg-4 col-md-6 col-xs-12">
         <span class="text-subtitle1 text-primary">Deactivate Account</span>
         <div class="text-caption">
           You will not be able to login once you deactivate your account.
@@ -95,7 +103,7 @@
           </p>
         </div>
       </div>
-      <div class="col-8">
+      <div class="col-lg-8 col-md-6 col-xs-12">
         <q-btn
           outline
           dense
@@ -145,6 +153,11 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
+
+    <q-dialog v-model="chooseAvatar">
+      <choose-avatar @close="chooseAvatar = false"></choose-avatar>
+    </q-dialog>
+
   </q-page>
 </template>
 
@@ -154,10 +167,11 @@ import gql from 'graphql-tag';
 import { mapState } from 'vuex';
 import TextInput from '../components/FormInputs/TextInput';
 import SingleSelect from '../components/FormInputs/SingleSelect';
+import ChooseAvatar from "../components/Account/ChooseAvatar";
 
 export default {
   name: 'PageAccount',
-  components: { SingleSelect, TextInput },
+  components: { ChooseAvatar, SingleSelect, TextInput },
   data() {
     return {
       password: null,
@@ -171,7 +185,9 @@ export default {
       nameToEdit: null,
       contactNumberToEdit: null,
       positionToEdit: null,
-      deactivateAccount: false
+      deactivateAccount: false,
+      chooseAvatar: false,
+      avatar: '001-lego'
     };
   },
   computed: {
@@ -180,7 +196,8 @@ export default {
       'operating_unit',
       'position',
       'name',
-      'contact_number'
+      'contact_number',
+      'image_url'
     ]),
     ...mapState('options', ['operating_units'])
   },
@@ -243,6 +260,7 @@ export default {
     this.nameToEdit = this.name;
     this.contactNumberToEdit = this.contact_number;
     this.positionToEdit = this.position;
+    console.log(this.avatar);
   }
 };
 </script>
