@@ -1,7 +1,6 @@
 <template>
   <div class="col">
     <span class="text-caption text-weight-bold">{{ label }}</span>
-
     <q-select
       v-model="model"
       :options="selectOptions"
@@ -18,6 +17,7 @@
       map-options
       emit-value
       clearable
+      :readonly="readonly"
     >
       <template v-slot:before-options>
         <q-item>
@@ -61,7 +61,8 @@ export default {
     options: Array,
     value: [String, Number],
     hint: { type: String },
-    rules: Array
+    rules: Array,
+    readonly: Boolean
   },
   computed: {
     ...mapState('settings', ['dense']),
