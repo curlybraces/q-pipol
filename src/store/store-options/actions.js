@@ -8,7 +8,8 @@ import {
   FETCH_SPATIAL_COVERAGES,
   FETCH_PROJECT_STATUSES,
   FETCH_TECHNICAL_READINESSES,
-  FETCH_ROLES, FETCH_YEARS
+  FETCH_ROLES,
+  FETCH_YEARS
 } from '../../constants/graphql';
 
 export function fetchDistricts({ commit }) {
@@ -108,7 +109,7 @@ export function fetchYears({ commit }) {
       query: FETCH_YEARS
     })
     .then(res => {
-      commit('SET_YEARS',res.data.years);
+      commit('SET_YEARS', res.data.years);
     })
     .catch(err => console.log(err.message));
 }
@@ -126,7 +127,7 @@ export function initializeOptions({ state, dispatch, commit }) {
     dispatch('options/fetchSpatialCoverages', null, { root: true });
     dispatch('options/fetchTechnicalReadinesses', null, { root: true });
     dispatch('options/fetchRoles', null, { root: true });
-    dispatch('options/fetchYears',null,{ root: true });
+    dispatch('options/fetchYears', null, { root: true });
     commit('SET_INITIALIZED', true);
   }
 }

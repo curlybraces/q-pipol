@@ -1,4 +1,4 @@
-import { Notify } from "quasar";
+import { Notify } from 'quasar';
 
 export const graphQLErrorMessages = errorsFromCatch => {
   const errors = errorsFromCatch.graphQLErrors[0];
@@ -14,7 +14,7 @@ export const graphQLErrorMessages = errorsFromCatch => {
   return messages;
 };
 
-export const showGraphQLErrorMessage = (error) => {
+export const showGraphQLErrorMessage = error => {
   const { graphQLErrors } = error;
   Notify.create({
     color: 'red',

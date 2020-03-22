@@ -7,86 +7,143 @@ const routes = [
         path: '',
         name: 'home',
         component: () =>
-          import(/* webpackChunkName: 'Index' */ 'pages/Index.vue')
+          import(/* webpackChunkName: 'Index' */ 'pages/Index.vue'),
+        meta: {
+          requiresAuth: true
+        }
       },
       {
         path: 'admin',
         name: 'admin',
         component: () =>
-          import(/* webpackChunkName: 'Admin' */ 'pages/Admin.vue')
+          import(/* webpackChunkName: 'AdminPage' */ 'pages/Admin.vue'),
+        meta: {
+          is_admin: true,
+          requiresAuth: true
+        }
       },
       {
         path: 'programs',
         name: 'programs',
         component: () =>
-          import(/* webpackChunkName: 'Programs' */ 'pages/Programs.vue')
+          import(/* webpackChunkName: 'Programs' */ 'pages/Programs.vue'),
+        meta: {
+          requiresAuth: true
+        }
       },
       {
         path: 'directory',
         name: 'directory',
         component: () =>
-          import(/* webpackChunkName: 'Programs' */ 'pages/Directory.vue')
+          import(/* webpackChunkName: 'Programs' */ 'pages/Directory.vue'),
+        meta: {
+          requiresAuth: true
+        }
       },
       {
         path: 'projects',
         name: 'projects',
         component: () =>
-          import(/* webpackChunkName: 'Projects' */ 'pages/Projects.vue')
+          import(/* webpackChunkName: 'ProjectsPage' */ 'pages/Projects.vue'),
+        meta: {
+          requiresAuth: true
+        }
       },
       {
         path: 'account',
+        name: 'account',
         component: () =>
-          import(/* webpackChunkName: 'Account' */ 'pages/Account.vue')
+          import(/* webpackChunkName: 'AccountPage' */ 'pages/Account.vue'),
+        meta: {
+          requiresAuth: true
+        }
       },
       {
         path: 'resources',
+        name: 'resources',
         component: () =>
-          import(/* webpackChunkName: 'Resources' */ 'pages/Resources.vue')
+          import(/* webpackChunkName: 'ResourcesPage' */ 'pages/Resources.vue'),
+        meta: {
+          requiresAuth: true
+        }
       },
       {
         path: 'projects/new',
+        name: 'new-project',
         component: () =>
-          import(/* webpackChunkName: 'AddProject' */ 'pages/AddProject.vue')
+          import(
+            /* webpackChunkName: 'AddProjectPage' */ 'pages/AddProject.vue'
+          ),
+        meta: {
+          requiresAuth: true
+        }
       },
       {
         path: 'projects/:id/edit',
-        name: 'EditProject',
+        name: 'edit-project',
         component: () =>
           import(
-            /* webpackChunkName: 'UpdateProject' */ 'pages/EditProject.vue'
-          )
+            /* webpackChunkName: 'UpdateProjectPage' */ 'pages/EditProject.vue'
+          ),
+        meta: {
+          requiresAuth: true
+        }
       },
       {
         path: 'projects/:id',
-        name: 'project_details',
+        name: 'view-project',
         component: () =>
-          import(/* webpackChunkName: 'ViewProject' */ 'pages/ViewProject.vue')
+          import(/* webpackChunkName: 'ViewProject' */ 'pages/ViewProject.vue'),
+        meta: {
+          requiresAuth: true
+        }
       },
       {
         path: 'projects/deleted',
+        name: 'deleted-projects',
         component: () =>
           import(
             /* webpackChunkName: 'DeletedProjects' */ 'pages/DeletedProjects.vue'
-          )
+          ),
+        meta: {
+          requiresAuth: true
+        }
       },
       {
         path: 'settings',
+        name: 'settings',
         component: () =>
-          import(/* webpackChunkName: 'Settings' */ 'pages/Settings.vue')
+          import(/* webpackChunkName: 'SettingsPage' */ 'pages/Settings.vue'),
+        meta: {
+          requiresAuth: true
+        }
       },
       {
         path: 'activity',
+        name: 'activity',
         component: () =>
-          import(/* webpackChunkName: 'Activity' */ 'pages/Activity.vue')
+          import(/* webpackChunkName: 'ActivityPage' */ 'pages/Activity.vue'),
+        meta: {
+          requiresAuth: true
+        }
       },
       {
         path: 'reports',
+        name: 'reports',
         component: () =>
-          import(/* webpackChunkName: 'Reports' */ 'pages/Reports.vue')
+          import(/* webpackChunkName: 'ReportsPage' */ 'pages/Reports.vue'),
+        meta: {
+          requiresAuth: true
+        }
       },
       {
         path: 'help',
-        component: () => import(/* webpackChunkName: 'Help' */ 'pages/Help.vue')
+        name: 'help',
+        component: () =>
+          import(/* webpackChunkName: 'HelpPage' */ 'pages/Help.vue'),
+        meta: {
+          requiresAuth: true
+        }
       }
     ]
   },
@@ -96,8 +153,23 @@ const routes = [
     children: [
       {
         path: '',
+        name: 'login',
         component: () =>
-          import(/* webpackChunkName: 'Login' */ 'pages/Login.vue')
+          import(/* webpackChunkName: 'LoginPage' */ 'pages/Login.vue'),
+        meta: {
+          guest: true
+        }
+      }
+    ]
+  },
+  {
+    path: '/email-verify',
+    component: () => import('layouts/AuthLayout.vue'),
+    children: [
+      {
+        path: '',
+        name: 'email-verify',
+        component: () => import('pages/EmailVerify.vue')
       }
     ]
   },

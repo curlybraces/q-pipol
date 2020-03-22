@@ -105,7 +105,7 @@
       </div>
     </div>
 
-    <q-separator inset spaced  v-if="!verified" />
+    <q-separator inset spaced v-if="!verified" />
 
     <div class="row q-pa-sm" v-if="!verified">
       <div class="col-lg-4 col-md-6 col-xs-12">
@@ -243,7 +243,11 @@ export default {
     ...mapState('options', ['operating_units'])
   },
   methods: {
-    ...mapActions('auth', ['populateUser', 'updateProfile','resendEmailVerification']),
+    ...mapActions('auth', [
+      'populateUser',
+      'updateProfile',
+      'resendEmailVerification'
+    ]),
     verifyEmail() {
       this.resendEmailVerification(this.email);
     },

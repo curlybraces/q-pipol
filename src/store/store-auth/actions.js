@@ -3,11 +3,14 @@ import { apolloClient } from 'boot/apollo';
 import {
   FORGOT_PASSWORD_MUTATION,
   LOGIN_MUTATION,
-  ME_QUERY, REGISTER_MUTATION, RESEND_EMAIL_VERIFICATION_MUTATION,
+  ME_QUERY,
+  REGISTER_MUTATION,
+  RESEND_EMAIL_VERIFICATION_MUTATION,
   UPDATE_IMAGE_URL_MUTATION,
-  UPDATE_PROFILE_MUTATION
+  UPDATE_PROFILE_MUTATION,
+  VERIFY_EMAIL_MUTATION
 } from '../../constants/graphql';
-import { showGraphQLErrorMessage } from "src/functions/function-graphql-error-messages";
+import { showGraphQLErrorMessage } from 'src/functions/function-graphql-error-messages';
 
 export function loginUser({ commit, dispatch }, payload) {
   apolloClient
@@ -24,6 +27,10 @@ export function loginUser({ commit, dispatch }, payload) {
       LocalStorage.set('loggedIn', true);
       LocalStorage.set('token', res.data.login.access_token);
       LocalStorage.set('userId', res.data.login.user.id);
+      LocalStorage.set(
+        'role',
+        res.data.login.user.role ? res.data.login.user.role.name : null
+      );
 
       this.$router.push({ path: '/' });
     })
@@ -122,18 +129,19 @@ export function updateProfile({ dispatch }, payload) {
 
 export function forgotPassword({}, email) {
   console.log(email);
-  return apolloClient.mutate({
-    mutation: FORGOT_PASSWORD_MUTATION,
-    variables: {
-      email: email
-    }
-  })
-  .then(res => {
-    return res.data.forgotPassword;
-  })
-  .catch(err => {
-    console.log(err.message);
-  });
+  return apolloClient
+    .mutate({
+      mutation: FORGOT_PASSWORD_MUTATION,
+      variables: {
+        email: email
+      }
+    })
+    .then(res => {
+      return res.data.forgotPassword;
+    })
+    .catch(err => {
+      console.log(err.message);
+    });
 }
 
 export function register({ commit, dispatch }, payload) {
@@ -161,16 +169,31 @@ export function register({ commit, dispatch }, payload) {
 
 export function resendEmailVerification({}, payload) {
   const email = payload;
-  return apolloClient.mutate({
-    mutation: RESEND_EMAIL_VERIFICATION_MUTATION,
-    variables: {
-      email: email
-    }
-  })
-  .then(res => {
-    console.log(res.data.resendEmailVerification.message);
-  })
-  .catch(err => {
-    console.log(err.message);
-  })
+  return apolloClient
+    .mutate({
+      mutation: RESEND_EMAIL_VERIFICATION_MUTATION,
+      variables: {
+        email: email
+      }
+    })
+    .then(res => {
+      console.log(res.data.resendEmailVerification.message);
+    })
+    .catch(err => {
+      console.log(err.message);
+    });
+}
+
+export function verifyEmail({}, token) {
+  return apolloClient
+    .mutate({
+      mutation: VERIFY_EMAIL_MUTATION,
+      variables: {
+        token: token
+      }
+    })
+    .then(res => {
+      console.log(res.data.verifyEmail);
+    })
+    .catch(err => console.log(err.message));
 }

@@ -43,11 +43,11 @@
           <div>No contacts yet.</div>
         </template>
         <template v-if="!loading">
-        <contact-item
-          v-for="contact in contactsFiltered"
-          :contact="contact"
-          :key="contact.id"
-        ></contact-item>
+          <contact-item
+            v-for="contact in contactsFiltered"
+            :contact="contact"
+            :key="contact.id"
+          ></contact-item>
         </template>
       </div>
     </div>

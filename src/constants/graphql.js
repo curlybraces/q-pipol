@@ -67,10 +67,16 @@ export const DEACTIVATE_USER = gql`
 
 export const RESEND_EMAIL_VERIFICATION_MUTATION = gql`
   mutation resendEmailVerification($email: String!) {
-    resendEmailVerification(input: {
-      email: $email
-    }) {
+    resendEmailVerification(input: { email: $email }) {
       message
+    }
+  }
+`;
+
+export const VERIFY_EMAIL_MUTATION = gql`
+  mutation verifyEmail($token: String!) {
+    verifyEmail(input: { token: $token }) {
+      access_token
     }
   }
 `;
@@ -161,11 +167,7 @@ export const ALL_USERS = gql`
 
 export const FORGOT_PASSWORD_MUTATION = gql`
   mutation forgotPassword($email: String!) {
-    forgotPassword(
-      input: {
-        email: $email
-      }
-    ) {
+    forgotPassword(input: { email: $email }) {
       status
       message
     }

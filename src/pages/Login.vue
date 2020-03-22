@@ -89,7 +89,9 @@
                 :type="!passwordVisibility ? 'password' : 'text'"
                 v-model="password_confirmation"
                 lazy-rules
-                :rules="[val => passwordMatch(val) || 'Password does not match.']"
+                :rules="[
+                  val => passwordMatch(val) || 'Password does not match.'
+                ]"
               >
                 <template v-slot:prepend>
                   <q-icon name="vpn_key"></q-icon>
@@ -136,12 +138,12 @@
                 Alreay have an account?
                 <span
                   class="text-blue text-eight-bolder cursor-pointer"
-                  @click="tab = 'login'">
+                  @click="tab = 'login'"
+                >
                   Login
                 </span>
               </div>
             </q-form>
-
           </q-card-section>
         </q-card>
       </div>
@@ -150,7 +152,6 @@
         &copy; 2020 Mark Lester Bolotaolo
       </div>
     </div>
-
   </q-page>
 </template>
 
@@ -178,7 +179,12 @@ export default {
     ...mapState('settings', ['dark'])
   },
   methods: {
-    ...mapActions('auth', ['populateUser', 'loginUser', 'forgotPassword', 'register']),
+    ...mapActions('auth', [
+      'populateUser',
+      'loginUser',
+      'forgotPassword',
+      'register'
+    ]),
     validEmail(email) {
       const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
@@ -187,26 +193,31 @@ export default {
       return password === this.password;
     },
     showForgotPasswordDialog() {
-      this.$q.dialog({
-        title: 'Forgot Password',
-        message: 'Enter your email below.',
-        prompt: {
-          model: '',
-          type: 'text',
-          isValid: val => this.validEmail(val)
-        },
-        cancel: true,
-        persistent: true
-      })
-      .onOk(email => {
-        this.forgotPassword(email)
-          .then(res => console.log(res));
-      });
+      this.$q
+        .dialog({
+          title: 'Forgot Password',
+          message: 'Enter your email below.',
+          prompt: {
+            model: '',
+            type: 'text',
+            isValid: val => this.validEmail(val)
+          },
+          cancel: true,
+          persistent: true
+        })
+        .onOk(email => {
+          this.forgotPassword(email).then(res => console.log(res));
+        });
     },
     handleSubmit() {
       this.$refs.loginForm.validate().then(success => {
         if (success) {
-          const { name, username, password, password_confirmation } = this.$data;
+          const {
+            name,
+            username,
+            password,
+            password_confirmation
+          } = this.$data;
 
           this.username = '';
           this.password = '';
@@ -232,8 +243,7 @@ export default {
               email: username,
               password: password,
               password_confirmation: password_confirmation
-            })
-            .then(res => console.log(res));
+            }).then(res => console.log(res));
           }
           // Delay removal of loading indicator since it is sometimes too fast
           setTimeout(() => (this.loading = false), 1000);
