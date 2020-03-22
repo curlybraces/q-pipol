@@ -111,10 +111,8 @@
       <div class="col-lg-4 col-md-6 col-xs-12">
         <span class="text-subtitle1 text-primary">Verify Email</span>
         <div class="text-caption">
-          You will not be able to login once you deactivate your account.
-          <p>
-            <b>Warning: Closing your account is irreversible.</b>
-          </p>
+          Verify your email to secure your account. Your email will be used to receive important updates from the System.
+          Your email will also be used to retrieve your password. Only users with verified email can manage projects.
         </div>
       </div>
       <div class="col-lg-8 col-md-6 col-xs-12">
