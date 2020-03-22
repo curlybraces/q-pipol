@@ -81,6 +81,26 @@ export const VERIFY_EMAIL_MUTATION = gql`
   }
 `;
 
+export const UPDATE_PASSWORD_MUTATION = gql`
+  mutation updatePassword(
+    $old_password: String!
+    $password: String!
+    $password_confirmation: String!
+  ) {
+    updatePassword(input: {
+      old_password: $old_password
+      password: $password
+      password_confirmation: $password_confirmation  
+    }) {
+      status
+      message
+    } 
+  }
+    old_password: String!
+    password: String! @rules(apply: ["required", "confirmed", "min:8"])
+    password_confirmation: String!
+`;
+
 export const ME_QUERY = gql`
   query me {
     me {
