@@ -176,7 +176,8 @@ export default {
   name: 'Projects',
   data() {
     return {
-      expanded: false
+      expanded: false,
+      first: 25
     };
   },
   computed: {

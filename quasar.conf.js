@@ -12,8 +12,7 @@ module.exports = function(ctx) {
       "addressbar-color",
       "notify-defaults",
       "vuex-persist",
-      "offline",
-      "dexie"
+      "offline"
     ],
 
     css: ["app.styl"],
@@ -38,9 +37,9 @@ module.exports = function(ctx) {
       all: "auto", // --- includes everything; for dev only!
 
       // set dark mode to auto
-      // config: {
-      //   dark: "auto"
-      // },
+      config: {
+        dark: "auto"
+      },
 
       components: [],
 

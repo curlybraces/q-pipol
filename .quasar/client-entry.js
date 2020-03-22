@@ -206,15 +206,19 @@ import qboot_Bootvuexpersist from 'boot/vuex-persist'
 
 import qboot_Bootoffline from 'boot/offline'
 
-import qboot_Bootdexie from 'boot/dexie'
 
 
 
 
 
 
+Vue.config.devtools = true
+Vue.config.productionTip = false
 
 
+
+console.info('[Quasar] Running PWA.')
+console.info('[Quasar] Forcing PWA into the network-first approach to not break Hot Module Replacement while developing.')
 
 
 
@@ -237,7 +241,7 @@ async function start () {
   }
 
   const urlPath = window.location.href.replace(window.location.origin, '')
-  const bootFiles = [qboot_Bootapolloboost,qboot_Bootrouterauth,qboot_Bootloadingdefaults,qboot_Bootaddressbarcolor,qboot_Bootnotifydefaults,qboot_Bootvuexpersist,qboot_Bootoffline,qboot_Bootdexie]
+  const bootFiles = [qboot_Bootapolloboost,qboot_Bootrouterauth,qboot_Bootloadingdefaults,qboot_Bootaddressbarcolor,qboot_Bootnotifydefaults,qboot_Bootvuexpersist,qboot_Bootoffline]
 
   for (let i = 0; routeUnchanged === true && i < bootFiles.length; i++) {
     if (typeof bootFiles[i] !== 'function') {

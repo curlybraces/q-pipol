@@ -1,11 +1,13 @@
 import { LocalStorage } from 'quasar';
 import { apolloClient } from 'boot/apollo';
 import {
+  FORGOT_PASSWORD_MUTATION,
   LOGIN_MUTATION,
-  ME_QUERY,
+  ME_QUERY, REGISTER_MUTATION, RESEND_EMAIL_VERIFICATION_MUTATION,
   UPDATE_IMAGE_URL_MUTATION,
   UPDATE_PROFILE_MUTATION
 } from '../../constants/graphql';
+import { showGraphQLErrorMessage } from "src/functions/function-graphql-error-messages";
 
 export function loginUser({ commit, dispatch }, payload) {
   apolloClient
@@ -29,7 +31,10 @@ export function loginUser({ commit, dispatch }, payload) {
       dispatch('populateUser');
     })
     .catch(err => {
-      alert(err.message);
+      showGraphQLErrorMessage(err);
+    })
+    .finally(() => {
+      return;
     });
 }
 
@@ -42,6 +47,7 @@ export function populateUser({ commit }) {
       const {
         id,
         email,
+        verified,
         name,
         contact_number,
         role,
@@ -54,6 +60,7 @@ export function populateUser({ commit }) {
       commit('SET_USER_LOADED', true);
       commit('SET_NAME', name);
       commit('SET_EMAIL', email);
+      commit('SET_VERIFIED', verified);
       commit('SET_IMAGE_URL', image_url);
       commit('SET_OPERATING_UNIT_ID', operating_unit_id);
       commit('SET_CONTACT_NUMBER', contact_number);
@@ -61,11 +68,7 @@ export function populateUser({ commit }) {
       commit('SET_POSITION', position);
     })
     .catch(err => {
-      console.log(err.message);
-      // Notify.create({
-      //   title: 'Error',
-      //   message: 'Something went wrong.'
-      // });
+      return err.message;
     });
 }
 
@@ -110,10 +113,64 @@ export function updateProfile({ dispatch }, payload) {
         contact_number: contact_number
       }
     })
-    .then(res => {
+    .then(() => {
       dispatch('populateUser');
-      console.log(res);
       return;
     })
     .catch(err => console.log(err.message));
+}
+
+export function forgotPassword({}, email) {
+  console.log(email);
+  return apolloClient.mutate({
+    mutation: FORGOT_PASSWORD_MUTATION,
+    variables: {
+      email: email
+    }
+  })
+  .then(res => {
+    return res.data.forgotPassword;
+  })
+  .catch(err => {
+    console.log(err.message);
+  });
+}
+
+export function register({ commit, dispatch }, payload) {
+  return apolloClient
+    .mutate({
+      mutation: REGISTER_MUTATION,
+      variables: {
+        email: payload.email,
+        name: payload.name,
+        password: payload.password,
+        password_confirmation: payload.password_confirmation
+      }
+    })
+    .then(res => {
+      commit('SET_LOGGED_IN', true);
+
+      LocalStorage.set('loggedIn', true);
+      LocalStorage.set('token', res.data.register.tokens.access_token);
+
+      this.$router.push({ path: '/' });
+    })
+    .then(() => dispatch('populateUser'))
+    .catch(err => console.log(err.message));
+}
+
+export function resendEmailVerification({}, payload) {
+  const email = payload;
+  return apolloClient.mutate({
+    mutation: RESEND_EMAIL_VERIFICATION_MUTATION,
+    variables: {
+      email: email
+    }
+  })
+  .then(res => {
+    console.log(res.data.resendEmailVerification.message);
+  })
+  .catch(err => {
+    console.log(err.message);
+  })
 }

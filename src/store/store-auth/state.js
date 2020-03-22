@@ -15,6 +15,7 @@ export default function() {
     role: null,
     userLoaded: false,
     notifications: [],
-    unreadNotifications: []
+    unreadNotifications: [],
+    verified: false
   };
 }

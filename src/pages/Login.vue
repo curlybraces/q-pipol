@@ -4,10 +4,7 @@
       <div class="row justify-center q-my-lg">
         <div class="column text-center">
           <div>
-            <q-img src="../assets/logo.svg" style="width: 60px;" />
-          </div>
-          <div class="q-mt-sm text-h6 text-weight-bold text-primary">
-            {{ appTitle }}
+            <q-img src="statics/app-logo.png" style="width: 250px;" />
           </div>
         </div>
       </div>
@@ -40,20 +37,24 @@
                 placeholder="Full Name"
                 v-model="name"
                 lazy-rules
-                :rules="[val => (val && val.length > 0) || 'Name is required']"
                 v-if="tab == 'signup'"
+                :rules="[val => !!val || 'Name is required.']"
               >
                 <template v-slot:prepend>
                   <q-icon :name="laAtSolid"></q-icon>
                 </template>
               </q-input>
+
               <q-input
                 outlined
                 placeholder="Email"
                 type="email"
                 v-model="username"
                 lazy-rules
-                :rules="[val => (val && val.length > 0) || 'Email is required']"
+                :rules="[
+                  val => validEmail(val) || 'Email is invalid.',
+                  val => !!val || 'Email is required.'
+                ]"
               >
                 <template v-slot:prepend>
                   <q-icon name="email"></q-icon>
@@ -65,10 +66,30 @@
                 placeholder="Password"
                 :type="!passwordVisibility ? 'password' : 'text'"
                 v-model="password"
-                lazy-rule
-                :rules="[
-                  val => (val && val.length > 0) || 'Password is required'
-                ]"
+                lazy-rules
+                :rules="[val => !!val || 'Password is required.']"
+              >
+                <template v-slot:prepend>
+                  <q-icon name="vpn_key"></q-icon>
+                </template>
+                <template v-slot:append>
+                  <q-icon
+                    :name="
+                      !passwordVisibility ? 'visibility' : 'visibility_off'
+                    "
+                    @click="passwordVisibility = !passwordVisibility"
+                  ></q-icon>
+                </template>
+              </q-input>
+
+              <q-input
+                v-if="tab == 'signup'"
+                outlined
+                placeholder="Confirm Password"
+                :type="!passwordVisibility ? 'password' : 'text'"
+                v-model="password_confirmation"
+                lazy-rules
+                :rules="[val => passwordMatch(val) || 'Password does not match.']"
               >
                 <template v-slot:prepend>
                   <q-icon name="vpn_key"></q-icon>
@@ -88,7 +109,7 @@
                   size="lg"
                   class="full-width btn-login"
                   type="submit"
-                  color="red"
+                  :color="dark ? 'purple-1' : 'red'"
                   unelevated
                   :loading="loading"
                 >
@@ -98,7 +119,7 @@
               <div class="text-center">
                 <span
                   class="text-blue text-weight-lighter cursor-pointer"
-                  @click="tab = 'reset'"
+                  @click="showForgotPasswordDialog"
                 >
                   Forgot password
                 </span>
@@ -115,11 +136,12 @@
                 Alreay have an account?
                 <span
                   class="text-blue text-eight-bolder cursor-pointer"
-                  @click="tab = 'login'"
-                  >Login</span
-                >
+                  @click="tab = 'login'">
+                  Login
+                </span>
               </div>
             </q-form>
+
           </q-card-section>
         </q-card>
       </div>
@@ -128,15 +150,13 @@
         &copy; 2020 Mark Lester Bolotaolo
       </div>
     </div>
+
   </q-page>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 import { laAtSolid } from '@quasar/extras/line-awesome';
-import { Dialog } from 'quasar';
-// import { LOGIN_MUTATION, REGISTER_MUTATION } from "../constants/graphql";
-import { REGISTER_MUTATION } from '../constants/graphql';
 
 export default {
   name: 'PageLogin',
@@ -147,83 +167,76 @@ export default {
       name: null,
       username: null,
       password: null,
+      password_confirmation: null,
       tab: 'login',
       loading: false,
       error: false,
       errorMessage: null
     };
   },
+  computed: {
+    ...mapState('settings', ['dark'])
+  },
   methods: {
-    ...mapActions('auth', ['populateUser', 'loginUser']),
+    ...mapActions('auth', ['populateUser', 'loginUser', 'forgotPassword', 'register']),
+    validEmail(email) {
+      const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+    },
+    passwordMatch(password) {
+      return password === this.password;
+    },
+    showForgotPasswordDialog() {
+      this.$q.dialog({
+        title: 'Forgot Password',
+        message: 'Enter your email below.',
+        prompt: {
+          model: '',
+          type: 'text',
+          isValid: val => this.validEmail(val)
+        },
+        cancel: true,
+        persistent: true
+      })
+      .onOk(email => {
+        this.forgotPassword(email)
+          .then(res => console.log(res));
+      });
+    },
     handleSubmit() {
       this.$refs.loginForm.validate().then(success => {
         if (success) {
-          const { name, username, password } = this.$data;
+          const { name, username, password, password_confirmation } = this.$data;
 
           this.username = '';
           this.password = '';
 
+          this.loading = true;
+
           if (this.tab == 'login') {
-            this.loading = true;
-            // this.$apollo
-            //   .mutate({
-            //     mutation: LOGIN_MUTATION,
-            //     variables: {
-            //       username,
-            //       password
-            //     }
-            //   })
-            //   .then(res => {
-            //     this.populateUser(res.data.login.user);
-            //     localStorage.setItem("token", res.data.login.access_token);
-            //     localStorage.setItem("userId", res.data.login.user.id);
-            //     this.$router.push({ path: "/" });
-            //   })
-            //   .catch(err => {
-            //     this.error = true;
-            //     this.errorMessage = err.message;
-            //     this.username = username;
-            //     this.password = password;
-            //   })
-            //   .finally(() => (this.loading = false));
             const payload = {
               username: username,
               password: password
             };
 
-            this.loginUser(payload);
+            this.loginUser(payload).then(() => {
+              this.username = username;
+              this.password = password;
+            });
           } else {
-            this.loading = true;
-            this.$apollo
-              .mutate({
-                mutation: REGISTER_MUTATION,
-                variables: {
-                  name: name,
-                  email: username,
-                  password: password,
-                  password_confirmation: password
-                }
-              })
-              .then(() => {
-                Dialog.create({
-                  title: 'Success',
-                  message:
-                    'You have successfully registered. You will receive an email once your account has been activated. Thank you for using our app.',
-                  transitionShow: 'fade',
-                  transitionHide: 'fade'
-                });
-                this.name = '';
-                this.username = '';
-                this.password = '';
-              })
-              .catch(err => {
-                this.error = true;
-                this.errorMessage = err.message;
-              })
-              .finally(() => {
-                this.loading = false;
-              });
+            this.name = '';
+            this.password_confirmation = '';
+
+            this.register({
+              name: name,
+              email: username,
+              password: password,
+              password_confirmation: password_confirmation
+            })
+            .then(res => console.log(res));
           }
+          // Delay removal of loading indicator since it is sometimes too fast
+          setTimeout(() => (this.loading = false), 1000);
         }
       });
     }

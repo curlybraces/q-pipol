@@ -39,11 +39,16 @@
         <template v-if="loading">
           <contact-loading v-for="i in 4" :key="i"></contact-loading>
         </template>
+        <template v-if="!Object.keys(contactsFiltered).length">
+          <div>No contacts yet.</div>
+        </template>
+        <template v-if="!loading">
         <contact-item
           v-for="contact in contactsFiltered"
           :contact="contact"
           :key="contact.id"
         ></contact-item>
+        </template>
       </div>
     </div>
 

@@ -1,9 +1,9 @@
 <template>
   <div class="col">
     <span class="text-caption text-weight-bold">{{ label }}</span>
+
     <q-select
       v-model="model"
-      @input="handleInput"
       :options="selectOptions"
       option-label="name"
       option-value="id"
@@ -11,13 +11,13 @@
       :dense="dense"
       :options-dense="dense"
       outlined
-      map-options
-      emit-value
-      clearable
       :hint="hint ? hint : void 0"
       label-color="orange-10"
       :rules="rules"
       dropdown-icon="unfold_more"
+      map-options
+      emit-value
+      clearable
     >
       <template v-slot:before-options>
         <q-item>
@@ -70,7 +70,7 @@ export default {
         return this.$props.value;
       },
       set(val) {
-        this.$emit('input',val);
+        this.$emit('input', val);
       }
     }
   },
@@ -82,9 +82,6 @@ export default {
     };
   },
   methods: {
-    handleInput() {
-      this.$emit('input', this.model);
-    },
     filterOptions(e) {
       const options = this.$props.options;
 

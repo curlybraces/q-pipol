@@ -31,7 +31,7 @@ const routes = [
         path: 'projects',
         name: 'projects',
         component: () =>
-          import(/* webpackChunkName: 'Projects' */ 'pages/Projectsv3.vue')
+          import(/* webpackChunkName: 'Projects' */ 'pages/Projects.vue')
       },
       {
         path: 'account',

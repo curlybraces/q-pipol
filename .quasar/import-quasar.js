@@ -18,4 +18,4 @@ import Vue from 'vue'
 import {Quasar,Dialog,AddressbarColor,LocalStorage,Notify,LoadingBar,Dark} from 'quasar'
 
 
-Vue.use(Quasar, { config: {},iconSet: iconSet,plugins: {Dialog,AddressbarColor,LocalStorage,Notify,LoadingBar,Dark} })
+Vue.use(Quasar, { config: {"dark":"auto"},iconSet: iconSet,plugins: {Dialog,AddressbarColor,LocalStorage,Notify,LoadingBar,Dark} })

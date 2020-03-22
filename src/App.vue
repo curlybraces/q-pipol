@@ -30,9 +30,9 @@ export default {
     ...mapActions('options', ['initializeOptions'])
   },
   mounted() {
+    this.initializeOptions();
     if (this.loggedIn) {
       this.populateUser();
-      this.initializeOptions();
     } else {
       console.log('User is not logged in');
     }

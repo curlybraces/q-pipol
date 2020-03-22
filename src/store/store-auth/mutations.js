@@ -30,6 +30,10 @@ export function SET_OPERATING_UNIT_ID(state, value) {
   state.operating_unit_id = value;
 }
 
+export function SET_VERIFIED(state, value) {
+  state.verified = value;
+}
+
 export function SET_CONTACT_NUMBER(state, value) {
   state.contact_number = value;
 }

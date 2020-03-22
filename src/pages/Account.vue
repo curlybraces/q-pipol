@@ -1,6 +1,8 @@
 <template>
   <q-page>
-    <q-item-label header class="q-pa-sm q-mt-lg">Account</q-item-label>
+    <q-item-label header class="q-pa-sm q-mt-lg">
+      Account
+    </q-item-label>
 
     <div class="row q-pa-sm">
       <div class="col-lg-4 col-md-6 col-xs-12">
@@ -103,6 +105,30 @@
       </div>
     </div>
 
+    <q-separator inset spaced  v-if="!verified" />
+
+    <div class="row q-pa-sm" v-if="!verified">
+      <div class="col-lg-4 col-md-6 col-xs-12">
+        <span class="text-subtitle1 text-primary">Verify Email</span>
+        <div class="text-caption">
+          You will not be able to login once you deactivate your account.
+          <p>
+            <b>Warning: Closing your account is irreversible.</b>
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-8 col-md-6 col-xs-12">
+        <q-btn
+          outline
+          dense
+          class="text-capitalize"
+          color="primary"
+          label="Verify Email"
+          @click="verifyEmail"
+        ></q-btn>
+      </div>
+    </div>
+
     <q-separator inset spaced />
 
     <div class="row q-pa-sm">
@@ -191,10 +217,6 @@ export default {
       },
       loading: false,
       isEditing: false,
-      officeToEdit: null,
-      nameToEdit: null,
-      contactNumberToEdit: null,
-      positionToEdit: null,
       deactivateAccount: false,
       chooseAvatar: false,
       user: {
@@ -215,12 +237,16 @@ export default {
       'name',
       'contact_number',
       'image_url',
-      'operating_unit_id'
+      'operating_unit_id',
+      'verified'
     ]),
     ...mapState('options', ['operating_units'])
   },
   methods: {
-    ...mapActions('auth', ['populateUser', 'updateProfile']),
+    ...mapActions('auth', ['populateUser', 'updateProfile','resendEmailVerification']),
+    verifyEmail() {
+      this.resendEmailVerification(this.email);
+    },
     checkForm() {
       this.errors = [];
       const { name, operating_unit_id, position, contact_number } = this.user;
@@ -248,8 +274,7 @@ export default {
           operating_unit_id: operating_unit_id,
           position: position,
           contact_number: contact_number
-        })
-        .then(() => this.loading = false);
+        }).then(() => (this.loading = false));
       }
     },
     updatePassword() {
@@ -260,10 +285,8 @@ export default {
     }
   },
   mounted() {
-    this.user = Object.assign({}, this.me);
-  },
-  created() {
     this.populateUser();
+    this.user = Object.assign({}, this.me);
   }
 };
 </script>

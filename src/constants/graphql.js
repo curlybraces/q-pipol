@@ -65,6 +65,16 @@ export const DEACTIVATE_USER = gql`
   }
 `;
 
+export const RESEND_EMAIL_VERIFICATION_MUTATION = gql`
+  mutation resendEmailVerification($email: String!) {
+    resendEmailVerification(input: {
+      email: $email
+    }) {
+      message
+    }
+  }
+`;
+
 export const ME_QUERY = gql`
   query me {
     me {
@@ -72,6 +82,7 @@ export const ME_QUERY = gql`
       name
       email
       position
+      verified
       operating_unit_id
       operating_unit {
         id
@@ -144,6 +155,19 @@ export const ALL_USERS = gql`
         name
       }
       created_at
+    }
+  }
+`;
+
+export const FORGOT_PASSWORD_MUTATION = gql`
+  mutation forgotPassword($email: String!) {
+    forgotPassword(
+      input: {
+        email: $email
+      }
+    ) {
+      status
+      message
     }
   }
 `;
@@ -1230,6 +1254,15 @@ export const FETCH_ACTIVITIES = gql`
         created_at
         updated_at
       }
+    }
+  }
+`;
+
+export const FETCH_YEARS = gql`
+  query {
+    year {
+      id
+      name
     }
   }
 `;
