@@ -4,7 +4,7 @@
       <div class="row justify-center q-my-lg">
         <div class="column text-center">
           <div>
-            <q-img src="statics/app-logo.png" style="width: 250px;" />
+            <q-img src="statics/app-logo-128x128.png" width="128px" />
           </div>
         </div>
       </div>
@@ -111,7 +111,7 @@
                   size="lg"
                   class="full-width btn-login"
                   type="submit"
-                  :color="dark ? 'purple-1' : 'red'"
+                  :color="dark ? 'purple-1' : 'primary'"
                   unelevated
                   :loading="loading"
                 >
