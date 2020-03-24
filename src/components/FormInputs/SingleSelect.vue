@@ -27,8 +27,6 @@
               v-model="filterText"
               outlined
               :dense="dense"
-              :loading="filtering"
-              @input="filterOptions"
             />
           </q-item-section>
         </q-item>
@@ -58,7 +56,9 @@ export default {
       type: Boolean,
       default: false
     },
-    options: Array,
+    options: {
+      type: Array
+    },
     value: [String, Number],
     hint: { type: String },
     rules: Array,
@@ -73,56 +73,28 @@ export default {
       set(val) {
         this.$emit('input', val);
       }
+    },
+    selectOptions() {
+      const filterText = this.filterText;
+      const options = this.$props.options;
+
+      if (!filterText) {
+        return options;
+      } else {
+        const filterTextLowerCase = filterText.toLowerCase();
+
+        return options.filter(
+          v => v.name.toLowerCase().indexOf(filterTextLowerCase) > -1
+        );
+
+      }
     }
   },
   data() {
     return {
-      selectOptions: [],
       filterText: '',
       filtering: false
     };
-  },
-  methods: {
-    filterOptions(e) {
-      const options = this.$props.options;
-
-      if (e === '') {
-        this.selectOptions = options;
-        return;
-      } else {
-        this.filtering = true;
-        setTimeout(() => {
-          const needle = e.toLowerCase();
-          this.selectOptions = options.filter(
-            v => v.name.toLowerCase().indexOf(needle) > -1
-          );
-          this.filtering = false;
-        }, 500);
-        return;
-      }
-    },
-    filterFn(val, update) {
-      console.log(val);
-      console.log(update);
-      const options = this.$props.options;
-
-      if (val === '') {
-        update(() => {
-          this.selectOptions = options;
-        });
-        return;
-      }
-
-      update(() => {
-        const needle = val.toLowerCase();
-        this.selectOptions = options.filter(
-          v => v.label.toLowerCase().indexOf(needle) > -1
-        );
-      });
-    }
-  },
-  mounted() {
-    this.selectOptions = this.$props.options;
   }
 };
 </script>
