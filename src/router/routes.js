@@ -144,6 +144,11 @@ const routes = [
         meta: {
           requiresAuth: true
         }
+      },
+      {
+        path: 'about',
+        name: 'about',
+        component: () => import(/* webpackChunkName: 'AboutPage' */ 'pages/About.vue')
       }
     ]
   },
