@@ -5,10 +5,11 @@ import {
   ALL_USERS,
   ASSIGN_ROLE_MUTATION
 } from '../../constants/graphql';
+import { Notify } from 'quasar';
 
 export function fetchUsers({ commit }) {
   commit('SET_LOADING', true);
-  apolloClient
+  return apolloClient
     .query({
       query: ALL_USERS
     })
@@ -21,7 +22,8 @@ export function fetchUsers({ commit }) {
         commit('ADD_USER', payload);
         commit('SET_LOADING', false);
       });
-    });
+    })
+    .catch(err => console.log(err.message));;
 }
 
 export function activateUser({ commit }, payload) {
@@ -35,7 +37,8 @@ export function activateUser({ commit }, payload) {
     .then(res => {
       commit('ACTIVATE_USER', payload);
       return res.data;
-    });
+    })
+    .catch(err => console.log(err.message));;
 }
 
 export function deactivateUser({ commit }, payload) {
@@ -49,7 +52,8 @@ export function deactivateUser({ commit }, payload) {
     .then(res => {
       commit('DEACTIVATE_USER', payload);
       return res.data;
-    });
+    })
+    .catch(err => console.log(err.message));
 }
 
 export function assignRole({ commit }, payload) {
@@ -66,9 +70,20 @@ export function assignRole({ commit }, payload) {
         id: payload.user_id,
         role: res.data.assignRole.user.role
       };
+
+      Notify.create({
+        message: 'Successfully assigned role.',
+        position: 'bottom-right',
+        icon: 'check',
+        color: 'green',
+        timeout: 5000
+      });
+
       commit('ASSIGN_ROLE', newRole);
+
       return;
-    });
+    })
+    .catch(err => console.log(err.message));
 }
 
 export function setSearch({ commit }, payload) {
