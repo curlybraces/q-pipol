@@ -12,7 +12,7 @@
       </q-avatar>
       <q-item-label>{{ name }}</q-item-label>
       <q-item-label caption :class="dark ? 'text-grey-1': 'text-black' ">{{ email }}</q-item-label>
-      <q-item-label><q-badge>{{ role }}</q-badge></q-item-label>
+      <q-item-label><q-badge :color="iconColor">{{ role }}</q-badge></q-item-label>
     </div>
     <q-separator />
     <q-list style="min-width: 280px" separator dense>

@@ -1,15 +1,12 @@
 <template>
   <q-page>
-    <q-item-label header class="q-pa-sm q-mt-lg">
-      Account
-    </q-item-label>
+    <page-title title="Account"></page-title>
 
     <div class="row q-pa-sm">
       <div class="col-lg-4 col-md-6 col-xs-12">
         <span class="text-subtitle1 text-primary">Profile</span>
         <p class="text-caption">
-          Your email address is your identity on IPM Online System and is used
-          to log in.
+          Your profile helps other users of the system identify you. Keep this updated.
         </p>
       </div>
       <div
@@ -45,31 +42,50 @@
               dense
               label="Name"
               v-model="user.name"
+              :readonly="!isEditing"
             ></text-input>
 
             <single-select
               label="Office"
               :options="operating_units"
               v-model="user.operating_unit_id"
+              :readonly="!isEditing"
             ></single-select>
 
-            <text-input v-model="user.position" label="Position/Designation" />
+            <text-input v-model="user.position" label="Position/Designation" :readonly="!isEditing" />
 
             <text-input
               v-model="user.contact_number"
               label="Contact No."
               hint="Include area code"
+              :readonly="!isEditing"
             />
 
-            <q-btn
-              label="Save Changes"
-              class="text-capitalize"
-              dense
-              color="primary"
-              glossy
-              type="submit"
-              :loading="loading"
-            />
+            <div class="q-mt-md">
+
+              <q-btn
+                label="Save Changes"
+                class="text-capitalize"
+                dense
+                color="primary"
+                glossy
+                type="submit"
+                :loading="loading"
+                v-show="isEditing"
+              />
+
+              <q-btn
+                label="Edit Information"
+                class="text-capitalize"
+                dense
+                color="primary"
+                outline
+                @click="isEditing = true"
+                v-show="!isEditing"
+              />
+
+            </div>
+
           </q-form>
         </div>
       </div>
@@ -81,27 +97,35 @@
       <div class="col-lg-4 col-md-6 col-xs-12">
         <span class="text-subtitle1 text-primary">Password</span>
         <p class="text-caption">
-          Your email address is your identity on IPM Online System and is used
+          Your password ensures secured access to your IPM System account and is used
           to log in.
         </p>
       </div>
       <div class="col-lg-8 col-md-6 col-xs-12">
-        <span class="text-weight-bold">Current Password</span>
-        <q-input outlined dense></q-input>
-        <p />
-        <span class="text-weight-bold">New Password</span>
-        <q-input outlined dense></q-input>
-        <p />
-        <span class="text-weight-bold">Confirm New Password</span>
-        <q-input outlined dense></q-input>
-        <p />
-        <q-btn
-          glossy
-          label="Update Password"
-          class="text-capitalize"
-          dense
-          color="primary"
-        />
+        <q-form ref="changePasswordForm" @submit="updatePasswordDialog">
+          <span class="text-weight-bold">Current Password</span>
+          <q-input outlined dense type="password" v-model="old_password" />
+          <p />
+          <span class="text-weight-bold">New Password</span>
+          <q-input outlined dense type="password" v-model="password" lazy-rules :rules="[
+            val => val.length >= 8 || 'Password must be at least 8 characters',
+            val => val.toLowerCase() !== 'password' || 'Password cannot be password'
+          ]" />
+          <p />
+          <span class="text-weight-bold">Confirm New Password</span>
+          <q-input outlined dense type="password" v-model="password_confirmation" lazy-rules :rules="[
+            val => val == password || 'Password does not match.'
+          ]" />
+          <p />
+          <q-btn
+            glossy
+            label="Update Password"
+            class="text-capitalize"
+            dense
+            color="primary"
+            type="submit"
+          />
+        </q-form>
       </div>
     </div>
 
@@ -123,30 +147,7 @@
           color="primary"
           label="Verify Email"
           @click="verifyEmail"
-        ></q-btn>
-      </div>
-    </div>
-
-    <q-separator inset spaced />
-
-    <div class="row q-pa-sm">
-      <div class="col-lg-4 col-md-6 col-xs-12">
-        <span class="text-subtitle1 text-primary">Deactivate Account</span>
-        <div class="text-caption">
-          You will not be able to login once you deactivate your account.
-          <p>
-            <b>Warning: Closing your account is irreversible.</b>
-          </p>
-        </div>
-      </div>
-      <div class="col-lg-8 col-md-6 col-xs-12">
-        <q-btn
-          outline
-          dense
-          class="text-capitalize"
-          color="orange-10"
-          label="Deactivate Account"
-          @click="deactivateAccount = true"
+          :loading="resendingEmail"
         ></q-btn>
       </div>
     </div>
@@ -158,18 +159,17 @@
 </template>
 
 <script>
-import { Loading } from 'quasar';
 import { mapState, mapActions } from 'vuex';
 import TextInput from '../components/FormInputs/TextInput';
 import SingleSelect from '../components/FormInputs/SingleSelect';
 import ChooseAvatar from '../components/Account/ChooseAvatar';
+import PageTitle from "../components/PageTitle";
 
 export default {
   name: 'PageAccount',
-  components: { ChooseAvatar, SingleSelect, TextInput },
+  components: {PageTitle, ChooseAvatar, SingleSelect, TextInput },
   data() {
     return {
-      password: null,
       showPassword: false,
       rules: {
         required: [val => (val && val.length > 0) || 'Please type something']
@@ -184,7 +184,11 @@ export default {
         name: null,
         contact_number: null
       },
-      errors: []
+      errors: [],
+      old_password: '',
+      password: '',
+      password_confirmation: '',
+      resendingEmail: false
     };
   },
   computed: {
@@ -205,10 +209,34 @@ export default {
     ...mapActions('auth', [
       'populateUser',
       'updateProfile',
-      'resendEmailVerification'
+      'resendEmailVerification',
+      'updatePassword'
     ]),
     verifyEmail() {
+      this.resendingEmail = true;
       this.resendEmailVerification(this.email);
+      setTimeout(() => this.resendingEmail = false, 3000);
+    },
+    updatePasswordDialog() {
+      const { password, old_password, password_confirmation } = this.$data;
+
+      if (!old_password || !password || !password_confirmation) {
+        alert('All fields are required.');
+      } else {
+        this.$q.dialog({
+          title: 'Update Password',
+          message: 'Changing your password will log you out from the app. You will need to sign in again.',
+          cancel: true,
+          persistent: true
+        })
+        .onOk(() => {
+          this.updatePassword({
+            old_password: old_password,
+            password: password,
+            password_confirmation: password_confirmation
+          });
+        });
+      }
     },
     checkForm() {
       this.errors = [];
@@ -237,11 +265,11 @@ export default {
           operating_unit_id: operating_unit_id,
           position: position,
           contact_number: contact_number
-        }).then(() => (this.loading = false));
+        }).then(() => {
+          this.loading = false;
+          this.isEditing = false;
+        });
       }
-    },
-    updatePassword() {
-      Loading.show();
     }
   },
   mounted() {

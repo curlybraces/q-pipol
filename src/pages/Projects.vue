@@ -1,8 +1,6 @@
 <template>
   <q-page>
-    <q-toolbar class="q-mt-lg">
-      <q-item-label header class="q-pl-none">Projects</q-item-label>
-      <q-space />
+    <page-title title="Projects">
       <q-btn
         outline
         label="Add Project"
@@ -10,7 +8,7 @@
         color="primary"
         to="/projects/new"
       ></q-btn>
-    </q-toolbar>
+    </page-title>
 
     <div class="q-mt-md q-pa-sm">
       <div class="row q-mb-lg">
@@ -103,7 +101,7 @@
               </q-item-section>
               <q-item-section side>
                 <q-btn
-                  color="primary"
+                  :color="buttonColor"
                   dense
                   outline
                   icon="unfold_more"
@@ -171,9 +169,11 @@
 import { mapState, mapActions, mapGetters } from 'vuex';
 import moment from 'moment';
 import { Dialog, Notify } from 'quasar';
+import PageTitle from "../components/PageTitle";
 
 export default {
   name: 'Projects',
+  components: {PageTitle},
   data() {
     return {
       expanded: false,
@@ -182,7 +182,7 @@ export default {
   },
   computed: {
     ...mapState('projects', ['loading', 'search', 'pageInfo']),
-    ...mapState('settings', ['dark']),
+    ...mapState('settings', ['dark','buttonColor']),
     ...mapGetters('projects', ['projects']),
     searchField: {
       get() {
@@ -241,7 +241,8 @@ export default {
   },
   mounted() {
     this.fetchProjects({
-      first: 25
+      first: 25,
+      endCursor: ''
     });
   }
 };

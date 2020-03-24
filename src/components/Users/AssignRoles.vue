@@ -1,9 +1,9 @@
 <template>
   <q-card square>
-    <q-toolbar dense class="bg-primary text-white">
-      <q-toolbar-title>
-        Assign Role
-      </q-toolbar-title>
+    <q-toolbar>
+      Assign Role
+      <q-space/>
+      <q-icon name="close" flat round dense @click="$emit('close')" />
     </q-toolbar>
 
     <q-separator />

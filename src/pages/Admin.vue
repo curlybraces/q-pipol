@@ -1,83 +1,53 @@
 <template>
   <q-page>
-    <!--    <page-breadcrumbs :breadcrumbs="breadcrumbs" />-->
+    <q-toolbar class="q-mt-lg">
+      <q-item-label header class="q-pl-none">Admin</q-item-label>
+    </q-toolbar>
 
-    <div class="q-pa-sm">
-      <q-card square>
-        <q-toolbar class="bg-primary text-white">
-          <q-avatar color="white" icon="people" class="text-primary">
-          </q-avatar>
-          <q-toolbar-title>
-            Manage Users
-          </q-toolbar-title>
-          <q-input
-            standout
-            dark
-            dense
-            rounded
-            class="col-6"
-            placeholder="Search in users..."
-            v-model="searchField"
-          >
-            <template v-slot:append>
-              <q-icon name="search" class="cursor-pointer"></q-icon>
-            </template>
-          </q-input>
-        </q-toolbar>
-
-        <q-separator />
-
-        <div class="row q-pa-sm item-start q-col-gutter-sm">
-          <template v-if="loading">
-            <user-skeleton></user-skeleton>
+    <div class="q-mt-md q-pa-sm">
+      <!-- Search Field -->
+      <div class="row q-mb-lg">
+        <q-input
+          class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12"
+          dense
+          outlined
+          placeholder="Filter Programs and Projects"
+          v-model="searchField"
+        >
+          <template v-slot:prepend>
+            <q-icon name="search" />
           </template>
-          <template v-else>
-            <template v-for="user in users">
-              <user v-model="selectedUsers" :key="user.id" :user="user"></user>
-            </template>
-          </template>
-        </div>
-      </q-card>
+        </q-input>
+      </div>
+
+      <!-- Loading -->
+      <q-inner-loading :showing="loading">
+        <q-spinner-dots size="50px" :color="avatarColor" />
+      </q-inner-loading>
+
+      <!-- User List -->
+      <div class="row item-start q-col-gutter-sm">
+        <template v-for="user in users">
+          <user v-model="selectedUsers" :key="user.id" :user="user"></user>
+        </template>
+      </div>
+
     </div>
   </q-page>
 </template>
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex';
-// import PageBreadcrumbs from '../components/PageBreadcrumbs';
 import User from '../components/Users/User';
-import UserSkeleton from '../components/Users/UserSkeleton';
-import { date } from 'quasar';
 
 export default {
-  // components: { PageBreadcrumbs, User, UserSkeleton },
-  components: { User, UserSkeleton },
+  components: { User },
   name: 'PageAdmin',
   data() {
     return {
-      breadcrumbs: [
-        {
-          title: 'Home',
-          url: '/'
-        },
-        {
-          title: 'Admin'
-        }
-      ],
       selectedUsers: [],
-      currentPage: 1,
-      lastPage: 1,
-      total: null,
       assignRoleDialog: false,
-      name: '',
-      email: '',
-      password: 'password',
-      selectedRoles: [],
-      rules: {
-        required: [val => (val && val.length > 0) || 'Please type something']
-      },
-      page: 1,
-      tab: 'users'
+      selectedRoles: []
     };
   },
   methods: {
@@ -85,6 +55,7 @@ export default {
   },
   computed: {
     ...mapState('users', ['search', 'loading']),
+    ...mapState('settings',['dark']),
     ...mapGetters('users', ['users']),
     searchField: {
       get() {
@@ -93,16 +64,9 @@ export default {
       set(val) {
         this.setSearch(val);
       }
-    }
-  },
-  filters: {
-    memberSince(val) {
-      if (!val) {
-        return '';
-      } else {
-        var today = new Date();
-        return 'Member since ' + date.getDateDiff(today, val, 'days') + ' days';
-      }
+    },
+    avatarColor() {
+      return this.dark ? 'pink-13': 'primary';
     }
   },
   mounted() {

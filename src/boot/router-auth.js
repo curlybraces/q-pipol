@@ -28,7 +28,7 @@ export default async ({ router }) => {
         });
       } else {
         if (to.matched.some(record => record.meta.is_admin)) {
-          if (role == 'admin') {
+          if (role == 'admin' || role == 'superadmin') {
             next();
           } else {
             Dialog.create({

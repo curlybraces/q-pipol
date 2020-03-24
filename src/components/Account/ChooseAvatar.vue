@@ -1,5 +1,5 @@
 <template>
-  <q-card>
+  <q-card style="width:400px;">
     <q-toolbar>
       Choose Avatar
       <q-space />
@@ -9,19 +9,20 @@
     <div class="q-ma-sm q-pa-sm bg-red-1" v-if="error">
       <p>{{ error }}</p>
     </div>
-    <div class="row q-pa-sm q-col-gutter-md bg-white">
-      <template v-for="(avatar, index) in AVATARS">
-        <div class="col-3" :key="index">
-          <q-img
-            :src="`statics/avatar/${avatar}.svg`"
-            @click="select(avatar)"
-            class="cursor-pointer"
-            :class="selectedAvatar == avatar ? 'active' : void 0"
-          />
-          <div class="q-mt-sm text-center">{{ avatar }}</div>
-        </div>
-      </template>
-    </div>
+    <q-scroll-area style="height:400px;">
+      <div class="row q-pa-sm q-col-gutter-md bg-white">
+        <template v-for="i in 40">
+          <div class="col-3" :key="i">
+            <q-img
+              :src="`statics/avatar/${i}.svg`"
+              @click="select(i)"
+              class="cursor-pointer"
+              :class="selectedAvatar == i ? 'active' : void 0"
+            />
+          </div>
+        </template>
+      </div>
+    </q-scroll-area>
     <q-card-actions align="right">
       <q-btn flat dense label="cancel" @click="$emit('close')" />
       <q-btn
@@ -55,8 +56,8 @@ export default {
   },
   methods: {
     ...mapActions('auth', ['setImageUrl']),
-    select(avatar) {
-      this.selectedAvatar = avatar;
+    select(i) {
+      this.selectedAvatar = i;
     },
     saveAvatar() {
       this.error = '';

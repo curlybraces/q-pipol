@@ -1,4 +1,4 @@
-import { Notify } from 'quasar';
+import { Dialog } from 'quasar';
 
 export const graphQLErrorMessages = errorsFromCatch => {
   const errors = errorsFromCatch.graphQLErrors[0];
@@ -16,8 +16,15 @@ export const graphQLErrorMessages = errorsFromCatch => {
 
 export const showGraphQLErrorMessage = error => {
   const { graphQLErrors } = error;
-  Notify.create({
+  console.log(graphQLErrors);
+  const category = graphQLErrors[0].extensions.category;
+  console.log(category);
+
+  const errors = graphQLErrors[0].extensions.errors;
+
+  Dialog.create({
     color: 'red',
-    message: graphQLErrors[0].debugMessage
+    title: category,
+    message: JSON.stringify(errors)
   });
 };

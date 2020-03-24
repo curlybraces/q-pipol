@@ -6,14 +6,15 @@ import {
   ME_QUERY,
   REGISTER_MUTATION,
   RESEND_EMAIL_VERIFICATION_MUTATION,
-  UPDATE_IMAGE_URL_MUTATION,
+  UPDATE_IMAGE_URL_MUTATION, UPDATE_PASSWORD_MUTATION,
   UPDATE_PROFILE_MUTATION,
   VERIFY_EMAIL_MUTATION
 } from '../../constants/graphql';
 import { showGraphQLErrorMessage } from 'src/functions/function-graphql-error-messages';
+import { showSuccessNotification } from "../../functions/function-show-notifications";
 
 export function loginUser({ commit, dispatch }, payload) {
-  apolloClient
+  return apolloClient
     .mutate({
       mutation: LOGIN_MUTATION,
       variables: {
@@ -46,7 +47,7 @@ export function loginUser({ commit, dispatch }, payload) {
 }
 
 export function populateUser({ commit }) {
-  apolloClient
+  return apolloClient
     .query({
       query: ME_QUERY
     })
@@ -93,7 +94,7 @@ export function logoutUser({ commit }) {
 }
 
 export function setImageUrl({ commit }, payload) {
-  apolloClient
+  return apolloClient
     .mutate({
       mutation: UPDATE_IMAGE_URL_MUTATION,
       variables: {
@@ -102,6 +103,12 @@ export function setImageUrl({ commit }, payload) {
     })
     .then(res => {
       console.log(res.data);
+
+      showSuccessNotification({
+        message: 'Successfully updated avatar.',
+        icon: 'check'
+      });
+
       commit('SET_IMAGE_URL', payload);
     })
     .catch(err => console.log(err.message));
@@ -122,13 +129,17 @@ export function updateProfile({ dispatch }, payload) {
     })
     .then(() => {
       dispatch('populateUser');
+
+      showSuccessNotification({
+        message: 'Successfully updated profile.'
+      });
+
       return;
     })
     .catch(err => console.log(err.message));
 }
 
 export function forgotPassword({}, email) {
-  console.log(email);
   return apolloClient
     .mutate({
       mutation: FORGOT_PASSWORD_MUTATION,
@@ -177,7 +188,7 @@ export function resendEmailVerification({}, payload) {
       }
     })
     .then(res => {
-      console.log(res.data.resendEmailVerification.message);
+      showSuccessNotification({message: res.data.resendEmailVerification.message});
     })
     .catch(err => {
       console.log(err.message);
@@ -196,4 +207,24 @@ export function verifyEmail({}, token) {
       console.log(res.data.verifyEmail);
     })
     .catch(err => console.log(err.message));
+}
+
+export function updatePassword({}, payload) {
+  const { old_password, password, password_confirmation } = payload;
+
+  apolloClient
+    .mutate({
+      mutation: UPDATE_PASSWORD_MUTATION,
+      variables: {
+        old_password: old_password,
+        password: password,
+        password_confirmation: password_confirmation
+      }
+    })
+    .then(res => {
+      console.log(res.data.updatePassword);
+    })
+    .catch(err => {
+      showGraphQLErrorMessage(err)
+    });
 }

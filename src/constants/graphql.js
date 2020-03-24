@@ -96,9 +96,6 @@ export const UPDATE_PASSWORD_MUTATION = gql`
       message
     } 
   }
-    old_password: String!
-    password: String! @rules(apply: ["required", "confirmed", "min:8"])
-    password_confirmation: String!
 `;
 
 export const ME_QUERY = gql`

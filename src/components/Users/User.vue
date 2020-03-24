@@ -5,7 +5,7 @@
         <q-item-section avatar>
           <q-avatar
             class="text-white text-uppercase"
-            :color="user.active ? 'primary' : 'grey'"
+            :color="avatarColor"
           >
             {{ user.name.charAt(0) }}
           </q-avatar>
@@ -15,18 +15,20 @@
             <span class="text-uppercase">
               {{ user.name }}
             </span>
-            <q-badge>
+          </q-item-label>
+          <q-item-label caption>{{ user.email }}</q-item-label>
+          <q-item-label>
+            <q-badge :color="avatarColor">
               {{ user.role ? user.role.name : '' }}
             </q-badge>
           </q-item-label>
-          <q-item-label caption>{{ user.email }}</q-item-label>
         </q-item-section>
         <q-item-section side>
           <q-btn
             round
             flat
             dense
-            icon="verified_user"
+            icon="check"
             color="green"
             @click="toggleUserActivation"
             v-if="!user.active"
@@ -39,7 +41,7 @@
             round
             flat
             dense
-            icon="person_add_disabled"
+            icon="close"
             color="red"
             @click="toggleUserActivation"
             :loading="loading"
@@ -77,7 +79,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -86,6 +88,7 @@ export default {
   name: 'User',
   props: ['id', 'user', 'value'],
   computed: {
+    ...mapGetters('settings',['avatarColor']),
     selected: {
       get() {
         return this.value;

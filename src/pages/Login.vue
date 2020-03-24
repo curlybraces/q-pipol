@@ -149,7 +149,7 @@
       </div>
 
       <div class="row justify-center q-my-xl">
-        &copy; 2020 Mark Lester Bolotaolo
+        &copy; 2020 Investment Programming Division
       </div>
     </div>
   </q-page>
