@@ -8,6 +8,7 @@ import auth from './store-auth';
 import contacts from './store-contacts';
 import projects from './store-projects';
 import project from './store-project';
+import notifications from './store-notifications';
 import options from './store-options';
 import settings from './store-settings';
 import users from './store-users';
@@ -27,6 +28,7 @@ export default function(/* { ssrContext } */) {
       contacts,
       projects,
       project,
+      notifications,
       options,
       users,
       settings
