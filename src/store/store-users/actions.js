@@ -5,7 +5,6 @@ import {
   ALL_USERS,
   ASSIGN_ROLE_MUTATION
 } from '../../constants/graphql';
-import { Notify } from 'quasar';
 import { showSuccessNotification } from '../../functions/function-show-notifications';
 
 export function fetchUsers({ commit }) {
@@ -78,16 +77,12 @@ export function assignRole({ commit }, payload) {
     })
     .then(res => {
       const newRole = {
-        id: payload.user_id,
+        id: 'ID' + res.data.assignRole.user.id,
         role: res.data.assignRole.user.role
       };
 
-      Notify.create({
-        message: 'Successfully assigned role.',
-        position: 'bottom-right',
-        icon: 'check',
-        color: 'green',
-        timeout: 5000
+      showSuccessNotification({
+        message: 'Successfully assigned role.'
       });
 
       commit('ASSIGN_ROLE', newRole);
