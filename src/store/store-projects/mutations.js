@@ -15,7 +15,7 @@ export function DELETE_PROJECT(state, id) {
   Vue.delete(state.projects, id);
 }
 
-export function setSearch(state, value) {
+export function SET_SEARCH(state, value) {
   state.search = value;
 }
 
