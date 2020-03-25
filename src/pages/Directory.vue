@@ -4,7 +4,13 @@
       <q-item-label header class="q-pl-none">Directory</q-item-label>
       <q-space />
       <json-excel :data="contactsArray">
-        <q-btn dense class="q-mr-sm" glossy :color="buttonColor" label="Download" />
+        <q-btn
+          dense
+          class="q-mr-sm"
+          glossy
+          :color="buttonColor"
+          label="Download"
+        />
       </json-excel>
       <q-btn
         outline
@@ -36,7 +42,6 @@
       </q-inner-loading>
 
       <div class="row item-start q-col-gutter-md">
-
         <template v-if="loading">
           <contact-loading v-for="i in 4" :key="i"></contact-loading>
         </template>
@@ -52,7 +57,6 @@
             :key="contact.id"
           ></contact-item>
         </template>
-
       </div>
     </div>
 
@@ -81,7 +85,7 @@ export default {
   computed: {
     ...mapState('contacts', ['search', 'loading', 'error']),
     ...mapGetters('contacts', ['contactsFiltered']),
-    ...mapGetters('settings',['buttonColor']),
+    ...mapGetters('settings', ['buttonColor']),
     searchField: {
       get() {
         return this.search;

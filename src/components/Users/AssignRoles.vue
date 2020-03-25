@@ -2,7 +2,7 @@
   <q-card square>
     <q-toolbar>
       Assign Role
-      <q-space/>
+      <q-space />
       <q-icon name="close" flat round dense @click="$emit('close')" />
     </q-toolbar>
 

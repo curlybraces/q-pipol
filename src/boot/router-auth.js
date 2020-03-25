@@ -33,7 +33,8 @@ export default async ({ router }) => {
           } else {
             Dialog.create({
               title: 'Restricted',
-              message: 'The page you are trying to access is restricted to admins only',
+              message:
+                'The page you are trying to access is restricted to admins only',
               cancel: true
             });
             next({ name: 'home' });

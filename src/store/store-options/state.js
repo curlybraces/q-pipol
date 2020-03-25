@@ -10,6 +10,8 @@ export default function() {
     spatial_coverages: [],
     statuses: [],
     technical_readinesses_options: [],
+    tiers: [],
+    typologies: [],
     years: [],
     roles: []
   };

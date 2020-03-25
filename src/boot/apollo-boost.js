@@ -7,14 +7,7 @@ import VueApollo from 'vue-apollo';
 import { LocalStorage, Dialog, Notify } from 'quasar';
 import Router from '../router/index';
 
-const cache = new InMemoryCache({
-  cacheRedirects: {
-    Query: {
-      movie: (_, { id }, { getCacheKey }) =>
-        getCacheKey({ __typename: 'Movie', id })
-    }
-  }
-});
+const cache = new InMemoryCache();
 
 const request = async operation => {
   const token = await LocalStorage.getItem('token');
@@ -53,7 +46,7 @@ const client = new ApolloClient({
         if (graphQLErrors[0].debugMessage === 'Unauthenticated.') {
           Dialog.create({
             title: 'Error',
-            message: graphQLErrors[0].debugMessage + '. Login again.',
+            message: graphQLErrors[0].debugMessage + ' Login again.',
             persistent: true
           }).onOk(() => {
             LocalStorage.remove('token');

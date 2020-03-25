@@ -42,6 +42,14 @@ export function SET_ROLES(state, value) {
   state.roles = value;
 }
 
+export function SET_TIERS(state, value) {
+  state.tiers = value;
+}
+
+export function SET_TYPOLOGIES(state, value) {
+  state.typologies = value;
+}
+
 export function SET_YEARS(state, value) {
   state.years = value;
 }

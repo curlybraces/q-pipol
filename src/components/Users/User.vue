@@ -3,10 +3,7 @@
     <q-card class="fit" flat bordered>
       <q-item>
         <q-item-section avatar>
-          <q-avatar
-            class="text-white text-uppercase"
-            :color="avatarColor"
-          >
+          <q-avatar class="text-white text-uppercase" :color="avatarColor">
             {{ user.name.charAt(0) }}
           </q-avatar>
         </q-item-section>
@@ -88,7 +85,7 @@ export default {
   name: 'User',
   props: ['id', 'user', 'value'],
   computed: {
-    ...mapGetters('settings',['avatarColor']),
+    ...mapGetters('settings', ['avatarColor']),
     selected: {
       get() {
         return this.value;

@@ -6,7 +6,7 @@ import {
   ASSIGN_ROLE_MUTATION
 } from '../../constants/graphql';
 import { Notify } from 'quasar';
-import { showSuccessNotification } from "../../functions/function-show-notifications";
+import { showSuccessNotification } from '../../functions/function-show-notifications';
 
 export function fetchUsers({ commit }) {
   commit('SET_LOADING', true);
@@ -24,7 +24,7 @@ export function fetchUsers({ commit }) {
       });
       commit('SET_LOADING', false);
     })
-    .catch(err => console.log(err.message));;
+    .catch(err => console.log(err.message));
 }
 
 export function activateUser({ commit }, payload) {
@@ -44,7 +44,7 @@ export function activateUser({ commit }, payload) {
 
       return res.data;
     })
-    .catch(err => console.log(err.message));;
+    .catch(err => console.log(err.message));
 }
 
 export function deactivateUser({ commit }, payload) {

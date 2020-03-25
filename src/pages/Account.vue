@@ -6,7 +6,8 @@
       <div class="col-lg-4 col-md-6 col-xs-12">
         <span class="text-subtitle1 text-primary">Profile</span>
         <p class="text-caption">
-          Your profile helps other users of the system identify you. Keep this updated.
+          Your profile helps other users of the system identify you. Keep this
+          updated.
         </p>
       </div>
       <div
@@ -52,7 +53,11 @@
               :readonly="!isEditing"
             ></single-select>
 
-            <text-input v-model="user.position" label="Position/Designation" :readonly="!isEditing" />
+            <text-input
+              v-model="user.position"
+              label="Position/Designation"
+              :readonly="!isEditing"
+            />
 
             <text-input
               v-model="user.contact_number"
@@ -62,7 +67,6 @@
             />
 
             <div class="q-mt-md">
-
               <q-btn
                 label="Save Changes"
                 class="text-capitalize"
@@ -83,9 +87,7 @@
                 @click="isEditing = true"
                 v-show="!isEditing"
               />
-
             </div>
-
           </q-form>
         </div>
       </div>
@@ -97,8 +99,8 @@
       <div class="col-lg-4 col-md-6 col-xs-12">
         <span class="text-subtitle1 text-primary">Password</span>
         <p class="text-caption">
-          Your password ensures secured access to your IPM System account and is used
-          to log in.
+          Your password ensures secured access to your IPM System account and is
+          used to log in.
         </p>
       </div>
       <div class="col-lg-8 col-md-6 col-xs-12">
@@ -107,15 +109,30 @@
           <q-input outlined dense type="password" v-model="old_password" />
           <p />
           <span class="text-weight-bold">New Password</span>
-          <q-input outlined dense type="password" v-model="password" lazy-rules :rules="[
-            val => val.length >= 8 || 'Password must be at least 8 characters',
-            val => val.toLowerCase() !== 'password' || 'Password cannot be password'
-          ]" />
+          <q-input
+            outlined
+            dense
+            type="password"
+            v-model="password"
+            lazy-rules
+            :rules="[
+              val =>
+                val.length >= 8 || 'Password must be at least 8 characters',
+              val =>
+                val.toLowerCase() !== 'password' ||
+                'Password cannot be password'
+            ]"
+          />
           <p />
           <span class="text-weight-bold">Confirm New Password</span>
-          <q-input outlined dense type="password" v-model="password_confirmation" lazy-rules :rules="[
-            val => val == password || 'Password does not match.'
-          ]" />
+          <q-input
+            outlined
+            dense
+            type="password"
+            v-model="password_confirmation"
+            lazy-rules
+            :rules="[val => val == password || 'Password does not match.']"
+          />
           <p />
           <q-btn
             glossy
@@ -135,8 +152,10 @@
       <div class="col-lg-4 col-md-6 col-xs-12">
         <span class="text-subtitle1 text-primary">Verify Email</span>
         <div class="text-caption">
-          Verify your email to secure your account. Your email will be used to receive important updates from the System.
-          Your email will also be used to retrieve your password. Only users with verified email can manage projects.
+          Verify your email to secure your account. Your email will be used to
+          receive important updates from the System. Your email will also be
+          used to retrieve your password. Only users with verified email can
+          manage projects.
         </div>
       </div>
       <div class="col-lg-8 col-md-6 col-xs-12">
@@ -163,11 +182,11 @@ import { mapState, mapActions } from 'vuex';
 import TextInput from '../components/FormInputs/TextInput';
 import SingleSelect from '../components/FormInputs/SingleSelect';
 import ChooseAvatar from '../components/Account/ChooseAvatar';
-import PageTitle from "../components/PageTitle";
+import PageTitle from '../components/PageTitle';
 
 export default {
   name: 'PageAccount',
-  components: {PageTitle, ChooseAvatar, SingleSelect, TextInput },
+  components: { PageTitle, ChooseAvatar, SingleSelect, TextInput },
   data() {
     return {
       showPassword: false,
@@ -215,7 +234,7 @@ export default {
     verifyEmail() {
       this.resendingEmail = true;
       this.resendEmailVerification(this.email);
-      setTimeout(() => this.resendingEmail = false, 3000);
+      setTimeout(() => (this.resendingEmail = false), 3000);
     },
     updatePasswordDialog() {
       const { password, old_password, password_confirmation } = this.$data;
@@ -223,19 +242,21 @@ export default {
       if (!old_password || !password || !password_confirmation) {
         alert('All fields are required.');
       } else {
-        this.$q.dialog({
-          title: 'Update Password',
-          message: 'Changing your password will log you out from the app. You will need to sign in again.',
-          cancel: true,
-          persistent: true
-        })
-        .onOk(() => {
-          this.updatePassword({
-            old_password: old_password,
-            password: password,
-            password_confirmation: password_confirmation
+        this.$q
+          .dialog({
+            title: 'Update Password',
+            message:
+              'Changing your password will log you out from the app. You will need to sign in again.',
+            cancel: true,
+            persistent: true
+          })
+          .onOk(() => {
+            this.updatePassword({
+              old_password: old_password,
+              password: password,
+              password_confirmation: password_confirmation
+            });
           });
-        });
       }
     },
     checkForm() {

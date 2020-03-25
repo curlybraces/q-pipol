@@ -9,7 +9,7 @@ Notify.setDefaults({
   actions: [{ icon: 'close', color: 'white', round: true }]
 });
 
-export const NOTIFY_SUCCESS = (payload) => {
+export const NOTIFY_SUCCESS = payload => {
   console.log(payload);
   Notify.create({
     message: payload.message,
@@ -18,4 +18,4 @@ export const NOTIFY_SUCCESS = (payload) => {
     icon: payload.icon,
     position: 'bottom-right'
   });
-}
+};

@@ -86,7 +86,6 @@ export default {
         return options.filter(
           v => v.name.toLowerCase().indexOf(filterTextLowerCase) > -1
         );
-
       }
     }
   },

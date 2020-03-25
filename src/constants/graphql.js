@@ -1277,6 +1277,24 @@ export const FETCH_ACTIVITIES = gql`
   }
 `;
 
+export const FETCH_TIERS = gql`
+  query {
+    tiers {
+      id
+      name
+    }    
+  }
+`;
+
+export const FETCH_TYPOLOGIES = gql`
+  query {
+    typologies {
+      id
+      name
+    }
+  }
+`;
+
 export const FETCH_YEARS = gql`
   query {
     year {

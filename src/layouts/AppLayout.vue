@@ -2,7 +2,6 @@
   <q-layout view="hHh lpR lff">
     <q-header bordered :class="dark ? 'bg-grey-9' : 'bg-white'">
       <q-toolbar>
-
         <img
           src="statics/app-logo-128x128.png"
           height="35px;"
@@ -10,8 +9,15 @@
           class="cursor-pointer"
         />
 
-        <q-toolbar-title class="app-title" :class="dark ? 'text-white' : 'text-black'">
-          I<span class="gt-md">nvestment </span>P<span class="gt-md">rogramming and </span>M<span class="gt-md">anagement </span>S<span class="gt-md">ystem</span>
+        <q-toolbar-title
+          class="app-title"
+          :class="dark ? 'text-white' : 'text-black'"
+        >
+          I<span class="gt-md">nvestment </span>P<span class="gt-md"
+            >rogramming and </span
+          >M<span class="gt-md">anagement </span>S<span class="gt-md"
+            >ystem</span
+          >
         </q-toolbar-title>
         <q-space />
 

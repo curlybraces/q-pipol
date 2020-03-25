@@ -4,7 +4,6 @@
       <text-input
         v-model="title"
         label="Program/Project Title"
-        :dense="dense"
         hint="The title of the program or project"
         maxlength="250"
         :rules="[val => !!val || '* Required']"
@@ -15,8 +14,6 @@
         v-model="type_id"
         label="Type"
         :options="TYPES"
-        inline
-        :dense="dense"
         color="orange-10"
         :rules="[val => !!val || '* Required']"
       />
@@ -25,8 +22,6 @@
       <single-select
         v-model="operating_unit_id"
         label="Implementing Agency"
-        :dense="dense"
-        :options-dense="dense"
         :options="operating_units"
         hint="Proponent of the program/project"
         :rules="[val => !!val || '* Required']"
@@ -37,7 +32,6 @@
         v-model="description"
         label="Description"
         type="textarea"
-        :dense="dense"
         hint="Description of the program/project (e.g. location, components, design, etc.)"
         :rules="[val => !!val || '* Required']"
       />
@@ -48,7 +42,6 @@
         outlined
         prefix="PhP"
         v-model="total_project_cost"
-        :dense="dense"
         hint="Indicative project cost in absolute PhP"
         :rules="[positive]"
       ></money-input>
@@ -57,8 +50,6 @@
       <single-select
         v-model="project_status_id"
         label="Status"
-        :dense="dense"
-        :options-dense="dense"
         :options="project_statuses"
         :rules="[val => !!val || '* Required']"
       />
@@ -67,9 +58,7 @@
       <single-select
         v-model="typology_id"
         label="Typology"
-        :dense="dense"
-        :options-dense="dense"
-        :options="TYPOLOGIES"
+        :options="typologies"
         :rules="[val => !!val || '* Required']"
       />
     </q-item>
@@ -79,7 +68,7 @@
 <script>
 import { mapState } from 'vuex';
 import { mapFields } from 'vuex-map-fields';
-import { TYPES, TYPOLOGIES } from '../../data/dropdown-values.js';
+import { TYPES } from '../../data/dropdown-values.js';
 
 export default {
   components: {
@@ -98,13 +87,11 @@ export default {
       'project.operating_unit_id',
       'project.typology_id'
     ]),
-    ...mapState('options', ['operating_units', 'project_statuses'])
+    ...mapState('options', ['operating_units', 'project_statuses','typologies'])
   },
   data() {
     return {
-      TYPES,
-      TYPOLOGIES,
-      dense: false
+      TYPES
     };
   },
   methods: {

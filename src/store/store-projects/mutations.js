@@ -34,3 +34,11 @@ export function SET_LOADING(state, value) {
 export function SET_PAGE_INFO(state, value) {
   state.pageInfo = value;
 }
+
+export function SET_DIRECTION(state, value) {
+  state.direction = value;
+}
+
+export function SET_SORT(state, value) {
+  state.sort = value;
+}

@@ -9,7 +9,7 @@ import {
   FETCH_PROJECT_STATUSES,
   FETCH_TECHNICAL_READINESSES,
   FETCH_ROLES,
-  FETCH_YEARS
+  FETCH_YEARS, FETCH_TIERS, FETCH_TYPOLOGIES
 } from '../../constants/graphql';
 
 export function fetchDistricts({ commit }) {
@@ -103,6 +103,26 @@ export function fetchRoles({ commit }) {
     });
 }
 
+export function fetchTiers({ commit }) {
+  apolloClient
+    .query({
+      query: FETCH_TIERS
+    })
+    .then(res => {
+      commit('SET_TIERS', res.data.tiers);
+    });
+}
+
+export function fetchTypologies({ commit }) {
+  apolloClient
+    .query({
+      query: FETCH_TYPOLOGIES
+    })
+    .then(res => {
+      commit('SET_TYPOLOGIES', res.data.typologies);
+    })
+}
+
 export function fetchYears({ commit }) {
   apolloClient
     .query({
@@ -115,8 +135,6 @@ export function fetchYears({ commit }) {
 }
 
 export function initializeOptions({ state, dispatch, commit }) {
-  // export function initializeOptions({ getters }) {
-  // console.log(getters["options/getInitialized"]);
   if (!state.initialized) {
     dispatch('options/fetchDistricts', null, { root: true });
     dispatch('options/fetchFundingSources', null, { root: true });
@@ -127,6 +145,8 @@ export function initializeOptions({ state, dispatch, commit }) {
     dispatch('options/fetchSpatialCoverages', null, { root: true });
     dispatch('options/fetchTechnicalReadinesses', null, { root: true });
     dispatch('options/fetchRoles', null, { root: true });
+    dispatch('options/fetchTiers', null, { root: true });
+    dispatch('options/fetchTypologies', null, { root: true });
     dispatch('options/fetchYears', null, { root: true });
     commit('SET_INITIALIZED', true);
   }

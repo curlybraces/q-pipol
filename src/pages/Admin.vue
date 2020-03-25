@@ -31,7 +31,6 @@
           <user v-model="selectedUsers" :key="user.id" :user="user"></user>
         </template>
       </div>
-
     </div>
   </q-page>
 </template>
@@ -55,7 +54,7 @@ export default {
   },
   computed: {
     ...mapState('users', ['search', 'loading']),
-    ...mapState('settings',['dark']),
+    ...mapState('settings', ['dark']),
     ...mapGetters('users', ['users']),
     searchField: {
       get() {
@@ -66,7 +65,7 @@ export default {
       }
     },
     avatarColor() {
-      return this.dark ? 'pink-13': 'primary';
+      return this.dark ? 'pink-13' : 'primary';
     }
   },
   mounted() {

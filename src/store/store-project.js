@@ -7,6 +7,7 @@ import {
   FETCH_PROJECT_QUERY
 } from '../constants/graphql';
 import { convertToNumber } from '../functions/function-convert-to-number';
+import { showErrorNotification } from '../functions/function-show-notifications';
 
 const INITIAL_STATE = {
   id: null,
@@ -372,10 +373,18 @@ const actions = {
         commit('CLEAR_PROJECT');
         console.log(res.data);
         console.log(res.data.createProject.id);
-        return res.data.createProject.id;
+        const id = res.data.createProject.id;
+
+        if (!id) {
+          Promise.reject();
+        } else {
+          this.$router.push('/projects/' + id + '/edit');
+        }
       })
       .catch(err => {
-        console.log(err.message);
+        showErrorNotification({
+          message: err.message
+        });
       })
       .finally(() => {
         commit('setLoading', false);

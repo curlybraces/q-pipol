@@ -3,7 +3,8 @@ export default function() {
     projects: {},
     projectsDownloaded: false,
     search: '',
-    sort: 'title',
+    sort: null,
+    direction: null, // asc or desc
     filter: '',
     loading: false,
     pageInfo: {},

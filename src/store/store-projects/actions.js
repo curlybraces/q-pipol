@@ -7,7 +7,9 @@ import { Notify } from 'quasar';
 
 export function fetchProjects({ commit }, payload) {
   const { first, after } = payload;
+
   commit('SET_LOADING', true);
+
   return apolloClient
     .query({
       query: ALL_PROJECTS_QUERY,
@@ -19,13 +21,14 @@ export function fetchProjects({ commit }, payload) {
     .then(res => {
       res.data.projects.edges.forEach(edge => {
         const payload = {
-          id: edge.node.id,
+          id: 'ID' + edge.node.id,
           project: edge.node
         };
         commit('ADD_PROJECT', payload);
       });
       commit('SET_PAGE_INFO', res.data.projects.pageInfo);
       commit('SET_LOADING', false);
+
       return;
     })
     .catch(err => {
@@ -56,4 +59,12 @@ export function deleteProject({ commit }, id) {
 
 export function setSearch({ commit }, value) {
   commit('setSearch', value);
+}
+
+export function setDirection({ commit }, value) {
+  commit('SET_DIRECTION', value);
+}
+
+export function setSort({ commit }, value) {
+  commit('SET_SORT', value);
 }

@@ -6,12 +6,13 @@ import {
   ME_QUERY,
   REGISTER_MUTATION,
   RESEND_EMAIL_VERIFICATION_MUTATION,
-  UPDATE_IMAGE_URL_MUTATION, UPDATE_PASSWORD_MUTATION,
+  UPDATE_IMAGE_URL_MUTATION,
+  UPDATE_PASSWORD_MUTATION,
   UPDATE_PROFILE_MUTATION,
   VERIFY_EMAIL_MUTATION
 } from '../../constants/graphql';
 import { showGraphQLErrorMessage } from 'src/functions/function-graphql-error-messages';
-import { showSuccessNotification } from "../../functions/function-show-notifications";
+import { showSuccessNotification } from '../../functions/function-show-notifications';
 
 export function loginUser({ commit, dispatch }, payload) {
   return apolloClient
@@ -188,7 +189,9 @@ export function resendEmailVerification({}, payload) {
       }
     })
     .then(res => {
-      showSuccessNotification({message: res.data.resendEmailVerification.message});
+      showSuccessNotification({
+        message: res.data.resendEmailVerification.message
+      });
     })
     .catch(err => {
       console.log(err.message);
@@ -225,6 +228,6 @@ export function updatePassword({}, payload) {
       console.log(res.data.updatePassword);
     })
     .catch(err => {
-      showGraphQLErrorMessage(err)
+      showGraphQLErrorMessage(err);
     });
 }
