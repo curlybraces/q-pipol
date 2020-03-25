@@ -123,8 +123,7 @@ export const ME_QUERY = gql`
 `;
 
 export const FETCH_NOTIFICATIONS_QUERY = gql`
-  {
-    query
+  query me {
     me {
       notifications {
         id
