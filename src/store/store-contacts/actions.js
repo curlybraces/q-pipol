@@ -15,7 +15,7 @@ export function fetchContacts({ commit }) {
     .then(res => {
       res.data.contacts.forEach(contact => {
         const payload = {
-          id: contact.id,
+          id: 'ID' + contact.id,
           contact: contact
         };
         commit('ADD_CONTACT', payload);
