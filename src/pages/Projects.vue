@@ -5,7 +5,7 @@
         outline
         label="Add Project"
         dense
-        color="primary"
+        :color="buttonColor"
         to="/projects/new"
       ></q-btn>
     </page-title>
@@ -25,125 +25,37 @@
         </q-input>
       </div>
 
-      <q-inner-loading :showing="loading">
+      <q-inner-loading :showing="loading && !projectCount">
         <q-spinner-dots size="50px" color="primary" />
       </q-inner-loading>
 
-      <template v-if="loading">
-        <project-skeleton/>
+      <template v-if="loading && !projectCount">
+        <project-skeleton />
       </template>
 
-      <template v-if="Object.keys(projects).length > 0">
+      <template v-if="projectCount">
 
         <sort-menu></sort-menu>
 
-        <q-separator/>
+        <q-separator />
 
         <q-list separator>
-          <q-item v-for="(project, key) in projects" :key="key">
-            <q-item-section avatar>
-              <q-avatar color="white">
-                <q-img
-                  v-if="project.operating_unit != null"
-                  :src="
-                    `statics/agency_logos/${project.operating_unit.image}`
-                  "
-                />
-                <q-img v-else src="statics/agency_logos/da-co.svg" />
-              </q-avatar>
-            </q-item-section>
-            <q-item-section class="col-6">
-              <q-item-label>
-                <span class="text-weight-bold">
-                  {{
-                    project.operating_unit
-                      ? '[' + project.operating_unit.acronym + '] '
-                      : ''
-                  }}
-                </span>
-                <span
-                  v-html="
-                    $options.filters.searchHighlight(project.title, search)
-                  "
-                ></span>
-              </q-item-label>
-              <q-item-label caption lines="2">
-                {{ project.description }}
-              </q-item-label>
-              <q-item-label caption>
-                {{ project.created_at | timeDiff }}
-              </q-item-label>
-            </q-item-section>
-            <q-item-section class="text-right">
-              <q-item-label class="text-orange-9">
-                PhP {{ project.total_project_cost.toLocaleString() }}
-              </q-item-label>
-            </q-item-section>
-            <q-item-section side>
-              <q-btn
-                :color="buttonColor"
-                dense
-                outline
-                icon="unfold_more"
-                size="sm"
-              >
-                <q-menu
-                  :offset="[0, 2]"
-                  transition-show="jump-down"
-                  transition-hide="jump-up"
-                >
-                  <q-list style="min-width: 100px" dense>
-                    <q-item
-                      clickable
-                      v-close-popup
-                      :to="'/projects/' + project.id"
-                      tag="a"
-                      target="_blank"
-                    >
-                      <q-item-section>
-                        <q-item-label>
-                          <q-icon name="open_in_new" /> View
-                        </q-item-label>
-                      </q-item-section>
-                    </q-item>
-                    <q-item
-                      clickable
-                      v-close-popup
-                      :to="'/projects/' + project.id + '/edit'"
-                      tag="a"
-                      target="_blank"
-                    >
-                      <q-item-section>
-                        <q-item-label>
-                          <q-icon name="edit" /> Edit
-                        </q-item-label>
-                      </q-item-section>
-                    </q-item>
-                    <q-separator />
-                    <q-item
-                      clickable
-                      v-close-popup
-                      class="text-negative"
-                      @click="promptDelete(project.id)"
-                    >
-                      <q-item-section>
-                        <q-item-label>
-                          <q-icon name="close" />
-                          Delete
-                        </q-item-label>
-                      </q-item-section>
-                    </q-item>
-                  </q-list>
-                </q-menu>
-              </q-btn>
-            </q-item-section>
-          </q-item>
+          <template v-for="(project, key) in sortedProjects">
+            <project-item :project="project" :key="key"></project-item>
+          </template>
 
           <q-item clickable @click="loadProjects" v-if="!loading && pageInfo.hasNextPage">
             <q-item-section class="text-center">
               Load More
             </q-item-section>
           </q-item>
+
+          <q-item v-if="loading">
+            <q-inner-loading :showing="loading && projectCount > 0">
+              <q-spinner-dots size="50px"></q-spinner-dots>
+            </q-inner-loading>
+          </q-item>
+
           <q-item v-if="!loading && !pageInfo.hasNextPage">
             <q-item-section class="text-center">
               This is the last page.
@@ -159,26 +71,25 @@
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex';
-import moment from 'moment';
-import { Dialog, Notify } from 'quasar';
 import PageTitle from '../components/PageTitle';
 import SortMenu from "../components/Projects/SortMenu";
 import ProjectSkeleton from "../components/Projects/ProjectSkeleton";
+import ProjectItem from "../components/Projects/ProjectItem";
 
 export default {
   name: 'Projects',
-  components: { ProjectSkeleton, SortMenu, PageTitle },
+  components: { ProjectSkeleton, SortMenu, PageTitle, ProjectItem },
   data() {
     return {
       expanded: false,
       first: 25,
       endCursor: ''
-  };
+    };
   },
   computed: {
-    ...mapState('projects', ['loading', 'search', 'pageInfo']),
+    ...mapState('projects', ['loading', 'search', 'pageInfo','sort','direction']),
     ...mapState('settings', ['dark', 'buttonColor']),
-    ...mapGetters('projects', ['projects']),
+    ...mapGetters('projects', ['projects','projectCount']),
     searchField: {
       get() {
         return this.search;
@@ -186,10 +97,43 @@ export default {
       set(val) {
         this.setSearch(val);
       }
+    },
+    sortedProjects() {
+      const projects = this.projects;
+      const sort = this.sort;
+      const direction = this.direction;
+
+      if (!sort && !direction) {
+        return projects;
+      } else {
+        let projectsSorted = {},
+            keysOrdered = Object.keys(projects);
+
+        keysOrdered.sort((a,b) => {
+            let projectAProp = (sort !== 'total_project_cost') ? projects[a][sort].toLowerCase() : projects[a][sort],
+                projectBProp = (sort !== 'total_project_cost') ? projects[b][sort].toLowerCase() : projects[b][sort];
+
+            if (direction === 'asc') {
+              if (projectAProp > projectBProp ) return 1
+              else if (projectAProp < projectBProp) return -1
+              else return 0;
+            } else {
+              if (projectAProp > projectBProp ) return -1
+              else if (projectAProp < projectBProp) return 1
+              else return 0
+            }
+        });
+
+        keysOrdered.forEach(key => {
+          projectsSorted[key] = projects[key];
+        });
+
+        return projectsSorted;
+      }
     }
   },
   methods: {
-    ...mapActions('projects', ['fetchProjects', 'setSearch', 'deleteProject']),
+    ...mapActions('projects', ['fetchProjects', 'setSearch']),
     loadProjects() {
       const first = this.first;
       const endCursor = (this.pageInfo.endCursor == undefined) ? '' : this.pageInfo.endCursor;
@@ -204,53 +148,12 @@ export default {
       } else {
         console.log('Nothing to load');
       }
-    },
-    onLoad(index, done) {
-      console.log('onload is being called');
-      if (this.projects) {
-        if (this.pageInfo.hasNextPage) {
-          this.fetchProjects({
-            first: this.first,
-            after: this.pageInfo.endCursor
-          }).then(() => done());
-        } else {
-          console.log('this is the last page');
-        }
-      } else {
-        console.log('first time loading');
-      }
-    },
-    promptDelete(id) {
-      Dialog.create({
-        title: 'Delete Project',
-        message: 'Are you sure you want to delete this project?',
-        transitionShow: 'fade',
-        cancel: true
-      }).onOk(() => {
-        this.deleteproject(id).then(() => {
-          Notify.create({
-            message: 'The project has been successfully deleted.'
-          });
-        });
-      });
-    }
-  },
-  filters: {
-    searchHighlight(value, search) {
-      if (search) {
-        let searchRegExp = new RegExp(search, 'ig');
-        return value.replace(searchRegExp, match => {
-          return "<span class='bg-yellow-6'>" + match + '</span>';
-        });
-      }
-      return value;
-    },
-    timeDiff(val) {
-      return moment(val).calendar();
     }
   },
   mounted() {
-    this.loadProjects();
+    if (!this.projectCount) {
+      this.loadProjects();
+    }
   }
 };
 </script>

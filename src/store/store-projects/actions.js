@@ -26,6 +26,7 @@ export function fetchProjects({ commit }, payload) {
         };
         commit('ADD_PROJECT', payload);
       });
+
       commit('SET_PAGE_INFO', res.data.projects.pageInfo);
       commit('SET_LOADING', false);
 
@@ -58,7 +59,7 @@ export function deleteProject({ commit }, id) {
 }
 
 export function setSearch({ commit }, value) {
-  commit('setSearch', value);
+  commit('SET_SEARCH', value);
 }
 
 export function setDirection({ commit }, value) {
