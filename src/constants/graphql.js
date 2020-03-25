@@ -173,6 +173,7 @@ export const ALL_USERS = gql`
       name
       email
       active
+      verified
       role {
         id
         name
