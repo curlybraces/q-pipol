@@ -3,7 +3,14 @@
     <q-toolbar>
       Assign Role
       <q-space />
-      <q-icon name="close" flat round dense @click="$emit('close')" />
+      <q-icon
+        name="close"
+        flat
+        round
+        dense
+        @click="$emit('close')"
+        class="cursor-pointer"
+      />
     </q-toolbar>
 
     <q-separator />

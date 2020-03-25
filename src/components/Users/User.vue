@@ -1,10 +1,14 @@
 <template>
   <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12 flex">
-    <q-card class="fit" flat bordered>
+    <q-card class="fit" flat bordered :class="!user.active ? 'bg-red-1' : ''">
       <q-item>
         <q-item-section avatar>
           <q-avatar class="text-white text-uppercase" :color="avatarColor">
-            {{ user.name.charAt(0) }}
+            <img
+              :src="'statics/avatar/' + user.image_url + '.svg'"
+              v-if="user.image_url"
+            />
+            <img src="statics/avatar-placeholder.png" />
           </q-avatar>
         </q-item-section>
         <q-item-section>
@@ -19,10 +23,26 @@
               name="done_outline"
               color="green"
               v-if="user.verified"
-            ></q-icon>
+              class="cursor-pointer"
+            >
+              <q-tooltip>This user has verified email.</q-tooltip>
+            </q-icon>
           </q-item-label>
           <q-item-label>
-            <q-badge :color="avatarColor" @click="setSearch(user.role.name)" class="cursor-pointer">
+            <q-badge
+              color="orange-10"
+              class="cursor-pointer"
+              v-if="user.operating_unit"
+            >
+              {{ user.operating_unit ? user.operating_unit.name : '' }}
+            </q-badge>
+            &nbsp;
+            <q-badge
+              :color="avatarColor"
+              @click="setSearch(user.role.name)"
+              class="cursor-pointer"
+              v-if="user.role"
+            >
               {{ user.role ? user.role.name : '' }}
             </q-badge>
           </q-item-label>
@@ -106,7 +126,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('users', ['activateUser', 'deactivateUser','setSearch']),
+    ...mapActions('users', ['activateUser', 'deactivateUser', 'setSearch']),
     toggleUserActivation() {
       const { id, active } = this.$props.user;
 

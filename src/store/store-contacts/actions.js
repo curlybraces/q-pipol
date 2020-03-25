@@ -5,6 +5,7 @@ import {
   UPDATE_CONTACT_MUTATION,
   DELETE_CONTACT_MUTATION
 } from '../../constants/graphql';
+import { showSuccessNotification } from '../../functions/function-show-notifications';
 
 export function fetchContacts({ commit }) {
   commit('SET_LOADING', true);
@@ -44,9 +45,14 @@ export function createContact({ commit }, payload) {
     })
     .then(res => {
       const payload = {
-        id: res.data.createContact.id,
+        id: 'ID' + res.data.createContact.id,
         contact: res.data.createContact
       };
+
+      showSuccessNotification({
+        message: 'Successfully created contact.'
+      });
+
       commit('ADD_CONTACT', payload);
       return;
     })
@@ -62,7 +68,11 @@ export function deleteContact({ commit }, id) {
       }
     })
     .then(() => {
-      commit('DELETE_CONTACT', id);
+      showSuccessNotification({
+        message: 'Successfully deleted contact.'
+      });
+
+      commit('DELETE_CONTACT', 'ID' + id);
       return;
     })
     .catch(err => console.log(err.message));
@@ -84,9 +94,14 @@ export function updateContact({ commit }, payload) {
     })
     .then(() => {
       const updatedContact = {
-        payload: payload.id,
+        payload: 'ID' + payload.id,
         contact: payload
       };
+
+      showSuccessNotification({
+        message: 'Successfully updated contact.'
+      });
+
       commit('UPDATE_CONTACT', updatedContact);
       return;
     })

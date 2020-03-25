@@ -1,8 +1,6 @@
 <template>
-  <q-page>
-    <q-toolbar class="q-mt-lg">
-      <q-item-label header class="q-pl-none">Directory</q-item-label>
-      <q-space />
+  <q-page class="q-pt-lg">
+    <page-title title="Director">
       <json-excel :data="contactsArray">
         <q-btn
           dense
@@ -13,13 +11,14 @@
         />
       </json-excel>
       <q-btn
+        v-if="admin"
         outline
         label="Add Contact"
         dense
         :color="buttonColor"
         @click="addContactDialog = true"
       ></q-btn>
-    </q-toolbar>
+    </page-title>
 
     <div class="q-mt-md q-pa-sm">
       <div class="row q-mb-lg">
@@ -78,10 +77,13 @@ import ContactItem from '../components/Directory/ContactItem';
 import { mapState, mapActions, mapGetters } from 'vuex';
 import JsonExcel from 'vue-json-excel';
 import ContactLoading from '../components/Directory/ContactLoading';
+import PageTitle from '../components/PageTitle';
+import AdminMixins from '../mixins/AdminMixins';
 
 export default {
-  components: { ContactLoading, AddContact, ContactItem, JsonExcel },
+  components: { PageTitle, ContactLoading, AddContact, ContactItem, JsonExcel },
   name: 'PageDirectory',
+  mixins: [AdminMixins],
   computed: {
     ...mapState('contacts', ['search', 'loading', 'error']),
     ...mapGetters('contacts', ['contactsFiltered']),

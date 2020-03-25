@@ -25,11 +25,6 @@ export default {
   name: 'PageIndex',
   data() {
     return {
-      breadcrumbs: [
-        {
-          title: 'Home'
-        }
-      ],
       links: [
         {
           label: 'View Projects',

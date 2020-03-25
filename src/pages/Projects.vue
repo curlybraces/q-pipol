@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <q-page class="q-pt-lg">
     <page-title title="Projects">
       <q-btn
         outline

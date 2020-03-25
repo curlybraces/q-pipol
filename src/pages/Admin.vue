@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <q-page class="q-pt-lg">
     <page-title title="Admin"></page-title>
 
     <div class="q-mt-md q-pa-sm">
@@ -12,6 +12,7 @@
           placeholder="Filter Programs and Projects"
           v-model="searchField"
           clearable
+          ref="searchBox"
         >
           <template v-slot:prepend>
             <q-icon name="search" />
@@ -72,13 +73,18 @@ export default {
         let keysOrdered = Object.keys(this.users);
 
         keysOrdered.sort((a, b) => {
-          let userAProp = '', userBProp = '';
+          let userAProp = '',
+            userBProp = '';
           if (sort == 'name') {
             userAProp = users[a][sort].toLowerCase();
             userBProp = users[b][sort].toLowerCase();
           } else {
-            userAProp = users[a][sort] ? users[a][sort]['name'].toLowerCase() : '';
-            userBProp = users[b][sort] ? users[b][sort]['name'].toLowerCase() : '';
+            userAProp = users[a][sort]
+              ? users[a][sort]['name'].toLowerCase()
+              : '';
+            userBProp = users[b][sort]
+              ? users[b][sort]['name'].toLowerCase()
+              : '';
           }
 
           if (direction == 'asc') {
@@ -115,6 +121,13 @@ export default {
   },
   mounted() {
     this.fetchUsers();
+
+    window.addEventListener('keydown', e => {
+      if (e.ctrlKey && e.keyCode === 70) {
+        e.preventDefault();
+        this.$refs.searchBox.$el.focus();
+      }
+    });
   }
 };
 </script>

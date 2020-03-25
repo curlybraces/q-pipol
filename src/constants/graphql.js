@@ -118,8 +118,31 @@ export const ME_QUERY = gql`
         name
       }
       image_url
-      notifications
-      unreadNotifications
+    }
+  }
+`;
+
+export const FETCH_NOTIFICATIONS_QUERY = gql`
+  {
+    query
+    me {
+      notifications {
+        id
+        notifiable_id
+        notifiable_type
+        notifiable {
+          name
+        }
+        data {
+          id
+          from
+          title
+          message
+        }
+        read_at
+        created_at
+        updated_at
+      }
     }
   }
 `;

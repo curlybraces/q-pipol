@@ -55,7 +55,7 @@
           </q-item-label>
         </q-item-section>
       </q-item>
-      <q-card-actions align="right">
+      <q-card-actions align="right" v-if="admin">
         <q-btn
           flat
           label="Delete"
@@ -105,11 +105,13 @@ import { mapState, mapActions } from 'vuex';
 import ContactForm from './AddEditContact/Shared/ContactForm';
 import ContactActions from './AddEditContact/Shared/ContactActions';
 import ContactHeader from './AddEditContact/Shared/ContactHeader';
+import AdminMixins from '../../mixins/AdminMixins';
 
 export default {
   name: 'ContactItem',
   components: { ContactHeader, ContactActions, ContactForm },
   props: ['contact'],
+  mixins: [AdminMixins],
   computed: {
     ...mapState('contacts', ['search'])
   },

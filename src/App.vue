@@ -27,6 +27,7 @@ export default {
   },
   methods: {
     ...mapActions('auth', ['populateUser', 'logoutUser']),
+    ...mapActions('notifications', ['fetchNotifications']),
     ...mapActions('options', ['initializeOptions'])
   },
   mounted() {
@@ -36,6 +37,7 @@ export default {
     } else {
       console.log('User is not logged in');
     }
+    this.fetchNotifications();
   }
 };
 </script>
