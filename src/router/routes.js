@@ -75,7 +75,8 @@ const routes = [
             /* webpackChunkName: 'AddProjectPage' */ 'pages/AddProject.vue'
           ),
         meta: {
-          requiresAuth: true
+          requiresAuth: true,
+          is_encoder: true
         }
       },
       {

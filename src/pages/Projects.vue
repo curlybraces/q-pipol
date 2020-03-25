@@ -7,6 +7,7 @@
         dense
         :color="buttonColor"
         to="/projects/new"
+        v-if="role === 'encoder'"
       ></q-btn>
     </page-title>
 
@@ -87,6 +88,7 @@ export default {
     };
   },
   computed: {
+    ...mapState('auth',['role']),
     ...mapState('projects', ['loading', 'search', 'pageInfo','sort','direction']),
     ...mapState('settings', ['dark', 'buttonColor']),
     ...mapGetters('projects', ['projects','projectCount']),

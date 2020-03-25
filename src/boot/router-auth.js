@@ -1,22 +1,6 @@
 import { LocalStorage, Dialog } from 'quasar';
 
 export default async ({ router }) => {
-  // router.beforeEach((to, from, next) => {
-  //   // check if token exist
-  //   // note that this does not check validity of token.
-  //   const token = LocalStorage.getItem('token');
-  //   if (!token && to.path !== '/login') {
-  //     next('/login');
-  //   }
-  //   else if (!token && to.path == '/email-verify') {
-  //     next();
-  //   }
-  //   else if (token && to.path == '/login') {
-  //     next('/');
-  //   } else {
-  //     next();
-  //   }
-  // });
   router.beforeEach((to, from, next) => {
     const token = LocalStorage.getItem('token');
     const role = LocalStorage.getItem('role');
@@ -39,7 +23,21 @@ export default async ({ router }) => {
             });
             next({ name: 'home' });
           }
-        } else {
+        }
+        if (to.matched.some(record => record.meta.is_encoder)) {
+          if (role == 'encoder') {
+            next();
+          } else {
+            Dialog.create({
+              title: 'Restricted',
+              message:
+                'The page you are trying to access is restricted to encoders only',
+              cancel: true
+            });
+            next({ name: 'home' });
+          }
+        }
+        else {
           next();
         }
       }
