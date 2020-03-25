@@ -13,9 +13,16 @@
               {{ user.name }}
             </span>
           </q-item-label>
-          <q-item-label caption>{{ user.email }}</q-item-label>
+          <q-item-label caption>
+            {{ user.email }}
+            <q-icon
+              name="done_outline"
+              color="green"
+              v-if="user.verified"
+            ></q-icon>
+          </q-item-label>
           <q-item-label>
-            <q-badge :color="avatarColor">
+            <q-badge :color="avatarColor" @click="setSearch(user.role.name)" class="cursor-pointer">
               {{ user.role ? user.role.name : '' }}
             </q-badge>
           </q-item-label>
@@ -99,7 +106,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('users', ['activateUser', 'deactivateUser']),
+    ...mapActions('users', ['activateUser', 'deactivateUser','setSearch']),
     toggleUserActivation() {
       const { id, active } = this.$props.user;
 

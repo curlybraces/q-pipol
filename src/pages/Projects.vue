@@ -35,7 +35,6 @@
       </template>
 
       <template v-if="projectCount">
-
         <sort-menu></sort-menu>
 
         <q-separator />
@@ -45,7 +44,11 @@
             <project-item :project="project" :key="key"></project-item>
           </template>
 
-          <q-item clickable @click="loadProjects" v-if="!loading && pageInfo.hasNextPage">
+          <q-item
+            clickable
+            @click="loadProjects"
+            v-if="!loading && pageInfo.hasNextPage"
+          >
             <q-item-section class="text-center">
               Load More
             </q-item-section>
@@ -62,9 +65,7 @@
               This is the last page.
             </q-item-section>
           </q-item>
-
         </q-list>
-
       </template>
     </div>
   </q-page>
@@ -73,9 +74,9 @@
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex';
 import PageTitle from '../components/PageTitle';
-import SortMenu from "../components/Projects/SortMenu";
-import ProjectSkeleton from "../components/Projects/ProjectSkeleton";
-import ProjectItem from "../components/Projects/ProjectItem";
+import SortMenu from '../components/Projects/SortMenu';
+import ProjectSkeleton from '../components/Projects/ProjectSkeleton';
+import ProjectItem from '../components/Projects/ProjectItem';
 
 export default {
   name: 'Projects',
@@ -88,10 +89,16 @@ export default {
     };
   },
   computed: {
-    ...mapState('auth',['role']),
-    ...mapState('projects', ['loading', 'search', 'pageInfo','sort','direction']),
+    ...mapState('auth', ['role']),
+    ...mapState('projects', [
+      'loading',
+      'search',
+      'pageInfo',
+      'sort',
+      'direction'
+    ]),
     ...mapState('settings', ['dark', 'buttonColor']),
-    ...mapGetters('projects', ['projects','projectCount']),
+    ...mapGetters('projects', ['projects', 'projectCount']),
     searchField: {
       get() {
         return this.search;
@@ -109,21 +116,27 @@ export default {
         return projects;
       } else {
         let projectsSorted = {},
-            keysOrdered = Object.keys(projects);
+          keysOrdered = Object.keys(projects);
 
-        keysOrdered.sort((a,b) => {
-            let projectAProp = (sort !== 'total_project_cost') ? projects[a][sort].toLowerCase() : projects[a][sort],
-                projectBProp = (sort !== 'total_project_cost') ? projects[b][sort].toLowerCase() : projects[b][sort];
+        keysOrdered.sort((a, b) => {
+          let projectAProp =
+              sort !== 'total_project_cost'
+                ? projects[a][sort].toLowerCase()
+                : projects[a][sort],
+            projectBProp =
+              sort !== 'total_project_cost'
+                ? projects[b][sort].toLowerCase()
+                : projects[b][sort];
 
-            if (direction === 'asc') {
-              if (projectAProp > projectBProp ) return 1
-              else if (projectAProp < projectBProp) return -1
-              else return 0;
-            } else {
-              if (projectAProp > projectBProp ) return -1
-              else if (projectAProp < projectBProp) return 1
-              else return 0
-            }
+          if (direction === 'asc') {
+            if (projectAProp > projectBProp) return 1;
+            else if (projectAProp < projectBProp) return -1;
+            else return 0;
+          } else {
+            if (projectAProp > projectBProp) return -1;
+            else if (projectAProp < projectBProp) return 1;
+            else return 0;
+          }
         });
 
         keysOrdered.forEach(key => {
@@ -138,8 +151,12 @@ export default {
     ...mapActions('projects', ['fetchProjects', 'setSearch']),
     loadProjects() {
       const first = this.first;
-      const endCursor = (this.pageInfo.endCursor == undefined) ? '' : this.pageInfo.endCursor;
-      const hasNextPage = (this.pageInfo.hasNextPage == undefined) ? true: this.pageInfo.hasNextPage;
+      const endCursor =
+        this.pageInfo.endCursor == undefined ? '' : this.pageInfo.endCursor;
+      const hasNextPage =
+        this.pageInfo.hasNextPage == undefined
+          ? true
+          : this.pageInfo.hasNextPage;
 
       if (hasNextPage) {
         console.log('loading more');

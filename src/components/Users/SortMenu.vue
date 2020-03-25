@@ -22,11 +22,6 @@
         />
       </div>
     </div>
-    <div class="col-6 text-right">
-      {{
-        Object.keys(projects).length + '/' + pageInfo.total + ' projects loaded'
-      }}
-    </div>
   </div>
 </template>
 
@@ -36,7 +31,7 @@ import { mapState, mapActions } from 'vuex';
 export default {
   name: 'SortMenu',
   computed: {
-    ...mapState('projects', ['sort', 'direction', 'projects', 'pageInfo']),
+    ...mapState('users', ['sort', 'direction']),
     sortDirection: {
       get() {
         return this.direction;
@@ -57,9 +52,9 @@ export default {
   data() {
     return {
       criteria: [
-        { value: 'title', label: 'Title' },
-        { value: 'created_at', label: 'Date Added' },
-        { value: 'total_project_cost', label: 'Total Cost' }
+        { value: 'name', label: 'Name' },
+        { value: 'role', label: 'Role' },
+        { value: 'operating_unit', label: 'Operating Unit' }
       ],
       directions: [
         { value: 'asc', label: 'Ascending (A-Z)' },
@@ -68,7 +63,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions('projects', ['setDirection', 'setSort'])
+    ...mapActions('users', ['setDirection', 'setSort'])
   }
 };
 </script>

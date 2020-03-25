@@ -4,6 +4,8 @@ export default function() {
     search: '',
     loading: false,
     error: false,
-    errorMessage: ''
+    errorMessage: '',
+    sort: 'name',
+    direction: 'asc'
   };
 }

@@ -35,13 +35,7 @@
       </q-item-label>
     </q-item-section>
     <q-item-section side>
-      <q-btn
-        :color="buttonColor"
-        dense
-        outline
-        icon="unfold_more"
-        size="sm"
-      >
+      <q-btn :color="buttonColor" dense outline icon="unfold_more" size="sm">
         <q-menu
           :offset="[0, 2]"
           transition-show="jump-down"
@@ -69,9 +63,7 @@
               target="_blank"
             >
               <q-item-section>
-                <q-item-label>
-                  <q-icon name="edit" /> Edit
-                </q-item-label>
+                <q-item-label> <q-icon name="edit" /> Edit </q-item-label>
               </q-item-section>
             </q-item>
             <q-separator />
@@ -101,24 +93,22 @@ import { mapState, mapActions, mapGetters } from 'vuex';
 import { Dialog } from 'quasar';
 
 export default {
-  name: "ProjectItem",
+  name: 'ProjectItem',
   props: {
     project: {
       type: Object
     }
   },
   computed: {
-    ...mapState('projects',['search']),
-    ...mapState('settings',['dark']),
-    ...mapGetters('settings',['buttonColor'])
+    ...mapState('projects', ['search']),
+    ...mapState('settings', ['dark']),
+    ...mapGetters('settings', ['buttonColor'])
   },
   data() {
-    return {
-
-    }
+    return {};
   },
   methods: {
-    ...mapActions('projects',['deleteProject']),
+    ...mapActions('projects', ['deleteProject']),
     promptDelete(id) {
       Dialog.create({
         title: 'Delete Project',
@@ -143,6 +133,6 @@ export default {
     timeDiff(val) {
       return moment(val).calendar();
     }
-  },
-}
+  }
+};
 </script>

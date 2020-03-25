@@ -87,7 +87,11 @@ export default {
       'project.operating_unit_id',
       'project.typology_id'
     ]),
-    ...mapState('options', ['operating_units', 'project_statuses','typologies'])
+    ...mapState('options', [
+      'operating_units',
+      'project_statuses',
+      'typologies'
+    ])
   },
   data() {
     return {

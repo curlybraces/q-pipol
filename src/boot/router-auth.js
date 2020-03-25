@@ -36,8 +36,7 @@ export default async ({ router }) => {
             });
             next({ name: 'home' });
           }
-        }
-        else {
+        } else {
           next();
         }
       }

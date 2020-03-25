@@ -87,14 +87,16 @@ export const UPDATE_PASSWORD_MUTATION = gql`
     $password: String!
     $password_confirmation: String!
   ) {
-    updatePassword(input: {
-      old_password: $old_password
-      password: $password
-      password_confirmation: $password_confirmation  
-    }) {
+    updatePassword(
+      input: {
+        old_password: $old_password
+        password: $password
+        password_confirmation: $password_confirmation
+      }
+    ) {
       status
       message
-    } 
+    }
   }
 `;
 
@@ -174,6 +176,10 @@ export const ALL_USERS = gql`
       email
       active
       verified
+      image_url
+      operating_unit {
+        name
+      }
       role {
         id
         name
@@ -1283,7 +1289,7 @@ export const FETCH_TIERS = gql`
     tiers {
       id
       name
-    }    
+    }
   }
 `;
 

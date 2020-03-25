@@ -30,6 +30,6 @@
 
 <script>
 export default {
-  name: "ProjectSkeleton"
-}
+  name: 'ProjectSkeleton'
+};
 </script>

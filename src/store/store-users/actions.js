@@ -17,7 +17,7 @@ export function fetchUsers({ commit }) {
     .then(res => {
       res.data.users.forEach(user => {
         const payload = {
-          id: user.id,
+          id: 'ID' + user.id,
           user: user
         };
         commit('ADD_USER', payload);
@@ -99,4 +99,12 @@ export function assignRole({ commit }, payload) {
 
 export function setSearch({ commit }, payload) {
   commit('SET_SEARCH', payload);
+}
+
+export function setSort({ commit }, payload) {
+  commit('SET_SORT', payload);
+}
+
+export function setDirection({ commit }, payload) {
+  commit('SET_DIRECTION', payload);
 }

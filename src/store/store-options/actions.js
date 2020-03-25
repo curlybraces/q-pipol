@@ -9,7 +9,9 @@ import {
   FETCH_PROJECT_STATUSES,
   FETCH_TECHNICAL_READINESSES,
   FETCH_ROLES,
-  FETCH_YEARS, FETCH_TIERS, FETCH_TYPOLOGIES
+  FETCH_YEARS,
+  FETCH_TIERS,
+  FETCH_TYPOLOGIES
 } from '../../constants/graphql';
 
 export function fetchDistricts({ commit }) {
@@ -120,7 +122,7 @@ export function fetchTypologies({ commit }) {
     })
     .then(res => {
       commit('SET_TYPOLOGIES', res.data.typologies);
-    })
+    });
 }
 
 export function fetchYears({ commit }) {
@@ -129,7 +131,8 @@ export function fetchYears({ commit }) {
       query: FETCH_YEARS
     })
     .then(res => {
-      commit('SET_YEARS', res.data.years);
+      // the backend is using singular year
+      commit('SET_YEARS', res.data.year);
     })
     .catch(err => console.log(err.message));
 }
