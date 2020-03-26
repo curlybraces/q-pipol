@@ -16,8 +16,8 @@ import NotificationItem from "../Notifications/NotificationItem";
 
 export default {
   name: 'RightDrawer',
-    components: {NotificationItem},
-    computed: {
+  components: {NotificationItem},
+  computed: {
     ...mapState('notifications',['notifications']),
     message() {
       return '';
