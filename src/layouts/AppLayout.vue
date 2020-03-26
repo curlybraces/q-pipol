@@ -77,6 +77,7 @@
       :content-class="dark ? 'bg-grey-9' : 'bg-grey-2'"
       bordered
       overlay
+      :width="360"
     >
       <right-drawer />
     </q-drawer>
