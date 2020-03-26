@@ -1,6 +1,6 @@
 <template>
   <div class="row q-py-md items-center">
-    <div class="col-6">
+    <div class="col-xl-6 col-lg-8 col-md-10 col-sm-10 col-xs-10">
       <div class="row q-gutter-sm">
         <q-select
           class="col"
@@ -22,10 +22,22 @@
         />
       </div>
     </div>
-    <div class="col-6 text-right">
-      {{
-        Object.keys(projects).length + '/' + pageInfo.total + ' projects loaded'
-      }}
+    <div class="col-xl-6 col-lg-4 col-md-2 col-sm-2 col-xs-2 text-right">
+      <q-circular-progress
+        show-value
+        font-size="12px"
+        :value="percentLoaded"
+        size="50px"
+        :thickness="0.22"
+        color="teal"
+        track-color="grey-3"
+        class="q-ma-md"
+      >
+        {{ percentLoaded }}%
+        <q-tooltip>
+          Loaded projects
+        </q-tooltip>
+      </q-circular-progress>
     </div>
   </div>
 </template>
@@ -52,6 +64,9 @@ export default {
       set(val) {
         this.setSort(val);
       }
+    },
+    percentLoaded() {
+      return Math.ceil(Object.keys(this.projects).length/this.pageInfo.total * 100,0);
     }
   },
   data() {
