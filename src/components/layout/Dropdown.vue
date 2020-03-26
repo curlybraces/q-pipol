@@ -64,7 +64,14 @@
             <q-icon name="contact_support" :color="iconColor" />
           </q-avatar>
         </q-item-section>
-        <q-item-section>Help &amp; Feedback</q-item-section>
+        <q-item-section>
+          <q-item-label>
+            Help &amp; Feedback
+          </q-item-label>
+        </q-item-section>
+        <q-item-section side>
+          <q-icon color="red" name="priority_high" />
+        </q-item-section>
       </q-item>
       <q-item clickable v-close-popup @click="showLogout">
         <q-item-section avatar>

@@ -102,9 +102,7 @@ export function setImageUrl({ commit }, payload) {
         image_url: payload
       }
     })
-    .then(res => {
-      console.log(res.data);
-
+    .then(() => {
       showSuccessNotification({
         message: 'Successfully updated avatar.',
         icon: 'check'

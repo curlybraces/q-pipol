@@ -1,5 +1,5 @@
 export function projects(state, getters) {
-  var projects = getters.projectsFiltered;
+  const projects = getters.projectsFiltered;
   if (projects) {
     return projects;
   }
@@ -12,13 +12,18 @@ export function projectsFiltered(state) {
 
   // check if state.search is not empty
   if (state.search) {
+
     // change state.search to lowercase
     var searchLowerCase = state.search.toLowerCase();
 
     // loop through the objects to check if the title includes search term
     Object.keys(state.projects).forEach(key => {
       let project = projects[key];
-      let projectTitleLowerCase = (project.title !== 'undefined') ? project.title.toLowerCase() : '';
+      let projectTitleLowerCase = '';
+
+      if (project.title !== 'undefined') {
+        projectTitleLowerCase = project.title.toLowerCase();
+      }
 
       // Add the project to projects filtered if title matches search
       if (projectTitleLowerCase.includes(searchLowerCase)) {

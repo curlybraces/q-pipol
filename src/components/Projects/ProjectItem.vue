@@ -19,6 +19,7 @@
           }}
         </span>
         <span
+          v-if="typeof project.title !== undefined"
           v-html="$options.filters.searchHighlight(project.title, search)"
         ></span>
       </q-item-label>

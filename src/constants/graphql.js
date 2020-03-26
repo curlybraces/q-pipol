@@ -1333,3 +1333,26 @@ export const FETCH_YEARS = gql`
     }
   }
 `;
+
+export const FETCH_RESOURCES_QUERY = gql`
+    query {
+        resources {
+            id
+            title
+            description
+            url
+            document_type
+            adder {
+                name
+            }
+            updater {
+                name
+            }
+            deleter {
+                name
+            }
+            created_at
+            updated_at
+        }
+    }
+`;

@@ -10,6 +10,7 @@ import projects from './store-projects';
 import project from './store-project';
 import notifications from './store-notifications';
 import options from './store-options';
+import resources from './store-resources';
 import settings from './store-settings';
 import users from './store-users';
 
@@ -30,6 +31,7 @@ export default function(/* { ssrContext } */) {
       project,
       notifications,
       options,
+      resources,
       users,
       settings
     },

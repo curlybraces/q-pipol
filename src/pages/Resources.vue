@@ -5,7 +5,15 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
-  name: 'PageResources'
+  name: 'PageResources',
+  methods: {
+    ...mapActions('resources',['fetchResources'])
+  },
+  mounted() {
+    this.fetchResources();
+  }
 };
 </script>
