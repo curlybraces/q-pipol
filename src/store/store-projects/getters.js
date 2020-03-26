@@ -18,13 +18,14 @@ export function projectsFiltered(state) {
     // loop through the objects to check if the title includes search term
     Object.keys(state.projects).forEach(key => {
       let project = projects[key];
-      let projectTitleLowerCase = project.title.toLowerCase();
+      let projectTitleLowerCase = (project.title !== 'undefined') ? project.title.toLowerCase() : '';
 
       // Add the project to projects filtered if title matches search
       if (projectTitleLowerCase.includes(searchLowerCase)) {
         projectsFiltered[key] = project;
       }
     });
+
     // return projectsFiltered
     return projectsFiltered;
   }

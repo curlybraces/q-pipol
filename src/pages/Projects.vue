@@ -19,6 +19,7 @@
           outlined
           placeholder="Filter Programs and Projects"
           v-model="searchField"
+          :debounce="500"
         >
           <template v-slot:prepend>
             <q-icon name="search" />
