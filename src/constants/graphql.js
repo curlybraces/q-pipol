@@ -1335,39 +1335,39 @@ export const FETCH_YEARS = gql`
 `;
 
 export const FETCH_RESOURCES_QUERY = gql`
-    query {
-        resources {
-            id
-            title
-            description
-            url
-            image_url
-            document_type
-            adder {
-                name
-            }
-            updater {
-                name
-            }
-            deleter {
-                name
-            }
-            created_at
-            updated_at
-        }
+  query {
+    resources {
+      id
+      title
+      description
+      url
+      image_url
+      document_type
+      adder {
+        name
+      }
+      updater {
+        name
+      }
+      deleter {
+        name
+      }
+      created_at
+      updated_at
     }
+  }
 `;
 
 export const CREATE_RESOURCE_MUTATION = gql`
   mutation createResource(
-    $title: String 
+    $title: String
     $description: String
     $url: String
     $image_url: String
     $document_type: String
   ) {
     createResource(
-      input:{
+      input: {
         title: $title
         description: $description
         url: $url
@@ -1382,10 +1382,19 @@ export const CREATE_RESOURCE_MUTATION = gql`
       image_url
       document_type
       adder {
-        name    
+        name
       }
       created_at
       updated_at
+    }
+  }
+`;
+
+export const DELETE_RESOURCE_MUTATION = gql`
+  mutation deleteResource($id: ID!) {
+    deleteResource(id: $id) {
+      id
+      title
     }
   }
 `;
