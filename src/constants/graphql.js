@@ -127,6 +127,7 @@ export const FETCH_NOTIFICATIONS_QUERY = gql`
     me {
       notifications {
         id
+        type
         notifiable_id
         notifiable_type
         notifiable {
