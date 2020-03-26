@@ -66,7 +66,10 @@ export default {
       }
     },
     percentLoaded() {
-      return Math.ceil(Object.keys(this.projects).length/this.pageInfo.total * 100,0);
+      return Math.ceil(
+        (Object.keys(this.projects).length / this.pageInfo.total) * 100,
+        0
+      );
     }
   },
   data() {

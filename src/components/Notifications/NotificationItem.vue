@@ -2,9 +2,7 @@
   <q-item>
     <q-item-section avatar>
       <q-avatar color="primary" class="text-white">
-        {{
-        notification.data.from.charAt(0)
-        }}
+        {{ notification.data.from.charAt(0) }}
       </q-avatar>
     </q-item-section>
     <q-item-section>
@@ -47,5 +45,5 @@ export default {
       return '';
     }
   }
-}
+};
 </script>

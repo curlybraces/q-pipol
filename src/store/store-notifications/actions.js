@@ -11,8 +11,8 @@ export function fetchNotifications({ commit }) {
         const payload = {
           id: notification.id,
           notification: notification
-        }
-        commit('ADD_NOTIFICATION',payload);
+        };
+        commit('ADD_NOTIFICATION', payload);
       });
     });
 }

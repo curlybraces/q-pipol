@@ -12,7 +12,6 @@ export function projectsFiltered(state) {
 
   // check if state.search is not empty
   if (state.search) {
-
     // change state.search to lowercase
     var searchLowerCase = state.search.toLowerCase();
 
