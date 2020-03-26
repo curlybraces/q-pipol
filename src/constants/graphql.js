@@ -1341,6 +1341,7 @@ export const FETCH_RESOURCES_QUERY = gql`
             title
             description
             url
+            image_url
             document_type
             adder {
                 name
@@ -1355,4 +1356,36 @@ export const FETCH_RESOURCES_QUERY = gql`
             updated_at
         }
     }
+`;
+
+export const CREATE_RESOURCE_MUTATION = gql`
+  mutation createResource(
+    $title: String 
+    $description: String
+    $url: String
+    $image_url: String
+    $document_type: String
+  ) {
+    createResource(
+      input:{
+        title: $title
+        description: $description
+        url: $url
+        image_url: $image_url
+        document_type: $document_type
+      }
+    ) {
+      id
+      title
+      description
+      url
+      image_url
+      document_type
+      adder {
+        name    
+      }
+      created_at
+      updated_at
+    }
+  }
 `;
