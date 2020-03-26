@@ -7,6 +7,7 @@
         class="text-capitalize"
         label="Add Resource"
         @click="createResourceDialog = true"
+        v-if="admin"
       ></q-btn>
     </page-title>
     <div class="q-pa-sm">
@@ -32,7 +33,7 @@
                 resource.description
               }}</q-item-label>
             </q-item-section>
-            <q-item-section side>
+            <q-item-section side v-if="admin">
               <q-btn
                 flat
                 round
@@ -104,9 +105,11 @@ import { mapState, mapActions } from 'vuex';
 import PageTitle from '../components/PageTitle';
 import { openURL, Dialog } from 'quasar';
 import TextInput from '../components/FormInputs/TextInput';
+import AdminMixins from "../mixins/AdminMixins";
 
 export default {
   name: 'PageResources',
+  mixins: [AdminMixins],
   components: { TextInput, PageTitle },
   computed: {
     ...mapState('resources', ['resources']),

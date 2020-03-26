@@ -41,7 +41,7 @@
             <img
               :src="
                 image_url
-                  ? 'statics/avatar/' + image_url + '.svg'
+                  ? 'statics/avatars/avatar-' + image_url + '.svg'
                   : 'statics/avatar-placeholder.png'
               "
             />

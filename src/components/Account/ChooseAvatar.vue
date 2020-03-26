@@ -14,13 +14,16 @@
         <template v-for="i in 40">
           <div class="col-3" :key="i">
             <q-img
-              :src="`statics/avatar/${i}.svg`"
+              :src="`statics/avatars/avatar-${i}.svg`"
               @click="select(i)"
               class="cursor-pointer"
               :class="selectedAvatar == i ? 'active' : void 0"
             />
           </div>
         </template>
+      </div>
+      <div class="row q-pa-sm text-caption">
+        Icons made by &nbsp;<a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> &nbsp;from &nbsp;<a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>.
       </div>
     </q-scroll-area>
     <q-card-actions align="right">
