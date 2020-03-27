@@ -190,7 +190,7 @@ import createApp from './app.js'
 
 
 
-import qboot_Bootapolloboost from 'boot/apollo-boost'
+import qboot_Bootapollo from 'boot/apollo'
 
 import qboot_Bootcharts from 'boot/charts'
 
@@ -234,7 +234,7 @@ async function start () {
   }
 
   const urlPath = window.location.href.replace(window.location.origin, '')
-  const bootFiles = [qboot_Bootapolloboost,qboot_Bootcharts,qboot_Bootrouterauth,qboot_Bootloadingdefaults,qboot_Bootaddressbarcolor,qboot_Bootnotifydefaults,qboot_Bootvuexpersist]
+  const bootFiles = [qboot_Bootapollo,qboot_Bootcharts,qboot_Bootrouterauth,qboot_Bootloadingdefaults,qboot_Bootaddressbarcolor,qboot_Bootnotifydefaults,qboot_Bootvuexpersist]
 
   for (let i = 0; routeUnchanged === true && i < bootFiles.length; i++) {
     if (typeof bootFiles[i] !== 'function') {

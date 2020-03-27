@@ -18,9 +18,7 @@ const httpLink = new HttpLink({
   uri: uri
 });
 
-const cache = new InMemoryCache({
-  addTypename: false
-});
+const cache = new InMemoryCache();
 
 const authMiddleware = new ApolloLink((operation, forward) => {
   // add the authorization to the headers
