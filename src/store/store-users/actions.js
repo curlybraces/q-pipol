@@ -3,9 +3,9 @@ import {
   ACTIVATE_USER,
   DEACTIVATE_USER,
   ALL_USERS,
-  ASSIGN_ROLE_MUTATION
+  ASSIGN_ROLE_MUTATION, ASSIGN_OPERATING_UNIT_TO_REVIEW_MUTATION
 } from '../../constants/graphql';
-import { showSuccessNotification } from '../../functions/function-show-notifications';
+import {showErrorNotification, showSuccessNotification} from '../../functions/function-show-notifications';
 
 export function fetchUsers({ commit }) {
   commit('SET_LOADING', true);
@@ -90,6 +90,28 @@ export function assignRole({ commit }, payload) {
       return;
     })
     .catch(err => console.log(err.message));
+}
+
+export function assignOperatingUnitToReview({}, payload) {
+  return apolloClient
+    .mutate({
+      mutation: ASSIGN_OPERATING_UNIT_TO_REVIEW_MUTATION,
+      variables: {
+        user_id: payload.id,
+        operating_units: payload.operating_units
+      }
+    })
+    .then(res => {
+      const { message } = res.data.assignOperatingUnitToReview;
+      showSuccessNotification({
+        message: message
+      });
+    })
+    .catch(err => {
+      showErrorNotification({
+        message: err.message
+      });
+    });
 }
 
 export function setSearch({ commit }, payload) {

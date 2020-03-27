@@ -40,6 +40,7 @@ export default {
   props: ['id', 'role'],
   data() {
     return {
+      panel: 'role',
       model: null,
       loading: false
     };

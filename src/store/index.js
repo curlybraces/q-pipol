@@ -9,6 +9,7 @@ import contacts from './store-contacts';
 import projects from './store-projects';
 import project from './store-project';
 import notifications from './store-notifications';
+import operatingUnits from './store-operating-units';
 import options from './store-options';
 import resources from './store-resources';
 import settings from './store-settings';
@@ -30,6 +31,7 @@ export default function(/* { ssrContext } */) {
       projects,
       project,
       notifications,
+      operatingUnits,
       options,
       resources,
       users,

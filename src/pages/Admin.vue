@@ -28,10 +28,12 @@
       </q-inner-loading>
 
       <!-- User List -->
-      <div class="row item-start q-col-gutter-sm">
-        <template v-for="(user, key) in usersSorted">
-          <user :key="key" :user="user"></user>
-        </template>
+      <div class="col">
+        <q-list separator bordered>
+          <template v-for="(user, key) in usersSorted">
+            <user :key="key" :user="user"></user>
+          </template>
+        </q-list>
       </div>
     </div>
   </q-page>

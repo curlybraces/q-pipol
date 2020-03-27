@@ -5,7 +5,7 @@ import localforage from 'localforage';
 export const vuexLocal = new VuexPersistence({
   key: 'vuex',
   storage: localforage,
-  modules: ['options', 'auth', 'users'],
+  modules: ['options', 'auth', 'operatingUnits', 'users'],
   asyncStorage: true
 });
 

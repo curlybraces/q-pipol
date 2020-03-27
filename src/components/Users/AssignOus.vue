@@ -26,7 +26,7 @@
     </q-scroll-area>
     <q-card-actions align="right">
       <q-btn flat label="cancel" @click="$emit('close')"></q-btn>
-      <q-btn color="primary" label="save" @click="onSubmit"></q-btn>
+      <q-btn color="primary" label="save" @click="onSubmit" :loading="loading"></q-btn>
     </q-card-actions>
   </q-card>
 </template>
@@ -66,11 +66,13 @@ export default {
   data() {
     return {
       search: '',
-      selectedOu: []
+      selectedOu: [],
+      loading: false
     };
   },
   methods: {
     ...mapActions('operatingUnits',['fetchOperatingUnits']),
+    ...mapActions('users',['assignOperatingUnitToReview']),
     addMe(id) {
       if (this.selectedOu.includes(id)) {
         const index = this.selectedOu.indexOf(id);
@@ -85,7 +87,14 @@ export default {
       return this.selectedOu.includes(id);
     },
     onSubmit() {
-      console.log(this.$props.id, this.selectedOu);
+      this.loading = true;
+      this.assignOperatingUnitToReview({
+        id: this.$props.id,
+        operating_units: this.selectedOu
+      })
+      .then(() => {
+        this.$emit('close')
+      });
     }
   },
   mounted() {
