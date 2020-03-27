@@ -197,6 +197,20 @@ export const ASSIGN_ROLE_MUTATION = gql`
   }
 `;
 
+export const ASSIGN_OPERATING_UNIT_TO_REVIEW_MUTATION = gql`
+  mutation assignOperatingUnitToReview (
+    $user_id: ID!
+    $operating_units: [ID]!
+  ){
+    assignOperatingUnitToReview(
+      user_id: $user_id
+      operating_units: $operating_units
+  ) {
+      message
+    }
+  }
+`;
+
 export const UPDATE_IMAGE_URL_MUTATION = gql`
   mutation updateImageUrlMutation($image_url: String!) {
     updateImageUrlMutation(image_url: $image_url) {
@@ -231,6 +245,7 @@ export const ALL_USERS = gql`
       id
       name
       email
+      position
       active
       verified
       image_url
@@ -240,6 +255,10 @@ export const ALL_USERS = gql`
       role {
         id
         name
+      }
+      reviews {
+        id
+        acronym
       }
       created_at
     }
