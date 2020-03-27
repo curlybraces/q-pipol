@@ -13,6 +13,7 @@
   "dependencies": {
     "@quasar/extras": "^1.6.0",
     "apollo-boost": "^0.4.7",
+    "chart.js": "^2.9.3",
     "dexie": "^2.0.4",
     "firebase": "^6.6.0",
     "graphql": "^14.6.0",
@@ -22,6 +23,7 @@
     "quasar": "^1.9.10",
     "v-money": "^0.8.1",
     "vue-apollo": "^3.0.3",
+    "vue-chartkick": "^0.6.0",
     "vue-cookie-law": "^1.11.0",
     "vue-json-excel": "^0.2.98",
     "vuex-map-fields": "^1.4.0",

@@ -17,9 +17,6 @@
         </div>
       </template>
     </div>
-    <div class="row">
-      <bar-chart></bar-chart>
-    </div>
   </q-page>
 </template>
 

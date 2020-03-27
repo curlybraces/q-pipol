@@ -1,6 +1,6 @@
 import { apolloClient } from '../../boot/apollo';
-import {FETCH_NOTIFICATIONS_QUERY, MARK_ALL_AS_READ_MUTATION, MARK_AS_READ_MUTATION} from '../../constants/graphql';
-import {showErrorNotification, showSuccessNotification} from "../../functions/function-show-notifications";
+import { FETCH_NOTIFICATIONS_QUERY, MARK_ALL_AS_READ_MUTATION, MARK_AS_READ_MUTATION } from '../../constants/graphql';
+import { showErrorNotification } from "../../functions/function-show-notifications";
 
 export function fetchNotifications({ commit }) {
   return apolloClient
