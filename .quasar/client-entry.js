@@ -204,8 +204,6 @@ import qboot_Bootnotifydefaults from 'boot/notify-defaults'
 
 import qboot_Bootvuexpersist from 'boot/vuex-persist'
 
-import qboot_Bootoffline from 'boot/offline'
-
 
 
 
@@ -236,7 +234,7 @@ async function start () {
   }
 
   const urlPath = window.location.href.replace(window.location.origin, '')
-  const bootFiles = [qboot_Bootapolloboost,qboot_Bootcharts,qboot_Bootrouterauth,qboot_Bootloadingdefaults,qboot_Bootaddressbarcolor,qboot_Bootnotifydefaults,qboot_Bootvuexpersist,qboot_Bootoffline]
+  const bootFiles = [qboot_Bootapolloboost,qboot_Bootcharts,qboot_Bootrouterauth,qboot_Bootloadingdefaults,qboot_Bootaddressbarcolor,qboot_Bootnotifydefaults,qboot_Bootvuexpersist]
 
   for (let i = 0; routeUnchanged === true && i < bootFiles.length; i++) {
     if (typeof bootFiles[i] !== 'function') {

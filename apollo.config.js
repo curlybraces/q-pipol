@@ -2,9 +2,9 @@
 module.exports = {
   client: {
     service: {
-      name: "e-planning",
+      name: "da-ipms",
       // URL to the GraphQL API
-      url: "http://localhost:8000/graphql"
+      url: "https://da-ipms.herokuapp.com/graphql"
     },
     // Files processed by the extension
     includes: ["src/**/*.vue", "src/**/*.js"]

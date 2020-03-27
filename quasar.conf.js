@@ -12,8 +12,7 @@ module.exports = function(ctx) {
       "loading-defaults",
       "addressbar-color",
       "notify-defaults",
-      "vuex-persist",
-      "offline"
+      "vuex-persist"
     ],
 
     css: ["app.styl"],
