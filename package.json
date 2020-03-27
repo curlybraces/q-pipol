@@ -11,10 +11,8 @@
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
-    "@amcharts/amcharts4": "^4.9.6",
     "@quasar/extras": "^1.6.0",
     "apollo-boost": "^0.4.7",
-    "d3": "^5.15.0",
     "dexie": "^2.0.4",
     "firebase": "^6.6.0",
     "graphql": "^14.6.0",
