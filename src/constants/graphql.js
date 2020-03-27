@@ -147,6 +147,22 @@ export const FETCH_NOTIFICATIONS_QUERY = gql`
   }
 `;
 
+export const MARK_AS_READ_MUTATION = gql`
+  mutation markAsRead($id: ID!) {
+    markAsRead(id: $id) {
+      status
+    }
+  }
+`;
+
+export const MARK_ALL_AS_READ_MUTATION = gql`
+  mutation markAllAsRead {
+    markAllAsRead {
+      status
+    }
+  }
+`;
+
 export const ASSIGN_ROLE_MUTATION = gql`
   mutation assignRole($user_id: ID!, $role_id: ID) {
     assignRole(user_id: $user_id, role_id: $role_id) {
