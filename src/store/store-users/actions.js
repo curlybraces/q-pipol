@@ -3,9 +3,13 @@ import {
   ACTIVATE_USER,
   DEACTIVATE_USER,
   ALL_USERS,
-  ASSIGN_ROLE_MUTATION, ASSIGN_OPERATING_UNIT_TO_REVIEW_MUTATION
+  ASSIGN_ROLE_MUTATION,
+  ASSIGN_OPERATING_UNIT_TO_REVIEW_MUTATION
 } from '../../constants/graphql';
-import {showErrorNotification, showSuccessNotification} from '../../functions/function-show-notifications';
+import {
+  showErrorNotification,
+  showSuccessNotification
+} from '../../functions/function-show-notifications';
 
 export function fetchUsers({ commit }) {
   commit('SET_LOADING', true);

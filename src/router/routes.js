@@ -181,6 +181,17 @@ const routes = [
     ]
   },
   {
+    path: '/landing',
+    component: () => import('layouts/LandingLayout.vue'),
+    children: [
+      {
+        path: '',
+        name: 'landing',
+        component: () => import('pages/Landing.vue')
+      }
+    ]
+  },
+  {
     path: '/error',
     name: 'error',
     component: () => import('pages/Error404.vue')

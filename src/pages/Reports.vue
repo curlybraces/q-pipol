@@ -1,19 +1,15 @@
 <template>
   <q-page>
     <div class="q-pa-sm q-gutter-y-md">
-      <q-card class="q-pa-sm">
-
-      </q-card>
-      <q-card class="q-pa-sm">
-
-      </q-card>
+      <q-card class="q-pa-sm"> </q-card>
+      <q-card class="q-pa-sm"> </q-card>
     </div>
   </q-page>
 </template>
 
 <script>
 export default {
-  components: { },
+  components: {},
   name: 'PageReports',
   data() {
     return {

@@ -1,6 +1,10 @@
 import { apolloClient } from '../../boot/apollo';
-import { FETCH_NOTIFICATIONS_QUERY, MARK_ALL_AS_READ_MUTATION, MARK_AS_READ_MUTATION } from '../../constants/graphql';
-import { showErrorNotification } from "../../functions/function-show-notifications";
+import {
+  FETCH_NOTIFICATIONS_QUERY,
+  MARK_ALL_AS_READ_MUTATION,
+  MARK_AS_READ_MUTATION
+} from '../../constants/graphql';
+import { showErrorNotification } from '../../functions/function-show-notifications';
 
 export function fetchNotifications({ commit }) {
   return apolloClient
@@ -31,16 +35,16 @@ export function markAsRead({ commit }, payload) {
         const payload = {
           id: res.data.markAsRead.notification.id,
           notification: res.data.markAsRead.notification
-        }
+        };
 
-        commit('UPDATE_NOTIFICATION',payload);
+        commit('UPDATE_NOTIFICATION', payload);
       }
     })
     .catch(err => {
       showErrorNotification({
         message: err.message
       });
-    })
+    });
 }
 
 export function markAllAsRead({ dispatch }) {
@@ -57,5 +61,5 @@ export function markAllAsRead({ dispatch }) {
       showErrorNotification({
         message: err.message
       });
-    })
+    });
 }

@@ -66,7 +66,8 @@
           round
           icon="apps"
           @click="assignOUDialog = true"
-          :disable="user.role.name !== 'reviewer'">
+          :disable="user.role.name !== 'reviewer'"
+        >
           <q-tooltip>Assign Operating Units to Review</q-tooltip>
         </q-btn>
 
@@ -89,10 +90,7 @@
       transition-show="fade"
       persistent
     >
-      <assign-ous
-        :id="user.id"
-        @close="assignOUDialog = false"
-      ></assign-ous>
+      <assign-ous :id="user.id" @close="assignOUDialog = false"></assign-ous>
     </q-dialog>
 
     <q-dialog

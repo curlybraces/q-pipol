@@ -198,14 +198,11 @@ export const ASSIGN_ROLE_MUTATION = gql`
 `;
 
 export const ASSIGN_OPERATING_UNIT_TO_REVIEW_MUTATION = gql`
-  mutation assignOperatingUnitToReview (
-    $user_id: ID!
-    $operating_units: [ID]!
-  ){
+  mutation assignOperatingUnitToReview($user_id: ID!, $operating_units: [ID]!) {
     assignOperatingUnitToReview(
       user_id: $user_id
       operating_units: $operating_units
-  ) {
+    ) {
       message
     }
   }

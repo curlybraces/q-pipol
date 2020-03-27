@@ -105,7 +105,7 @@ import { mapState, mapActions } from 'vuex';
 import PageTitle from '../components/PageTitle';
 import { openURL, Dialog } from 'quasar';
 import TextInput from '../components/FormInputs/TextInput';
-import AdminMixins from "../mixins/AdminMixins";
+import AdminMixins from '../mixins/AdminMixins';
 
 export default {
   name: 'PageResources',
@@ -129,7 +129,11 @@ export default {
     };
   },
   methods: {
-    ...mapActions('resources', ['fetchResources', 'createResource', 'deleteResource']),
+    ...mapActions('resources', [
+      'fetchResources',
+      'createResource',
+      'deleteResource'
+    ]),
     goTo(url) {
       Dialog.create({
         title: 'Confirm',
@@ -146,10 +150,11 @@ export default {
         cancel: true,
         transitionShow: 'fade',
         transitionHide: 'fade'
-      })
-      .onOk(() => this.deleteResource({
-        id: id
-      }));
+      }).onOk(() =>
+        this.deleteResource({
+          id: id
+        })
+      );
     },
     onSubmit() {
       this.$refs.form.validate().then(success => {

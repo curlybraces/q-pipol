@@ -27,7 +27,11 @@
           icon="notifications"
           class="q-mr-md text-grey-6"
           @click="rightDrawer = !rightDrawer"
-        />
+        >
+          <q-badge color="red" floating v-if="notificationsCount > 0">
+            {{ notificationsCount }}
+          </q-badge>
+        </q-btn>
 
         <q-btn
           :class="dark ? 'bg-purple-4' : 'bg-primary'"
@@ -108,7 +112,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import DropdownMenu from '../components/layout/Dropdown';
 import RightDrawer from '../components/layout/RightDrawer';
 
@@ -167,6 +171,7 @@ export default {
   computed: {
     ...mapState('auth', ['name', 'image_url']),
     ...mapState('settings', ['dark']),
+    ...mapGetters('notifications', ['notificationsCount']),
     darkMode() {
       return this.$q.dark.isActive;
     }

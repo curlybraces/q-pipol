@@ -1,6 +1,7 @@
 import { apolloClient } from '../../boot/apollo';
 import {
-  CREATE_RESOURCE_MUTATION, DELETE_RESOURCE_MUTATION,
+  CREATE_RESOURCE_MUTATION,
+  DELETE_RESOURCE_MUTATION,
   FETCH_RESOURCES_QUERY
 } from '../../constants/graphql';
 import {
@@ -70,7 +71,7 @@ export function deleteResource({ commit }, payload) {
     .mutate({
       mutation: DELETE_RESOURCE_MUTATION,
       variables: {
-        id: payload.id,
+        id: payload.id
       }
     })
     .then(res => {
