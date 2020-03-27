@@ -3,7 +3,7 @@ import {
   ALL_PROJECTS_QUERY,
   DELETE_PROJECT_MUTATION
 } from '../../constants/graphql';
-import { Notify } from 'quasar';
+import { showErrorNotification, showSuccessNotification} from "../../functions/function-show-notifications";
 
 export function fetchProjects({ commit }, payload) {
   const { first, after } = payload;
@@ -50,11 +50,15 @@ export function deleteProject({ commit }, id) {
         console.log('Project was already deleted.');
       } else {
         commit('DELETE_PROJECT', id);
-        Notify.create('Project successfully deleted.');
+        showSuccessNotification({
+          message: 'Project successfully deleted.'
+        });
       }
     })
     .catch(err => {
-      alert(err.message);
+      showErrorNotification({
+        message: err.message
+      });
     });
 }
 
