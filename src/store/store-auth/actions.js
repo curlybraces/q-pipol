@@ -85,9 +85,12 @@ export function logoutUser({ commit }) {
   commit('projects/CLEAR_PROJECTS', null, { root: true });
   commit('CLEAR_USER');
 
+  localStorage.removeItem('vuex');
+
   LocalStorage.remove('token');
   LocalStorage.remove('userId');
   LocalStorage.remove('loggedIn');
+  LocalStorage.remove('role');
 
   apolloClient.cache.data.clear();
 
