@@ -1,10 +1,14 @@
 <template>
-  <single-select :options="operating_units" v-model="selected" :loading="loading"></single-select>
+  <single-select
+    :options="operating_units"
+    v-model="selected"
+    :loading="loading"
+  ></single-select>
 </template>
 
 <script>
-import SingleSelect from "../FormInputs/SingleSelect";
-import {FETCH_OPERATING_UNITS} from "../../constants/graphql";
+import SingleSelect from '../FormInputs/SingleSelect';
+import { FETCH_OPERATING_UNITS } from '../../constants/graphql';
 
 export default {
   components: { SingleSelect },
@@ -21,7 +25,7 @@ export default {
         return this.$props.value;
       },
       set(val) {
-        this.$emit('input',val);
+        this.$emit('input', val);
       }
     }
   },
@@ -29,7 +33,7 @@ export default {
     return {
       operating_units: [],
       loading: false
-    }
+    };
   }
-}
+};
 </script>

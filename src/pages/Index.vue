@@ -23,10 +23,8 @@
 <script>
 export default {
   name: 'PageIndex',
-    data() {
+  data() {
     return {
-      operating_unit_id: null,
-      district_id: null,
       links: [
         {
           label: 'View Projects',
@@ -63,17 +61,6 @@ export default {
           icon: 'call',
           url: '/directory',
           color: 'black'
-        },
-        {
-          label: 'Account',
-          icon: 'person',
-          url: '/account',
-          color: 'lime'
-        },
-        {
-          label: 'Settings',
-          icon: 'settings',
-          url: '/settings'
         }
       ]
     };

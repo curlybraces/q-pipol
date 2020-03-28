@@ -1,6 +1,6 @@
 <template>
   <q-item>
-    <q-item-section avatar>
+    <q-item-section avatar class="gt-md">
       <q-avatar color="white">
         <q-img
           v-if="project.operating_unit != null"

@@ -70,6 +70,7 @@
             :label="$q.screen.gt.sm ? label : void 0"
             :icon="$q.screen.lt.md ? icon : void 0"
             class="text-capitalize"
+            exact
           />
         </template>
       </q-tabs>
@@ -154,16 +155,6 @@ export default {
           label: 'Directory',
           icon: 'phone',
           to: '/directory'
-        },
-        {
-          label: 'Account',
-          icon: 'account_box',
-          to: '/account'
-        },
-        {
-          label: 'Settings',
-          icon: 'settings',
-          to: '/settings'
         }
       ]
     };

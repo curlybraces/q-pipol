@@ -12,7 +12,7 @@ import {
   VERIFY_EMAIL_MUTATION
 } from '../../constants/graphql';
 import { showGraphQLErrorMessage } from 'src/functions/function-graphql-error-messages';
-import { showSuccessNotification } from '../../functions/function-show-notifications';
+import {showErrorNotification, showSuccessNotification} from '../../functions/function-show-notifications';
 
 export function loginUser({ commit, dispatch }, payload) {
   return apolloClient
@@ -85,7 +85,7 @@ export function logoutUser({ commit }) {
   commit('projects/CLEAR_PROJECTS', null, { root: true });
   commit('CLEAR_USER');
 
-  localStorage.removeItem('vuex');
+  localStorage.removeItem('da-ipms');
 
   LocalStorage.remove('token');
   LocalStorage.remove('userId');
@@ -195,7 +195,9 @@ export function resendEmailVerification({}, payload) {
       });
     })
     .catch(err => {
-      console.log(err.message);
+      showErrorNotification({
+        message: err.message
+      });
     });
 }
 
