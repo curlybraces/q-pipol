@@ -23,8 +23,10 @@
 <script>
 export default {
   name: 'PageIndex',
-  data() {
+    data() {
     return {
+      operating_unit_id: null,
+      district_id: null,
       links: [
         {
           label: 'View Projects',

@@ -26,7 +26,8 @@
     "vue-chartkick": "^0.6.0",
     "vue-json-excel": "^0.2.98",
     "vuex-map-fields": "^1.4.0",
-    "vuex-persist": "^2.2.0"
+    "vuex-persist": "^2.2.0",
+    "vuex-persistedstate": "^3.0.1"
   },
   "devDependencies": {
     "@quasar/app": "^1.5.3",

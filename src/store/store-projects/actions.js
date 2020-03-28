@@ -3,7 +3,10 @@ import {
   ALL_PROJECTS_QUERY,
   DELETE_PROJECT_MUTATION
 } from '../../constants/graphql';
-import { showErrorNotification, showSuccessNotification} from "../../functions/function-show-notifications";
+import {
+  showErrorNotification,
+  showSuccessNotification
+} from '../../functions/function-show-notifications';
 
 export function fetchProjects({ commit }, payload) {
   const { first, after } = payload;

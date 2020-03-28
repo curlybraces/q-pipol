@@ -28,7 +28,6 @@ const authMiddleware = new ApolloLink((operation, forward) => {
       authorization: token ? `Bearer ${token}` : null
     }
   });
-
   return forward(operation);
 });
 

@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { vuexLocal } from 'boot/vuex-persist';
-// import vuexLocal from 'vuex-persistedstate'
+import createPersistedState from 'vuex-persistedstate';
 
 import activities from './store-activities';
 import auth from './store-auth';
@@ -41,7 +40,7 @@ export default function(/* { ssrContext } */) {
     // enable strict mode (adds overhead!)
     // for dev mode only
     strict: process.env.DEV,
-    plugins: [vuexLocal.plugin]
+    plugins: [createPersistedState()]
   });
 
   return Store;
