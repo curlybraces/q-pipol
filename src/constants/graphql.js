@@ -1471,3 +1471,12 @@ export const DELETE_RESOURCE_MUTATION = gql`
     }
   }
 `;
+
+export const FETCH_CITY_MUNICIPALITIES_QUERY = gql`
+  query city_municipalities {
+    city_municipalities {
+      id
+      name
+    }
+  }
+`;

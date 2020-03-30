@@ -1,6 +1,8 @@
 <template>
   <q-page class="q-pt-lg">
-    <page-title title="Notifications" />
+    <page-title title="Notifications">
+      <q-btn label="Refresh" @click="refreshNotifications" dense flat :loading="loading"></q-btn>
+    </page-title>
     <div class="row q-pa-sm">
       <q-inner-loading :showing="loading">
         <q-spinner-dots size="50"></q-spinner-dots>
@@ -9,6 +11,11 @@
         <template v-for="(notification, key) in notifications">
           <notification-item :notification="notification" :key="key" />
         </template>
+        <q-item v-if="!loading && !Object.keys(notifications).length">
+          <q-item-section>
+            <q-item-label>No notifications.</q-item-label>
+          </q-item-section>
+        </q-item>
       </q-list>
     </div>
   </q-page>
@@ -26,7 +33,10 @@ export default {
     ...mapState('notifications', ['notifications', 'loading'])
   },
   methods: {
-    ...mapActions('notifications', ['fetchNotifications'])
+    ...mapActions('notifications', ['fetchNotifications']),
+    refreshNotifications() {
+      this.fetchNotifications();
+    }
   },
   mounted() {
     this.fetchNotifications();

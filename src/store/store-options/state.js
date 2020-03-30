@@ -13,6 +13,8 @@ export default function() {
     tiers: [],
     typologies: [],
     years: [],
-    roles: []
+    roles: [],
+    challenges: [],
+    funding_institutions_options: []
   };
 }

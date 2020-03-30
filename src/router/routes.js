@@ -91,6 +91,14 @@ const routes = [
         }
       },
       {
+        path: 'projects/:id/review',
+        name: 'review-project',
+        component: () => import(/* webpackChunkName: 'ReviewProject' */ 'pages/ReviewProject.vue' ),
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
         path: 'projects/:id',
         name: 'view-project',
         component: () =>
