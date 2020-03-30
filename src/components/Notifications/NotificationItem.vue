@@ -13,10 +13,17 @@
         {{ notification.created_at | dateDiff }}
       </q-item-label>
     </q-item-section>
+    <q-item-section top side>
+      <template v-if="!notification.read_at">
+        <q-btn icon="check" dense flat round @click="markAsReadNotification(notification.id)">
+        </q-btn>
+      </template>
+    </q-item-section>
   </q-item>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import moment from 'moment';
 
 export default {
@@ -35,6 +42,14 @@ export default {
       } else {
         return data.message;
       }
+    }
+  },
+  methods: {
+    ...mapActions('notifications',['markAsRead']),
+    markAsReadNotification(id) {
+      this.markAsRead({
+          id: id
+      });
     }
   },
   filters: {

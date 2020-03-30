@@ -51,13 +51,13 @@ export function markAsRead({ commit }, payload) {
       }
     })
     .then(res => {
-      if (res.data.markAsRead.status == 'SUCCESS') {
-        const payload = {
-          id: res.data.markAsRead.notification.id,
-          notification: res.data.markAsRead.notification
+      if (res.data.markAsRead.status === 'SUCCESS') {
+        console.log('Update notification if success');
+        const updatedNotification = {
+          id: payload.id,
+          read_at: Date.now()
         };
-
-        commit('UPDATE_NOTIFICATION', payload);
+        commit('UPDATE_NOTIFICATION', updatedNotification);
       }
     })
     .catch(err => {

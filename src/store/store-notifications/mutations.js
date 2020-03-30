@@ -11,7 +11,7 @@ export function ADD_UNREAD_NOTIFICATION(state, payload) {
 }
 
 export function UPDATE_NOTIFICATION(state, payload) {
-  Vue.set(state.notifications, payload.id, payload.notification);
+  Vue.set(state.notifications[payload.id], 'read_at', payload.read_at);
 }
 
 export function SET_LOADING(state, value) {

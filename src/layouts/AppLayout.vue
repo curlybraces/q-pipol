@@ -28,8 +28,8 @@
           class="q-mr-md text-grey-6"
           @click="rightDrawer = !rightDrawer"
         >
-          <q-badge color="red" floating v-if="notificationsCount > 0">
-            {{ notificationsCount }}
+          <q-badge color="red" floating v-if="Object.keys(unreadNotifications).length">
+            {{ Object.keys(unreadNotifications).length }}
           </q-badge>
         </q-btn>
 
@@ -162,7 +162,7 @@ export default {
   computed: {
     ...mapState('auth', ['name', 'image_url']),
     ...mapState('settings', ['dark']),
-    ...mapGetters('notifications', ['notificationsCount']),
+    ...mapGetters('notifications', ['unreadNotifications']),
     darkMode() {
       return this.$q.dark.isActive;
     }

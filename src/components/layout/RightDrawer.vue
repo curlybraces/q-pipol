@@ -27,23 +27,24 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapGetters } from 'vuex';
 import NotificationItem from '../Notifications/NotificationItem';
 
 export default {
   name: 'RightDrawer',
   components: { NotificationItem },
   computed: {
-    ...mapState('notifications', ['unreadNotifications']),
+    ...mapState('notifications', ['notifications']),
+    ...mapGetters('notifications',['unreadNotifications']),
     message() {
       return '';
     }
   },
   methods: {
-    ...mapActions('notifications', ['fetchUnreadNotifications'])
+    ...mapActions('notifications', ['fetchNotifications'])
   },
   created() {
-    this.fetchUnreadNotifications();
+    this.fetchNotifications();
   }
 };
 </script>

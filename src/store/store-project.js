@@ -7,7 +7,7 @@ import {
   FETCH_PROJECT_QUERY
 } from '../constants/graphql';
 import { convertToNumber } from '../functions/function-convert-to-number';
-import { showErrorNotification } from '../functions/function-show-notifications';
+import {showErrorNotification, showSuccessNotification} from '../functions/function-show-notifications';
 
 const INITIAL_STATE = {
   id: null,
@@ -378,6 +378,9 @@ const actions = {
         if (!id) {
           Promise.reject();
         } else {
+          showSuccessNotification({
+            message: "Successfully created project."
+          });
           this.$router.push('/projects/' + id + '/edit');
         }
       })

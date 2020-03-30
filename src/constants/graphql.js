@@ -126,6 +126,20 @@ export const FETCH_NOTIFICATIONS_QUERY = gql`
   query me {
     me {
       id
+      name
+      email
+      position
+      verified
+      operating_unit_id
+      operating_unit {
+        id
+        image
+      }
+      contact_number
+      role {
+        name
+      }
+      image_url
       notifications {
         id
         type
@@ -178,24 +192,6 @@ export const MARK_AS_READ_MUTATION = gql`
   mutation markAsRead($id: ID!) {
     markAsRead(id: $id) {
       status
-      notification {
-        id
-        type
-        notifiable_id
-        notifiable_type
-        notifiable {
-          name
-        }
-        data {
-          id
-          from
-          title
-          message
-        }
-        read_at
-        created_at
-        updated_at
-      }
     }
   }
 `;
