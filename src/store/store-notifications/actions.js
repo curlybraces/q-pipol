@@ -1,13 +1,14 @@
 import { apolloClient } from '../../boot/apollo';
 import {
-  FETCH_NOTIFICATIONS_QUERY, FETCH_UNREAD_NOTIFICATIONS_QUERY,
+  FETCH_NOTIFICATIONS_QUERY,
+  FETCH_UNREAD_NOTIFICATIONS_QUERY,
   MARK_ALL_AS_READ_MUTATION,
   MARK_AS_READ_MUTATION
 } from '../../constants/graphql';
 import { showErrorNotification } from '../../functions/function-show-notifications';
 
 export function fetchNotifications({ commit }) {
-  commit('SET_LOADING',true);
+  commit('SET_LOADING', true);
   return apolloClient
     .query({
       query: FETCH_NOTIFICATIONS_QUERY
@@ -22,7 +23,7 @@ export function fetchNotifications({ commit }) {
       });
     })
     .catch(err => console.log(err.message))
-    .finally(() => commit('SET_LOADING',false));
+    .finally(() => commit('SET_LOADING', false));
 }
 
 export function fetchUnreadNotifications({ commit }) {

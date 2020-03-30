@@ -1,5 +1,9 @@
 <template>
-  <q-item flat bordered :class="user.role.name === 'guest' ? 'bg-red-1' : ''">
+  <q-item
+    flat
+    bordered
+    :class="user.role && user.role.name === 'guest' ? 'bg-red-1' : ''"
+  >
     <q-item-section avatar>
       <q-avatar class="text-white text-uppercase">
         <img
@@ -37,14 +41,15 @@
     </q-item-section>
     <q-item-section class="text-center">
       <q-item-label>
-        <q-badge
-          color="green-7"
-          @click="setSearch(user.role.name)"
-          class="cursor-pointer"
-          v-if="user.role"
-        >
-          {{ user.role ? user.role.name : '' }}
-        </q-badge>
+        <template v-if="user.role">
+          <q-badge
+            color="green-7"
+            @click="setSearch(user.role.name)"
+            class="cursor-pointer"
+          >
+            {{ user.role ? user.role.name : '' }}
+          </q-badge>
+        </template>
       </q-item-label>
     </q-item-section>
     <q-item-section class="text-center">
@@ -66,7 +71,7 @@
           round
           icon="apps"
           @click="assignOUDialog = true"
-          :disable="user.role.name !== 'reviewer'"
+          :disable="user.role && (user.role.name !== 'reviewer' && user.role.name !== 'viewer')"
         >
           <q-tooltip>Assign Operating Units to Review</q-tooltip>
         </q-btn>
@@ -77,7 +82,7 @@
           dense
           icon="account_box"
           @click="assignRoleDialog = true"
-          :disable="user.role.name === 'superadmin'"
+          :disable="user.role && user.role.name === 'superadmin'"
         >
           <q-tooltip>Assign Roles</q-tooltip>
         </q-btn>
@@ -133,37 +138,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('users', ['activateUser', 'deactivateUser', 'setSearch']),
-    toggleUserActivation() {
-      const { id, active } = this.$props.user;
-
-      const payload = {
-        id: id,
-        active: !active
-      };
-
-      this.$q
-        .dialog({
-          title: active ? 'Deactivate user' : 'Activate user',
-          message: 'You are about to toggle activation status of user #' + id,
-          persistent: true,
-          cancel: true,
-          transitionShow: 'fade',
-          transitionHide: 'fade'
-        })
-        .onOk(() => {
-          this.loading = true;
-          if (!active) {
-            this.activateUser(payload)
-              .then(data => console.log(data))
-              .finally(() => (this.loading = false));
-          } else {
-            this.deactivateUser(payload)
-              .then(data => console.log(data))
-              .finally(() => (this.loading = false));
-          }
-        });
-    }
+    ...mapActions('users', ['setSearch'])
   },
   data() {
     return {

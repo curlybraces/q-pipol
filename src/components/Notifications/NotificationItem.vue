@@ -1,5 +1,5 @@
 <template>
-  <q-item :class="notification.read_at ? '': 'bg-light-blue-1'">
+  <q-item :class="notification.read_at ? '' : 'bg-light-blue-1'">
     <q-item-section avatar>
       <q-avatar color="primary" class="text-white">
         {{ notification.data.from.charAt(0) }}

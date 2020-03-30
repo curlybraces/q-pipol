@@ -149,13 +149,24 @@ const routes = [
       {
         path: 'notifications',
         name: 'notifications',
-        component: () => import(/* webpackChunkName: 'NotificationsPage'*/ 'pages/Notifications.vue')
+        component: () =>
+          import(
+            /* webpackChunkName: 'NotificationsPage'*/ 'pages/Notifications.vue'
+          )
       },
       {
         path: 'about',
         name: 'about',
         component: () =>
           import(/* webpackChunkName: 'AboutPage' */ 'pages/About.vue')
+      },
+      {
+        path: 'docs',
+        name: 'docs',
+        component: () =>
+          import(
+            /* webpackChunkName: 'DocumentationPage' */ 'pages/Documentation.vue'
+          )
       }
     ]
   },

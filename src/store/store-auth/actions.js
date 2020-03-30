@@ -12,7 +12,10 @@ import {
   VERIFY_EMAIL_MUTATION
 } from '../../constants/graphql';
 import { showGraphQLErrorMessage } from 'src/functions/function-graphql-error-messages';
-import {showErrorNotification, showSuccessNotification} from '../../functions/function-show-notifications';
+import {
+  showErrorNotification,
+  showSuccessNotification
+} from '../../functions/function-show-notifications';
 
 export function loginUser({ commit, dispatch }, payload) {
   return apolloClient

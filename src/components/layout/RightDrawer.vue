@@ -2,7 +2,14 @@
   <q-list separator>
     <div class="row q-pa-sm justify-between">
       <div class="text-weight-bold ">Notifications</div>
-      <q-btn class="text-capitalize" label="See All" dense flat size="sm" to="/notifications" />
+      <q-btn
+        class="text-capitalize"
+        label="See All"
+        dense
+        flat
+        size="sm"
+        to="/notifications"
+      />
     </div>
     <q-separator />
     <template v-for="(notification, key) in unreadNotifications">

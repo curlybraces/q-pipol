@@ -95,7 +95,7 @@
         <q-btn flat dense type="a" class="text-lowercase">
           da-ipms2020.web.app
         </q-btn>
-        <q-btn flat dense type="a" class="text-capitalize">
+        <q-btn flat dense type="a" class="text-capitalize" to="/docs">
           Documentation
         </q-btn>
         <q-btn flat dense type="a" class="text-capitalize" to="/about">

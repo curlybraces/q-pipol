@@ -19,6 +19,9 @@
       "build": {
         "pwa": {
           "iconHash": "f45426b5fdfa2e4a0707fdcb47d330bb"
+        },
+        "electron": {
+          "iconHash": "f45426b5fdfa2e4a0707fdcb47d330bb"
         }
       }
     }

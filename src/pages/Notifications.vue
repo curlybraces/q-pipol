@@ -7,7 +7,7 @@
       </q-inner-loading>
       <q-list class="col" separator v-if="!loading">
         <template v-for="(notification, key) in notifications">
-          <notification-item :notification="notification" :key="key"/>
+          <notification-item :notification="notification" :key="key" />
         </template>
       </q-list>
     </div>
@@ -17,16 +17,16 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 import PageTitle from '../components/PageTitle';
-import NotificationItem from "../components/Notifications/NotificationItem";
+import NotificationItem from '../components/Notifications/NotificationItem';
 
 export default {
-  components: {NotificationItem, PageTitle },
+  components: { NotificationItem, PageTitle },
   name: 'PageNotifications',
   computed: {
-    ...mapState('notifications',['notifications','loading'])
+    ...mapState('notifications', ['notifications', 'loading'])
   },
   methods: {
-    ...mapActions('notifications',['fetchNotifications'])
+    ...mapActions('notifications', ['fetchNotifications'])
   },
   mounted() {
     this.fetchNotifications();

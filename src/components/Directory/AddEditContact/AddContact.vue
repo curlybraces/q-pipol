@@ -1,6 +1,13 @@
 <template>
-  <q-card>
-    <contact-header title="Create Contact"></contact-header>
+  <q-card style="width:400px">
+    <div class="row justify-between q-pa-sm">
+      Create Contact
+      <q-icon
+        name="close"
+        class="cursor-pointer"
+        @click="$emit('close')"
+      ></q-icon>
+    </div>
     <q-separator />
     <q-form @submit="checkForm" novalidate="true">
       <div class="q-ma-sm q-pa-sm bg-red-1" v-if="errors.length">
@@ -26,13 +33,12 @@
 
 <script>
 import { mapActions } from 'vuex';
-import ContactHeader from './Shared/ContactHeader';
 import ContactForm from './Shared/ContactForm';
 import ContactActions from './Shared/ContactActions';
 
 export default {
   name: 'AddContact',
-  components: { ContactActions, ContactForm, ContactHeader },
+  components: { ContactActions, ContactForm },
   data() {
     return {
       contact: {

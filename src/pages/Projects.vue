@@ -11,6 +11,17 @@
       ></q-btn>
     </page-title>
 
+    <q-dialog v-model="uploadFileAndSubmit">
+      <q-card style="width: 300px">
+        <q-form enctype="multipart/form-data" @submit.prevent="doSomething">
+          Upload File and Submit
+          <q-input @input="handleFile" type="file" />
+
+          <q-btn type="submit" label="Submit" />
+        </q-form>
+      </q-card>
+    </q-dialog>
+
     <div class="q-mt-md q-pa-sm">
       <div class="row q-mb-lg">
         <q-input
@@ -33,6 +44,12 @@
       <template v-if="loading && !projectCount">
         <project-skeleton />
       </template>
+
+      <q-item v-if="!loading && !Object.keys(sortedProjects).length">
+        <q-item-section>
+          No project
+        </q-item-section>
+      </q-item>
 
       <template v-if="projectCount">
         <sort-menu></sort-menu>
@@ -85,7 +102,9 @@ export default {
     return {
       expanded: false,
       first: 25,
-      endCursor: ''
+      endCursor: '',
+      uploadFileAndSubmit: false,
+      fileIsValid: false
     };
   },
   computed: {
@@ -167,6 +186,24 @@ export default {
       } else {
         console.log('Nothing to load');
       }
+    },
+    checkFile(file) {
+      const uploadedFile = file;
+      if (
+        uploadedFile.type === 'application/pdf' ||
+        uploadedFile.size < 5242880
+      ) {
+        return true;
+      }
+      return false;
+    },
+    handleFile(file) {
+      if (this.checkFile(file[0])) {
+        console.log('file is good');
+      }
+    },
+    doSomething() {
+      //
     }
   },
   mounted() {

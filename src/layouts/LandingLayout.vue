@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="hHh lpR fFf">
+  <q-layout view="hHh lpR fFf" class="bg-grey-2">
     <q-header class="bg-primary text-white" elevated>
       <q-toolbar class="app-toolbar">
         <q-toolbar-title>
@@ -8,8 +8,6 @@
           </q-avatar>
           Investment Programming &amp; Management System
         </q-toolbar-title>
-        <q-space />
-        <q-btn outline label="Login" to="/login"></q-btn>
       </q-toolbar>
     </q-header>
 
