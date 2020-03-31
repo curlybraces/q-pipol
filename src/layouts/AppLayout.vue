@@ -28,7 +28,11 @@
           class="q-mr-md text-grey-6"
           @click="rightDrawer = !rightDrawer"
         >
-          <q-badge color="red" floating v-if="Object.keys(unreadNotifications).length">
+          <q-badge
+            color="red"
+            floating
+            v-if="Object.keys(unreadNotifications).length"
+          >
             {{ Object.keys(unreadNotifications).length }}
           </q-badge>
         </q-btn>

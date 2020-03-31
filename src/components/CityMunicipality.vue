@@ -10,14 +10,14 @@
     @filter="filterFn"
     v-model="selected"
     :hint="hint"
-    ></q-select>
+  ></q-select>
 </template>
 
 <script>
-import {FETCH_CITY_MUNICIPALITIES_QUERY} from "../constants/graphql";
+import { FETCH_CITY_MUNICIPALITIES_QUERY } from '../constants/graphql';
 
 export default {
-  name: "CityMunicipality",
+  name: 'CityMunicipality',
   apollo: {
     city_municipalities: {
       query: FETCH_CITY_MUNICIPALITIES_QUERY
@@ -29,7 +29,7 @@ export default {
       selected: null,
       options: [],
       hint: 'Please type at least 3 characters to search'
-    }
+    };
   },
   methods: {
     filterFn(val, update) {
@@ -37,14 +37,16 @@ export default {
       setTimeout(() => {
         update(() => {
           if (val.length > 3) {
-            const needle = val.toLowerCase()
-            this.options = city_municipalities.filter(v => v.name.toLowerCase().indexOf(needle) > -1)
+            const needle = val.toLowerCase();
+            this.options = city_municipalities.filter(
+              v => v.name.toLowerCase().indexOf(needle) > -1
+            );
           } else {
             this.options = [];
           }
-        })
-      }, 500)
+        });
+      }, 500);
     }
   }
-}
+};
 </script>

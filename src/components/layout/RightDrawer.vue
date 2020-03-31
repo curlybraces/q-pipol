@@ -35,7 +35,7 @@ export default {
   components: { NotificationItem },
   computed: {
     ...mapState('notifications', ['notifications']),
-    ...mapGetters('notifications',['unreadNotifications']),
+    ...mapGetters('notifications', ['unreadNotifications']),
     message() {
       return '';
     }

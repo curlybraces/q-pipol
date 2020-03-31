@@ -17,18 +17,13 @@
         </div>
       </template>
     </div>
-    <div class="row q-pa-sm">
-      <city-municipality></city-municipality>
-    </div>
   </q-page>
 </template>
 
 <script>
-import CityMunicipality from "../components/CityMunicipality";
 export default {
   name: 'PageIndex',
-    components: {CityMunicipality},
-    data() {
+  data() {
     return {
       links: [
         {

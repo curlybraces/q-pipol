@@ -93,7 +93,10 @@ const routes = [
       {
         path: 'projects/:id/review',
         name: 'review-project',
-        component: () => import(/* webpackChunkName: 'ReviewProject' */ 'pages/ReviewProject.vue' ),
+        component: () =>
+          import(
+            /* webpackChunkName: 'ReviewProject' */ 'pages/ReviewProject.vue'
+          ),
         meta: {
           requiresAuth: true
         }
@@ -174,6 +177,14 @@ const routes = [
         component: () =>
           import(
             /* webpackChunkName: 'DocumentationPage' */ 'pages/Documentation.vue'
+          )
+      },
+      {
+        path: 'gad',
+        name: 'gad',
+        component: () =>
+          import(
+            /* webpackChunkName: 'GenderResponsivenessPage' */ 'pages/GenderResponsiveness.vue'
           )
       }
     ]

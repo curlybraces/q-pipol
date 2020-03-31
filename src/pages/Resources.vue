@@ -43,6 +43,11 @@
               ></q-btn>
             </q-item-section>
           </q-item>
+          <q-item v-if="!Object.keys(resources).length">
+            <q-item-section>
+              <q-item-label>No resources yet.</q-item-label>
+            </q-item-section>
+          </q-item>
         </q-list>
       </div>
     </div>

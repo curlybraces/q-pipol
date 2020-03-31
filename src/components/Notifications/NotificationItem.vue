@@ -15,7 +15,13 @@
     </q-item-section>
     <q-item-section top side>
       <template v-if="!notification.read_at">
-        <q-btn icon="check" dense flat round @click="markAsReadNotification(notification.id)">
+        <q-btn
+          icon="check"
+          dense
+          flat
+          round
+          @click="markAsReadNotification(notification.id)"
+        >
         </q-btn>
       </template>
     </q-item-section>
@@ -45,10 +51,10 @@ export default {
     }
   },
   methods: {
-    ...mapActions('notifications',['markAsRead']),
+    ...mapActions('notifications', ['markAsRead']),
     markAsReadNotification(id) {
       this.markAsRead({
-          id: id
+        id: id
       });
     }
   },

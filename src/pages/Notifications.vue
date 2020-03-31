@@ -1,7 +1,13 @@
 <template>
   <q-page class="q-pt-lg">
     <page-title title="Notifications">
-      <q-btn label="Refresh" @click="refreshNotifications" dense flat :loading="loading"></q-btn>
+      <q-btn
+        label="Refresh"
+        @click="refreshNotifications"
+        dense
+        flat
+        :loading="loading"
+      ></q-btn>
     </page-title>
     <div class="row q-pa-sm">
       <q-inner-loading :showing="loading">
