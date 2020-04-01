@@ -186,6 +186,12 @@ const routes = [
           import(
             /* webpackChunkName: 'GenderResponsivenessPage' */ 'pages/GenderResponsiveness.vue'
           )
+      },
+      {
+        path: 'gad-help',
+        name: 'gad-help',
+        component: () =>
+          import(/* webpackChunkName: 'GadHelpPage' */ 'pages/GadHelp.vue')
       }
     ]
   },

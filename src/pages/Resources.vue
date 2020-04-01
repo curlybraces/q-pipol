@@ -11,6 +11,9 @@
       ></q-btn>
     </page-title>
     <div class="q-pa-sm">
+      <q-inner-loading :showing="loading">
+        <q-spinner-dots size="50px"></q-spinner-dots>
+      </q-inner-loading>
       <div class="row q-gutter-sm">
         <q-list bordered separator>
           <q-item
@@ -21,7 +24,7 @@
           >
             <q-item-section avatar>
               <q-img
-                src="https://lh3.googleusercontent.com/proxy/4RY56tr7OYfq4zhJQ9ljvxDl0BAscWOWpYj0yS-XQGAw7QgI3M2WPEmZ7hpIs0wP0WtEekDBBOVeQl5UvzEsgFDlrDC3juBBoN-YqSNQw36JVeTrTO8"
+                :src="resource.image_url"
               ></q-img>
             </q-item-section>
             <q-item-section>
@@ -43,7 +46,7 @@
               ></q-btn>
             </q-item-section>
           </q-item>
-          <q-item v-if="!Object.keys(resources).length">
+          <q-item v-if="!loading && !Object.keys(resources).length">
             <q-item-section>
               <q-item-label>No resources yet.</q-item-label>
             </q-item-section>
@@ -117,7 +120,7 @@ export default {
   mixins: [AdminMixins],
   components: { TextInput, PageTitle },
   computed: {
-    ...mapState('resources', ['resources']),
+    ...mapState('resources', ['resources','loading']),
     ...mapState('settings', ['dense'])
   },
   data() {
