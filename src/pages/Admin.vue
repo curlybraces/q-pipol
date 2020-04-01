@@ -9,7 +9,7 @@
           class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12"
           dense
           outlined
-          placeholder="Filter Programs and Projects"
+          placeholder="Filter Users"
           v-model="searchField"
           clearable
           ref="searchBox"

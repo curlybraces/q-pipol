@@ -153,7 +153,9 @@ export function forgotPassword({}, email) {
       }
     })
     .then(res => {
-      return res.data.forgotPassword;
+      showSuccessNotification({
+        message: res.data.forgotPassword.message
+      });
     })
     .catch(err => {
       console.log(err.message);

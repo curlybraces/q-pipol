@@ -1480,3 +1480,18 @@ export const FETCH_CITY_MUNICIPALITIES_QUERY = gql`
     }
   }
 `;
+
+export const FETCH_REVIEWERS_QUERY = gql`
+  query reviewers {
+    reviewers {
+      id
+      name
+      reviews {
+        id
+        projects {
+          id
+        }
+      }
+    }
+  }
+`;

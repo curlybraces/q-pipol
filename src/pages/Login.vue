@@ -206,7 +206,7 @@ export default {
           persistent: true
         })
         .onOk(email => {
-          this.forgotPassword(email).then(res => console.log(res));
+          this.forgotPassword(email);
         });
     },
     handleSubmit() {

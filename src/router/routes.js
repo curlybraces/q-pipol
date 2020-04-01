@@ -192,6 +192,12 @@ const routes = [
         name: 'gad-help',
         component: () =>
           import(/* webpackChunkName: 'GadHelpPage' */ 'pages/GadHelp.vue')
+      },
+      {
+        path: 'progress-tracker',
+        name: 'progress-tracker',
+        component: () =>
+          import(/* webpackChunkName: 'ProgressTrackerPage' */ 'pages/ProgressTracker.vue')
       }
     ]
   },

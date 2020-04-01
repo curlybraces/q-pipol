@@ -17,17 +17,31 @@
         <q-item v-for="(q, index) in question" :key="index">
           <q-item-section>
             <q-item-label>{{ q.question }}</q-item-label>
+            <q-item-label>
+              <q-option-group
+                :options="q.options"
+                v-model="q.score"
+                inline
+                v-if="!$q.screen.gt.sm"
+              ></q-option-group>
+            </q-item-label>
           </q-item-section>
           <q-item-section side>
             <q-option-group
               :options="q.options"
               v-model="q.score"
               inline
+              v-if="$q.screen.gt.sm"
             ></q-option-group>
           </q-item-section>
         </q-item>
       </q-expansion-item>
     </template>
+    <q-item-label header class="text-right text-weight-bold"
+    >Total Score: {{ totalScore }} ({{
+      totalScore | interpretation
+      }})</q-item-label
+    >
   </q-list>
 </template>
 
@@ -37,24 +51,33 @@ export default {
   data() {
     return {
       questions: {
-        '1.0 Involvement of women and men': [
+        '1.0 Participation of women and men in project identification': [
           {
             question:
-              '1.1 Participation of women and men in beneficiary groups in the identification of the problem',
+              '1.1 Has the project consulted women and men on the problem or issue that the intervention must solve and on the development of the solution?',
             options: [
               { label: 'No', value: 0 },
-              { label: 'Partly Yes', value: 0.5 },
-              { label: 'Yes', value: 1 }
+              { label: 'Partly Yes', value: 0.33 },
+              { label: 'Yes', value: 0.67 }
             ],
             score: null
           },
           {
             question:
-              '1.2 Participation of women and men in beneficiary groups in project design',
+              '1.2 Have women\'s inputs been considered in the design of the project?',
+            options: [
+                { label: 'No', value: 0 },
+                { label: 'Partly Yes', value: 0.33 },
+                { label: 'Yes', value: 0.67 }
+            ],
+            score: null
+          },
+          {
+            question: 'Are both women and men seen as stakeholders, partners, or agents of change in the project design?',
             options: [
               { label: 'No', value: 0 },
-              { label: 'Partly Yes', value: 0.5 },
-              { label: 'Yes', value: 1 }
+              { label: 'Partly Yes', value: 0.33 },
+              { label: 'Yes', value: 0.67 }
             ],
             score: null
           }
@@ -62,7 +85,7 @@ export default {
         '2.0 Collection of sex-disaggregated data and gender-related information': [
           {
             question:
-              'Collection of sex-disaggregated data and gender-related information ',
+              'Has the project tapped sex-disaggregated data and gender-related information from secondary and primary sources at the project identification stage? OR, does the project document include sexdisaggregated and gender information in the analysis of the development issue or problem?',
             options: [
               { label: 'No', value: 0 },
               { label: 'Partly Yes', value: 1 },
@@ -74,21 +97,11 @@ export default {
         '3.0 Conduct of gender analysis and identification of gender issues': [
           {
             question:
-              '3.1 Analysis of gender gaps and inequalities related to gender roles, perspectives, and needs, or access to and control of resources',
+              'Has a gender analysis been done to identify gender issues prior to project design? OR, does the discussion of development issues in the project document include gender issues that the project must address?',
             options: [
               { label: 'No', value: 0 },
-              { label: 'Partly Yes', value: 0.5 },
-              { label: 'Yes', value: 1 }
-            ],
-            score: null
-          },
-          {
-            question:
-              "3.2 Analysis of constraints and opportunities related to women's and men's participation in the project",
-            options: [
-              { label: 'No', value: 0 },
-              { label: 'Partly Yes', value: 0.5 },
-              { label: 'Yes', value: 1 }
+              { label: 'Partly Yes', value: 1 },
+              { label: 'Yes', value: 2 }
             ],
             score: null
           }
@@ -96,11 +109,21 @@ export default {
         '4.0 Gender equality goals, outcomes, and outputs': [
           {
             question:
-              'Does the project have clearly-stated gender equality goals, objectives, outcomes or outputs?',
+              '4.1 Do project objectives explicitly refer to women and men? Do they target women\'s agricultural production and marketing needs as well as men\'s?',
             options: [
               { label: 'No', value: 0 },
-              { label: 'Partly Yes', value: 1 },
-              { label: 'Yes', value: 2 }
+              { label: 'Partly Yes', value: 0.5 },
+              { label: 'Yes', value: 1 }
+            ],
+            score: null
+          },
+          {
+            question:
+                'Does the project have gender equality outputs or outcomes?',
+            options: [
+                { label: 'No', value: 0 },
+                { label: 'Partly Yes', value: 0.5 },
+                { label: 'Yes', value: 1 }
             ],
             score: null
           }
@@ -108,11 +131,21 @@ export default {
         '5.0 Matching of strategies with gender issues': [
           {
             question:
-              'Do the strategies and activities match the gender issues and gender equality goals identified?',
+              '5.1 Do the strategies match the gender issues and gender equality goals identified? That is, will the activities or interventions reduce gender gaps and inequalities? ',
             options: [
               { label: 'No', value: 0 },
-              { label: 'Partly Yes', value: 1 },
-              { label: 'Yes', value: 2 }
+              { label: 'Partly Yes', value: 0.5 },
+              { label: 'Yes', value: 1 }
+            ],
+            score: null
+          },
+          {
+            question:
+                'Do the project activities build on women’s and men\'s knowledge and skills?',
+            options: [
+              { label: 'No', value: 0 },
+              { label: 'Partly Yes', value: 0.5 },
+              { label: 'Yes', value: 1 }
             ],
             score: null
           }
@@ -120,39 +153,79 @@ export default {
         '6.0 Gender analysis of the likely impacts of the project': [
           {
             question:
-              '6.1  Are women and girl children among the direct or indirect beneficiaries?',
+              '6.1.1 Is the project addressing the array of women\'s agricultural activities, including subsistence- and cash-crop activities?',
             options: [
               { label: 'No', value: 0 },
-              { label: 'Partly Yes', value: 0.33 },
-              { label: 'Yes', value: 0.67 }
+              { label: 'Partly Yes', value: 0.17 },
+              { label: 'Yes', value: 0.33 }
             ],
             score: null
           },
           {
             question:
-              "6.2  Has the project considered its long-term impact on women's socioeconomic status and empowerment?",
+              "6.1.2 Has the project considered how women and men fit their agricultural activities with their other productive, reproductive, and community tasks in scheduling project activities?",
             options: [
               { label: 'No', value: 0 },
-              { label: 'Partly Yes', value: 0.33 },
-              { label: 'Yes', value: 0.67 }
+              { label: 'Partly Yes', value: 0.17 },
+              { label: 'Yes', value: 0.33 }
             ],
             score: null
           },
-          {
-            question:
-              "6.3   Has the project included strategies for avoiding or minimizing negative impacts on women's status and welfare?",
-            options: [
-              { label: 'No', value: 0 },
-              { label: 'Partly Yes', value: 0.33 },
-              { label: 'Yes', value: 0.67 }
-            ],
-            score: null
-          }
+            {
+                question:
+                    "6.2.1 Will women and men have equal access to credit, extension services, and information, training, or technology to be introduced by the project? ",
+                options: [
+                    { label: 'No', value: 0 },
+                    { label: 'Partly Yes', value: 0.17 },
+                    { label: 'Yes', value: 0.33 }
+                ],
+                score: null
+            },
+            {
+                question:
+                    "6.2.2 Will the project involve female extension officers? Woman farmer leaders?",
+                options: [
+                    { label: 'No', value: 0 },
+                    { label: 'Partly Yes', value: 0.17 },
+                    { label: 'Yes', value: 0.33 }
+                ],
+                score: null
+            },
+            {
+                question:
+                    "6.2.3 Will the training of agency/project personnel capacitate them for gender-responsive development?",
+                options: [
+                    { label: 'No', value: 0 },
+                    { label: 'Partly Yes', value: 0.17 },
+                    { label: 'Yes', value: 0.33 }
+                ],
+                score: null
+            },
+            {
+                question:
+                    "6.3.1 Has the project devised strategies to overcome the constraints (including mobility and time constraints for women) to project participation by women and by men?",
+                options: [
+                    { label: 'No', value: 0 },
+                    { label: 'Partly Yes', value: 0.17 },
+                    { label: 'Yes', value: 0.33 }
+                ],
+                score: null
+            },
+            {
+                question:
+                    "6.3.2. Has the project considered that the constraints to women’s participation may require separate programming (by way of separate groups, activities, or components)? IF SEPARATE PROGRAMMING IS NEEDED: Has the project addressed this?",
+                options: [
+                    { label: 'No', value: 0 },
+                    { label: 'Partly Yes', value: 0.17 },
+                    { label: 'Yes', value: 0.33 }
+                ],
+                score: null
+            }
         ],
         '7.0 Monitoring targets and indicators': [
           {
             question:
-              '        Does the project include gender equality targets and indicators to measure gender equality outputs and outcomes?',
+              'Does the project include gender equality targets and indicators for welfare, access, consciousness raising participation, and control? For instance, will the following gender differences be monitored: Adoption rates of technology, Membership and leadership in farmers\' organization or similar groups created by the project, Participation in training and similar project activities, by type of training or activity, and Dispersal of project inputs (animals, seeds or planting materials, credit)',
             options: [
               { label: 'No', value: 0 },
               { label: 'Partly Yes', value: 1 },
@@ -164,7 +237,7 @@ export default {
         '8.0 Sex-disaggregated database requirement': [
           {
             question:
-              'Does the project M&E system require the collection of sex-disaggregated data?',
+              'Does the proposed project monitoring framework or plan include the collection of sex-disaggregated data?',
             options: [
               { label: 'No', value: 0 },
               { label: 'Partly Yes', value: 1 },
@@ -198,7 +271,7 @@ export default {
         "10.0 Relationship with the agency's GAD efforts": [
           {
             question:
-              "10.1 Will the project build on or strengthen the agency/PCW/government's commitment to the empowerment of women?\nIF THE AGENCY HAS NO GAD PLAN: Will the project help in the formulation of the implementing agency's GAD plan?",
+              "10.1 Will the project build on or strengthen the agency/PCW/government's commitment to the empowerment of women?",
             options: [
               { label: 'No', value: 0 },
               { label: 'Partly Yes', value: 0.33 },
@@ -208,7 +281,7 @@ export default {
           },
           {
             question:
-              '10.2 Will the project build on the initiatives or actions of other organizations in the area?',
+              '10.2 Does the project have an exit plan that will ensure the sustainability of GAD efforts and benefits?',
             options: [
               { label: 'No', value: 0 },
               { label: 'Partly Yes', value: 0.33 },
@@ -218,7 +291,7 @@ export default {
           },
           {
             question:
-              '10.3 Does the project have an exit plan that will ensure the sustainability of GAD efforts and benefits?',
+              '10.3 Will the project build on the initiatives or actions of other organizations in the area?',
             options: [
               { label: 'No', value: 0 },
               { label: 'Partly Yes', value: 0.33 },
@@ -275,15 +348,15 @@ export default {
         return totalSum + i;
       }, 0);
 
-      this.totalScore = totalScore.toLocaleString(2);
+      this.totalScore = totalScore.toFixed(1);
     }
   },
   filters: {
     interpretation(val) {
-      if (val <= 3.9) return 'GAD is invisible in the project';
-      else if (val >= 4 && val <= 7.9)
+      if (val < 4) return 'GAD is invisible in the project';
+      else if (val >= 4 && val < 8)
         return 'Proposed project has promising prospects';
-      else if (val >= 8 && val <= 14.9)
+      else if (val >= 8 && val < 15)
         return 'Proposed project is gender-sensitive';
       else if (val >= 15) return 'Proposed project is gender-responsive';
       else return null;
