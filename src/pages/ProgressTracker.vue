@@ -4,7 +4,7 @@
 
     <div class="row q-pa-sm">
       <q-inner-loading :showing="$apollo.loading">
-        <q-spinner-dots size="50px"/>
+        <q-spinner-dots size="50px" />
       </q-inner-loading>
       <div v-if="!$apollo.loading" class="col">
         <q-list bordered>
@@ -19,10 +19,11 @@
                     #26 reviewed 6 days ago
                   </div>
                   <div class="col text-right">
-                    <q-icon name="playlist_add_check" class="text-grey-9"/> 1 of 2
+                    <q-icon name="playlist_add_check" class="text-grey-9" /> 1
+                    of 2
                   </div>
                   <div class="col">
-                    <q-linear-progress :value=".50"></q-linear-progress>
+                    <q-linear-progress :value="0.5"></q-linear-progress>
                   </div>
                 </div>
               </q-item-label>
@@ -35,21 +36,21 @@
 </template>
 
 <script>
-import PageTitle from "../components/PageTitle";
-import {FETCH_REVIEWERS_QUERY} from "../constants/graphql";
+import PageTitle from '../components/PageTitle';
+import { FETCH_REVIEWERS_QUERY } from '../constants/graphql';
 export default {
-    components: { PageTitle },
-    name: 'PageProgressTracker',
-    apollo: {
-      reviewers: {
-        query: FETCH_REVIEWERS_QUERY
-      }
-    },
-    data() {
-      return {
-        reviewers: [],
-        loading: false
-      }
+  components: { PageTitle },
+  name: 'PageProgressTracker',
+  apollo: {
+    reviewers: {
+      query: FETCH_REVIEWERS_QUERY
     }
-}
+  },
+  data() {
+    return {
+      reviewers: [],
+      loading: false
+    };
+  }
+};
 </script>

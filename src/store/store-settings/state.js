@@ -1,6 +1,7 @@
 export default function() {
   return {
     dense: true,
-    dark: false
+    dark: false,
+    appVersion: '0.1.0-beta'
   };
 }

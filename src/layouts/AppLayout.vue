@@ -102,12 +102,21 @@
         <q-btn flat dense type="a" class="text-capitalize" to="/docs">
           Documentation
         </q-btn>
-        <q-btn flat dense type="a" class="text-capitalize" to="/about">
+        <q-btn
+          flat
+          dense
+          type="a"
+          class="text-capitalize"
+          @click="showAbout = true"
+        >
           About
         </q-btn>
         <q-space />
         <span> <q-icon name="copyright" /> 2020 </span>
       </div>
+      <q-dialog v-model="showAbout">
+        <about-component @close="showAbout = false"></about-component>
+      </q-dialog>
     </q-footer>
 
     <q-page-container>
@@ -120,9 +129,11 @@
 import { mapState, mapGetters } from 'vuex';
 import DropdownMenu from '../components/layout/Dropdown';
 import RightDrawer from '../components/layout/RightDrawer';
+import AboutComponent from '../components/About';
 
 export default {
   components: {
+    AboutComponent,
     DropdownMenu,
     RightDrawer
   },
@@ -160,7 +171,8 @@ export default {
           icon: 'phone',
           to: '/directory'
         }
-      ]
+      ],
+      showAbout: false
     };
   },
   computed: {

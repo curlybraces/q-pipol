@@ -197,7 +197,9 @@ const routes = [
         path: 'progress-tracker',
         name: 'progress-tracker',
         component: () =>
-          import(/* webpackChunkName: 'ProgressTrackerPage' */ 'pages/ProgressTracker.vue')
+          import(
+            /* webpackChunkName: 'ProgressTrackerPage' */ 'pages/ProgressTracker.vue'
+          )
       }
     ]
   },

@@ -23,9 +23,7 @@
             @click="goTo(resource.url)"
           >
             <q-item-section avatar>
-              <q-img
-                :src="resource.image_url"
-              ></q-img>
+              <q-img :src="resource.image_url"></q-img>
             </q-item-section>
             <q-item-section>
               <q-item-label
@@ -120,7 +118,7 @@ export default {
   mixins: [AdminMixins],
   components: { TextInput, PageTitle },
   computed: {
-    ...mapState('resources', ['resources','loading']),
+    ...mapState('resources', ['resources', 'loading']),
     ...mapState('settings', ['dense'])
   },
   data() {
