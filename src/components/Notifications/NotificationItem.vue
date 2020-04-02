@@ -21,6 +21,7 @@
           flat
           round
           @click="markAsReadNotification(notification.id)"
+          :loading="loading"
         >
         </q-btn>
       </template>
@@ -35,6 +36,11 @@ import moment from 'moment';
 export default {
   name: 'NotificationItem',
   props: ['notification'],
+  data() {
+    return {
+      loading: false
+    }
+  },
   computed: {
     content() {
       const { type, data } = this.$props.notification;
@@ -55,7 +61,8 @@ export default {
     markAsReadNotification(id) {
       this.markAsRead({
         id: id
-      });
+      })
+      .then(() => this.loading = false);
     }
   },
   filters: {

@@ -52,7 +52,6 @@ export function markAsRead({ commit }, payload) {
     })
     .then(res => {
       if (res.data.markAsRead.status === 'SUCCESS') {
-        console.log('Update notification if success');
         const updatedNotification = {
           id: payload.id,
           read_at: Date.now()

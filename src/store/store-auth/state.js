@@ -5,7 +5,7 @@ export default function() {
     me: {},
     id: null,
     loggedIn: LocalStorage.getItem('loggedIn') || false,
-    token: null,
+    token: LocalStorage.getItem('token') || '',
     email: null,
     name: null,
     image_url: null,
