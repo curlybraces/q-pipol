@@ -27,18 +27,15 @@
               class="q-gutter-md"
               @submit="handleSubmit"
               novalidate="true"
+              greedy
             >
-              <div v-if="error" class="text-center text-red">
-                An error occurred: {{ errorMessage }}
-              </div>
 
               <q-input
                 outlined
                 placeholder="Full Name"
                 v-model="name"
-                lazy-rules
                 v-if="tab == 'signup'"
-                :rules="[val => !!val || 'Name is required.']"
+                :rules="required"
               >
                 <template v-slot:prepend>
                   <q-icon :name="laAtSolid"></q-icon>
@@ -50,11 +47,7 @@
                 placeholder="Email"
                 type="email"
                 v-model="username"
-                lazy-rules
-                :rules="[
-                  val => validEmail(val) || 'Email is invalid.',
-                  val => !!val || 'Email is required.'
-                ]"
+                :rules="required"
               >
                 <template v-slot:prepend>
                   <q-icon name="email"></q-icon>
@@ -66,8 +59,7 @@
                 placeholder="Password"
                 :type="!passwordVisibility ? 'password' : 'text'"
                 v-model="password"
-                lazy-rules
-                :rules="[val => !!val || 'Password is required.']"
+                :rules="required"
               >
                 <template v-slot:prepend>
                   <q-icon name="vpn_key"></q-icon>
@@ -88,10 +80,7 @@
                 placeholder="Confirm Password"
                 :type="!passwordVisibility ? 'password' : 'text'"
                 v-model="password_confirmation"
-                lazy-rules
-                :rules="[
-                  val => passwordMatch(val) || 'Password does not match.'
-                ]"
+                :rules="required"
               >
                 <template v-slot:prepend>
                   <q-icon name="vpn_key"></q-icon>
@@ -137,7 +126,7 @@
               <div class="text-center" v-else>
                 Alreay have an account?
                 <span
-                  class="text-blue text-eight-bolder cursor-pointer"
+                  class="text-blue text-weight-bolder cursor-pointer"
                   @click="tab = 'login'"
                 >
                   Login
@@ -172,7 +161,8 @@ export default {
       tab: 'login',
       loading: false,
       error: false,
-      errorMessage: null
+      errorMessage: null,
+      required: [ val => !!val || '*Required' ]
     };
   },
   computed: {
@@ -210,15 +200,15 @@ export default {
         });
     },
     handleSubmit() {
+      const {
+          name,
+          username,
+          password,
+          password_confirmation
+      } = this.$data;
+
       this.$refs.loginForm.validate().then(success => {
         if (success) {
-          const {
-            name,
-            username,
-            password,
-            password_confirmation
-          } = this.$data;
-
           this.username = '';
           this.password = '';
 
@@ -234,6 +224,7 @@ export default {
               this.username = username;
               this.password = password;
             });
+
           } else {
             this.name = '';
             this.password_confirmation = '';

@@ -133,7 +133,7 @@ export function updateProfile({ dispatch }, payload) {
       }
     })
     .then(() => {
-      dispatch('populateUser');
+      dispatch('populateUser'); // this code is causing other user property to not be loaded
 
       showSuccessNotification({
         message: 'Successfully updated profile.'
@@ -206,7 +206,7 @@ export function resendEmailVerification({}, payload) {
     });
 }
 
-export function verifyEmail({}, token) {
+export function verifyEmail({ commit, dispatch }, token) {
   return apolloClient
     .mutate({
       mutation: VERIFY_EMAIL_MUTATION,
@@ -216,6 +216,16 @@ export function verifyEmail({}, token) {
     })
     .then(res => {
       console.log(res.data.verifyEmail);
+      if (res.data.verifyEmail.access_token) {
+        commit('SET_LOGGED_IN', true);
+
+        LocalStorage.set('loggedIn',true);
+        LocalStorage.set('token',res.data.verifyEmail.access_token);
+
+        dispatch('populateUser');
+
+        setTimeout(() => this.$router.push('/'),1000);
+      }
     })
     .catch(err => console.log(err.message));
 }

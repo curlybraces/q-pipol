@@ -10,6 +10,7 @@
         v-if="admin"
       ></q-btn>
     </page-title>
+
     <div class="q-pa-sm">
       <q-inner-loading :showing="loading">
         <q-spinner-dots size="50px"></q-spinner-dots>
@@ -44,12 +45,9 @@
               ></q-btn>
             </q-item-section>
           </q-item>
-          <q-item v-if="!loading && !Object.keys(resources).length">
-            <q-item-section>
-              <q-item-label>No resources yet.</q-item-label>
-            </q-item-section>
-          </q-item>
         </q-list>
+
+        <div v-if="!loading && !Object.keys(resources).length">No resources yet.</div>
       </div>
     </div>
 
