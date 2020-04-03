@@ -1,6 +1,7 @@
 <template>
   <q-page class="q-pt-lg">
     <page-title title="Projects">
+      <q-btn label="PDF" @click="printPDF"></q-btn>
       <q-btn
         outline
         label="Add Project"
@@ -95,6 +96,9 @@ import SortMenu from '../components/Projects/SortMenu';
 import ProjectSkeleton from '../components/Projects/ProjectSkeleton';
 import ProjectItem from '../components/Projects/ProjectItem';
 
+import * as jsPDF from 'jspdf';
+import 'jspdf-autotable';
+
 export default {
   name: 'Projects',
   components: { ProjectSkeleton, SortMenu, PageTitle, ProjectItem },
@@ -104,7 +108,8 @@ export default {
       first: 25,
       endCursor: '',
       uploadFileAndSubmit: false,
-      fileIsValid: false
+      fileIsValid: false,
+      printPreview: true
     };
   },
   computed: {
@@ -204,6 +209,44 @@ export default {
     },
     doSomething() {
       //
+    },
+    printPDF() {
+      const doc = new jsPDF('p','in','a4');
+
+      doc.setFontSize(11);
+
+      let projectArray = [];
+
+      Object.keys(this.projects).forEach(key => {
+        let project = this.projects[key];
+
+        projectArray.push(project);
+      });
+
+      doc.autoTable({
+        body: projectArray,
+        columnStyles: {
+          id: { cellWidth: 'wrap' },
+          title: { cellWidth: 'auto' },
+          description: { cellWidth: 'auto' },
+          total_project_cost: { halign: 'right', cellWidth: 'wrap' }
+        },
+        columns: [
+          { header: 'ID', dataKey: 'id' },
+          { header: 'Title', dataKey: 'title'},
+          { header: 'Description', dataKey: 'description' },
+          { header: 'Total Project Cost', dataKey: 'total_project_cost' }
+        ],
+        margin: {
+          top: 1,
+          left: 1,
+          right: 1,
+          bottom: 1
+        },
+        tableWidth: 'auto',
+      })
+
+      doc.save('projects.pdf');
     }
   },
   mounted() {

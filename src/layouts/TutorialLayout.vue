@@ -9,7 +9,7 @@
         <q-toolbar-title>
           Investment Programming &amp; Management System
         </q-toolbar-title>
-        <q-space/>
+        <q-space />
         <q-separator vertical inset dark></q-separator>
         <q-btn flat stretch class="text-capitalize" to="/">Go to App</q-btn>
       </q-toolbar>
@@ -71,8 +71,7 @@ export default {
         {
           title: 'Getting Started',
           url: '/manual/getting-started'
-        },
-
+        }
       ]
     };
   }

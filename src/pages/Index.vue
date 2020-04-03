@@ -1,5 +1,6 @@
 <template>
   <q-page>
+    <q-btn @click="downloadDoc" class="q-ma-sm">Download</q-btn>
     <div class="row q-pa-sm q-col-gutter-x-md q-gutter-y-md">
       <template v-for="(link, index) in links">
         <div class="col-3" :key="index">

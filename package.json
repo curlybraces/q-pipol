@@ -19,6 +19,8 @@
     "firebase": "^6.6.0",
     "graphql": "^14.6.0",
     "graphql-config": "^3.0.0-alpha.17",
+    "jspdf": "^1.5.3",
+    "jspdf-autotable": "^3.3.2",
     "localforage": "^1.7.3",
     "moment": "^2.24.0",
     "quasar": "^1.9.10",
