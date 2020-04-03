@@ -29,7 +29,6 @@
               novalidate="true"
               greedy
             >
-
               <q-input
                 outlined
                 placeholder="Full Name"
@@ -162,7 +161,7 @@ export default {
       loading: false,
       error: false,
       errorMessage: null,
-      required: [ val => !!val || '*Required' ]
+      required: [val => !!val || '*Required']
     };
   },
   computed: {
@@ -200,12 +199,7 @@ export default {
         });
     },
     handleSubmit() {
-      const {
-          name,
-          username,
-          password,
-          password_confirmation
-      } = this.$data;
+      const { name, username, password, password_confirmation } = this.$data;
 
       this.$refs.loginForm.validate().then(success => {
         if (success) {
@@ -224,7 +218,6 @@ export default {
               this.username = username;
               this.password = password;
             });
-
           } else {
             this.name = '';
             this.password_confirmation = '';

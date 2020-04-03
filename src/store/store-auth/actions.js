@@ -43,10 +43,10 @@ export function loginUser({ commit, dispatch }, payload) {
       dispatch('populateUser');
     })
     .catch(err => {
-      showGraphQLErrorMessage(err);
-    })
-    .finally(() => {
-      return;
+      showErrorNotification({
+        message: err.message
+      });
+      LocalStorage.remove('token');
     });
 }
 
@@ -219,12 +219,12 @@ export function verifyEmail({ commit, dispatch }, token) {
       if (res.data.verifyEmail.access_token) {
         commit('SET_LOGGED_IN', true);
 
-        LocalStorage.set('loggedIn',true);
-        LocalStorage.set('token',res.data.verifyEmail.access_token);
+        LocalStorage.set('loggedIn', true);
+        LocalStorage.set('token', res.data.verifyEmail.access_token);
 
         dispatch('populateUser');
 
-        setTimeout(() => this.$router.push('/'),1000);
+        setTimeout(() => this.$router.push('/'), 1000);
       }
     })
     .catch(err => console.log(err.message));

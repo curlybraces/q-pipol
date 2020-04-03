@@ -39,7 +39,7 @@ export default {
   data() {
     return {
       loading: false
-    }
+    };
   },
   computed: {
     content() {
@@ -61,8 +61,7 @@ export default {
     markAsReadNotification(id) {
       this.markAsRead({
         id: id
-      })
-      .then(() => this.loading = false);
+      }).then(() => (this.loading = false));
     }
   },
   filters: {

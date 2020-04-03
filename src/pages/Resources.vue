@@ -47,7 +47,9 @@
           </q-item>
         </q-list>
 
-        <div v-if="!loading && !Object.keys(resources).length">No resources yet.</div>
+        <div v-if="!loading && !Object.keys(resources).length">
+          No resources yet.
+        </div>
       </div>
     </div>
 

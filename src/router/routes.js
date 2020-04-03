@@ -204,6 +204,22 @@ const routes = [
     ]
   },
   {
+    path: '/manual',
+    component: () => import('layouts/TutorialLayout.vue'),
+    children: [
+      {
+        path: '',
+        name: 'manual-home',
+        component: () => import('pages/manual/Index.vue')
+      },
+      {
+        path: 'features',
+        name: 'manual-features',
+        component: () => import('pages/manual/Features.vue')
+      }
+    ]
+  },
+  {
     path: '/login',
     component: () => import('layouts/AuthLayout.vue'),
     children: [
