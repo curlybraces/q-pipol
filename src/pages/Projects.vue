@@ -1,11 +1,11 @@
 <template>
   <q-page class="q-pt-lg">
     <page-title title="Projects">
-      <q-btn label="PDF" @click="printPDF"></q-btn>
+      <q-btn label="PDF" @click="printPDF" class="q-mr-sm" dense></q-btn>
       <q-btn
         outline
+				dense
         label="Add Project"
-        dense
         :color="buttonColor"
         to="/projects/new"
         v-if="role === 'encoder'"

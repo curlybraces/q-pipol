@@ -1399,12 +1399,12 @@ export const FETCH_TYPOLOGIES = gql`
 `;
 
 export const FETCH_IMPLEMENTATION_MODES = gql`
-	query {
-		implementation_modes {
-			id
-			name
-		}
-	}
+  query {
+    implementation_modes {
+      id
+      name
+    }
+  }
 `;
 
 export const FETCH_YEARS = gql`

@@ -1,17 +1,18 @@
 import { apolloClient } from 'boot/apollo';
 import {
-	FETCH_DISTRICTS,
-	FETCH_FUNDING_SOURCES,
-	FETCH_OPERATING_UNITS,
-	FETCH_PROVINCES,
-	FETCH_REGIONS,
-	FETCH_SPATIAL_COVERAGES,
-	FETCH_PROJECT_STATUSES,
-	FETCH_TECHNICAL_READINESSES,
-	FETCH_ROLES,
-	FETCH_YEARS,
-	FETCH_TIERS,
-	FETCH_TYPOLOGIES, FETCH_IMPLEMENTATION_MODES
+  FETCH_DISTRICTS,
+  FETCH_FUNDING_SOURCES,
+  FETCH_OPERATING_UNITS,
+  FETCH_PROVINCES,
+  FETCH_REGIONS,
+  FETCH_SPATIAL_COVERAGES,
+  FETCH_PROJECT_STATUSES,
+  FETCH_TECHNICAL_READINESSES,
+  FETCH_ROLES,
+  FETCH_YEARS,
+  FETCH_TIERS,
+  FETCH_TYPOLOGIES,
+  FETCH_IMPLEMENTATION_MODES
 } from '../../constants/graphql';
 
 export function fetchDistricts({ commit }) {
@@ -36,14 +37,14 @@ export function fetchFundingSources({ commit }) {
 }
 
 export function fetchImplementationModes({ commit }) {
-	apolloClient
-		.query({
-			query: FETCH_IMPLEMENTATION_MODES
-		})
-		.then(res => {
-			commit('SET_IMPLEMENTATION_MODES', res.data.implementation_modes);
-		})
-		.catch(err => console.log(err.message));
+  apolloClient
+    .query({
+      query: FETCH_IMPLEMENTATION_MODES
+    })
+    .then(res => {
+      commit('SET_IMPLEMENTATION_MODES', res.data.implementation_modes);
+    })
+    .catch(err => console.log(err.message));
 }
 
 export function fetchOperatingUnits({ commit }) {

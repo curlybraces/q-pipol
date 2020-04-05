@@ -39,7 +39,7 @@ export default {
   },
   props: ['value'],
   computed: {
-  	...mapState('options',['regions_options']),
+    ...mapState('options', ['regions_options']),
     regionToEdit: {
       get() {
         return this.value;

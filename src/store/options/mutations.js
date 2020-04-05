@@ -55,5 +55,5 @@ export function SET_YEARS(state, value) {
 }
 
 export function SET_IMPLEMENTATION_MODES(state, value) {
-	state.implementation_modes = value;
+  state.implementation_modes = value;
 }

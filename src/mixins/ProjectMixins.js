@@ -10,18 +10,18 @@ import ProjectUpdates from '../components/Projects/ProjectUpdates';
 import FinancialInformation from '../components/Projects/FinancialInformation';
 
 const ProjectMixins = {
-	components: {
-		FinancialInformation,
-		ProjectUpdates,
-		StepperNavigation,
-		TechnicalReadiness,
-		BasicInformation,
-		SpatialCoverage,
-		ImplementationPeriod,
-		FinancialAnalysis,
-		ProgrammingDocuments,
-		AdditionalInformation
-	}
-}
+  components: {
+    FinancialInformation,
+    ProjectUpdates,
+    StepperNavigation,
+    TechnicalReadiness,
+    BasicInformation,
+    SpatialCoverage,
+    ImplementationPeriod,
+    FinancialAnalysis,
+    ProgrammingDocuments,
+    AdditionalInformation
+  }
+};
 
 export default ProjectMixins;
