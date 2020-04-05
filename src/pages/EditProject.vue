@@ -2,14 +2,14 @@
   <q-page class="q-pt-lg">
     <page-title title="Edit Project"></page-title>
 
-		<template v-if="getLoading">
-			<q-inner-loading :showing="getLoading">
-				<q-spinner-dots color="primary" size="50px"></q-spinner-dots>
-			</q-inner-loading>
-		</template>
-		<template v-else>
-    	<add-edit-project></add-edit-project>
-		</template>
+    <template v-if="getLoading">
+      <q-inner-loading :showing="getLoading">
+        <q-spinner-dots color="primary" size="50px"></q-spinner-dots>
+      </q-inner-loading>
+    </template>
+    <template v-else>
+      <add-edit-project></add-edit-project>
+    </template>
   </q-page>
 </template>
 
@@ -20,12 +20,12 @@ import AddEditProject from '../components/AddEditProject/shared/AddEditProject';
 
 export default {
   components: {
-	  AddEditProject,
+    AddEditProject,
     PageTitle
   },
   name: 'PageEditProject',
   methods: {
-    ...mapActions('project', ['updateProject', 'fetchProject','loading'])
+    ...mapActions('project', ['updateProject', 'fetchProject', 'loading'])
   },
   computed: {
     ...mapGetters('project', ['getLoading'])

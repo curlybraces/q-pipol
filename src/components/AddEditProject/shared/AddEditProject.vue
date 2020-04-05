@@ -204,49 +204,49 @@ export default {
   components: {},
   name: 'AddEditProject',
   mixins: [ProjectMixins],
-	computed: {
-  	...mapState('project',['loading']),
-		...mapFields('project',[
-			'project',
-			'project.pip',
-			'project.cip',
-			'project.trip',
-			'project.rdip',
-			'project.pcip',
-			'project.afmip',
-		]),
-		programmingDocumentsDone() {
-			return (
-				this.pip ||
-				this.cip ||
-				this.trip ||
-				this.rdip ||
-				this.pcip ||
-				this.afmip
-			);
-		},
-		basicInformationDone() {
-			return (
-				!!this.title &&
-				!!this.operating_unit_id &&
-				!!this.description &&
-				!!this.type_id &&
-				!!this.total_project_cost
-			);
-		},
-		spatialCoverageDone() {
-			return !!this.spatial_coverage_id;
-		}
-	},
-	data() {
-  	return {
-  		step: 1
-		}
-	},
-	methods: {
-  	validateAndCreate() {
-  		console.log('validate and create');
-		}
-	}
+  computed: {
+    ...mapState('project', ['loading']),
+    ...mapFields('project', [
+      'project',
+      'project.pip',
+      'project.cip',
+      'project.trip',
+      'project.rdip',
+      'project.pcip',
+      'project.afmip'
+    ]),
+    programmingDocumentsDone() {
+      return (
+        this.pip ||
+        this.cip ||
+        this.trip ||
+        this.rdip ||
+        this.pcip ||
+        this.afmip
+      );
+    },
+    basicInformationDone() {
+      return (
+        !!this.title &&
+        !!this.operating_unit_id &&
+        !!this.description &&
+        !!this.type_id &&
+        !!this.total_project_cost
+      );
+    },
+    spatialCoverageDone() {
+      return !!this.spatial_coverage_id;
+    }
+  },
+  data() {
+    return {
+      step: 1
+    };
+  },
+  methods: {
+    validateAndCreate() {
+      console.log('validate and create');
+    }
+  }
 };
 </script>

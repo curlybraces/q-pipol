@@ -2,7 +2,7 @@
   <q-page class="q-pt-lg">
     <page-title title="Add Project"></page-title>
 
-		<add-edit-project></add-edit-project>
+    <add-edit-project></add-edit-project>
   </q-page>
 </template>
 
