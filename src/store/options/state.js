@@ -15,6 +15,7 @@ export default function() {
     years: [],
     roles: [],
     challenges: [],
-    funding_institutions_options: []
+    funding_institutions_options: [],
+	  implementation_modes: []
   };
 }

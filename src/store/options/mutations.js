@@ -53,3 +53,7 @@ export function SET_TYPOLOGIES(state, value) {
 export function SET_YEARS(state, value) {
   state.years = value;
 }
+
+export function SET_IMPLEMENTATION_MODES(state, value) {
+	state.implementation_modes = value;
+}

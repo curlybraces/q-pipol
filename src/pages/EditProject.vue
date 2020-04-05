@@ -140,21 +140,8 @@
               caption="Financial Information"
               prefix="8"
             >
-              <q-item>
-                <single-select
-                  v-model="implementation_mode_id"
-                  label="Implementation Mode"
-                  :dense="dense"
-                  :options-dense="dense"
-                  :options="IMPLEMENTATION_MODES"
-                />
-              </q-item>
 
-              <target-investment></target-investment>
-
-              <funding-sources :dense="dense" />
-
-              <region-financial></region-financial>
+							<financial-information></financial-information>
 
               <stepper-navigation
                 @next="step = 9"
@@ -169,36 +156,8 @@
               caption="Applicable to Ongoing and Completed Projects Only"
               prefix="9"
             >
-              <q-item>
-                <single-select
-                  v-model="tier_id"
-                  label="Tier"
-                  :dense="dense"
-                  :options-dense="dense"
-                  :options="TIERS"
-                />
-              </q-item>
-              <q-item>
-                <q-item-section class="col-9">
-                  <text-input
-                    label="Updates"
-                    type="textarea"
-                    v-model="updates"
-                  />
-                </q-item-section>
-                <q-item-section class="col-3" top>
-                  <date-input
-                    label="As of Date"
-                    v-model="updates_date"
-                  ></date-input>
-                </q-item-section>
-              </q-item>
-              <q-item>
-                <q-item-label>Financial Accomplishments</q-item-label>
-              </q-item>
-              <q-item>
-                <financial-accomplishment />
-              </q-item>
+							<project-updates/>
+
               <q-stepper-navigation>
                 <q-btn
                   color="orange-10"
@@ -244,34 +203,27 @@ import {
 } from '../data/dropdown-values';
 import ProgrammingDocuments from '../components/Projects/ProgrammingDocuments.vue';
 import AdditionalInformation from '../components/Projects/AdditionalInformation.vue';
-import RegionFinancial from '../components/Projects/RegionFinancial/RegionFinancial.vue';
+import TechnicalReadiness from '../components/Projects/TechnicalReadiness.vue';
+import FinancialAnalysis from '../components/Projects/FinancialAnalysis.vue';
+import ImplementationPeriod from '../components/Projects/ImplementationPeriod.vue';
+import SpatialCoverage from '../components/Projects/SpatialCoverage.vue';
+import BasicInformation from '../components/Projects/BasicInformation.vue';
+import StepperNavigation from '../components/Projects/StepperNavigation.vue';
+import ProjectUpdates from '../components/Projects/ProjectUpdates';
+import FinancialInformation from '../components/Projects/FinancialInformation';
 
 export default {
   components: {
-    'single-select': () => import('../components/FormInputs/SingleSelect.vue'),
-    'date-input': () => import('../components/FormInputs/DateInput.vue'),
-    'text-input': () => import('../components/FormInputs/TextInput.vue'),
-    'stepper-navigation': () =>
-      import('../components/Projects/StepperNavigation.vue'),
-    RegionFinancial,
-    'financial-accomplishment': () =>
-      import('../components/Projects/FinancialAccomplishment.vue'),
-    'technical-readiness': () =>
-      import('../components/Projects/TechnicalReadiness.vue'),
-    'basic-information': () =>
-      import('../components/Projects/BasicInformation.vue'),
-    'spatial-coverage': () =>
-      import('../components/Projects/SpatialCoverage.vue'),
-    'implementation-period': () =>
-      import('../components/Projects/ImplementationPeriod.vue'),
-    'financial-analysis': () =>
-      import('../components/Projects/FinancialAnalysis.vue'),
+	  FinancialInformation,
+	  ProjectUpdates,
+	  StepperNavigation,
+    TechnicalReadiness,
+		BasicInformation,
+		SpatialCoverage,
+	  ImplementationPeriod,
+		FinancialAnalysis,
     ProgrammingDocuments,
-    AdditionalInformation,
-    'funding-sources': () =>
-      import('../components/Projects/FundingSources/FundingSources.vue'),
-    'target-investment': () =>
-      import('../components/Projects/TargetInvestment.vue')
+    AdditionalInformation
   },
   name: 'PageEditProject',
   methods: {
