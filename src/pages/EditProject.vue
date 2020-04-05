@@ -10,7 +10,9 @@
             <q-item>
               <q-item-section>
                 <q-item-label caption>Created by: </q-item-label>
-                <q-item-label>{{ project.creator.name }}</q-item-label>
+                <q-item-label>{{
+                  project.creator ? project.creator.name : ''
+                }}</q-item-label>
               </q-item-section>
               <q-item-section>
                 <q-item-label caption>Created on: </q-item-label>
@@ -240,6 +242,9 @@ import {
   TIERS,
   TECHNICAL_READINESSES
 } from '../data/dropdown-values';
+import ProgrammingDocuments from '../components/Projects/ProgrammingDocuments.vue';
+import AdditionalInformation from '../components/Projects/AdditionalInformation.vue';
+import RegionFinancial from '../components/Projects/RegionFinancial/RegionFinancial.vue';
 
 export default {
   components: {
@@ -248,8 +253,7 @@ export default {
     'text-input': () => import('../components/FormInputs/TextInput.vue'),
     'stepper-navigation': () =>
       import('../components/Projects/StepperNavigation.vue'),
-    'region-financial': () =>
-      import('../components/Projects/RegionFinancial/RegionFinancial.vue'),
+    RegionFinancial,
     'financial-accomplishment': () =>
       import('../components/Projects/FinancialAccomplishment.vue'),
     'technical-readiness': () =>
@@ -262,10 +266,8 @@ export default {
       import('../components/Projects/ImplementationPeriod.vue'),
     'financial-analysis': () =>
       import('../components/Projects/FinancialAnalysis.vue'),
-    'programming-documents': () =>
-      import('../components/Projects/ProgrammingDocuments.vue'),
-    'additional-information': () =>
-      import('../components/Projects/AdditionalInformation.vue'),
+    ProgrammingDocuments,
+    AdditionalInformation,
     'funding-sources': () =>
       import('../components/Projects/FundingSources/FundingSources.vue'),
     'target-investment': () =>

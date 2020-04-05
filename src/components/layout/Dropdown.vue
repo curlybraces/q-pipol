@@ -2,9 +2,7 @@
   <q-menu max-width="300px" :offset="[0, 15]">
     <div class="q-pa-md q-gutter-y-sm text-center">
       <q-avatar>
-        <q-img
-          :src="imageUrl"
-        />
+        <q-img :src="imageUrl" />
       </q-avatar>
       <q-item-label>{{ name }}</q-item-label>
       <q-item-label caption :class="dark ? 'text-grey-1' : 'text-black'">{{
@@ -90,7 +88,7 @@ export default {
   computed: {
     ...mapState('auth', ['email', 'name', 'role']),
     ...mapState('settings', ['dark']),
-    ...mapGetters('auth',['imageUrl']),
+    ...mapGetters('auth', ['imageUrl']),
     iconColor() {
       return this.dark ? 'purple-11' : 'primary';
     }

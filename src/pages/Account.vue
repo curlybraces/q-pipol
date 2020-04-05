@@ -20,9 +20,7 @@
             class="cursor-pointer"
             color="green"
           >
-            <q-img
-              :src="imageUrl"
-            />
+            <q-img :src="imageUrl" />
           </q-avatar>
         </div>
 
@@ -220,7 +218,7 @@ export default {
       'verified'
     ]),
     ...mapState('options', ['operating_units']),
-    ...mapGetters('auth',['imageUrl'])
+    ...mapGetters('auth', ['imageUrl'])
   },
   methods: {
     ...mapActions('auth', [

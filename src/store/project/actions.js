@@ -163,7 +163,7 @@ export function createProject({ state, getters, commit }) {
           connect: project.selected_bases
         },
         regions: {
-          connect: project.selected_regions
+          connect: project.regions
         },
         provinces: {
           connect: project.selected_provinces
@@ -376,7 +376,7 @@ export function fetchProject({ commit }, id) {
       commit('SET_PROJECT', res.data.project);
     })
     .catch(err => console.log(err))
-    .finally(() => commit('setLoading', false));
+    .finally(() => commit('SET_LOADING', false));
 }
 
 export function clearProject({ commit }) {
