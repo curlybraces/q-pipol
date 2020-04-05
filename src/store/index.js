@@ -2,17 +2,17 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
 
-import activities from './store-activities';
-import auth from './store-auth';
-import contacts from './store-contacts';
-import projects from './store-projects';
-import project from './store-project';
-import notifications from './store-notifications';
-import operatingUnits from './store-operating-units';
-import options from './store-options';
-import resources from './store-resources';
-import settings from './store-settings';
-import users from './store-users';
+import activities from './activities';
+import auth from './auth';
+import contacts from './contacts';
+import projects from './projects';
+import project from './project';
+import notifications from './notifications';
+import operatingUnits from './operating-units';
+import options from './options';
+import resources from './resources';
+import settings from './settings';
+import users from './users';
 
 Vue.use(Vuex);
 
