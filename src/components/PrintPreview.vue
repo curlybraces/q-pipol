@@ -2,11 +2,11 @@
   <q-card class="q-pa-sm">
     <q-toolbar>
       <q-toolbar-title>Print Preview</q-toolbar-title>
-      <q-space/>
+      <q-space />
       <q-btn flat dense label="Cancel" @click="$emit('close')"></q-btn>
       <q-btn outline dense label="Print" @click="print" class="q-ml-sm"></q-btn>
     </q-toolbar>
-    <q-separator/>
+    <q-separator />
 
     <div ref="preview">
       <div class="col q-mt-md q-mx-xl">
@@ -20,10 +20,18 @@
         </ul>
 
         <p>
-          This is to endorse, for inclusion in the 2017-2022 Public Investment Program (PIP) the following priority programs and projects of the Department as encoded in the IPM Online (IPMS) System:
+          This is to endorse, for inclusion in the 2017-2022 Public Investment
+          Program (PIP) the following priority programs and projects of the
+          Department as encoded in the IPM Online (IPMS) System:
         </p>
 
-        <q-markup-table bordered separator="cell" wrap-cells flat ref="projectTable">
+        <q-markup-table
+          bordered
+          separator="cell"
+          wrap-cells
+          flat
+          ref="projectTable"
+        >
           <thead>
             <tr>
               <th>Title</th>
@@ -32,10 +40,15 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="{ id, title, description, total_project_cost } in projects" :key="id">
+            <tr
+              v-for="{ id, title, description, total_project_cost } in projects"
+              :key="id"
+            >
               <td>{{ title }}</td>
               <td>{{ description }}</td>
-              <td class="text-right">{{ total_project_cost.toLocaleString() }}</td>
+              <td class="text-right">
+                {{ total_project_cost.toLocaleString() }}
+              </td>
             </tr>
           </tbody>
         </q-markup-table>
@@ -48,7 +61,6 @@
           <div class="col-6">
             Noted by:
             <p class="q-pt-xl text-weight-bold">{{ name }}, Head of Office</p>
-
           </div>
         </div>
       </div>
@@ -61,16 +73,16 @@ import { mapState, mapGetters } from 'vuex';
 import moment from 'moment';
 // import jsPDF from 'jspdf';
 // import 'jspdf-autotable';
-import html2canvas from "html2canvas";
+import html2canvas from 'html2canvas';
 
 export default {
   name: 'PrintPreview',
-  data () {
-    return {}
+  data() {
+    return {};
   },
   computed: {
-    ...mapState('auth',['name','position']),
-    ...mapGetters('projects',['projects']),
+    ...mapState('auth', ['name', 'position']),
+    ...mapGetters('projects', ['projects']),
     today() {
       return new Date();
     }
@@ -83,7 +95,7 @@ export default {
       // const doc = new jsPDF('p','in','a4');
 
       const preview = this.$refs.preview;
-      console.log(preview)
+      console.log(preview);
 
       html2canvas(preview).then(canvas => console.log(canvas));
 
@@ -92,7 +104,6 @@ export default {
       //     doc.save('test.pdf');
       //   }
       // });
-
     }
   },
   filters: {
@@ -100,5 +111,5 @@ export default {
       return moment(val).format('LL');
     }
   }
-}
+};
 </script>

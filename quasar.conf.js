@@ -11,7 +11,8 @@ module.exports = function(ctx) {
       "router-auth",
       "loading-defaults",
       "addressbar-color",
-      "notify-defaults"
+      "notify-defaults",
+      'moment'
     ],
 
     css: ["app.styl"],

@@ -211,7 +211,7 @@ export default {
       //
     },
     printPDF() {
-      const doc = new jsPDF('p','in','a4');
+      const doc = new jsPDF('p', 'in', 'a4');
 
       doc.setFontSize(11);
 
@@ -233,7 +233,7 @@ export default {
         },
         columns: [
           { header: 'ID', dataKey: 'id' },
-          { header: 'Title', dataKey: 'title'},
+          { header: 'Title', dataKey: 'title' },
           { header: 'Description', dataKey: 'description' },
           { header: 'Total Project Cost', dataKey: 'total_project_cost' }
         ],
@@ -243,8 +243,8 @@ export default {
           right: 1,
           bottom: 1
         },
-        tableWidth: 'auto',
-      })
+        tableWidth: 'auto'
+      });
 
       doc.save('projects.pdf');
     }

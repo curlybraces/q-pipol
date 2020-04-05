@@ -12,11 +12,12 @@ import {
   showSuccessNotification
 } from '../functions/function-show-notifications';
 
+const INITIAL_STATE = {};
+
 const state = {
   project: {},
   loading: false
-}
-
+};
 
 const mutations = {
   updateField,

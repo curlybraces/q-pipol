@@ -47,11 +47,7 @@
         >
           <q-avatar size="42px">
             <img
-              :src="
-                image_url
-                  ? 'statics/avatars/avatar-' + image_url + '.svg'
-                  : 'statics/avatar-placeholder.png'
-              "
+              :src="imageUrl"
             />
           </q-avatar>
           <dropdown-menu v-model="menu" />
@@ -179,6 +175,7 @@ export default {
     ...mapState('auth', ['name', 'image_url']),
     ...mapState('settings', ['dark']),
     ...mapGetters('notifications', ['unreadNotifications']),
+    ...mapGetters('auth',['imageUrl']),
     darkMode() {
       return this.$q.dark.isActive;
     }

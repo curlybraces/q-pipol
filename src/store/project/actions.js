@@ -1,8 +1,15 @@
-import {CREATE_PROJECT_MUTATION, FETCH_PROJECT_QUERY, UPDATE_PROJECT_MUTATION} from "../../constants/graphql";
-import {convertToNumber} from "../../functions/function-convert-to-number";
-import {showErrorNotification, showSuccessNotification} from "../../functions/function-show-notifications";
+import {
+  CREATE_PROJECT_MUTATION,
+  FETCH_PROJECT_QUERY,
+  UPDATE_PROJECT_MUTATION
+} from '../../constants/graphql';
+import { convertToNumber } from '../../functions/function-convert-to-number';
+import {
+  showErrorNotification,
+  showSuccessNotification
+} from '../../functions/function-show-notifications';
 
-import { apolloClient } from "../../boot/apollo";
+import { apolloClient } from '../../boot/apollo';
 
 export function createProject({ state, getters, commit }) {
   commit('SET_LOADING', true);
@@ -49,8 +56,7 @@ export function createProject({ state, getters, commit }) {
         gad_score: project.gad_score,
         estimated_project_life: project.estimated_project_life,
         financial_benefit_cost_ratio: project.financial_benefit_cost_ratio,
-        financial_internal_rate_return:
-        project.financial_internal_rate_return,
+        financial_internal_rate_return: project.financial_internal_rate_return,
         financial_net_present_value: project.financial_net_present_value,
         economic_benefit_cost_ratio: project.economic_benefit_cost_ratio,
         economic_internal_rate_return: project.economic_internal_rate_return,
@@ -88,30 +94,14 @@ export function createProject({ state, getters, commit }) {
         rap_affected_2020: project.rap_affected_2020,
         rap_affected_2021: project.rap_affected_2021,
         rap_affected_2022: project.rap_affected_2022,
-        investment_target_2016: convertToNumber(
-          project.investment_target_2016
-        ),
-        investment_target_2017: convertToNumber(
-          project.investment_target_2017
-        ),
-        investment_target_2018: convertToNumber(
-          project.investment_target_2018
-        ),
-        investment_target_2019: convertToNumber(
-          project.investment_target_2019
-        ),
-        investment_target_2020: convertToNumber(
-          project.investment_target_2020
-        ),
-        investment_target_2021: convertToNumber(
-          project.investment_target_2021
-        ),
-        investment_target_2022: convertToNumber(
-          project.investment_target_2022
-        ),
-        investment_target_2023: convertToNumber(
-          project.investment_target_2023
-        ),
+        investment_target_2016: convertToNumber(project.investment_target_2016),
+        investment_target_2017: convertToNumber(project.investment_target_2017),
+        investment_target_2018: convertToNumber(project.investment_target_2018),
+        investment_target_2019: convertToNumber(project.investment_target_2019),
+        investment_target_2020: convertToNumber(project.investment_target_2020),
+        investment_target_2021: convertToNumber(project.investment_target_2021),
+        investment_target_2022: convertToNumber(project.investment_target_2022),
+        investment_target_2023: convertToNumber(project.investment_target_2023),
         investment_target_total: convertToNumber(
           project.investment_target_total
         ),
@@ -257,8 +247,7 @@ export function updateProject({ state, getters, dispatch }) {
         gad_score: project.gad_score,
         estimated_project_life: project.estimated_project_life,
         financial_benefit_cost_ratio: project.financial_benefit_cost_ratio,
-        financial_internal_rate_return:
-        project.financial_internal_rate_return,
+        financial_internal_rate_return: project.financial_internal_rate_return,
         financial_net_present_value: project.financial_net_present_value,
         economic_benefit_cost_ratio: project.economic_benefit_cost_ratio,
         economic_internal_rate_return: project.economic_internal_rate_return,
@@ -374,7 +363,6 @@ export function updateProject({ state, getters, dispatch }) {
 }
 
 export function fetchProject({ commit }, id) {
-
   commit('SET_LOADING', true);
 
   return apolloClient

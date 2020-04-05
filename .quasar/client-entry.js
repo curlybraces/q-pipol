@@ -202,6 +202,8 @@ import qboot_Bootaddressbarcolor from 'boot/addressbar-color'
 
 import qboot_Bootnotifydefaults from 'boot/notify-defaults'
 
+import qboot_Bootmoment from 'boot/moment'
+
 
 
 
@@ -232,7 +234,7 @@ async function start () {
   }
 
   const urlPath = window.location.href.replace(window.location.origin, '')
-  const bootFiles = [qboot_Bootapollo,qboot_Bootcharts,qboot_Bootrouterauth,qboot_Bootloadingdefaults,qboot_Bootaddressbarcolor,qboot_Bootnotifydefaults]
+  const bootFiles = [qboot_Bootapollo,qboot_Bootcharts,qboot_Bootrouterauth,qboot_Bootloadingdefaults,qboot_Bootaddressbarcolor,qboot_Bootnotifydefaults,qboot_Bootmoment]
 
   for (let i = 0; routeUnchanged === true && i < bootFiles.length; i++) {
     if (typeof bootFiles[i] !== 'function') {

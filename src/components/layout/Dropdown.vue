@@ -3,11 +3,7 @@
     <div class="q-pa-md q-gutter-y-sm text-center">
       <q-avatar>
         <q-img
-          :src="
-            image_url
-              ? 'statics/avatars/avatar-' + image_url + '.svg'
-              : 'statics/avatar-placeholder.png'
-          "
+          :src="imageUrl"
         />
       </q-avatar>
       <q-item-label>{{ name }}</q-item-label>
@@ -87,13 +83,14 @@
 
 <script>
 import { Dialog } from 'quasar';
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'DropdownMenu',
   computed: {
-    ...mapState('auth', ['email', 'name', 'image_url', 'role']),
+    ...mapState('auth', ['email', 'name', 'role']),
     ...mapState('settings', ['dark']),
+    ...mapGetters('auth',['imageUrl']),
     iconColor() {
       return this.dark ? 'purple-11' : 'primary';
     }

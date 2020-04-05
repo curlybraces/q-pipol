@@ -10,6 +10,7 @@
           updated.
         </p>
       </div>
+
       <div
         class="row col-lg-8 col-md-6 col-xs-12 q-col-gutter-sm q-gutter-y-sm"
       >
@@ -20,17 +21,13 @@
             color="green"
           >
             <q-img
-              :src="
-                image_url
-                  ? 'statics/avatars/avatar-' + image_url + '.svg'
-                  : 'statics/avatar-placeholder.png'
-              "
+              :src="imageUrl"
             />
           </q-avatar>
         </div>
 
         <div class="col-lg-11 col-md-10 col-sm col-xs">
-          <q-form @submit="checkForm">
+          <q-form @submit.prevent="checkForm">
             <div class="bg-red-1 q-mb-sm q-pa-sm" v-if="errors.length">
               Please check the following:
               <ul>
@@ -178,7 +175,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapGetters } from 'vuex';
 import TextInput from '../components/FormInputs/TextInput';
 import SingleSelect from '../components/FormInputs/SingleSelect';
 import ChooseAvatar from '../components/Account/ChooseAvatar';
@@ -222,7 +219,8 @@ export default {
       'operating_unit_id',
       'verified'
     ]),
-    ...mapState('options', ['operating_units'])
+    ...mapState('options', ['operating_units']),
+    ...mapGetters('auth',['imageUrl'])
   },
   methods: {
     ...mapActions('auth', [

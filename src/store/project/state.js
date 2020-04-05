@@ -134,9 +134,9 @@ export const INITIAL_STATE = {
   funding_sources: []
 };
 
-export default function () {
+export default function() {
   return {
     project: INITIAL_STATE,
     loading: false
-  }
+  };
 }

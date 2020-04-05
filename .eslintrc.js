@@ -31,6 +31,7 @@ module.exports = {
 
   // add your custom rules here
   rules: {
+    "quotes": [ 2, "single", { avoidEscape: true } ],
     'no-empty-pattern': 'off',
     'prefer-promise-reject-errors': 'off',
 
@@ -39,5 +40,5 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 'off' : 'off',
     // allow debugger during development only
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
-  }
+  },
 }
