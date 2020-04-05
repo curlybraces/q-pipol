@@ -1409,7 +1409,7 @@ export const FETCH_IMPLEMENTATION_MODES = gql`
 
 export const FETCH_YEARS = gql`
   query {
-    year {
+    years {
       id
       name
     }

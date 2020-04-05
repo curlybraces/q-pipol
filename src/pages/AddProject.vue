@@ -139,21 +139,7 @@
                 caption="Financial Information"
                 prefix="8"
               >
-                <q-item>
-                  <single-select
-                    v-model="implementation_mode_id"
-                    label="Implementation Mode"
-                    :dense="dense"
-                    :options-dense="dense"
-                    :options="IMPLEMENTATION_MODES"
-                  />
-                </q-item>
-
-                <target-investment />
-
-                <funding-sources :dense="dense" />
-
-                <region-financial></region-financial>
+                <financial-information></financial-information>
 
                 <stepper-navigation
                   @next="step = 9"
@@ -168,36 +154,9 @@
                 caption="Applicable to Ongoing and Completed Projects Only"
                 prefix="9"
               >
-                <q-item>
-                  <single-select
-                    v-model="tier_id"
-                    label="Tier"
-                    :dense="dense"
-                    :options-dense="dense"
-                    :options="TIERS"
-                  />
-                </q-item>
-                <q-item>
-                  <q-item-section class="col-9">
-                    <text-input
-                      label="Updates"
-                      type="textarea"
-                      v-model="updates"
-                    />
-                  </q-item-section>
-                  <q-item-section class="col-3" top>
-                    <date-input
-                      label="As of Date"
-                      v-model="updates_date"
-                    ></date-input>
-                  </q-item-section>
-                </q-item>
-                <q-item>
-                  <q-item-label>Financial Accomplishments</q-item-label>
-                </q-item>
-                <q-item>
-                  <financial-accomplishment />
-                </q-item>
+
+								<project-updates></project-updates>
+
                 <q-stepper-navigation>
                   <q-btn
                     color="orange-10"
@@ -247,18 +206,15 @@ import {
   TIERS,
   TECHNICAL_READINESSES
 } from '../data/dropdown-values';
+import ProjectUpdates from '../components/Projects/ProjectUpdates';
+import FinancialInformation from '../components/Projects/FinancialInformation';
 
 export default {
   components: {
-    'single-select': () => import('../components/FormInputs/SingleSelect.vue'),
-    'date-input': () => import('../components/FormInputs/DateInput.vue'),
-    'text-input': () => import('../components/FormInputs/TextInput.vue'),
+	  FinancialInformation,
+	  ProjectUpdates,
     'stepper-navigation': () =>
       import('../components/Projects/StepperNavigation.vue'),
-    'region-financial': () =>
-      import('../components/Projects/RegionFinancial/RegionFinancial.vue'),
-    'financial-accomplishment': () =>
-      import('../components/Projects/FinancialAccomplishment.vue'),
     'technical-readiness': () =>
       import('../components/Projects/TechnicalReadiness.vue'),
     'basic-information': () =>
@@ -272,11 +228,7 @@ export default {
     'programming-documents': () =>
       import('../components/Projects/ProgrammingDocuments.vue'),
     'additional-information': () =>
-      import('../components/Projects/AdditionalInformation.vue'),
-    'funding-sources': () =>
-      import('../components/Projects/FundingSources/FundingSources.vue'),
-    'target-investment': () =>
-      import('../components/Projects/TargetInvestment.vue')
+      import('../components/Projects/AdditionalInformation.vue')
   },
   name: 'PageAddProject',
   methods: {
@@ -291,16 +243,7 @@ export default {
   },
   computed: {
     ...mapFields('project', [
-      'project',
-      'project.title',
-      'project.type_id',
-      'project.project_status_id',
-      'project.total_project_cost',
-      'project.tier_id',
-      'project.implementation_mode_id',
-      'project.technical_readinesses',
-      'project.updates',
-      'project.updates_date'
+      'project'
     ]),
     ...mapState('project', ['loading']),
     programmingDocumentsDone() {

@@ -3,7 +3,7 @@
     <single-select
       label="Region"
       v-model="regionToEdit.id"
-      :options="REGIONS"
+      :options="regions_options"
     ></single-select>
     <money-input label="2016" v-model="regionToEdit.target_2016"></money-input>
     <money-input label="2017" v-model="regionToEdit.target_2017"></money-input>
@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import MoneyInput from '../../../../FormInputs/MoneyInput';
 import SingleSelect from '../../../../FormInputs/SingleSelect';
 import { REGIONS } from '../../../../../data/dropdown-values';
@@ -38,6 +39,7 @@ export default {
   },
   props: ['value'],
   computed: {
+  	...mapState('options',['regions_options']),
     regionToEdit: {
       get() {
         return this.value;

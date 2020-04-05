@@ -1,8 +1,12 @@
 <template>
-  <q-page>
+  <q-page class="q-pt-lg">
+		<page-title title="Edit Project"></page-title>
+
     <div class="q-pa-sm">
       <template v-if="getLoading">
-        LOADING...
+				<q-inner-loading :showing="getLoading">
+					<q-spinner-dots size="50px" color="primary"></q-spinner-dots>
+				</q-inner-loading>
       </template>
       <template v-else>
         <q-banner class="q-my-md bg-grey-3">
@@ -201,31 +205,15 @@ import {
   TIERS,
   TECHNICAL_READINESSES
 } from '../data/dropdown-values';
-import ProgrammingDocuments from '../components/Projects/ProgrammingDocuments.vue';
-import AdditionalInformation from '../components/Projects/AdditionalInformation.vue';
-import TechnicalReadiness from '../components/Projects/TechnicalReadiness.vue';
-import FinancialAnalysis from '../components/Projects/FinancialAnalysis.vue';
-import ImplementationPeriod from '../components/Projects/ImplementationPeriod.vue';
-import SpatialCoverage from '../components/Projects/SpatialCoverage.vue';
-import BasicInformation from '../components/Projects/BasicInformation.vue';
-import StepperNavigation from '../components/Projects/StepperNavigation.vue';
-import ProjectUpdates from '../components/Projects/ProjectUpdates';
-import FinancialInformation from '../components/Projects/FinancialInformation';
+import PageTitle from '../components/PageTitle';
+import ProjectMixins from '../mixins/ProjectMixins';
 
 export default {
   components: {
-	  FinancialInformation,
-	  ProjectUpdates,
-	  StepperNavigation,
-    TechnicalReadiness,
-		BasicInformation,
-		SpatialCoverage,
-	  ImplementationPeriod,
-		FinancialAnalysis,
-    ProgrammingDocuments,
-    AdditionalInformation
+	  PageTitle
   },
   name: 'PageEditProject',
+	mixins: [ProjectMixins],
   methods: {
     ...mapActions('project', ['updateProject', 'fetchProject'])
   },
