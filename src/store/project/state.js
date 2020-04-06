@@ -138,6 +138,6 @@ export default function() {
   return {
     project: INITIAL_STATE,
     loading: false,
-	  required: [ 'title','type_id','description' ]
+    required: ['title', 'type_id', 'description']
   };
 }

@@ -183,6 +183,8 @@ import 'quasar/dist/quasar.styl'
 
 import 'src/css/app.styl'
 
+import '@quasar/quasar-ui-qmarkdown/src/index.sass'
+
 
 import Vue from 'vue'
 import createApp from './app.js'
@@ -203,6 +205,8 @@ import qboot_Bootaddressbarcolor from 'boot/addressbar-color'
 import qboot_Bootnotifydefaults from 'boot/notify-defaults'
 
 import qboot_Bootmoment from 'boot/moment'
+
+import qboot_Quasarquasarappextensionqmarkdownsrcbootregisterjs from '@quasar/quasar-app-extension-qmarkdown/src/boot/register.js'
 
 
 
@@ -234,7 +238,7 @@ async function start () {
   }
 
   const urlPath = window.location.href.replace(window.location.origin, '')
-  const bootFiles = [qboot_Bootapollo,qboot_Bootcharts,qboot_Bootrouterauth,qboot_Bootloadingdefaults,qboot_Bootaddressbarcolor,qboot_Bootnotifydefaults,qboot_Bootmoment]
+  const bootFiles = [qboot_Bootapollo,qboot_Bootcharts,qboot_Bootrouterauth,qboot_Bootloadingdefaults,qboot_Bootaddressbarcolor,qboot_Bootnotifydefaults,qboot_Bootmoment,qboot_Quasarquasarappextensionqmarkdownsrcbootregisterjs]
 
   for (let i = 0; routeUnchanged === true && i < bootFiles.length; i++) {
     if (typeof bootFiles[i] !== 'function') {

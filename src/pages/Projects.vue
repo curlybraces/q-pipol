@@ -1,7 +1,12 @@
 <template>
   <q-page class="q-pt-lg">
     <page-title title="Projects">
-      <q-btn label="Export to PDF" @click="printPDF" class="q-mr-sm" dense></q-btn>
+      <q-btn
+        label="Export to PDF"
+        @click="printPDF"
+        class="q-mr-sm"
+        dense
+      ></q-btn>
       <q-btn
         outline
         dense

@@ -12,10 +12,10 @@ export default function() {
     operating_unit: null,
     contact_number: null,
     position: null,
-    role: null,
+    role: LocalStorage.getItem('role') || '',
     userLoaded: false,
     notifications: [],
     unreadNotifications: [],
-    verified: false
+    verified: LocalStorage.getItem('verified') || true
   };
 }

@@ -10,6 +10,7 @@ export const LOGIN_MUTATION = gql`
         role {
           name
         }
+        verified
       }
       access_token
     }

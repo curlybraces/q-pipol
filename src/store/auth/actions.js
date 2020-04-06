@@ -36,6 +36,7 @@ export function loginUser({ commit, dispatch }, payload) {
         'role',
         res.data.login.user.role ? res.data.login.user.role.name : null
       );
+      LocalStorage.set('verified', res.data.login.user.verified);
 
       this.$router.push({ path: '/' });
     })
@@ -94,6 +95,7 @@ export function logoutUser({ commit }) {
   LocalStorage.remove('userId');
   LocalStorage.remove('loggedIn');
   LocalStorage.remove('role');
+  LocalStorage.remove('verified');
 
   apolloClient.cache.data.clear();
 

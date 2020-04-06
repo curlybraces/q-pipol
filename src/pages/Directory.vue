@@ -1,24 +1,47 @@
 <template>
   <q-page class="q-pt-lg">
     <page-title title="Directory">
-      <json-excel :data="contactsArray">
-        <q-btn
-          dense
-          class="q-mr-sm"
-          glossy
-          :color="buttonColor"
-          label="Download"
-        />
-      </json-excel>
-      <q-btn
-        v-if="admin"
-        outline
-        label="Add Contact"
-        dense
-        :color="buttonColor"
-        @click="addContactDialog = true"
-      ></q-btn>
+
+			<q-btn flat round color="primary" icon="build">
+				<q-menu
+					transition-show="jump-up"
+					transition-hide="jump-up">
+					<q-list>
+						<json-excel :data="contactsArray">
+							<q-item clickable>
+								<q-item-section>
+									Download
+								</q-item-section>
+							</q-item>
+						</json-excel>
+						<q-item clickable @click="addContactDialog = true">
+							<q-item-section>
+								Add Contact
+							</q-item-section>
+						</q-item>
+						<q-item clickable  @click="importCsvDialog = true">
+							<q-item-section>
+								Import CSV
+							</q-item-section>
+						</q-item>
+					</q-list>
+				</q-menu>
+			</q-btn>
     </page-title>
+
+    <div class="q-pa-sm" v-if="contactsFromFile.length">
+      <q-table title="Preview" :columns="columns" :data="contactsFromFile">
+        <template v-slot:top-right>
+          <q-btn
+            color="primary"
+            icon-right="publish"
+            label="Save All"
+            no-caps
+            @click="saveContacts"
+          />
+        </template>
+      </q-table>
+    </div>
 
     <div class="q-mt-md q-pa-sm">
       <div class="row q-mb-lg">
@@ -67,10 +90,32 @@
     >
       <add-contact @close="addContactDialog = false"></add-contact>
     </q-dialog>
+
+    <q-dialog v-model="importCsvDialog">
+      <q-card style="width:400px;">
+        <div class="row q-pa-sm justify-between">
+          Import Directory
+          <q-icon name="close" v-close-popup class="cursor-pointer"></q-icon>
+        </div>
+        <q-card-section>
+          <q-file
+            v-model="file"
+            label="Upload CSV file"
+            outlined
+            style="max-width: 300px"
+						input-class="flex"
+          />
+        </q-card-section>
+        <q-card-actions align="right">
+          <q-btn outline @click="uploadCsv">PREVIEW</q-btn>
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
 <script>
+import * as Papa from 'papaparse';
 import AddContact from '../components/Directory/AddEditContact/AddContact';
 import ContactItem from '../components/Directory/ContactItem';
 import { mapState, mapActions, mapGetters } from 'vuex';
@@ -87,6 +132,7 @@ export default {
     ...mapState('contacts', ['search', 'loading', 'error']),
     ...mapGetters('contacts', ['contactsFiltered']),
     ...mapGetters('settings', ['buttonColor']),
+    ...mapState('options', ['operating_units']),
     searchField: {
       get() {
         return this.search;
@@ -114,11 +160,92 @@ export default {
   },
   data() {
     return {
-      addContactDialog: false
+      file: null,
+      addContactDialog: false,
+      importCsvDialog: false,
+      contactsFromFile: [],
+      columns: [
+        {
+          name: 'name',
+          field: 'name',
+          label: 'Name'
+        },
+        {
+          name: 'designation',
+          field: 'designation',
+          label: 'Designation'
+        },
+        {
+          name: 'operating_unit_id',
+          field: row => this.getOperatingUnit(row.operating_unit_id),
+          label: 'Office'
+        },
+        {
+          name: 'email',
+          field: 'email',
+          label: 'Email Address'
+        },
+        {
+          name: 'phone_number',
+          field: 'phone_number',
+          label: 'Phone Number'
+        },
+        {
+          name: 'fax_number',
+          field: 'fax_number',
+          label: 'Fax Number'
+        }
+      ]
     };
   },
   methods: {
-    ...mapActions('contacts', ['fetchContacts', 'setSearch'])
+    ...mapActions('contacts', ['fetchContacts', 'setSearch']),
+    getOperatingUnit(id) {
+      if (!id) {
+        return '';
+      } else {
+        const ou = this.operating_units.filter(
+          operating_unit => operating_unit.id === id
+        );
+        return ou[0]['name'];
+      }
+    },
+    handleCsvFile(file) {
+      // const file = this.$refs.directory.files[0]
+      const csv = file;
+
+      if (!csv || csv.type !== 'application/vnd.ms-excel') return;
+
+      const reader = new FileReader();
+      reader.readAsText(csv, 'UTF-8');
+
+      reader.onload = evt => {
+        const text = evt.target.result;
+        const contacts = Papa.parse(text, {
+          delimiter: ',',
+          newline: '',
+          quoteChar: '"',
+          header: true,
+          skipBlankLines: true
+        });
+        try {
+          this.contactsFromFile = contacts.data;
+          this.importCsvDialog = false;
+        } catch (e) {
+          alert('Sorry, the file does not appear to have valid data');
+        }
+      };
+
+      reader.onerror = evt => {
+        console.log(evt);
+      };
+    },
+    saveContacts() {},
+    uploadCsv() {
+      // const file = this.$refs.importedCsv.files[0];
+      // console.log(file);
+      this.handleCsvFile(this.file);
+    }
   },
   mounted() {
     this.fetchContacts();

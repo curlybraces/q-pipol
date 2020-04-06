@@ -17,14 +17,44 @@
         </div>
       </template>
     </div>
+    <q-dialog v-model="needEmailValidation" persistent>
+      <q-card square class="q-py-lg q-px-sm" style="max-width: 480px;">
+        <div class="col q-gutter-md text-center">
+          <div class="text-primary text-h5 text-weight-bold">
+            Please verify your email
+          </div>
+          <div class="text-subtitle1">
+            You're almost there! We sent an email to<br /><span
+              class="text-weight-bolder"
+              >{{ email }}</span
+            >
+          </div>
+          <div class="text-subtitle2">
+            Just click on the link in that email to complete your registration.
+            If you don't see it, you may need to
+            <span class="text-weight-bold">check your spam </span>folder.
+          </div>
+          <div class="text-subtitle1">Still can't find the email?</div>
+          <q-btn color="primary" push>Resend Email</q-btn>
+          <div class="text-subtitle1">Need help? Contact Us</div>
+        </div>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import { LocalStorage } from 'quasar';
+
 export default {
   name: 'PageIndex',
+  computed: {
+    ...mapState('auth', ['verified', 'email'])
+  },
   data() {
     return {
+      needEmailValidation: false,
       links: [
         {
           label: 'View Projects',
@@ -64,6 +94,13 @@ export default {
         }
       ]
     };
+  },
+  mounted() {
+    if (!LocalStorage.getItem('verified')) {
+      this.needEmailValidation = true;
+    } else {
+      this.needEmailValidation = false;
+    }
   }
 };
 </script>
