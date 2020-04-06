@@ -16,7 +16,7 @@
         <q-spinner-dots size="50px"></q-spinner-dots>
       </q-inner-loading>
       <div class="row q-gutter-sm">
-        <q-list bordered separator>
+        <q-list bordered separator v-if="Object.keys(resources).length">
           <q-item
             v-for="(resource, key) in resources"
             :key="key"

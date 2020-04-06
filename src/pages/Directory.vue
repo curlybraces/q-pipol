@@ -1,6 +1,6 @@
 <template>
   <q-page class="q-pt-lg">
-    <page-title title="Director">
+    <page-title title="Directory">
       <json-excel :data="contactsArray">
         <q-btn
           dense
