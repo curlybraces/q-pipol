@@ -137,6 +137,7 @@ export const INITIAL_STATE = {
 export default function() {
   return {
     project: INITIAL_STATE,
-    loading: false
+    loading: false,
+	  required: [ 'title','type_id','description' ]
   };
 }

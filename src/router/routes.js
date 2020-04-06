@@ -67,6 +67,14 @@ const routes = [
           requiresAuth: true
         }
       },
+	    {
+		    path: 'projects/create',
+		    name: 'create-project',
+		    component: () => import(/* webpackChunkName: 'CreateProject' */ 'pages/CreateProject.vue'),
+		    meta: {
+			    requiresAuth: true
+		    }
+	    },
       {
         path: 'projects/new',
         name: 'new-project',

@@ -1,50 +1,160 @@
 <template>
-  <q-page padding>
-    <page-breadcrumbs :breadcrumbs="breadcrumbs" />
+  <q-page class="q-pt-lg">
+    <page-title title="Add Project (v.2)">
+			<q-badge>
+			{{ screenSize }}
+			</q-badge>
+		</page-title>
 
-    <text-input label="Title"></text-input>
-    <text-input label="Description"></text-input>
-    <text-input label="Goals"></text-input>
-    <text-input label="Outcomes"></text-input>
-    <text-input label="Purpose"></text-input>
-    <text-input label="Expected Outputs"></text-input>
-    <text-input label="Beneficiaries"></text-input>
-    <text-input label="Employment Generated"></text-input>
-    <text-input label="Implementation Risk"></text-input>
-    <text-input label="Mitigation Strategies"></text-input>
-    <text-input label="Contribution to Income Increase"></text-input>
+		<div class="row justify-center q-pa-sm q-col-gutter-sm">
+
+			<div class="col-xl-2 col-lg-3 col-md-3 col-sm-12 col-xs-12 gt-sm">
+				<q-list separator>
+					<q-item-label header>NAVIGATE</q-item-label>
+					<q-item v-for="(nav, index) in navs" :key="index" clickable @click="step = nav.step">
+						<q-item-section avatar>
+							<q-avatar :color="step === nav.step ? 'primary': 'grey'">
+								<q-icon :name="step === nav.step ? 'edit': ''" class="text-white"></q-icon>
+							</q-avatar>
+						</q-item-section>
+						<q-item-section>
+							<q-item-label>{{ nav.title }}</q-item-label>
+							<q-item-label>
+								<q-linear-progress :value="100" color="orange-10"></q-linear-progress>
+							</q-item-label>
+						</q-item-section>
+					</q-item>
+				</q-list>
+			</div>
+
+			<div class="col-xl-6 col-lg-6 col-md-9 col-sm-12 col-xs-12">
+				<q-form @submit.prevent="handleSubmit">
+					<q-toolbar>
+						<q-space></q-space>
+						<q-btn outline label="Reset" color="primary" class="q-mr-sm"></q-btn>
+						<q-btn label="Save" color="primary" class="q-mr-lg" type="submit"></q-btn>
+					</q-toolbar>
+					<q-separator></q-separator>
+					<q-stepper v-model="step" title="Create Project" vertical color="primary" animated header-nav flat>
+						<q-step :name="1" title="Basic Information">
+							<basic-information></basic-information>
+						</q-step>
+						<q-step :name="2" title="Programming Documents">
+							<programming-documents></programming-documents>
+						</q-step>
+						<q-step :name="3" title="Additional Information">
+							<additional-information></additional-information>
+						</q-step>
+						<q-step :name="4" title="Spatial Coverage">
+							<spatial-coverage></spatial-coverage>
+						</q-step>
+						<q-step :name="5" title="Implementation Period">
+							<implementation-period></implementation-period>
+						</q-step>
+						<q-step :name="6" title="Readiness">
+							<technical-readiness></technical-readiness>
+						</q-step>
+						<q-step :name="7" title="Financial and Economic Analysis">
+							<financial-analysis></financial-analysis>
+						</q-step>
+						<q-step :name="8" title="Financial Information">
+							<financial-information></financial-information>
+						</q-step>
+						<q-step :name="9" title="Updates">
+							<project-updates></project-updates>
+						</q-step>
+					</q-stepper>
+				</q-form>
+			</div>
+
+		</div>
+
   </q-page>
 </template>
 
 <script>
-import PageBreadcrumbs from '../components/PageBreadcrumbs';
-import TextInput from '../components/FormInputs/TextInput';
+import { mapState, mapActions, mapGetters } from 'vuex';
+import PageTitle from '../components/PageTitle';
+import ProjectMixins from '../mixins/ProjectMixins';
 
 export default {
-  components: { PageBreadcrumbs, TextInput },
-  computed: {
-    contracted() {
-      return !this.$q.screen.gt.md;
-    }
-  },
+	components: { PageTitle },
+	name: 'CreateProject',
+	mixins: [ ProjectMixins ],
+	computed: {
+		...mapState('project',['project']),
+		...mapGetters('project',['progress']),
+		screenSize() {
+			const screenSize = this.$q.screen.name;
+			switch (screenSize) {
+				case 'xl':
+					return 'Extra Large';
+				case 'lg':
+					return 'Large';
+				case 'md':
+					return 'Medium';
+				case 'sm':
+					return 'Small';
+				case 'xs':
+					return 'Extra Small';
+				default:
+					return '';
+			}
+		}
+	},
   data() {
     return {
-      breadcrumbs: [
-        {
-          title: 'Home',
-          url: '/'
-        },
-        {
-          title: 'Projects',
-          url: '/projects'
-        },
-        {
-          title: 'Create Project'
-        }
-      ]
+    	step: 1,
+      navs: [
+				{
+					title: 'Basic Information',
+					step: 1,
+					progress: 0
+				},
+				{
+					title: 'Programming Documents',
+					step: 2
+				},
+				{
+					title: 'Additional Information',
+					step: 3
+				},
+				{
+					title: 'Spatial Coverage',
+					step: 4
+				},
+				{
+					title: 'Implementation Period',
+					step: 5
+				},
+				{
+					title: 'Readiness',
+					step: 6
+				},
+				{
+					title: 'Financial and Economic Analysis',
+					step: 7
+				},
+				{
+					title: 'Financial Information',
+					step: 8
+				},
+				{
+					title: 'Updates',
+					step: 9
+				}
+			]
     };
   },
-  methods: {},
-  mounted() {}
+  methods: {
+  	...mapActions('project',['clearProject','createProject']),
+		handleSubmit() {
+  		this.createProject(this.project)
+		}
+	},
+  mounted() {
+  	this.clearProject();
+  	console.log(this.progress);
+	}
 };
 </script>

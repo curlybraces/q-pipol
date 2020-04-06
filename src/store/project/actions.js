@@ -200,7 +200,7 @@ export function createProject({ state, getters, commit }) {
       });
     })
     .finally(() => {
-      commit('setLoading', false);
+      commit('SET_LOADING', false);
     });
 }
 
