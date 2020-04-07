@@ -51,6 +51,9 @@
                 <template v-slot:prepend>
                   <q-icon name="email"></q-icon>
                 </template>
+								<template v-slot:append>
+									<q-icon color="green" name="done_outline" v-if="availableEmail"/>
+								</template>
               </q-input>
 
               <q-input
@@ -146,6 +149,7 @@
 <script>
 import { mapActions, mapState } from 'vuex';
 import { laAtSolid } from '@quasar/extras/line-awesome';
+import {CHECK_EMAIL_AVAILABILITY_QUERY} from '../constants/graphql';
 
 export default {
   name: 'PageLogin',
@@ -165,7 +169,10 @@ export default {
     };
   },
   computed: {
-    ...mapState('settings', ['dark'])
+    ...mapState('settings', ['dark']),
+		availableEmail() {
+    	return this.checkEmail();
+		}
   },
   methods: {
     ...mapActions('auth', [
@@ -174,6 +181,30 @@ export default {
       'forgotPassword',
       'register'
     ]),
+	  checkEmail() {
+    	const email = this.username;
+
+    	if (this.tab === 'signup' && this.validEmail(email)) {
+    		console.log('begin checking email');
+    		return this.$apollo.query({
+					query: CHECK_EMAIL_AVAILABILITY_QUERY,
+					variables: {
+						email: email
+					}
+				})
+				.then(res =>{
+					if (res.data.checkEmailAvailability.status === 'AVAILABLE') {
+						return true;
+					} else {
+						return false
+					}
+				})
+				.catch(err => {
+					console.log(err.message);
+					return false;
+				});
+			}
+		},
     validEmail(email) {
       const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
