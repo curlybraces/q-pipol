@@ -32,11 +32,17 @@ export function loginUser({ commit, dispatch }, payload) {
       LocalStorage.set('loggedIn', true);
       LocalStorage.set('token', res.data.login.access_token);
       LocalStorage.set('userId', res.data.login.user.id);
+      LocalStorage.set('name', res.data.login.user.name);
+      LocalStorage.set('operating_unit_id', res.data.login.user.operating_unit ? res.data.login.user.operating_unit.id : null );
       LocalStorage.set(
         'role',
         res.data.login.user.role ? res.data.login.user.role.name : null
       );
       LocalStorage.set('verified', res.data.login.user.verified);
+      LocalStorage.set('image_url', res.data.login.user.image_url);
+      LocalStorage.set('showValidateEmailReminder', !res.data.login.user.verified);
+      
+      commit('SET_SHOW_VALIDATE_EMAIL_REMINDER', !res.data.login.user.verified);
 
       this.$router.push({ path: '/' });
     })
@@ -85,17 +91,17 @@ export function populateUser({ commit }) {
     });
 }
 
+export function hideValidateEmailReminder({ commit }, val) {
+	LocalStorage.set('showValidateEmailReminder', val);
+	commit('SET_SHOW_VALIDATE_EMAIL_REMINDER', val);
+}
+
 export function logoutUser({ commit }) {
   commit('projects/CLEAR_PROJECTS', null, { root: true });
+  
   commit('CLEAR_USER');
 
-  localStorage.removeItem('da-ipms');
-
-  LocalStorage.remove('token');
-  LocalStorage.remove('userId');
-  LocalStorage.remove('loggedIn');
-  LocalStorage.remove('role');
-  LocalStorage.remove('verified');
+  LocalStorage.clear();
 
   apolloClient.cache.data.clear();
 

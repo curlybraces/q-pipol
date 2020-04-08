@@ -12,7 +12,8 @@ module.exports = function(ctx) {
       "loading-defaults",
       "addressbar-color",
       "notify-defaults",
-      'moment'
+      'moment',
+	    'vuelidate'
     ],
 
     css: ["app.styl"],

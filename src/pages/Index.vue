@@ -17,9 +17,12 @@
         </div>
       </template>
     </div>
-    <q-dialog v-model="needEmailValidation" persistent>
-      <q-card square class="q-py-lg q-px-sm" style="max-width: 480px;">
-        <div class="col q-gutter-md text-center">
+    <q-dialog v-model="needEmailValidation">
+      <q-card square class="q-px-sm" style="max-width: 480px;">
+				<div class="row justify-end q-py-sm">
+					<q-icon name="close" flat dense class="cursor-pointer" @click="hideReminder"></q-icon>
+				</div>
+        <div class="col q-gutter-md text-center q-py-lg">
           <div class="text-primary text-h5 text-weight-bold">
             Please verify your email
           </div>
@@ -44,17 +47,24 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import { LocalStorage } from 'quasar';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   name: 'PageIndex',
   computed: {
-    ...mapState('auth', ['verified', 'email'])
+    ...mapState('auth', ['email','showValidateEmailReminder']),
+		needEmailValidation() {
+			return this.showValidateEmailReminder;
+		}
   },
+	methods: {
+		...mapActions('auth',['hideValidateEmailReminder']),
+		hideReminder() {
+			this.hideValidateEmailReminder(false);
+		}
+	},
   data() {
     return {
-      needEmailValidation: false,
       links: [
         {
           label: 'View Projects',
@@ -94,13 +104,6 @@ export default {
         }
       ]
     };
-  },
-  mounted() {
-    if (!LocalStorage.getItem('verified')) {
-      this.needEmailValidation = true;
-    } else {
-      this.needEmailValidation = false;
-    }
   }
 };
 </script>
