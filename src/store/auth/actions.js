@@ -121,6 +121,8 @@ export function setImageUrl({ commit }, payload) {
         message: 'Successfully updated avatar.',
         icon: 'check'
       });
+      
+      LocalStorage.set('image_url',payload);
 
       commit('SET_IMAGE_URL', payload);
     })
