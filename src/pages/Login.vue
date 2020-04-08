@@ -19,9 +19,7 @@
             }}
           </div>
 
-					<password-input v-model="password" :rules="required"></password-input>
-
-          <q-separator spaced />
+					<q-separator spaced />
 
           <q-card-section class="q-pa-md">
             <q-form
@@ -62,25 +60,9 @@
                 </template>
               </q-input>
 
-              <q-input
-                outlined
-                placeholder="Password"
-                :type="!passwordVisibility ? 'password' : 'text'"
-                v-model="password"
-                :rules="required"
-              >
-                <template v-slot:prepend>
-                  <q-icon name="vpn_key"></q-icon>
-                </template>
-                <template v-slot:append>
-                  <q-icon
-                    :name="
-                      !passwordVisibility ? 'visibility' : 'visibility_off'
-                    "
-                    @click="passwordVisibility = !passwordVisibility"
-                  ></q-icon>
-                </template>
-              </q-input>
+							<password-input
+								v-model="password"
+								:rules="required" />
 
               <q-input
                 v-if="tab == 'signup'"
@@ -160,7 +142,7 @@ import PasswordInput from '../components/FormInputs/PasswordInput';
 
 export default {
   name: 'PageLogin',
-	components: {PasswordInput},
+	components: { PasswordInput },
 	data() {
     return {
       passwordVisibility: false,

@@ -8,7 +8,7 @@ export default function() {
     token: LocalStorage.getItem('token') || '',
     email: null,
     name: LocalStorage.getItem('name') || '',
-    image_url: LocalStorage.getItem('image_url') || null,
+    image_url: LocalStorage.getItem('image_url'),
     operating_unit: null,
     contact_number: null,
     position: null,
