@@ -41,12 +41,12 @@ export const REGISTER_MUTATION = gql`
 `;
 
 export const CHECK_EMAIL_AVAILABILITY_QUERY = gql`
-	query checkEmailAvailability($email: String!) {
+  query checkEmailAvailability($email: String!) {
     checkEmailAvailability(email: $email) {
       message
       status
     }
-	}
+  }
 `;
 
 export const ACTIVATE_USER = gql`

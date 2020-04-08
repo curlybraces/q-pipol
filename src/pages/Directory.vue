@@ -1,32 +1,29 @@
 <template>
   <q-page class="q-pt-lg">
     <page-title title="Directory">
-
-			<q-btn flat round color="primary" icon="build">
-				<q-menu
-					transition-show="jump-up"
-					transition-hide="jump-up">
-					<q-list>
-						<json-excel :data="contactsArray">
-							<q-item clickable>
-								<q-item-section>
-									Download
-								</q-item-section>
-							</q-item>
-						</json-excel>
-						<q-item clickable @click="addContactDialog = true">
-							<q-item-section>
-								Add Contact
-							</q-item-section>
-						</q-item>
-						<q-item clickable  @click="importCsvDialog = true">
-							<q-item-section>
-								Import CSV
-							</q-item-section>
-						</q-item>
-					</q-list>
-				</q-menu>
-			</q-btn>
+      <q-btn flat round color="primary" icon="build">
+        <q-menu transition-show="jump-up" transition-hide="jump-up">
+          <q-list>
+            <json-excel :data="contactsArray">
+              <q-item clickable>
+                <q-item-section>
+                  Download
+                </q-item-section>
+              </q-item>
+            </json-excel>
+            <q-item clickable @click="addContactDialog = true">
+              <q-item-section>
+                Add Contact
+              </q-item-section>
+            </q-item>
+            <q-item clickable @click="importCsvDialog = true">
+              <q-item-section>
+                Import CSV
+              </q-item-section>
+            </q-item>
+          </q-list>
+        </q-menu>
+      </q-btn>
     </page-title>
 
     <div class="q-pa-sm" v-if="contactsFromFile.length">
@@ -103,7 +100,7 @@
             label="Upload CSV file"
             outlined
             style="max-width: 300px"
-						input-class="flex"
+            input-class="flex"
           />
         </q-card-section>
         <q-card-actions align="right">
