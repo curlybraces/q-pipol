@@ -29,7 +29,6 @@
     "vue-apollo": "^3.0.3",
     "vue-chartkick": "^0.6.0",
     "vue-json-excel": "^0.2.98",
-    "vuelidate": "^0.7.5",
     "vuex-map-fields": "^1.4.0",
     "vuex-persist": "^2.2.0",
     "vuex-persistedstate": "^3.0.1"

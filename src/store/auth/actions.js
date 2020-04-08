@@ -1,4 +1,4 @@
-import { LocalStorage } from 'quasar';
+import { LocalStorage, Loading } from 'quasar';
 import { apolloClient } from 'boot/apollo';
 import {
   FORGOT_PASSWORD_MUTATION,
@@ -238,9 +238,11 @@ export function verifyEmail({ commit, dispatch }, token) {
     .catch(err => console.log(err.message));
 }
 
-export function updatePassword({}, payload) {
+export function updatePassword({ dispatch }, payload) {
   const { old_password, password, password_confirmation } = payload;
-
+	
+  Loading.show();
+  
   apolloClient
     .mutate({
       mutation: UPDATE_PASSWORD_MUTATION,
@@ -252,8 +254,14 @@ export function updatePassword({}, payload) {
     })
     .then(res => {
       console.log(res.data.updatePassword);
+      if (res.data.updatePassword.status === 'PASSWORD_UPDATED') {
+      	dispatch('logoutUser');
+      } else {
+      	return Promise.reject();
+      }
     })
     .catch(err => {
       showGraphQLErrorMessage(err);
-    });
+    })
+	  .finally(() => Loading.hide());
 }

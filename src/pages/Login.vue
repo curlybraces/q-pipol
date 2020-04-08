@@ -14,10 +14,12 @@
           <div class="row q-pa-md text-weight-light text-h6">
             {{
               tab == 'login'
-                ? 'Login to your account'
-                : 'Sign up to create account'
+                ? 'Login to your IPMS Account'
+                : 'Create an IPMS Account'
             }}
           </div>
+
+					<password-input v-model="password" :rules="required"></password-input>
 
           <q-separator spaced />
 
@@ -130,7 +132,7 @@
                 >
               </div>
               <div class="text-center" v-else>
-                Alreay have an account?
+                Already have an account?
                 <span
                   class="text-blue text-weight-bolder cursor-pointer"
                   @click="tab = 'login'"
@@ -154,10 +156,12 @@
 import { mapActions, mapState } from 'vuex';
 import { laAtSolid } from '@quasar/extras/line-awesome';
 import { CHECK_EMAIL_AVAILABILITY_QUERY } from '../constants/graphql';
+import PasswordInput from '../components/FormInputs/PasswordInput';
 
 export default {
   name: 'PageLogin',
-  data() {
+	components: {PasswordInput},
+	data() {
     return {
       passwordVisibility: false,
       appTitle: 'IP Online System',
@@ -239,9 +243,6 @@ export default {
 
       this.$refs.loginForm.validate().then(success => {
         if (success) {
-          this.username = '';
-          this.password = '';
-
           this.loading = true;
 
           if (this.tab == 'login') {
@@ -250,10 +251,7 @@ export default {
               password: password
             };
 
-            this.loginUser(payload).then(() => {
-              this.username = username;
-              this.password = password;
-            });
+            this.loginUser(payload);
           } else {
             this.name = '';
             this.password_confirmation = '';

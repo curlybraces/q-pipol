@@ -19,7 +19,6 @@ export default {
   	if (this.loggedIn) {
   		this.initializeOptions();
 		}
-  	console.log(this.$v.touch())
 	}
 };
 </script>
