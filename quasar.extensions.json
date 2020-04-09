@@ -29,5 +29,24 @@
   "@quasar/qmarkdown": {
     "import_md": true,
     "import_vmd": true
+  },
+  "@quasar/testing": {
+    "harnesses": [
+      "unit-jest",
+      "e2e-cypress"
+    ]
+  },
+  "@quasar/testing-unit-jest": {
+    "babel": "babelrc",
+    "options": [
+      "scripts",
+      "SFC",
+      "majestic"
+    ]
+  },
+  "@quasar/testing-e2e-cypress": {
+    "options": [
+      "scripts"
+    ]
   }
 }
