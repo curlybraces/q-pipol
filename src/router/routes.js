@@ -223,11 +223,11 @@ const routes = [
         name: 'manual-home',
         component: () => import('pages/manual/Index.vue')
       },
-	    {
-	    	path: 'getting-started',
-		    name: 'manual-getting-started',
-		    component: () => import('pages/manual/GettingStarted.vue')
-	    },
+      {
+        path: 'getting-started',
+        name: 'manual-getting-started',
+        component: () => import('pages/manual/GettingStarted.vue')
+      },
       {
         path: 'features',
         name: 'manual-features',

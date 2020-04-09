@@ -6,12 +6,11 @@
 
     <q-separator inset spaced />
 
-		<update-password></update-password>
+    <update-password></update-password>
 
-		<q-separator inset spaced />
+    <q-separator inset spaced />
 
-		<verify-email></verify-email>
-
+    <verify-email></verify-email>
   </q-page>
 </template>
 

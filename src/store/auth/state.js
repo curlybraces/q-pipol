@@ -2,8 +2,8 @@ import { LocalStorage } from 'quasar';
 
 export default function() {
   return {
-	  id: null,
-  	me: {},
+    id: null,
+    me: {},
     loggedIn: LocalStorage.getItem('loggedIn') || false,
     token: LocalStorage.getItem('token') || '',
     email: null,
@@ -17,6 +17,7 @@ export default function() {
     notifications: [],
     unreadNotifications: [],
     verified: LocalStorage.getItem('verified') || false,
-	  showValidateEmailReminder: LocalStorage.getItem('showValidateEmailReminder') || false
+    showValidateEmailReminder:
+      LocalStorage.getItem('showValidateEmailReminder') || false
   };
 }

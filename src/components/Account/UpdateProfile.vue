@@ -29,8 +29,6 @@
           </div>
 
           <text-input
-            outlined
-            dense
             label="Name"
             v-model="user.name"
             :readonly="!isEditing"
@@ -108,7 +106,7 @@ export default {
         position: null,
         contact_number: null
       },
-			loading: false
+      loading: false
     };
   },
   computed: {

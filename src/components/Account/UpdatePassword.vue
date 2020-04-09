@@ -8,55 +8,62 @@
       </p>
     </div>
     <div class="col-lg-8 col-md-6 col-xs-12">
-      <q-form ref="changePasswordForm" @submit="updatePasswordDialog" class="q-gutter-y-sm" greedy>
-				<div>
-					<span class="text-weight-bold">Current Password</span>
-					<q-input
-						outlined
-						dense
-						type="password"
-						v-model="old_password"
-						placeholder="Current Password"
-						:rules="[ val => !!val || 'Current password is required' ]"
-					/>
-				</div>
-				<div>
-					<span class="text-weight-bold">New Password</span>
-					<q-input
-						outlined
-						dense
-						type="password"
-						v-model="password"
-						placeholder="New Password"
-						:rules="[ val => val.length >= 8 || 'Password must at least be 8 characters' ]"
-					/>
-				</div>
-				<div>
-					<span class="text-weight-bold">Confirm New Password</span>
-					<q-input
-						outlined
-						dense
-						type="password"
-						v-model="password_confirmation"
-						placeholder="Confirm Password"
-						:rules="[
-							val => !!val || '* Required',
-							val => val === password || 'Password does not match'
-						]"
-					/>
-				</div>
-				<div>
-					<q-btn
-						glossy
-						label="Update Password"
-						class="text-capitalize"
-						dense
-						color="primary"
-						type="submit"
-						:disable="formIsInvalid"
-						:loading="loading"
-					/>
-				</div>
+      <q-form
+        ref="changePasswordForm"
+        @submit="updatePasswordDialog"
+        class="q-gutter-y-sm"
+        greedy
+      >
+        <div>
+          <span class="text-weight-bold">Current Password</span>
+          <q-input
+            outlined
+            dense
+            type="password"
+            v-model="old_password"
+            placeholder="Current Password"
+            :rules="[val => !!val || 'Current password is required']"
+          />
+        </div>
+        <div>
+          <span class="text-weight-bold">New Password</span>
+          <q-input
+            outlined
+            dense
+            type="password"
+            v-model="password"
+            placeholder="New Password"
+            :rules="[
+              val => val.length >= 8 || 'Password must at least be 8 characters'
+            ]"
+          />
+        </div>
+        <div>
+          <span class="text-weight-bold">Confirm New Password</span>
+          <q-input
+            outlined
+            dense
+            type="password"
+            v-model="password_confirmation"
+            placeholder="Confirm Password"
+            :rules="[
+              val => !!val || '* Required',
+              val => val === password || 'Password does not match'
+            ]"
+          />
+        </div>
+        <div>
+          <q-btn
+            glossy
+            label="Update Password"
+            class="text-capitalize"
+            dense
+            color="primary"
+            type="submit"
+            :disable="formIsInvalid"
+            :loading="loading"
+          />
+        </div>
       </q-form>
     </div>
   </div>
@@ -64,52 +71,56 @@
 
 <script>
 import { mapActions } from 'vuex';
-import ValidatorMixins from '../../mixins/ValidatorMixins';
+import ValidateEmailMixins from '../../mixins/ValidateEmailMixins';
 
 export default {
   name: 'UpdatePassword',
-	mixins: [ ValidatorMixins ],
+  mixins: [ValidateEmailMixins],
   data() {
     return {
       showPassword: false,
       old_password: '',
       password: '',
       password_confirmation: '',
-			loading: false
+      loading: false
     };
   },
-	computed: {
-		formIsInvalid() {
-			return (!this.old_password || (!this.password || !this.password.length >= 8) || (this.password_confirmation !== this.password));
-		}
-	},
+  computed: {
+    formIsInvalid() {
+      return (
+        !this.old_password ||
+        !this.password ||
+        !this.password.length >= 8 ||
+        this.password_confirmation !== this.password
+      );
+    }
+  },
   methods: {
     ...mapActions('auth', ['updatePassword']),
     updatePasswordDialog() {
       const { password, old_password, password_confirmation } = this.$data;
 
       this.$refs.changePasswordForm.validate().then(success => {
-      	if (success) {
-		      this.$q
-			      .dialog({
-				      title: 'Update Password',
-				      message:
-					      'Changing your password will log you out from the app. You will need to sign in again.',
-				      cancel: true,
-				      persistent: true
-			      })
-			      .onOk(() => {
-				      this.updatePassword({
-					      old_password: old_password,
-					      password: password,
-					      password_confirmation: password_confirmation
-				      });
-			      });
-				} else {
-      		alert('Please check form inputs for error');
-				}
-			})
-
+        if (success) {
+          this.$q
+            .dialog({
+              title: 'Update Password',
+              message:
+                'Changing your password will log you out from the app. You will need to sign in again.',
+              cancel: true,
+              persistent: true
+            })
+            .onOk(() => {
+              this.updatePassword({
+                old_password: old_password,
+                password: password,
+                password_confirmation: password_confirmation
+              });
+            });
+        } else {
+          alert('Please check form inputs for error');
+        }
+      });
     }
   }
 };

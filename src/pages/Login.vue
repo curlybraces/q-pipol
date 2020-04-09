@@ -19,110 +19,38 @@
             }}
           </div>
 
-					<q-separator spaced />
+          <q-separator spaced />
 
           <q-card-section class="q-pa-md">
-            <q-form
-              ref="loginForm"
-              class="q-gutter-md"
-              @submit="handleSubmit"
-              novalidate="true"
-              greedy
-            >
-              <q-input
-                outlined
-                placeholder="Full Name"
-                v-model="name"
-                v-if="tab == 'signup'"
-                :rules="required"
+            <login-form v-if="tab === 'login'"></login-form>
+            <signup-form v-else></signup-form>
+          </q-card-section>
+          <q-card-section class="q-gutter-md">
+            <div class="text-center">
+              <span
+                class="text-blue text-weight-lighter cursor-pointer"
+                @click="showForgotPasswordDialog"
               >
-                <template v-slot:prepend>
-                  <q-icon :name="laAtSolid"></q-icon>
-                </template>
-              </q-input>
-
-              <q-input
-                outlined
-                placeholder="Email"
-                type="email"
-                v-model="username"
-                :rules="required"
+                Forgot password
+              </span>
+            </div>
+            <div class="text-center" v-if="tab == 'login'">
+              Don't have an account?
+              <span
+                class="text-blue text-wight-bolder cursor-pointer"
+                @click="tab = 'signup'"
+                >Sign up</span
               >
-                <template v-slot:prepend>
-                  <q-icon name="email"></q-icon>
-                </template>
-                <template v-slot:append>
-                  <q-icon
-                    color="green"
-                    name="done_outline"
-                    v-if="availableEmail"
-                  />
-                </template>
-              </q-input>
-
-							<password-input
-								v-model="password"
-								:rules="required" />
-
-              <q-input
-                v-if="tab == 'signup'"
-                outlined
-                placeholder="Confirm Password"
-                :type="!passwordVisibility ? 'password' : 'text'"
-                v-model="password_confirmation"
-                :rules="required"
+            </div>
+            <div class="text-center" v-else>
+              Already have an account?
+              <span
+                class="text-blue text-weight-bolder cursor-pointer"
+                @click="tab = 'login'"
               >
-                <template v-slot:prepend>
-                  <q-icon name="vpn_key"></q-icon>
-                </template>
-                <template v-slot:append>
-                  <q-icon
-                    :name="
-                      !passwordVisibility ? 'visibility' : 'visibility_off'
-                    "
-                    @click="passwordVisibility = !passwordVisibility"
-                  ></q-icon>
-                </template>
-              </q-input>
-
-              <div class="row">
-                <q-btn
-                  size="lg"
-                  class="full-width btn-login"
-                  type="submit"
-                  :color="dark ? 'purple-1' : 'primary'"
-                  unelevated
-                  :loading="loading"
-                >
-                  {{ tab == 'login' ? 'Login' : 'Sign up' }}
-                </q-btn>
-              </div>
-              <div class="text-center">
-                <span
-                  class="text-blue text-weight-lighter cursor-pointer"
-                  @click="showForgotPasswordDialog"
-                >
-                  Forgot password
-                </span>
-              </div>
-              <div class="text-center" v-if="tab == 'login'">
-                Don't have an account?
-                <span
-                  class="text-blue text-wight-bolder cursor-pointer"
-                  @click="tab = 'signup'"
-                  >Sign up</span
-                >
-              </div>
-              <div class="text-center" v-else>
-                Already have an account?
-                <span
-                  class="text-blue text-weight-bolder cursor-pointer"
-                  @click="tab = 'login'"
-                >
-                  Login
-                </span>
-              </div>
-            </q-form>
+                Login
+              </span>
+            </div>
           </q-card-section>
         </q-card>
       </div>
@@ -136,26 +64,17 @@
 
 <script>
 import { mapActions, mapState } from 'vuex';
-import { laAtSolid } from '@quasar/extras/line-awesome';
 import { CHECK_EMAIL_AVAILABILITY_QUERY } from '../constants/graphql';
-import PasswordInput from '../components/FormInputs/PasswordInput';
+import LoginForm from '../components/login-page/LoginForm';
+import SignupForm from '../components/login-page/SignupForm';
 
 export default {
   name: 'PageLogin',
-	components: { PasswordInput },
-	data() {
+  components: { SignupForm, LoginForm },
+  data() {
     return {
-      passwordVisibility: false,
       appTitle: 'IP Online System',
-      name: null,
-      username: null,
-      password: null,
-      password_confirmation: null,
-      tab: 'login',
-      loading: false,
-      error: false,
-      errorMessage: null,
-      required: [val => !!val || '*Required']
+      tab: 'login'
     };
   },
   computed: {
@@ -165,12 +84,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('auth', [
-      'populateUser',
-      'loginUser',
-      'forgotPassword',
-      'register'
-    ]),
+    ...mapActions('auth', ['forgotPassword', 'register']),
     checkEmail() {
       const email = this.username;
 
@@ -196,13 +110,6 @@ export default {
           });
       }
     },
-    validEmail(email) {
-      const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return re.test(email);
-    },
-    passwordMatch(password) {
-      return password === this.password;
-    },
     showForgotPasswordDialog() {
       this.$q
         .dialog({
@@ -219,40 +126,7 @@ export default {
         .onOk(email => {
           this.forgotPassword(email);
         });
-    },
-    handleSubmit() {
-      const { name, username, password, password_confirmation } = this.$data;
-
-      this.$refs.loginForm.validate().then(success => {
-        if (success) {
-          this.loading = true;
-
-          if (this.tab == 'login') {
-            const payload = {
-              username: username,
-              password: password
-            };
-
-            this.loginUser(payload);
-          } else {
-            this.name = '';
-            this.password_confirmation = '';
-
-            this.register({
-              name: name,
-              email: username,
-              password: password,
-              password_confirmation: password_confirmation
-            }).then(res => console.log(res));
-          }
-          // Delay removal of loading indicator since it is sometimes too fast
-          setTimeout(() => (this.loading = false), 1000);
-        }
-      });
     }
-  },
-  created() {
-    this.laAtSolid = laAtSolid;
   }
 };
 </script>
@@ -261,11 +135,6 @@ export default {
 .my-card {
   width: 100%;
   max-width: 400px;
-}
-
-.btn-login {
-  text-transform: nne;
-  font-weight: 300;
 }
 
 .fab.fa-google {

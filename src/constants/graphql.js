@@ -11,11 +11,11 @@ export const LOGIN_MUTATION = gql`
           name
         }
         verified
-	      image_url
-	      operating_unit {
-		      id
-		      name
-	      }
+        image_url
+        operating_unit {
+          id
+          name
+        }
       }
       access_token
     }

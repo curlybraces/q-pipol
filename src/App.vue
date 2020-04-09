@@ -15,10 +15,10 @@ export default {
   methods: {
     ...mapActions('options', ['initializeOptions'])
   },
-	mounted() {
-  	if (this.loggedIn) {
-  		this.initializeOptions();
-		}
-	}
+  mounted() {
+    if (this.loggedIn) {
+      this.initializeOptions();
+    }
+  }
 };
 </script>

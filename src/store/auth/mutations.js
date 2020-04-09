@@ -63,7 +63,7 @@ export function SET_ME(state, value) {
 }
 
 export function SET_SHOW_VALIDATE_EMAIL_REMINDER(state, value) {
-	state.showValidateEmailReminder = value;
+  state.showValidateEmailReminder = value;
 }
 
 export function CLEAR_USER(state) {

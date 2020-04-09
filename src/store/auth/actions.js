@@ -1,6 +1,7 @@
-import { LocalStorage, Loading } from 'quasar';
+import {LocalStorage, Loading, Dialog} from 'quasar';
 import { apolloClient } from 'boot/apollo';
 import {
+  CHECK_EMAIL_AVAILABILITY_QUERY,
   FORGOT_PASSWORD_MUTATION,
   LOGIN_MUTATION,
   ME_QUERY,
@@ -33,15 +34,23 @@ export function loginUser({ commit, dispatch }, payload) {
       LocalStorage.set('token', res.data.login.access_token);
       LocalStorage.set('userId', res.data.login.user.id);
       LocalStorage.set('name', res.data.login.user.name);
-      LocalStorage.set('operating_unit_id', res.data.login.user.operating_unit ? res.data.login.user.operating_unit.id : null );
+      LocalStorage.set(
+        'operating_unit_id',
+        res.data.login.user.operating_unit
+          ? res.data.login.user.operating_unit.id
+          : null
+      );
       LocalStorage.set(
         'role',
         res.data.login.user.role ? res.data.login.user.role.name : null
       );
       LocalStorage.set('verified', res.data.login.user.verified);
       LocalStorage.set('image_url', res.data.login.user.image_url);
-      LocalStorage.set('showValidateEmailReminder', !res.data.login.user.verified);
-      
+      LocalStorage.set(
+        'showValidateEmailReminder',
+        !res.data.login.user.verified
+      );
+
       commit('SET_SHOW_VALIDATE_EMAIL_REMINDER', !res.data.login.user.verified);
 
       this.$router.push({ path: '/' });
@@ -92,13 +101,13 @@ export function populateUser({ commit }) {
 }
 
 export function hideValidateEmailReminder({ commit }, val) {
-	LocalStorage.set('showValidateEmailReminder', val);
-	commit('SET_SHOW_VALIDATE_EMAIL_REMINDER', val);
+  LocalStorage.set('showValidateEmailReminder', val);
+  commit('SET_SHOW_VALIDATE_EMAIL_REMINDER', val);
 }
 
 export function logoutUser({ commit }) {
   commit('projects/CLEAR_PROJECTS', null, { root: true });
-  
+
   commit('CLEAR_USER');
 
   LocalStorage.clear();
@@ -121,8 +130,8 @@ export function setImageUrl({ commit }, payload) {
         message: 'Successfully updated avatar.',
         icon: 'check'
       });
-      
-      LocalStorage.set('image_url',payload);
+
+      LocalStorage.set('image_url', payload);
 
       commit('SET_IMAGE_URL', payload);
     })
@@ -172,7 +181,7 @@ export function forgotPassword({}, email) {
     });
 }
 
-export function register({ commit, dispatch }, payload) {
+export function register({}, payload) {
   return apolloClient
     .mutate({
       mutation: REGISTER_MUTATION,
@@ -184,14 +193,14 @@ export function register({ commit, dispatch }, payload) {
       }
     })
     .then(res => {
-      commit('SET_LOGGED_IN', true);
-
-      LocalStorage.set('loggedIn', true);
-      LocalStorage.set('token', res.data.register.tokens.access_token);
-
-      this.$router.push({ path: '/' });
+      console.log(res);
+      Dialog.create({
+	      title: 'Registration Successful',
+	      message: 'You have successfully registered. Please check your email.',
+	      persistent: true,
+	      ok: true
+      });
     })
-    .then(() => dispatch('populateUser'))
     .catch(err => console.log(err.message));
 }
 
@@ -242,9 +251,9 @@ export function verifyEmail({ commit, dispatch }, token) {
 
 export function updatePassword({ dispatch }, payload) {
   const { old_password, password, password_confirmation } = payload;
-	
+
   Loading.show();
-  
+
   apolloClient
     .mutate({
       mutation: UPDATE_PASSWORD_MUTATION,
@@ -257,13 +266,31 @@ export function updatePassword({ dispatch }, payload) {
     .then(res => {
       console.log(res.data.updatePassword);
       if (res.data.updatePassword.status === 'PASSWORD_UPDATED') {
-      	dispatch('logoutUser');
+        dispatch('logoutUser');
       } else {
-      	return Promise.reject();
+        return Promise.reject();
       }
     })
     .catch(err => {
       showGraphQLErrorMessage(err);
     })
-	  .finally(() => Loading.hide());
+    .finally(() => Loading.hide());
+}
+
+export function checkEmailAvailability({}, payload) {
+  return apolloClient
+    .query({
+      query: CHECK_EMAIL_AVAILABILITY_QUERY,
+      variables: {
+        email: payload
+      }
+    })
+    .then(res => {
+      if (res.data.checkEmailAvailability.status === 'AVAILABLE') {
+        return true;
+      } else {
+        return false;
+      }
+    })
+    .catch(err => console.log(err.message));
 }
