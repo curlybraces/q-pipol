@@ -1,8 +1,6 @@
 import { apolloClient } from 'boot/apollo';
-import {
-  ALL_PROJECTS_QUERY,
-  DELETE_PROJECT_MUTATION
-} from '../../constants/graphql';
+import { DELETE_PROJECT_MUTATION } from '../../graphql/mutations';
+import { ALL_PROJECTS_QUERY } from '../../graphql/queries';
 import {
   showErrorNotification,
   showSuccessNotification

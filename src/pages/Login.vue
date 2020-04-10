@@ -64,7 +64,6 @@
 
 <script>
 import { mapActions, mapState } from 'vuex';
-import { CHECK_EMAIL_AVAILABILITY_QUERY } from '../constants/graphql';
 import LoginForm from '../components/login-page/LoginForm';
 import SignupForm from '../components/login-page/SignupForm';
 
@@ -85,31 +84,6 @@ export default {
   },
   methods: {
     ...mapActions('auth', ['forgotPassword', 'register']),
-    checkEmail() {
-      const email = this.username;
-
-      if (this.tab === 'signup' && this.validEmail(email)) {
-        console.log('begin checking email');
-        return this.$apollo
-          .query({
-            query: CHECK_EMAIL_AVAILABILITY_QUERY,
-            variables: {
-              email: email
-            }
-          })
-          .then(res => {
-            if (res.data.checkEmailAvailability.status === 'AVAILABLE') {
-              return true;
-            } else {
-              return false;
-            }
-          })
-          .catch(err => {
-            console.log(err.message);
-            return false;
-          });
-      }
-    },
     showForgotPasswordDialog() {
       this.$q
         .dialog({

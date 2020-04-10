@@ -1,4 +1,6 @@
-import gql from 'graphql-tag';
+import { gql } from 'apollo-boost';
+
+/* Auth */
 
 export const LOGIN_MUTATION = gql`
   mutation login($username: String!, $password: String!) {
@@ -45,41 +47,6 @@ export const REGISTER_MUTATION = gql`
   }
 `;
 
-export const CHECK_EMAIL_AVAILABILITY_QUERY = gql`
-  query checkEmailAvailability($email: String!) {
-    checkEmailAvailability(email: $email) {
-      message
-      status
-    }
-  }
-`;
-
-export const ACTIVATE_USER = gql`
-  mutation activateUser($id: ID!) {
-    activateUser(id: $id) {
-      user {
-        id
-        active
-      }
-      status
-      message
-    }
-  }
-`;
-
-export const DEACTIVATE_USER = gql`
-  mutation deactivateUser($id: ID!) {
-    deactivateUser(id: $id) {
-      user {
-        id
-        active
-      }
-      status
-      message
-    }
-  }
-`;
-
 export const RESEND_EMAIL_VERIFICATION_MUTATION = gql`
   mutation resendEmailVerification($email: String!) {
     resendEmailVerification(input: { email: $email }) {
@@ -115,137 +82,6 @@ export const UPDATE_PASSWORD_MUTATION = gql`
   }
 `;
 
-export const ME_QUERY = gql`
-  query me {
-    me {
-      id
-      name
-      email
-      position
-      verified
-      operating_unit_id
-      operating_unit {
-        id
-        image
-      }
-      contact_number
-      role {
-        name
-      }
-      image_url
-    }
-  }
-`;
-
-export const FETCH_NOTIFICATIONS_QUERY = gql`
-  query me {
-    me {
-      id
-      name
-      email
-      position
-      verified
-      operating_unit_id
-      operating_unit {
-        id
-        image
-      }
-      contact_number
-      role {
-        name
-      }
-      image_url
-      notifications {
-        id
-        type
-        notifiable_id
-        notifiable_type
-        notifiable {
-          name
-        }
-        data {
-          id
-          from
-          title
-          message
-        }
-        read_at
-        created_at
-        updated_at
-      }
-    }
-  }
-`;
-
-export const FETCH_UNREAD_NOTIFICATIONS_QUERY = gql`
-  query me {
-    me {
-      id
-      unreadNotifications {
-        id
-        type
-        notifiable_id
-        notifiable_type
-        notifiable {
-          name
-        }
-        data {
-          id
-          from
-          title
-          message
-        }
-        read_at
-        created_at
-        updated_at
-      }
-    }
-  }
-`;
-
-export const MARK_AS_READ_MUTATION = gql`
-  mutation markAsRead($id: ID!) {
-    markAsRead(id: $id) {
-      status
-    }
-  }
-`;
-
-export const MARK_ALL_AS_READ_MUTATION = gql`
-  mutation markAllAsRead {
-    markAllAsRead {
-      status
-    }
-  }
-`;
-
-export const ASSIGN_ROLE_MUTATION = gql`
-  mutation assignRole($user_id: ID!, $role_id: ID) {
-    assignRole(user_id: $user_id, role_id: $role_id) {
-      user {
-        id
-        role {
-          id
-          name
-        }
-      }
-      status
-      message
-    }
-  }
-`;
-
-export const ASSIGN_OPERATING_UNIT_TO_REVIEW_MUTATION = gql`
-  mutation assignOperatingUnitToReview($user_id: ID!, $operating_units: [ID]!) {
-    assignOperatingUnitToReview(
-      user_id: $user_id
-      operating_units: $operating_units
-    ) {
-      message
-    }
-  }
-`;
-
 export const UPDATE_IMAGE_URL_MUTATION = gql`
   mutation updateImageUrlMutation($image_url: String!) {
     updateImageUrlMutation(image_url: $image_url) {
@@ -274,32 +110,6 @@ export const UPDATE_PROFILE_MUTATION = gql`
   }
 `;
 
-export const ALL_USERS = gql`
-  query users {
-    users {
-      id
-      name
-      email
-      position
-      active
-      verified
-      image_url
-      operating_unit {
-        name
-      }
-      role {
-        id
-        name
-      }
-      reviews {
-        id
-        acronym
-      }
-      created_at
-    }
-  }
-`;
-
 export const FORGOT_PASSWORD_MUTATION = gql`
   mutation forgotPassword($email: String!) {
     forgotPassword(input: { email: $email }) {
@@ -308,6 +118,195 @@ export const FORGOT_PASSWORD_MUTATION = gql`
     }
   }
 `;
+
+/* Notifications */
+
+export const MARK_AS_READ_MUTATION = gql`
+  mutation markAsRead($id: ID!) {
+    markAsRead(id: $id) {
+      status
+    }
+  }
+`;
+
+export const MARK_ALL_AS_READ_MUTATION = gql`
+  mutation markAllAsRead {
+    markAllAsRead {
+      status
+    }
+  }
+`;
+
+/* Resources */
+
+export const CREATE_RESOURCE_MUTATION = gql`
+  mutation createResource(
+    $title: String
+    $description: String
+    $url: String
+    $image_url: String
+    $document_type: String
+  ) {
+    createResource(
+      input: {
+        title: $title
+        description: $description
+        url: $url
+        image_url: $image_url
+        document_type: $document_type
+      }
+    ) {
+      id
+      title
+      description
+      url
+      image_url
+      document_type
+      adder {
+        name
+      }
+      created_at
+      updated_at
+    }
+  }
+`;
+
+export const DELETE_RESOURCE_MUTATION = gql`
+  mutation deleteResource($id: ID!) {
+    deleteResource(id: $id) {
+      id
+      title
+    }
+  }
+`;
+
+/* Contacts */
+
+export const CREATE_CONTACT_MUTATION = gql`
+  mutation createContact(
+    $name: String
+    $designation: String
+    $operating_unit_id: ID
+    $email: String
+    $phone_number: String
+    $fax_number: String
+  ) {
+    createContact(
+      input: {
+        name: $name
+        designation: $designation
+        operating_unit_id: $operating_unit_id
+        email: $email
+        phone_number: $phone_number
+        fax_number: $fax_number
+      }
+    ) {
+      id
+      name
+      operating_unit {
+        id
+        name
+      }
+      designation
+      operating_unit_id
+      email
+      phone_number
+      fax_number
+    }
+  }
+`;
+
+export const UPDATE_CONTACT_MUTATION = gql`
+  mutation updateContact(
+    $id: ID!
+    $name: String
+    $designation: String
+    $operating_unit_id: ID
+    $email: String
+    $phone_number: String
+    $fax_number: String
+  ) {
+    updateContact(
+      input: {
+        id: $id
+        name: $name
+        designation: $designation
+        operating_unit_id: $operating_unit_id
+        email: $email
+        phone_number: $phone_number
+        fax_number: $fax_number
+      }
+    ) {
+      id
+      name
+    }
+  }
+`;
+
+export const DELETE_CONTACT_MUTATION = gql`
+  mutation deleteContact($id: ID!) {
+    deleteContact(id: $id) {
+      id
+    }
+  }
+`;
+
+/* Users */
+
+export const ASSIGN_OPERATING_UNIT_TO_REVIEW_MUTATION = gql`
+  mutation assignOperatingUnitToReview($user_id: ID!, $operating_units: [ID]!) {
+    assignOperatingUnitToReview(
+      user_id: $user_id
+      operating_units: $operating_units
+    ) {
+      message
+    }
+  }
+`;
+
+export const ASSIGN_ROLE_MUTATION = gql`
+  mutation assignRole($user_id: ID!, $role_id: ID) {
+    assignRole(user_id: $user_id, role_id: $role_id) {
+      user {
+        id
+        role {
+          id
+          name
+        }
+      }
+      status
+      message
+    }
+  }
+`;
+
+export const ACTIVATE_USER = gql`
+  mutation activateUser($id: ID!) {
+    activateUser(id: $id) {
+      user {
+        id
+        active
+      }
+      status
+      message
+    }
+  }
+`;
+
+export const DEACTIVATE_USER = gql`
+  mutation deactivateUser($id: ID!) {
+    deactivateUser(id: $id) {
+      user {
+        id
+        active
+      }
+      status
+      message
+    }
+  }
+`;
+
+/* Projects */
 
 export const CREATE_PROJECT_MUTATION = gql`
   mutation createProject(
@@ -1131,391 +1130,11 @@ export const FETCH_PROJECT_QUERY = gql`
   }
 `;
 
-export const ALL_PROJECTS_QUERY = gql`
-  query projects($first: Int!, $after: String) {
-    projects(first: $first, after: $after) {
-      edges {
-        node {
-          id
-          title
-          operating_unit {
-            name
-            image
-            acronym
-          }
-          description
-          total_project_cost
-          can_update
-          creator {
-            name
-          }
-          created_at
-          updated_at
-        }
-      }
-      pageInfo {
-        total
-        count
-        currentPage
-        endCursor
-        startCursor
-        hasNextPage
-        hasPreviousPage
-      }
-    }
-  }
-`;
-
-export const DELETED_PROJECTS_QUERY = gql`
-  query projects {
-    projects(trashed: ONLY) {
-      data {
-        id
-        title
-        operating_unit {
-          name
-          image
-        }
-        description
-        total_project_cost
-      }
-      paginatorInfo {
-        currentPage
-        total
-        perPage
-        lastPage
-      }
-    }
-  }
-`;
-
 export const DELETE_PROJECT_MUTATION = gql`
   mutation deleteProject($id: ID!) {
     deleteProject(id: $id) {
       id
       title
-    }
-  }
-`;
-
-export const FETCH_DISTRICTS = gql`
-  query districts {
-    districts {
-      id
-      name
-      province_id
-    }
-  }
-`;
-
-export const FETCH_FUNDING_SOURCES = gql`
-  query funding_sources {
-    funding_sources {
-      id
-      name
-    }
-  }
-`;
-
-export const FETCH_OPERATING_UNITS = gql`
-  query operating_units {
-    operating_units {
-      id
-      name
-    }
-  }
-`;
-
-export const FETCH_PROJECT_STATUSES = gql`
-  query project_statuses {
-    project_statuses {
-      id
-      name
-    }
-  }
-`;
-
-export const FETCH_PROVINCES = gql`
-  query provinces {
-    provinces {
-      id
-      name
-      region_id
-    }
-  }
-`;
-
-export const FETCH_REGIONS = gql`
-  query regions {
-    regions {
-      id
-      name
-    }
-  }
-`;
-
-export const FETCH_SPATIAL_COVERAGES = gql`
-  query spatial_coverages {
-    spatial_coverages {
-      id
-      name
-    }
-  }
-`;
-
-export const FETCH_TECHNICAL_READINESSES = gql`
-  query technical_readinesses {
-    technical_readinesses {
-      id
-      name
-    }
-  }
-`;
-
-export const FETCH_ROLES = gql`
-  query roles {
-    roles {
-      id
-      name
-    }
-  }
-`;
-
-export const FETCH_CONTACTS = gql`
-  query {
-    contacts {
-      id
-      user_id
-      name
-      email
-      phone_number
-      fax_number
-      email
-      designation
-      operating_unit {
-        id
-        name
-        image
-        acronym
-      }
-      operating_unit_id
-    }
-  }
-`;
-
-export const CREATE_CONTACT_MUTATION = gql`
-  mutation createContact(
-    $name: String
-    $designation: String
-    $operating_unit_id: ID
-    $email: String
-    $phone_number: String
-    $fax_number: String
-  ) {
-    createContact(
-      input: {
-        name: $name
-        designation: $designation
-        operating_unit_id: $operating_unit_id
-        email: $email
-        phone_number: $phone_number
-        fax_number: $fax_number
-      }
-    ) {
-      id
-      name
-      operating_unit {
-        id
-        name
-      }
-      designation
-      operating_unit_id
-      email
-      phone_number
-      fax_number
-    }
-  }
-`;
-
-export const UPDATE_CONTACT_MUTATION = gql`
-  mutation updateContact(
-    $id: ID!
-    $name: String
-    $designation: String
-    $operating_unit_id: ID
-    $email: String
-    $phone_number: String
-    $fax_number: String
-  ) {
-    updateContact(
-      input: {
-        id: $id
-        name: $name
-        designation: $designation
-        operating_unit_id: $operating_unit_id
-        email: $email
-        phone_number: $phone_number
-        fax_number: $fax_number
-      }
-    ) {
-      id
-      name
-    }
-  }
-`;
-
-export const DELETE_CONTACT_MUTATION = gql`
-  mutation deleteContact($id: ID!) {
-    deleteContact(id: $id) {
-      id
-    }
-  }
-`;
-
-export const FETCH_ACTIVITIES = gql`
-  query {
-    me {
-      activities {
-        id
-        description
-        properties
-        subject {
-          id
-          name
-          title
-        }
-        causer {
-          id
-          name
-        }
-        created_at
-        updated_at
-      }
-    }
-  }
-`;
-
-export const FETCH_TIERS = gql`
-  query {
-    tiers {
-      id
-      name
-    }
-  }
-`;
-
-export const FETCH_TYPOLOGIES = gql`
-  query {
-    typologies {
-      id
-      name
-    }
-  }
-`;
-
-export const FETCH_IMPLEMENTATION_MODES = gql`
-  query {
-    implementation_modes {
-      id
-      name
-    }
-  }
-`;
-
-export const FETCH_YEARS = gql`
-  query {
-    years {
-      id
-      name
-    }
-  }
-`;
-
-export const FETCH_RESOURCES_QUERY = gql`
-  query {
-    resources {
-      id
-      title
-      description
-      url
-      image_url
-      document_type
-      adder {
-        name
-      }
-      updater {
-        name
-      }
-      deleter {
-        name
-      }
-      created_at
-      updated_at
-    }
-  }
-`;
-
-export const CREATE_RESOURCE_MUTATION = gql`
-  mutation createResource(
-    $title: String
-    $description: String
-    $url: String
-    $image_url: String
-    $document_type: String
-  ) {
-    createResource(
-      input: {
-        title: $title
-        description: $description
-        url: $url
-        image_url: $image_url
-        document_type: $document_type
-      }
-    ) {
-      id
-      title
-      description
-      url
-      image_url
-      document_type
-      adder {
-        name
-      }
-      created_at
-      updated_at
-    }
-  }
-`;
-
-export const DELETE_RESOURCE_MUTATION = gql`
-  mutation deleteResource($id: ID!) {
-    deleteResource(id: $id) {
-      id
-      title
-    }
-  }
-`;
-
-export const FETCH_CITY_MUNICIPALITIES_QUERY = gql`
-  query city_municipalities {
-    city_municipalities {
-      id
-      name
-    }
-  }
-`;
-
-export const FETCH_REVIEWERS_QUERY = gql`
-  query reviewers {
-    reviewers {
-      id
-      name
-      reviews {
-        id
-        projects {
-          id
-        }
-      }
     }
   }
 `;

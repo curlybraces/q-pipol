@@ -22,7 +22,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import { FETCH_CITY_MUNICIPALITIES_QUERY } from '../../../constants/graphql';
+import { FETCH_CITY_MUNICIPALITIES_QUERY } from '../../../constants/_graphql';
 
 export default {
   name: 'CityMunicipality',

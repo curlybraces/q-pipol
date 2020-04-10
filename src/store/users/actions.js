@@ -2,10 +2,10 @@ import { apolloClient } from '../../boot/apollo';
 import {
   ACTIVATE_USER,
   DEACTIVATE_USER,
-  ALL_USERS,
   ASSIGN_ROLE_MUTATION,
   ASSIGN_OPERATING_UNIT_TO_REVIEW_MUTATION
-} from '../../constants/graphql';
+} from '../../graphql/mutations';
+import { ALL_USERS } from '../../graphql/queries';
 import {
   showErrorNotification,
   showSuccessNotification

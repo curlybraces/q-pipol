@@ -120,7 +120,7 @@ import JsonExcel from 'vue-json-excel';
 import ContactLoading from '../components/Directory/ContactLoading';
 import PageTitle from '../components/PageTitle';
 import AdminMixins from '../mixins/AdminMixins';
-import { FETCH_CONTACTS } from '../constants/graphql';
+import { FETCH_CONTACTS } from '../graphql/queries';
 
 export default {
   components: { PageTitle, ContactLoading, AddContact, ContactItem, JsonExcel },

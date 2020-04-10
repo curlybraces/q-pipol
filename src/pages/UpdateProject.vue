@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { VIEW_PROJECT, UPDATE_PROJECT } from '../constants/graphql';
+import { VIEW_PROJECT, UPDATE_PROJECT } from '../constants/_graphql';
 
 export default {
   name: 'PageUpdateProject',
