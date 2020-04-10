@@ -26,7 +26,7 @@
       </q-btn>
     </page-title>
 
-    <div class="q-pa-sm" v-if="contactsFromFile.length">
+		<div class="q-pa-sm" v-if="contactsFromFile.length">
       <q-table title="Preview" :columns="columns" :data="contactsFromFile">
         <template v-slot:top-right>
           <q-btn
@@ -71,7 +71,7 @@
 
         <template v-if="!loading">
           <contact-item
-            v-for="contact in contactsFiltered"
+            v-for="contact in contacts"
             :contact="contact"
             :key="contact.id"
           ></contact-item>
@@ -120,11 +120,17 @@ import JsonExcel from 'vue-json-excel';
 import ContactLoading from '../components/Directory/ContactLoading';
 import PageTitle from '../components/PageTitle';
 import AdminMixins from '../mixins/AdminMixins';
+import { FETCH_CONTACTS } from '../constants/graphql';
 
 export default {
   components: { PageTitle, ContactLoading, AddContact, ContactItem, JsonExcel },
   name: 'PageDirectory',
   mixins: [AdminMixins],
+	apollo: {
+  	contacts: {
+  		query: FETCH_CONTACTS
+		}
+	},
   computed: {
     ...mapState('contacts', ['search', 'loading', 'error']),
     ...mapGetters('contacts', ['contactsFiltered']),
@@ -145,7 +151,7 @@ export default {
         const contact = {
           id: this.contactsFiltered[key]['id'],
           name: this.contactsFiltered[key]['name'],
-          office: this.contactsFiltered[key]['operating_unit']['acronym'],
+          office: this.contactsFiltered[key]['operating_unit'] ? this.contactsFiltered[key]['operating_unit']['acronym']: null,
           email: this.contactsFiltered[key]['email'],
           phone_number: this.contactsFiltered[key]['phone_number']
         };
@@ -157,6 +163,7 @@ export default {
   },
   data() {
     return {
+	    contacts: [],
       file: null,
       addContactDialog: false,
       importCsvDialog: false,
