@@ -4,7 +4,7 @@
       <q-btn flat round color="primary" icon="build">
         <q-menu transition-show="jump-up" transition-hide="jump-up">
           <q-list>
-            <json-excel :data="contactsArray">
+            <json-excel :data="contacts">
               <q-item clickable>
                 <q-item-section>
                   Download
@@ -26,7 +26,7 @@
       </q-btn>
     </page-title>
 
-		<div class="q-pa-sm" v-if="contactsFromFile.length">
+    <div class="q-pa-sm" v-if="contactsFromFile.length">
       <q-table title="Preview" :columns="columns" :data="contactsFromFile">
         <template v-slot:top-right>
           <q-btn
@@ -56,20 +56,20 @@
         </q-input>
       </div>
 
-      <q-inner-loading :showing="loading">
+      <q-inner-loading :showing="$apollo.loading">
         <q-spinner-dots size="50px" color="primary" />
       </q-inner-loading>
 
       <div class="row item-start q-col-gutter-md">
-        <template v-if="loading">
-          <contact-loading v-for="i in 4" :key="i"></contact-loading>
+        <template v-if="$apollo.loading">
+          <contact-loading v-for="i in 3" :key="i"></contact-loading>
         </template>
 
-        <template v-if="!loading && !Object.keys(contactsFiltered).length">
+        <template v-if="!$apollo.loading && !contacts.length">
           <div>No contacts yet.</div>
         </template>
 
-        <template v-if="!loading">
+        <template v-if="!$apollo.loading">
           <contact-item
             v-for="contact in contacts"
             :contact="contact"
@@ -113,9 +113,9 @@
 
 <script>
 import * as Papa from 'papaparse';
+import { mapState, mapActions, mapGetters } from 'vuex';
 import AddContact from '../components/Directory/AddEditContact/AddContact';
 import ContactItem from '../components/Directory/ContactItem';
-import { mapState, mapActions, mapGetters } from 'vuex';
 import JsonExcel from 'vue-json-excel';
 import ContactLoading from '../components/Directory/ContactLoading';
 import PageTitle from '../components/PageTitle';
@@ -126,13 +126,13 @@ export default {
   components: { PageTitle, ContactLoading, AddContact, ContactItem, JsonExcel },
   name: 'PageDirectory',
   mixins: [AdminMixins],
-	apollo: {
-  	contacts: {
-  		query: FETCH_CONTACTS
-		}
-	},
+  apollo: {
+    contacts: {
+      query: FETCH_CONTACTS
+    }
+  },
   computed: {
-    ...mapState('contacts', ['search', 'loading', 'error']),
+    ...mapState('contacts', ['search', 'error']),
     ...mapGetters('contacts', ['contactsFiltered']),
     ...mapGetters('settings', ['buttonColor']),
     ...mapState('options', ['operating_units']),
@@ -143,27 +143,11 @@ export default {
       set(val) {
         this.setSearch(val);
       }
-    },
-    contactsArray() {
-      let contactsArray = [];
-
-      Object.keys(this.contactsFiltered).map(key => {
-        const contact = {
-          id: this.contactsFiltered[key]['id'],
-          name: this.contactsFiltered[key]['name'],
-          office: this.contactsFiltered[key]['operating_unit'] ? this.contactsFiltered[key]['operating_unit']['acronym']: null,
-          email: this.contactsFiltered[key]['email'],
-          phone_number: this.contactsFiltered[key]['phone_number']
-        };
-        contactsArray.push(contact);
-      });
-
-      return contactsArray;
     }
   },
   data() {
     return {
-	    contacts: [],
+      contacts: [],
       file: null,
       addContactDialog: false,
       importCsvDialog: false,
@@ -252,8 +236,6 @@ export default {
     }
   },
   mounted() {
-    this.fetchContacts();
-
     window.addEventListener('keydown', e => {
       if (e.ctrlKey && e.keyCode === 70) {
         e.preventDefault();

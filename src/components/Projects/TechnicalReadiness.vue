@@ -96,11 +96,9 @@ import { TECHNICAL_READINESSES } from '../../data/dropdown-values';
 
 export default {
   components: {
-    'checkbox-input': () =>
-      import('../form-inputs/CheckboxInput.vue'),
+    'checkbox-input': () => import('../form-inputs/CheckboxInput.vue'),
     'date-input': () => import('../form-inputs/DateInput.vue'),
-    'list-option-group': () =>
-      import('../form-inputs/ListOptionGroup.vue'),
+    'list-option-group': () => import('../form-inputs/ListOptionGroup.vue'),
     'other-costs': () => import('../../components/Projects/OtherCosts.vue')
   },
   name: 'TechnicalReadiness',

@@ -1,4 +1,4 @@
-import {LocalStorage, Loading, Dialog} from 'quasar';
+import { LocalStorage, Loading, Dialog } from 'quasar';
 import { apolloClient } from 'boot/apollo';
 import {
   CHECK_EMAIL_AVAILABILITY_QUERY,
@@ -195,10 +195,10 @@ export function register({}, payload) {
     .then(res => {
       console.log(res);
       Dialog.create({
-	      title: 'Registration Successful',
-	      message: 'You have successfully registered. Please check your email.',
-	      persistent: true,
-	      ok: true
+        title: 'Registration Successful',
+        message: 'You have successfully registered. Please check your email.',
+        persistent: true,
+        ok: true
       });
     })
     .catch(err => console.log(err.message));

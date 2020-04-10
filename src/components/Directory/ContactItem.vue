@@ -70,7 +70,7 @@
           label="Edit"
           @click="updateContactDialog = true"
           dense
-          color="blue"
+          color="primary"
         />
       </q-card-actions>
 
@@ -148,10 +148,10 @@ export default {
     searchHighlight(val, search) {
       let searchRegExp = new RegExp(search, 'ig');
       if (val) {
-	      return val.replace(searchRegExp, match => {
-		      return '<span class="bg-yellow-6">' + match + '</span>';
-	      });
-			}
+        return val.replace(searchRegExp, match => {
+          return '<span class="bg-yellow-6">' + match + '</span>';
+        });
+      }
       return '';
     }
   },

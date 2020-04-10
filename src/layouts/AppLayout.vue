@@ -114,12 +114,13 @@
     </q-footer>
 
     <q-page-container>
-			<transition
-				appear
-				enter-active-class="animated zoomIn"
-				leave-active-class="animated zoomOut">
-      	<router-view />
-			</transition>
+      <transition
+        appear
+        enter-active-class="animated zoomIn"
+        leave-active-class="animated zoomOut"
+      >
+        <router-view />
+      </transition>
     </q-page-container>
   </q-layout>
 </template>
