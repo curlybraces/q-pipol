@@ -22,7 +22,7 @@ import { mapState } from 'vuex';
 import RegionFinancial from './RegionFinancial/RegionFinancial';
 import FundingSources from './FundingSources/FundingSources';
 import TargetInvestment from './TargetInvestment';
-import SingleSelect from '../FormInputs/SingleSelect';
+import SingleSelect from '../form-inputs/SingleSelect';
 
 export default {
   components: {

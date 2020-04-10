@@ -49,8 +49,8 @@ import { YEARS } from '../../data/dropdown-values';
 
 export default {
   components: {
-    'single-select': () => import('../FormInputs/SingleSelect.vue'),
-    'date-input': () => import('../FormInputs/DateInput.vue')
+    'single-select': () => import('../form-inputs/SingleSelect.vue'),
+    'date-input': () => import('../form-inputs/DateInput.vue')
   },
   name: 'ImplementationPeriod',
   props: ['dense'],

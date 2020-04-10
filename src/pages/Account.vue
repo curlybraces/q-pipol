@@ -16,9 +16,9 @@
 
 <script>
 import PageTitle from '../components/PageTitle';
-import UpdatePassword from '../components/Account/UpdatePassword';
-import UpdateProfile from '../components/Account/UpdateProfile';
-import VerifyEmail from '../components/Account/VerifyEmail';
+import UpdatePassword from '../components/account-page/UpdatePassword';
+import UpdateProfile from '../components/account-page/UpdateProfile';
+import VerifyEmail from '../components/account-page/VerifyEmail';
 
 export default {
   name: 'PageAccount',

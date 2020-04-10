@@ -72,9 +72,9 @@ import { TYPES } from '../../data/dropdown-values.js';
 
 export default {
   components: {
-    'money-input': () => import('../FormInputs/MoneyInput.vue'),
-    'single-select': () => import('../FormInputs/SingleSelect.vue'),
-    'text-input': () => import('../FormInputs/TextInput.vue')
+    'money-input': () => import('../form-inputs/MoneyInput.vue'),
+    'single-select': () => import('../form-inputs/SingleSelect.vue'),
+    'text-input': () => import('../form-inputs/TextInput.vue')
   },
   name: 'BasicInformation',
   computed: {

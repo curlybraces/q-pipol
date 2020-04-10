@@ -28,8 +28,8 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import PasswordInput from '../FormInputs/PasswordInput';
-import EmailInput from '../FormInputs/EmailInput';
+import PasswordInput from '../form-inputs/PasswordInput';
+import EmailInput from '../form-inputs/EmailInput';
 import ValidateEmailMixins from '../../mixins/ValidateEmailMixins';
 
 export default {

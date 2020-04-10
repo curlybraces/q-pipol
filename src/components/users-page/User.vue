@@ -122,8 +122,8 @@ import { mapActions, mapGetters } from 'vuex';
 
 export default {
   components: {
-    'assign-roles': () => import('../Users/AssignRoles.vue'),
-    'assign-ous': () => import('../Users/AssignOus.vue')
+    'assign-roles': () => import('.//AssignRoles.vue'),
+    'assign-ous': () => import('.//AssignOus.vue')
   },
   name: 'User',
   props: ['id', 'user', 'value'],

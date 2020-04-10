@@ -39,7 +39,7 @@
 <script>
 import gql from 'graphql-tag';
 import PageTitle from '../components/PageTitle';
-import CheckboxImage from '../components/FormInputs/CheckboxImage';
+import CheckboxImage from '../components/form-inputs/CheckboxImage';
 
 export default {
   components: { CheckboxImage, PageTitle },

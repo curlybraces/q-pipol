@@ -110,7 +110,7 @@
 import { mapState, mapActions } from 'vuex';
 import PageTitle from '../components/PageTitle';
 import { openURL, Dialog } from 'quasar';
-import TextInput from '../components/FormInputs/TextInput';
+import TextInput from '../components/form-inputs/TextInput';
 import AdminMixins from '../mixins/AdminMixins';
 
 export default {

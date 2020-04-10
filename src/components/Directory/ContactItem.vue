@@ -4,7 +4,7 @@
       <q-item>
         <q-item-section avatar>
           <q-avatar class="text-white text-weight-bold" color="orange-10">
-            {{ contact.name.charAt(0) }}
+            {{ contact.name ? contact.name.charAt(0) : '' }}
           </q-avatar>
         </q-item-section>
         <q-item-section>
@@ -147,9 +147,12 @@ export default {
   filters: {
     searchHighlight(val, search) {
       let searchRegExp = new RegExp(search, 'ig');
-      return val.replace(searchRegExp, match => {
-        return '<span class="bg-yellow-6">' + match + '</span>';
-      });
+      if (val) {
+	      return val.replace(searchRegExp, match => {
+		      return '<span class="bg-yellow-6">' + match + '</span>';
+	      });
+			}
+      return '';
     }
   },
   mounted() {

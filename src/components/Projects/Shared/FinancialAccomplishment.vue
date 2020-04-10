@@ -155,7 +155,7 @@
 <script>
 export default {
   components: {
-    'money-input': () => import('../../FormInputs/MoneyInput.vue')
+    'money-input': () => import('../../form-inputs/MoneyInput.vue')
   },
   name: 'FinancialAccomplishment',
   props: ['data'],

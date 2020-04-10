@@ -56,8 +56,8 @@ import { IMPLEMENTATION_BASES } from '../../data/dropdown-values';
 
 export default {
   components: {
-    'multi-select': () => import('../FormInputs/MultiSelect.vue'),
-    'text-input': () => import('../FormInputs/TextInput.vue')
+    'multi-select': () => import('../form-inputs/MultiSelect.vue'),
+    'text-input': () => import('../form-inputs/TextInput.vue')
   },
   name: 'AdditionalInformation',
   props: ['dense'],

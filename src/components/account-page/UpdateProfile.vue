@@ -88,9 +88,9 @@
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex';
-import SingleSelect from '../FormInputs/SingleSelect';
-import TextInput from '../FormInputs/TextInput';
-import ChooseAvatar from '../Account/ChooseAvatar';
+import SingleSelect from '../form-inputs/SingleSelect';
+import TextInput from '../form-inputs/TextInput';
+import ChooseAvatar from './/ChooseAvatar';
 
 export default {
   components: { SingleSelect, TextInput, ChooseAvatar },

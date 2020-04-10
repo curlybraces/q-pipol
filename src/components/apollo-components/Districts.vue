@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import SingleSelect from '../FormInputs/SingleSelect';
+import SingleSelect from '../form-inputs/SingleSelect';
 import { FETCH_DISTRICTS } from '../../constants/graphql';
 
 export default {

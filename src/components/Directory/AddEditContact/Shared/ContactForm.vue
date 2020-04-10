@@ -15,8 +15,8 @@
 
 <script>
 import { mapState } from 'vuex';
-import TextInput from '../../../FormInputs/TextInput';
-import SingleSelect from '../../../FormInputs/SingleSelect';
+import TextInput from '../../../form-inputs/TextInput';
+import SingleSelect from '../../../form-inputs/SingleSelect';
 
 export default {
   name: 'ContactForm',

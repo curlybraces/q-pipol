@@ -41,9 +41,9 @@
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex';
-import User from '../components/Users/User';
+import User from '../components/users-page/User';
 import PageTitle from '../components/PageTitle';
-import SortMenu from '../components/Users/SortMenu';
+import SortMenu from '../components/users-page/SortMenu';
 
 export default {
   components: { SortMenu, PageTitle, User },

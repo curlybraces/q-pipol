@@ -1,5 +1,5 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import UpdateProfile from 'src/components/Account/UpdateProfile';
+import UpdateProfile from 'src/components/account-page/UpdateProfile';
 import createStore from 'src/store/index';
 
 const localVue = createLocalVue()
