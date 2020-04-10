@@ -246,8 +246,6 @@ export default {
     },
     saveContacts() {},
     uploadCsv() {
-      // const file = this.$refs.importedCsv.files[0];
-      // console.log(file);
       this.handleCsvFile(this.file);
     }
   },
