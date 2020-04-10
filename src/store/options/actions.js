@@ -13,7 +13,7 @@ import {
   FETCH_TIERS,
   FETCH_TYPOLOGIES,
   FETCH_IMPLEMENTATION_MODES
-} from '../../constants/graphql';
+} from '../../graphql/queries';
 
 export function fetchDistricts({ commit }) {
   apolloClient

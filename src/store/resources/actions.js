@@ -1,9 +1,9 @@
 import { apolloClient } from '../../boot/apollo';
 import {
   CREATE_RESOURCE_MUTATION,
-  DELETE_RESOURCE_MUTATION,
-  FETCH_RESOURCES_QUERY
-} from '../../constants/graphql';
+  DELETE_RESOURCE_MUTATION
+} from '../../graphql/mutations';
+import { FETCH_RESOURCES_QUERY } from '../../graphql/queries';
 import {
   showErrorNotification,
   showSuccessNotification

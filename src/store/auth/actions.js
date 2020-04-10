@@ -2,16 +2,18 @@ import { LocalStorage, Loading, Dialog } from 'quasar';
 import { apolloClient } from 'boot/apollo';
 import {
   CHECK_EMAIL_AVAILABILITY_QUERY,
-  FORGOT_PASSWORD_MUTATION,
+  ME_QUERY
+} from '../../graphql/queries';
+import {
   LOGIN_MUTATION,
-  ME_QUERY,
   REGISTER_MUTATION,
   RESEND_EMAIL_VERIFICATION_MUTATION,
-  UPDATE_IMAGE_URL_MUTATION,
   UPDATE_PASSWORD_MUTATION,
-  UPDATE_PROFILE_MUTATION,
-  VERIFY_EMAIL_MUTATION
-} from '../../constants/graphql';
+  VERIFY_EMAIL_MUTATION,
+  FORGOT_PASSWORD_MUTATION,
+  UPDATE_IMAGE_URL_MUTATION,
+  UPDATE_PROFILE_MUTATION
+} from '../../graphql/mutations';
 import { showGraphQLErrorMessage } from 'src/functions/function-graphql-error-messages';
 import {
   showErrorNotification,

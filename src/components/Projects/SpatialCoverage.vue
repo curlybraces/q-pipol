@@ -55,7 +55,7 @@
 <script>
 import { mapState } from 'vuex';
 import { mapFields } from 'vuex-map-fields';
-import { FETCH_CITY_MUNICIPALITIES_QUERY } from '../../constants/graphql';
+import { FETCH_CITY_MUNICIPALITIES_QUERY } from '../../graphql/queries';
 import SingleSelect from '../form-inputs/SingleSelect';
 import MultiSelect from '../form-inputs/MultiSelect';
 

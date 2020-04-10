@@ -8,7 +8,7 @@
 
 <script>
 import SingleSelect from '../form-inputs/SingleSelect';
-import { FETCH_OPERATING_UNITS } from '../../constants/graphql';
+import { FETCH_OPERATING_UNITS } from '../../constants/_graphql';
 
 export default {
   components: { SingleSelect },

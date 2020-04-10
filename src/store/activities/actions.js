@@ -1,5 +1,5 @@
 import { apolloClient } from '../../boot/apollo';
-import { FETCH_ACTIVITIES } from '../../constants/graphql';
+import { FETCH_ACTIVITIES } from '../../graphql/queries';
 
 export function fetchActivities({ commit }) {
   commit('SET_LOADING', true);

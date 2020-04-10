@@ -37,7 +37,8 @@
 
 <script>
 import PageTitle from '../components/PageTitle';
-import { FETCH_REVIEWERS_QUERY } from '../constants/graphql';
+import { FETCH_REVIEWERS_QUERY } from '../graphql/queries';
+
 export default {
   components: { PageTitle },
   name: 'PageProgressTracker',

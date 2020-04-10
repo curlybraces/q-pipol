@@ -5,7 +5,7 @@ import {
   CREATE_PROJECT_MUTATION,
   UPDATE_PROJECT_MUTATION,
   FETCH_PROJECT_QUERY
-} from '../constants/graphql';
+} from '../constants/_graphql';
 import { convertToNumber } from '../functions/function-convert-to-number';
 import {
   showErrorNotification,

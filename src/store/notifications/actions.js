@@ -1,10 +1,12 @@
 import { apolloClient } from '../../boot/apollo';
 import {
   FETCH_NOTIFICATIONS_QUERY,
-  FETCH_UNREAD_NOTIFICATIONS_QUERY,
+  FETCH_UNREAD_NOTIFICATIONS_QUERY
+} from '../../graphql/queries';
+import {
   MARK_ALL_AS_READ_MUTATION,
   MARK_AS_READ_MUTATION
-} from '../../constants/graphql';
+} from '../../graphql/mutations';
 import { showErrorNotification } from '../../functions/function-show-notifications';
 
 export function fetchNotifications({ commit }) {

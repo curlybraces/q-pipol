@@ -1,10 +1,10 @@
 import { apolloClient } from '../../boot/apollo';
 import {
-  FETCH_CONTACTS,
   CREATE_CONTACT_MUTATION,
   UPDATE_CONTACT_MUTATION,
   DELETE_CONTACT_MUTATION
-} from '../../constants/graphql';
+} from '../../graphql/mutations';
+import { FETCH_CONTACTS } from '../../graphql/queries';
 import { showSuccessNotification } from '../../functions/function-show-notifications';
 
 export function fetchContacts({ commit }) {
