@@ -116,8 +116,8 @@
     <q-page-container>
       <transition
         appear
-        enter-active-class="animated zoomIn"
-        leave-active-class="animated zoomOut"
+        enter-active-class="animated fadeIn"
+        leave-active-class="animated fadeOut"
       >
         <router-view />
       </transition>
