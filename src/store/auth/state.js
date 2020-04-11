@@ -2,6 +2,10 @@ import { LocalStorage } from 'quasar';
 
 export default function() {
   return {
+    loading: false,
+    error: false,
+    errorMessage: null,
+    user: null,
     id: null,
     me: {},
     loggedIn: LocalStorage.getItem('loggedIn') || false,

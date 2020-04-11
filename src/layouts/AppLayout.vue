@@ -3,7 +3,7 @@
     <q-header bordered :class="dark ? 'bg-grey-9' : 'bg-white'">
       <q-toolbar>
         <img
-          src="statics/app-logo-128x128.png"
+          src="~assets/app-logo-128x128.png"
           height="35px;"
           @click="$router.push({ name: 'home' })"
           class="cursor-pointer"

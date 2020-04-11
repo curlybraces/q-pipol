@@ -6,6 +6,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import { LocalStorage } from 'quasar';
 
 export default {
   name: 'App',
@@ -13,11 +14,12 @@ export default {
     ...mapState('auth', ['loggedIn'])
   },
   methods: {
-    ...mapActions('options', ['initializeOptions'])
+    ...mapActions('auth', ['getCurrentUser'])
   },
-  mounted() {
-    if (this.loggedIn) {
-      this.initializeOptions();
+  created() {
+    const token = LocalStorage.getItem('token');
+    if (token) {
+      this.getCurrentUser();
     }
   }
 };

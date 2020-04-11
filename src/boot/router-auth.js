@@ -3,16 +3,18 @@ import { LocalStorage, Dialog } from 'quasar';
 export default async ({ router }) => {
   router.beforeEach((to, from, next) => {
     const token = LocalStorage.getItem('token');
-    const role = LocalStorage.getItem('role');
+    const user = LocalStorage.getItem('user');
+    const { role } = user;
+
     if (to.matched.some(record => record.meta.requiresAuth)) {
-      if (!token || token == '') {
+      if (!token || token === '') {
         next({
           path: '/login',
           params: { nextUrl: to.fullPath }
         });
       } else {
         if (to.matched.some(record => record.meta.is_admin)) {
-          if (role == 'admin' || role == 'superadmin') {
+          if (role === 'admin' || role === 'superadmin') {
             next();
           } else {
             Dialog.create({
@@ -25,7 +27,7 @@ export default async ({ router }) => {
           }
         }
         if (to.matched.some(record => record.meta.is_encoder)) {
-          if (role == 'encoder') {
+          if (role === 'encoder') {
             next();
           } else {
             Dialog.create({

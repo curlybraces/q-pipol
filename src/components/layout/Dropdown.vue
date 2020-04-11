@@ -67,7 +67,7 @@
           <q-icon color="red" name="priority_high" />
         </q-item-section>
       </q-item>
-      <q-item clickable v-close-popup @click="showLogout">
+      <q-item clickable v-close-popup @click="handleSignoutUser">
         <q-item-section avatar>
           <q-avatar>
             <q-icon name="exit_to_app" :color="iconColor" />
@@ -94,15 +94,15 @@ export default {
     }
   },
   methods: {
-    ...mapActions('auth', ['logoutUser']),
-    showLogout() {
+    ...mapActions('auth', ['signoutUser']),
+    handleSignoutUser() {
       Dialog.create({
         title: 'Logout',
         message: 'Are you sure you want to log out?',
         cancel: true,
         transitionShow: 'fade',
         transitionHide: 'fade'
-      }).onOk(() => this.logoutUser());
+      }).onOk(() => this.signoutUser());
     }
   }
 };

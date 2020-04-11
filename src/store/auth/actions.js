@@ -2,7 +2,7 @@ import { LocalStorage, Loading, Dialog } from 'quasar';
 import { apolloClient } from 'boot/apollo';
 import {
   CHECK_EMAIL_AVAILABILITY_QUERY,
-  ME_QUERY
+  GET_CURRENT_USER
 } from '../../graphql/queries';
 import {
   LOGIN_MUTATION,
@@ -20,86 +20,63 @@ import {
   showSuccessNotification
 } from '../../functions/function-show-notifications';
 
-export function loginUser({ commit, dispatch }, payload) {
-  return apolloClient
+export function signinUser({ commit }, payload) {
+  // clear token so it does not get sent to server
+  LocalStorage.set('token', '');
+
+  commit('SET_LOADING', true);
+
+  apolloClient
     .mutate({
       mutation: LOGIN_MUTATION,
-      variables: {
-        username: payload.username,
-        password: payload.password
-      }
+      variables: payload
     })
-    .then(res => {
-      commit('SET_LOGGED_IN', true);
+    .then(({ data }) => {
+      LocalStorage.set('token', data.login.access_token);
 
-      LocalStorage.set('loggedIn', true);
-      LocalStorage.set('token', res.data.login.access_token);
-      LocalStorage.set('userId', res.data.login.user.id);
-      LocalStorage.set('name', res.data.login.user.name);
-      LocalStorage.set(
-        'operating_unit_id',
-        res.data.login.user.operating_unit
-          ? res.data.login.user.operating_unit.id
-          : null
-      );
-      LocalStorage.set(
-        'role',
-        res.data.login.user.role ? res.data.login.user.role.name : null
-      );
-      LocalStorage.set('verified', res.data.login.user.verified);
-      LocalStorage.set('image_url', res.data.login.user.image_url);
-      LocalStorage.set(
-        'showValidateEmailReminder',
-        !res.data.login.user.verified
-      );
+      commit('SET_LOADING', false);
 
-      commit('SET_SHOW_VALIDATE_EMAIL_REMINDER', !res.data.login.user.verified);
-
-      this.$router.push({ path: '/' });
-    })
-    .then(() => {
-      dispatch('populateUser');
+      this.$router.go();
     })
     .catch(err => {
+      console.error(err);
       showErrorNotification({
         message: err.message
       });
       LocalStorage.remove('token');
+
+      commit('SET_LOADING', false);
     });
 }
 
-export function populateUser({ commit }) {
-  return apolloClient
+export function getCurrentUser({ commit }) {
+  commit('SET_LOADING', true);
+  apolloClient
     .query({
-      query: ME_QUERY
+      query: GET_CURRENT_USER
     })
-    .then(res => {
-      const {
-        id,
-        email,
-        verified,
-        name,
-        contact_number,
-        role,
-        operating_unit_id,
-        position,
-        image_url
-      } = res.data.me;
-      commit('SET_ME', res.data.me);
-      commit('SET_ID', id);
-      commit('SET_USER_LOADED', true);
-      commit('SET_NAME', name);
-      commit('SET_EMAIL', email);
-      commit('SET_VERIFIED', verified);
-      commit('SET_IMAGE_URL', image_url);
-      commit('SET_OPERATING_UNIT_ID', operating_unit_id);
-      commit('SET_CONTACT_NUMBER', contact_number);
-      commit('SET_ROLE', role.name);
-      commit('SET_POSITION', position);
+    .then(({ data }) => {
+      LocalStorage.set('user', data.getCurrentUser);
+
+      commit('SET_USER', data.getCurrentUser);
+
+      commit('SET_LOADING', false);
     })
     .catch(err => {
-      return err.message;
+      console.error(err);
+      commit('SET_LOADING', false);
     });
+}
+
+export async function signoutUser({ commit }) {
+  // remove user data from store
+  commit('CLEAR_USER');
+  // remove token from localStorage
+  LocalStorage.set('token', '');
+  // reset apolloClient
+  await apolloClient.resetStore();
+  // redirect to login page
+  this.$router.replace({ path: 'login' });
 }
 
 export function hideValidateEmailReminder({ commit }, val) {

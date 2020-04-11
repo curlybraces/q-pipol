@@ -212,11 +212,14 @@ import qboot_Quasarquasarappextensionqmarkdownsrcbootregisterjs from '@quasar/qu
 
 
 
-import electron from 'electron'
-Vue.prototype.$q.electron = electron
+
+
+Vue.config.devtools = true
+Vue.config.productionTip = false
 
 
 
+console.info('[Quasar] Running SPA.')
 
 
 

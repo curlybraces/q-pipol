@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapGetters } from 'vuex';
 import PasswordInput from '../form-inputs/PasswordInput';
 import EmailInput from '../form-inputs/EmailInput';
 import ValidateEmailMixins from '../../mixins/ValidateEmailMixins';
@@ -38,21 +38,26 @@ export default {
   mixins: [ValidateEmailMixins],
   data() {
     return {
-      error: false,
       username: null,
       password: null,
-      required: [val => !!val || '* Required'],
-      loading: false
+      required: [val => !!val || '* Required']
     };
   },
   computed: {
-    ...mapState('settings', ['dark'])
+    ...mapState('settings', ['dark']),
+    ...mapGetters('auth', ['loading', 'error', 'errorMessage', 'user'])
+  },
+  watch: {
+    user(value) {
+      // if user is logged in, redirect to homepage
+      if (value) {
+        this.$router.push('/');
+      }
+    }
   },
   methods: {
-    ...mapActions('auth', ['loginUser']),
+    ...mapActions('auth', ['signinUser']),
     handleSubmit() {
-      this.loading = true;
-
       this.$refs.loginForm.validate().then(success => {
         if (success) {
           const { username, password } = this.$data;
@@ -62,10 +67,7 @@ export default {
             password: password
           };
 
-          this.loginUser(payload);
-        } else {
-          this.error = true;
-          this.loading = false;
+          this.signinUser(payload);
         }
       });
     }
