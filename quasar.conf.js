@@ -139,6 +139,7 @@ module.exports = function(ctx) {
 
     electron: {
       // bundler: 'builder', // or 'packager'
+      bundler: 'packager',
 
       extendWebpack(cfg) {
         // do something with Electron main process Webpack cfg
