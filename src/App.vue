@@ -15,7 +15,7 @@ export default {
 		...mapGetters('auth',['user'])
   },
 	watch: {
-  	user(newValue, oldValue) {
+  	user(newValue) {
 			if (newValue) {
 				Notify.create({
 					type: 'positive',
