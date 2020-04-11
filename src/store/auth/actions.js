@@ -1,4 +1,4 @@
-import { LocalStorage, Loading, Dialog } from 'quasar';
+import { LocalStorage, Loading, Dialog, Notify } from 'quasar';
 import { apolloClient } from 'boot/apollo';
 import {
   CHECK_EMAIL_AVAILABILITY_QUERY,
@@ -23,6 +23,7 @@ import {
 export function signinUser({ commit }, payload) {
 	// clear token so it does not get sent to server
 	LocalStorage.set('token','');
+	
 	commit('CLEAR_ERROR');
   commit('SET_LOADING', true);
 
@@ -35,7 +36,7 @@ export function signinUser({ commit }, payload) {
       LocalStorage.set('token', data.login.access_token);
 
       commit('SET_LOADING', false);
-
+      
       this.$router.go();
     })
     .catch(err => {
