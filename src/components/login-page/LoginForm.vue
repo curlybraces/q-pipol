@@ -1,6 +1,19 @@
 <template>
   <q-form ref="loginForm" class="q-gutter-md" @submit="handleSubmit" greedy>
-    <p v-if="error">An error occurred.</p>
+		<transition
+			enter-active-class="animated zoomIn"
+			leave-active-class="animated zoomOut">
+			<div class="text-center" v-if="error">
+				<q-banner dense rounded class="bg-red text-white">
+					{{ error.message }}
+
+					<template v-slot:action>
+						<q-btn flat round icon="close" @click="CLEAR_ERROR"/>
+					</template>
+				</q-banner>
+			</div>
+		</transition>
+
     <email-input
       v-model="username"
       :rules="[val => validEmail(val) || 'Please enter valid email.']"
@@ -27,7 +40,7 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from 'vuex';
+import { mapState, mapActions, mapMutations, mapGetters } from 'vuex';
 import PasswordInput from '../form-inputs/PasswordInput';
 import EmailInput from '../form-inputs/EmailInput';
 import ValidateEmailMixins from '../../mixins/ValidateEmailMixins';
@@ -45,7 +58,7 @@ export default {
   },
   computed: {
     ...mapState('settings', ['dark']),
-    ...mapGetters('auth', ['loading', 'error', 'errorMessage', 'user'])
+    ...mapGetters('auth', ['loading', 'error', 'user'])
   },
   watch: {
     user(value) {
@@ -56,6 +69,7 @@ export default {
     }
   },
   methods: {
+  	...mapMutations('auth',['CLEAR_ERROR']),
     ...mapActions('auth', ['signinUser']),
     handleSubmit() {
       this.$refs.loginForm.validate().then(success => {
