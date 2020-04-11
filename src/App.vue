@@ -5,14 +5,27 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
-import { LocalStorage } from 'quasar';
+import { mapState, mapActions, mapGetters } from 'vuex';
+import { LocalStorage, Notify } from 'quasar';
 
 export default {
   name: 'App',
   computed: {
-    ...mapState('auth', ['loggedIn'])
+    ...mapState('auth', ['loggedIn']),
+		...mapGetters('auth',['user'])
   },
+	watch: {
+  	user(newValue, oldValue) {
+			if (newValue) {
+				Notify.create({
+					type: 'positive',
+					message: 'Welcome back!',
+					position: 'bottom-right',
+					ignoreDefaults: true
+				});
+			}
+		}
+	},
   methods: {
     ...mapActions('auth', ['getCurrentUser'])
   },

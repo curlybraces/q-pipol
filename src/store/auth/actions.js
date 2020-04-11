@@ -1,4 +1,4 @@
-import { LocalStorage, Loading, Dialog, Notify } from 'quasar';
+import { LocalStorage, Loading, Dialog } from 'quasar';
 import { apolloClient } from 'boot/apollo';
 import {
   CHECK_EMAIL_AVAILABILITY_QUERY,
