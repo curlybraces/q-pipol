@@ -17,6 +17,7 @@
 import { mapActions, mapGetters } from 'vuex';
 import PageTitle from '../components/PageTitle';
 import AddEditProject from '../components/AddEditProject/shared/AddEditProject';
+import ProjectMixins from '../mixins/ProjectMixins';
 
 export default {
   components: {
@@ -24,6 +25,7 @@ export default {
     PageTitle
   },
   name: 'PageEditProject',
+  mixins: [ProjectMixins],
   methods: {
     ...mapActions('project', ['updateProject', 'fetchProject', 'loading'])
   },

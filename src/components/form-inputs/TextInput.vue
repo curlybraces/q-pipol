@@ -14,7 +14,7 @@
       :hint="hint"
       clearable
       label-color="orange-10"
-			hide-bottom-space
+      hide-bottom-space
     />
   </div>
 </template>

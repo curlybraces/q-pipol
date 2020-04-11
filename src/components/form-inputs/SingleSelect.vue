@@ -18,7 +18,7 @@
       emit-value
       clearable
       :readonly="readonly"
-			hide-bottom-space
+      hide-bottom-space
     >
       <template v-slot:before-options>
         <q-item>

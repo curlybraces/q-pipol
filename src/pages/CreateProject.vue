@@ -8,7 +8,7 @@
 
     <div class="row justify-center q-pa-sm q-col-gutter-sm">
       <div class="col-xl-2 col-lg-3 col-md-3 col-sm-12 col-xs-12 gt-sm">
-        <q-list separator>
+        <q-list separator class="bg-white">
           <q-item-label header>NAVIGATE</q-item-label>
           <q-item
             v-for="(nav, index) in navs"
@@ -26,12 +26,6 @@
             </q-item-section>
             <q-item-section>
               <q-item-label>{{ nav.title }}</q-item-label>
-              <q-item-label>
-                <q-linear-progress
-                  :value="100"
-                  color="orange-10"
-                ></q-linear-progress>
-              </q-item-label>
             </q-item-section>
           </q-item>
         </q-list>
@@ -39,7 +33,7 @@
 
       <div class="col-xl-6 col-lg-6 col-md-9 col-sm-12 col-xs-12">
         <q-form @submit.prevent="handleSubmit">
-          <q-toolbar>
+          <q-toolbar class="bg-white">
             <q-space></q-space>
             <q-btn
               outline
@@ -47,51 +41,48 @@
               color="primary"
               class="q-mr-sm"
             ></q-btn>
-            <q-btn
-              label="Save"
-              color="primary"
-              class="q-mr-lg"
-              type="submit"
-            ></q-btn>
+            <q-btn label="Save" color="primary" type="submit"></q-btn>
           </q-toolbar>
           <q-separator></q-separator>
-          <q-stepper
-            v-model="step"
-            title="Create Project"
-            vertical
-            color="primary"
-            animated
-            header-nav
-            flat
-          >
-            <q-step :name="1" title="Basic Information">
-              <basic-information></basic-information>
-            </q-step>
-            <q-step :name="2" title="Programming Documents">
-              <programming-documents></programming-documents>
-            </q-step>
-            <q-step :name="3" title="Additional Information">
-              <additional-information></additional-information>
-            </q-step>
-            <q-step :name="4" title="Spatial Coverage">
-              <spatial-coverage></spatial-coverage>
-            </q-step>
-            <q-step :name="5" title="Implementation Period">
-              <implementation-period></implementation-period>
-            </q-step>
-            <q-step :name="6" title="Readiness">
-              <technical-readiness></technical-readiness>
-            </q-step>
-            <q-step :name="7" title="Financial and Economic Analysis">
-              <financial-analysis></financial-analysis>
-            </q-step>
-            <q-step :name="8" title="Financial Information">
-              <financial-information></financial-information>
-            </q-step>
-            <q-step :name="9" title="Updates">
-              <project-updates></project-updates>
-            </q-step>
-          </q-stepper>
+          <q-scroll-area style="height:70vh;">
+            <q-stepper
+              v-model="step"
+              title="Create Project"
+              vertical
+              color="primary"
+              animated
+              header-nav
+              flat
+            >
+              <q-step :name="1" title="Basic Information">
+                <basic-information></basic-information>
+              </q-step>
+              <q-step :name="2" title="Programming Documents">
+                <programming-documents></programming-documents>
+              </q-step>
+              <q-step :name="3" title="Additional Information">
+                <additional-information></additional-information>
+              </q-step>
+              <q-step :name="4" title="Spatial Coverage">
+                <spatial-coverage></spatial-coverage>
+              </q-step>
+              <q-step :name="5" title="Implementation Period">
+                <implementation-period></implementation-period>
+              </q-step>
+              <q-step :name="6" title="Readiness">
+                <technical-readiness></technical-readiness>
+              </q-step>
+              <q-step :name="7" title="Financial and Economic Analysis">
+                <financial-analysis></financial-analysis>
+              </q-step>
+              <q-step :name="8" title="Financial Information">
+                <financial-information></financial-information>
+              </q-step>
+              <q-step :name="9" title="Updates">
+                <project-updates></project-updates>
+              </q-step>
+            </q-stepper>
+          </q-scroll-area>
         </q-form>
       </div>
     </div>

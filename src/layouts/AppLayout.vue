@@ -43,7 +43,7 @@
       </q-dialog>
     </q-footer>
 
-    <q-page-container>
+    <q-page-container class="bg-grey-1">
       <transition
         appear
         enter-active-class="animated fadeIn"
