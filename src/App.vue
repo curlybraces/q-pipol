@@ -12,20 +12,20 @@ export default {
   name: 'App',
   computed: {
     ...mapState('auth', ['loggedIn']),
-		...mapGetters('auth',['user'])
+    ...mapGetters('auth', ['user'])
   },
-	watch: {
-  	user(newValue) {
-			if (newValue) {
-				Notify.create({
-					type: 'positive',
-					message: 'Welcome back!',
-					position: 'bottom-right',
-					ignoreDefaults: true
-				});
-			}
-		}
-	},
+  watch: {
+    user(newValue) {
+      if (newValue) {
+        Notify.create({
+          type: 'positive',
+          message: 'Welcome back!',
+          position: 'bottom-right',
+          ignoreDefaults: true
+        });
+      }
+    }
+  },
   methods: {
     ...mapActions('auth', ['getCurrentUser'])
   },

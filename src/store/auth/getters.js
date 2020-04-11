@@ -1,25 +1,25 @@
 export function imageUrl(state) {
-	return state.image_url
-		? `statics/avatars/avatar-${state.image_url}.svg`
-		: 'statics/avatars/undefined.svg';
+  return state.image_url
+    ? `statics/avatars/avatar-${state.image_url}.svg`
+    : 'statics/avatars/undefined.png';
 }
 
 export function isLoggedIn(state) {
-	return !!state.token;
+  return !!state.token;
 }
 
 export function loading(state) {
-	return state.loading;
+  return state.loading;
 }
 
 export function error(state) {
-	return state.error;
+  return state.error;
 }
 
 export function errorMessage(state) {
-	return state.errorMessage;
+  return state.errorMessage;
 }
 
 export function user(state) {
-	return state.user;
+  return state.user;
 }

@@ -1,18 +1,19 @@
 <template>
   <q-form ref="loginForm" class="q-gutter-md" @submit="handleSubmit" greedy>
-		<transition
-			enter-active-class="animated zoomIn"
-			leave-active-class="animated zoomOut">
-			<div class="text-center" v-if="error">
-				<q-banner dense rounded class="bg-red text-white">
-					{{ error.message }}
+    <transition
+      enter-active-class="animated zoomIn"
+      leave-active-class="animated zoomOut"
+    >
+      <div class="text-center" v-if="error">
+        <q-banner dense rounded class="bg-red text-white">
+          {{ error.message }}
 
-					<template v-slot:action>
-						<q-btn flat round icon="close" @click="CLEAR_ERROR"/>
-					</template>
-				</q-banner>
-			</div>
-		</transition>
+          <template v-slot:action>
+            <q-btn flat round icon="close" @click="CLEAR_ERROR" />
+          </template>
+        </q-banner>
+      </div>
+    </transition>
 
     <email-input
       v-model="username"
@@ -69,7 +70,7 @@ export default {
     }
   },
   methods: {
-  	...mapMutations('auth',['CLEAR_ERROR']),
+    ...mapMutations('auth', ['CLEAR_ERROR']),
     ...mapActions('auth', ['signinUser']),
     handleSubmit() {
       this.$refs.loginForm.validate().then(success => {

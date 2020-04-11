@@ -21,10 +21,10 @@ import {
 } from '../../functions/function-show-notifications';
 
 export function signinUser({ commit }, payload) {
-	// clear token so it does not get sent to server
-	LocalStorage.set('token','');
-	
-	commit('CLEAR_ERROR');
+  // clear token so it does not get sent to server
+  LocalStorage.set('token', '');
+
+  commit('CLEAR_ERROR');
   commit('SET_LOADING', true);
 
   apolloClient
@@ -36,13 +36,13 @@ export function signinUser({ commit }, payload) {
       LocalStorage.set('token', data.login.access_token);
 
       commit('SET_LOADING', false);
-      
+
       this.$router.go();
     })
     .catch(err => {
       commit('SET_ERROR', err);
-      
-      LocalStorage.set('token','');
+
+      LocalStorage.set('token', '');
 
       commit('SET_LOADING', false);
     });
@@ -55,8 +55,8 @@ export function getCurrentUser({ commit }) {
       query: GET_CURRENT_USER
     })
     .then(({ data }) => {
-    	LocalStorage.set('user', data.getCurrentUser);
-    	
+      LocalStorage.set('user', data.getCurrentUser);
+
       commit('SET_USER', data.getCurrentUser);
 
       commit('SET_LOADING', false);
@@ -68,14 +68,14 @@ export function getCurrentUser({ commit }) {
 }
 
 export async function signoutUser({ commit }) {
-	// remove user data from store
-	commit('CLEAR_USER');
-	// remove token from localStorage
-	LocalStorage.set('token', '');
-	// reset apolloClient
-	await apolloClient.resetStore();
-	// redirect to login page
-	this.$router.replace({ path: 'login' });
+  // remove user data from store
+  commit('CLEAR_USER');
+  // remove token from localStorage
+  LocalStorage.set('token', '');
+  // reset apolloClient
+  await apolloClient.resetStore();
+  // redirect to login page
+  this.$router.replace({ path: 'login' });
 }
 
 export function hideValidateEmailReminder({ commit }, val) {

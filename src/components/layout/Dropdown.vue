@@ -2,14 +2,16 @@
   <q-menu max-width="300px" :offset="[0, 15]">
     <div class="q-pa-md q-gutter-y-sm text-center">
       <q-avatar>
-        <q-img :src="imageUrl" />
+        <img :src="imageUrl" />
       </q-avatar>
-      <q-item-label>{{ name }}</q-item-label>
+      <q-item-label>{{ user.name }}</q-item-label>
       <q-item-label caption :class="dark ? 'text-grey-1' : 'text-black'">{{
-        email
+        user.email
       }}</q-item-label>
       <q-item-label
-        ><q-badge :color="iconColor">{{ role }}</q-badge></q-item-label
+        ><q-badge :color="iconColor">{{
+          user.role ? user.role.name : 'No role.'
+        }}</q-badge></q-item-label
       >
     </div>
     <q-separator />
@@ -26,7 +28,10 @@
         clickable
         v-close-popup
         to="/admin"
-        v-if="role == 'admin' || role == 'superadmin'"
+        v-if="
+          user.role &&
+            (user.role.name == 'admin' || user.role.name == 'superadmin')
+        "
       >
         <q-item-section avatar>
           <q-avatar>
@@ -86,9 +91,8 @@ import { mapState, mapActions, mapGetters } from 'vuex';
 export default {
   name: 'DropdownMenu',
   computed: {
-    ...mapState('auth', ['email', 'name', 'role']),
     ...mapState('settings', ['dark']),
-    ...mapGetters('auth', ['imageUrl']),
+    ...mapGetters('auth', ['imageUrl', 'user']),
     iconColor() {
       return this.dark ? 'purple-11' : 'primary';
     }
