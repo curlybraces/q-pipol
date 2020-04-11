@@ -15,7 +15,6 @@ const cache = new InMemoryCache({
 export const apolloClient = new ApolloClient({
   uri: uri,
   cache,
-  connectToDevTools: true,
   fetchOptions: {
     credentials: 'include'
   },
@@ -23,7 +22,7 @@ export const apolloClient = new ApolloClient({
     const token = LocalStorage.getItem('token') || '';
     operation.setContext({
       headers: {
-        authorization: 'Bearer ' + token
+        authorization: token ? 'Bearer ' + token : ''
       }
     });
   },

@@ -32,6 +32,50 @@ export const ME_QUERY = gql`
   }
 `;
 
+export const GET_CURRENT_USER = gql`
+  query getCurrentUser {
+    getCurrentUser {
+      id
+      name
+      email
+      position
+      verified
+      operating_unit_id
+      operating_unit {
+        id
+        image
+      }
+      contact_number
+      role {
+        name
+      }
+      image_url
+      projects {
+        id
+        title
+      }
+      unreadNotifications {
+        id
+        type
+        notifiable_id
+        notifiable_type
+        notifiable {
+          name
+        }
+        data {
+          id
+          from
+          title
+          message
+        }
+        read_at
+        created_at
+        updated_at
+      }
+    }
+  }
+`;
+
 /* Notifications */
 
 export const FETCH_NOTIFICATIONS_QUERY = gql`

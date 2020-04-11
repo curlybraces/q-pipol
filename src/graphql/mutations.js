@@ -5,21 +5,16 @@ import { gql } from 'apollo-boost';
 export const LOGIN_MUTATION = gql`
   mutation login($username: String!, $password: String!) {
     login(input: { username: $username, password: $password }) {
-      user {
-        id
-        name
-        email
-        role {
-          name
-        }
-        verified
-        image_url
-        operating_unit {
-          id
-          name
-        }
-      }
       access_token
+    }
+  }
+`;
+
+export const LOGOUT_MUTATION = gql`
+  mutation logout {
+    logout {
+      status
+      message
     }
   }
 `;
