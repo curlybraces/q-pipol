@@ -40,6 +40,8 @@
       </q-table>
     </div>
 
+		<contact-form></contact-form>
+
     <div class="q-mt-md q-pa-sm">
       <div class="row q-mb-lg">
         <q-input
@@ -121,9 +123,11 @@ import ContactLoading from '../components/Directory/ContactLoading';
 import PageTitle from '../components/PageTitle';
 import AdminMixins from '../mixins/AdminMixins';
 import { FETCH_CONTACTS } from '../graphql/queries';
+// import ContactForm from '../components/Directory/AddEditContact/Shared/ContactForm';
+import ContactForm from '../components/Directory/ContactForm';
 
 export default {
-  components: { PageTitle, ContactLoading, AddContact, ContactItem, JsonExcel },
+  components: { ContactForm, PageTitle, ContactLoading, AddContact, ContactItem, JsonExcel },
   name: 'PageDirectory',
   mixins: [AdminMixins],
   apollo: {
