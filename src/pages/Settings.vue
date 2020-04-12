@@ -58,7 +58,12 @@
         </p>
       </div>
       <div class="col-lg-8 col-md-6 col-xs-12 q-pl-md">
-        <q-btn outline color="secondary" label="RESET" @click="confirmReset"></q-btn>
+        <q-btn
+          outline
+          color="secondary"
+          label="RESET"
+          @click="confirmReset"
+        ></q-btn>
       </div>
     </div>
   </q-page>

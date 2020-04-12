@@ -1,29 +1,29 @@
 <template>
-  <q-form ref="loginForm" class="q-gutter-md" @submit="handleSubmit" greedy>
+  <q-form ref="loginForm" class="q-gutter-md" @submit="handleSubmit" greedy v-test="form">
     <transition
       enter-active-class="animated zoomIn"
       leave-active-class="animated zoomOut"
     >
-      <div class="text-center" v-if="error">
-        <q-banner dense rounded class="bg-red text-white">
-          {{ error.message }}
+			<q-banner inline-actions dense rounded class="bg-red text-white" v-if="error">
+				Error: Incorrect username or password.
 
-          <template v-slot:action>
-            <q-btn flat round icon="close" @click="CLEAR_ERROR" />
-          </template>
-        </q-banner>
-      </div>
+				<template v-slot:action>
+					<q-btn flat round icon="close" @click="CLEAR_ERROR" />
+				</template>
+			</q-banner>
     </transition>
 
-    <email-input
-      v-model="username"
-      :rules="[val => validEmail(val) || 'Please enter valid email.']"
-    ></email-input>
+		<email-input
+			v-model="username"
+			:rules="[val => validEmail(val) || 'Please enter valid email.']"
+			v-test="{ id: 'username' }"
+		></email-input>
 
     <password-input
       placeholder="Password"
       v-model="password"
       :rules="required"
+      v-test="{ id: 'password' }"
     ></password-input>
 
     <div class="row">
@@ -32,7 +32,8 @@
         type="submit"
         :color="dark ? 'purple-1' : 'primary'"
         unelevated
-        :loading="loading"
+        :loading="false"
+        v-test="{ id: 'login' }"
       >
         Login
       </q-btn>

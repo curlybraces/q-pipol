@@ -6,12 +6,14 @@
     ref="addContactForm"
   >
     <q-toolbar>
-			<q-toolbar-title class="text-subtitle1 absolute-center">Create Contact</q-toolbar-title>
-			<q-space/>
+      <q-toolbar-title class="text-subtitle1 absolute-center"
+        >Create Contact</q-toolbar-title
+      >
+      <q-space />
       <q-btn
-				flat
-				round
-				dense
+        flat
+        round
+        dense
         icon="close"
         class="cursor-pointer"
         @click="$emit('close')"
@@ -20,51 +22,63 @@
 
     <q-separator />
 
-		<div class="overflow-auto">
-			<text-input
-				label="Name"
-				v-model="contact.name"
-				:rules="rules.required"
-			></text-input>
-			<text-input
-				label="Designation"
-				v-model="contact.designation"
-				:rules="rules.required"
-			></text-input>
-			<single-select
-				label="Office"
-				v-model="contact.operating_unit_id"
-				:options="operating_units"
-				:rules="rules.required"
-			></single-select>
-			<text-input
-				label="Email"
-				v-model="contact.email"
-				:rules="rules.required"
-			></text-input>
-			<text-input
-				label="Phone No."
-				v-model="contact.phone_number"
-				:rules="rules.required"
-			></text-input>
-			<text-input
-				label="Fax No."
-				v-model="contact.fax_number"
-				:rules="rules.required"
-			></text-input>
-		</div>
+    <div class="overflow-auto">
+      <text-input
+        label="Name"
+        v-model="contact.name"
+        :rules="rules.required"
+      ></text-input>
+      <text-input
+        label="Designation"
+        v-model="contact.designation"
+        :rules="rules.required"
+      ></text-input>
+      <single-select
+        label="Office"
+        v-model="contact.operating_unit_id"
+        :options="operating_units"
+        :rules="rules.required"
+      ></single-select>
+      <text-input
+        label="Email"
+        v-model="contact.email"
+        :rules="rules.required"
+      ></text-input>
+      <text-input
+        label="Phone No."
+        v-model="contact.phone_number"
+        :rules="rules.required"
+      ></text-input>
+      <text-input
+        label="Fax No."
+        v-model="contact.fax_number"
+        :rules="rules.required"
+      ></text-input>
+    </div>
 
-		<div class="absolute-bottom q-pa-sm">
-			<q-separator class="q-mb-sm"/>
-			<div class="row justify-end q-col-gutter-sm">
-				<div class="col">
-					<q-btn outline label="Reset" color="primary" @click="handleResetContact" class="full-width" />
-				</div>
-				<div class="col">
-					<q-btn glossy label="Save" color="primary" type="submit" class="full-width" />
-				</div>
-			</div>
-		</div>
+    <div class="absolute-bottom q-pa-sm">
+      <q-separator class="q-mb-sm" />
+      <div class="row justify-end q-col-gutter-sm">
+        <div class="col">
+          <q-btn
+            outline
+            label="Reset"
+            color="primary"
+            @click="handleResetContact"
+            class="full-width"
+          />
+        </div>
+        <div class="col">
+          <q-btn
+            glossy
+            label="Save"
+            color="primary"
+            type="submit"
+            class="full-width"
+          />
+        </div>
+      </div>
+    </div>
   </q-form>
 </template>
 

@@ -12,7 +12,8 @@ module.exports = function(ctx) {
       "loading-defaults",
       "addressbar-color",
       "notify-defaults",
-      'moment'
+      'moment',
+	    'test'
     ],
 
     css: ["app.styl"],
@@ -57,7 +58,7 @@ module.exports = function(ctx) {
       vueRouterMode: "history",
       // vueCompiler: true,
       gzip: true,
-      analyze: true, // analyze after build
+      // analyze: true, // analyze after build
       // extractCSS: false,
       extendWebpack(cfg) {
         cfg.module.rules.push({

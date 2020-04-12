@@ -1,5 +1,5 @@
 <template>
-  <q-menu max-width="300px" :offset="[0, 15]">
+  <q-menu max-width="300px" :offset="[0, 15]" v-if="!loading">
     <div class="q-pa-md q-gutter-y-sm text-center">
       <q-avatar>
         <img :src="imageUrl" />
@@ -92,6 +92,7 @@ export default {
   name: 'DropdownMenu',
   computed: {
     ...mapState('settings', ['dark']),
+    ...mapState('auth', ['loading']),
     ...mapGetters('auth', ['imageUrl', 'user']),
     iconColor() {
       return this.dark ? 'purple-11' : 'primary';

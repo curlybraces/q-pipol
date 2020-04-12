@@ -117,9 +117,9 @@ export function setImageUrl({ commit }, payload) {
 }
 
 export function updateProfile({ commit }, payload) {
-	commit('SET_LOADING', true);
-	
-	apolloClient
+  commit('SET_LOADING', true);
+
+  apolloClient
     .mutate({
       mutation: UPDATE_PROFILE_MUTATION,
       variables: payload
@@ -130,13 +130,13 @@ export function updateProfile({ commit }, payload) {
       showSuccessNotification({
         message: 'Successfully updated profile.'
       });
-      
+
       this.$router.go();
     })
     .catch(err => {
-    	commit('SET_LOADING', false);
-    	
-    	console.log(err.message)
+      commit('SET_LOADING', false);
+
+      console.log(err.message);
     });
 }
 

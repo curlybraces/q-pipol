@@ -44,7 +44,7 @@ export const GET_CURRENT_USER = gql`
       operating_unit {
         id
         image
-	      name
+        name
       }
       contact_number
       role {

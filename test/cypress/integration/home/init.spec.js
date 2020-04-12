@@ -2,10 +2,10 @@ import * as ctx from  '../../../../quasar.conf.js'
 
 describe('Landing', () => {
   beforeEach(() => {
-    cy.visit('/')
+    cy.visit('https://localhost:8080')
   })
   it('.should() - assert that <title> is correct', () => {
-    cy.title().should('include', 'Quasar')
+    cy.title().should('include', 'IPM System')
   })
 })
 

@@ -1,6 +1,6 @@
 <template>
   <q-page class="q-pt-lg">
-		<!-- Page Title -->
+    <!-- Page Title -->
     <page-title title="Directory">
       <q-btn flat round color="primary" icon="build">
         <q-menu transition-show="jump-up" transition-hide="jump-up">
@@ -22,14 +22,21 @@
       </q-btn>
     </page-title>
 
-		<!-- Show add contact form -->
-		<q-dialog v-model="showAddContactForm" full-height position="right" seamless transition-show="jump-left" transition-hide="jump-right">
-			<q-card style="width:400px;">
-    		<contact-form @close="showAddContactForm = false"></contact-form>
-			</q-card>
-		</q-dialog>
+    <!-- Show add contact form -->
+    <q-dialog
+      v-model="showAddContactForm"
+      full-height
+      position="right"
+      seamless
+      transition-show="jump-left"
+      transition-hide="jump-right"
+    >
+      <q-card style="width:400px;">
+        <contact-form @close="showAddContactForm = false"></contact-form>
+      </q-card>
+    </q-dialog>
 
-		<!-- Search contacts -->
+    <!-- Search contacts -->
     <div class="q-mt-md q-pa-sm">
       <div class="row q-mb-lg">
         <q-input
@@ -46,14 +53,13 @@
         </q-input>
       </div>
 
-			<!-- Show Loading -->
+      <!-- Show Loading -->
 
       <q-inner-loading :showing="$apollo.loading">
         <q-spinner-dots size="50px" color="primary" />
       </q-inner-loading>
 
       <div class="row item-start q-col-gutter-md">
-
         <template v-if="!$apollo.loading && !contacts.length">
           <div>No contacts yet.</div>
         </template>
@@ -65,10 +71,8 @@
             :key="contact.id"
           ></contact-item>
         </template>
-
       </div>
     </div>
-
   </q-page>
 </template>
 
@@ -111,7 +115,7 @@ export default {
   },
   data() {
     return {
-	    showAddContactForm: false,
+      showAddContactForm: false,
       contacts: []
     };
   },

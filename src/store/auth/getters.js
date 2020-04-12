@@ -25,9 +25,9 @@ export function user(state) {
 }
 
 export function isAdmin(state) {
-	return (state.user.role ? state.user.role.name === 'admin' : false);
+  return state.user.role ? state.user.role.name === 'admin' : false;
 }
 
 export function isEncoder(state) {
-	return (state.user.role ? state.user.role.name === 'encoder' : false);
+  return state.user.role ? state.user.role.name === 'encoder' : false;
 }
