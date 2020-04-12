@@ -18,7 +18,7 @@
         label="Verify Email"
         @click="verifyEmail"
         :loading="resendingEmail"
-        v-if="!verified"
+        v-if="!user.verified"
       ></q-btn>
       <q-btn
         color="primary"
@@ -43,13 +43,13 @@ export default {
     };
   },
   computed: {
-    ...mapState('auth', ['email', 'verified'])
+    ...mapState('auth', ['user'])
   },
   methods: {
     ...mapActions('auth', ['resendEmailVerification']),
     verifyEmail() {
       this.resendingEmail = true;
-      this.resendEmailVerification(this.email);
+      this.resendEmailVerification(this.user.email);
       setTimeout(() => (this.resendingEmail = false), 3000);
     }
   }

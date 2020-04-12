@@ -50,7 +50,7 @@
     </q-toolbar>
 
     <q-separator
-      :color="dark ? 'purple-2' : 'orange-10'"
+      :color="dark ? 'purple-2' : 'primary'"
       class="header-separator"
     />
 

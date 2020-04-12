@@ -1,5 +1,6 @@
 <template>
   <q-page class="q-pt-lg">
+		<!-- Page Title -->
     <page-title title="Directory">
       <q-btn flat round color="primary" icon="build">
         <q-menu transition-show="jump-up" transition-hide="jump-up">
@@ -22,7 +23,7 @@
     </page-title>
 
 		<!-- Show add contact form -->
-		<q-dialog v-model="showAddContactForm" full-height position="right" seamless>
+		<q-dialog v-model="showAddContactForm" full-height position="right" seamless transition-show="jump-left" transition-hide="jump-right">
 			<q-card style="width:400px;">
     		<contact-form @close="showAddContactForm = false"></contact-form>
 			</q-card>
@@ -64,6 +65,7 @@
             :key="contact.id"
           ></contact-item>
         </template>
+
       </div>
     </div>
 

@@ -116,29 +116,28 @@ export function setImageUrl({ commit }, payload) {
     .catch(err => console.log(err.message));
 }
 
-export function updateProfile({ dispatch }, payload) {
-  const { operating_unit_id, position, name, contact_number } = payload;
-
-  return apolloClient
+export function updateProfile({ commit }, payload) {
+	commit('SET_LOADING', true);
+	
+	apolloClient
     .mutate({
       mutation: UPDATE_PROFILE_MUTATION,
-      variables: {
-        operating_unit_id: operating_unit_id,
-        position: position,
-        name: name,
-        contact_number: contact_number
-      }
+      variables: payload
     })
     .then(() => {
-      dispatch('populateUser'); // this code is causing other user property to not be loaded
+      commit('SET_LOADING', false);
 
       showSuccessNotification({
         message: 'Successfully updated profile.'
       });
-
-      return;
+      
+      this.$router.go();
     })
-    .catch(err => console.log(err.message));
+    .catch(err => {
+    	commit('SET_LOADING', false);
+    	
+    	console.log(err.message)
+    });
 }
 
 export function forgotPassword({}, email) {
