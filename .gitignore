@@ -128,4 +128,5 @@ src/statics/app-logo-128x128.png
 .quasar/client-entry.js
 
 test/cypress/videos/
+test/cypress/screenshots/
 
