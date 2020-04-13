@@ -24,13 +24,14 @@
         icon="notifications"
         class="q-mr-md text-grey-6"
         @click="$emit('showDrawer')"
+				:loading="loading"
       >
         <q-badge
           color="red"
           floating
-          v-if="Object.keys(unreadNotifications).length"
+          v-if="!loading && user.unreadNotifications.length"
         >
-          {{ Object.keys(unreadNotifications).length }}
+          {{ user.unreadNotifications.length }}
         </q-badge>
       </q-btn>
 
@@ -81,8 +82,8 @@ export default {
   name: 'AppHeader',
   computed: {
     ...mapState('settings', ['dark']),
-    ...mapState('notifications', ['unreadNotifications']),
-    ...mapGetters('auth', ['imageUrl'])
+		...mapState('auth',['user']),
+    ...mapGetters('auth', ['imageUrl','loading'])
   },
   data() {
     return {

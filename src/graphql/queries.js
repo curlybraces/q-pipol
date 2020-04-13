@@ -46,11 +46,11 @@ export const GET_CURRENT_USER = gql`
         image
         name
       }
+      image_url
       contact_number
       role {
         name
       }
-      image_url
       projects {
         id
         title
@@ -73,77 +73,88 @@ export const GET_CURRENT_USER = gql`
         created_at
         updated_at
       }
+	    activities {
+        id
+        description
+        properties
+        subject {
+            id
+            name
+            title
+        }
+        created_at
+      }
     }
   }
 `;
 
 /* Notifications */
 
-export const FETCH_NOTIFICATIONS_QUERY = gql`
-  query me {
-    me {
-      id
-      name
-      email
-      position
-      verified
-      operating_unit_id
-      operating_unit {
-        id
-        image
-      }
-      contact_number
-      role {
-        name
-      }
-      image_url
-      notifications {
-        id
-        type
-        notifiable_id
-        notifiable_type
-        notifiable {
-          name
-        }
-        data {
-          id
-          from
-          title
-          message
-        }
-        read_at
-        created_at
-        updated_at
-      }
-    }
-  }
-`;
-
-export const FETCH_UNREAD_NOTIFICATIONS_QUERY = gql`
-  query me {
-    me {
-      id
-      unreadNotifications {
-        id
-        type
-        notifiable_id
-        notifiable_type
-        notifiable {
-          name
-        }
-        data {
-          id
-          from
-          title
-          message
-        }
-        read_at
-        created_at
-        updated_at
-      }
-    }
-  }
-`;
+// export const FETCH_NOTIFICATIONS_QUERY = gql`
+//   query me {
+//     me {
+//       id
+//       name
+//       email
+//       position
+//       verified
+//       operating_unit_id
+//       operating_unit {
+//         id
+//         image
+//       }
+//       contact_number
+//       role {
+//         name
+//       }
+//       image_url
+//       notifications {
+//         id
+//         type
+//         notifiable_id
+//         notifiable_type
+//         notifiable {
+//           name
+//         }
+//         data {
+//           id
+//           from
+//           title
+//           message
+//         }
+//         read_at
+//         created_at
+//         updated_at
+//       }
+//     }
+//   }
+// `;
+//
+// export const FETCH_UNREAD_NOTIFICATIONS_QUERY = gql`
+//   query me {
+//     me {
+//       id
+//       unreadNotifications {
+//         id
+//         type
+//         notifiable_id
+//         notifiable_type
+//         notifiable {
+//           name
+//         }
+//         data {
+//           id
+//           from
+//           title
+//           message
+//         }
+//         read_at
+//         created_at
+//         updated_at
+//       }
+//     }
+//   }
+// `;
 
 /* Options */
 

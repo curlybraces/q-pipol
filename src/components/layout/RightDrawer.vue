@@ -12,13 +12,13 @@
       />
     </div>
     <q-separator />
-    <template v-for="(notification, key) in unreadNotifications">
+    <template v-for="notification in user.unreadNotifications">
       <notification-item
         :notification="notification"
-        :key="key"
+        :key="notification.id"
       ></notification-item>
     </template>
-    <template v-if="!Object.keys(unreadNotifications).length">
+    <template v-if="!user.unreadNotifications.length">
       <div class="q-pa-sm">
         No notifications.
       </div>
@@ -27,24 +27,17 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 import NotificationItem from '../Notifications/NotificationItem';
 
 export default {
   name: 'RightDrawer',
   components: { NotificationItem },
   computed: {
-    ...mapState('notifications', ['notifications']),
-    ...mapGetters('notifications', ['unreadNotifications']),
+    ...mapState('auth', ['user']),
     message() {
       return '';
     }
-  },
-  methods: {
-    ...mapActions('notifications', ['fetchNotifications'])
-  },
-  created() {
-    this.fetchNotifications();
   }
 };
 </script>

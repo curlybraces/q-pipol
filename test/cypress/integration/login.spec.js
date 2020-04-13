@@ -1,5 +1,4 @@
 import * as ctx from  '../../../quasar.conf.js'
-import {LOGIN_MUTATION} from '../../../src/graphql/mutations';
 
 describe('Login', () => {
 	
@@ -30,8 +29,6 @@ describe('Login', () => {
 			
 			// cy.get('[data-test-id="login"]').click()
 			cy.get('form').submit()
-			
-			cy.get('form').find('.q-spinner')
 			
 			cy.contains('Error: Incorrect username or password.')
 		})

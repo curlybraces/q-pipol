@@ -8,7 +8,7 @@
 				{{ error.message }}
 
 				<template v-slot:action>
-					<q-btn flat round icon="close" @click="CLEAR_ERROR" />
+					<q-btn flat round icon="close" @click="CLEAR_ERROR" v-test="{ id: 'clearError' }" />
 				</template>
 			</q-banner>
 		</transition>
@@ -20,6 +20,7 @@
       :rules="required"
       :dense="dense"
       hide-bottom-space
+			v-test="{ id: 'name' }"
     >
       <template v-slot:prepend>
         <q-icon :name="laAtSolid"></q-icon>
@@ -33,6 +34,9 @@
       :loading="checkingEmail"
       placeholder="Email"
       @input="checkEmail"
+			:rules="emailRule"
+			hide-bottom-space
+			v-test="{ id: 'username' }"
     >
       <template v-slot:prepend>
         <q-icon name="email" />
@@ -50,12 +54,14 @@
       placeholder="Password"
       v-model="password"
       :rules="passwordRule"
+			v-test="{ id: 'password' }"
     />
 
     <password-input
       placeholder="Confirm Password"
       v-model="password_confirmation"
       :rules="match"
+			v-test="{ id: 'password_confirmation' }"
     ></password-input>
 
     <div class="row">
@@ -74,7 +80,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapMutations } from 'vuex';
 import ValidateEmailMixins from '../../mixins/ValidateEmailMixins';
 import { laAtSolid } from '@quasar/extras/line-awesome';
 import PasswordInput from '../form-inputs/PasswordInput';
@@ -89,11 +95,18 @@ export default {
       password: null,
       password_confirmation: null,
       required: [ val => !!val || '* Required' ],
+			emailRule: [
+				val => !!val || '* Required',
+				val => this.validEmail(val) || 'Please input valid email.'
+			],
       passwordRule: [
         val => !!val || '* Required',
         val => val.length >= 8 || 'Password must at least be 8 characters.'
       ],
-      match: [val => this.passwordMatch(val) || 'Password does not match'],
+      match: [
+      	val => !!val || '* Required',
+      	val => this.passwordMatch(val) || 'Password does not match'
+			],
       checkingEmail: false,
       emailAvailable: false
     };
@@ -105,6 +118,7 @@ export default {
   mixins: [ValidateEmailMixins],
   methods: {
     ...mapActions('auth', ['checkEmailAvailability', 'register']),
+		...mapMutations('auth',['CLEAR_ERROR']),
     passwordMatch(val) {
       return val === this.password;
     },
@@ -126,17 +140,13 @@ export default {
       const { name, username, password, password_confirmation } = this.$data;
 
       this.$refs.signupForm.validate().then(success => {
-        this.loading = true;
         if (success) {
           this.register({
             name: name,
             email: username,
             password: password,
             password_confirmation: password_confirmation
-          }).then(res => console.log(res));
-          this.loading = false;
-        } else {
-          this.error = true;
+          });
           this.loading = false;
         }
       });

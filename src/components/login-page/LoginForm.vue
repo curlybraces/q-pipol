@@ -1,5 +1,5 @@
 <template>
-  <q-form ref="loginForm" class="q-gutter-md" @submit="handleSubmit" greedy v-test="form">
+  <q-form ref="loginForm" class="q-gutter-md" @submit="handleSubmit" greedy>
     <transition
       enter-active-class="animated zoomIn"
       leave-active-class="animated zoomOut"
@@ -15,7 +15,10 @@
 
 		<email-input
 			v-model="username"
-			:rules="[val => validEmail(val) || 'Please enter valid email.']"
+			:rules="[
+				val => !!val || '* Required',
+				val => validEmail(val) || 'Please enter valid email.'
+			]"
 			v-test="{ id: 'username' }"
 		></email-input>
 
@@ -32,7 +35,7 @@
         type="submit"
         :color="dark ? 'purple-1' : 'primary'"
         unelevated
-        :loading="false"
+        :loading="loading"
         v-test="{ id: 'login' }"
       >
         Login
