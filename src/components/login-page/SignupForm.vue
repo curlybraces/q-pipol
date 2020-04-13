@@ -1,7 +1,19 @@
 <template>
   <q-form ref="signupForm" class="q-gutter-md" @submit="handleSubmit" greedy>
-    <p v-if="error">An error occurred.</p>
-    <q-input
+		<transition
+				enter-active-class="animated zoomIn"
+				leave-active-class="animated zoomOut"
+		>
+			<q-banner inline-actions dense rounded class="bg-red text-white" v-if="error">
+				{{ error.message }}
+
+				<template v-slot:action>
+					<q-btn flat round icon="close" @click="CLEAR_ERROR" />
+				</template>
+			</q-banner>
+		</transition>
+
+		<q-input
       outlined
       placeholder="Full Name"
       v-model="name"
@@ -76,20 +88,19 @@ export default {
       username: null,
       password: null,
       password_confirmation: null,
-      loading: false,
-      required: [],
+      required: [ val => !!val || '* Required' ],
       passwordRule: [
         val => !!val || '* Required',
         val => val.length >= 8 || 'Password must at least be 8 characters.'
       ],
       match: [val => this.passwordMatch(val) || 'Password does not match'],
-      error: false,
       checkingEmail: false,
       emailAvailable: false
     };
   },
   computed: {
-    ...mapState('settings', ['dense', 'dark'])
+    ...mapState('settings', ['dense', 'dark']),
+		...mapState('auth',['error','loading'])
   },
   mixins: [ValidateEmailMixins],
   methods: {
