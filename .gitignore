@@ -126,3 +126,6 @@ src/statics/icons/apple-icon-152x152.png
 src/statics/icons/apple-icon-120x120.png
 src/statics/app-logo-128x128.png
 .quasar/client-entry.js
+
+test/cypress/videos/
+
