@@ -41,7 +41,12 @@
               color="primary"
               class="q-mr-sm"
             ></q-btn>
-            <q-btn label="Save" color="primary" type="submit"></q-btn>
+            <q-btn
+              label="Save"
+              color="primary"
+              type="submit"
+              :loading="loading"
+            ></q-btn>
           </q-toolbar>
           <q-separator></q-separator>
           <q-scroll-area style="height:70vh;">
@@ -99,7 +104,7 @@ export default {
   name: 'CreateProject',
   mixins: [ProjectMixins],
   computed: {
-    ...mapState('project', ['project']),
+    ...mapState('project', ['project', 'loading']),
     ...mapGetters('project', ['progress']),
     screenSize() {
       const screenSize = this.$q.screen.name;
@@ -171,7 +176,6 @@ export default {
   },
   mounted() {
     this.clearProject();
-    console.log(this.progress);
   }
 };
 </script>

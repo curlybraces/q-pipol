@@ -4,23 +4,29 @@
       enter-active-class="animated zoomIn"
       leave-active-class="animated zoomOut"
     >
-			<q-banner inline-actions dense rounded class="bg-red text-white" v-if="error">
-				Error: Incorrect username or password.
+      <q-banner
+        inline-actions
+        dense
+        rounded
+        class="bg-red text-white"
+        v-if="error"
+      >
+        Error: Incorrect username or password.
 
-				<template v-slot:action>
-					<q-btn flat round icon="close" @click="CLEAR_ERROR" />
-				</template>
-			</q-banner>
+        <template v-slot:action>
+          <q-btn flat round icon="close" @click="CLEAR_ERROR" />
+        </template>
+      </q-banner>
     </transition>
 
-		<email-input
-			v-model="username"
-			:rules="[
-				val => !!val || '* Required',
-				val => validEmail(val) || 'Please enter valid email.'
-			]"
-			v-test="{ id: 'username' }"
-		></email-input>
+    <email-input
+      v-model="username"
+      :rules="[
+        val => !!val || '* Required',
+        val => validEmail(val) || 'Please enter valid email.'
+      ]"
+      v-test="{ id: 'username' }"
+    ></email-input>
 
     <password-input
       placeholder="Password"

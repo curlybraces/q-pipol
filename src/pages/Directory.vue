@@ -22,20 +22,6 @@
       </q-btn>
     </page-title>
 
-    <!-- Show add contact form -->
-    <q-dialog
-      v-model="showAddContactForm"
-      full-height
-      position="right"
-      seamless
-      transition-show="jump-left"
-      transition-hide="jump-right"
-    >
-      <q-card style="width:400px;">
-        <contact-form @close="showAddContactForm = false"></contact-form>
-      </q-card>
-    </q-dialog>
-
     <!-- Search contacts -->
     <div class="q-mt-md q-pa-sm">
       <div class="row q-mb-lg">
@@ -54,7 +40,6 @@
       </div>
 
       <!-- Show Loading -->
-
       <q-inner-loading :showing="$apollo.loading">
         <q-spinner-dots size="50px" color="primary" />
       </q-inner-loading>
@@ -69,9 +54,50 @@
             v-for="contact in contacts"
             :contact="contact"
             :key="contact.id"
+            @click="openUpdateContactDialog(contact)"
           ></contact-item>
         </template>
       </div>
+
+      <!-- Show add contact form -->
+      <q-dialog
+        v-model="showAddContactForm"
+        full-height
+        position="right"
+        seamless
+        transition-show="jump-left"
+        transition-hide="jump-right"
+      >
+        <q-card style="width:400px;">
+          <contact-form
+            :contact="newContact"
+            title="Create Contact"
+            @close="showAddContactForm = false"
+            @submit="handleCreateContact"
+          >
+          </contact-form>
+        </q-card>
+      </q-dialog>
+
+      <!-- Update Contact form -->
+      <q-dialog
+        v-model="showUpdateContactForm"
+        full-height
+        position="right"
+        seamless
+        transition-show="jump-left"
+        transition-hide="jump-right"
+      >
+        <q-card style="width:400px;">
+          <contact-form
+            title="Update Contact"
+            :contact="contactToEdit"
+            @close="showUpdateContactForm = false"
+            @submit="handleUpdateContact"
+          >
+          </contact-form>
+        </q-card>
+      </q-dialog>
     </div>
   </q-page>
 </template>
@@ -100,27 +126,52 @@ export default {
     }
   },
   computed: {
-    ...mapState('contacts', ['search', 'error']),
-    ...mapGetters('contacts', ['contactsFiltered']),
     ...mapGetters('settings', ['buttonColor']),
-    ...mapState('options', ['operating_units']),
-    searchField: {
-      get() {
-        return this.search;
-      },
-      set(val) {
-        this.setSearch(val);
-      }
-    }
+    ...mapState('options', ['operating_units'])
   },
   data() {
     return {
+      contacts: [],
+      searchField: '',
       showAddContactForm: false,
-      contacts: []
+      showUpdateContactForm: false,
+      newContact: {
+        id: null,
+        name: null,
+        designation: null,
+        operating_unit_id: null,
+        email: null,
+        phone_number: null,
+        fax_number: null
+      },
+      contactToEdit: {}
     };
   },
   methods: {
-    ...mapActions('contacts', ['fetchContacts', 'setSearch']),
+    ...mapActions('contacts', ['updateContact', 'createContact']),
+    openUpdateContactDialog(contact) {
+      const contactToEdit = {
+        id: contact.id,
+        name: contact.name,
+        designation: contact.designation,
+        operating_unit_id: contact.operating_unit_id,
+        email: contact.email,
+        phone_number: contact.phone_number,
+        fax_number: contact.fax_number
+      };
+
+      this.contactToEdit = contactToEdit;
+
+      this.showUpdateContactForm = true;
+    },
+    handleUpdateContact(payload) {
+      this.updateContact(payload);
+      this.showUpdateContactForm = false;
+    },
+    handleCreateContact(payload) {
+      this.createContact(payload);
+      this.showAddContactForm = false;
+    },
     getOperatingUnit(id) {
       if (!id) {
         return '';

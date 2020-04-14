@@ -1,6 +1,6 @@
 export default function() {
   return {
-    projects: {},
+    projects: [],
     projectsDownloaded: false,
     search: null,
     sort: 'title',

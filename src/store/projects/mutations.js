@@ -1,5 +1,9 @@
 import Vue from 'vue';
 
+export function SET_PROJECTS(state, payload) {
+  state.projects = payload;
+}
+
 export function ADD_PROJECT(state, payload) {
   Vue.set(state.projects, payload.id, payload.project);
 }

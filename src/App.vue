@@ -27,12 +27,14 @@ export default {
     }
   },
   methods: {
-    ...mapActions('auth', ['getCurrentUser'])
+    ...mapActions('auth', ['getCurrentUser']),
+    ...mapActions('options', ['initializeOptions'])
   },
   created() {
     const token = LocalStorage.getItem('token');
     if (token) {
       this.getCurrentUser();
+      this.initializeOptions();
     }
   }
 };

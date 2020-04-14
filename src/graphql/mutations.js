@@ -234,6 +234,17 @@ export const UPDATE_CONTACT_MUTATION = gql`
     ) {
       id
       name
+      designation
+      operating_unit_id
+      operating_unit {
+        id
+        name
+        image
+        acronym
+      }
+      email
+      phone_number
+      fax_number
     }
   }
 `;
@@ -596,6 +607,19 @@ export const CREATE_PROJECT_MUTATION = gql`
     ) {
       id
       title
+      operating_unit {
+        name
+        image
+        acronym
+      }
+      description
+      total_project_cost
+      can_update
+      creator {
+        name
+      }
+      created_at
+      updated_at
     }
   }
 `;

@@ -1,37 +1,21 @@
 import { apolloClient } from 'boot/apollo';
 import { DELETE_PROJECT_MUTATION } from '../../graphql/mutations';
-import { ALL_PROJECTS_QUERY } from '../../graphql/queries';
+import { GET_PROJECTS } from '../../graphql/queries';
 import {
   showErrorNotification,
   showSuccessNotification
 } from '../../functions/function-show-notifications';
 
-export function fetchProjects({ commit }, payload) {
-  const { first, after } = payload;
-
+export function fetchProjects({ commit }) {
   commit('SET_LOADING', true);
 
-  return apolloClient
+  apolloClient
     .query({
-      query: ALL_PROJECTS_QUERY,
-      variables: {
-        first: first,
-        after: after
-      }
+      query: GET_PROJECTS
     })
-    .then(res => {
-      res.data.projects.edges.forEach(edge => {
-        const payload = {
-          id: 'ID' + edge.node.id,
-          project: edge.node
-        };
-        commit('ADD_PROJECT', payload);
-      });
-
-      commit('SET_PAGE_INFO', res.data.projects.pageInfo);
+    .then(({ data }) => {
+      commit('SET_PROJECTS', data.projects);
       commit('SET_LOADING', false);
-
-      return;
     })
     .catch(err => {
       alert(err.message);
@@ -44,6 +28,21 @@ export function deleteProject({ commit }, id) {
       mutation: DELETE_PROJECT_MUTATION,
       variables: {
         id: id
+      },
+      update: (store, { data: { deleteProject } }) => {
+        console.log('store: ', store);
+        console.log('deleteProject', deleteProject);
+
+        const data = store.readQuery({
+          query: GET_PROJECTS
+        });
+
+        data.projects = data.projects.filter(p => p.id !== deleteProject.id);
+
+        store.writeQuery({
+          query: GET_PROJECTS,
+          data
+        });
       }
     })
     .then(data => {

@@ -51,10 +51,6 @@ export const GET_CURRENT_USER = gql`
       role {
         name
       }
-      projects {
-        id
-        title
-      }
       unreadNotifications {
         id
         type
@@ -73,14 +69,14 @@ export const GET_CURRENT_USER = gql`
         created_at
         updated_at
       }
-	    activities {
+      activities {
         id
         description
         properties
         subject {
-            id
-            name
-            title
+          id
+          name
+          title
         }
         created_at
       }
@@ -292,7 +288,6 @@ export const FETCH_CONTACTS = gql`
   query {
     contacts {
       id
-      user_id
       name
       email
       phone_number
@@ -381,36 +376,58 @@ export const FETCH_REVIEWERS_QUERY = gql`
 
 /* Projects */
 
-export const ALL_PROJECTS_QUERY = gql`
-  query projects($first: Int!, $after: String) {
-    projects(first: $first, after: $after) {
-      edges {
-        node {
-          id
-          title
-          operating_unit {
-            name
-            image
-            acronym
-          }
-          description
-          total_project_cost
-          can_update
-          creator {
-            name
-          }
-          created_at
-          updated_at
-        }
+export const GET_PROJECTS = gql`
+  query projects {
+    projects {
+      id
+      title
+      operating_unit {
+        name
+        image
+        acronym
       }
-      pageInfo {
-        total
+      description
+      total_project_cost
+      can_update
+      creator {
+        name
+      }
+      created_at
+      updated_at
+    }
+  }
+`;
+
+export const INFINITE_SCROLL_PROJECTS = gql`
+  query paginatedProjects($first: Int!, $page: Int) {
+    paginatedProjects(first: $first, page: $page) {
+      data {
+        id
+        title
+        operating_unit {
+          name
+          image
+          acronym
+        }
+        description
+        total_project_cost
+        can_update
+        creator {
+          name
+        }
+        created_at
+        updated_at
+      }
+      paginatorInfo {
         count
         currentPage
-        endCursor
-        startCursor
-        hasNextPage
-        hasPreviousPage
+        firstItem
+        lastItem
+        hasMorePages
+        lastItem
+        lastPage
+        perPage
+        total
       }
     }
   }

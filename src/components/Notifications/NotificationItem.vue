@@ -2,7 +2,7 @@
   <q-item :class="notification.read_at ? '' : 'bg-light-blue-1'">
     <q-item-section avatar>
       <q-avatar color="primary" class="text-white">
-        {{ notification.data.from.charAt(0) }}
+        {{ notification.data.from ? notification.data.from.charAt(0) : '' }}
       </q-avatar>
     </q-item-section>
     <q-item-section>
@@ -61,7 +61,7 @@ export default {
     markAsReadNotification(id) {
       this.markAsRead({
         id: id
-      }).then(() => (this.loading = false));
+      });
     }
   },
   filters: {

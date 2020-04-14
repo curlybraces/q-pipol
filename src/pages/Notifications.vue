@@ -15,7 +15,10 @@
       </q-inner-loading>
       <q-list class="col" separator v-if="!loading">
         <template v-for="notification in user.unreadNotifications">
-          <notification-item :notification="notification" :key="notification.id" />
+          <notification-item
+            :notification="notification"
+            :key="notification.id"
+          />
         </template>
         <q-item v-if="!loading && !user.unreadNotifications.length">
           <q-item-section>
@@ -35,13 +38,13 @@ import NotificationItem from '../components/Notifications/NotificationItem';
 export default {
   components: { NotificationItem, PageTitle },
   name: 'PageNotifications',
-	computed: {
-  	...mapState('auth',['user'])
-	},
-	methods: {
-  	refreshNotifications() {
-  		console.log('refresh is called')
-		}
-	}
+  computed: {
+    ...mapState('auth', ['user'])
+  },
+  methods: {
+    refreshNotifications() {
+      console.log('refresh is called');
+    }
+  }
 };
 </script>

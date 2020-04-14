@@ -30,80 +30,71 @@ export function fetchContacts({ commit }) {
     });
 }
 
-export function createContact({ commit }, payload) {
-  return apolloClient
+export function createContact({}, payload) {
+	apolloClient
     .mutate({
       mutation: CREATE_CONTACT_MUTATION,
-      variables: {
-        name: payload.name,
-        designation: payload.designation,
-        operating_unit_id: payload.operating_unit_id,
-        email: payload.email,
-        phone_number: payload.phone_number,
-        fax_number: payload.fax_number
-      }
+      variables: payload,
+	    update: (store, { data: { createContact } }) => {
+      	console.log('store', store);
+		    console.log('createContact', createContact);
+		    
+		    const data = store.readQuery({ query: FETCH_CONTACTS })
+		    
+		    store.writeQuery({ query: FETCH_CONTACTS, data: {
+		    	  ...data,
+			      contacts: [...data.contacts, createContact]
+		      }
+		    })
+	    }
     })
-    .then(res => {
-      const payload = {
-        id: 'ID' + res.data.createContact.id,
-        contact: res.data.createContact
-      };
-
+    .then(() => {
       showSuccessNotification({
         message: 'Successfully created contact.'
       });
-
-      commit('ADD_CONTACT', payload);
-      return;
     })
     .catch(err => console.log(err.message));
 }
 
-export function deleteContact({ commit }, id) {
-  return apolloClient
+/* Delete contact */
+export function deleteContact({}, id) {
+  apolloClient
     .mutate({
       mutation: DELETE_CONTACT_MUTATION,
       variables: {
         id: id
+      },
+      update: (store, { data: { deleteContact } }) => {
+        const data = store.readQuery({
+          query: FETCH_CONTACTS
+        });
+
+        data.contacts = data.contacts.filter(c => c.id !== deleteContact.id);
+
+        store.writeQuery({
+          query: FETCH_CONTACTS,
+          data
+        });
       }
     })
     .then(() => {
       showSuccessNotification({
         message: 'Successfully deleted contact.'
       });
-
-      commit('DELETE_CONTACT', 'ID' + id);
-      return;
     })
     .catch(err => console.log(err.message));
 }
 
-export function updateContact({ commit }, payload) {
-  return apolloClient
+export function updateContact({}, payload) {
+  apolloClient
     .mutate({
       mutation: UPDATE_CONTACT_MUTATION,
-      variables: {
-        id: payload.id,
-        name: payload.name,
-        designation: payload.designation,
-        operating_unit_id: payload.operating_unit_id,
-        email: payload.email,
-        phone_number: payload.phone_number,
-        fax_number: payload.fax_number
-      }
+      variables: payload
     })
     .then(() => {
-      const updatedContact = {
-        payload: 'ID' + payload.id,
-        contact: payload
-      };
-
       showSuccessNotification({
         message: 'Successfully updated contact.'
       });
-
-      commit('UPDATE_CONTACT', updatedContact);
-      return;
     })
     .catch(err => console.log(err.message));
 }

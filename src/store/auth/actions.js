@@ -159,14 +159,14 @@ export function forgotPassword({}, email) {
 }
 
 export function register({ commit }, payload) {
-	commit('SET_LOADING',true);
-	apolloClient
+  commit('SET_LOADING', true);
+  apolloClient
     .mutate({
       mutation: REGISTER_MUTATION,
       variables: payload
     })
     .then(res => {
-    	commit('SET_LOADING',false);
+      commit('SET_LOADING', false);
       console.log(res);
       Dialog.create({
         title: 'Registration Successful',
@@ -176,8 +176,8 @@ export function register({ commit }, payload) {
       });
     })
     .catch(err => {
-	    commit('SET_LOADING',false);
-	    commit('SET_ERROR',err);
+      commit('SET_LOADING', false);
+      commit('SET_ERROR', err);
     });
 }
 

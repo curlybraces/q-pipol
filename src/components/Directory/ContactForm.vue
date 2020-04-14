@@ -2,13 +2,13 @@
   <q-form
     class="fit q-pa-sm q-gutter-y-sm"
     greedy
-    @submit.prevent="handleAddContact"
+    @submit.prevent="handleSubmit"
     ref="addContactForm"
   >
     <q-toolbar>
-      <q-toolbar-title class="text-subtitle1 absolute-center"
-        >Create Contact</q-toolbar-title
-      >
+      <q-toolbar-title class="text-subtitle1 absolute-center">
+        {{ title }}
+      </q-toolbar-title>
       <q-space />
       <q-btn
         flat
@@ -25,33 +25,33 @@
     <div class="overflow-auto">
       <text-input
         label="Name"
-        v-model="contact.name"
+        v-model="name"
         :rules="rules.required"
       ></text-input>
       <text-input
         label="Designation"
-        v-model="contact.designation"
+        v-model="designation"
         :rules="rules.required"
       ></text-input>
       <single-select
         label="Office"
-        v-model="contact.operating_unit_id"
+        v-model="operating_unit_id"
         :options="operating_units"
         :rules="rules.required"
       ></single-select>
       <text-input
         label="Email"
-        v-model="contact.email"
+        v-model="email"
         :rules="rules.required"
       ></text-input>
       <text-input
         label="Phone No."
-        v-model="contact.phone_number"
+        v-model="phone_number"
         :rules="rules.required"
       ></text-input>
       <text-input
         label="Fax No."
-        v-model="contact.fax_number"
+        v-model="fax_number"
         :rules="rules.required"
       ></text-input>
     </div>
@@ -75,6 +75,7 @@
             color="primary"
             type="submit"
             class="full-width"
+            :loading="loading"
           />
         </div>
       </div>
@@ -89,13 +90,21 @@ import SingleSelect from '../form-inputs/SingleSelect';
 
 export default {
   components: { TextInput, SingleSelect },
+  props: ['title', 'contact'],
   name: 'ContactForm',
   computed: {
     ...mapState('options', ['operating_units'])
   },
   data() {
     return {
-      contact: {},
+      id: null,
+      name: null,
+      designation: null,
+      operating_unit_id: null,
+      email: null,
+      phone_number: null,
+      fax_number: null,
+      loading: false,
       rules: {
         required: [val => !!val || '* Required']
       }
@@ -104,18 +113,53 @@ export default {
   methods: {
     ...mapActions('contacts', ['createContact']),
     handleResetContact() {
-      this.contact = {};
+      this.id = null;
+      this.name = null;
+      this.designation = null;
+      this.operating_unit_id = null;
+      this.email = null;
+      this.phone_number = null;
+      this.fax_number = null;
     },
-    handleAddContact() {
+    handleSubmit() {
       this.$refs.addContactForm.validate().then(success => {
         if (success) {
-          console.log('form is valid');
-          this.createContact(this.contact);
+          this.loading = true;
+
+          const payload = {
+            id: this.id,
+            name: this.name,
+            designation: this.designation,
+            operating_unit_id: this.operating_unit_id,
+            email: this.email,
+            phone_number: this.phone_number,
+            fax_number: this.fax_number
+          };
+
+          this.$emit('submit', payload);
         } else {
           console.log('form is invalid');
         }
       });
     }
+  },
+  mounted() {
+    const {
+      id,
+      name,
+      designation,
+      operating_unit_id,
+      email,
+      phone_number,
+      fax_number
+    } = this.$props.contact;
+    this.id = id;
+    this.name = name;
+    this.designation = designation;
+    this.operating_unit_id = operating_unit_id;
+    this.email = email;
+    this.phone_number = phone_number;
+    this.fax_number = fax_number;
   }
 };
 </script>

@@ -42,92 +42,77 @@
           </template>
         </q-input>
       </div>
+    </div>
 
-      <q-inner-loading :showing="loading && !projectCount">
-        <q-spinner-dots size="50px" color="primary" />
-      </q-inner-loading>
+    <!-- show while loading -->
+    <template v-if="$apollo.loading">
+      <project-skeleton />
+    </template>
 
-      <template v-if="loading && !projectCount">
-        <project-skeleton />
+    <!-- show when loaded -->
+    <template v-if="!$apollo.loading">
+      <!-- when there are no items in the projects -->
+      <template v-if="!projects.length">
+        <q-banner>
+          No project.
+        </q-banner>
       </template>
 
-      <q-item v-if="!loading && !Object.keys(sortedProjects).length">
-        <q-item-section>
-          No project
-        </q-item-section>
-      </q-item>
-
-      <template v-if="projectCount">
-        <sort-menu></sort-menu>
-
-        <q-separator />
-
+      <!-- when there are items in the projects -->
+      <template v-else>
         <q-list separator>
-          <template v-for="(project, key) in sortedProjects">
-            <project-item :project="project" :key="key"></project-item>
+          <template v-for="project in projects">
+            <project-item :project="project" :key="project.id" />
           </template>
-
-          <q-item
-            clickable
-            @click="loadProjects"
-            v-if="!loading && pageInfo.hasNextPage"
-          >
-            <q-item-section class="text-center">
-              Load More
-            </q-item-section>
-          </q-item>
-
-          <q-item v-if="loading">
-            <q-inner-loading :showing="loading && projectCount > 0">
-              <q-spinner-dots size="50px"></q-spinner-dots>
-            </q-inner-loading>
-          </q-item>
-
-          <q-item v-if="!loading && !pageInfo.hasNextPage">
-            <q-item-section class="text-center">
-              This is the last page.
-            </q-item-section>
-          </q-item>
         </q-list>
       </template>
-    </div>
+    </template>
+
+    <!-- show when error -->
+    <template v-if="error">
+      <div>
+        {{ error }}
+      </div>
+    </template>
   </q-page>
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from 'vuex';
+// import { mapState, mapActions, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 import PageTitle from '../components/PageTitle';
-import SortMenu from '../components/Projects/SortMenu';
+// import SortMenu from '../components/Projects/SortMenu';
 import ProjectSkeleton from '../components/Projects/ProjectSkeleton';
 import ProjectItem from '../components/Projects/ProjectItem';
 
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import { GET_PROJECTS } from '../graphql/queries';
 
 export default {
+  components: { PageTitle, ProjectSkeleton, ProjectItem },
   name: 'Projects',
-  components: { ProjectSkeleton, SortMenu, PageTitle, ProjectItem },
+  // components: { , SortMenu, PageTitle,  },
+  apollo: {
+    projects: {
+      query: GET_PROJECTS,
+      error(error) {
+        this.error = error;
+      }
+    }
+  },
   data() {
     return {
-      expanded: false,
-      first: 25,
-      endCursor: '',
       uploadFileAndSubmit: false,
       fileIsValid: false,
-      printPreview: true
+      printPreview: true,
+      projects: [],
+      error: null
     };
   },
   computed: {
     ...mapState('auth', ['role']),
-    ...mapState('projects', [
-      'loading',
-      'search',
-      'pageInfo',
-      'sort',
-      'direction'
-    ]),
     ...mapState('settings', ['dark', 'buttonColor']),
-    ...mapGetters('projects', ['projects', 'projectCount']),
     searchField: {
       get() {
         return this.search;
@@ -135,8 +120,10 @@ export default {
       set(val) {
         this.setSearch(val);
       }
-    },
-    sortedProjects() {
+    }
+  },
+  methods: {
+    sortProjects() {
       const projects = this.projects;
       const sort = this.sort;
       const direction = this.direction;
@@ -173,28 +160,6 @@ export default {
         });
 
         return projectsSorted;
-      }
-    }
-  },
-  methods: {
-    ...mapActions('projects', ['fetchProjects', 'setSearch']),
-    loadProjects() {
-      const first = this.first;
-      const endCursor =
-        this.pageInfo.endCursor == undefined ? '' : this.pageInfo.endCursor;
-      const hasNextPage =
-        this.pageInfo.hasNextPage == undefined
-          ? true
-          : this.pageInfo.hasNextPage;
-
-      if (hasNextPage) {
-        console.log('loading more');
-        this.fetchProjects({
-          first: first,
-          after: endCursor
-        });
-      } else {
-        console.log('Nothing to load');
       }
     },
     checkFile(file) {
@@ -252,11 +217,6 @@ export default {
       });
 
       doc.save('projects.pdf');
-    }
-  },
-  mounted() {
-    if (!this.projectCount) {
-      this.loadProjects();
     }
   }
 };

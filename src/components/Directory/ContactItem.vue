@@ -1,103 +1,110 @@
 <template>
-  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12">
-    <q-card flat bordered square>
-      <q-item>
-        <q-item-section avatar>
-          <q-avatar class="text-white text-weight-bold" color="orange-10">
-            {{ contact.name ? contact.name.charAt(0) : '' }}
-          </q-avatar>
-        </q-item-section>
-        <q-item-section>
-          <q-item-label
-            class="text-weight-bold text-uppercase"
-            v-html="$options.filters.searchHighlight(contact.name, search)"
-          ></q-item-label>
-          <q-item-label>
-            {{ contact.designation }}
-          </q-item-label>
-        </q-item-section>
-      </q-item>
-      <q-separator />
-      <q-item>
-        <q-item-section avatar>
-          <q-icon name="domain" />
-        </q-item-section>
-        <q-item-section>
-          <q-item-label>
-            {{
-              contact.operating_unit
-                ? contact.operating_unit.name +
-                  ' (' +
-                  contact.operating_unit.acronym +
-                  ')'
-                : null
-            }}
-          </q-item-label>
-        </q-item-section>
-      </q-item>
-      <q-item>
-        <q-item-section avatar>
-          <q-icon name="mail" />
-        </q-item-section>
-        <q-item-section>
-          <q-item-label>
-            {{ contact.email }}
-          </q-item-label>
-        </q-item-section>
-      </q-item>
-      <q-item>
-        <q-item-section avatar>
-          <q-icon name="local_phone" />
-        </q-item-section>
-        <q-item-section>
-          <q-item-label>
-            {{ contact.phone_number }}
-          </q-item-label>
-        </q-item-section>
-      </q-item>
-      <q-card-actions align="right" v-if="admin">
-        <q-btn
-          flat
-          label="Delete"
-          icon="delete"
-          @click="deleteContactDialog(contact.id)"
-          dense
-          color="red"
-        />
-        <q-btn
-          outline
-          icon="edit"
-          label="Edit"
-          @click="updateContactDialog = true"
-          dense
-          color="primary"
-        />
-      </q-card-actions>
+  <transition
+    enter-active-class="animated zoomIn"
+    leave-active-class="animated zoomOut"
+  >
+    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12">
+      <q-card flat bordered square>
+        <q-item>
+          <q-item-section avatar>
+            <q-avatar class="text-white text-weight-bold" color="orange-10">
+              {{ contact.name ? contact.name.charAt(0) : '' }}
+            </q-avatar>
+          </q-item-section>
+          <q-item-section>
+            <q-item-label
+              class="text-weight-bold text-uppercase"
+              v-html="$options.filters.searchHighlight(contact.name, search)"
+            ></q-item-label>
+            <q-item-label>
+              {{ contact.designation }}
+            </q-item-label>
+          </q-item-section>
+          <q-item-section side>
+            <div class="row">
+              <q-btn
+                flat
+                round
+                icon="delete"
+                @click="deleteContactDialog(contact.id)"
+                dense
+                color="red"
+              />
+              <q-btn
+                flat
+                round
+                icon="edit"
+                @click="$emit('click')"
+                dense
+                color="primary"
+              />
+            </div>
+          </q-item-section>
+        </q-item>
+        <q-separator />
+        <q-item>
+          <q-item-section avatar>
+            <q-icon name="domain" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>
+              {{
+                contact.operating_unit
+                  ? contact.operating_unit.name +
+                    ' (' +
+                    contact.operating_unit.acronym +
+                    ')'
+                  : null
+              }}
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item>
+          <q-item-section avatar>
+            <q-icon name="mail" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>
+              {{ contact.email }}
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item>
+          <q-item-section avatar>
+            <q-icon name="local_phone" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>
+              {{ contact.phone_number }}
+            </q-item-label>
+          </q-item-section>
+        </q-item>
 
-      <q-dialog
-        v-model="updateContactDialog"
-        persistent
-        transition-hide="fade"
-        transition-show="fade"
-        maximized
-      >
-        <q-card>
-          <contact-header title="Edit Contact"></contact-header>
-          <contact-form :contact="contactToEdit"></contact-form>
-          <contact-actions>
-            <q-btn flat label="Cancel" @click="updateContactDialog = false" />
-            <q-btn
-              label="Save"
-              icon="save"
-              @click="updateThisContact"
-              color="primary"
-              :loading="loading"
-            />
-          </contact-actions>
-        </q-card>
-      </q-dialog>
-    </q-card>
-  </div>
+        <q-dialog
+          v-model="updateContactDialog"
+          persistent
+          transition-hide="fade"
+          transition-show="fade"
+          maximized
+        >
+          <q-card>
+            <contact-header title="Edit Contact"></contact-header>
+            <contact-form :contact="contactToEdit"></contact-form>
+            <contact-actions>
+              <q-btn flat label="Cancel" @click="updateContactDialog = false" />
+              <q-btn
+                label="Save"
+                icon="save"
+                @click="updateThisContact"
+                color="primary"
+                :loading="loading"
+              />
+            </contact-actions>
+          </q-card>
+        </q-dialog>
+      </q-card>
+    </div>
+  </transition>
 </template>
 
 <script>

@@ -12,13 +12,15 @@
       />
     </div>
     <q-separator />
-    <template v-for="notification in user.unreadNotifications">
-      <notification-item
-        :notification="notification"
-        :key="notification.id"
-      ></notification-item>
+    <template v-if="!loading && user.unreadNotifications.length">
+      <template v-for="notification in user.unreadNotifications">
+        <notification-item
+          :notification="notification"
+          :key="notification.id"
+        ></notification-item>
+      </template>
     </template>
-    <template v-if="!user.unreadNotifications.length">
+    <template v-else>
       <div class="q-pa-sm">
         No notifications.
       </div>
@@ -34,7 +36,7 @@ export default {
   name: 'RightDrawer',
   components: { NotificationItem },
   computed: {
-    ...mapState('auth', ['user']),
+    ...mapState('auth', ['user', 'loading']),
     message() {
       return '';
     }

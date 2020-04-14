@@ -1,26 +1,38 @@
 <template>
   <q-form ref="signupForm" class="q-gutter-md" @submit="handleSubmit" greedy>
-		<transition
-				enter-active-class="animated zoomIn"
-				leave-active-class="animated zoomOut"
-		>
-			<q-banner inline-actions dense rounded class="bg-red text-white" v-if="error">
-				{{ error.message }}
+    <transition
+      enter-active-class="animated zoomIn"
+      leave-active-class="animated zoomOut"
+    >
+      <q-banner
+        inline-actions
+        dense
+        rounded
+        class="bg-red text-white"
+        v-if="error"
+      >
+        {{ error.message }}
 
-				<template v-slot:action>
-					<q-btn flat round icon="close" @click="CLEAR_ERROR" v-test="{ id: 'clearError' }" />
-				</template>
-			</q-banner>
-		</transition>
+        <template v-slot:action>
+          <q-btn
+            flat
+            round
+            icon="close"
+            @click="CLEAR_ERROR"
+            v-test="{ id: 'clearError' }"
+          />
+        </template>
+      </q-banner>
+    </transition>
 
-		<q-input
+    <q-input
       outlined
       placeholder="Full Name"
       v-model="name"
       :rules="required"
       :dense="dense"
       hide-bottom-space
-			v-test="{ id: 'name' }"
+      v-test="{ id: 'name' }"
     >
       <template v-slot:prepend>
         <q-icon :name="laAtSolid"></q-icon>
@@ -34,9 +46,9 @@
       :loading="checkingEmail"
       placeholder="Email"
       @input="checkEmail"
-			:rules="emailRule"
-			hide-bottom-space
-			v-test="{ id: 'username' }"
+      :rules="emailRule"
+      hide-bottom-space
+      v-test="{ id: 'username' }"
     >
       <template v-slot:prepend>
         <q-icon name="email" />
@@ -54,14 +66,14 @@
       placeholder="Password"
       v-model="password"
       :rules="passwordRule"
-			v-test="{ id: 'password' }"
+      v-test="{ id: 'password' }"
     />
 
     <password-input
       placeholder="Confirm Password"
       v-model="password_confirmation"
       :rules="match"
-			v-test="{ id: 'password_confirmation' }"
+      v-test="{ id: 'password_confirmation' }"
     ></password-input>
 
     <div class="row">
@@ -94,31 +106,31 @@ export default {
       username: null,
       password: null,
       password_confirmation: null,
-      required: [ val => !!val || '* Required' ],
-			emailRule: [
-				val => !!val || '* Required',
-				val => this.validEmail(val) || 'Please input valid email.'
-			],
+      required: [val => !!val || '* Required'],
+      emailRule: [
+        val => !!val || '* Required',
+        val => this.validEmail(val) || 'Please input valid email.'
+      ],
       passwordRule: [
         val => !!val || '* Required',
         val => val.length >= 8 || 'Password must at least be 8 characters.'
       ],
       match: [
-      	val => !!val || '* Required',
-      	val => this.passwordMatch(val) || 'Password does not match'
-			],
+        val => !!val || '* Required',
+        val => this.passwordMatch(val) || 'Password does not match'
+      ],
       checkingEmail: false,
       emailAvailable: false
     };
   },
   computed: {
     ...mapState('settings', ['dense', 'dark']),
-		...mapState('auth',['error','loading'])
+    ...mapState('auth', ['error', 'loading'])
   },
   mixins: [ValidateEmailMixins],
   methods: {
     ...mapActions('auth', ['checkEmailAvailability', 'register']),
-		...mapMutations('auth',['CLEAR_ERROR']),
+    ...mapMutations('auth', ['CLEAR_ERROR']),
     passwordMatch(val) {
       return val === this.password;
     },

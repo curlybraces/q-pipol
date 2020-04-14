@@ -18,14 +18,7 @@
       </q-toolbar-title>
       <q-space />
 
-      <q-btn
-        flat
-        round
-        icon="notifications"
-        class="q-mr-md text-grey-6"
-        @click="$emit('showDrawer')"
-				:loading="loading"
-      >
+      <q-btn flat round icon="notifications" class="q-mr-md text-grey-6">
         <q-badge
           color="red"
           floating
@@ -33,6 +26,22 @@
         >
           {{ user.unreadNotifications.length }}
         </q-badge>
+        <template v-if="!loading && user.unreadNotifications.length">
+          <q-menu :offset="[0, 15]">
+            <q-list separator>
+              <q-item-label header class="text-weight-bolder"
+                >Notifications</q-item-label
+              >
+
+              <notification-item
+                v-for="notification in user.unreadNotifications"
+                :key="notification.id"
+                :notification="notification"
+              >
+              </notification-item>
+            </q-list>
+          </q-menu>
+        </template>
       </q-btn>
 
       <q-btn
@@ -40,13 +49,12 @@
         text-color="white"
         flat
         round
-        @mouseenter="menu = true"
         size="sm"
       >
         <q-avatar size="42px">
           <img :src="imageUrl" />
         </q-avatar>
-        <dropdown-menu v-model="menu" />
+        <dropdown-menu />
       </q-btn>
     </q-toolbar>
 
@@ -76,14 +84,15 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import DropdownMenu from './Dropdown';
+import NotificationItem from '../Notifications/NotificationItem';
 
 export default {
-  components: { DropdownMenu },
+  components: { DropdownMenu, NotificationItem },
   name: 'AppHeader',
   computed: {
     ...mapState('settings', ['dark']),
-		...mapState('auth',['user']),
-    ...mapGetters('auth', ['imageUrl','loading'])
+    ...mapState('auth', ['user']),
+    ...mapGetters('auth', ['imageUrl', 'loading'])
   },
   data() {
     return {
@@ -99,11 +108,6 @@ export default {
           to: '/projects'
         },
         {
-          label: 'Reports',
-          icon: 'bubble_chart',
-          to: '/reports'
-        },
-        {
           label: 'Resources',
           icon: 'attach_file',
           to: '/resources'
@@ -114,7 +118,8 @@ export default {
           to: '/directory'
         }
       ],
-      menu: false
+      menu: false,
+      notificationsDropdown: false
     };
   }
 };
