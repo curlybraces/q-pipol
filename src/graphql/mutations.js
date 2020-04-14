@@ -327,6 +327,62 @@ export const DEACTIVATE_USER = gql`
   }
 `;
 
+/* Operating Units */
+
+export const UPDATE_OPERATING_UNIT_MUTATION = gql`
+  mutation updateOperatingUnit(
+    $id: ID!
+    $name: String!
+    $acronym: String!
+    $image: String
+    $agency_head_name: String
+    $agency_head_designation: String
+    $telephone_number: String
+    $fax_number: String
+    $email: String
+  ) {
+    updateOperatingUnit(
+      id: $id
+      name: $name
+      acronym: $acronym
+      image: $image
+      agency_head_name: $agency_head_name
+      agency_head_designation: $agency_head_designation
+      telephone_number: $telephone_number
+      fax_number: $fax_number
+      email: $email
+    ) {
+      id
+      operating_unit_type_id
+      operating_unit_type {
+        id
+        name
+      }
+      name
+      acronym
+      agency_head_name
+      agency_head_designation
+      telephone_number
+      fax_number
+      email
+      image
+      focals {
+        id
+        name
+        email
+        position
+        active
+        verified
+        image_url
+      }
+      reviewers {
+        id
+        name
+      }
+    }
+  }
+`;
+
 /* Projects */
 
 export const CREATE_PROJECT_MUTATION = gql`

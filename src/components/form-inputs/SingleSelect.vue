@@ -32,13 +32,6 @@
           </q-item-section>
         </q-item>
       </template>
-<!--      <template v-slot:no-option>-->
-<!--        <q-item>-->
-<!--          <q-item-section class="text-grey">-->
-<!--            No results-->
-<!--          </q-item-section>-->
-<!--        </q-item>-->
-<!--      </template>-->
     </q-select>
   </div>
 </template>
@@ -79,7 +72,7 @@ export default {
       const filterText = this.filterText.trim();
       const options = this.$props.options;
 
-      let selectOptions = []
+      let selectOptions = [];
 
       if (!filterText) {
         selectOptions = options;
@@ -91,18 +84,18 @@ export default {
         );
 
         if (!filteredOptions.length) {
-        	selectOptions = [
-        		{
-							id: 0,
-							name: 'No results'
-						}
-					]
-				} else {
-	        selectOptions = filteredOptions
-				}
+          selectOptions = [
+            {
+              id: 0,
+              name: 'No results'
+            }
+          ];
+        } else {
+          selectOptions = filteredOptions;
+        }
       }
 
-      return selectOptions
+      return selectOptions;
     }
   },
   data() {

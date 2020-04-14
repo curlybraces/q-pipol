@@ -14,30 +14,26 @@
 
     <q-separator spaced color="primary" />
 
-		<div class="row">
-			<div class="col-4">
-				<div class="text-subtitle1 text-primary">
-					Technical Readiness
-				</div>
-				<div class="text-caption">Basic information of the project</div>
-			</div>
-			<div class="col-8">
-				<technical-readiness></technical-readiness>
-			</div>
-		</div>
-
-		<q-separator spaced color="primary" />
-
-		<div class="row">
+    <div class="row">
       <div class="col-4">
         <div class="text-subtitle1 text-primary">
-
+          Technical Readiness
         </div>
         <div class="text-caption">Basic information of the project</div>
       </div>
       <div class="col-8">
-
+        <technical-readiness></technical-readiness>
       </div>
+    </div>
+
+    <q-separator spaced color="primary" />
+
+    <div class="row">
+      <div class="col-4">
+        <div class="text-subtitle1 text-primary"></div>
+        <div class="text-caption">Basic information of the project</div>
+      </div>
+      <div class="col-8"></div>
     </div>
 
     <q-separator spaced />

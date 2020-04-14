@@ -177,7 +177,32 @@ export const FETCH_OPERATING_UNITS = gql`
   query operating_units {
     operating_units {
       id
+      operating_unit_type_id
+      operating_unit_type {
+        id
+        name
+      }
       name
+      acronym
+      agency_head_name
+      agency_head_designation
+      telephone_number
+      fax_number
+      email
+      image
+      focals {
+        id
+        name
+        email
+        position
+        active
+        verified
+        image_url
+      }
+      reviewers {
+        id
+        name
+      }
     }
   }
 `;

@@ -69,23 +69,23 @@
       />
     </q-item>
 
-		<q-item>
-			<q-item-section class="col-6">
-				<single-select
-						v-model="target_start_year"
-						label="Target Start Year"
-						:options="years"
-				/>
-			</q-item-section>
+    <q-item>
+      <q-item-section class="col-6">
+        <single-select
+          v-model="target_start_year"
+          label="Target Start Year"
+          :options="years"
+        />
+      </q-item-section>
 
-			<q-item-section class="col-6">
-				<single-select
-						v-model="target_end_year"
-						label="Target Completion Year"
-						:options="years"
-				/>
-			</q-item-section>
-		</q-item>
+      <q-item-section class="col-6">
+        <single-select
+          v-model="target_end_year"
+          label="Target Completion Year"
+          :options="years"
+        />
+      </q-item-section>
+    </q-item>
   </q-list>
 </template>
 
@@ -110,14 +110,14 @@ export default {
       'project.total_project_cost',
       'project.operating_unit_id',
       'project.typology_id',
-			'project.target_start_year',
-	    'project.target_end_year'
+      'project.target_start_year',
+      'project.target_end_year'
     ]),
     ...mapState('options', [
       'operating_units',
       'project_statuses',
       'typologies',
-			'years'
+      'years'
     ])
   },
   data() {
