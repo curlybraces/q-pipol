@@ -32,6 +32,7 @@
           placeholder="Filter Contacts"
           v-model="searchField"
           ref="searchBox"
+					:debounce="500"
         >
           <template v-slot:prepend>
             <q-icon name="search" />
@@ -51,10 +52,11 @@
 
         <template v-if="!$apollo.loading">
           <contact-item
-            v-for="contact in contacts"
+            v-for="contact in filteredContacts"
             :contact="contact"
             :key="contact.id"
             @click="openUpdateContactDialog(contact)"
+						:search="searchField"
           ></contact-item>
         </template>
       </div>
@@ -127,7 +129,25 @@ export default {
   },
   computed: {
     ...mapGetters('settings', ['buttonColor']),
-    ...mapState('options', ['operating_units'])
+    ...mapState('options', ['operating_units']),
+		filteredContacts() {
+    	const search = this.searchField ? this.searchField.toLowerCase().trim(): '';
+			let filteredContacts = []
+			console.log(search)
+
+			if (search) {
+				filteredContacts = this.contacts.filter(contact => {
+					const name = contact.name ? contact.name.toLowerCase() : ''
+					const ou = contact.operating_unit ? contact.operating_unit.name.toLowerCase(): ''
+					const acronym = contact.operating_unit ? contact.operating_unit.acronym.toLowerCase(): ''
+
+					return (name.indexOf(search) > -1 || ou.indexOf(search) > -1 || acronym.indexOf(search) > -1)
+				})
+				return filteredContacts
+			} else {
+				return this.contacts
+			}
+		}
   },
   data() {
     return {
