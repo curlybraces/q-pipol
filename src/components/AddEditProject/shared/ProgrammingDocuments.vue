@@ -38,7 +38,7 @@ import { mapFields } from 'vuex-map-fields';
 
 export default {
   components: {
-    'checkbox-item': () => import('../form-inputs/CheckboxItem.vue')
+    'checkbox-item': () => import('../../form-inputs/CheckboxItem.vue')
   },
   name: 'ProgrammingDocuments',
   props: ['dense'],

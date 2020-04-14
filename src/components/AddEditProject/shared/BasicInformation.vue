@@ -9,6 +9,7 @@
         :rules="[val => !!val || '* Required']"
       />
     </q-item>
+
     <q-item>
       <single-select
         v-model="type_id"
@@ -18,6 +19,7 @@
         :rules="[val => !!val || '* Required']"
       />
     </q-item>
+
     <q-item>
       <single-select
         v-model="operating_unit_id"
@@ -27,6 +29,7 @@
         :rules="[val => !!val || '* Required']"
       />
     </q-item>
+
     <q-item>
       <text-input
         v-model="description"
@@ -36,6 +39,7 @@
         :rules="[val => !!val || '* Required']"
       />
     </q-item>
+
     <q-item>
       <money-input
         label="Total Project Cost"
@@ -46,6 +50,7 @@
         :rules="[positive]"
       ></money-input>
     </q-item>
+
     <q-item>
       <single-select
         v-model="project_status_id"
@@ -54,6 +59,7 @@
         :rules="[val => !!val || '* Required']"
       />
     </q-item>
+
     <q-item>
       <single-select
         v-model="typology_id"
@@ -62,19 +68,37 @@
         :rules="[val => !!val || '* Required']"
       />
     </q-item>
+
+		<q-item>
+			<q-item-section class="col-6">
+				<single-select
+						v-model="target_start_year"
+						label="Target Start Year"
+						:options="years"
+				/>
+			</q-item-section>
+
+			<q-item-section class="col-6">
+				<single-select
+						v-model="target_end_year"
+						label="Target Completion Year"
+						:options="years"
+				/>
+			</q-item-section>
+		</q-item>
   </q-list>
 </template>
 
 <script>
 import { mapState } from 'vuex';
 import { mapFields } from 'vuex-map-fields';
-import { TYPES } from '../../data/dropdown-values.js';
+import { TYPES } from '../../../data/dropdown-values.js';
 
 export default {
   components: {
-    'money-input': () => import('../form-inputs/MoneyInput.vue'),
-    'single-select': () => import('../form-inputs/SingleSelect.vue'),
-    'text-input': () => import('../form-inputs/TextInput.vue')
+    'money-input': () => import('../../form-inputs/MoneyInput.vue'),
+    'single-select': () => import('../../form-inputs/SingleSelect.vue'),
+    'text-input': () => import('../../form-inputs/TextInput.vue')
   },
   name: 'BasicInformation',
   computed: {
@@ -85,12 +109,15 @@ export default {
       'project.project_status_id',
       'project.total_project_cost',
       'project.operating_unit_id',
-      'project.typology_id'
+      'project.typology_id',
+			'project.target_start_year',
+	    'project.target_end_year'
     ]),
     ...mapState('options', [
       'operating_units',
       'project_statuses',
-      'typologies'
+      'typologies',
+			'years'
     ])
   },
   data() {

@@ -92,13 +92,13 @@
 <script>
 import { mapState } from 'vuex';
 import { mapFields } from 'vuex-map-fields';
-import { TECHNICAL_READINESSES } from '../../data/dropdown-values';
+import { TECHNICAL_READINESSES } from '../../../data/dropdown-values';
 
 export default {
   components: {
-    'checkbox-input': () => import('../form-inputs/CheckboxInput.vue'),
-    'date-input': () => import('../form-inputs/DateInput.vue'),
-    'list-option-group': () => import('../form-inputs/ListOptionGroup.vue'),
+    'checkbox-input': () => import('../../form-inputs/CheckboxInput.vue'),
+    'date-input': () => import('../../form-inputs/DateInput.vue'),
+    'list-option-group': () => import('../../form-inputs/ListOptionGroup.vue'),
     'other-costs': () => import('./OtherCosts.vue')
   },
   name: 'TechnicalReadiness',

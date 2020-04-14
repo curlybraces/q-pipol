@@ -9,26 +9,26 @@
     </div>
 
     <div class="row col-lg-8 col-md-6 col-xs-12 q-col-gutter-sm q-gutter-y-sm">
-			<q-item v-if="loading" class="col">
-				<q-item-section avatar>
-					<q-skeleton type="QAvatar" />
-				</q-item-section>
+      <q-item v-if="loading" class="col">
+        <q-item-section avatar>
+          <q-skeleton type="QAvatar" />
+        </q-item-section>
 
-				<q-item-section>
-					<q-item-label>
-						<q-skeleton type="text" width="30%" />
-					</q-item-label>
-					<q-item-label caption>
-						<q-skeleton type="text" width="25%" />
-					</q-item-label>
-					<q-item-label caption>
-						<q-skeleton type="text" width="20%" />
-					</q-item-label>
-					<q-item-label caption>
-						<q-skeleton type="text" width="15%" />
-					</q-item-label>
-				</q-item-section>
-			</q-item>
+        <q-item-section>
+          <q-item-label>
+            <q-skeleton type="text" width="30%" />
+          </q-item-label>
+          <q-item-label caption>
+            <q-skeleton type="text" width="25%" />
+          </q-item-label>
+          <q-item-label caption>
+            <q-skeleton type="text" width="20%" />
+          </q-item-label>
+          <q-item-label caption>
+            <q-skeleton type="text" width="15%" />
+          </q-item-label>
+        </q-item-section>
+      </q-item>
       <q-item class="col" v-if="!loading">
         <q-item-section avatar>
           <q-avatar

@@ -1,9 +1,9 @@
 export function imageUrl(state) {
-	if (!state.loading && state.user.image_url) {
-		return `statics/avatars/avatar-${state.user.image_url}.svg`
-	} else {
-		return 'statics/avatars/undefined.png';
-	}
+  if (!state.loading && state.user.image_url) {
+    return `statics/avatars/avatar-${state.user.image_url}.svg`;
+  } else {
+    return 'statics/avatars/undefined.png';
+  }
 }
 
 export function isLoggedIn(state) {
@@ -27,22 +27,22 @@ export function user(state) {
 }
 
 export function isAdmin(state) {
-	if (!state.loading) {
-		return state.user.role ? state.user.role.name === 'admin': false;
-	}
+  if (!state.loading) {
+    return state.user.role ? state.user.role.name === 'admin' : false;
+  }
   return false;
 }
 
 export function isEncoder(state) {
-	if (!state.loading) {
-		return state.user.role ? state.user.role.name === 'encoder' : false;
-	}
-	return false;
+  if (!state.loading) {
+    return state.user.role ? state.user.role.name === 'encoder' : false;
+  }
+  return false;
 }
 
 export function isVerified(state) {
-	if (!state.loading) {
-		return state.user.verified;
-	}
-	return false;
+  if (!state.loading) {
+    return state.user.verified;
+  }
+  return false;
 }

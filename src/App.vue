@@ -27,7 +27,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('auth', ['getCurrentUser']),
+    ...mapActions('auth', ['getCurrentUser', 'loading']),
     ...mapActions('options', ['initializeOptions'])
   },
   created() {

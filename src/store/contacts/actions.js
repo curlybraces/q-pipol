@@ -31,22 +31,24 @@ export function fetchContacts({ commit }) {
 }
 
 export function createContact({}, payload) {
-	apolloClient
+  apolloClient
     .mutate({
       mutation: CREATE_CONTACT_MUTATION,
       variables: payload,
-	    update: (store, { data: { createContact } }) => {
-      	console.log('store', store);
-		    console.log('createContact', createContact);
-		    
-		    const data = store.readQuery({ query: FETCH_CONTACTS })
-		    
-		    store.writeQuery({ query: FETCH_CONTACTS, data: {
-		    	  ...data,
-			      contacts: [...data.contacts, createContact]
-		      }
-		    })
-	    }
+      update: (store, { data: { createContact } }) => {
+        console.log('store', store);
+        console.log('createContact', createContact);
+
+        const data = store.readQuery({ query: FETCH_CONTACTS });
+
+        store.writeQuery({
+          query: FETCH_CONTACTS,
+          data: {
+            ...data,
+            contacts: [...data.contacts, createContact]
+          }
+        });
+      }
     })
     .then(() => {
       showSuccessNotification({

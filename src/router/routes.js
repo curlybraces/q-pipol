@@ -79,17 +79,25 @@ const routes = [
         }
       },
       {
-        path: 'projects/new',
-        name: 'new-project',
+        path: 'projects/add',
+        name: 'add-project',
         component: () =>
           import(
             /* webpackChunkName: 'AddProjectPage' */ 'pages/AddProject.vue'
-          ),
-        meta: {
-          requiresAuth: true,
-          is_encoder: true
-        }
+          )
       },
+      // {
+      //   path: 'projects/new',
+      //   name: 'new-project',
+      //   component: () =>
+      //     import(
+      //       /* webpackChunkName: 'AddProjectPage' */ 'pages/AddProject.vue'
+      //     ),
+      //   meta: {
+      //     requiresAuth: true,
+      //     is_encoder: true
+      //   }
+      // },
       {
         path: 'projects/:id/edit',
         name: 'edit-project',

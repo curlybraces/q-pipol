@@ -2,24 +2,6 @@
   <q-list>
     <q-item>
       <q-item-section class="col-6">
-        <single-select
-          v-model="target_start_year"
-          label="Target Start Year"
-          :options="years"
-        />
-      </q-item-section>
-
-      <q-item-section class="col-6">
-        <single-select
-          v-model="target_end_year"
-          label="Target Completion Year"
-          :options="years"
-        />
-      </q-item-section>
-    </q-item>
-
-    <q-item>
-      <q-item-section class="col-6">
         <date-input
           v-model="implementation_start_date"
           mask="date"
@@ -45,13 +27,12 @@ import { mapFields } from 'vuex-map-fields';
 
 export default {
   components: {
-    'single-select': () => import('../form-inputs/SingleSelect.vue'),
-    'date-input': () => import('../form-inputs/DateInput.vue')
+    'date-input': () => import('../../form-inputs/DateInput.vue')
   },
   name: 'ImplementationPeriod',
   props: ['dense'],
   computed: {
-  	...mapState('options',['years']),
+    ...mapState('options', ['years']),
     ...mapFields('project', [
       'project.target_start_year',
       'project.target_end_year',

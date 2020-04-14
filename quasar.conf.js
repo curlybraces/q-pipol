@@ -47,7 +47,14 @@ module.exports = function(ctx) {
       directives: [],
 
       // Quasar plugins
-      plugins: ["Dialog", "AddressbarColor", "LocalStorage", "Notify", "LoadingBar","Dark"]
+      plugins: [
+      	"Dialog",
+	      "AddressbarColor",
+	      "LocalStorage",
+	      "Notify",
+	      "LoadingBar",
+	      "Dark",
+	      "Loading" ]
     },
 
     supportIE: false,

@@ -75,9 +75,15 @@
       </div>
     </template>
 
-		<q-page-sticky position="bottom" :offset="[18, 18]" v-if="isEncoder">
-			<q-btn fab icon="add" color="primary" to="/projects/create" class="all-pointer-events" />
-		</q-page-sticky>
+    <q-page-sticky position="bottom" :offset="[18, 18]" v-if="isEncoder">
+      <q-btn
+        fab
+        icon="add"
+        color="primary"
+        to="/projects/add"
+        class="all-pointer-events"
+      />
+    </q-page-sticky>
   </q-page>
 </template>
 
@@ -94,7 +100,6 @@ import { GET_PROJECTS } from '../graphql/queries';
 export default {
   components: { PageTitle, ProjectSkeleton, ProjectItem },
   name: 'Projects',
-  // components: { , SortMenu, PageTitle,  },
   apollo: {
     projects: {
       query: GET_PROJECTS,
@@ -115,7 +120,7 @@ export default {
   computed: {
     ...mapState('auth', ['role']),
     ...mapState('settings', ['dark', 'buttonColor']),
-		...mapGetters('auth',['isEncoder']),
+    ...mapGetters('auth', ['isEncoder']),
     searchField: {
       get() {
         return this.search;

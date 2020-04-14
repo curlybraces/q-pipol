@@ -124,13 +124,13 @@ export const MARK_AS_READ_MUTATION = gql`
       notifiable_id
       notifiable_type
       notifiable {
-          name
+        name
       }
       data {
-          id
-          from
-          title
-          message
+        id
+        from
+        title
+        message
       }
       read_at
       created_at

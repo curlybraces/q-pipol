@@ -92,7 +92,7 @@ import AdminMixins from '../../mixins/AdminMixins';
 
 export default {
   name: 'ContactItem',
-  props: ['contact','search'],
+  props: ['contact', 'search'],
   mixins: [AdminMixins],
   data() {
     return {
@@ -101,9 +101,9 @@ export default {
       loading: false
     };
   },
-	computed: {
-  	...mapGetters('auth',['isAdmin'])
-	},
+  computed: {
+    ...mapGetters('auth', ['isAdmin'])
+  },
   methods: {
     ...mapActions('contacts', ['deleteContact', 'updateContact']),
     deleteContactDialog(id) {
