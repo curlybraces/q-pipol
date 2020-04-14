@@ -12,7 +12,7 @@
 
     <q-item>
       <multi-select
-        v-model="regions"
+        v-model="selected_regions"
         label="Region/s"
         :options="regions_options"
         :readonly="spatial_coverage_id == '1'"
@@ -77,7 +77,7 @@ export default {
       'project.selected_provinces',
       'project.selected_districts',
       'project.cities_municipalities',
-      'project.regions'
+      'project.selected_regions'
     ]),
     ...mapState('options', [
       'districts_options',

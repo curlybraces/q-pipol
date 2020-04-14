@@ -74,14 +74,16 @@
         {{ error }}
       </div>
     </template>
+
+		<q-page-sticky position="bottom" :offset="[18, 18]" v-if="isEncoder">
+			<q-btn fab icon="add" color="primary" to="/projects/create" class="all-pointer-events" />
+		</q-page-sticky>
   </q-page>
 </template>
 
 <script>
-// import { mapState, mapActions, mapGetters } from 'vuex';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import PageTitle from '../components/PageTitle';
-// import SortMenu from '../components/Projects/SortMenu';
 import ProjectSkeleton from '../components/Projects/ProjectSkeleton';
 import ProjectItem from '../components/Projects/ProjectItem';
 
@@ -113,6 +115,7 @@ export default {
   computed: {
     ...mapState('auth', ['role']),
     ...mapState('settings', ['dark', 'buttonColor']),
+		...mapGetters('auth',['isEncoder']),
     searchField: {
       get() {
         return this.search;

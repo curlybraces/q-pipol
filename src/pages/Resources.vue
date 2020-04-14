@@ -13,7 +13,7 @@
 
     <div class="q-pa-sm">
       <q-inner-loading :showing="loading">
-        <q-spinner-dots size="50px"></q-spinner-dots>
+        <q-spinner-tail size="50px"></q-spinner-tail>
       </q-inner-loading>
       <div class="row q-gutter-sm">
         <q-list bordered separator v-if="Object.keys(resources).length">

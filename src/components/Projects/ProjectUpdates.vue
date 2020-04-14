@@ -23,7 +23,7 @@
 <script>
 import { mapFields } from 'vuex-map-fields';
 import { mapState } from 'vuex';
-import FinancialAccomplishment from './FinancialAccomplishment';
+import FinancialAccomplishment from '../AddEditProject/FinancialAccomplishment';
 import DateInput from '../form-inputs/DateInput';
 import SingleSelect from '../form-inputs/SingleSelect';
 import TextInput from '../form-inputs/TextInput';

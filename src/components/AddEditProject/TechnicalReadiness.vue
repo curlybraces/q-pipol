@@ -99,7 +99,7 @@ export default {
     'checkbox-input': () => import('../form-inputs/CheckboxInput.vue'),
     'date-input': () => import('../form-inputs/DateInput.vue'),
     'list-option-group': () => import('../form-inputs/ListOptionGroup.vue'),
-    'other-costs': () => import('../../components/Projects/OtherCosts.vue')
+    'other-costs': () => import('./OtherCosts.vue')
   },
   name: 'TechnicalReadiness',
   computed: {

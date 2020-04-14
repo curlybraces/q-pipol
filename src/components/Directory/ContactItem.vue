@@ -20,7 +20,7 @@
               {{ contact.designation }}
             </q-item-label>
           </q-item-section>
-          <q-item-section side>
+          <q-item-section side v-if="isAdmin">
             <div class="row">
               <q-btn
                 flat
@@ -41,7 +41,9 @@
             </div>
           </q-item-section>
         </q-item>
+
         <q-separator />
+
         <q-item>
           <q-item-section avatar>
             <q-icon name="domain" />
@@ -79,44 +81,17 @@
             </q-item-label>
           </q-item-section>
         </q-item>
-
-        <q-dialog
-          v-model="updateContactDialog"
-          persistent
-          transition-hide="fade"
-          transition-show="fade"
-          maximized
-        >
-          <q-card>
-            <contact-header title="Edit Contact"></contact-header>
-            <contact-form :contact="contactToEdit"></contact-form>
-            <contact-actions>
-              <q-btn flat label="Cancel" @click="updateContactDialog = false" />
-              <q-btn
-                label="Save"
-                icon="save"
-                @click="updateThisContact"
-                color="primary"
-                :loading="loading"
-              />
-            </contact-actions>
-          </q-card>
-        </q-dialog>
       </q-card>
     </div>
   </transition>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-import ContactForm from './AddEditContact/Shared/ContactForm';
-import ContactActions from './AddEditContact/Shared/ContactActions';
-import ContactHeader from './AddEditContact/Shared/ContactHeader';
+import { mapActions, mapGetters } from 'vuex';
 import AdminMixins from '../../mixins/AdminMixins';
 
 export default {
   name: 'ContactItem',
-  components: { ContactHeader, ContactActions, ContactForm },
   props: ['contact','search'],
   mixins: [AdminMixins],
   data() {
@@ -126,6 +101,9 @@ export default {
       loading: false
     };
   },
+	computed: {
+  	...mapGetters('auth',['isAdmin'])
+	},
   methods: {
     ...mapActions('contacts', ['deleteContact', 'updateContact']),
     deleteContactDialog(id) {

@@ -9,11 +9,11 @@
         </div>
         <div class="row">
           <div class="col-6">
-            <q-card square class="fit" bordered>
+            <q-card flat square class="fit" bordered>
               <q-item>
                 <q-item-section>Projects</q-item-section>
                 <q-item-section avatar>
-                  <q-avatar color="primary" class="text-white">
+                  <q-avatar color="grey" class="text-white">
                     {{ projects.length }}
                   </q-avatar>
                 </q-item-section>
@@ -21,11 +21,11 @@
             </q-card>
           </div>
           <div class="col-6">
-            <q-card square class="fit" bordered>
+            <q-card flat square class="fit" bordered>
               <q-item>
                 <q-item-section>Messages</q-item-section>
                 <q-item-section avatar>
-                  <q-avatar color="primary" class="text-white">
+                  <q-avatar color="grey" class="text-white">
                     0
                   </q-avatar>
                 </q-item-section>
@@ -33,11 +33,11 @@
             </q-card>
           </div>
           <div class="col-6">
-            <q-card square class="fit" bordered>
+            <q-card flat square class="fit" bordered>
               <q-item>
                 <q-item-section>Activities</q-item-section>
                 <q-item-section avatar>
-                  <q-avatar color="primary" class="text-white">
+                  <q-avatar color="grey" class="text-white">
                     {{ user ? user.activities.length : 0 }}
                   </q-avatar>
                 </q-item-section>
@@ -45,18 +45,39 @@
             </q-card>
           </div>
           <div class="col-6">
-            <q-card square class="fit" bordered>
+            <q-card flat square class="fit" bordered>
               <q-item>
                 <q-item-section>Notifications</q-item-section>
                 <q-item-section avatar>
-                  <q-avatar color="primary" class="text-white">
-                    {{ user.unreadNotifications.length }}
+                  <q-avatar color="grey" class="text-white">
+                    {{ user ? user.unreadNotifications.length: 0 }}
                   </q-avatar>
                 </q-item-section>
               </q-item>
             </q-card>
           </div>
         </div>
+
+				<!-- Shortcuts -->
+				<div class="row">
+					<q-item-label header class="q-px-none q-pb-sm q-mt-md">Shortcuts</q-item-label>
+				</div>
+				<div class="row">
+					<template v-for="(link, index) in links">
+						<div class="col-6" :key="index">
+							<q-card flat square class="fit" bordered>
+								<q-item clickable :to="link.url" v-ripple>
+									<q-item-section>
+										<q-item-label>{{ link.label }}</q-item-label>
+									</q-item-section>
+									<q-item-section side top>
+										<q-icon :name="link.icon" size="xl" :color="link.color" />
+									</q-item-section>
+								</q-item>
+							</q-card>
+						</div>
+					</template>
+				</div>
       </div>
 
       <!-- Activity Feed -->
@@ -75,56 +96,43 @@
             to="/activity"
           />
         </div>
-        <q-card square style="min-height: 115px;">
+        <q-card square bordered flat style="min-height: 115px;">
           <q-list separator>
-            <template v-if="!loading && activitiesPreview.length">
-              <q-item v-for="activity in activitiesPreview" :key="activity.id">
-                <q-item-section avatar>
-                  <q-avatar>
-                    <q-icon :name="activity.description | icon" />
-                  </q-avatar>
-                </q-item-section>
-                <q-item-section>
-                  <q-item-label
-                    >{{ activity.description | subject }}:
-                    {{
-                      activity.subject ? activity.subject.title : ''
-                    }}</q-item-label
-                  >
-                  <q-item-label caption>{{
-                    activity.created_at | timeDiff
-                  }}</q-item-label>
-                </q-item-section>
-              </q-item>
-            </template>
-            <template v-else>
-              <q-item>
-                No activities to show.
-              </q-item>
-            </template>
+						<template v-if="loading">
+							<q-inner-loading :showing="loading">
+								<q-spinner-tail :size="50" color="primary"></q-spinner-tail>
+							</q-inner-loading>
+						</template>
+						<template v-else>
+							<template v-if="!loading && activitiesPreview.length">
+								<q-item v-for="activity in activitiesPreview" :key="activity.id">
+									<q-item-section avatar>
+										<q-avatar>
+											<q-icon :name="activity.description | icon" />
+										</q-avatar>
+									</q-item-section>
+									<q-item-section>
+										<q-item-label
+											>{{ activity.description | subject }}:
+											{{
+												activity.subject ? activity.subject.title : ''
+											}}</q-item-label
+										>
+										<q-item-label caption>{{
+											activity.created_at | timeDiff
+										}}</q-item-label>
+									</q-item-section>
+								</q-item>
+							</template>
+							<template v-else>
+								<q-item>
+									No activities to show.
+								</q-item>
+							</template>
+						</template>
           </q-list>
         </q-card>
       </div>
-    </div>
-
-    <!-- Shortcuts -->
-    <q-item-label header class="text-uppercase">Shortcuts</q-item-label>
-    <div class="row q-pa-sm q-col-gutter-x-sm q-gutter-y-sm">
-      <template v-for="(link, index) in links">
-        <div class="col-3" :key="index">
-          <q-card square fit class="no-margin full-height">
-            <q-item clickable :to="link.url" v-ripple>
-              <q-item-section class="gt-sm">
-                <q-item-label caption>{{ link.label }}</q-item-label>
-              </q-item-section>
-              <q-separator class="gt-sm" vertical />
-              <q-item-section side top>
-                <q-icon :name="link.icon" size="xl" :color="link.color" />
-              </q-item-section>
-            </q-item>
-          </q-card>
-        </div>
-      </template>
     </div>
 
     <!-- email validation dialog -->
@@ -146,7 +154,7 @@
           <div class="text-subtitle1">
             You're almost there! We sent an email to<br /><span
               class="text-weight-bolder"
-              >{{ user.email }}</span
+              >{{ user ? user.email: '' }}</span
             >
           </div>
           <div class="text-subtitle2">
@@ -164,14 +172,15 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapGetters } from 'vuex';
 import moment from 'moment';
+import { GET_PROJECTS } from '../graphql/queries';
 
 export default {
   name: 'PageIndex',
   computed: {
     ...mapState('auth', ['showValidateEmailReminder', 'user', 'loading']),
-    ...mapState('projects', ['projects']),
+		...mapGetters('auth',['isEncoder']),
     needEmailValidation() {
       return this.showValidateEmailReminder;
     },
@@ -179,28 +188,39 @@ export default {
       return this.user.activities.slice(0, 10);
     }
   },
+	apollo: {
+  	projects: {
+  		query: GET_PROJECTS
+		}
+	},
   methods: {
     ...mapActions('auth', ['hideValidateEmailReminder']),
-    ...mapActions('projects', ['fetchProjects']),
     hideReminder() {
       this.hideValidateEmailReminder(false);
     }
   },
   data() {
     return {
+    	projects: [],
       links: [
         {
-          label: 'View Projects',
-          icon: 'list',
-          url: '/projects',
-          color: 'blue'
-        },
-        {
-          label: 'Add Project',
+          label: 'Account Settings',
           icon: 'playlist_add',
-          url: '/projects/create',
+          url: '/account',
           color: 'green'
         },
+	      {
+		      label: 'View Projects',
+		      icon: 'list',
+		      url: '/projects',
+		      color: 'blue'
+	      },
+				{
+					label: 'Activities',
+					icon: 'work_outline',
+					url: '/activities',
+					color: 'purple'
+				},
         {
           label: 'Resources',
           icon: 'folder_open',
@@ -212,7 +232,13 @@ export default {
           icon: 'call',
           url: '/directory',
           color: 'black'
-        }
+        },
+				{
+					label: 'Settings',
+					icon: 'settings',
+					url: '/settings',
+					color: 'pink'
+				}
       ]
     };
   },

@@ -5,9 +5,7 @@
         <single-select
           v-model="target_start_year"
           label="Target Start Year"
-          :options="YEARS"
-          :dense="dense"
-          :options-dense="dense"
+          :options="years"
         />
       </q-item-section>
 
@@ -15,9 +13,7 @@
         <single-select
           v-model="target_end_year"
           label="Target Completion Year"
-          :options="YEARS"
-          :dense="dense"
-          :options-dense="dense"
+          :options="years"
         />
       </q-item-section>
     </q-item>
@@ -44,8 +40,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import { mapFields } from 'vuex-map-fields';
-import { YEARS } from '../../data/dropdown-values';
 
 export default {
   components: {
@@ -55,17 +51,13 @@ export default {
   name: 'ImplementationPeriod',
   props: ['dense'],
   computed: {
+  	...mapState('options',['years']),
     ...mapFields('project', [
       'project.target_start_year',
       'project.target_end_year',
       'project.implementation_start_date',
       'project.implementation_end_date'
     ])
-  },
-  data() {
-    return {
-      YEARS
-    };
   }
 };
 </script>

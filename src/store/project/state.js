@@ -131,7 +131,8 @@ export const INITIAL_STATE = {
   selected_technical_readinesses: [],
   selected_bases: [],
   selected_districts: [],
-  regions: [],
+	regions: [],
+  selected_regions: [],
   selected_provinces: [],
   funding_sources: []
 };

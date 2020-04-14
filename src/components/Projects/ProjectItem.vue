@@ -64,7 +64,6 @@
                 v-close-popup
                 :to="'/projects/' + project.id"
                 tag="a"
-                target="_blank"
               >
                 <q-item-section>
                   <q-item-label>
@@ -77,7 +76,6 @@
                 v-close-popup
                 :to="'/projects/' + project.id + '/edit'"
                 tag="a"
-                target="_blank"
               >
                 <q-item-section>
                   <q-item-label> <q-icon name="edit" /> Edit </q-item-label>

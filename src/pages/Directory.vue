@@ -42,7 +42,7 @@
 
       <!-- Show Loading -->
       <q-inner-loading :showing="$apollo.loading">
-        <q-spinner-dots size="50px" color="primary" />
+        <q-spinner-tail size="50px" color="primary" />
       </q-inner-loading>
 
       <div class="row item-start q-col-gutter-md">
@@ -133,7 +133,6 @@ export default {
 		filteredContacts() {
     	const search = this.searchField ? this.searchField.toLowerCase().trim(): '';
 			let filteredContacts = []
-			console.log(search)
 
 			if (search) {
 				filteredContacts = this.contacts.filter(contact => {
@@ -143,10 +142,11 @@ export default {
 
 					return (name.indexOf(search) > -1 || ou.indexOf(search) > -1 || acronym.indexOf(search) > -1)
 				})
-				return filteredContacts
 			} else {
-				return this.contacts
+				filteredContacts = this.contacts
 			}
+
+			return filteredContacts
 		}
   },
   data() {

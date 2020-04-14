@@ -20,8 +20,8 @@ export function fetchDistricts({ commit }) {
     .query({
       query: FETCH_DISTRICTS
     })
-    .then(res => {
-      commit('SET_DISTRICTS', res.data.districts);
+    .then(({ data }) => {
+      commit('SET_DISTRICTS', data.districts);
     })
     .catch(err => console.log(err.message));
 }
@@ -31,8 +31,8 @@ export function fetchFundingSources({ commit }) {
     .query({
       query: FETCH_FUNDING_SOURCES
     })
-    .then(res => {
-      commit('SET_FUNDING_SOURCES_OPTIONS', res.data.funding_sources);
+    .then(({ data }) => {
+      commit('SET_FUNDING_SOURCES_OPTIONS', data.funding_sources);
     });
 }
 
@@ -41,8 +41,8 @@ export function fetchImplementationModes({ commit }) {
     .query({
       query: FETCH_IMPLEMENTATION_MODES
     })
-    .then(res => {
-      commit('SET_IMPLEMENTATION_MODES', res.data.implementation_modes);
+    .then(({ data }) => {
+      commit('SET_IMPLEMENTATION_MODES', data.implementation_modes);
     })
     .catch(err => console.log(err.message));
 }
@@ -52,8 +52,8 @@ export function fetchOperatingUnits({ commit }) {
     .query({
       query: FETCH_OPERATING_UNITS
     })
-    .then(res => {
-      commit('SET_OPERATING_UNITS', res.data.operating_units);
+    .then(({ data }) => {
+      commit('SET_OPERATING_UNITS', data.operating_units);
     });
 }
 
@@ -62,8 +62,8 @@ export function fetchProjectStatuses({ commit }) {
     .query({
       query: FETCH_PROJECT_STATUSES
     })
-    .then(res => {
-      commit('SET_PROJECT_STATUSES', res.data.project_statuses);
+    .then(({ data }) => {
+      commit('SET_PROJECT_STATUSES', data.project_statuses);
     });
 }
 
@@ -72,8 +72,8 @@ export function fetchProvinces({ commit }) {
     .query({
       query: FETCH_PROVINCES
     })
-    .then(res => {
-      commit('SET_PROVINCES', res.data.provinces);
+    .then(({ data }) => {
+      commit('SET_PROVINCES', data.provinces);
     });
 }
 
@@ -82,8 +82,8 @@ export function fetchRegions({ commit }) {
     .query({
       query: FETCH_REGIONS
     })
-    .then(res => {
-      commit('SET_REGIONS', res.data.regions);
+    .then(({ data }) => {
+      commit('SET_REGIONS', data.regions);
     });
 }
 
@@ -92,8 +92,8 @@ export function fetchSpatialCoverages({ commit }) {
     .query({
       query: FETCH_SPATIAL_COVERAGES
     })
-    .then(res => {
-      commit('SET_SPATIAL_COVERAGES', res.data.spatial_coverages);
+    .then(({ data }) => {
+      commit('SET_SPATIAL_COVERAGES', data.spatial_coverages);
     });
 }
 
@@ -102,8 +102,8 @@ export function fetchTechnicalReadinesses({ commit }) {
     .query({
       query: FETCH_TECHNICAL_READINESSES
     })
-    .then(res => {
-      commit('SET_TECHNICAL_READINESSES', res.data.technical_readinesses);
+    .then(({ data }) => {
+      commit('SET_TECHNICAL_READINESSES', data.technical_readinesses);
     });
 }
 
@@ -112,8 +112,8 @@ export function fetchRoles({ commit }) {
     .query({
       query: FETCH_ROLES
     })
-    .then(res => {
-      commit('SET_ROLES', res.data.roles);
+    .then(({ data }) => {
+      commit('SET_ROLES', data.roles);
     });
 }
 
@@ -122,8 +122,8 @@ export function fetchTiers({ commit }) {
     .query({
       query: FETCH_TIERS
     })
-    .then(res => {
-      commit('SET_TIERS', res.data.tiers);
+    .then(({ data }) => {
+      commit('SET_TIERS', data.tiers);
     });
 }
 
@@ -132,8 +132,8 @@ export function fetchTypologies({ commit }) {
     .query({
       query: FETCH_TYPOLOGIES
     })
-    .then(res => {
-      commit('SET_TYPOLOGIES', res.data.typologies);
+    .then(({ data }) => {
+      commit('SET_TYPOLOGIES', data.typologies);
     });
 }
 
@@ -142,9 +142,9 @@ export function fetchYears({ commit }) {
     .query({
       query: FETCH_YEARS
     })
-    .then(res => {
+    .then(({ data }) => {
       // the backend is using singular year
-      commit('SET_YEARS', res.data.year);
+      commit('SET_YEARS', data.years);
     })
     .catch(err => console.log(err.message));
 }

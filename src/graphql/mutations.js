@@ -119,7 +119,22 @@ export const FORGOT_PASSWORD_MUTATION = gql`
 export const MARK_AS_READ_MUTATION = gql`
   mutation markAsRead($id: ID!) {
     markAsRead(id: $id) {
-      status
+      id
+      type
+      notifiable_id
+      notifiable_type
+      notifiable {
+          name
+      }
+      data {
+          id
+          from
+          title
+          message
+      }
+      read_at
+      created_at
+      updated_at
     }
   }
 `;

@@ -4,15 +4,30 @@ import {
   MARK_AS_READ_MUTATION
 } from '../../graphql/mutations';
 import { showErrorNotification } from '../../functions/function-show-notifications';
+import {GET_CURRENT_USER} from '../../graphql/queries';
 
 export function markAsRead({}, payload) {
   apolloClient
     .mutate({
       mutation: MARK_AS_READ_MUTATION,
-      variables: payload
+      variables: payload,
+	    update: (store, { data: markAsRead }) => {
+      	console.log('store: ', store);
+      	console.log('mark as read: ', markAsRead)
+		    
+		    const data = store.readQuery({
+			    query: GET_CURRENT_USER
+		    })
+		    
+		    data.getCurrentUser.unreadNotifications = data.getCurrentUser.unreadNotifications.filter(notif => notif.id !== markAsRead.id)
+		    
+		    store.writeQuery({ query: GET_CURRENT_USER, data })
+		    
+		    console.log(data.getCurrentUser)
+	    }
     })
-    .then(res => {
-      if (res.data.markAsRead.status === 'SUCCESS') {
+    .then(({ data }) => {
+      if (data.markAsRead.status === 'SUCCESS') {
         // const updatedNotification = {
         //   id: payload.id,
         //   read_at: Date.now()

@@ -24,7 +24,7 @@
           floating
           v-if="!loading && user.unreadNotifications.length"
         >
-          {{ user.unreadNotifications.length }}
+          {{ user ? user.unreadNotifications.length : '' }}
         </q-badge>
         <template v-if="!loading && user.unreadNotifications.length">
           <q-menu :offset="[0, 15]">

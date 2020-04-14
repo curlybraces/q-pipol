@@ -1,7 +1,7 @@
 <template>
   <q-page>
     <q-inner-loading :showing="loading">
-      <q-spinner-dots size="50px" color="primary"></q-spinner-dots>
+      <q-spinner-tail size="50px" color="primary"></q-spinner-tail>
     </q-inner-loading>
 
     <div class="q-mt-lg q-pa-sm" v-if="!loading">
