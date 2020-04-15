@@ -18,7 +18,7 @@
         label="Verify Email"
         @click="verifyEmail"
         :loading="resendingEmail"
-        v-if="!user.verified"
+        v-if="!isVerified"
       ></q-btn>
       <q-btn
         color="primary"
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'VerifyEmail',
@@ -43,7 +43,8 @@ export default {
     };
   },
   computed: {
-    ...mapState('auth', ['user'])
+    ...mapState('auth', ['user']),
+		...mapGetters('auth',['isVerified'])
   },
   methods: {
     ...mapActions('auth', ['resendEmailVerification']),

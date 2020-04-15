@@ -1,4 +1,4 @@
-import { apolloClient } from '../../boot/apollo';
+import { apolloClient } from '../../boot/apollo-boost';
 import { FETCH_ACTIVITIES } from '../../graphql/queries';
 
 export function fetchActivities({ commit }) {

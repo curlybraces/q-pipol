@@ -4,42 +4,42 @@
 module.exports = function(ctx) {
   return {
     // app boot file (/src/boot)
-    // --> boot files are part of "main.js"
+    // --> boot files are part of 'main.js'
     boot: [
-      "apollo",
-      "charts",
-      "router-auth",
-      "loading-defaults",
-      "addressbar-color",
-      "notify-defaults",
+      'apollo-boost',
+      'charts',
+      'router-auth',
+      'loading-defaults',
+      'addressbar-color',
+      'notify-defaults',
       'moment',
 	    'test'
     ],
 
-    css: ["app.styl"],
+    css: ['app.styl'],
 
     extras: [
       // 'ionicons-v4',
       // 'mdi-v3',
-      "fontawesome-v5",
+      'fontawesome-v5',
       // 'eva-icons',
       // 'themify',
       // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
 
-      // "roboto-font", // optional, you are not bound to it
-      "material-icons" // optional, you are not bound to it
+      // 'roboto-font', // optional, you are not bound to it
+      'material-icons' // optional, you are not bound to it
     ],
 
     framework: {
       // iconSet: 'ionicons-v4',
-      iconSet: "svg-material-icons",
+      iconSet: 'svg-material-icons',
       // lang: 'de', // Quasar language
 
-      all: "auto", // --- includes everything; for dev only!
+      all: 'auto', // --- includes everything; for dev only!
 
       // set dark mode to auto
       config: {
-        dark: "auto"
+        dark: 'auto'
       },
 
       components: [],
@@ -48,13 +48,13 @@ module.exports = function(ctx) {
 
       // Quasar plugins
       plugins: [
-      	"Dialog",
-	      "AddressbarColor",
-	      "LocalStorage",
-	      "Notify",
-	      "LoadingBar",
-	      "Dark",
-	      "Loading" ]
+      	'Dialog',
+	      'AddressbarColor',
+	      'LocalStorage',
+	      'Notify',
+	      'LoadingBar',
+	      'Dark',
+	      'Loading' ]
     },
 
     supportIE: false,
@@ -62,26 +62,26 @@ module.exports = function(ctx) {
     build: {
       scopeHoisting: true,
       // vueRouterMode: 'history',
-      vueRouterMode: "history",
+      vueRouterMode: 'history',
       // vueCompiler: true,
       gzip: true,
       // analyze: true, // analyze after build
       // extractCSS: false,
       extendWebpack(cfg) {
         cfg.module.rules.push({
-          enforce: "pre",
+          enforce: 'pre',
           test: /\.(js|vue)$/,
-          loader: "eslint-loader",
+          loader: 'eslint-loader',
           exclude: /node_modules/,
           options: {
-            formatter: require("eslint").CLIEngine.getFormatter("stylish")
+            formatter: require('eslint').CLIEngine.getFormatter('stylish')
           }
         });
         cfg.module.rules.push({
-          enforce: "pre",
+          enforce: 'pre',
           test: /\.(gql|graphql)$/,
           exclude: /node_modules/,
-          loader: "graphql-tag/loader"
+          loader: 'graphql-tag/loader'
         });
       }
     },
@@ -93,7 +93,7 @@ module.exports = function(ctx) {
     },
 
     // animations: 'all', // --- includes all animations
-    animations: "all",
+    animations: 'all',
 
     ssr: {
       pwa: false
@@ -103,38 +103,38 @@ module.exports = function(ctx) {
       // workboxPluginMode: 'InjectManifest',
       workboxOptions: { skipWaiting: true }, // only for NON InjectManifest
       manifest: {
-        name: "IPMS",
-        short_name: "IPMS",
-        description: "A Quasar Framework App for IPMS",
-        display: "standalone",
-        orientation: "portrait",
-        background_color: "#ffffff",
-        theme_color: "#095437",
+        name: 'IPMS',
+        short_name: 'IPMS',
+        description: 'A Quasar Framework App for IPMS',
+        display: 'standalone',
+        orientation: 'portrait',
+        background_color: '#ffffff',
+        theme_color: '#095437',
         icons: [
           {
-            src: "statics/icons/icon-128x128.png",
-            sizes: "128x128",
-            type: "image/png"
+            src: 'statics/icons/icon-128x128.png',
+            sizes: '128x128',
+            type: 'image/png'
           },
           {
-            src: "statics/icons/icon-192x192.png",
-            sizes: "192x192",
-            type: "image/png"
+            src: 'statics/icons/icon-192x192.png',
+            sizes: '192x192',
+            type: 'image/png'
           },
           {
-            src: "statics/icons/icon-256x256.png",
-            sizes: "256x256",
-            type: "image/png"
+            src: 'statics/icons/icon-256x256.png',
+            sizes: '256x256',
+            type: 'image/png'
           },
           {
-            src: "statics/icons/icon-384x384.png",
-            sizes: "384x384",
-            type: "image/png"
+            src: 'statics/icons/icon-384x384.png',
+            sizes: '384x384',
+            type: 'image/png'
           },
           {
-            src: "statics/icons/icon-512x512.png",
-            sizes: "512x512",
-            type: "image/png"
+            src: 'statics/icons/icon-512x512.png',
+            sizes: '512x512',
+            type: 'image/png'
           }
         ]
       }

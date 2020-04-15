@@ -69,17 +69,6 @@ export const GET_CURRENT_USER = gql`
         created_at
         updated_at
       }
-      activities {
-        id
-        description
-        properties
-        subject {
-          id
-          name
-          title
-        }
-        created_at
-      }
     }
   }
 `;

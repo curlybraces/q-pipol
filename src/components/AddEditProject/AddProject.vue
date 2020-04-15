@@ -1,5 +1,6 @@
 <template>
   <div class="column q-pa-sm">
+		{{ project }}
     <div class="row">
       <div class="col-md-4 col-sm-12">
         <div class="text-subtitle1 text-primary">

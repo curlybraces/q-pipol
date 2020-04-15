@@ -1,4 +1,4 @@
-import { apolloClient } from 'boot/apollo';
+import { apolloClient } from 'boot/apollo-boost';
 import { DELETE_PROJECT_MUTATION } from '../../graphql/mutations';
 import { GET_PROJECTS } from '../../graphql/queries';
 import {

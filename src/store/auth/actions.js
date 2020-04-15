@@ -1,5 +1,5 @@
 import { LocalStorage, Loading, Dialog } from 'quasar';
-import { apolloClient } from 'boot/apollo';
+import { apolloClient } from 'boot/apollo-boost';
 import {
   CHECK_EMAIL_AVAILABILITY_QUERY,
   GET_CURRENT_USER

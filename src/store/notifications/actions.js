@@ -1,4 +1,4 @@
-import { apolloClient } from '../../boot/apollo';
+import { apolloClient } from '../../boot/apollo-boost';
 import {
   MARK_ALL_AS_READ_MUTATION,
   MARK_AS_READ_MUTATION

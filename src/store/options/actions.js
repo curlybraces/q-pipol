@@ -1,4 +1,4 @@
-import { apolloClient } from 'boot/apollo';
+import { apolloClient } from 'boot/apollo-boost';
 import {
   FETCH_DISTRICTS,
   FETCH_FUNDING_SOURCES,

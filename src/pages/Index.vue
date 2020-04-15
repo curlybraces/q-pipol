@@ -38,7 +38,7 @@
                 <q-item-section>Activities</q-item-section>
                 <q-item-section avatar>
                   <q-avatar color="grey" class="text-white">
-                    {{ user ? user.activities.length : 0 }}
+                    {{ activitiesPreview.length }}
                   </q-avatar>
                 </q-item-section>
               </q-item>
@@ -190,7 +190,9 @@ export default {
       return this.showValidateEmailReminder;
     },
     activitiesPreview() {
-      return this.user.activities.slice(0, 10);
+    	// Todo: implement retrieval of activities outside user
+      // return this.activities.slice(0, 10);
+			return []
     }
   },
   apollo: {

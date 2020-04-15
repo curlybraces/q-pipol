@@ -9,7 +9,7 @@ import {
   showSuccessNotification
 } from '../../functions/function-show-notifications';
 
-import { apolloClient } from '../../boot/apollo';
+import { apolloClient } from '../../boot/apollo-boost';
 import { GET_PROJECTS } from '../../graphql/queries';
 
 export function createProject({ state, getters, commit }) {

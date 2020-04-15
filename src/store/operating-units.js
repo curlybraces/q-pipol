@@ -1,4 +1,4 @@
-import { apolloClient } from '../boot/apollo';
+import { apolloClient } from '../boot/apollo-boost';
 import Vue from 'vue';
 import gql from 'graphql-tag';
 import {showErrorNotification, showSuccessNotification} from '../functions/function-show-notifications';

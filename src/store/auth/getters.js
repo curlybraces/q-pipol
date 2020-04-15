@@ -1,6 +1,6 @@
 export function imageUrl(state) {
   if (!state.loading && state.user.image_url) {
-    return `statics/avatars/avatar-${state.user.image_url}.svg`;
+    return state.user.image_url;
   } else {
     return 'statics/avatars/undefined.png';
   }

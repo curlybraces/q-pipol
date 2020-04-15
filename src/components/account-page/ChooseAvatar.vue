@@ -1,54 +1,26 @@
 <template>
-  <q-card style="width:400px;">
-    <q-toolbar>
-      Choose Avatar
-      <q-space />
-      <q-btn icon="close" size="sm" flat round dense @click="$emit('close')" />
-    </q-toolbar>
-    <q-separator></q-separator>
-    <div class="q-ma-sm q-pa-sm bg-red-1" v-if="error">
-      <p>{{ error }}</p>
-    </div>
-    <q-scroll-area style="height:400px;">
-      <div class="row q-pa-sm q-col-gutter-md bg-white">
-        <template v-for="i in 40">
-          <div class="col-3" :key="i">
-            <q-img
-              :src="`statics/avatars/avatar-${i}.svg`"
-              @click="select(i)"
-              class="cursor-pointer"
-              :class="selectedAvatar == i ? 'active' : void 0"
-            />
-          </div>
-        </template>
-      </div>
-      <div class="row q-pa-sm text-caption">
-        Icons made by &nbsp;<a
-          href="https://www.flaticon.com/authors/freepik"
-          title="Freepik"
-          >Freepik</a
-        >
-        &nbsp;from &nbsp;<a href="https://www.flaticon.com/" title="Flaticon">
-          www.flaticon.com</a
-        >.
-      </div>
-    </q-scroll-area>
-    <q-card-actions align="right">
-      <q-btn flat dense label="cancel" @click="$emit('close')" />
-      <q-btn
-        dense
-        color="primary"
-        label="Save"
-        @click="saveAvatar"
-        :loading="loading"
-      />
-    </q-card-actions>
+  <q-card>
+		<div class="q-ma-sm q-pa-sm bg-red-1" v-if="error">
+			<p>{{ error }}</p>
+		</div>
+		<q-uploader
+			:factory="uploadFileByUploader"
+			ref="uploader"
+			label="Upload Avatar (Max file size (10K))"
+			accept=".jpg, image/*"
+			:max-file-size="10000"
+			@uploaded="uploadComplete"
+			>
+		</q-uploader>
   </q-card>
 </template>
 
 <script>
 import { AVATARS } from '../../data/avatars';
 import { mapState, mapActions } from 'vuex';
+import { gql } from 'apollo-boost'
+import { uploadClient } from '../../boot/apollo-upload';
+import {showSuccessNotification} from '../../functions/function-show-notifications';
 
 export default {
   name: 'ChooseAvatar',
@@ -61,11 +33,80 @@ export default {
       AVATARS,
       selectedAvatar: '',
       loading: false,
-      error: ''
+      error: '',
+			image: null,
+	    preview: null
     };
   },
   methods: {
     ...mapActions('auth', ['setImageUrl']),
+	  uploadComplete() {
+    	console.log('completed')
+		},
+		uploadFileByUploader() {
+    	const file = this.$refs.uploader.files[0]
+			uploadClient.mutate({
+					mutation: gql`
+						mutation uploadUserAvatar($image: Upload!) {
+							uploadUserAvatar(image: $image) {
+								id
+								image_url
+							}
+						}
+					`,
+						variables: {
+							image: file
+						}
+					})
+					.then(() => {
+						showSuccessNotification({
+							message: 'Successfully changed user image.'
+						})
+						this.$emit('close')
+					})
+					.catch(err => {
+						console.log(err)
+					})
+		},
+	  uploadFile() {
+    	console.log(this.$refs.uploader.files[0])
+			uploadClient.mutate({
+				mutation: gql`
+					mutation uploadUserAvatar($image: Upload!) {
+						uploadUserAvatar(image: $image) {
+							id
+							image_url
+						}
+					}
+				`,
+				variables: {
+					image: this.$refs.uploader.files[0]
+				}
+			})
+				.then(({ data }) => {
+					console.log(data)
+				})
+				.catch(err => {
+					console.log(err)
+					return false;
+				})
+		},
+	  showPreview() {
+		  // const preview = document.querySelector('img');
+		  const file = this.$refs.uploadedImage.files
+		  const reader = new FileReader();
+
+		  reader.addEventListener('load', function () {
+			  // convert image file to base64 string
+			  this.preview = reader.result;
+		  }, false);
+
+		  if (file) {
+			  reader.readAsDataURL(file);
+		  }
+
+		  console.log(reader)
+	  },
     select(i) {
       this.selectedAvatar = i;
     },
