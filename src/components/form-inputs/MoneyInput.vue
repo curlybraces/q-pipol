@@ -2,10 +2,8 @@
   <div class="col">
     <span class="text-caption text-weight-bold">{{ label }}</span>
     <q-input
-      :value="value"
+      v-model="displayValue"
       :prefix="prefix"
-      @input="val => $emit('input', val)"
-      v-money="money"
       :dense="dense"
       outlined
       label-color="orange-10"
@@ -13,34 +11,45 @@
       class="col"
       input-class="text-right"
       :rules="rules"
+			@blur="isInputActive = false"
+			@focus="isInputActive = true"
     />
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import { VMoney } from 'v-money';
 
 export default {
   name: 'MoneyInput',
   props: ['label', 'value', 'prefix', 'readonly', 'rules'],
   computed: {
-    ...mapState('settings', ['dense'])
+    ...mapState('settings', ['dense']),
+		displayValue: {
+    	get() {
+    		const value = this.$props.value;
+
+				if (this.isInputActive) {
+					return value.toString()
+				} else {
+					return value.toFixed(2).replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, '$1,')
+				}
+			},
+			set(val) {
+				let newValue = parseFloat(val.replace(/[^\d.]/g, ''))
+
+				if (isNaN(newValue)) {
+					newValue = 0
+				}
+
+				this.$emit('input', newValue)
+			}
+		}
   },
   data() {
     return {
-      money: {
-        decimal: '.',
-        thousands: ',',
-        prefix: '',
-        suffix: '',
-        precision: 0,
-        masked: false /* doesn't work with directive */
-      }
+      isInputActive: false
     };
-  },
-  directives: {
-    money: VMoney
   }
 };
 </script>
