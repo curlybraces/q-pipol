@@ -83,7 +83,7 @@
       </div>
 
       <!-- Activity Feed -->
-      <div class="col-lg-3 col-md-12 col-sm-12 col-sm-12">
+      <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
         <div class="row justify-between">
           <span class="q-item__label q-px-none q-pb-sm q-item__label--header"
             >Latest Activity</span
@@ -98,45 +98,46 @@
             to="/activity"
           />
         </div>
-        <q-card square bordered flat style="min-height: 115px;">
-          <q-list separator>
-            <template v-if="loading">
-              <q-inner-loading :showing="loading">
-                <q-spinner-tail :size="50" color="primary"></q-spinner-tail>
-              </q-inner-loading>
-            </template>
-            <template v-else>
-              <template v-if="!loading && activitiesPreview.length">
-                <q-item
-                  v-for="activity in activitiesPreview"
-                  :key="activity.id"
-                >
-                  <q-item-section avatar>
-                    <q-avatar>
-                      <q-icon :name="activity.description | icon" />
-                    </q-avatar>
-                  </q-item-section>
-                  <q-item-section>
-                    <q-item-label
-                      >{{ activity.description | subject }}:
-                      {{
-                        activity.subject ? activity.subject.title : ''
-                      }}</q-item-label
-                    >
-                    <q-item-label caption>{{
-                      activity.created_at | timeDiff
-                    }}</q-item-label>
-                  </q-item-section>
-                </q-item>
-              </template>
-              <template v-else>
-                <q-item>
-                  No activities to show.
-                </q-item>
-              </template>
-            </template>
-          </q-list>
-        </q-card>
+
+					<q-card square bordered flat style="min-height: 115px;">
+						<q-list separator>
+							<template v-if="loading">
+								<q-inner-loading :showing="loading">
+									<q-spinner-tail :size="50" color="primary"></q-spinner-tail>
+								</q-inner-loading>
+							</template>
+							<template v-else>
+								<template v-if="!loading && activitiesPreview.length">
+									<q-item
+										v-for="activity in activitiesPreview"
+										:key="activity.id"
+									>
+										<q-item-section avatar>
+											<q-avatar>
+												<q-icon :name="activity.description | icon" />
+											</q-avatar>
+										</q-item-section>
+										<q-item-section>
+											<q-item-label
+												>{{ activity.description | subject }}:
+												{{
+													activity.subject ? activity.subject.title : ''
+												}}</q-item-label
+											>
+											<q-item-label caption>{{
+												activity.created_at | timeDiff
+											}}</q-item-label>
+										</q-item-section>
+									</q-item>
+								</template>
+								<template v-else>
+									<q-item>
+										No activities to show.
+									</q-item>
+								</template>
+							</template>
+						</q-list>
+					</q-card>
       </div>
     </div>
 
@@ -190,9 +191,9 @@ export default {
       return this.showValidateEmailReminder;
     },
     activitiesPreview() {
-    	// Todo: implement retrieval of activities outside user
+      // Todo: implement retrieval of activities outside user
       // return this.activities.slice(0, 10);
-			return []
+      return [];
     }
   },
   apollo: {

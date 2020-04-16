@@ -13,7 +13,7 @@ const cache = new InMemoryCache({
 });
 
 export const apolloClient = new ApolloClient({
-	uri: uri,
+  uri: uri,
   cache,
   fetchOptions: {
     credentials: 'include'

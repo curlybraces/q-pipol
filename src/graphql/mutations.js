@@ -396,6 +396,7 @@ export const CREATE_PROJECT_MUTATION = gql`
     $title: String!
     $type_id: ID
     $operating_unit_id: ID
+    $main_funding_source_id: ID
     $implementation_mode_id: ID
     $priority_ranking: Int
     $project_status_id: ID
@@ -541,6 +542,7 @@ export const CREATE_PROJECT_MUTATION = gql`
         title: $title
         type_id: $type_id
         operating_unit_id: $operating_unit_id
+        main_funding_source_id: $main_funding_source_id
         implementation_mode_id: $implementation_mode_id
         priority_ranking: $priority_ranking
         project_status_id: $project_status_id
@@ -682,6 +684,10 @@ export const CREATE_PROJECT_MUTATION = gql`
         name
         image
         acronym
+      }
+      main_funding_source {
+        id
+        name
       }
       description
       total_project_cost
@@ -1017,6 +1023,11 @@ export const FETCH_PROJECT_QUERY = gql`
       implementation_start_date
       operating_unit_id
       operating_unit {
+        id
+        name
+      }
+      main_funding_source_id
+      main_funding_source {
         id
         name
       }

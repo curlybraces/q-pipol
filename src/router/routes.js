@@ -44,7 +44,7 @@ const routes = [
         path: 'projects',
         name: 'projects',
         component: () =>
-          import(/* webpackChunkName: 'ProjectsPage' */ 'pages/Projects.vue'),
+          import(/* webpackChunkName: 'ProjectsPage' */ 'pages/ProjectsPage.vue'),
         meta: {
           requiresAuth: true
         }
@@ -53,7 +53,7 @@ const routes = [
         path: 'account',
         name: 'account',
         component: () =>
-          import(/* webpackChunkName: 'AccountPage' */ 'pages/Account.vue'),
+          import(/* webpackChunkName: 'AccountPage' */ 'pages/AccountPage.vue'),
         meta: {
           requiresAuth: true
         }
@@ -183,12 +183,6 @@ const routes = [
           import(
             /* webpackChunkName: 'NotificationsPage'*/ 'pages/Notifications.vue'
           )
-      },
-      {
-        path: 'about',
-        name: 'about',
-        component: () =>
-          import(/* webpackChunkName: 'AboutPage' */ 'pages/About.vue')
       },
       {
         path: 'docs',

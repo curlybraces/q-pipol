@@ -1,20 +1,28 @@
 <template>
   <q-page class="q-pt-lg">
     <page-title title="Projects">
-      <q-btn
-        label="Export to PDF"
-        @click="printPDF"
-        class="q-mr-sm"
-        dense
-      ></q-btn>
-      <q-btn
-        outline
-        dense
-        label="Add Project"
-        :color="buttonColor"
-        to="/projects/create"
-        v-if="role === 'encoder'"
-      ></q-btn>
+      <q-btn icon="build" flat round color="primary">
+        <q-menu transition-show="jump-down" transition-hide="jump-up">
+          <q-list>
+            <q-item @click="printPDF">
+              <q-item-section avatar>
+                <q-avatar><q-icon name="print"></q-icon></q-avatar>
+              </q-item-section>
+              <q-item-section>
+                <q-item-label>Export to PDF</q-item-label>
+              </q-item-section>
+            </q-item>
+            <q-item @click="printPDF" to="/projects/add" v-if="isEncoder">
+              <q-item-section avatar>
+                <q-avatar><q-icon name="add"></q-icon></q-avatar>
+              </q-item-section>
+              <q-item-section>
+                <q-item-label>Add Project</q-item-label>
+              </q-item-section>
+            </q-item>
+          </q-list>
+        </q-menu>
+      </q-btn>
     </page-title>
 
     <q-dialog v-model="uploadFileAndSubmit">

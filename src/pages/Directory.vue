@@ -3,7 +3,7 @@
     <!-- Page Title -->
     <page-title title="Directory">
       <q-btn flat round color="primary" icon="build">
-        <q-menu transition-show="jump-up" transition-hide="jump-up">
+        <q-menu transition-show="jump-down" transition-hide="jump-up">
           <q-list>
             <json-excel :data="operating_units">
               <q-item clickable>
@@ -40,18 +40,22 @@
         <q-spinner-tail size="50px" color="primary" />
       </q-inner-loading>
 
-      <div class="row item-start q-col-gutter-md">
+      <div class="row item-start q-col-gutter-sm">
         <template v-if="!$apollo.loading && !operating_units.length">
           <div>No operating units yet.</div>
         </template>
 
         <template v-if="!$apollo.loading && operating_units.length">
           <template v-for="ou in operating_units">
-            <directory-item
-              :ou="ou"
+            <div
+              class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12"
               :key="ou.id"
-              @edit="showEditItemDialog(ou)"
-            ></directory-item>
+            >
+              <directory-item
+                :ou="ou"
+                @edit="showEditItemDialog(ou)"
+              ></directory-item>
+            </div>
           </template>
         </template>
       </div>
@@ -187,8 +191,8 @@ export default {
       fax_number: null,
       email: null,
       imageError: null,
-      imageRule: [ val => this.validateImage(val) || '* Image must be valid.' ],
-      required: [ val => !!val || '* Required' ]
+      imageRule: [val => this.validateImage(val) || '* Image must be valid.'],
+      required: [val => !!val || '* Required']
     };
   },
   methods: {
@@ -246,7 +250,7 @@ export default {
         email: this.email
       };
       console.log(payload);
-      this.updateOperatingUnit(payload)
+      this.updateOperatingUnit(payload);
     },
     validImage(url) {
       const imagePromise = new Promise((resolve, reject) => {

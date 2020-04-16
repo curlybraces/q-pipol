@@ -8,6 +8,7 @@ export const INITIAL_STATE = {
   total_project_cost: 1500000,
   project_status_id: '1',
   typology_id: '1',
+  main_funding_source_id: null,
   // end of required data
   goals: null,
   outcomes: null,

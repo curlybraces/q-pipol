@@ -44,7 +44,7 @@ export default {
   },
   computed: {
     ...mapState('auth', ['user']),
-		...mapGetters('auth',['isVerified'])
+    ...mapGetters('auth', ['isVerified'])
   },
   methods: {
     ...mapActions('auth', ['resendEmailVerification']),

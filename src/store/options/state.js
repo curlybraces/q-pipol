@@ -11,6 +11,7 @@ export default function() {
     statuses: [],
     technical_readinesses_options: [],
     tiers: [],
+    types: [],
     typologies: [],
     years: [],
     roles: [],

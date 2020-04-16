@@ -12,6 +12,7 @@ import {
   FETCH_YEARS,
   FETCH_TIERS,
   FETCH_TYPOLOGIES,
+  FETCH_TYPES,
   FETCH_IMPLEMENTATION_MODES
 } from '../../graphql/queries';
 
@@ -127,6 +128,19 @@ export function fetchTiers({ commit }) {
     });
 }
 
+export function fetchTypes({ commit }) {
+  apolloClient
+    .query({
+      query: FETCH_TYPES
+    })
+    .then(({ data }) => {
+      commit('SET_TYPES', data.types);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+}
+
 export function fetchTypologies({ commit }) {
   apolloClient
     .query({
@@ -151,19 +165,20 @@ export function fetchYears({ commit }) {
 
 export function initializeOptions({ state, dispatch, commit }) {
   if (!state.initialized) {
-    dispatch('options/fetchDistricts', null, { root: true });
-    dispatch('options/fetchFundingSources', null, { root: true });
-    dispatch('options/fetchImplementationModes', null, { root: true });
-    dispatch('options/fetchOperatingUnits', null, { root: true });
-    dispatch('options/fetchProjectStatuses', null, { root: true });
-    dispatch('options/fetchProvinces', null, { root: true });
-    dispatch('options/fetchRegions', null, { root: true });
-    dispatch('options/fetchSpatialCoverages', null, { root: true });
-    dispatch('options/fetchTechnicalReadinesses', null, { root: true });
-    dispatch('options/fetchRoles', null, { root: true });
-    dispatch('options/fetchTiers', null, { root: true });
-    dispatch('options/fetchTypologies', null, { root: true });
-    dispatch('options/fetchYears', null, { root: true });
+    dispatch('fetchDistricts');
+    dispatch('fetchFundingSources');
+    dispatch('fetchImplementationModes');
+    dispatch('fetchOperatingUnits');
+    dispatch('fetchProjectStatuses');
+    dispatch('fetchProvinces');
+    dispatch('fetchRegions');
+    dispatch('fetchSpatialCoverages');
+    dispatch('fetchTechnicalReadinesses');
+    dispatch('fetchRoles');
+    dispatch('fetchTiers');
+    dispatch('fetchTypes');
+    dispatch('fetchTypologies');
+    dispatch('fetchYears');
     commit('SET_INITIALIZED', true);
   }
 }

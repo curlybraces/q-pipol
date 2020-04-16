@@ -11,8 +11,8 @@
       class="col"
       input-class="text-right"
       :rules="rules"
-			@blur="isInputActive = false"
-			@focus="isInputActive = true"
+      @blur="isInputActive = false"
+      @focus="isInputActive = true"
     />
   </div>
 </template>
@@ -25,26 +25,28 @@ export default {
   props: ['label', 'value', 'prefix', 'readonly', 'rules'],
   computed: {
     ...mapState('settings', ['dense']),
-		displayValue: {
-    	get() {
-    		const value = this.$props.value;
+    displayValue: {
+      get() {
+        const value = this.$props.value;
 
-				if (this.isInputActive) {
-					return value.toString()
-				} else {
-					return value.toFixed(2).replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, '$1,')
-				}
-			},
-			set(val) {
-				let newValue = parseFloat(val.replace(/[^\d.]/g, ''))
+        if (this.isInputActive) {
+          return value.toString();
+        } else {
+          return value
+            .toFixed(2)
+            .replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, '$1,');
+        }
+      },
+      set(val) {
+        let newValue = parseFloat(val.replace(/[^\d.]/g, ''));
 
-				if (isNaN(newValue)) {
-					newValue = 0
-				}
+        if (isNaN(newValue)) {
+          newValue = 0;
+        }
 
-				this.$emit('input', newValue)
-			}
-		}
+        this.$emit('input', newValue);
+      }
+    }
   },
   data() {
     return {

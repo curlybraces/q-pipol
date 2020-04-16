@@ -260,6 +260,15 @@ export const FETCH_TIERS = gql`
   }
 `;
 
+export const FETCH_TYPES = gql`
+  query {
+    types {
+      id
+      name
+    }
+  }
+`;
+
 export const FETCH_TYPOLOGIES = gql`
   query {
     typologies {
@@ -401,6 +410,11 @@ export const GET_PROJECTS = gql`
         acronym
       }
       description
+      main_funding_source_id
+      main_funding_source {
+        id
+        name
+      }
       total_project_cost
       can_update
       creator {
