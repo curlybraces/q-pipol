@@ -5,6 +5,8 @@
     greedy
     @submit.prevent="handleSubmit"
   >
+		<span class="text-red">* All fields are required.</span>
+
     <div class="row">
       <text-input label="Title" v-model="title" :rules="rules.required" />
     </div>

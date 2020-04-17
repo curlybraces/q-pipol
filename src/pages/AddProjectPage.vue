@@ -1,6 +1,6 @@
 <template>
   <q-page class="q-pt-lg">
-    <page-title title="Add Project" />
+    <page-title title="Add Program/Project" />
 
     <add-project></add-project>
   </q-page>

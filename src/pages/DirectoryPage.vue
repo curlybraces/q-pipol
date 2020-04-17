@@ -70,7 +70,7 @@
         transition-hide="jump-right"
       >
         <q-card :style="$q.screen.gt.xs ? 'min-width:400px' : ''">
-          <q-toolbar>
+          <q-toolbar class="bg-info text-white">
             <q-toolbar-title class="absolute-center text-subtitle1"
               >Update Operating Unit</q-toolbar-title
             >
