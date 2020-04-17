@@ -4,17 +4,19 @@
       <q-avatar>
         <img :src="imageUrl" />
       </q-avatar>
-      <q-item-label>{{ user.name }}</q-item-label>
-      <q-item-label caption :class="dark ? 'text-grey-1' : 'text-black'">{{
-        user.email
-      }}</q-item-label>
-      <q-item-label
-        ><q-badge :color="iconColor">{{
-          user.role ? user.role.name : 'No role.'
-        }}</q-badge></q-item-label
-      >
+      <q-item-label>{{ user ? user.name : '' }}</q-item-label>
+      <q-item-label caption :class="dark ? 'text-grey-1' : 'text-black'">
+        {{ user ? user.email : '' }}
+      </q-item-label>
+      <q-item-label>
+        <q-badge :color="iconColor">
+          {{ (user && user.role) ? user.role.name : 'No role.' }}
+        </q-badge>
+      </q-item-label>
     </div>
+
     <q-separator />
+
     <q-list style="min-width: 280px" separator dense>
       <q-item clickable v-close-popup to="/account">
         <q-item-section avatar>
@@ -29,7 +31,7 @@
         v-close-popup
         to="/admin"
         v-if="
-          user.role &&
+          (user && user.role) &&
             (user.role.name == 'admin' || user.role.name == 'superadmin')
         "
       >

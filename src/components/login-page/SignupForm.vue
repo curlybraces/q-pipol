@@ -33,6 +33,7 @@
       :dense="dense"
       hide-bottom-space
       v-test="{ id: 'name' }"
+      dark
     >
       <template v-slot:prepend>
         <q-icon :name="laAtSolid"></q-icon>
@@ -49,6 +50,7 @@
       :rules="emailRule"
       hide-bottom-space
       v-test="{ id: 'username' }"
+      dark
     >
       <template v-slot:prepend>
         <q-icon name="email" />
@@ -67,6 +69,7 @@
       v-model="password"
       :rules="passwordRule"
       v-test="{ id: 'password' }"
+      dark
     />
 
     <password-input
@@ -74,6 +77,7 @@
       v-model="password_confirmation"
       :rules="match"
       v-test="{ id: 'password_confirmation' }"
+      dark
     ></password-input>
 
     <div class="row">

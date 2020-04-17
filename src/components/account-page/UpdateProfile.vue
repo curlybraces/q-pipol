@@ -70,8 +70,9 @@
     <q-dialog
       v-model="updateProfileDialog"
       full-height
-      position="right"
-      seamless
+      :position="$q.screen.xs ? void 0 : 'right'"
+      persistent
+      :maximized="$q.screen.xs"
       transition-show="jump-left"
       transition-hide="jump-right"
     >

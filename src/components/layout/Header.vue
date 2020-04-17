@@ -8,10 +8,7 @@
         class="cursor-pointer"
       />
 
-      <q-toolbar-title
-        class="app-title"
-        :class="dark ? 'text-white' : 'text-black'"
-      >
+      <q-toolbar-title class="text-white">
         I<span class="gt-md">nvestment </span>P<span class="gt-md"
           >rogramming and </span
         >M<span class="gt-md">anagement </span>S<span class="gt-md">ystem</span>
@@ -19,14 +16,10 @@
       <q-space />
 
       <q-btn flat round icon="notifications" class="q-mr-md text-grey-6">
-        <q-badge
-          color="red"
-          floating
-          v-if="!loading && user.unreadNotifications.length"
-        >
-          {{ user ? user.unreadNotifications.length : '' }}
+        <q-badge color="red" floating v-if="unreadNotifications.length">
+          {{ unreadNotifications.length }}
         </q-badge>
-        <template v-if="!loading && user.unreadNotifications.length">
+        <template v-if="unreadNotifications">
           <q-menu :offset="[0, 15]">
             <q-list separator>
               <q-item-label header class="text-weight-bolder"
@@ -34,7 +27,7 @@
               >
 
               <notification-item
-                v-for="notification in user.unreadNotifications"
+                v-for="notification in unreadNotifications"
                 :key="notification.id"
                 :notification="notification"
               >
@@ -63,21 +56,7 @@
       class="header-separator"
     />
 
-    <q-tabs
-      align="left"
-      :class="dark ? 'bg-grey-9 text-white' : 'bg-white text-grey-9'"
-    >
-      <template v-for="({ to, label, icon }, index) in tabs">
-        <q-route-tab
-          :key="index"
-          :to="to"
-          :label="$q.screen.gt.sm ? label : void 0"
-          :icon="$q.screen.lt.md ? icon : void 0"
-          class="text-capitalize"
-          exact
-        />
-      </template>
-    </q-tabs>
+    <route-tabs></route-tabs>
   </div>
 </template>
 
@@ -85,52 +64,21 @@
 import { mapState, mapGetters } from 'vuex';
 import DropdownMenu from './Dropdown';
 import NotificationItem from '../Notifications/NotificationItem';
+import RouteTabs from './RouteTabs';
 
 export default {
-  components: { DropdownMenu, NotificationItem },
+  components: { RouteTabs, DropdownMenu, NotificationItem },
   name: 'AppHeader',
   computed: {
     ...mapState('settings', ['dark']),
     ...mapState('auth', ['user']),
-    ...mapGetters('auth', ['imageUrl', 'loading'])
+    ...mapGetters('auth', ['imageUrl', 'loading', 'unreadNotifications'])
   },
   data() {
     return {
-      tabs: [
-        {
-          label: 'Home',
-          icon: 'home',
-          to: '/'
-        },
-        {
-          label: 'Projects',
-          icon: 'list',
-          to: '/projects'
-        },
-        {
-          label: 'Resources',
-          icon: 'attach_file',
-          to: '/resources'
-        },
-        {
-          label: 'Directory',
-          icon: 'phone',
-          to: '/directory'
-        }
-      ],
       menu: false,
       notificationsDropdown: false
     };
   }
 };
 </script>
-
-<style>
-.app-title {
-  font-family: logoFont;
-}
-
-.app-title .gt-md {
-  font-family: logoFont;
-}
-</style>

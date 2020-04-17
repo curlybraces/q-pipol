@@ -19,38 +19,62 @@
           <q-input
             outlined
             dense
-            type="password"
+            :type="showPassword ? 'password' : 'text'"
             v-model="old_password"
             placeholder="Current Password"
             :rules="[val => !!val || 'Current password is required']"
-          />
+            hide-bottom-space
+          >
+            <template v-slot:append>
+              <q-icon
+                :name="showPassword ? 'visibility' : 'visibility_off'"
+                @click="showPassword = !showPassword"
+              />
+            </template>
+          </q-input>
         </div>
         <div>
           <span class="text-weight-bold">New Password</span>
           <q-input
             outlined
             dense
-            type="password"
+            :type="showPassword ? 'password' : 'text'"
             v-model="password"
             placeholder="New Password"
             :rules="[
               val => val.length >= 8 || 'Password must at least be 8 characters'
             ]"
-          />
+            hide-bottom-space
+          >
+            <template v-slot:append>
+              <q-icon
+                :name="showPassword ? 'visibility' : 'visibility_off'"
+                @click="showPassword = !showPassword"
+              />
+            </template>
+          </q-input>
         </div>
         <div>
           <span class="text-weight-bold">Confirm New Password</span>
           <q-input
             outlined
             dense
-            type="password"
+            :type="showPassword ? 'password' : 'text'"
             v-model="password_confirmation"
             placeholder="Confirm Password"
             :rules="[
               val => !!val || '* Required',
               val => val === password || 'Password does not match'
             ]"
-          />
+            hide-bottom-space
+          >
+            <template v-slot:append>
+              <q-icon
+                :name="showPassword ? 'visibility' : 'visibility_off'"
+                @click="showPassword = !showPassword"
+              />
+            </template>
+          </q-input>
         </div>
         <div>
           <q-btn

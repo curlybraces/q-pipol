@@ -1,5 +1,7 @@
 <template>
   <q-page class="q-pt-lg">
+		<page-title title="Dashboard"></page-title>
+
     <div class="row q-pa-sm q-col-gutter-sm">
       <div
         class="offset-xl-3 offset-lg-3 col-lg-3 col-md-12 col-sm-12 col-sm-12"
@@ -99,45 +101,45 @@
           />
         </div>
 
-					<q-card square bordered flat style="min-height: 115px;">
-						<q-list separator>
-							<template v-if="loading">
-								<q-inner-loading :showing="loading">
-									<q-spinner-tail :size="50" color="primary"></q-spinner-tail>
-								</q-inner-loading>
-							</template>
-							<template v-else>
-								<template v-if="!loading && activitiesPreview.length">
-									<q-item
-										v-for="activity in activitiesPreview"
-										:key="activity.id"
-									>
-										<q-item-section avatar>
-											<q-avatar>
-												<q-icon :name="activity.description | icon" />
-											</q-avatar>
-										</q-item-section>
-										<q-item-section>
-											<q-item-label
-												>{{ activity.description | subject }}:
-												{{
-													activity.subject ? activity.subject.title : ''
-												}}</q-item-label
-											>
-											<q-item-label caption>{{
-												activity.created_at | timeDiff
-											}}</q-item-label>
-										</q-item-section>
-									</q-item>
-								</template>
-								<template v-else>
-									<q-item>
-										No activities to show.
-									</q-item>
-								</template>
-							</template>
-						</q-list>
-					</q-card>
+        <q-card square bordered flat style="min-height: 115px;">
+          <q-list separator>
+            <template v-if="loading">
+              <q-inner-loading :showing="loading">
+                <q-spinner-tail :size="50" color="primary"></q-spinner-tail>
+              </q-inner-loading>
+            </template>
+            <template v-else>
+              <template v-if="!loading && activitiesPreview.length">
+                <q-item
+                  v-for="activity in activitiesPreview"
+                  :key="activity.id"
+                >
+                  <q-item-section avatar>
+                    <q-avatar>
+                      <q-icon :name="activity.description | icon" />
+                    </q-avatar>
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item-label
+                      >{{ activity.description | subject }}:
+                      {{
+                        activity.subject ? activity.subject.title : ''
+                      }}</q-item-label
+                    >
+                    <q-item-label caption>{{
+                      activity.created_at | timeDiff
+                    }}</q-item-label>
+                  </q-item-section>
+                </q-item>
+              </template>
+              <template v-else>
+                <q-item>
+                  No activities to show.
+                </q-item>
+              </template>
+            </template>
+          </q-list>
+        </q-card>
       </div>
     </div>
 
@@ -181,10 +183,12 @@
 import { mapState, mapActions, mapGetters } from 'vuex';
 import moment from 'moment';
 import { GET_PROJECTS } from '../graphql/queries';
+import PageTitle from '../components/PageTitle';
 
 export default {
   name: 'PageIndex',
-  computed: {
+	components: {PageTitle},
+	computed: {
     ...mapState('auth', ['showValidateEmailReminder', 'user', 'loading']),
     ...mapGetters('auth', ['isEncoder']),
     needEmailValidation() {

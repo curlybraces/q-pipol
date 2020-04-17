@@ -12,7 +12,7 @@ import {
 import { apolloClient } from '../../boot/apollo-boost';
 import { GET_PROJECTS } from '../../graphql/queries';
 
-export function createProject({ state, getters, commit }) {
+export function createFullProject({ state, getters, commit }) {
   commit('SET_LOADING', true);
 
   const { project } = state;
@@ -210,6 +210,33 @@ export function createProject({ state, getters, commit }) {
         });
         // this.$router.push('/projects/' + id + '/edit');
       }
+
+      this.$router.push('/projects');
+    })
+    .catch(err => {
+      showErrorNotification({
+        message: err.message
+      });
+    })
+    .finally(() => {
+      commit('SET_LOADING', false);
+    });
+}
+
+export function createProject({ commit }, payload) {
+  commit('SET_LOADING', true);
+
+  apolloClient
+    .mutate({
+      mutation: CREATE_PROJECT_MUTATION,
+      variables: payload
+    })
+    .then(({ data }) => {
+      showSuccessNotification({
+        message: 'Successfully created project.'
+      });
+
+      console.log('new project created: ', data.createProject.id);
 
       this.$router.push('/projects');
     })

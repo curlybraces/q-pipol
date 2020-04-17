@@ -22,6 +22,11 @@ export function CLEAR_USER(state) {
   state.user = null;
 }
 
+export function CLEAR_TOKEN(state) {
+	state.token = null;
+}
+
+
 export function SET_LOGGED_IN(state, payload) {
   state.loggedIn = payload;
 }

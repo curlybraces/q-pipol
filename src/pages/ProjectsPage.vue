@@ -44,6 +44,7 @@
           outlined
           placeholder="Filter Programs and Projects"
           v-model="searchField"
+          debounce="300"
         >
           <template v-slot:prepend>
             <q-icon name="search" />
@@ -61,16 +62,26 @@
     <template v-if="!$apollo.loading">
       <!-- when there are no items in the projects -->
       <template v-if="!projects.length">
-        <q-banner>
-          No project.
-        </q-banner>
+				<q-banner dense class="q-ma-sm bg-grey-3">
+					<template v-slot:avatar>
+						<q-icon name="cancel" color="red" />
+					</template>
+					You have no projects to show. If you have added a project but was not listed here even after refreshing. Please seek our assistance.
+					<template v-slot:action>
+						<q-btn flat color="red" label="Add a New Project" to="/projects/add" v-if="isEncoder" />
+					</template>
+				</q-banner>
       </template>
 
       <!-- when there are items in the projects -->
       <template v-else>
         <q-list separator>
-          <template v-for="project in projects">
-            <project-item :project="project" :key="project.id" />
+          <template v-for="project in filteredProjects">
+            <project-item
+              :project="project"
+              :key="project.id"
+              :search="searchField"
+            />
           </template>
         </q-list>
       </template>
@@ -122,62 +133,32 @@ export default {
       fileIsValid: false,
       printPreview: true,
       projects: [],
-      error: null
+      error: null,
+      searchField: null
     };
   },
   computed: {
     ...mapState('auth', ['role']),
     ...mapState('settings', ['dark', 'buttonColor']),
     ...mapGetters('auth', ['isEncoder']),
-    searchField: {
-      get() {
-        return this.search;
-      },
-      set(val) {
-        this.setSearch(val);
+    filteredProjects() {
+      const searchText = this.searchField
+        ? this.searchField.trim().toLowerCase()
+        : null;
+      const projects = this.projects;
+      let filteredProjects = [];
+
+      if (searchText) {
+        filteredProjects = projects.filter(project =>
+          project.title.toLowerCase().includes(searchText)
+        );
+
+        return filteredProjects;
       }
+      return projects;
     }
   },
   methods: {
-    sortProjects() {
-      const projects = this.projects;
-      const sort = this.sort;
-      const direction = this.direction;
-
-      if (!sort && !direction) {
-        return projects;
-      } else {
-        let projectsSorted = {},
-          keysOrdered = Object.keys(projects);
-
-        keysOrdered.sort((a, b) => {
-          let projectAProp =
-              sort !== 'total_project_cost'
-                ? projects[a][sort].toLowerCase()
-                : projects[a][sort],
-            projectBProp =
-              sort !== 'total_project_cost'
-                ? projects[b][sort].toLowerCase()
-                : projects[b][sort];
-
-          if (direction === 'asc') {
-            if (projectAProp > projectBProp) return 1;
-            else if (projectAProp < projectBProp) return -1;
-            else return 0;
-          } else {
-            if (projectAProp > projectBProp) return -1;
-            else if (projectAProp < projectBProp) return 1;
-            else return 0;
-          }
-        });
-
-        keysOrdered.forEach(key => {
-          projectsSorted[key] = projects[key];
-        });
-
-        return projectsSorted;
-      }
-    },
     checkFile(file) {
       const uploadedFile = file;
       if (

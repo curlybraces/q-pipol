@@ -9,6 +9,7 @@
     stack-label
     :dense="dense"
     hide-bottom-space
+    :dark="dark"
   >
     <template v-slot:prepend>
       <q-icon name="vpn_key"></q-icon>
@@ -51,6 +52,10 @@ export default {
       default() {
         return [];
       }
+    },
+    dark: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {

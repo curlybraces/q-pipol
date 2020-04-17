@@ -63,10 +63,13 @@
       <q-dialog
         v-model="editItemDialog"
         full-height
-        position="right"
+        :position="$q.screen.xs ? void 0 : 'right'"
         persistent
+        :maximized="$q.screen.xs"
+        transition-show="jump-left"
+        transition-hide="jump-right"
       >
-        <q-card style="min-width:400px">
+        <q-card :style="$q.screen.gt.xs ? 'min-width:400px' : ''">
           <q-toolbar>
             <q-toolbar-title class="absolute-center text-subtitle1"
               >Update Operating Unit</q-toolbar-title
@@ -212,18 +215,6 @@ export default {
         fax_number,
         email
       } = ou;
-
-      console.log(
-        id,
-        name,
-        acronym,
-        image,
-        agency_head_name,
-        agency_head_designation,
-        telephone_number,
-        fax_number,
-        email
-      );
 
       this.id = id;
       this.name = name;

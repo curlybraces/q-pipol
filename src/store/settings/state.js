@@ -1,7 +1,9 @@
+import { LocalStorage } from 'quasar';
+
 export default function() {
   return {
-    dense: false,
-    dark: false,
+    dense: LocalStorage.getItem('dense') || false,
+    dark: LocalStorage.getItem('dark') || false,
     appVersion: '0.1.0-beta'
   };
 }

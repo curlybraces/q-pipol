@@ -113,10 +113,12 @@ export default {
   props: {
     project: {
       type: Object
+    },
+    search: {
+      type: String
     }
   },
   computed: {
-    ...mapState('projects', ['search']),
     ...mapState('settings', ['dark']),
     ...mapGetters('settings', ['buttonColor'])
   },

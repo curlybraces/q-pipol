@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <q-page class="q-pt-lg">
     <page-title title="Resources">
       <q-btn
         outline
@@ -53,8 +53,16 @@
       </div>
     </div>
 
-    <q-dialog v-model="createResourceDialog">
-      <q-card square style="width:400px;">
+    <q-dialog
+      v-model="createResourceDialog"
+      full-height
+      :position="$q.screen.xs ? void 0 : 'right'"
+      persistent
+      :maximized="$q.screen.xs"
+      transition-show="jump-left"
+      transition-hide="jump-right"
+    >
+      <q-card :style="$q.screen.xs ? void 0 : 'width:400px'">
         <div class="row justify-between q-pa-sm">
           Create Resource
           <q-icon name="close" v-close-popup class="cursor-pointer"></q-icon>

@@ -26,6 +26,7 @@
         val => validEmail(val) || 'Please enter valid email.'
       ]"
       v-test="{ id: 'username' }"
+      dark
     ></email-input>
 
     <password-input
@@ -33,6 +34,7 @@
       v-model="password"
       :rules="required"
       v-test="{ id: 'password' }"
+      dark
     ></password-input>
 
     <div class="row">

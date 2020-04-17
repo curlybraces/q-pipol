@@ -10,7 +10,7 @@
       </div>
 
       <div class="row justify-center">
-        <q-card class="my-card">
+        <q-card bordered flat class="my-card bg-info" dark>
           <div class="row q-pa-md text-weight-light text-h6">
             {{
               tab == 'login'
@@ -19,7 +19,7 @@
             }}
           </div>
 
-          <q-separator spaced />
+          <q-separator color="white" spaced />
 
           <q-card-section class="q-pa-md">
             <login-form v-if="tab === 'login'"></login-form>

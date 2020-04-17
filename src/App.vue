@@ -5,15 +5,11 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 import { LocalStorage, Notify } from 'quasar';
 
 export default {
   name: 'App',
-  computed: {
-    ...mapState('auth', ['loggedIn']),
-    ...mapGetters('auth', ['user'])
-  },
   watch: {
     user(newValue) {
       if (newValue) {
@@ -27,12 +23,15 @@ export default {
     }
   },
   methods: {
-    ...mapActions('auth', ['getCurrentUser', 'loading']),
+    ...mapActions('auth', ['getCurrentUser']),
     ...mapActions('options', ['initializeOptions'])
   },
   created() {
     const token = LocalStorage.getItem('token');
-    if (token) {
+
+    if (!token || token === '') {
+      this.$router.push('/');
+    } else {
       this.getCurrentUser();
       this.initializeOptions();
     }

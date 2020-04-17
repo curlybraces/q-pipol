@@ -25,6 +25,7 @@ export function signinUser({ commit }, payload) {
   LocalStorage.set('token', '');
 
   commit('CLEAR_ERROR');
+
   commit('SET_LOADING', true);
 
   apolloClient
@@ -67,32 +68,26 @@ export function getCurrentUser({ commit }) {
     });
 }
 
-export async function signoutUser({ commit }) {
+export function signoutUser({ commit }) {
+  // remove token from localStorage
+  LocalStorage.remove('token');
+
   // remove user data from store
   commit('CLEAR_USER');
-  // remove token from localStorage
-  LocalStorage.set('token', '');
+  
+  // clear the token
+  commit('CLEAR_TOKEN');
+
   // reset apolloClient
-  await apolloClient.resetStore();
+  // apolloClient.resetStore();
+
   // redirect to login page
-  this.$router.replace({ path: 'login' });
+  this.$router.push({ name: 'landing' });
 }
 
 export function hideValidateEmailReminder({ commit }, val) {
   LocalStorage.set('showValidateEmailReminder', val);
   commit('SET_SHOW_VALIDATE_EMAIL_REMINDER', val);
-}
-
-export function logoutUser({ commit }) {
-  commit('projects/CLEAR_PROJECTS', null, { root: true });
-
-  commit('CLEAR_USER');
-
-  LocalStorage.clear();
-
-  apolloClient.cache.data.clear();
-
-  this.$router.replace('/login');
 }
 
 export function setImageUrl({ commit }, payload) {
@@ -243,7 +238,7 @@ export function updatePassword({ dispatch }, payload) {
     .then(res => {
       console.log(res.data.updatePassword);
       if (res.data.updatePassword.status === 'PASSWORD_UPDATED') {
-        dispatch('logoutUser');
+        dispatch('signoutUser');
       } else {
         return Promise.reject();
       }

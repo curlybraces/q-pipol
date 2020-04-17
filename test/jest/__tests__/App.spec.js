@@ -6,7 +6,7 @@
 import { mount, createLocalVue, shallowMount } from '@vue/test-utils'
 import QBUTTON from './demo/QBtn-demo.vue'
 import * as All from 'quasar'
-// import langEn from 'quasar/lang/en-us' // change to any language you wish! => this breaks wallaby :(
+import langEn from 'quasar/lang/en-us' // change to any language you wish! => this breaks wallaby :(
 const { Quasar, date } = All
 
 const components = Object.keys(All).reduce((object, key) => {

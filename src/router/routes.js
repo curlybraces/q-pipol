@@ -1,10 +1,22 @@
 const routes = [
   {
     path: '/',
-    component: () => import('layouts/AppLayout.vue'),
+    component: () => import('layouts/LandingLayout.vue'),
     children: [
       {
         path: '',
+        name: 'landing',
+        component: () =>
+          import(/* webpackChunkName: 'LandingPage' */ 'pages/Landing.vue')
+      }
+    ]
+  },
+  {
+    path: '/',
+    component: () => import('layouts/AppLayout.vue'),
+    children: [
+      {
+        path: 'dashboard',
         name: 'home',
         component: () =>
           import(/* webpackChunkName: 'Index' */ 'pages/Index.vue'),
@@ -35,7 +47,7 @@ const routes = [
         path: 'directory',
         name: 'directory',
         component: () =>
-          import(/* webpackChunkName: 'Programs' */ 'pages/Directory.vue'),
+          import(/* webpackChunkName: 'Programs' */ 'pages/DirectoryPage.vue'),
         meta: {
           requiresAuth: true
         }
@@ -44,7 +56,9 @@ const routes = [
         path: 'projects',
         name: 'projects',
         component: () =>
-          import(/* webpackChunkName: 'ProjectsPage' */ 'pages/ProjectsPage.vue'),
+          import(
+            /* webpackChunkName: 'ProjectsPage' */ 'pages/ProjectsPage.vue'
+          ),
         meta: {
           requiresAuth: true
         }
@@ -62,7 +76,9 @@ const routes = [
         path: 'resources',
         name: 'resources',
         component: () =>
-          import(/* webpackChunkName: 'ResourcesPage' */ 'pages/Resources.vue'),
+          import(
+            /* webpackChunkName: 'ResourcesPage' */ 'pages/ResourcesPage.vue'
+          ),
         meta: {
           requiresAuth: true
         }
@@ -83,7 +99,7 @@ const routes = [
         name: 'add-project',
         component: () =>
           import(
-            /* webpackChunkName: 'AddProjectPage' */ 'pages/AddProject.vue'
+            /* webpackChunkName: 'AddProjectPage' */ 'pages/AddProjectPage.vue'
           )
       },
       // {
@@ -260,17 +276,6 @@ const routes = [
         path: '',
         name: 'email-verify',
         component: () => import('pages/EmailVerify.vue')
-      }
-    ]
-  },
-  {
-    path: '/landing',
-    component: () => import('layouts/LandingLayout.vue'),
-    children: [
-      {
-        path: '',
-        name: 'landing',
-        component: () => import('pages/Landing.vue')
       }
     ]
   },

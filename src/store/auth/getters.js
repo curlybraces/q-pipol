@@ -1,9 +1,17 @@
 export function imageUrl(state) {
-  if (!state.loading && state.user.image_url) {
+  if (!state.loading && state.user && state.user.image_url) {
     return state.user.image_url;
   } else {
-    return 'statics/avatars/undefined.png';
+    return 'statics/default.png';
   }
+}
+
+export function unreadNotifications(state) {
+  let unreadNotifications = [];
+  if (!state.loading && state.user && state.user.unreadNotifications) {
+    unreadNotifications = state.user.unreadNotifications;
+  }
+  return unreadNotifications;
 }
 
 export function isLoggedIn(state) {

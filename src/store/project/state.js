@@ -1,13 +1,13 @@
 export const INITIAL_STATE = {
   id: null,
   // required data
-  title: 'Test project',
-  type_id: '1',
-  operating_unit_id: '1',
-  description: 'Some description',
-  total_project_cost: 1500000,
-  project_status_id: '1',
-  typology_id: '1',
+  title: null,
+  type_id: null,
+  operating_unit_id: null,
+  description: null,
+  total_project_cost: 0,
+  project_status_id: null,
+  typology_id: null,
   main_funding_source_id: null,
   // end of required data
   goals: null,

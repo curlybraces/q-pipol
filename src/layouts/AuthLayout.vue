@@ -1,6 +1,6 @@
 <template>
   <q-layout view="hHh lpR fFf">
-    <q-page-container>
+    <q-page-container class="bg-info text-white">
       <router-view />
     </q-page-container>
   </q-layout>

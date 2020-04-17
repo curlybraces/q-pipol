@@ -1,6 +1,6 @@
 <template>
   <q-toolbar>
-    <q-item-label header class="q-pl-none">
+    <q-item-label header class="q-pl-none text-h6">
       {{ title }}
     </q-item-label>
 

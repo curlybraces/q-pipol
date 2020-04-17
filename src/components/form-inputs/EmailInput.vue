@@ -7,6 +7,7 @@
     v-model="username"
     :rules="rules"
     hide-bottom-space
+    :dark="dark"
   >
     <template v-slot:prepend>
       <q-icon name="email"></q-icon>
@@ -19,7 +20,7 @@ import { mapState } from 'vuex';
 
 export default {
   name: 'EmailInput',
-  props: ['value', 'rules'],
+  props: ['value', 'rules', 'dark'],
   computed: {
     ...mapState('settings', ['dense']),
     username: {

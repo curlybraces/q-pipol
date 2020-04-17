@@ -1,28 +1,34 @@
 <template>
   <q-layout view="hHh Lpr fFf">
-    <!-- Be sure to play with the Layout demo on docs -->
-
     <!-- (Optional) The Header -->
     <q-header>
-      <q-toolbar>
+      <q-toolbar class="bg-info">
         <q-btn flat round dense icon="menu" @click="leftDrawer = !leftDrawer" />
         <q-toolbar-title>
           Investment Programming &amp; Management System
         </q-toolbar-title>
         <q-space />
+
         <q-separator vertical inset dark></q-separator>
-        <q-btn flat stretch class="text-capitalize" to="/">Go to App</q-btn>
+
+        <q-btn flat stretch class="text-capitalize" to="/">Home</q-btn>
+        <q-btn
+          flat
+          stretch
+          class="text-capitalize"
+          to="/dashboard"
+          v-if="isLoggedIn"
+          >Go to App</q-btn
+        >
+        <q-btn flat stretch class="text-capitalize" to="/dashboard" v-else
+          >Login</q-btn
+        >
       </q-toolbar>
     </q-header>
 
     <!-- (Optional) The Footer -->
-    <q-footer>
-      <q-toolbar>
-        <q-btn flat round dense icon="menu" @click="leftDrawer = !leftDrawer" />
-        <q-toolbar-title>
-          Footer
-        </q-toolbar-title>
-      </q-toolbar>
+    <q-footer class="bg-info text-secondary">
+      <app-footer></app-footer>
     </q-footer>
 
     <!-- (Optional) A Drawer; you can add one more with side="right" or change this one's side -->
@@ -54,8 +60,15 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import AppFooter from '../components/layout/Footer';
+
 export default {
   name: 'TutorialLayout',
+  components: { AppFooter },
+  computed: {
+    ...mapGetters('auth', ['isLoggedIn'])
+  },
   data() {
     return {
       leftDrawer: true,

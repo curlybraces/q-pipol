@@ -2,12 +2,16 @@ import { ApolloClient, InMemoryCache } from 'apollo-boost';
 import { createUploadLink } from 'apollo-upload-client';
 import { LocalStorage } from 'quasar';
 
+const token = LocalStorage.getItem('token');
+
+const uri = process.env.DEV
+  ? 'http://localhost:8000/graphql'
+  : 'https://da-ipms.herokuapp.com/graphql';
+
 const link = createUploadLink({
-  uri: 'https://da-ipms.herokuapp.com/graphql',
+  uri: uri,
   headers: {
-    authorization: LocalStorage.getItem('token')
-      ? `Bearer ${LocalStorage.getItem('token')} `
-      : ''
+    authorization: token ? `Bearer ${token} ` : ''
   }
 });
 

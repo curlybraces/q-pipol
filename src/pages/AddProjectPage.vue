@@ -7,10 +7,17 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import AddProject from '../components/AddEditProject/AddProject';
 import PageTitle from '../components/PageTitle';
 
 export default {
-  components: { PageTitle, AddProject }
+  components: { PageTitle, AddProject },
+  methods: {
+    ...mapActions('project', ['clearProject'])
+  },
+  mounted() {
+    this.clearProject();
+  }
 };
 </script>
