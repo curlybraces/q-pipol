@@ -10,7 +10,7 @@
       </q-item-label>
       <q-item-label>
         <q-badge :color="iconColor">
-          {{ (user && user.role) ? user.role.name : 'No role.' }}
+          {{ user && user.role ? user.role.name : 'No role.' }}
         </q-badge>
       </q-item-label>
     </div>
@@ -31,7 +31,8 @@
         v-close-popup
         to="/admin"
         v-if="
-          (user && user.role) &&
+          user &&
+            user.role &&
             (user.role.name == 'admin' || user.role.name == 'superadmin')
         "
       >

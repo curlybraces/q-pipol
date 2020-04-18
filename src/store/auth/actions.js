@@ -74,7 +74,7 @@ export function signoutUser({ commit }) {
 
   // remove user data from store
   commit('CLEAR_USER');
-  
+
   // clear the token
   commit('CLEAR_TOKEN');
 

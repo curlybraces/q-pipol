@@ -1,6 +1,6 @@
 <template>
   <q-page class="q-pt-lg">
-		<page-title title="Dashboard"></page-title>
+    <page-title title="Dashboard"></page-title>
 
     <div class="row q-pa-sm q-col-gutter-sm">
       <div
@@ -187,8 +187,8 @@ import PageTitle from '../components/PageTitle';
 
 export default {
   name: 'PageIndex',
-	components: {PageTitle},
-	computed: {
+  components: { PageTitle },
+  computed: {
     ...mapState('auth', ['showValidateEmailReminder', 'user', 'loading']),
     ...mapGetters('auth', ['isEncoder']),
     needEmailValidation() {
