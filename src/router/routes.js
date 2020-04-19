@@ -160,7 +160,7 @@ const routes = [
         path: 'settings',
         name: 'settings',
         component: () =>
-          import(/* webpackChunkName: 'SettingsPage' */ 'pages/Settings.vue'),
+          import(/* webpackChunkName: 'SettingsPage' */ 'pages/SettingsPage.vue'),
         meta: {
           requiresAuth: true
         }
@@ -230,18 +230,18 @@ const routes = [
     children: [
       {
         path: '',
-        name: 'manual-home',
-        component: () => import('pages/manual/Index.vue')
+        name: 'docs-index',
+        component: () => import('pages/docs/Index.vue')
       },
       {
         path: 'getting-started',
-        name: 'manual-getting-started',
-        component: () => import('pages/manual/GettingStarted.vue')
+        name: 'docs-getting-started',
+        component: () => import('pages/docs/GettingStarted.vue')
       },
       {
         path: 'features',
-        name: 'manual-features',
-        component: () => import('pages/manual/Features.vue')
+        name: 'docs-features',
+        component: () => import('pages/docs/Features.vue')
       }
     ]
   },
