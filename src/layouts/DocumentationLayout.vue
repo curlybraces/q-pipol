@@ -38,9 +38,9 @@
       bordered
       content-class="bg-grey-2"
     >
-      <q-item-label header class="text-weight-bold text-uppercase"
-        >Manual</q-item-label
-      >
+      <q-item-label header class="text-weight-bold text-uppercase">
+        Documentation
+      </q-item-label>
       <!-- QScrollArea is optional -->
       <q-list>
         <!-- Content here -->
@@ -64,7 +64,7 @@ import { mapGetters } from 'vuex';
 import AppFooter from '../components/layout/Footer';
 
 export default {
-  name: 'TutorialLayout',
+  name: 'DocumentationLayout',
   components: { AppFooter },
   computed: {
     ...mapGetters('auth', ['isLoggedIn'])
@@ -75,15 +75,15 @@ export default {
       links: [
         {
           title: 'Introduction',
-          url: '/manual'
+          url: '/docs'
         },
         {
           title: 'Features',
-          url: '/manual/features'
+          url: '/docs/features'
         },
         {
           title: 'Getting Started',
-          url: '/manual/getting-started'
+          url: '/docs/getting-started'
         }
       ]
     };

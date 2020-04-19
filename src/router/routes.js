@@ -17,7 +17,7 @@ const routes = [
     children: [
       {
         path: 'dashboard',
-        name: 'home',
+        name: 'dashboard',
         component: () =>
           import(/* webpackChunkName: 'Index' */ 'pages/Index.vue'),
         meta: {
@@ -201,14 +201,6 @@ const routes = [
           )
       },
       {
-        path: 'docs',
-        name: 'docs',
-        component: () =>
-          import(
-            /* webpackChunkName: 'DocumentationPage' */ 'pages/Documentation.vue'
-          )
-      },
-      {
         path: 'gad',
         name: 'gad',
         component: () =>
@@ -233,8 +225,8 @@ const routes = [
     ]
   },
   {
-    path: '/manual',
-    component: () => import('layouts/TutorialLayout.vue'),
+    path: '/docs',
+    component: () => import('layouts/DocumentationLayout.vue'),
     children: [
       {
         path: '',

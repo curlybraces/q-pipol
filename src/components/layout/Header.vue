@@ -4,7 +4,7 @@
       <img
         src="~assets/app-logo-128x128.png"
         height="35px;"
-        @click="$router.push({ name: 'home' })"
+        @click="$router.push({ name: 'landing' })"
         class="cursor-pointer"
       />
 
@@ -19,7 +19,7 @@
         <q-badge color="red" floating v-if="unreadNotifications.length">
           {{ unreadNotifications.length }}
         </q-badge>
-        <template v-if="unreadNotifications">
+        <template v-if="unreadNotifications.length">
           <q-menu :offset="[0, 15]">
             <q-list separator>
               <q-item-label header class="text-weight-bolder"

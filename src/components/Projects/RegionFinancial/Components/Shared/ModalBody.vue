@@ -21,10 +21,9 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+// import { mapState } from 'vuex';
 import MoneyInput from '../../../../form-inputs/MoneyInput';
 import SingleSelect from '../../../../form-inputs/SingleSelect';
-import { REGIONS } from '../../../../../data/dropdown-values';
 
 export default {
   components: {
@@ -32,14 +31,12 @@ export default {
     MoneyInput
   },
   name: 'ModalBody',
-  data() {
-    return {
-      REGIONS
-    };
-  },
   props: ['value'],
   computed: {
-    ...mapState('options', ['regions_options']),
+    regions_options() {
+      return this.$state.options.regions_options;
+    },
+    // ...mapState('options', ['regions_options']),
     regionToEdit: {
       get() {
         return this.value;

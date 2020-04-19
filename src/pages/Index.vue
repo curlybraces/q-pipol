@@ -184,6 +184,8 @@ import { mapState, mapActions, mapGetters } from 'vuex';
 import moment from 'moment';
 import { GET_PROJECTS } from '../graphql/queries';
 import PageTitle from '../components/PageTitle';
+import projectsService from '../services/projects';
+import { search } from '../utils/search.utils';
 
 export default {
   name: 'PageIndex',
@@ -271,6 +273,46 @@ export default {
     timeDiff(val) {
       return moment(val).calendar();
     }
+  },
+  mounted() {
+    projectsService
+      .get()
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    search({
+      searchInput: 'at',
+      searchArray: [
+        {
+          name: 'cats',
+          age: 10
+        },
+        {
+          name: 'dogs'
+        },
+        {
+          name: 'goats'
+        },
+        {
+          name: 'pigs'
+        },
+        {
+          name: 'horses'
+        },
+        {
+          name: 'cows'
+        },
+        {
+          name: 'racoons'
+        },
+        {
+          name: 'squirrels'
+        }
+      ]
+    });
   }
 };
 </script>

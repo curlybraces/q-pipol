@@ -7,9 +7,9 @@ import {
   UPDATE_PROJECT_MUTATION
 } from '../graphql/mutations';
 
-export default {
+const projectsService = {
   get() {
-    apolloClient
+    return apolloClient
       .query({
         query: GET_PROJECTS
       })
@@ -21,7 +21,7 @@ export default {
       });
   },
   create(payload) {
-    apolloClient
+    return apolloClient
       .mutate({
         mutation: CREATE_PROJECT_MUTATION,
         variables: payload
@@ -34,7 +34,7 @@ export default {
       });
   },
   read(payload) {
-    apolloClient
+    return apolloClient
       .mutate({
         mutation: FETCH_PROJECT_QUERY,
         variables: {
@@ -49,7 +49,7 @@ export default {
       });
   },
   update(payload) {
-    apolloClient
+    return apolloClient
       .mutate({
         mutation: UPDATE_PROJECT_MUTATION,
         variables: payload
@@ -62,7 +62,7 @@ export default {
       });
   },
   delete(payload) {
-    apolloClient
+    return apolloClient
       .mutate({
         mutation: DELETE_PROJECT_MUTATION,
         variables: {
@@ -77,3 +77,5 @@ export default {
       });
   }
 };
+
+export default projectsService;

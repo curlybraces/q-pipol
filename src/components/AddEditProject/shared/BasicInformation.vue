@@ -92,7 +92,6 @@
 <script>
 import { mapState } from 'vuex';
 import { mapFields } from 'vuex-map-fields';
-import { TYPES } from '../../../data/dropdown-values.js';
 
 export default {
   components: {
@@ -117,13 +116,9 @@ export default {
       'operating_units',
       'project_statuses',
       'typologies',
-      'years'
+      'years',
+      'types'
     ])
-  },
-  data() {
-    return {
-      TYPES
-    };
   },
   methods: {
     positive(val) {

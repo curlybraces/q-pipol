@@ -37,10 +37,41 @@
               class="text-capitalize text-weight-bolder"
               outline
               style="width: 220px;"
-              to="/manual"
+              to="/docs"
             >
               Learn More
             </q-btn>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row bg-white items-center q-py-xl">
+      <div
+        class="offset-xl-2 col-xl-8 offset-lg-3 col-lg-6 offset-md-1 col-md-10 offset-sm-1 col-sm-10 offset-xs-0 col-xs-12"
+      >
+        <div class="row q-col-gutter-md">
+          <div class="col-md-6 col-sm-12 text-center">
+            <q-img src="/statics/features/responsive.png" width="300px"></q-img>
+          </div>
+          <div class="col-md-6 col-sm-12 q-gutter-y-md text-center">
+            <div class="text-h4">Responsive Design</div>
+            <div class="text-subtitle1">
+              Responsive web design is an approach to web design that makes web
+              pages render well on a variety of devices and window or screen
+              sizes.
+            </div>
+            <div>
+              <q-btn
+                size="lg"
+                class="text-capitalize text-weight-bolder"
+                outline
+                color="primary"
+                style="width: 220px;"
+                to="/docs"
+              >
+                Learn More
+              </q-btn>
+            </div>
           </div>
         </div>
       </div>
