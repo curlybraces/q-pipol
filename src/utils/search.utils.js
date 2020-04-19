@@ -1,4 +1,4 @@
-export const search = ({ searchInput, searchArray }) => {
+export const search = (searchInput, searchArray) => {
   let searchResults = [];
 
   const search =
