@@ -66,7 +66,7 @@
 					after: ''
 				},
 				result({ data }) {
-					console.log(data);
+					this.hasMore = data.relayProjects.pageInfo.hasNextPage;
 				},
 				error(err) {
 					console.log(err)
