@@ -1,6 +1,8 @@
 import ApolloClient from 'apollo-boost';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import { persistCache } from 'apollo-cache-persist';
 import VueApollo from 'vue-apollo';
+import localforage from 'localforage';
 import { LocalStorage, Notify } from 'quasar';
 // see https://v4.apollo.vuejs.org/guide-composable/error-handling.html#error-policies for error handling
 
@@ -11,6 +13,13 @@ const uri = process.env.DEV
 
 const cache = new InMemoryCache({
   addTypename: true
+});
+
+localforage.setDriver([ localforage.INDEXEDDB ])
+
+persistCache({
+	cache,
+	storage: window.localStorage,
 });
 
 export const apolloClient = new ApolloClient({
