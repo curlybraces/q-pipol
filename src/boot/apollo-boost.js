@@ -5,7 +5,8 @@ import { LocalStorage, Notify } from 'quasar';
 // see https://v4.apollo.vuejs.org/guide-composable/error-handling.html#error-policies for error handling
 
 const uri = process.env.DEV
-  ? 'http://localhost:8000/graphql'
+  ? // ? 'http://localhost:8000/graphql'
+    'https://da-ipms.herokuapp.com/graphql'
   : 'https://da-ipms.herokuapp.com/graphql';
 
 const cache = new InMemoryCache({

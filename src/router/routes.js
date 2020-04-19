@@ -5,7 +5,7 @@ const routes = [
     children: [
       {
         path: '',
-        name: 'landing',
+        name: 'home',
         component: () =>
           import(/* webpackChunkName: 'LandingPage' */ 'pages/Landing.vue')
       }
@@ -57,7 +57,7 @@ const routes = [
         name: 'projects',
         component: () =>
           import(
-            /* webpackChunkName: 'ProjectsPage' */ 'pages/ProjectsPage.vue'
+            /* webpackChunkName: 'ProjectsPage' */ 'pages/PaginatedProjectsPage.vue'
           ),
         meta: {
           requiresAuth: true
@@ -160,7 +160,9 @@ const routes = [
         path: 'settings',
         name: 'settings',
         component: () =>
-          import(/* webpackChunkName: 'SettingsPage' */ 'pages/SettingsPage.vue'),
+          import(
+            /* webpackChunkName: 'SettingsPage' */ 'pages/SettingsPage.vue'
+          ),
         meta: {
           requiresAuth: true
         }

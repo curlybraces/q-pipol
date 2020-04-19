@@ -82,7 +82,7 @@ export function signoutUser({ commit }) {
   // apolloClient.resetStore();
 
   // redirect to login page
-  this.$router.push({ name: 'landing' });
+  this.$router.replace('/login');
 }
 
 export function hideValidateEmailReminder({ commit }, val) {
