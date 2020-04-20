@@ -1,6 +1,6 @@
 import { apolloClient } from 'boot/apollo-boost';
 import { DELETE_PROJECT_MUTATION } from '../../graphql/mutations';
-import {GET_PROJECTS, RELAY_PROJECTS_QUERY} from '../../graphql/queries';
+import { GET_PROJECTS, RELAY_PROJECTS_QUERY } from '../../graphql/queries';
 import {
   showErrorNotification,
   showSuccessNotification
@@ -30,42 +30,42 @@ export function deleteProject({}, id) {
         id: id
       },
       update: (store, { data: { deleteProject } }) => {
-       
-	      // assigned the deleted id to target id and return id
+        // assigned the deleted id to target id and return id
         const deletedId = deleteProject ? deleteProject.id : id;
-        
+
         // retrieve the paginated query
-	      // variables are required
+        // variables are required
         const data = store.readQuery({
           query: RELAY_PROJECTS_QUERY,
-	        variables: {
-          	after: '',
-		        first: 10
-	        }
+          variables: {
+            after: '',
+            first: 10
+          }
         });
-        
-	      // filter out the deleted id from the list
-        data.relayProjects.edges = data.relayProjects.edges.filter(edge => edge.node.id !== deletedId);
-				
+
+        // filter out the deleted id from the list
+        data.relayProjects.edges = data.relayProjects.edges.filter(
+          edge => edge.node.id !== deletedId
+        );
+
         // save the query
         store.writeQuery({
           query: RELAY_PROJECTS_QUERY,
-	        variables: {
-		        after: '',
-		        first: 10
-	        },
+          variables: {
+            after: '',
+            first: 10
+          },
           data
         });
-        
       }
     })
     .then(data => {
-    	// if the project is not present in the database anymore, notify that the project was already deleted
-	    // else notify user of the successful operation
+      // if the project is not present in the database anymore, notify that the project was already deleted
+      // else notify user of the successful operation
       if (!data.data.deleteProject) {
-	      showSuccessNotification({
-		      message: 'Project was already deleted from the database.'
-	      });
+        showSuccessNotification({
+          message: 'Project was already deleted from the database.'
+        });
       } else {
         showSuccessNotification({
           message: 'Project successfully deleted.'

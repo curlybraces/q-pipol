@@ -489,7 +489,8 @@ export const RELAY_PROJECTS_QUERY = gql`
         }
       }
     }
-}`;
+  }
+`;
 
 export const DELETED_PROJECTS_QUERY = gql`
   query projects {

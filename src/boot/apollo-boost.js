@@ -15,11 +15,11 @@ const cache = new InMemoryCache({
   addTypename: true
 });
 
-localforage.setDriver([ localforage.INDEXEDDB ])
+localforage.setDriver([localforage.INDEXEDDB]);
 
 persistCache({
-	cache,
-	storage: window.localStorage,
+  cache,
+  storage: window.localStorage
 });
 
 export const apolloClient = new ApolloClient({
