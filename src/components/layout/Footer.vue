@@ -4,7 +4,7 @@
       <q-btn flat dense type="a" class="text-lowercase gt-sm">
         da-ipms2020.web.app
       </q-btn>
-      <q-btn flat dense type="a" class="text-capitalize" to="/manual">
+      <q-btn flat dense type="a" class="text-capitalize" to="/docs">
         Manual
       </q-btn>
       <q-btn

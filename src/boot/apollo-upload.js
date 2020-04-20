@@ -5,7 +5,8 @@ import { LocalStorage } from 'quasar';
 const token = LocalStorage.getItem('token');
 
 const uri = process.env.DEV
-  ? 'http://localhost:8000/graphql'
+  ? // ? 'http://localhost:8000/graphql'
+    'https://da-ipms.herokuapp.com/graphql'
   : 'https://da-ipms.herokuapp.com/graphql';
 
 const link = createUploadLink({

@@ -92,7 +92,6 @@
 <script>
 import { mapState } from 'vuex';
 import { mapFields } from 'vuex-map-fields';
-import { TECHNICAL_READINESSES } from '../../../data/dropdown-values';
 
 export default {
   components: {
@@ -119,11 +118,6 @@ export default {
       'project.icc_endorsed_date'
     ]),
     ...mapState('options', ['technical_readinesses_options'])
-  },
-  data() {
-    return {
-      TECHNICAL_READINESSES
-    };
   }
 };
 </script>

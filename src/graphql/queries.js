@@ -461,6 +461,36 @@ export const INFINITE_SCROLL_PROJECTS = gql`
   }
 `;
 
+export const RELAY_PROJECTS_QUERY = gql`
+  query relayProjects($first: Int!, $after: String) {
+    relayProjects(first: $first, after: $after) {
+      pageInfo {
+        hasNextPage
+        endCursor
+        total
+      }
+      edges {
+        node {
+          id
+          title
+          operating_unit {
+            name
+            image
+            acronym
+          }
+          description
+          total_project_cost
+          can_update
+          creator {
+            name
+          }
+          created_at
+          updated_at
+        }
+      }
+    }
+}`;
+
 export const DELETED_PROJECTS_QUERY = gql`
   query projects {
     projects(trashed: ONLY) {

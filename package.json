@@ -24,6 +24,7 @@
     "@quasar/extras": "^1.6.0",
     "apollo-boost": "^0.4.7",
     "apollo-cache-inmemory": "^1.6.5",
+    "apollo-cache-persist": "^0.1.1",
     "apollo-upload-client": "^13.0.0",
     "chart.js": "^2.9.3",
     "dexie": "^2.0.4",

@@ -1,5 +1,5 @@
 import ProgrammingDocuments from '../components/AddEditProject/shared/ProgrammingDocuments.vue';
-import AdditionalInformation from '../components/Projects/AdditionalInformation.vue';
+import AdditionalInformation from '../components/AddEditProject/shared/AdditionalInformation.vue';
 import TechnicalReadiness from '../components/AddEditProject/shared/TechnicalReadiness.vue';
 import FinancialAnalysis from '../components/AddEditProject/shared/FinancialAnalysis.vue';
 import ImplementationPeriod from '../components/AddEditProject/shared/ImplementationPeriod.vue';

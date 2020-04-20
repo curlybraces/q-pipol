@@ -1,6 +1,6 @@
 <template>
   <q-page class="q-pt-lg">
-		<page-title title="Dashboard"></page-title>
+    <page-title title="Dashboard"></page-title>
 
     <div class="row q-pa-sm q-col-gutter-sm">
       <div
@@ -184,11 +184,13 @@ import { mapState, mapActions, mapGetters } from 'vuex';
 import moment from 'moment';
 import { GET_PROJECTS } from '../graphql/queries';
 import PageTitle from '../components/PageTitle';
+import projectsService from '../services/projects';
+import { search } from '../utils/search.utils';
 
 export default {
   name: 'PageIndex',
-	components: {PageTitle},
-	computed: {
+  components: { PageTitle },
+  computed: {
     ...mapState('auth', ['showValidateEmailReminder', 'user', 'loading']),
     ...mapGetters('auth', ['isEncoder']),
     needEmailValidation() {
@@ -271,6 +273,46 @@ export default {
     timeDiff(val) {
       return moment(val).calendar();
     }
+  },
+  mounted() {
+    projectsService
+      .get()
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    search({
+      searchInput: 'at',
+      searchArray: [
+        {
+          name: 'cats',
+          age: 10
+        },
+        {
+          name: 'dogs'
+        },
+        {
+          name: 'goats'
+        },
+        {
+          name: 'pigs'
+        },
+        {
+          name: 'horses'
+        },
+        {
+          name: 'cows'
+        },
+        {
+          name: 'racoons'
+        },
+        {
+          name: 'squirrels'
+        }
+      ]
+    });
   }
 };
 </script>

@@ -46,7 +46,7 @@
         </template>
 
         <template v-if="!$apollo.loading && operating_units.length">
-          <template v-for="ou in operating_units">
+          <template v-for="ou in filteredOperatingUnits">
             <div
               class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12"
               :key="ou.id"
@@ -175,7 +175,34 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('settings', ['buttonColor'])
+    ...mapGetters('settings', ['buttonColor']),
+    filteredOperatingUnits() {
+      let filteredOperatingUnits = [];
+      const operating_units = this.operating_units;
+      const searchField = this.searchField.trim().toLowerCase();
+
+      if (searchField) {
+        console.log('searching is triggered');
+
+        filteredOperatingUnits = operating_units.filter(ou => {
+          const headName = ou.agency_head_name
+            ? ou.agency_head_name.toLowerCase()
+            : '';
+          const name = ou.name ? ou.name.toLowerCase() : '';
+          const acronym = ou.acronym ? ou.acronym.toLowerCase() : '';
+
+          return (
+            headName.includes(searchField) ||
+            name.includes(searchField) ||
+            acronym.includes(searchField)
+          );
+        });
+
+        return filteredOperatingUnits;
+      }
+
+      return operating_units;
+    }
   },
   data() {
     return {

@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="hHh lpR fFf" class="bg-info">
+  <q-layout view="hhh lpR fff" class="bg-info">
     <q-header class="bg-info text-white">
       <div class="row q-pa-sm items-center justify-between">
         <div

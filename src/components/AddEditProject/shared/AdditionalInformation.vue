@@ -51,17 +51,18 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import { mapFields } from 'vuex-map-fields';
-import { IMPLEMENTATION_BASES } from '../../data/dropdown-values';
 
 export default {
   components: {
-    'multi-select': () => import('../form-inputs/MultiSelect.vue'),
-    'text-input': () => import('../form-inputs/TextInput.vue')
+    'multi-select': () => import('../../form-inputs/MultiSelect.vue'),
+    'text-input': () => import('../../form-inputs/TextInput.vue')
   },
   name: 'AdditionalInformation',
   props: ['dense'],
   computed: {
+    ...mapState('options', ['implementation_bases']),
     ...mapFields('project', [
       'project.selected_bases',
       'project.description',
@@ -70,11 +71,6 @@ export default {
       'project.purpose',
       'project.expected_outputs'
     ])
-  },
-  data() {
-    return {
-      IMPLEMENTATION_BASES
-    };
   }
 };
 </script>

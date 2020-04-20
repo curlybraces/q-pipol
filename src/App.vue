@@ -6,7 +6,7 @@
 
 <script>
 import { mapActions } from 'vuex';
-import { LocalStorage, Notify } from 'quasar';
+import { Notify } from 'quasar';
 
 export default {
   name: 'App',
@@ -24,17 +24,14 @@ export default {
   },
   methods: {
     ...mapActions('auth', ['getCurrentUser']),
-    ...mapActions('options', ['initializeOptions'])
-  },
-  created() {
-    const token = LocalStorage.getItem('token');
-
-    if (!token || token === '') {
-      this.$router.push('/');
-    } else {
+    ...mapActions('options', ['initializeOptions']),
+    initialize() {
       this.getCurrentUser();
       this.initializeOptions();
     }
+  },
+  created() {
+    this.initialize();
   }
 };
 </script>

@@ -74,7 +74,7 @@ export function signoutUser({ commit }) {
 
   // remove user data from store
   commit('CLEAR_USER');
-  
+
   // clear the token
   commit('CLEAR_TOKEN');
 
@@ -82,7 +82,7 @@ export function signoutUser({ commit }) {
   // apolloClient.resetStore();
 
   // redirect to login page
-  this.$router.push({ name: 'landing' });
+  this.$router.replace('/login');
 }
 
 export function hideValidateEmailReminder({ commit }, val) {
