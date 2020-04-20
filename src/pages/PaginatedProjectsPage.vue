@@ -1,6 +1,21 @@
 <template>
 	<q-page padding>
-		<page-title :title="`Projects (${relayProjects.edges.length})`"></page-title>
+		<page-title :title="`Projects (Total: ${relayProjects.edges.length})`"></page-title>
+
+		<div class="row justify-center">
+			<q-input
+				class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12"
+				outlined
+				placeholder="Search titles"
+				v-model="search" :debounce="300"
+				:rules="[ val => val >= 3 || 'Please input at least 3 characters.' ]"
+				lazy-rules
+				dense>
+				<template v-slot:prepend>
+					<q-icon name="search"></q-icon>
+				</template>
+			</q-input>
+		</div>
 
 		<template v-if="$apollo.loading">
 			<q-inner-loading :showing="$apollo.loading">
@@ -10,7 +25,8 @@
 
 		<template v-else>
 			<q-list separator>
-				<template v-for="({ node }) in relayProjects.edges">
+				<q-item-label header v-if="this.search.length >= 3">Search results for <span class="text-negative">{{ search }}...</span></q-item-label>
+				<template v-for="({ node }) in filteredProjects">
 					<project-item :project="node" :key="node.id"></project-item>
 				</template>
 			</q-list>
@@ -19,6 +35,7 @@
 		<div class="row q-pa-sm">
 			<q-btn @click="loadMore" v-if="!$apollo.loading && hasMore" label="Load More" color="primary"></q-btn>
 		</div>
+
 	</q-page>
 </template>
 
@@ -50,7 +67,30 @@
 				relayProjects: {},
 				first: 10,
 				after: '',
-				hasMore: true
+				hasMore: true,
+				search: ''
+			}
+		},
+		computed: {
+			filteredProjects() {
+				let filteredProjects = [];
+
+				if (this.search.length >= 3) {
+					const search = this.search.trim().toLowerCase();
+					const projectsToFilter = this.relayProjects.edges;
+
+					filteredProjects = projectsToFilter.filter(({ node }) => {
+						const title = node.title.toLowerCase();
+
+						return title.includes(search);
+					});
+
+					return filteredProjects;
+				}
+
+				filteredProjects = this.relayProjects.edges;
+
+				return filteredProjects;
 			}
 		},
 		methods: {
