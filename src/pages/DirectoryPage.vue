@@ -2,7 +2,7 @@
   <q-page class="q-pt-lg">
     <!-- Page Title -->
     <page-title title="Directory">
-      <q-btn flat round color="primary" icon="build">
+      <q-btn flat round color="primary" icon="settings">
         <q-menu transition-show="jump-down" transition-hide="jump-up">
           <q-list>
             <json-excel :data="operating_units">

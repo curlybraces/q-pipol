@@ -26,7 +26,6 @@ export function signinUser({ commit }, payload) {
   // clear token so it does not get sent to server
   LocalStorage.set('token', '');
   
-
   commit('CLEAR_ERROR');
 
   commit('SET_LOADING', true);

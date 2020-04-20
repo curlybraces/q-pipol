@@ -48,10 +48,22 @@
         color="primary"
       ></q-btn>
     </div>
+
+		<q-page-sticky position="bottom" :offset="[18, 18]" v-if="isEncoder">
+			<q-btn
+					fab
+					icon="add"
+					color="primary"
+					to="/projects/add"
+					class="all-pointer-events"
+			/>
+		</q-page-sticky>
+
   </q-page>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import PageTitle from '../components/PageTitle';
 import ProjectItem from '../components/Projects/ProjectItem';
 import { RELAY_PROJECTS_QUERY } from '../graphql/queries';
@@ -86,6 +98,7 @@ export default {
     };
   },
   computed: {
+	  ...mapGetters('auth',['isEncoder']),
     filteredProjects() {
       let filteredProjects = [];
 

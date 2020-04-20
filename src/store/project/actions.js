@@ -10,7 +10,7 @@ import {
 } from '../../functions/function-show-notifications';
 
 import { apolloClient } from '../../boot/apollo-boost';
-import { GET_PROJECTS, RELAY_PROJECTS_QUERY } from '../../graphql/queries';
+import { RELAY_PROJECTS_QUERY } from '../../graphql/queries';
 
 export function createFullProject({ state, getters, commit }) {
   commit('SET_LOADING', true);
@@ -183,16 +183,30 @@ export function createFullProject({ state, getters, commit }) {
         console.log(cache, createProject);
 
         // read query we want to update
-        const data = cache.readQuery({ query: GET_PROJECTS });
+        const data = cache.readQuery({
+	        query: RELAY_PROJECTS_QUERY,
+	        variables: {
+	        	first: 10,
+		        after: ''
+	        }
+        });
 
+        const newProject = {
+        	node: createProject
+        }
+        
         // create updated data
-        data.projects.unshift(createProject);
+        data.relayProjects.edges.push(newProject);
 
         console.log(data);
+        
         // update the query
-
         cache.writeQuery({
-          query: GET_PROJECTS,
+          query: RELAY_PROJECTS_QUERY,
+	        variables: {
+		        first: 10,
+		        after: ''
+	        },
           data
         });
       }
@@ -231,15 +245,40 @@ export function createProject({ commit }, payload) {
       mutation: CREATE_PROJECT_MUTATION,
       variables: payload,
 	    update: (store, { data: { createProject } } ) => {
-        const data = store.readQuery({ query: RELAY_PROJECTS_QUERY })
+      	console.log('created project: ', createProject);
+      	
+        const data = store.readQuery({
+	        query: RELAY_PROJECTS_QUERY,
+	        variables: {
+	        	first: 10,
+		        after: ''
+	        }
+        })
+		
+		    console.log('relay projects: ', data.relayProjects)
 		    
 		    const newNode = {
-        	node: createProject
+        	node: createProject,
+			    __typeName: 'ProjectEdge'
 		    }
 		    
-		    data.relayProjects.edges.push(newNode)
+		    console.log('newNode: ', newNode);
 		    
-		    store.writeQuery({ query: RELAY_PROJECTS_QUERY, data })
+		    data.relayProjects.edges.unshift(newNode)
+		    
+		    console.log('data with the newNode: ', data);
+		    
+		    // this is throwing a warning that field is not defined
+		    store.writeQuery({
+			    query: RELAY_PROJECTS_QUERY,
+			    variables: {
+				    first: 10,
+				    after: ''
+			    },
+			    data
+		    })
+		
+		    console.log('store: ', store);
 	    }
     })
     .then(({ data }) => {
