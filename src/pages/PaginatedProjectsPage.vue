@@ -24,43 +24,15 @@
 
 <script>
 	import PageTitle from '../components/PageTitle';
-	import { gql } from 'apollo-boost';
 	import ProjectItem from '../components/Projects/ProjectItem';
+	import {RELAY_PROJECTS_QUERY} from '../graphql/queries';
 
 	export default {
 		name: 'ProjectsPage',
 		components: { PageTitle, ProjectItem },
 		apollo: {
 			relayProjects: {
-				query: gql`
-					query relayProjects($first: Int!, $after: String) {
-						relayProjects(first: $first, after: $after) {
-							pageInfo {
-								hasNextPage
-								endCursor
-								total
-							}
-							edges {
-								node {
-									id
-									title
-									operating_unit {
-										name
-										image
-										acronym
-									}
-									description
-									total_project_cost
-									can_update
-									creator {
-										name
-									}
-									created_at
-									updated_at
-								}
-							}
-						}
-				}`,
+				query: RELAY_PROJECTS_QUERY,
 				variables: {
 					first: 10,
 					after: ''
