@@ -259,7 +259,7 @@ export function createProject({ commit }, payload) {
 		    
 		    const newNode = {
         	node: createProject,
-			    __typeName: 'ProjectEdge'
+			    __typename: 'ProjectEdge'
 		    }
 		    
 		    console.log('newNode: ', newNode);
@@ -269,6 +269,7 @@ export function createProject({ commit }, payload) {
 		    console.log('data with the newNode: ', data);
 		    
 		    // this is throwing a warning that field is not defined
+		    // not anymore
 		    store.writeQuery({
 			    query: RELAY_PROJECTS_QUERY,
 			    variables: {
