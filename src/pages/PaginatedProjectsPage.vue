@@ -31,7 +31,7 @@
     <template v-else>
       <q-list separator>
         <q-item-label header v-if="this.search.length >= 3"
-          >Search results for
+				>Found <b>{{ filteredProjects.length }}</b> titles that contains
           <span class="text-negative">{{ search }}...</span></q-item-label
         >
         <template v-for="{ node } in filteredProjects">

@@ -10,7 +10,7 @@ import {
 } from '../../functions/function-show-notifications';
 
 import { apolloClient } from '../../boot/apollo-boost';
-import { GET_PROJECTS } from '../../graphql/queries';
+import { GET_PROJECTS, RELAY_PROJECTS_QUERY } from '../../graphql/queries';
 
 export function createFullProject({ state, getters, commit }) {
   commit('SET_LOADING', true);
@@ -229,7 +229,18 @@ export function createProject({ commit }, payload) {
   apolloClient
     .mutate({
       mutation: CREATE_PROJECT_MUTATION,
-      variables: payload
+      variables: payload,
+	    update: (store, { data: { createProject } } ) => {
+        const data = store.readQuery({ query: RELAY_PROJECTS_QUERY })
+		    
+		    const newNode = {
+        	node: createProject
+		    }
+		    
+		    data.relayProjects.edges.push(newNode)
+		    
+		    store.writeQuery({ query: RELAY_PROJECTS_QUERY, data })
+	    }
     })
     .then(({ data }) => {
       showSuccessNotification({

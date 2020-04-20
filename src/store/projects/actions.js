@@ -42,6 +42,9 @@ export function deleteProject({}, id) {
             first: 10
           }
         });
+        
+        // this is retrieved from cache; thus, the problem
+        console.log(data.relayProjects.pageInfo)
 
         // filter out the deleted id from the list
         data.relayProjects.edges = data.relayProjects.edges.filter(

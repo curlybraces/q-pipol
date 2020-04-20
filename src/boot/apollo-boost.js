@@ -1,6 +1,6 @@
 import ApolloClient from 'apollo-boost';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { persistCache } from 'apollo-cache-persist';
+import { CachePersistor, persistCache } from 'apollo-cache-persist';
 import VueApollo from 'vue-apollo';
 import localforage from 'localforage';
 import { LocalStorage, Notify } from 'quasar';
@@ -15,12 +15,20 @@ const cache = new InMemoryCache({
   addTypename: true
 });
 
+// set the driver for the cache storage
 localforage.setDriver([localforage.INDEXEDDB]);
 
-persistCache({
-  cache,
-  storage: window.localStorage
+// define the persistor
+export const persistor = new CachePersistor({
+	cache,
+	storage: localforage
 });
+
+// call the persist cache
+persistCache({
+	cache,
+	storage: localforage
+})
 
 export const apolloClient = new ApolloClient({
   uri: uri,
@@ -43,7 +51,7 @@ export const apolloClient = new ApolloClient({
 
     if (graphQLErrors) {
       for (let err of graphQLErrors) {
-        console.log('graphQLErrors: ', err);
+        console.log('from ApolloClient graphQLErrors: ', err);
         if (err.extensions.category === 'authentication') {
           Notify.create({
             position: 'top',
