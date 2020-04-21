@@ -3,6 +3,7 @@ import { INITIAL_STATE } from './state';
 
 export function CLEAR_PROJECT(state) {
   state.project = INITIAL_STATE;
+  console.log(state.project);
 }
 
 export function addRegionRow(state, value) {

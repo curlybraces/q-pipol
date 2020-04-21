@@ -11,6 +11,7 @@ import {
 
 import { apolloClient } from '../../boot/apollo-boost';
 import { RELAY_PROJECTS_QUERY } from '../../graphql/queries';
+import { INITIAL_STATE } from './state';
 
 export function createFullProject({ state, getters, commit }) {
   commit('SET_LOADING', true);
@@ -477,5 +478,5 @@ export function fetchProject({ commit }, id) {
 }
 
 export function clearProject({ commit }) {
-  commit('CLEAR_PROJECT');
+  commit('SET_PROJECT',INITIAL_STATE);
 }

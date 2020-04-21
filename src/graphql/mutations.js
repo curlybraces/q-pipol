@@ -685,11 +685,16 @@ export const CREATE_PROJECT_MUTATION = gql`
         image
         acronym
       }
+	    spatial_coverage {
+		    name
+	    }
       main_funding_source {
         id
         name
       }
       description
+	    target_start_year
+	    target_end_year
       total_project_cost
       can_update
       creator {

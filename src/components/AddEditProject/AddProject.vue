@@ -4,6 +4,7 @@
     ref="addProject"
     greedy
     @submit.prevent="handleSubmit"
+		@reset="handleReset"
   >
     <span class="text-red">* All fields are required.</span>
 
@@ -11,13 +12,23 @@
       <text-input label="Title" v-model="title" :rules="rules.required" />
     </div>
 
-    <div class="row">
-      <single-select
-        v-model="type_id"
-        label="Type"
-        :options="types"
-        :rules="rules.notEmpty"
-      />
+		<div class="row q-pl-sm q-col-gutter-sm">
+			<div class="col-6">
+				<single-select
+					v-model="type_id"
+					label="Type"
+					:options="types"
+					:rules="rules.notEmpty"
+				/>
+			</div>
+			<div class="col-6">
+				<single-select
+					v-model="infrastructure"
+					label="Infrastructure Project"
+					:options="[ { 'id': true, 'name': 'Yes' }, { 'id': false, 'name': 'No' } ]"
+					:rules="rules.notEmpty"
+				/>
+			</div>
     </div>
 
     <div class="row">
@@ -29,7 +40,7 @@
       />
     </div>
 
-    <div>
+    <div class="row">
       <single-select
         v-model="operating_unit_id"
         :options="operating_units"
@@ -46,6 +57,15 @@
         :rules="rules.notEmpty"
       />
     </div>
+
+		<div class="row">
+			<single-select
+				v-model="spatial_coverage_id"
+				label="Spatial Coverage"
+				:options="spatial_coverages"
+				:rules="rules.notEmpty">
+			</single-select>
+		</div>
 
     <div class="row">
       <single-select
@@ -132,14 +152,14 @@ export default {
             '* Should be higher than start year'
         ],
         notZero: [val => !!val || '* Should be positive number']
-      },
-      fabPos: [18, 18],
-      draggingFab: false
+      }
     };
   },
   computed: {
     ...mapState('project', ['project', 'loading']),
     ...mapState('options', [
+    	'spatial_coverages',
+      'currencies',
       'funding_sources_options',
       'operating_units',
       'project_statuses',
@@ -150,12 +170,14 @@ export default {
       'project.title',
       'project.description',
       'project.operating_unit_id',
-      'project.total_project_cost',
       'project.project_status_id',
       'project.type_id',
+      'project.infrastructure',
       'project.main_funding_source_id',
+      'project.spatial_coverage_id',
       'project.target_start_year',
-      'project.target_end_year'
+      'project.target_end_year',
+	    'project.total_project_cost'
     ]),
     filteredYears() {
       const years = this.years;
@@ -172,7 +194,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('project', ['createProject']),
+    ...mapActions('project', ['createProject','clearProject']),
     handleSubmit() {
       const payload = {
         title: this.title,
@@ -180,18 +202,22 @@ export default {
         operating_unit_id: this.operating_unit_id,
         project_status_id: this.project_status_id,
         type_id: this.type_id,
+				infrastructure: this.infrastructure,
         main_funding_source_id: this.main_funding_source_id,
+				spatial_coverage_id: this.spatial_coverage_id,
         target_start_year: this.target_start_year,
         target_end_year: this.target_end_year,
         total_project_cost: this.total_project_cost
       };
       this.createProject(payload);
     },
-    moveFab(ev) {
-      this.draggingFab = ev.isFirst !== true && ev.isFinal !== true;
+	  handleReset() {
+    	console.log('resetting')
+			this.clearProject()
+		}
+  },
+	mounted() {
 
-      this.fabPos = [this.fabPos[0] - ev.delta.x, this.fabPos[1] - ev.delta.y];
-    }
-  }
+	}
 };
 </script>

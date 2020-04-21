@@ -479,6 +479,11 @@ export const RELAY_PROJECTS_QUERY = gql`
             acronym
           }
           description
+          spatial_coverage {
+            name
+          }
+          target_start_year
+          target_end_year
           total_project_cost
           can_update
           creator {

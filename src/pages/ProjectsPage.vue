@@ -44,7 +44,8 @@
           outlined
           placeholder="Filter Programs and Projects"
           v-model="searchField"
-          debounce="300"
+          :debounce="500"
+					hint="This only works for projects loaded in the list below."
         >
           <template v-slot:prepend>
             <q-icon name="search" />
@@ -59,7 +60,7 @@
     </template>
 
     <!-- show when loaded -->
-    <template v-if="!$apollo.loading">
+    <template else>
       <!-- when there are no items in the projects -->
       <template v-if="!projects.length">
         <q-banner dense class="q-ma-sm bg-grey-3">
