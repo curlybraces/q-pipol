@@ -2,7 +2,7 @@
   <q-page class="q-pt-lg">
     <page-title title="Dashboard"></page-title>
 
-		<div class="row q-pa-sm q-col-gutter-sm">
+    <div class="row q-pa-sm q-col-gutter-sm">
       <div
         class="offset-xl-3 offset-lg-3 col-lg-3 col-md-12 col-sm-12 col-sm-12"
       >
@@ -16,7 +16,7 @@
                 <q-item-section>Projects</q-item-section>
                 <q-item-section avatar>
                   <q-avatar color="grey" class="text-white">
-                    {{ relayProjects.edges ? relayProjects.edges.length: 0 }}
+                    {{ relayProjects.edges ? relayProjects.edges.length : 0 }}
                   </q-avatar>
                 </q-item-section>
               </q-item>
@@ -141,57 +141,61 @@
           </q-list>
         </q-card>
 
-				<div class="row justify-between">
+        <div class="row justify-between">
           <span class="q-item__label q-px-none q-pb-sm q-item__label--header"
-					>Exchange Rates (as of {{ date }})</span
-					>
-					<q-space />
-					<q-btn
-							label="See All"
-							dense
-							class="text-capitalize"
-							flat
-							icon-right="play_circle_outline"
-							tag="a"
-							target="_blank"
-							@click="goToExchangeRates('http://www.bsp.gov.ph/statistics/sdds/exchrate.htm')"
-					/>
-				</div>
+            >Exchange Rates (as of {{ exchangeRateDate }})</span
+          >
+          <q-space />
+          <q-btn
+            label="See All"
+            dense
+            class="text-capitalize"
+            flat
+            icon-right="play_circle_outline"
+            tag="a"
+            target="_blank"
+            @click="
+              goToExchangeRates(
+                'http://www.bsp.gov.ph/statistics/sdds/exchrate.htm'
+              )
+            "
+          />
+        </div>
 
-				<q-card square bordered flat style="min-height: 115px;">
-					<q-list separator>
-						<template v-if="exchangeRateLoading">
-							<q-inner-loading :showing="exchangeRateLoading">
-								<q-spinner-tail size="50px"></q-spinner-tail>
-							</q-inner-loading>
-						</template>
-						<template v-else>
-							<template v-if="exchangeRatesPreview.length">
-								<q-item
-										v-for="({ currency, rate }, index) in exchangeRatesPreview"
-										:key="index"
-								>
-									<q-item-section avatar>
-										<q-avatar color="primary" class="text-white">
-											{{ currency.charAt(0) }}
-										</q-avatar>
-									</q-item-section>
-									<q-item-section>
-										<q-item-label>{{ currency }}</q-item-label>
-									</q-item-section>
-									<q-item-section>
-										<q-item-label>{{ rate.toFixed(2) }}</q-item-label>
-									</q-item-section>
-								</q-item>
-							</template>
-							<template v-else>
-								<q-item>
-									No currencies to show.
-								</q-item>
-							</template>
-						</template>
-					</q-list>
-				</q-card>
+        <q-card square bordered flat style="min-height: 115px;">
+          <q-list separator>
+            <template v-if="exchangeRateLoading">
+              <q-inner-loading :showing="exchangeRateLoading">
+                <q-spinner-tail size="50px"></q-spinner-tail>
+              </q-inner-loading>
+            </template>
+            <template v-else>
+              <template v-if="exchangeRatesPreview.length">
+                <q-item
+                  v-for="({ currency, rate }, index) in exchangeRatesPreview"
+                  :key="index"
+                >
+                  <q-item-section avatar>
+                    <q-avatar color="primary" class="text-white">
+                      {{ currency.charAt(0) }}
+                    </q-avatar>
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item-label>{{ currency }}</q-item-label>
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item-label>{{ rate.toFixed(2) }}</q-item-label>
+                  </q-item-section>
+                </q-item>
+              </template>
+              <template v-else>
+                <q-item>
+                  No currencies to show.
+                </q-item>
+              </template>
+            </template>
+          </q-list>
+        </q-card>
       </div>
     </div>
 
@@ -233,7 +237,7 @@
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex';
-import { RELAY_PROJECTS_QUERY} from '../graphql/queries';
+import { RELAY_PROJECTS_QUERY } from '../graphql/queries';
 import PageTitle from '../components/PageTitle';
 import { openURL } from 'quasar';
 
@@ -251,25 +255,25 @@ export default {
       // return this.activities.slice(0, 10);
       return [];
     },
-		exchangeRatesPreview() {
-    	const exchangeRatesToShow = ['USD','EUR','SGD','JPY','CNY']
+    exchangeRatesPreview() {
+      const exchangeRatesToShow = ['USD', 'EUR', 'SGD', 'JPY', 'CNY'];
 
-			let exchangeRatesPreview = []
+      let exchangeRatesPreview = [];
 
-			exchangeRatesPreview = this.exchangeRates.filter(rate => exchangeRatesToShow.includes(rate.currency))
+      exchangeRatesPreview = this.exchangeRates.filter(rate =>
+        exchangeRatesToShow.includes(rate.currency)
+      );
 
-			console.log(exchangeRatesPreview);
-
-			return exchangeRatesPreview;
-		}
+      return exchangeRatesPreview;
+    }
   },
   apollo: {
     relayProjects: {
       query: RELAY_PROJECTS_QUERY,
-			variables: {
-      	first: 10,
-				after: ''
-			}
+      variables: {
+        first: 10,
+        after: ''
+      }
     }
   },
   methods: {
@@ -277,16 +281,16 @@ export default {
     hideReminder() {
       this.hideValidateEmailReminder(false);
     },
-		goToExchangeRates(url) {
-			openURL(url)
-		}
+    goToExchangeRates(url) {
+      openURL(url);
+    }
   },
   data() {
     return {
-	    relayProjects: [],
-			exchangeRates: [],
-			exchangeRateDate: '',
-			exchangeRateLoading: false,
+      relayProjects: [],
+      exchangeRates: [],
+      exchangeRateDate: '',
+      exchangeRateLoading: false,
       links: [
         {
           label: 'Account Settings',
@@ -345,27 +349,28 @@ export default {
       return this.$moment(val).calendar();
     }
   },
-	created() {
-  	this.exchangeRateLoading = true;
-  	this.$http.get('https://api.exchangeratesapi.io/latest?base=PHP')
-			.then(({ data: { rates, date } }) => {
-				this.date = date;
+  created() {
+    this.exchangeRateLoading = true;
+    this.$http
+      .get('https://api.exchangeratesapi.io/latest?base=PHP')
+      .then(({ data: { rates, date } }) => {
+        this.exchangeRateDate = date;
 
-				let exchangeRates = []
+        let exchangeRates = [];
 
-				Object.keys(rates).forEach(key => {
-					exchangeRates.push({
-						currency: key,
-						rate: (1 / rates[key])
-					})
-				});
+        Object.keys(rates).forEach(key => {
+          exchangeRates.push({
+            currency: key,
+            rate: 1 / rates[key]
+          });
+        });
 
-				this.exchangeRates = exchangeRates;
-			})
-			.catch(err => {
-				console.log(err);
-			})
-			.finally(() => this.exchangeRateLoading = false);
-	}
+        this.exchangeRates = exchangeRates;
+      })
+      .catch(err => {
+        console.log(err);
+      })
+      .finally(() => (this.exchangeRateLoading = false));
+  }
 };
 </script>

@@ -1,4 +1,3 @@
-import { apolloClient } from '../boot/apollo-boost';
 import Vue from 'vue';
 import gql from 'graphql-tag';
 import {
@@ -6,6 +5,7 @@ import {
   showSuccessNotification
 } from '../functions/function-show-notifications';
 import { UPDATE_OPERATING_UNIT_MUTATION } from '../graphql/mutations';
+import { uploadClient } from '../boot/apollo-upload';
 
 const state = {
   operating_units: {}
@@ -21,7 +21,7 @@ const mutations = {
 
 const actions = {
   fetchOperatingUnits: ({ commit }) => {
-    return apolloClient
+    return uploadClient
       .query({
         query: gql`
           query operating_units {
@@ -49,8 +49,7 @@ const actions = {
       );
   },
   updateOperatingUnit: ({}, payload) => {
-    console.log(payload);
-    apolloClient
+    return uploadClient
       .mutate({
         mutation: UPDATE_OPERATING_UNIT_MUTATION,
         variables: payload

@@ -14,7 +14,7 @@ import PageTitle from '../components/PageTitle';
 export default {
   components: { PageTitle, AddProject },
   methods: {
-    ...mapActions('project', ['clearProject']),
+    ...mapActions('project', ['clearProject'])
   },
   mounted() {
     this.clearProject();

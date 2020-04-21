@@ -4,7 +4,7 @@
     ref="addProject"
     greedy
     @submit.prevent="handleSubmit"
-		@reset="handleReset"
+    @reset="handleReset"
   >
     <span class="text-red">* All fields are required.</span>
 
@@ -12,23 +12,26 @@
       <text-input label="Title" v-model="title" :rules="rules.required" />
     </div>
 
-		<div class="row q-pl-sm q-col-gutter-sm">
-			<div class="col-6">
-				<single-select
-					v-model="type_id"
-					label="Type"
-					:options="types"
-					:rules="rules.notEmpty"
-				/>
-			</div>
-			<div class="col-6">
-				<single-select
-					v-model="infrastructure"
-					label="Infrastructure Project"
-					:options="[ { 'id': true, 'name': 'Yes' }, { 'id': false, 'name': 'No' } ]"
-					:rules="rules.notEmpty"
-				/>
-			</div>
+    <div class="row q-pl-sm q-col-gutter-sm">
+      <div class="col-6">
+        <single-select
+          v-model="type_id"
+          label="Type"
+          :options="types"
+          :rules="rules.notEmpty"
+        />
+      </div>
+      <div class="col-6">
+        <single-select
+          v-model="infrastructure"
+          label="Infrastructure Project"
+          :options="[
+            { id: true, name: 'Yes' },
+            { id: false, name: 'No' }
+          ]"
+          :rules="rules.notEmpty"
+        />
+      </div>
     </div>
 
     <div class="row">
@@ -58,14 +61,15 @@
       />
     </div>
 
-		<div class="row">
-			<single-select
-				v-model="spatial_coverage_id"
-				label="Spatial Coverage"
-				:options="spatial_coverages"
-				:rules="rules.notEmpty">
-			</single-select>
-		</div>
+    <div class="row">
+      <single-select
+        v-model="spatial_coverage_id"
+        label="Spatial Coverage"
+        :options="spatial_coverages"
+        :rules="rules.notEmpty"
+      >
+      </single-select>
+    </div>
 
     <div class="row">
       <single-select
@@ -158,7 +162,7 @@ export default {
   computed: {
     ...mapState('project', ['project', 'loading']),
     ...mapState('options', [
-    	'spatial_coverages',
+      'spatial_coverages',
       'currencies',
       'funding_sources_options',
       'operating_units',
@@ -177,7 +181,7 @@ export default {
       'project.spatial_coverage_id',
       'project.target_start_year',
       'project.target_end_year',
-	    'project.total_project_cost'
+      'project.total_project_cost'
     ]),
     filteredYears() {
       const years = this.years;
@@ -194,7 +198,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('project', ['createProject','clearProject']),
+    ...mapActions('project', ['createProject', 'clearProject']),
     handleSubmit() {
       const payload = {
         title: this.title,
@@ -202,22 +206,20 @@ export default {
         operating_unit_id: this.operating_unit_id,
         project_status_id: this.project_status_id,
         type_id: this.type_id,
-				infrastructure: this.infrastructure,
+        infrastructure: this.infrastructure,
         main_funding_source_id: this.main_funding_source_id,
-				spatial_coverage_id: this.spatial_coverage_id,
+        spatial_coverage_id: this.spatial_coverage_id,
         target_start_year: this.target_start_year,
         target_end_year: this.target_end_year,
         total_project_cost: this.total_project_cost
       };
       this.createProject(payload);
     },
-	  handleReset() {
-    	console.log('resetting')
-			this.clearProject()
-		}
+    handleReset() {
+      console.log('resetting');
+      this.clearProject();
+    }
   },
-	mounted() {
-
-	}
+  mounted() {}
 };
 </script>

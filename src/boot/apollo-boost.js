@@ -1,19 +1,20 @@
-import ApolloClient from 'apollo-boost';
+import { ApolloClient } from 'apollo-client';
+import { createHttpLink } from 'apollo-link-http';
+import { createUploadLink } from 'apollo-upload-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { CachePersistor, persistCache } from 'apollo-cache-persist';
+import { onError } from 'apollo-link-error';
 import VueApollo from 'vue-apollo';
+import { ApolloLink } from 'apollo-link';
 import localforage from 'localforage';
-import { LocalStorage, Notify } from 'quasar';
-// see https://v4.apollo.vuejs.org/guide-composable/error-handling.html#error-policies for error handling
+import { CachePersistor, persistCache } from 'apollo-cache-persist';
+import { LocalStorage } from 'quasar';
 
 const uri = process.env.DEV
   ? // ? 'http://localhost:8000/graphql'
     'https://da-ipms.herokuapp.com/graphql'
   : 'https://da-ipms.herokuapp.com/graphql';
 
-const cache = new InMemoryCache({
-  addTypename: true
-});
+const cache = new InMemoryCache({ addTypename: true });
 
 // set the driver for the cache storage
 localforage.setDriver([localforage.INDEXEDDB]);
@@ -28,43 +29,46 @@ export const persistor = new CachePersistor({
 persistCache({
 	cache,
 	storage: localforage
-})
-
-export const apolloClient = new ApolloClient({
-  uri: uri,
-  cache,
-  fetchOptions: {
-    credentials: 'include'
-  },
-  request: operation => {
-    const token = LocalStorage.getItem('token') || '';
-    operation.setContext({
-      headers: {
-        authorization: token ? 'Bearer ' + token : ''
-      }
-    });
-  },
-  onError: ({ graphQLErrors, networkError }) => {
-    if (networkError) {
-      console.log('[networkError: ', networkError);
-    }
-
-    if (graphQLErrors) {
-      for (let err of graphQLErrors) {
-        console.log('from ApolloClient graphQLErrors: ', err);
-        if (err.extensions.category === 'authentication') {
-          Notify.create({
-            position: 'top',
-            type: 'negative',
-            message: 'You are not authenticated.'
-          });
-        }
-      }
-    }
-  }
 });
 
-export const apolloProvider = new VueApollo({
+const authMiddleware = new ApolloLink((operation, forward) => {
+	const token = LocalStorage.getItem('token');
+	// add the authorization to the headers
+	operation.setContext(({ headers = {} }) => ({
+		headers: {
+			...headers,
+			authorization: token ? `Bearer ${token}`: ''
+		}
+	}));
+	
+	return forward(operation);
+})
+
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+	if (graphQLErrors)
+		graphQLErrors.forEach(({ message, locations, path }) =>
+			console.log(
+				`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
+			),
+		);
+	if (networkError) console.log(`[Network error]: ${networkError}`);
+})
+
+const uploadLink = createUploadLink({
+	uri: uri
+})
+
+const httpLink = createHttpLink({
+  // You should use an absolute URL here
+  uri: uri
+});
+
+export const apolloClient = new ApolloClient({
+  link: ApolloLink.from([authMiddleware,errorLink,httpLink,uploadLink]),
+  cache
+});
+
+const apolloProvider = new VueApollo({
   defaultClient: apolloClient
 });
 

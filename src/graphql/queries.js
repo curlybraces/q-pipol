@@ -49,6 +49,7 @@ export const GET_CURRENT_USER = gql`
       image_url
       contact_number
       role {
+        id
         name
       }
       unreadNotifications {
@@ -367,6 +368,7 @@ export const ALL_USERS = gql`
       verified
       image_url
       operating_unit {
+        id
         name
       }
       role {

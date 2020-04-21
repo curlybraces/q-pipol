@@ -1,13 +1,12 @@
 <template>
-  <q-card style="min-width:640px;" square>
-    <div class="row q-pa-sm justify-between">
-      Assign Operating Unit
-      <q-icon
-        name="close"
-        @click="$emit('close')"
-        class="cursor-pointer"
-      ></q-icon>
-    </div>
+  <q-card :style="$q.screen.xs ? void 0 : 'width:400px'">
+    <q-toolbar class="bg-info text-white">
+      <q-toolbar-title class="absolute-center text-subtitle1"
+        >Assign Operating Unit</q-toolbar-title
+      >
+      <q-space />
+      <q-btn flat round dense icon="close" @click="$emit('close')"></q-btn>
+    </q-toolbar>
     <q-separator></q-separator>
     <div class="row q-pa-sm">
       <q-input class="col" outlined :dense="dense" v-model="search">
@@ -16,28 +15,24 @@
         </template>
       </q-input>
     </div>
-    <q-scroll-area style="height:500px;">
-      <div class="row q-pa-sm q-col-gutter-sm">
-        <template v-for="(ou, key) in filteredOus">
-          <div class="col-xl-2 col-lg-2 col-md-3 col-sm-4 col-xs-6" :key="key">
-            <q-card
-              fit
-              class="q-pa-sm cursor-pointer"
-              @click="addMe(ou.id)"
-              square
-              bordered
-              flat
-              :class="selected(ou.id) ? 'bg-blue-1' : ''"
-            >
-              <q-img :src="'statics/agency_logos/' + ou.image"></q-img>
-              <q-item-label class="text-center q-pt-xs text-caption">{{
-                ou.acronym
-              }}</q-item-label>
-            </q-card>
-          </div>
-        </template>
-      </div>
-    </q-scroll-area>
+    <q-list class="q-px-sm" separator>
+      <template v-for="ou in filteredOus">
+        <q-item tag="label" v-ripple :key="ou.id">
+          <q-item-section avatar>
+            <q-checkbox v-model="selectedOu" :val="ou.id" color="primary" />
+          </q-item-section>
+          <q-item-section avatar>
+            <q-avatar>
+              <q-img :src="ou.image" />
+            </q-avatar>
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>{{ ou.acronym }}</q-item-label>
+            <q-item-label caption :lines="1">{{ ou.name }}</q-item-label>
+          </q-item-section>
+        </q-item>
+      </template>
+    </q-list>
     <q-card-actions align="right">
       <q-btn flat label="cancel" @click="$emit('close')"></q-btn>
       <q-btn
@@ -52,12 +47,17 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import { FETCH_OPERATING_UNITS } from '../../graphql/queries';
 
 export default {
   name: 'AssignOus',
   props: ['ous', 'id'],
+  apollo: {
+    operating_units: {
+      query: FETCH_OPERATING_UNITS
+    }
+  },
   computed: {
-    ...mapState('operatingUnits', ['operating_units']),
     ...mapState('settings', ['dense']),
     filteredOus() {
       const search = this.search;
@@ -84,9 +84,9 @@ export default {
   },
   data() {
     return {
+      operating_units: [],
       search: '',
-      selectedOu: [],
-      loading: false
+      selectedOu: []
     };
   },
   methods: {

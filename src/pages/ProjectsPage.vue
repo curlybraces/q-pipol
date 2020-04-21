@@ -45,7 +45,7 @@
           placeholder="Filter Programs and Projects"
           v-model="searchField"
           :debounce="500"
-					hint="This only works for projects loaded in the list below."
+          hint="This only works for projects loaded in the list below."
         >
           <template v-slot:prepend>
             <q-icon name="search" />

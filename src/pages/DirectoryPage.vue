@@ -18,8 +18,8 @@
     </page-title>
 
     <!-- Search operating units -->
-		<div class="q-mt-md q-pa-sm">
-			<div class="row q-mb-lg justify-center">
+    <div class="q-mt-md q-pa-sm">
+      <div class="row q-mb-lg justify-center">
         <q-input
           class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12"
           dense
@@ -34,121 +34,122 @@
           </template>
         </q-input>
       </div>
-		</div>
+    </div>
 
-		<div class="row item-start q-col-gutter-sm">
+    <div class="row q-pa-sm item-start q-col-gutter-sm">
       <!-- Show Loading -->
       <q-inner-loading :showing="$apollo.loading">
         <q-spinner-tail size="50px" color="primary" />
       </q-inner-loading>
 
+      <template v-if="!$apollo.loading && !operating_units.length">
+        <div>No operating units yet.</div>
+      </template>
 
-			<template v-if="!$apollo.loading && !operating_units.length">
-				<div>No operating units yet.</div>
-			</template>
+      <template v-if="!$apollo.loading && operating_units.length">
+        <template v-for="ou in filteredOperatingUnits">
+          <div
+            class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12"
+            :key="ou.id"
+          >
+            <directory-item
+              :ou="ou"
+              @upload="uploadImage(ou)"
+              @edit="showEditItemDialog(ou)"
+            ></directory-item>
+          </div>
+        </template>
+      </template>
+    </div>
 
-			<template v-if="!$apollo.loading && operating_units.length">
-				<template v-for="ou in filteredOperatingUnits">
-					<div
-						class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12"
-						:key="ou.id"
-					>
-						<directory-item
-							:ou="ou"
-							@edit="showEditItemDialog(ou)"
-						></directory-item>
-					</div>
-				</template>
-			</template>
-		</div>
+    <q-dialog v-model="uploadImageDialog">
+      <q-uploader
+        label="Upload Logo"
+        :factory="uploadFileByUploader"
+        ref="uploader"
+        accept=".jpg, image/*"
+      ></q-uploader>
+    </q-dialog>
 
-		<q-dialog
-			v-model="editItemDialog"
-			full-height
-			:position="$q.screen.xs ? void 0 : 'right'"
-			persistent
-			:maximized="$q.screen.xs"
-			transition-show="jump-left"
-			transition-hide="jump-right"
-		>
-			<q-card :style="$q.screen.gt.xs ? 'min-width:400px' : ''">
-				<q-toolbar class="bg-info text-white">
-					<q-toolbar-title class="absolute-center text-subtitle1"
-						>Update Operating Unit</q-toolbar-title
-					>
-					<q-space />
-					<q-btn
-						flat
-						round
-						dense
-						icon="close"
-						@click="editItemDialog = false"
-					></q-btn>
-				</q-toolbar>
-				<q-separator />
-				<q-form @submit.prevent="handleSubmit" ref="editItemForm" greedy>
-					<div class="column q-pa-sm q-gutter-sm">
-						<text-input
-							label="Name"
-							v-model="name"
-							:rules="required"
-						></text-input>
-						<text-input
-							label="Acronym"
-							v-model="acronym"
-							:rules="required"
-						></text-input>
-						<text-input
-							label="Image"
-							v-model="image"
-							:rules="imageRule"
-						></text-input>
-						<div class="text-center" v-show="image">
-							<q-img :src="image" width="150px" height="150px"></q-img>
-						</div>
-						<text-input
-							label="Head of Agency"
-							v-model="agency_head_name"
-							:rules="required"
-						></text-input>
-						<text-input
-							label="Designation/Position of Head of Agency"
-							v-model="agency_head_designation"
-							:rules="required"
-						></text-input>
-						<text-input
-							label="Telephone number"
-							v-model="telephone_number"
-							:rules="required"
-						></text-input>
-						<text-input
-							label="Fax number"
-							v-model="fax_number"
-							:rules="required"
-						></text-input>
-						<text-input
-							label="Email"
-							v-model="email"
-							:rules="required"
-						></text-input>
-					</div>
-					<q-card-actions>
-						<q-btn
-							class="col"
-							label="Cancel"
-							@click="editItemDialog = false"
-							outline
-						></q-btn>
-						<q-btn
-							class="col"
-							label="Save"
-							color="primary"
-							type="submit"
-						></q-btn>
-					</q-card-actions>
-				</q-form>
-			</q-card>
-		</q-dialog>
+    <q-dialog
+      v-model="editItemDialog"
+      full-height
+      :position="$q.screen.xs ? void 0 : 'right'"
+      persistent
+      :maximized="$q.screen.xs"
+      transition-show="jump-left"
+      transition-hide="jump-right"
+    >
+      <q-card :style="$q.screen.gt.xs ? 'min-width:400px' : ''">
+        <q-toolbar class="bg-info text-white">
+          <q-toolbar-title class="absolute-center text-subtitle1"
+            >Update Operating Unit</q-toolbar-title
+          >
+          <q-space />
+          <q-btn
+            flat
+            round
+            dense
+            icon="close"
+            @click="editItemDialog = false"
+          ></q-btn>
+        </q-toolbar>
+        <q-separator />
+        <q-form @submit.prevent="handleSubmit" ref="editItemForm" greedy>
+          <div class="column q-pa-sm q-gutter-sm">
+            <text-input
+              label="Name"
+              v-model="name"
+              :rules="required"
+            ></text-input>
+            <text-input
+              label="Acronym"
+              v-model="acronym"
+              :rules="required"
+            ></text-input>
+            <text-input
+              label="Head of Agency"
+              v-model="agency_head_name"
+              :rules="required"
+            ></text-input>
+            <text-input
+              label="Designation/Position of Head of Agency"
+              v-model="agency_head_designation"
+              :rules="required"
+            ></text-input>
+            <text-input
+              label="Telephone number"
+              v-model="telephone_number"
+              :rules="required"
+            ></text-input>
+            <text-input
+              label="Fax number"
+              v-model="fax_number"
+              :rules="required"
+            ></text-input>
+            <text-input
+              label="Email"
+              v-model="email"
+              :rules="required"
+            ></text-input>
+          </div>
+          <q-card-actions>
+            <q-btn
+              class="col"
+              label="Cancel"
+              @click="editItemDialog = false"
+              outline
+            ></q-btn>
+            <q-btn
+              class="col"
+              label="Save"
+              color="primary"
+              type="submit"
+            ></q-btn>
+          </q-card-actions>
+        </q-form>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
@@ -156,10 +157,12 @@
 import { mapActions, mapGetters } from 'vuex';
 import JsonExcel from 'vue-json-excel';
 import PageTitle from '../components/PageTitle';
-import AdminMixins from '../mixins/AdminMixins';
 import { FETCH_OPERATING_UNITS } from '../graphql/queries';
 import DirectoryItem from '../components/Directory/DirectoryItem';
 import TextInput from '../components/form-inputs/TextInput';
+import { uploadClient } from '../boot/apollo-upload';
+import { showSuccessNotification } from '../functions/function-show-notifications';
+import { UPDATE_OPERATING_UNIT_IMAGE } from '../graphql/mutations';
 
 export default {
   components: {
@@ -169,7 +172,6 @@ export default {
     JsonExcel
   },
   name: 'PageDirectory',
-  mixins: [AdminMixins],
   apollo: {
     operating_units: {
       query: FETCH_OPERATING_UNITS
@@ -189,6 +191,7 @@ export default {
           const headName = ou.agency_head_name
             ? ou.agency_head_name.toLowerCase()
             : '';
+
           const name = ou.name ? ou.name.toLowerCase() : '';
           const acronym = ou.acronym ? ou.acronym.toLowerCase() : '';
 
@@ -207,6 +210,7 @@ export default {
   },
   data() {
     return {
+      uploadImageDialog: false,
       operating_units: [],
       expanded: false,
       searchField: '',
@@ -215,14 +219,12 @@ export default {
       id: null,
       name: null,
       acronym: null,
-      image: '/statics/placeholder.jpg',
       agency_head_name: null,
       agency_head_designation: null,
       telephone_number: null,
       fax_number: null,
       email: null,
       imageError: null,
-      imageRule: [val => this.validateImage(val) || '* Image must be valid.'],
       required: [val => !!val || '* Required']
     };
   },
@@ -231,12 +233,15 @@ export default {
     toggleMoreInfo(ou) {
       this.isActive = ou;
     },
+    uploadImage(ou) {
+      this.id = ou.id;
+      this.uploadImageDialog = true;
+    },
     showEditItemDialog(ou) {
       const {
         id,
         name,
         acronym,
-        image,
         agency_head_name,
         agency_head_designation,
         telephone_number,
@@ -247,7 +252,6 @@ export default {
       this.id = id;
       this.name = name;
       this.acronym = acronym;
-      this.image = image;
       this.agency_head_name = agency_head_name;
       this.agency_head_designation = agency_head_designation;
       this.telephone_number = telephone_number;
@@ -261,7 +265,6 @@ export default {
         id: this.id,
         name: this.name,
         acronym: this.acronym,
-        image: this.image,
         agency_head_name: this.agency_head_name,
         agency_head_designation: this.agency_head_designation,
         telephone_number: this.telephone_number,
@@ -271,26 +274,25 @@ export default {
       console.log(payload);
       this.updateOperatingUnit(payload);
     },
-    validImage(url) {
-      const imagePromise = new Promise((resolve, reject) => {
-        const imageElement = new Image();
+    uploadFileByUploader() {
+      const file = this.$refs.uploader.files[0];
 
-        imageElement.addEventListener('load', resolve);
-
-        imageElement.addEventListener('error', reject);
-
-        imageElement.src = url;
-      });
-
-      return imagePromise;
-    },
-    validateImage(url) {
-      return this.validImage(url)
-        .then(() => {
-          return true;
+      uploadClient
+        .mutate({
+          mutation: UPDATE_OPERATING_UNIT_IMAGE,
+          variables: {
+            id: this.id,
+            image: file
+          }
         })
-        .catch(() => {
-          return false;
+        .then(() => {
+          showSuccessNotification({
+            message: 'Successfully changed operating unit image.'
+          });
+          this.uploadImageDialog = false;
+        })
+        .catch(err => {
+          console.log(err);
         });
     }
   },

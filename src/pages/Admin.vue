@@ -2,9 +2,9 @@
   <q-page class="q-pt-lg">
     <page-title title="Admin"></page-title>
 
+    <!-- Search Field -->
     <div class="q-mt-md q-pa-sm">
-      <!-- Search Field -->
-      <div class="row q-mb-lg">
+      <div class="row justify-center">
         <q-input
           class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12"
           dense
@@ -12,6 +12,7 @@
           placeholder="Filter Users"
           v-model="searchField"
           clearable
+          debounce="500"
           ref="searchBox"
         >
           <template v-slot:prepend>
@@ -19,111 +20,102 @@
           </template>
         </q-input>
       </div>
+    </div>
 
-      <sort-menu></sort-menu>
-
+    <div class="q-pa-sm">
       <!-- Loading -->
-      <q-inner-loading :showing="loading">
-        <q-spinner-dots size="50px" :color="avatarColor" />
-      </q-inner-loading>
+      <template v-if="$apollo.loading">
+        <q-inner-loading :showing="$apollo.loading">
+          <q-spinner-tail size="50px" />
+        </q-inner-loading>
+      </template>
 
-      <!-- User List -->
-      <div class="col">
-        <q-list separator bordered>
-          <template v-for="(user, key) in usersSorted">
-            <user :key="key" :user="user"></user>
+      <template v-else>
+        <!-- User List -->
+        <div class="col">
+          <template v-for="(users, key) in groupedUsers">
+            <q-list separator bordered :key="key" class="q-mt-md">
+              <q-item-label
+                header
+                class="text-uppercase bg-primary text-white text-weight-bolder text-center"
+                >{{ key + 's' }}</q-item-label
+              >
+              <template v-for="user in users">
+                <user :key="user.id" :user="user"></user>
+              </template>
+            </q-list>
           </template>
-        </q-list>
-      </div>
+        </div>
+      </template>
     </div>
   </q-page>
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 import User from '../components/users-page/User';
 import PageTitle from '../components/PageTitle';
-import SortMenu from '../components/users-page/SortMenu';
+import { ALL_USERS } from '../graphql/queries';
+// import lodash from 'lodash';
 
 export default {
-  components: { SortMenu, PageTitle, User },
+  components: { PageTitle, User },
   name: 'PageAdmin',
+  apollo: {
+    users: {
+      query: ALL_USERS
+    }
+  },
   data() {
     return {
-      selectedUsers: [],
+      users: [],
       assignRoleDialog: false,
-      selectedRoles: []
+      searchField: ''
     };
   },
-  methods: {
-    ...mapActions('users', ['fetchUsers', 'setSearch'])
-  },
   computed: {
-    ...mapState('users', ['search', 'loading', 'sort', 'direction']),
     ...mapState('settings', ['dark']),
-    ...mapGetters('users', ['users']),
-    usersSorted() {
-      const sort = this.sort;
-      const direction = this.direction;
+    filteredUsers() {
+      let filteredUsers = [];
+
       const users = this.users;
 
-      let usersSorted = {};
+      const search = this.searchField.trim().toLowerCase();
 
-      if (!sort && !direction) {
-        usersSorted = users;
-      } else {
-        let keysOrdered = Object.keys(this.users);
+      if (search) {
+        console.log(search);
 
-        keysOrdered.sort((a, b) => {
-          let userAProp = '',
-            userBProp = '';
-          if (sort == 'name') {
-            userAProp = users[a][sort].toLowerCase();
-            userBProp = users[b][sort].toLowerCase();
-          } else {
-            userAProp = users[a][sort]
-              ? users[a][sort]['name'].toLowerCase()
-              : '';
-            userBProp = users[b][sort]
-              ? users[b][sort]['name'].toLowerCase()
-              : '';
-          }
+        filteredUsers = users.filter(user =>
+          user.name.toLowerCase().includes(search)
+        );
 
-          if (direction == 'asc') {
-            if (userAProp > userBProp) return 1;
-            else if (userAProp < userBProp) return -1;
-            else return 0;
-          } else {
-            if (userAProp > userBProp) return -1;
-            else if (userAProp < userBProp) return 1;
-            else return 0;
-          }
-        });
-
-        keysOrdered.forEach(key => {
-          usersSorted[key] = users[key];
-        });
-
-        return usersSorted;
+        return filteredUsers;
       }
 
-      return usersSorted;
+      filteredUsers = users;
+
+      return filteredUsers;
     },
-    searchField: {
-      get() {
-        return this.search;
-      },
-      set(val) {
-        this.setSearch(val);
-      }
+    groupedUsers() {
+      let groupedUsers = [];
+      const users = this.filteredUsers;
+
+      groupedUsers = users.reduce((acc, val) => {
+        const roleName = val.role ? val.role.name : 'No Role';
+        (acc[roleName] = acc[roleName] || []).push(val);
+        return acc;
+      }, {});
+
+      return groupedUsers;
+
+      // return lodash.groupBy(this.users,'role.name')
     },
     avatarColor() {
       return this.dark ? 'pink-13' : 'primary';
     }
   },
+  methods: {},
   mounted() {
-    this.fetchUsers();
-
     window.addEventListener('keydown', e => {
       if (e.ctrlKey && e.keyCode === 70) {
         e.preventDefault();

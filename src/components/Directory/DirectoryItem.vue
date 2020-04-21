@@ -3,7 +3,7 @@
     <q-list>
       <q-item>
         <q-item-section avatar>
-          <q-avatar>
+          <q-avatar @click="$emit('upload')" class="cursor-pointer">
             <q-img :src="ou.image" placeholder-src="/statics/placeholder.webp">
               <template v-slot:error>
                 <q-img src="/statics/placeholder.jpg" />

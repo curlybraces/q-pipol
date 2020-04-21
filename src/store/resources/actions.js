@@ -1,4 +1,4 @@
-import { apolloClient } from '../../boot/apollo-boost';
+import { apolloClient } from '../../boot/apollo-boost-v2';
 import {
   CREATE_RESOURCE_MUTATION,
   DELETE_RESOURCE_MUTATION

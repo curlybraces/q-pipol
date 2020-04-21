@@ -6,7 +6,7 @@
 
     <div class="row justify-center">
       <q-input
-				ref="searchBox"
+        ref="searchBox"
         class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12"
         outlined
         placeholder="Search titles"
@@ -31,7 +31,7 @@
     <template v-else>
       <q-list separator>
         <q-item-label header v-if="this.search.length >= 3"
-				>Found <b>{{ filteredProjects.length }}</b> titles that contains
+          >Found <b>{{ filteredProjects.length }}</b> titles that contains
           <span class="text-negative">{{ search }}...</span></q-item-label
         >
         <template v-for="{ node } in filteredProjects">
@@ -49,16 +49,15 @@
       ></q-btn>
     </div>
 
-		<q-page-sticky position="bottom" :offset="[18, 18]" v-if="isEncoder">
-			<q-btn
-					fab
-					icon="add"
-					color="primary"
-					to="/projects/add"
-					class="all-pointer-events"
-			/>
-		</q-page-sticky>
-
+    <q-page-sticky position="bottom" :offset="[18, 18]" v-if="isEncoder">
+      <q-btn
+        fab
+        icon="add"
+        color="primary"
+        to="/projects/add"
+        class="all-pointer-events"
+      />
+    </q-page-sticky>
   </q-page>
 </template>
 
@@ -72,7 +71,7 @@ import FindListener from '../mixins/FindListener';
 export default {
   name: 'ProjectsPage',
   components: { PageTitle, ProjectItem },
-	mixins: [FindListener],
+  mixins: [FindListener],
   apollo: {
     relayProjects: {
       query: RELAY_PROJECTS_QUERY,
@@ -98,7 +97,7 @@ export default {
     };
   },
   computed: {
-	  ...mapGetters('auth',['isEncoder']),
+    ...mapGetters('auth', ['isEncoder']),
     filteredProjects() {
       let filteredProjects = [];
 

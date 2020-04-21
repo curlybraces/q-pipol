@@ -9,7 +9,7 @@ import {
   showSuccessNotification
 } from '../../functions/function-show-notifications';
 
-import { apolloClient } from '../../boot/apollo-boost';
+import { apolloClient } from '../../boot/apollo-boost-v2';
 import { RELAY_PROJECTS_QUERY } from '../../graphql/queries';
 import { INITIAL_STATE } from './state';
 
@@ -185,29 +185,29 @@ export function createFullProject({ state, getters, commit }) {
 
         // read query we want to update
         const data = cache.readQuery({
-	        query: RELAY_PROJECTS_QUERY,
-	        variables: {
-	        	first: 10,
-		        after: ''
-	        }
+          query: RELAY_PROJECTS_QUERY,
+          variables: {
+            first: 10,
+            after: ''
+          }
         });
 
         const newProject = {
-        	node: createProject
-        }
-        
+          node: createProject
+        };
+
         // create updated data
         data.relayProjects.edges.push(newProject);
 
         console.log(data);
-        
+
         // update the query
         cache.writeQuery({
           query: RELAY_PROJECTS_QUERY,
-	        variables: {
-		        first: 10,
-		        after: ''
-	        },
+          variables: {
+            first: 10,
+            after: ''
+          },
           data
         });
       }
@@ -245,43 +245,43 @@ export function createProject({ commit }, payload) {
     .mutate({
       mutation: CREATE_PROJECT_MUTATION,
       variables: payload,
-	    update: (store, { data: { createProject } } ) => {
-      	console.log('created project: ', createProject);
-      	
+      update: (store, { data: { createProject } }) => {
+        console.log('created project: ', createProject);
+
         const data = store.readQuery({
-	        query: RELAY_PROJECTS_QUERY,
-	        variables: {
-	        	first: 10,
-		        after: ''
-	        }
-        })
-		
-		    console.log('relay projects: ', data.relayProjects)
-		    
-		    const newNode = {
-        	node: createProject,
-			    __typename: 'ProjectEdge'
-		    }
-		    
-		    console.log('newNode: ', newNode);
-		    
-		    data.relayProjects.edges.unshift(newNode)
-		    
-		    console.log('data with the newNode: ', data);
-		    
-		    // this is throwing a warning that field is not defined
-		    // not anymore
-		    store.writeQuery({
-			    query: RELAY_PROJECTS_QUERY,
-			    variables: {
-				    first: 10,
-				    after: ''
-			    },
-			    data
-		    })
-		
-		    console.log('store: ', store);
-	    }
+          query: RELAY_PROJECTS_QUERY,
+          variables: {
+            first: 10,
+            after: ''
+          }
+        });
+
+        console.log('relay projects: ', data.relayProjects);
+
+        const newNode = {
+          node: createProject,
+          __typename: 'ProjectEdge'
+        };
+
+        console.log('newNode: ', newNode);
+
+        data.relayProjects.edges.unshift(newNode);
+
+        console.log('data with the newNode: ', data);
+
+        // this is throwing a warning that field is not defined
+        // not anymore
+        store.writeQuery({
+          query: RELAY_PROJECTS_QUERY,
+          variables: {
+            first: 10,
+            after: ''
+          },
+          data
+        });
+
+        console.log('store: ', store);
+      }
     })
     .then(({ data }) => {
       showSuccessNotification({
@@ -478,5 +478,5 @@ export function fetchProject({ commit }, id) {
 }
 
 export function clearProject({ commit }) {
-  commit('SET_PROJECT',INITIAL_STATE);
+  commit('SET_PROJECT', INITIAL_STATE);
 }

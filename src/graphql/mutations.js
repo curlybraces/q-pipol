@@ -383,6 +383,40 @@ export const UPDATE_OPERATING_UNIT_MUTATION = gql`
   }
 `;
 
+export const UPDATE_OPERATING_UNIT_IMAGE = gql`
+  mutation updateOperatingUnitImage($id: ID!, $image: Upload!) {
+    updateOperatingUnitImage(id: $id, image: $image) {
+      id
+      operating_unit_type_id
+      operating_unit_type {
+        id
+        name
+      }
+      name
+      acronym
+      agency_head_name
+      agency_head_designation
+      telephone_number
+      fax_number
+      email
+      image
+      focals {
+        id
+        name
+        email
+        position
+        active
+        verified
+        image_url
+      }
+      reviewers {
+        id
+        name
+      }
+    }
+  }
+`;
+
 /* Projects */
 
 export const CREATE_PROJECT_MUTATION = gql`
@@ -685,16 +719,16 @@ export const CREATE_PROJECT_MUTATION = gql`
         image
         acronym
       }
-	    spatial_coverage {
-		    name
-	    }
+      spatial_coverage {
+        name
+      }
       main_funding_source {
         id
         name
       }
       description
-	    target_start_year
-	    target_end_year
+      target_start_year
+      target_end_year
       total_project_cost
       can_update
       creator {

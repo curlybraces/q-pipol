@@ -34,9 +34,19 @@ export function user(state) {
   return state.user;
 }
 
+export function isSuperadmin(state) {
+  if (!state.loading) {
+    return state.user.role ? state.user.role.name === 'superadmin' : false;
+  }
+  return false;
+}
+
 export function isAdmin(state) {
   if (!state.loading) {
-    return state.user.role ? state.user.role.name === 'admin' : false;
+    return state.user.role
+      ? state.user.role.name === 'admin' ||
+          state.user.role.name === 'superadmin'
+      : false;
   }
   return false;
 }

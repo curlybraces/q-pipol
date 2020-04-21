@@ -1,21 +1,16 @@
 <template>
-  <q-card square>
-    <q-toolbar>
-      Assign Role
+  <q-card :style="$q.screen.xs ? void 0 : 'width:400px'">
+    <q-toolbar class="bg-info text-white">
+      <q-toolbar-title class="absolute-center text-subtitle1"
+        >Assign Operating Unit</q-toolbar-title
+      >
       <q-space />
-      <q-icon
-        name="close"
-        flat
-        round
-        dense
-        @click="$emit('close')"
-        class="cursor-pointer"
-      />
+      <q-btn flat round dense icon="close" @click="$emit('close')"></q-btn>
     </q-toolbar>
 
     <q-separator />
 
-    <div style="width:300px;" class="q-pa-md">
+    <div class="q-pa-md">
       <q-item-label class="q-mb-md">Select role to assign to user</q-item-label>
       <q-option-group :options="optionRoles" v-model="model" type="radio" />
     </div>

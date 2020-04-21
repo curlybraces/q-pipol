@@ -1,4 +1,4 @@
-import { apolloClient } from '../../boot/apollo-boost';
+import { apolloClient } from '../../boot/apollo-boost-v2';
 import {
   ACTIVATE_USER,
   DEACTIVATE_USER,

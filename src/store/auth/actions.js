@@ -19,13 +19,12 @@ import {
   showErrorNotification,
   showSuccessNotification
 } from '../../functions/function-show-notifications';
-import { persistor } from '../../boot/apollo-boost';
+import { persistor } from '../../boot/apollo-boost-v2';
 
 export function signinUser({ commit }, payload) {
-	
   // clear token so it does not get sent to server
   LocalStorage.set('token', '');
-  
+
   commit('CLEAR_ERROR');
 
   commit('SET_LOADING', true);
@@ -41,7 +40,7 @@ export function signinUser({ commit }, payload) {
       commit('SET_LOADING', false);
 
       this.$router.go();
-      
+
       // reset the store
       apolloClient.resetStore();
     })
@@ -56,7 +55,7 @@ export function signinUser({ commit }, payload) {
 
 export function getCurrentUser({ commit }) {
   commit('SET_LOADING', true);
-  
+
   apolloClient
     .query({
       query: GET_CURRENT_USER
@@ -75,25 +74,25 @@ export function getCurrentUser({ commit }) {
 }
 
 export async function signoutUser({ commit }) {
-	// see https://github.com/apollographql/apollo-cache-persist/issues/34#issuecomment-371177206 for info in purging cache
-	
-	// clear apolloClient store, this will not refetch queries unlike resetStore
-	apolloClient.clearStore();
-	
-	persistor.purge();
-	
-	// remove token and user from localStorage
-	LocalStorage.remove('token');
-	LocalStorage.remove('user');
-	
-	// remove user data from store
-	commit('CLEAR_USER');
-	
-	// clear the token
-	commit('CLEAR_TOKEN');
-	
-	// redirect to login page
-	this.$router.replace('/login');
+  // see https://github.com/apollographql/apollo-cache-persist/issues/34#issuecomment-371177206 for info in purging cache
+
+  // clear apolloClient store, this will not refetch queries unlike resetStore
+  apolloClient.clearStore();
+
+  persistor.purge();
+
+  // remove token and user from localStorage
+  LocalStorage.remove('token');
+  LocalStorage.remove('user');
+
+  // remove user data from store
+  commit('CLEAR_USER');
+
+  // clear the token
+  commit('CLEAR_TOKEN');
+
+  // redirect to login page
+  this.$router.replace('/login');
 }
 
 export function hideValidateEmailReminder({ commit }, val) {

@@ -1,56 +1,69 @@
 <template>
   <q-page class="q-pt-lg">
     <page-title title="Resources">
-      <q-btn
-        outline
-        color="primary"
-        class="text-capitalize"
-        label="Add Resource"
-        @click="createResourceDialog = true"
-        v-if="admin"
-      ></q-btn>
+      <q-btn flat round color="primary" icon="settings">
+        <q-menu transition-show="jump-down" transition-hide="jump-up">
+          <q-list>
+            <q-item
+              clickable
+              @click="createResourceDialog = true"
+              v-if="isAdmin"
+            >
+              <q-item-section>
+                <q-item-label>Add Resource</q-item-label>
+              </q-item-section>
+            </q-item>
+          </q-list>
+        </q-menu>
+      </q-btn>
     </page-title>
 
-    <div class="q-pa-sm">
-      <q-inner-loading :showing="loading">
-        <q-spinner-tail size="50px"></q-spinner-tail>
-      </q-inner-loading>
-      <div class="row q-gutter-sm">
-        <q-list bordered separator v-if="Object.keys(resources).length">
-          <q-item
-            v-for="(resource, key) in resources"
-            :key="key"
-            clickable
-            @click="goTo(resource.url)"
-          >
-            <q-item-section avatar>
-              <q-img :src="resource.image_url"></q-img>
-            </q-item-section>
-            <q-item-section>
-              <q-item-label
-                ><q-badge color="red">{{ resource.document_type }}</q-badge
-                >&nbsp;{{ resource.title }}</q-item-label
-              >
-              <q-item-label caption :lines="3">{{
-                resource.description
-              }}</q-item-label>
-            </q-item-section>
-            <q-item-section side v-if="admin">
-              <q-btn
-                flat
-                round
-                icon="delete"
-                color="red"
-                @click.stop="promptDelete(resource.id)"
-              ></q-btn>
-            </q-item-section>
-          </q-item>
-        </q-list>
+    <!--		 -->
 
-        <div v-if="!loading && !Object.keys(resources).length">
-          No resources yet.
+    <div class="q-pa-sm">
+      <template v-if="$apollo.loading">
+        <q-inner-loading :showing="$apollo.loading">
+          <q-spinner-tail size="50px"></q-spinner-tail>
+        </q-inner-loading>
+      </template>
+      <template v-else>
+        <div class="row q-gutter-sm">
+          <q-list bordered separator v-if="Object.keys(resources).length">
+            <q-item
+              v-for="(resource, key) in resources"
+              :key="key"
+              clickable
+              @click="goTo(resource.url)"
+            >
+              <q-item-section avatar>
+                <q-img :src="resource.image_url"></q-img>
+              </q-item-section>
+              <q-item-section>
+                <q-item-label
+                  ><q-badge color="red">{{ resource.document_type }}</q-badge
+                  >&nbsp;{{ resource.title }}</q-item-label
+                >
+                <q-item-label caption :lines="3">{{
+                  resource.description
+                }}</q-item-label>
+              </q-item-section>
+              <q-item-section side v-if="isAdmin">
+                <q-btn
+                  flat
+                  round
+                  icon="delete"
+                  color="red"
+                  @click.stop="promptDelete(resource.id)"
+                ></q-btn>
+              </q-item-section>
+            </q-item>
+          </q-list>
+
+          <div v-if="!$apollo.loading && !resources.length">
+            No resources yet.
+          </div>
         </div>
-      </div>
+      </template>
     </div>
 
     <q-dialog
@@ -63,10 +76,19 @@
       transition-hide="jump-right"
     >
       <q-card :style="$q.screen.xs ? void 0 : 'width:400px'">
-        <div class="row justify-between q-pa-sm">
-          Create Resource
-          <q-icon name="close" v-close-popup class="cursor-pointer"></q-icon>
-        </div>
+        <q-toolbar class="bg-info text-white">
+          <q-toolbar-title class="absolute-center text-subtitle1"
+            >Create Resource</q-toolbar-title
+          >
+          <q-space />
+          <q-btn
+            flat
+            round
+            dense
+            icon="close"
+            @click="createResourceDialog = false"
+          ></q-btn>
+        </q-toolbar>
         <q-separator></q-separator>
         <q-form @submit="onSubmit" ref="form">
           <q-card-section class="q-pa-sm">
@@ -115,19 +137,24 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapGetters } from 'vuex';
 import PageTitle from '../components/PageTitle';
 import { openURL, Dialog } from 'quasar';
 import TextInput from '../components/form-inputs/TextInput';
-import AdminMixins from '../mixins/AdminMixins';
+import { FETCH_RESOURCES_QUERY } from '../graphql/queries';
 
 export default {
   name: 'PageResources',
-  mixins: [AdminMixins],
   components: { TextInput, PageTitle },
+  apollo: {
+    resources: {
+      query: FETCH_RESOURCES_QUERY
+    }
+  },
   computed: {
-    ...mapState('resources', ['resources', 'loading']),
-    ...mapState('settings', ['dense'])
+    // ...mapState('resources', ['resources', 'loading']),
+    ...mapState('settings', ['dense']),
+    ...mapGetters('auth', ['isAdmin'])
   },
   data() {
     return {
@@ -139,7 +166,8 @@ export default {
       description: '',
       url: '',
       image_url: '',
-      document_type: ''
+      document_type: '',
+      resources: []
     };
   },
   methods: {
@@ -185,9 +213,6 @@ export default {
         }
       });
     }
-  },
-  mounted() {
-    this.fetchResources();
   }
 };
 </script>

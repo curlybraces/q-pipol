@@ -6,11 +6,11 @@
   >
     <q-item-section avatar>
       <q-avatar class="text-white text-uppercase">
-        <img
-          :src="'statics/avatars/avatar-' + user.image_url + '.svg'"
-          v-if="user.image_url"
+        <q-img
+          :src="
+            user.image_url ? user.image_url : 'statics/avatar-placeholder.png'
+          "
         />
-        <img src="statics/avatar-placeholder.png" />
       </q-avatar>
     </q-item-section>
     <q-item-section>
@@ -18,6 +18,9 @@
         <span class="text-uppercase">
           {{ user.name }}
         </span>
+      </q-item-label>
+      <q-item-label v-if="user.operating_unit">
+        {{ user.operating_unit ? user.operating_unit.acronym : '' }}
       </q-item-label>
       <q-item-label>
         {{ user.position }}
@@ -32,24 +35,6 @@
         >
           <q-tooltip>This user has verified email.</q-tooltip>
         </q-icon>
-      </q-item-label>
-    </q-item-section>
-    <q-item-section class="text-center">
-      <q-item-label>
-        {{ user.operating_unit ? user.operating_unit.name : '' }}
-      </q-item-label>
-    </q-item-section>
-    <q-item-section class="text-center">
-      <q-item-label>
-        <template v-if="user.role">
-          <q-badge
-            color="green-7"
-            @click="setSearch(user.role.name)"
-            class="cursor-pointer"
-          >
-            {{ user.role ? user.role.name : '' }}
-          </q-badge>
-        </template>
       </q-item-label>
     </q-item-section>
     <q-item-section class="text-center">
@@ -95,18 +80,24 @@
 
     <q-dialog
       v-model="assignOUDialog"
-      transition-hide="fade"
-      transition-show="fade"
+      full-height
+      :position="$q.screen.xs ? void 0 : 'right'"
       persistent
+      :maximized="$q.screen.xs"
+      transition-show="jump-left"
+      transition-hide="jump-right"
     >
       <assign-ous :id="user.id" @close="assignOUDialog = false"></assign-ous>
     </q-dialog>
 
     <q-dialog
       v-model="assignRoleDialog"
-      transition-hide="fade"
-      transition-show="fade"
+      full-height
+      :position="$q.screen.xs ? void 0 : 'right'"
       persistent
+      :maximized="$q.screen.xs"
+      transition-show="jump-left"
+      transition-hide="jump-right"
     >
       <assign-roles
         :role="roleId"
