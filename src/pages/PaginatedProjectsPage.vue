@@ -29,6 +29,24 @@
     </template>
 
     <template v-else>
+      <template v-if="!relayProjects.length">
+        <q-banner dense class="q-ma-sm bg-grey-3">
+          <template v-slot:avatar>
+            <q-icon name="cancel" color="red" />
+          </template>
+          You have no projects to show. If you have added a project but was not
+          listed here even after refreshing. Please seek our assistance.
+          <template v-slot:action>
+            <q-btn
+              flat
+              color="primary"
+              label="Add a New Project"
+              to="/projects/add"
+              v-if="isEncoder"
+            />
+          </template>
+        </q-banner>
+      </template>
       <q-list separator>
         <q-item-label header v-if="this.search.length >= 3"
           >Found <b>{{ filteredProjects.length }}</b> titles that contains

@@ -1,5 +1,4 @@
 import { ApolloClient } from 'apollo-client';
-import { createHttpLink } from 'apollo-link-http';
 import { createUploadLink } from 'apollo-upload-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { onError } from 'apollo-link-error';
@@ -21,50 +20,45 @@ localforage.setDriver([localforage.INDEXEDDB]);
 
 // define the persistor
 export const persistor = new CachePersistor({
-	cache,
-	storage: localforage
+  cache,
+  storage: localforage
 });
 
 // call the persist cache
 persistCache({
-	cache,
-	storage: localforage
+  cache,
+  storage: localforage
 });
 
 const authMiddleware = new ApolloLink((operation, forward) => {
-	const token = LocalStorage.getItem('token');
-	// add the authorization to the headers
-	operation.setContext(({ headers = {} }) => ({
-		headers: {
-			...headers,
-			authorization: token ? `Bearer ${token}`: ''
-		}
-	}));
-	
-	return forward(operation);
-})
+  const token = LocalStorage.getItem('token');
+  // add the authorization to the headers
+  operation.setContext(({ headers = {} }) => ({
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : ''
+    }
+  }));
+
+  return forward(operation);
+});
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
-	if (graphQLErrors)
-		graphQLErrors.forEach(({ message, locations, path }) =>
-			console.log(
-				`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
-			),
-		);
-	if (networkError) console.log(`[Network error]: ${networkError}`);
-})
+  if (graphQLErrors)
+    graphQLErrors.forEach(({ message, locations, path }) =>
+      console.log(
+        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+      )
+    );
+  if (networkError) console.error(`[Network error]: ${networkError}`);
+});
 
 const uploadLink = createUploadLink({
-	uri: uri
-})
-
-const httpLink = createHttpLink({
-  // You should use an absolute URL here
   uri: uri
 });
 
 export const apolloClient = new ApolloClient({
-  link: ApolloLink.from([authMiddleware,errorLink,httpLink,uploadLink]),
+  link: ApolloLink.from([authMiddleware, errorLink, uploadLink]),
   cache
 });
 

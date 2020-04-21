@@ -44,7 +44,7 @@
       <!-- QScrollArea is optional -->
       <q-list>
         <!-- Content here -->
-        <q-item v-for="(link, index) in links" :key="index" :to="link.url">
+        <q-item v-for="(link, index) in links" :key="index" :to="link.url" exact>
           <q-item-section>
             <q-item-label>{{ link.title }}</q-item-label>
           </q-item-section>
@@ -84,7 +84,11 @@ export default {
         {
           title: 'Getting Started',
           url: '/docs/getting-started'
-        }
+        },
+				{
+					title: 'Installation',
+					url: '/docs/installation'
+				}
       ]
     };
   }

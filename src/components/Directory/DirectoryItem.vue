@@ -32,7 +32,7 @@
 
       <q-separator />
 
-      <q-item clickable>
+      <q-item>
         <q-item-section avatar>
           <q-icon color="primary" name="portrait" />
         </q-item-section>
@@ -43,7 +43,7 @@
         </q-item-section>
       </q-item>
 
-      <q-item clickable>
+      <q-item>
         <q-item-section avatar>
           <q-icon color="red" name="call" />
         </q-item-section>

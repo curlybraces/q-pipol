@@ -1,7 +1,7 @@
 <template>
   <q-page class="q-pt-lg">
     <page-title title="Resources">
-      <q-btn flat round color="primary" icon="settings">
+      <q-btn flat round color="primary" icon="settings" v-if="isAdmin">
         <q-menu transition-show="jump-down" transition-hide="jump-up">
           <q-list>
             <q-item
@@ -27,8 +27,26 @@
         </q-inner-loading>
       </template>
       <template v-else>
+				<template v-if="!resources.length">
+					<q-banner dense class="q-ma-sm bg-grey-3">
+						<template v-slot:avatar>
+							<q-icon name="cancel" color="red" />
+						</template>
+						There are no resources to show. If you have added a resource but was not
+						listed here even after refreshing. Please seek our assistance.
+						<template v-slot:action>
+							<q-btn
+								flat
+								color="primary"
+								label="Add a New Resource"
+								@click="createResourceDialog = true"
+								v-if="isAdmin"
+							/>
+						</template>
+					</q-banner>
+				</template>
         <div class="row q-gutter-sm">
-          <q-list bordered separator v-if="Object.keys(resources).length">
+          <q-list bordered separator v-if="resources.length">
             <q-item
               v-for="(resource, key) in resources"
               :key="key"
@@ -152,7 +170,6 @@ export default {
     }
   },
   computed: {
-    // ...mapState('resources', ['resources', 'loading']),
     ...mapState('settings', ['dense']),
     ...mapGetters('auth', ['isAdmin'])
   },

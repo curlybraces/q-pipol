@@ -15,9 +15,9 @@
 </template>
 
 <script>
-import { gql } from 'apollo-boost';
-import { uploadClient } from '../../boot/apollo-upload';
+import gql from 'graphql-tag';
 import { showSuccessNotification } from '../../functions/function-show-notifications';
+import { apolloClient } from '../../boot/apollo-boost';
 
 export default {
   name: 'ChooseAvatar',
@@ -32,7 +32,7 @@ export default {
   methods: {
     uploadFileByUploader() {
       const file = this.$refs.uploader.files[0];
-      uploadClient
+      apolloClient
         .mutate({
           mutation: gql`
             mutation uploadUserAvatar($image: Upload!) {
@@ -59,11 +59,3 @@ export default {
   }
 };
 </script>
-
-<style>
-.q-img.active {
-  -moz-box-shadow: 0px 0px 2px 3px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 0px 0px 2px 3px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 0px 2px 3px rgba(0, 0, 0, 0.3);
-}
-</style>

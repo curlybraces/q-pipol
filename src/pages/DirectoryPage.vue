@@ -160,9 +160,9 @@ import PageTitle from '../components/PageTitle';
 import { FETCH_OPERATING_UNITS } from '../graphql/queries';
 import DirectoryItem from '../components/Directory/DirectoryItem';
 import TextInput from '../components/form-inputs/TextInput';
-import { uploadClient } from '../boot/apollo-upload';
 import { showSuccessNotification } from '../functions/function-show-notifications';
 import { UPDATE_OPERATING_UNIT_IMAGE } from '../graphql/mutations';
+import { apolloClient } from '../boot/apollo-boost';
 
 export default {
   components: {
@@ -234,8 +234,12 @@ export default {
       this.isActive = ou;
     },
     uploadImage(ou) {
-      this.id = ou.id;
-      this.uploadImageDialog = true;
+      if (!this.isAdmin) {
+        console.error('Non-admins are not allowed to access this feature.');
+      } else {
+        this.id = ou.id;
+        this.uploadImageDialog = true;
+      }
     },
     showEditItemDialog(ou) {
       const {
@@ -277,7 +281,7 @@ export default {
     uploadFileByUploader() {
       const file = this.$refs.uploader.files[0];
 
-      uploadClient
+      apolloClient
         .mutate({
           mutation: UPDATE_OPERATING_UNIT_IMAGE,
           variables: {

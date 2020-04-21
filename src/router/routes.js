@@ -233,7 +233,7 @@ const routes = [
       {
         path: '',
         name: 'docs-index',
-        component: () => import('pages/docs/Index.vue')
+        component: () => import('pages/docs/Introduction.vue')
       },
       {
         path: 'getting-started',
@@ -244,7 +244,12 @@ const routes = [
         path: 'features',
         name: 'docs-features',
         component: () => import('pages/docs/Features.vue')
-      }
+      },
+	    {
+		    path: 'installation',
+		    name: 'docs-installation',
+		    component: () => import('pages/docs/Installation.vue')
+	    },
     ]
   },
   {
