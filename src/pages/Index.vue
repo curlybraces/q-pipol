@@ -1,11 +1,9 @@
 <template>
-  <q-page class="q-pt-lg">
+  <page-container>
     <page-title title="Dashboard"></page-title>
 
     <div class="row q-pa-sm q-col-gutter-sm">
-      <div
-        class="offset-xl-3 offset-lg-3 col-lg-3 col-md-12 col-sm-12 col-sm-12"
-      >
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-sm-12">
         <div class="row">
           <q-item-label header class="q-px-none q-pb-sm">Summary</q-item-label>
         </div>
@@ -66,6 +64,7 @@
             >Shortcuts</q-item-label
           >
         </div>
+
         <div class="row">
           <template v-for="(link, index) in links">
             <div class="col-6" :key="index">
@@ -85,7 +84,7 @@
       </div>
 
       <!-- Activity Feed -->
-      <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+      <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
         <div class="row justify-between">
           <span class="q-item__label q-px-none q-pb-sm q-item__label--header"
             >Latest Activity</span
@@ -232,7 +231,7 @@
         </div>
       </q-card>
     </q-dialog>
-  </q-page>
+  </page-container>
 </template>
 
 <script>
@@ -240,10 +239,11 @@ import { mapState, mapActions, mapGetters } from 'vuex';
 import { RELAY_PROJECTS_QUERY } from '../graphql/queries';
 import PageTitle from '../components/PageTitle';
 import { openURL } from 'quasar';
+import PageContainer from '../components/PageContainer';
 
 export default {
   name: 'PageIndex',
-  components: { PageTitle },
+  components: { PageContainer, PageTitle },
   computed: {
     ...mapState('auth', ['showValidateEmailReminder', 'user', 'loading']),
     ...mapGetters('auth', ['isEncoder']),

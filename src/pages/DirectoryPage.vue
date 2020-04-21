@@ -1,5 +1,5 @@
 <template>
-  <q-page class="q-pt-lg">
+  <page-container>
     <!-- Page Title -->
     <page-title title="Directory">
       <q-btn flat round color="primary" icon="settings">
@@ -150,7 +150,7 @@
         </q-form>
       </q-card>
     </q-dialog>
-  </q-page>
+  </page-container>
 </template>
 
 <script>
@@ -163,9 +163,11 @@ import TextInput from '../components/form-inputs/TextInput';
 import { showSuccessNotification } from '../functions/function-show-notifications';
 import { UPDATE_OPERATING_UNIT_IMAGE } from '../graphql/mutations';
 import { apolloClient } from '../boot/apollo-boost';
+import PageContainer from '../components/PageContainer';
 
 export default {
   components: {
+    PageContainer,
     TextInput,
     DirectoryItem,
     PageTitle,

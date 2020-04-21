@@ -245,11 +245,11 @@ const routes = [
         name: 'docs-features',
         component: () => import('pages/docs/Features.vue')
       },
-	    {
-		    path: 'installation',
-		    name: 'docs-installation',
-		    component: () => import('pages/docs/Installation.vue')
-	    },
+      {
+        path: 'installation',
+        name: 'docs-installation',
+        component: () => import('pages/docs/Installation.vue')
+      }
     ]
   },
   {

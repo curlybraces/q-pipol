@@ -1,5 +1,5 @@
 <template>
-  <q-page class="q-pt-lg">
+  <page-container>
     <page-title title="Resources">
       <q-btn flat round color="primary" icon="settings" v-if="isAdmin">
         <q-menu transition-show="jump-down" transition-hide="jump-up">
@@ -27,24 +27,24 @@
         </q-inner-loading>
       </template>
       <template v-else>
-				<template v-if="!resources.length">
-					<q-banner dense class="q-ma-sm bg-grey-3">
-						<template v-slot:avatar>
-							<q-icon name="cancel" color="red" />
-						</template>
-						There are no resources to show. If you have added a resource but was not
-						listed here even after refreshing. Please seek our assistance.
-						<template v-slot:action>
-							<q-btn
-								flat
-								color="primary"
-								label="Add a New Resource"
-								@click="createResourceDialog = true"
-								v-if="isAdmin"
-							/>
-						</template>
-					</q-banner>
-				</template>
+        <template v-if="!resources.length">
+          <q-banner dense class="q-ma-sm bg-grey-3">
+            <template v-slot:avatar>
+              <q-icon name="cancel" color="red" />
+            </template>
+            There are no resources to show. If you have added a resource but was
+            not listed here even after refreshing. Please seek our assistance.
+            <template v-slot:action>
+              <q-btn
+                flat
+                color="primary"
+                label="Add a New Resource"
+                @click="createResourceDialog = true"
+                v-if="isAdmin"
+              />
+            </template>
+          </q-banner>
+        </template>
         <div class="row q-gutter-sm">
           <q-list bordered separator v-if="resources.length">
             <q-item
@@ -151,7 +151,7 @@
         </q-form>
       </q-card>
     </q-dialog>
-  </q-page>
+  </page-container>
 </template>
 
 <script>
@@ -160,10 +160,11 @@ import PageTitle from '../components/PageTitle';
 import { openURL, Dialog } from 'quasar';
 import TextInput from '../components/form-inputs/TextInput';
 import { FETCH_RESOURCES_QUERY } from '../graphql/queries';
+import PageContainer from '../components/PageContainer';
 
 export default {
   name: 'PageResources',
-  components: { TextInput, PageTitle },
+  components: { PageContainer, TextInput, PageTitle },
   apollo: {
     resources: {
       query: FETCH_RESOURCES_QUERY

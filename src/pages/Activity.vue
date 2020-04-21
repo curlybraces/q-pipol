@@ -1,12 +1,12 @@
 <template>
-  <q-page>
+  <page-container>
+    <page-title title="Activity Feed"></page-title>
+
     <q-inner-loading :showing="loading">
       <q-spinner-tail size="50px" color="primary"></q-spinner-tail>
     </q-inner-loading>
 
     <div class="q-mt-lg q-pa-sm" v-if="!loading">
-      <q-item-label class="q-pl-none" header>Activity Feed</q-item-label>
-
       <q-list separator>
         <q-item
           v-for="(activity, index) in activities"
@@ -41,15 +41,18 @@
         </q-item>
       </q-list>
     </div>
-  </q-page>
+  </page-container>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex';
 import moment from 'moment';
+import PageContainer from '../components/PageContainer';
+import PageTitle from '../components/PageTitle';
 
 export default {
   name: 'PageActivity',
+  components: { PageTitle, PageContainer },
   data() {
     return {
       breadcrumbs: [

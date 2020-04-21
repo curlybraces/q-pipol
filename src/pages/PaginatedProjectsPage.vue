@@ -1,10 +1,10 @@
 <template>
-  <q-page padding>
+  <page-container>
     <page-title
       :title="`Projects (Total: ${relayProjects.edges.length})`"
     ></page-title>
 
-    <div class="row justify-center">
+    <div class="row q-pa-sm justify-center">
       <q-input
         ref="searchBox"
         class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -29,7 +29,7 @@
     </template>
 
     <template v-else>
-      <template v-if="!relayProjects.length">
+      <template v-if="!relayProjects.edges.length">
         <q-banner dense class="q-ma-sm bg-grey-3">
           <template v-slot:avatar>
             <q-icon name="cancel" color="red" />
@@ -76,7 +76,7 @@
         class="all-pointer-events"
       />
     </q-page-sticky>
-  </q-page>
+  </page-container>
 </template>
 
 <script>
@@ -85,10 +85,11 @@ import PageTitle from '../components/PageTitle';
 import ProjectItem from '../components/Projects/ProjectItem';
 import { RELAY_PROJECTS_QUERY } from '../graphql/queries';
 import FindListener from '../mixins/FindListener';
+import PageContainer from '../components/PageContainer';
 
 export default {
   name: 'ProjectsPage',
-  components: { PageTitle, ProjectItem },
+  components: { PageContainer, PageTitle, ProjectItem },
   mixins: [FindListener],
   apollo: {
     relayProjects: {
@@ -107,7 +108,7 @@ export default {
   },
   data() {
     return {
-      relayProjects: {},
+      relayProjects: [],
       first: 10,
       after: '',
       hasMore: true,
