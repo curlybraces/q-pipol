@@ -5,13 +5,15 @@
   >
     <q-item>
       <!-- operating unit -->
-      <q-item-section avatar class="gt-md">
-        <q-avatar color="white">
+      <q-item-section avatar class="gt-xs">
+        <q-avatar color="grey-1">
           <q-img
-            v-if="project.operating_unit != null"
-            :src="`statics/agency_logos/${project.operating_unit.image}`"
+            :src="
+              project.operating_unit
+                ? project.operating_unit.image
+                : 'statics/placeholder.jpg'
+            "
           />
-          <q-img v-else src="statics/agency_logos/da-co.svg" />
         </q-avatar>
       </q-item-section>
 
@@ -34,7 +36,7 @@
           {{ project.description }}
         </q-item-label>
         <q-item-label caption>
-          {{ project.created_at | timeDiff }}
+          Created on header{{ project.created_at | timeDiff }}
         </q-item-label>
       </q-item-section>
 

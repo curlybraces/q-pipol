@@ -1,40 +1,33 @@
-import { apolloClient } from '../../boot/apollo-boost-v2';
+import { apolloClient } from '../../boot/apollo-boost';
 import {
   MARK_ALL_AS_READ_MUTATION,
   MARK_AS_READ_MUTATION
 } from '../../graphql/mutations';
 import { showErrorNotification } from '../../functions/function-show-notifications';
-import { GET_CURRENT_USER } from '../../graphql/queries';
+import { FETCH_UNREAD_NOTIFICATIONS_QUERY } from '../../graphql/queries';
 
 export function markAsRead({}, payload) {
-  apolloClient
+  return apolloClient
     .mutate({
       mutation: MARK_AS_READ_MUTATION,
       variables: payload,
-      update: (store, { data: markAsRead }) => {
-        console.log('store: ', store);
-        console.log('mark as read: ', markAsRead);
-
+      update: (store, { data: { markAsRead } }) => {
         const data = store.readQuery({
-          query: GET_CURRENT_USER
+          query: FETCH_UNREAD_NOTIFICATIONS_QUERY
         });
 
-        data.getCurrentUser.unreadNotifications = data.getCurrentUser.unreadNotifications.filter(
+        data.me.unreadNotifications = data.me.unreadNotifications.filter(
           notif => notif.id !== markAsRead.id
         );
 
-        store.writeQuery({ query: GET_CURRENT_USER, data });
-
-        console.log(data.getCurrentUser);
+        store.writeQuery({
+          query: FETCH_UNREAD_NOTIFICATIONS_QUERY,
+          data
+        });
       }
     })
     .then(({ data }) => {
       if (data.markAsRead.status === 'SUCCESS') {
-        // const updatedNotification = {
-        //   id: payload.id,
-        //   read_at: Date.now()
-        // };
-        // commit('UPDATE_NOTIFICATION', updatedNotification);
         console.log('marked notification as read');
       }
     })
@@ -45,14 +38,30 @@ export function markAsRead({}, payload) {
     });
 }
 
-export function markAllAsRead({ dispatch }) {
+export function markAllAsRead({}) {
   return apolloClient
     .mutate({
-      mutation: MARK_ALL_AS_READ_MUTATION
+      mutation: MARK_ALL_AS_READ_MUTATION,
+      update: (store, { data: { markAllAsRead } }) => {
+        if (markAllAsRead.status == 'SUCCESS') {
+          const data = store.readQuery({
+            query: FETCH_UNREAD_NOTIFICATIONS_QUERY
+          });
+
+          data.me.unreadNotifications = [];
+
+          store.writeQuery({
+            query: FETCH_UNREAD_NOTIFICATIONS_QUERY,
+            data
+          });
+        }
+      }
     })
-    .then(res => {
-      if (res.data.markAllAsRead.status == 'SUCCESS') {
-        dispatch('fetchNotifications');
+    .then(({ data }) => {
+      if (data.markAllAsRead.status == 'SUCCESS') {
+        return;
+      } else {
+        Promise.reject();
       }
     })
     .catch(err => {

@@ -1,5 +1,5 @@
 <template>
-  <q-page class="q-pt-lg">
+  <page-container>
     <page-title title="Admin"></page-title>
 
     <!-- Search Field -->
@@ -48,7 +48,7 @@
         </div>
       </template>
     </div>
-  </q-page>
+  </page-container>
 </template>
 
 <script>
@@ -56,10 +56,11 @@ import { mapState } from 'vuex';
 import User from '../components/users-page/User';
 import PageTitle from '../components/PageTitle';
 import { ALL_USERS } from '../graphql/queries';
+import PageContainer from '../components/PageContainer';
 // import lodash from 'lodash';
 
 export default {
-  components: { PageTitle, User },
+  components: { PageContainer, PageTitle, User },
   name: 'PageAdmin',
   apollo: {
     users: {

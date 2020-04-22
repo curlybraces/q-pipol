@@ -76,10 +76,6 @@
               </q-item-section>
             </q-item>
           </q-list>
-
-          <div v-if="!$apollo.loading && !resources.length">
-            No resources yet.
-          </div>
         </div>
       </template>
     </div>
@@ -177,7 +173,7 @@ export default {
   data() {
     return {
       createResourceDialog: false,
-      document_types: ['PDF', 'DOC', 'XLS', 'PPT', 'PNG', 'OTHERS'],
+      document_types: ['PDF', 'DOC', 'XLS', 'PPT', 'PNG', 'WEB', 'OTHERS'],
       required: [val => !!val.length || 'Please type something.'],
       valid: false,
       title: '',

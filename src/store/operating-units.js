@@ -56,7 +56,7 @@ const actions = {
       })
       .then(({ data }) => {
         showSuccessNotification({
-          message: 'Successfully updated: ' + data.updateOperatingUnit.name
+          message: 'Successfully updated: ' + data.updateOperatingUnit.acronym
         });
       })
       .catch(err => console.log(err.message));

@@ -9,7 +9,7 @@ import {
   showSuccessNotification
 } from '../../functions/function-show-notifications';
 
-import { apolloClient } from '../../boot/apollo-boost-v2';
+import { apolloClient } from '../../boot/apollo-boost';
 import { RELAY_PROJECTS_QUERY } from '../../graphql/queries';
 import { INITIAL_STATE } from './state';
 
@@ -180,11 +180,11 @@ export function createFullProject({ state, getters, commit }) {
     .mutate({
       mutation: CREATE_PROJECT_MUTATION,
       variables: payload,
-      update: (cache, { data: { createProject } }) => {
-        console.log(cache, createProject);
+      update: (store, { data: { createProject } }) => {
+        console.log(store, createProject);
 
         // read query we want to update
-        const data = cache.readQuery({
+        const data = store.readQuery({
           query: RELAY_PROJECTS_QUERY,
           variables: {
             first: 10,
@@ -202,7 +202,7 @@ export function createFullProject({ state, getters, commit }) {
         console.log(data);
 
         // update the query
-        cache.writeQuery({
+        store.writeQuery({
           query: RELAY_PROJECTS_QUERY,
           variables: {
             first: 10,
@@ -245,10 +245,10 @@ export function createProject({ commit }, payload) {
     .mutate({
       mutation: CREATE_PROJECT_MUTATION,
       variables: payload,
-      update: (store, { data: { createProject } }) => {
+      update: (cache, { data: { createProject } }) => {
         console.log('created project: ', createProject);
 
-        const data = store.readQuery({
+        const data = cache.readQuery({
           query: RELAY_PROJECTS_QUERY,
           variables: {
             first: 10,
@@ -271,7 +271,7 @@ export function createProject({ commit }, payload) {
 
         // this is throwing a warning that field is not defined
         // not anymore
-        store.writeQuery({
+        cache.writeQuery({
           query: RELAY_PROJECTS_QUERY,
           variables: {
             first: 10,
@@ -280,7 +280,7 @@ export function createProject({ commit }, payload) {
           data
         });
 
-        console.log('store: ', store);
+        console.log('cache: ', cache);
       }
     })
     .then(({ data }) => {

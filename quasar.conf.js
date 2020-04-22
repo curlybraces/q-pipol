@@ -8,11 +8,7 @@ module.exports = function(ctx) {
     boot: [
       'apollo-boost',
 	    'axios',
-      'charts',
       'router-auth',
-      'loading-defaults',
-      'addressbar-color',
-      'notify-defaults',
       'moment',
 	    'test'
     ],

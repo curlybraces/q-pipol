@@ -3,6 +3,7 @@ export const INITIAL_STATE = {
   // required data
   title: null,
   type_id: null,
+  infrastructure: false,
   operating_unit_id: null,
   description: null,
   total_project_cost: 0,

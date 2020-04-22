@@ -13,7 +13,9 @@ const uri = process.env.DEV
     'https://da-ipms.herokuapp.com/graphql'
   : 'https://da-ipms.herokuapp.com/graphql';
 
-const cache = new InMemoryCache({ addTypename: true });
+const cache = new InMemoryCache({
+  addTypename: true
+});
 
 // set the driver for the cache storage
 localforage.setDriver([localforage.INDEXEDDB]);

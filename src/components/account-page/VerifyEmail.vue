@@ -1,5 +1,5 @@
 <template>
-  <div class="row q-pa-sm">
+  <div class="row q-pa-sm q-col-gutter-lg">
     <div class="col-lg-4 col-md-6 col-xs-12">
       <span class="text-subtitle1 text-primary">Verify Email</span>
       <div class="text-caption">

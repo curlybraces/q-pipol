@@ -1,5 +1,5 @@
 <template>
-  <div class="row q-pa-sm">
+  <div class="row q-pa-sm q-col-gutter-lg">
     <div class="col-lg-4 col-md-6 col-xs-12">
       <span class="text-subtitle1 text-primary">Profile</span>
       <p class="text-caption">
@@ -40,25 +40,20 @@
           </q-avatar>
         </q-item-section>
         <q-item-section class="col">
-          <q-item-label class="text-weight-bolder">{{
-            user.name
-          }}</q-item-label>
+          <q-item-label class="text-weight-bolder">
+            {{ user.name }}
+            <q-icon
+              name="edit"
+              color="primary"
+              class="cursor-pointer"
+              @click="showUpdateProfileForm"
+            />
+          </q-item-label>
           <q-item-label caption>{{ user.position }}</q-item-label>
           <q-item-label caption>{{
             user.operating_unit ? user.operating_unit.name : ''
           }}</q-item-label>
           <q-item-label caption>{{ user.contact_number }}</q-item-label>
-        </q-item-section>
-        <q-item-section side>
-          <div class="col">
-            <q-btn
-              @click="showUpdateProfileForm"
-              icon="edit"
-              outline
-              color="secondary"
-              dense
-            />
-          </div>
         </q-item-section>
       </q-item>
     </div>
@@ -77,14 +72,9 @@
       transition-hide="jump-right"
     >
       <q-card style="width:400px;">
-        <q-form
-          class="fit q-pa-sm q-gutter-y-sm"
-          greedy
-          @submit.prevent="handleFormSubmit"
-          @reset="handleReset"
-        >
-          <q-toolbar>
-            <q-toolbar-title class="text-subtitle1 absolute-center"
+        <q-form greedy @submit.prevent="handleFormSubmit" @reset="handleReset">
+          <q-toolbar class="bg-info text-white">
+            <q-toolbar-title class="absolute-center text-subtitle1"
               >Update Profile</q-toolbar-title
             >
             <q-space />
@@ -96,10 +86,9 @@
               @click="updateProfileDialog = false"
             ></q-btn>
           </q-toolbar>
-
           <q-separator></q-separator>
 
-          <div class="column">
+          <div class="column q-pa-sm">
             <div class="bg-red-1 q-mb-sm q-pa-sm" v-if="errors.length">
               Please check the following:
               <ul>
@@ -132,11 +121,8 @@
               hint="Include area code"
               :rules="[val => !!val || '* Required']"
             />
-          </div>
 
-          <div class="absolute-bottom q-pa-sm">
-            <q-separator class="q-mb-sm" />
-            <div class="row justify-end q-col-gutter-sm">
+            <div class="row justify-end q-col-gutter-sm q-mt-md">
               <div class="col">
                 <q-btn
                   outline
@@ -148,7 +134,6 @@
               </div>
               <div class="col">
                 <q-btn
-                  glossy
                   label="Save"
                   color="primary"
                   type="submit"

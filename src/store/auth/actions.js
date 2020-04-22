@@ -19,7 +19,7 @@ import {
   showErrorNotification,
   showSuccessNotification
 } from '../../functions/function-show-notifications';
-import { persistor } from '../../boot/apollo-boost-v2';
+import { persistor } from '../../boot/apollo-boost';
 
 export function signinUser({ commit }, payload) {
   // clear token so it does not get sent to server

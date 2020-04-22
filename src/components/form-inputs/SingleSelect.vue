@@ -53,7 +53,7 @@ export default {
     options: {
       type: Array
     },
-    value: [String, Number],
+    value: [String, Number, Boolean],
     hint: { type: String },
     rules: Array,
     readonly: Boolean

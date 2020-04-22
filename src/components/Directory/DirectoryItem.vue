@@ -49,18 +49,21 @@
         </q-item-section>
 
         <q-item-section>
-          <q-item-label>
-            <span class="text-caption">Tel. no. </span
-            >{{ ou.telephone_number }}</q-item-label
-          >
-          <q-item-label
-            ><span class="text-caption">Fax. no. </span
-            >{{ ou.fax_number }}</q-item-label
-          >
+          <q-item-label>{{ ou.telephone_number }}</q-item-label>
         </q-item-section>
       </q-item>
 
-      <q-item clickable>
+      <q-item>
+        <q-item-section avatar>
+          <q-icon color="blue" name="print" />
+        </q-item-section>
+
+        <q-item-section>
+          <q-item-label>{{ ou.fax_number }}</q-item-label>
+        </q-item-section>
+      </q-item>
+
+      <q-item>
         <q-item-section avatar>
           <q-icon color="amber" name="email" />
         </q-item-section>
@@ -69,16 +72,18 @@
           <q-item-label :lines="1">{{ ou.email }}</q-item-label>
         </q-item-section>
       </q-item>
+      <q-separator />
+      <q-item clickable>
+        <q-item-section>
+          <q-item-label>
+            More information
+          </q-item-label>
+        </q-item-section>
+        <q-item-section side>
+          <q-icon name="keyboard_arrow_down"></q-icon>
+        </q-item-section>
+      </q-item>
     </q-list>
-
-    <q-slide-transition>
-      <div>
-        <q-separator />
-        <q-card-section class="text-subitle2">
-          More information
-        </q-card-section>
-      </div>
-    </q-slide-transition>
   </q-card>
 </template>
 

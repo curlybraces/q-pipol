@@ -7,7 +7,7 @@
     <div class="row q-pa-sm justify-center">
       <q-input
         ref="searchBox"
-        class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12"
+        class="col-xl-6 col-lg-6 col-md-8 col-sm-8 col-xs-12"
         outlined
         placeholder="Search titles"
         v-model="search"
@@ -143,8 +143,8 @@ export default {
     loadMore() {
       const after = this.relayProjects.pageInfo.endCursor;
 
-      console.log(this.first);
-      console.log(after);
+      // console.log(this.first);
+      // console.log(after);
 
       this.$apollo.queries.relayProjects.fetchMore({
         variables: {
@@ -152,13 +152,13 @@ export default {
           after: after
         },
         updateQuery: (previousResult, { fetchMoreResult }) => {
-          console.log('previous result: ', previousResult);
-          console.log('fetch more result: ', fetchMoreResult);
+          // console.log('previous result: ', previousResult);
+          // console.log('fetch more result: ', fetchMoreResult);
 
           const newProjects = fetchMoreResult.relayProjects.edges;
-          console.log('projects to add: ', newProjects);
+          // console.log('projects to add: ', newProjects);
           const pageInfo = fetchMoreResult.relayProjects.pageInfo;
-          console.log('page info: ', pageInfo);
+          // console.log('page info: ', pageInfo);
           const hasNextPage =
             fetchMoreResult.relayProjects.pageInfo.hasNextPage;
           const endCursor = fetchMoreResult.relayProjects.pageInfo.endCursor;
@@ -166,13 +166,13 @@ export default {
           this.hasMore = hasNextPage;
           this.after = endCursor;
 
-          console.log('__typename: ', previousResult.relayProjects.__typename);
+          // console.log('__typename: ', previousResult.relayProjects.__typename);
 
-          console.log(
-            'previous result to append to: ',
-            ...previousResult.relayProjects.edges
-          );
-          console.log('incoming edges: ', ...newProjects);
+          // console.log(
+          //   'previous result to append to: ',
+          //   ...previousResult.relayProjects.edges
+          // );
+          // console.log('incoming edges: ', ...newProjects);
 
           return {
             relayProjects: {

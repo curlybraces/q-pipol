@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost';
+import gql from 'graphql-tag';
 
 /* Auth */
 export const CHECK_EMAIL_AVAILABILITY_QUERY = gql`
@@ -54,21 +54,6 @@ export const GET_CURRENT_USER = gql`
       }
       unreadNotifications {
         id
-        type
-        notifiable_id
-        notifiable_type
-        notifiable {
-          name
-        }
-        data {
-          id
-          from
-          title
-          message
-        }
-        read_at
-        created_at
-        updated_at
       }
     }
   }
@@ -116,31 +101,31 @@ export const GET_CURRENT_USER = gql`
 //   }
 // `;
 //
-// export const FETCH_UNREAD_NOTIFICATIONS_QUERY = gql`
-//   query me {
-//     me {
-//       id
-//       unreadNotifications {
-//         id
-//         type
-//         notifiable_id
-//         notifiable_type
-//         notifiable {
-//           name
-//         }
-//         data {
-//           id
-//           from
-//           title
-//           message
-//         }
-//         read_at
-//         created_at
-//         updated_at
-//       }
-//     }
-//   }
-// `;
+export const FETCH_UNREAD_NOTIFICATIONS_QUERY = gql`
+  query me {
+    me {
+      id
+      unreadNotifications {
+        id
+        type
+        notifiable_id
+        notifiable_type
+        notifiable {
+          name
+        }
+        data {
+          id
+          from
+          title
+          message
+        }
+        read_at
+        created_at
+        updated_at
+      }
+    }
+  }
+`;
 
 /* Options */
 

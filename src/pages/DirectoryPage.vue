@@ -21,13 +21,14 @@
     <div class="q-mt-md q-pa-sm">
       <div class="row q-mb-lg justify-center">
         <q-input
-          class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12"
+          class="col-xl-6 col-lg-6 col-md-8 col-sm-8 col-xs-12"
           dense
           outlined
           placeholder="Filter"
           v-model="searchField"
           ref="searchBox"
           :debounce="500"
+          clearable
         >
           <template v-slot:prepend>
             <q-icon name="search" />
@@ -145,6 +146,7 @@
               label="Save"
               color="primary"
               type="submit"
+              :loading="updatingOperatingUnit"
             ></q-btn>
           </q-card-actions>
         </q-form>
@@ -181,6 +183,7 @@ export default {
   },
   computed: {
     ...mapGetters('settings', ['buttonColor']),
+		...mapGetters('auth',['isAdmin']),
     filteredOperatingUnits() {
       let filteredOperatingUnits = [];
       const operating_units = this.operating_units;
@@ -212,6 +215,7 @@ export default {
   },
   data() {
     return {
+      updatingOperatingUnit: false,
       uploadImageDialog: false,
       operating_units: [],
       expanded: false,
@@ -267,6 +271,7 @@ export default {
       this.editItemDialog = true;
     },
     handleSubmit() {
+      this.updatingOperatingUnit = true;
       const payload = {
         id: this.id,
         name: this.name,
@@ -278,7 +283,10 @@ export default {
         email: this.email
       };
       console.log(payload);
-      this.updateOperatingUnit(payload);
+      this.updateOperatingUnit(payload).then(() => {
+        this.updatingOperatingUnit = false;
+        this.editItemDialog = false;
+      });
     },
     uploadFileByUploader() {
       const file = this.$refs.uploader.files[0];

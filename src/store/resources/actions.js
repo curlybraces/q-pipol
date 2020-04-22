@@ -1,4 +1,4 @@
-import { apolloClient } from '../../boot/apollo-boost-v2';
+import { apolloClient } from '../../boot/apollo-boost';
 import {
   CREATE_RESOURCE_MUTATION,
   DELETE_RESOURCE_MUTATION
@@ -11,6 +11,7 @@ import {
 
 export function fetchResources({ commit }) {
   commit('SET_LOADING', true);
+
   return apolloClient
     .query({
       query: FETCH_RESOURCES_QUERY
@@ -34,26 +35,28 @@ export function fetchResources({ commit }) {
     });
 }
 
-export function createResource({ commit }, payload) {
+export function createResource({}, payload) {
   return apolloClient
     .mutate({
       mutation: CREATE_RESOURCE_MUTATION,
-      variables: {
-        title: payload.title,
-        description: payload.description,
-        image_url: payload.image_url,
-        url: payload.url,
-        document_type: payload.document_type
+      variables: payload,
+      update: (store, { data: { createResource } }) => {
+        const data = store.readQuery({
+          query: FETCH_RESOURCES_QUERY
+        });
+
+        data.resources.push(createResource);
+
+        store.writeQuery({
+          query: FETCH_RESOURCES_QUERY,
+          data
+        });
+
+        console.log(store);
       }
     })
-    .then(res => {
-      const resource = res.data.createResource;
-
-      const payload = {
-        id: 'ID' + resource.id,
-        resource: resource
-      };
-      commit('ADD_RESOURCE', payload);
+    .then(({ data }) => {
+      console.log(data.createResource);
 
       showSuccessNotification({
         message: 'Successfully added resource.'

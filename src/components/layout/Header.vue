@@ -1,12 +1,13 @@
 <template>
   <div>
     <q-toolbar>
-      <img
-        src="~assets/app-logo-128x128.png"
-        height="35px;"
-        @click="$router.push({ name: 'landing' })"
-        class="cursor-pointer"
-      />
+      <q-avatar>
+        <q-img
+          src="~assets/app-logo-128x128.png"
+          @click="$router.push({ name: 'home' })"
+          class="cursor-pointer"
+        />
+      </q-avatar>
 
       <q-toolbar-title class="text-white">
         I<span class="gt-md">nvestment </span>P<span class="gt-md"
@@ -16,18 +17,37 @@
       <q-space />
 
       <q-btn flat round icon="notifications" class="q-mr-md text-grey-6">
-        <q-badge color="red" floating v-if="unreadNotifications.length">
-          {{ unreadNotifications.length }}
+        <q-badge
+          color="red"
+          floating
+          v-if="!$apollo.loading && me.unreadNotifications.length"
+        >
+          {{ me.unreadNotifications.length }}
         </q-badge>
-        <template v-if="unreadNotifications.length">
+        <template v-if="!$apollo.loading && me.unreadNotifications.length">
           <q-menu :offset="[0, 15]">
+            <q-item dense class="q-pa-none">
+              <q-item-section>
+                <q-item-label header class="text-weight-bolder"
+                  >Notifications</q-item-label
+                >
+              </q-item-section>
+              <q-item-section side>
+                <q-btn
+                  flat
+                  label="Mark all as read"
+                  dense
+                  color="primary"
+                  @click="markAllAsRead"
+                ></q-btn>
+              </q-item-section>
+            </q-item>
             <q-list separator>
-              <q-item-label header class="text-weight-bolder"
-                >Notifications</q-item-label
-              >
-
+              <q-inner-loading :showing="markingAllAsRead">
+                <q-spinner-tail color="primary"></q-spinner-tail>
+              </q-inner-loading>
               <notification-item
-                v-for="notification in unreadNotifications"
+                v-for="notification in me.unreadNotifications"
                 :key="notification.id"
                 :notification="notification"
               >
@@ -61,10 +81,11 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState, mapGetters, mapActions } from 'vuex';
 import DropdownMenu from './Dropdown';
 import NotificationItem from '../Notifications/NotificationItem';
 import RouteTabs from './RouteTabs';
+import { FETCH_UNREAD_NOTIFICATIONS_QUERY } from '../../graphql/queries';
 
 export default {
   components: { RouteTabs, DropdownMenu, NotificationItem },
@@ -72,13 +93,24 @@ export default {
   computed: {
     ...mapState('settings', ['dark']),
     ...mapState('auth', ['user']),
-    ...mapGetters('auth', ['imageUrl', 'loading', 'unreadNotifications'])
+    ...mapGetters('auth', ['imageUrl'])
+  },
+  apollo: {
+    me: {
+      query: FETCH_UNREAD_NOTIFICATIONS_QUERY
+    }
   },
   data() {
     return {
+      me: {},
+      unreadNotifications: [],
       menu: false,
-      notificationsDropdown: false
+      notificationsDropdown: false,
+      markingAllAsRead: false
     };
+  },
+  methods: {
+    ...mapActions('notifications', ['markAllAsRead'])
   }
 };
 </script>

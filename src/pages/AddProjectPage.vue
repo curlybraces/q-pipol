@@ -1,18 +1,19 @@
 <template>
-  <q-page class="q-pt-lg">
+  <page-container>
     <page-title title="Add Program/Project" />
 
     <add-project></add-project>
-  </q-page>
+  </page-container>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
 import AddProject from '../components/AddEditProject/AddProject';
 import PageTitle from '../components/PageTitle';
+import PageContainer from '../components/PageContainer';
 
 export default {
-  components: { PageTitle, AddProject },
+  components: { PageContainer, PageTitle, AddProject },
   methods: {
     ...mapActions('project', ['clearProject'])
   },

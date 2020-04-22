@@ -29,7 +29,6 @@
             { id: true, name: 'Yes' },
             { id: false, name: 'No' }
           ]"
-          :rules="rules.notEmpty"
         />
       </div>
     </div>

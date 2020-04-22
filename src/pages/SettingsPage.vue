@@ -1,10 +1,6 @@
 <template>
-  <q-page>
-    <q-toolbar class="q-mt-lg">
-      <q-item-label header class="q-pl-none">
-        Settings
-      </q-item-label>
-    </q-toolbar>
+  <page-container>
+    <page-title title="Settings"></page-title>
 
     <div class="row q-pa-sm">
       <div class="col-lg-4 col-md-6 col-xs-12">
@@ -66,14 +62,17 @@
         ></q-btn>
       </div>
     </div>
-  </q-page>
+  </page-container>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import PageContainer from '../components/PageContainer';
+import PageTitle from '../components/PageTitle';
 
 export default {
   name: 'PageSettings',
+  components: { PageTitle, PageContainer },
   computed: {
     ...mapState('settings', ['dark', 'dense']),
     darkMode: {
