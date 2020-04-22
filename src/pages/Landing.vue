@@ -5,7 +5,7 @@
         class="offset-xl-2 col-xl-8 offset-lg-3 col-lg-6 offset-md-1 col-md-10 offset-sm-1 col-sm-10 offset-xs-0 col-xs-12"
       >
         <div class="col-6 q-gutter-y-lg text-white text-center justify-center">
-          <div class="text-h2 text-weight-bold">
+          <div class="text-h3 text-weight-bold">
             Investment Programming &amp; <br />
             Management System
           </div>

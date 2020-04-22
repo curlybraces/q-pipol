@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import { USER_FRAGMENT, NOTIFICATION_FRAGMENT } from './fragments';
 
 /* Auth */
 export const CHECK_EMAIL_AVAILABILITY_QUERY = gql`
@@ -10,121 +11,43 @@ export const CHECK_EMAIL_AVAILABILITY_QUERY = gql`
   }
 `;
 
-export const ME_QUERY = gql`
-  query me {
-    me {
-      id
-      name
-      email
-      position
-      verified
-      operating_unit_id
-      operating_unit {
-        id
-        image
-      }
-      contact_number
-      role {
-        name
-      }
-      image_url
-    }
-  }
-`;
-
 export const GET_CURRENT_USER = gql`
   query getCurrentUser {
     getCurrentUser {
-      id
-      name
-      email
-      position
-      verified
-      operating_unit_id
-      operating_unit {
-        id
-        image
-        name
-      }
-      image_url
-      contact_number
-      role {
-        id
-        name
-      }
-      unreadNotifications {
-        id
-      }
+	    ...user
+	    unreadNotifications {
+		    id
+	    }
     }
   }
+  ${USER_FRAGMENT}
 `;
 
 /* Notifications */
 
-// export const FETCH_NOTIFICATIONS_QUERY = gql`
-//   query me {
-//     me {
-//       id
-//       name
-//       email
-//       position
-//       verified
-//       operating_unit_id
-//       operating_unit {
-//         id
-//         image
-//       }
-//       contact_number
-//       role {
-//         name
-//       }
-//       image_url
-//       notifications {
-//         id
-//         type
-//         notifiable_id
-//         notifiable_type
-//         notifiable {
-//           name
-//         }
-//         data {
-//           id
-//           from
-//           title
-//           message
-//         }
-//         read_at
-//         created_at
-//         updated_at
-//       }
-//     }
-//   }
-// `;
-//
+export const FETCH_NOTIFICATIONS_QUERY = gql`
+  query me {
+    me {
+      id
+      notifications {
+        ...notification
+      }
+    }
+  }
+  ${NOTIFICATION_FRAGMENT}
+`;
+
+
 export const FETCH_UNREAD_NOTIFICATIONS_QUERY = gql`
   query me {
     me {
       id
       unreadNotifications {
-        id
-        type
-        notifiable_id
-        notifiable_type
-        notifiable {
-          name
-        }
-        data {
-          id
-          from
-          title
-          message
-        }
-        read_at
-        created_at
-        updated_at
+        ...notification
       }
     }
   }
+	${NOTIFICATION_FRAGMENT}
 `;
 
 /* Options */
@@ -345,21 +268,7 @@ export const FETCH_RESOURCES_QUERY = gql`
 export const ALL_USERS = gql`
   query users {
     users {
-      id
-      name
-      email
-      position
-      active
-      verified
-      image_url
-      operating_unit {
-        id
-        name
-      }
-      role {
-        id
-        name
-      }
+      ...user
       reviews {
         id
         acronym
@@ -367,6 +276,7 @@ export const ALL_USERS = gql`
       created_at
     }
   }
+	${USER_FRAGMENT}
 `;
 
 export const FETCH_REVIEWERS_QUERY = gql`
