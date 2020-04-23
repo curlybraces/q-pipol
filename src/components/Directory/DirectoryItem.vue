@@ -1,24 +1,31 @@
 <template>
-  <q-card class="fit">
+  <q-card class="fit" flat bordered square>
     <q-list>
       <q-item>
         <q-item-section avatar>
+
           <q-avatar @click="$emit('upload')" class="cursor-pointer">
-            <q-img :src="ou.image" placeholder-src="/statics/placeholder.webp">
+            <q-img :src="ou.image" placeholder-src="/statics/placeholder.jpg">
               <template v-slot:error>
                 <q-img src="/statics/placeholder.jpg" />
               </template>
             </q-img>
           </q-avatar>
+
         </q-item-section>
+
         <q-item-section>
+
           <q-item-label>
             {{ ou.acronym }}
           </q-item-label>
+
           <q-item-label caption :lines="1">
             {{ ou.name }}
           </q-item-label>
+
         </q-item-section>
+
         <q-item-section side>
           <q-btn
             flat
@@ -28,6 +35,7 @@
             color="primary"
           ></q-btn>
         </q-item-section>
+
       </q-item>
 
       <q-separator />

@@ -22,16 +22,14 @@ export function fetchProjects({ commit }) {
     });
 }
 
-export function deleteProject({}, id) {
+export function deleteProject({}, payload) {
   apolloClient
     .mutate({
       mutation: DELETE_PROJECT_MUTATION,
-      variables: {
-        id: id
-      },
+      variables: payload,
       update: (store, { data: { deleteProject } }) => {
         // assigned the deleted id to target id and return id
-        const deletedId = deleteProject ? deleteProject.id : id;
+        const deletedId = deleteProject ? deleteProject.id : payload.id;
 
         // retrieve the paginated query
         // variables are required
@@ -57,7 +55,15 @@ export function deleteProject({}, id) {
           },
           data
         });
-      }
+      },
+	    optimisticResponse: {
+      	__typename: 'Mutation',
+		    deleteProject: {
+      		id: payload.id,
+			    title: payload.title,
+			    __typename: 'Project'
+		    }
+	    }
     })
     .then(data => {
       // if the project is not present in the database anymore, notify that the project was already deleted

@@ -17,6 +17,7 @@ export default function() {
     roles: [],
     challenges: [],
     funding_institutions_options: [],
-    implementation_modes: []
+    implementation_modes: [],
+    bases: []
   };
 }

@@ -26,6 +26,8 @@ export const persistor = new CachePersistor({
   storage: localforage
 });
 
+persistor.getSize().then(size => console.log(size));
+
 // call the persist cache
 persistCache({
   cache,

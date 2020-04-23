@@ -13,6 +13,7 @@ import {
   FETCH_TIERS,
   FETCH_TYPOLOGIES,
   FETCH_TYPES,
+  FETCH_BASES,
   FETCH_IMPLEMENTATION_MODES
 } from '../../graphql/queries';
 
@@ -34,7 +35,19 @@ export function fetchFundingSources({ commit }) {
     })
     .then(({ data }) => {
       commit('SET_FUNDING_SOURCES_OPTIONS', data.funding_sources);
-    });
+    })
+    .catch(err => console.log(err.message));
+}
+
+export function fetchBases({ commit }) {
+  apolloClient
+    .query({
+      query: FETCH_BASES
+    })
+    .then(({ data }) => {
+      commit('SET_BASES', data.bases);
+    })
+    .catch(err => console.log(err.message));
 }
 
 export function fetchImplementationModes({ commit }) {
@@ -55,7 +68,8 @@ export function fetchOperatingUnits({ commit }) {
     })
     .then(({ data }) => {
       commit('SET_OPERATING_UNITS', data.operating_units);
-    });
+    })
+    .catch(err => console.log(err.message));
 }
 
 export function fetchProjectStatuses({ commit }) {
@@ -65,7 +79,8 @@ export function fetchProjectStatuses({ commit }) {
     })
     .then(({ data }) => {
       commit('SET_PROJECT_STATUSES', data.project_statuses);
-    });
+    })
+    .catch(err => console.log(err.message));
 }
 
 export function fetchProvinces({ commit }) {
@@ -75,7 +90,8 @@ export function fetchProvinces({ commit }) {
     })
     .then(({ data }) => {
       commit('SET_PROVINCES', data.provinces);
-    });
+    })
+    .catch(err => console.log(err.message));
 }
 
 export function fetchRegions({ commit }) {
@@ -85,7 +101,8 @@ export function fetchRegions({ commit }) {
     })
     .then(({ data }) => {
       commit('SET_REGIONS', data.regions);
-    });
+    })
+    .catch(err => console.log(err.message));
 }
 
 export function fetchSpatialCoverages({ commit }) {
@@ -95,7 +112,8 @@ export function fetchSpatialCoverages({ commit }) {
     })
     .then(({ data }) => {
       commit('SET_SPATIAL_COVERAGES', data.spatial_coverages);
-    });
+    })
+    .catch(err => console.log(err.message));
 }
 
 export function fetchTechnicalReadinesses({ commit }) {
@@ -105,7 +123,8 @@ export function fetchTechnicalReadinesses({ commit }) {
     })
     .then(({ data }) => {
       commit('SET_TECHNICAL_READINESSES', data.technical_readinesses);
-    });
+    })
+    .catch(err => console.log(err.message));
 }
 
 export function fetchRoles({ commit }) {
@@ -115,7 +134,8 @@ export function fetchRoles({ commit }) {
     })
     .then(({ data }) => {
       commit('SET_ROLES', data.roles);
-    });
+    })
+    .catch(err => console.log(err.message));
 }
 
 export function fetchTiers({ commit }) {
@@ -125,7 +145,8 @@ export function fetchTiers({ commit }) {
     })
     .then(({ data }) => {
       commit('SET_TIERS', data.tiers);
-    });
+    })
+    .catch(err => console.log(err.message));
 }
 
 export function fetchTypes({ commit }) {
@@ -138,7 +159,8 @@ export function fetchTypes({ commit }) {
     })
     .catch(err => {
       console.log(err);
-    });
+    })
+    .catch(err => console.log(err.message));
 }
 
 export function fetchTypologies({ commit }) {
@@ -148,7 +170,8 @@ export function fetchTypologies({ commit }) {
     })
     .then(({ data }) => {
       commit('SET_TYPOLOGIES', data.typologies);
-    });
+    })
+    .catch(err => console.log(err.message));
 }
 
 export function fetchYears({ commit }) {
@@ -163,22 +186,20 @@ export function fetchYears({ commit }) {
     .catch(err => console.log(err.message));
 }
 
-export function initializeOptions({ state, dispatch, commit }) {
-  if (!state.initialized) {
-    dispatch('fetchDistricts');
-    dispatch('fetchFundingSources');
-    dispatch('fetchImplementationModes');
-    dispatch('fetchOperatingUnits');
-    dispatch('fetchProjectStatuses');
-    dispatch('fetchProvinces');
-    dispatch('fetchRegions');
-    dispatch('fetchSpatialCoverages');
-    dispatch('fetchTechnicalReadinesses');
-    dispatch('fetchRoles');
-    dispatch('fetchTiers');
-    dispatch('fetchTypes');
-    dispatch('fetchTypologies');
-    dispatch('fetchYears');
-    commit('SET_INITIALIZED', true);
-  }
+export function initializeOptions({ dispatch }) {
+  dispatch('fetchDistricts');
+  dispatch('fetchFundingSources');
+  dispatch('fetchImplementationModes');
+  dispatch('fetchBases');
+  dispatch('fetchOperatingUnits');
+  dispatch('fetchProjectStatuses');
+  dispatch('fetchProvinces');
+  dispatch('fetchRegions');
+  dispatch('fetchSpatialCoverages');
+  dispatch('fetchTechnicalReadinesses');
+  dispatch('fetchRoles');
+  dispatch('fetchTiers');
+  dispatch('fetchTypes');
+  dispatch('fetchTypologies');
+  dispatch('fetchYears');
 }

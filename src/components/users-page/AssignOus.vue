@@ -86,25 +86,12 @@ export default {
     return {
       operating_units: [],
       search: '',
-      selectedOu: []
+      selectedOu: [],
+      loading: false
     };
   },
   methods: {
-    ...mapActions('operatingUnits', ['fetchOperatingUnits']),
     ...mapActions('users', ['assignOperatingUnitToReview']),
-    addMe(id) {
-      if (this.selectedOu.includes(id)) {
-        const index = this.selectedOu.indexOf(id);
-        this.selectedOu.splice(index, 1);
-      } else {
-        this.selectedOu.push(id);
-      }
-      this.$emit('update', this.selectedOu);
-      console.log(this.selectedOu);
-    },
-    selected(id) {
-      return this.selectedOu.includes(id);
-    },
     onSubmit() {
       this.loading = true;
       this.assignOperatingUnitToReview({
@@ -114,9 +101,6 @@ export default {
         this.$emit('close');
       });
     }
-  },
-  mounted() {
-    this.fetchOperatingUnits();
   }
 };
 </script>

@@ -6,7 +6,7 @@
     <div class="q-mt-md q-pa-sm">
       <div class="row justify-center">
         <q-input
-          class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12"
+          class="col-xl-6 col-lg-6 col-md-8 col-sm-8 col-xs-12"
           dense
           outlined
           placeholder="Filter Users"
@@ -26,7 +26,7 @@
       <!-- Loading -->
       <template v-if="$apollo.loading">
         <q-inner-loading :showing="$apollo.loading">
-          <q-spinner-tail size="50px" />
+          <q-spinner-tail size="50px" color="primary" />
         </q-inner-loading>
       </template>
 

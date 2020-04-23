@@ -50,7 +50,7 @@
       <template v-if="!$apollo.loading && operating_units.length">
         <template v-for="ou in filteredOperatingUnits">
           <div
-            class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12"
+            class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-xs-12"
             :key="ou.id"
           >
             <directory-item
@@ -183,7 +183,7 @@ export default {
   },
   computed: {
     ...mapGetters('settings', ['buttonColor']),
-		...mapGetters('auth',['isAdmin']),
+    ...mapGetters('auth', ['isAdmin']),
     filteredOperatingUnits() {
       let filteredOperatingUnits = [];
       const operating_units = this.operating_units;

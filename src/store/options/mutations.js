@@ -57,3 +57,7 @@ export function SET_YEARS(state, payload) {
 export function SET_IMPLEMENTATION_MODES(state, payload) {
   state.implementation_modes = payload;
 }
+
+export function SET_BASES(state, payload) {
+  state.bases = payload;
+}

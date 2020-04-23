@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { USER_FRAGMENT, NOTIFICATION_FRAGMENT } from './fragments';
+import { USER_FRAGMENT, NOTIFICATION_FRAGMENT, BASIC_INFORMATION_FRAGMENT } from './fragments';
 
 /* Auth */
 export const CHECK_EMAIL_AVAILABILITY_QUERY = gql`
@@ -14,10 +14,10 @@ export const CHECK_EMAIL_AVAILABILITY_QUERY = gql`
 export const GET_CURRENT_USER = gql`
   query getCurrentUser {
     getCurrentUser {
-	    ...user
-	    unreadNotifications {
-		    id
-	    }
+      ...user
+      unreadNotifications {
+        id
+      }
     }
   }
   ${USER_FRAGMENT}
@@ -37,7 +37,6 @@ export const FETCH_NOTIFICATIONS_QUERY = gql`
   ${NOTIFICATION_FRAGMENT}
 `;
 
-
 export const FETCH_UNREAD_NOTIFICATIONS_QUERY = gql`
   query me {
     me {
@@ -47,7 +46,7 @@ export const FETCH_UNREAD_NOTIFICATIONS_QUERY = gql`
       }
     }
   }
-	${NOTIFICATION_FRAGMENT}
+  ${NOTIFICATION_FRAGMENT}
 `;
 
 /* Options */
@@ -187,6 +186,15 @@ export const FETCH_TYPOLOGIES = gql`
   }
 `;
 
+export const FETCH_BASES = gql`
+  query {
+    bases {
+      id
+      name
+    }
+  }
+`;
+
 export const FETCH_IMPLEMENTATION_MODES = gql`
   query {
     implementation_modes {
@@ -276,7 +284,7 @@ export const ALL_USERS = gql`
       created_at
     }
   }
-	${USER_FRAGMENT}
+  ${USER_FRAGMENT}
 `;
 
 export const FETCH_REVIEWERS_QUERY = gql`
@@ -371,19 +379,26 @@ export const RELAY_PROJECTS_QUERY = gql`
           id
           title
           operating_unit {
+            id
             name
             image
             acronym
           }
           description
           spatial_coverage {
+            id
             name
           }
           target_start_year
           target_end_year
           total_project_cost
-          can_update
+          submission_status_id
+          submission_status {
+            id
+            name
+          }
           creator {
+            id
             name
           }
           created_at
@@ -415,6 +430,15 @@ export const DELETED_PROJECTS_QUERY = gql`
       }
     }
   }
+`;
+
+export const FETCH_PROJECT_QUERY = gql`
+  query project($id: ID!) {
+    project(id: $id) {
+      ...basicInformation
+    }
+  }
+  ${BASIC_INFORMATION_FRAGMENT}
 `;
 
 /* Activities */

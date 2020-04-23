@@ -56,7 +56,7 @@
       <div class="col-lg-8 col-md-6 col-xs-12 q-pl-md">
         <q-btn
           outline
-          color="secondary"
+          color="negative"
           label="RESET"
           @click="confirmReset"
         ></q-btn>

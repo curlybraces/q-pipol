@@ -8,189 +8,25 @@
     </div>
 
     <div class="col-8 q-pa-sm">
-      <q-card square>
-        <q-form @submit.prevent="validateAndCreate" ref="form">
-          <q-stepper
-            v-model="step"
-            vertical
-            animated
-            header-nav
-            active-color="orange-10"
-            inactive-color="grey-9"
-          >
-            <q-step
-              :name="1"
-              prefix="1"
-              title="Basic Information"
-              caption="Basic Information"
-              :done="basicInformationDone"
-              done-color="positive"
-            >
-              <div class="text-negative text-caption q-my-md">
-                * All information here are required.
-              </div>
+      <q-form @submit.prevent="validateAndCreate" ref="form">
+        <basic-information />
 
-              <basic-information />
+        <programming-documents />
 
-              <stepper-navigation @next="step = 2">
-                <q-btn
-                  outline
-                  color="orange-10"
-                  label="Save Project"
-                  class="q-ml-md"
-                  @click="validateAndCreate"
-                  :loading="loading"
-                />
-              </stepper-navigation>
-            </q-step>
+        <additional-information />
 
-            <q-step
-              :name="2"
-              prefix="2"
-              title="Programming Documents"
-              caption="Documents where the PAP are included"
-              :done="programmingDocumentsDone"
-              done-color="positive"
-            >
-              <programming-documents />
+        <spatial-coverage />
 
-              <stepper-navigation
-                @next="step = 3"
-                @back="step = 1"
-                withBack="true"
-              ></stepper-navigation>
-            </q-step>
+        <implementation-period />
 
-            <q-step
-              :name="3"
-              title="Additional Project Information"
-              caption="Additional Information"
-              prefix="3"
-            >
-              <additional-information />
+        <technical-readiness />
 
-              <stepper-navigation
-                @next="step = 4"
-                @back="step = 2"
-                withBack="true"
-              ></stepper-navigation>
-            </q-step>
+        <financial-analysis />
 
-            <q-step
-              :name="4"
-              title="Spatial Coverage"
-              caption="Spatial Coverage"
-              prefix="4"
-              :done="spatialCoverageDone"
-              done-color="positive"
-            >
-              <spatial-coverage />
+        <financial-information />
 
-              <stepper-navigation
-                @next="step = 5"
-                @back="step = 3"
-                withBack="true"
-              ></stepper-navigation>
-            </q-step>
-
-            <q-step
-              :name="5"
-              title="Implementation Period"
-              caption="Implementation Period"
-              prefix="5"
-            >
-              <implementation-period />
-
-              <stepper-navigation
-                @next="step = 6"
-                @back="step = 4"
-                withBack="true"
-              ></stepper-navigation>
-            </q-step>
-
-            <q-step :name="6" title="Readiness" caption="" prefix="6">
-              <technical-readiness />
-
-              <stepper-navigation
-                @next="step = 7"
-                @back="step = 5"
-                withBack="true"
-              ></stepper-navigation>
-            </q-step>
-
-            <q-step
-              :name="7"
-              title="Financial and Economic Analyses"
-              caption="Financial and Economic Analyses"
-              prefix="7"
-            >
-              <financial-analysis />
-
-              <stepper-navigation
-                @next="step = 8"
-                @back="step = 6"
-                withBack="true"
-              ></stepper-navigation>
-            </q-step>
-
-            <q-step
-              :name="8"
-              title="Financial Information"
-              caption="Financial Information"
-              prefix="8"
-            >
-              <financial-information></financial-information>
-
-              <stepper-navigation
-                @next="step = 9"
-                @back="step = 7"
-                withBack="true"
-              ></stepper-navigation>
-            </q-step>
-
-            <q-step
-              :name="9"
-              title="Updates"
-              caption="Applicable to Ongoing and Completed Projects Only"
-              prefix="9"
-            >
-              <project-updates></project-updates>
-
-              <q-stepper-navigation>
-                <q-btn
-                  color="orange-10"
-                  @click="step = 10"
-                  label="Finish"
-                  class="q-mr-sm"
-                />
-                <q-btn color="orange-5" flat @click="step = 8" label="Back" />
-              </q-stepper-navigation>
-            </q-step>
-
-            <q-step
-              :name="10"
-              title="Submit"
-              caption="Save project"
-              prefix="10"
-            >
-              <div class="row q-pa-md q-gutter-md justify-center">
-                <q-btn
-                  flat
-                  @click="step = 1"
-                  label="Go back to Start"
-                  color="orange-10"
-                />
-                <q-btn
-                  type="submit"
-                  label="Save Project"
-                  color="orange-10"
-                  :loading="loading"
-                />
-              </div>
-            </q-step>
-          </q-stepper>
-        </q-form>
-      </q-card>
+        <project-updates />
+      </q-form>
     </div>
   </div>
 </template>

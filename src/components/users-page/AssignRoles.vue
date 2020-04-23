@@ -2,7 +2,7 @@
   <q-card :style="$q.screen.xs ? void 0 : 'width:400px'">
     <q-toolbar class="bg-info text-white">
       <q-toolbar-title class="absolute-center text-subtitle1"
-        >Assign Operating Unit</q-toolbar-title
+        >Assign Role</q-toolbar-title
       >
       <q-space />
       <q-btn flat round dense icon="close" @click="$emit('close')"></q-btn>

@@ -307,7 +307,7 @@ export default {
         {
           label: 'Activities',
           icon: 'work_outline',
-          url: '/activities',
+          url: '/activity',
           color: 'purple'
         },
         {

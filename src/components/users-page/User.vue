@@ -90,6 +90,7 @@
       <assign-ous :id="user.id" @close="assignOUDialog = false"></assign-ous>
     </q-dialog>
 
+		<!-- Dialog to assign user role -->
     <q-dialog
       v-model="assignRoleDialog"
       full-height
@@ -109,7 +110,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -131,9 +132,6 @@ export default {
     roleId() {
       return this.user.role ? this.user.role.id : null;
     }
-  },
-  methods: {
-    ...mapActions('users', ['setSearch'])
   },
   data() {
     return {

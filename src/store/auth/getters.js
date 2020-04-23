@@ -15,7 +15,7 @@ export function unreadNotifications(state) {
 }
 
 export function isLoggedIn(state) {
-  return !!state.token;
+  return !!state.user;
 }
 
 export function loading(state) {

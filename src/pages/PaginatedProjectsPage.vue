@@ -55,17 +55,13 @@
         <template v-for="{ node } in filteredProjects">
           <project-item :project="node" :key="node.id"></project-item>
         </template>
+        <q-item :clickable="hasMore" v-if="!$apollo.loading" class="text-center" @click="loadMore">
+          <q-item-section class="text-primary">
+            {{ hasMore ? 'Load More...' : 'End' }}
+          </q-item-section>
+        </q-item>
       </q-list>
     </template>
-
-    <div class="row q-pa-sm">
-      <q-btn
-        @click="loadMore"
-        v-if="!$apollo.loading && hasMore"
-        label="Load More"
-        color="primary"
-      ></q-btn>
-    </div>
 
     <q-page-sticky position="bottom" :offset="[18, 18]" v-if="isEncoder">
       <q-btn

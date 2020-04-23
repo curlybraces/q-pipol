@@ -5,7 +5,7 @@
         label="Implementation Bases"
         v-model="selected_bases"
         :options-dense="dense"
-        :options="IMPLEMENTATION_BASES"
+        :options="bases"
         @clear="selected_bases = []"
       />
     </q-item>
@@ -62,7 +62,7 @@ export default {
   name: 'AdditionalInformation',
   props: ['dense'],
   computed: {
-    ...mapState('options', ['implementation_bases']),
+    ...mapState('options', ['bases']),
     ...mapFields('project', [
       'project.selected_bases',
       'project.description',

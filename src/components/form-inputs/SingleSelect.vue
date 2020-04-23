@@ -20,7 +20,7 @@
       :readonly="readonly"
       hide-bottom-space
     >
-      <template v-slot:before-options>
+      <template v-slot:before-options v-if="options.length > 5">
         <q-item>
           <q-item-section class="text-grey">
             <q-input

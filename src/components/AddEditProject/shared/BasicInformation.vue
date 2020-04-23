@@ -11,13 +11,27 @@
     </q-item>
 
     <q-item>
-      <single-select
-        v-model="type_id"
-        label="Type"
-        :options="TYPES"
-        color="orange-10"
-        :rules="[val => !!val || '* Required']"
-      />
+      <q-item-section>
+        <radio-input
+          label="PAP Type"
+          :options="types"
+          v-model="type_id"
+          :recode="true"
+        >
+        </radio-input>
+      </q-item-section>
+      <q-item-section>
+        <radio-input
+          label="Infrastructure"
+          :options="[
+            { label: 'Yes', value: true },
+            { label: 'No', value: false }
+          ]"
+          v-model="infrastructure"
+          :recode="false"
+        >
+        </radio-input>
+      </q-item-section>
     </q-item>
 
     <q-item>
@@ -92,9 +106,11 @@
 <script>
 import { mapState } from 'vuex';
 import { mapFields } from 'vuex-map-fields';
+import RadioInput from '../../form-inputs/RadioInput';
 
 export default {
   components: {
+    RadioInput,
     'money-input': () => import('../../form-inputs/MoneyInput.vue'),
     'single-select': () => import('../../form-inputs/SingleSelect.vue'),
     'text-input': () => import('../../form-inputs/TextInput.vue')
@@ -104,6 +120,7 @@ export default {
     ...mapFields('project', [
       'project.title',
       'project.type_id',
+      'project.infrastructure',
       'project.description',
       'project.project_status_id',
       'project.total_project_cost',

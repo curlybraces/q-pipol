@@ -88,7 +88,7 @@
                 clickable
                 v-close-popup
                 :class="dark ? 'text-pink-11' : 'text-negative'"
-                @click="promptDelete(project.id)"
+                @click="promptDelete(project)"
               >
                 <q-item-section>
                   <q-item-label>
@@ -129,14 +129,14 @@ export default {
   },
   methods: {
     ...mapActions('projects', ['deleteProject']),
-    promptDelete(id) {
+    promptDelete(project) {
       Dialog.create({
         title: 'Delete Project',
         message: 'Are you sure you want to delete this project?',
         transitionShow: 'fade',
         cancel: true
       }).onOk(() => {
-        this.deleteProject(id);
+        this.deleteProject(project);
       });
     }
   },
