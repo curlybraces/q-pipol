@@ -3,7 +3,7 @@ import Vuex from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
 
 import activities from './activities';
-import auth from './auth';
+import auth from '../modules/auth/store';
 import contacts from './contacts';
 import projects from './projects';
 import project from './project';
@@ -25,7 +25,7 @@ export default function(/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
       activities,
-      auth,
+	    auth,
       contacts,
       projects,
       project,
