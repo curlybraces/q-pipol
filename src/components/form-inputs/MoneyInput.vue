@@ -27,7 +27,7 @@ export default {
     ...mapState('settings', ['dense']),
     displayValue: {
       get() {
-        const value = this.$props.value;
+        const value = this.$props.value ? this.$props.value : 0;
 
         if (this.isInputActive) {
           return value.toString();

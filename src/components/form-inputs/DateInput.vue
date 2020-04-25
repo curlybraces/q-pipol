@@ -4,21 +4,20 @@
     mask="date"
     :label="label"
     :dense="dense"
-    filled
     :hint="hint"
     stack-label
     outlined
     readonly
-    label-color="orange-10"
+    label-color="secondary"
   >
     <template v-slot:append>
-      <q-icon name="event" color="orange-10" class="cursor-pointer">
+      <q-icon name="event" color="secondary" class="cursor-pointer">
         <q-popup-proxy
           ref="qDateProxy"
           transition-show="scale"
           transition-hide="scale"
         >
-          <q-date color="orange-10" v-model="model" @input="handleInput" />
+          <q-date color="secondary" v-model="model" @input="handleInput" />
         </q-popup-proxy>
       </q-icon>
     </template>

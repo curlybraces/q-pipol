@@ -9,7 +9,11 @@
     </div>
 
     <!-- QPageScroller -->
-    <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
+    <q-page-scroller
+      position="bottom-right"
+      :scroll-offset="150"
+      :offset="[18, 18]"
+    >
       <q-btn fab icon="keyboard_arrow_up" color="primary" unelevated />
     </q-page-scroller>
   </q-page>

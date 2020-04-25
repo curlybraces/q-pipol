@@ -1,10 +1,16 @@
 <template>
   <q-list bordered>
-    <q-item-label header class="text-right text-weight-bold"
-      >Total Score: {{ totalScore }} ({{
-        totalScore | interpretation
-      }})</q-item-label
-    >
+		<q-item>
+			<q-item-section>
+				<q-item-label>
+					Total Score: {{ totalScore }} ({{ totalScore | interpretation }})
+				</q-item-label>
+			</q-item-section>
+			<q-item-section side>
+				<q-btn flat round dense icon="close" @click="$emit('close')" />
+			</q-item-section>
+		</q-item>
+
     <template v-for="(question, key) in questions">
       <q-expansion-item
         expand-separator
@@ -37,17 +43,23 @@
         </q-item>
       </q-expansion-item>
     </template>
-    <q-item-label header class="text-right text-weight-bold"
-      >Total Score: {{ totalScore }} ({{
-        totalScore | interpretation
-      }})</q-item-label
-    >
+		<q-item>
+			<q-item-section>
+				<q-item-label>Total Score: {{ totalScore }} ({{
+					totalScore | interpretation
+					}})</q-item-label>
+			</q-item-section>
+			<q-item-section side>
+				<q-btn @click="updateScore" label="Save" color="primary"></q-btn>
+			</q-item-section>
+		</q-item>
   </q-list>
 </template>
 
 <script>
 export default {
   name: 'GadForm',
+	props: ['value'],
   data() {
     return {
       questions: {
@@ -305,28 +317,30 @@ export default {
     };
   },
   computed: {
-    totalScore() {
-      const keys = Object.keys(this.questions);
+    totalScore () {
+			const keys = Object.keys(this.questions);
 
-      let totalScore = 0;
-      let sums = [];
+			let totalScore = 0;
+			let sums = [];
 
-      keys.forEach(key => {
-        let question = this.questions[key];
-        let sum = 0;
-        sum = question.reduce((sum, d) => {
-          return sum + d.score;
-        }, 0);
+			keys.forEach(key => {
+				let question = this.questions[key];
+				let sum = 0;
+				sum = question.reduce((sum, d) => {
+					return sum + d.score;
+				}, 0);
 
-        sums.push(sum);
-      });
+				sums.push(sum);
+			});
 
-      totalScore = sums.reduce((totalSum, i) => {
-        return totalSum + i;
-      }, 0);
+			totalScore = sums.reduce((totalSum, i) => {
+				return totalSum + i;
+			}, 0);
 
-      return totalScore;
-    }
+			console.log(this.questions);
+
+			return totalScore;
+		}
   },
   methods: {
     calculateScore() {
@@ -350,7 +364,10 @@ export default {
       }, 0);
 
       this.totalScore = totalScore.toFixed(1);
-    }
+    },
+		updateScore() {
+    	this.$emit('update',this.totalScore);
+		}
   },
   filters: {
     interpretation(val) {

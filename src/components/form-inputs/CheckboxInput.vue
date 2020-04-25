@@ -8,10 +8,9 @@
     stack-label
     outlined
     readonly
-    color="orange-10"
+    color="primary"
     :val="true"
-  >
-  </q-checkbox>
+  />
 </template>
 
 <script>

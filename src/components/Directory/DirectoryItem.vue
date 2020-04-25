@@ -3,7 +3,6 @@
     <q-list>
       <q-item>
         <q-item-section avatar>
-
           <q-avatar @click="$emit('upload')" class="cursor-pointer">
             <q-img :src="ou.image" placeholder-src="/statics/placeholder.jpg">
               <template v-slot:error>
@@ -11,11 +10,9 @@
               </template>
             </q-img>
           </q-avatar>
-
         </q-item-section>
 
         <q-item-section>
-
           <q-item-label>
             {{ ou.acronym }}
           </q-item-label>
@@ -23,11 +20,11 @@
           <q-item-label caption :lines="1">
             {{ ou.name }}
           </q-item-label>
-
         </q-item-section>
 
         <q-item-section side>
           <q-btn
+            v-if="isAdmin"
             flat
             round
             icon="edit"
@@ -35,7 +32,6 @@
             color="primary"
           ></q-btn>
         </q-item-section>
-
       </q-item>
 
       <q-separator />
@@ -96,8 +92,13 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'DirectoryItem',
-  props: ['ou']
+  props: ['ou'],
+  computed: {
+    ...mapGetters('auth', ['isAdmin'])
+  }
 };
 </script>

@@ -1,6 +1,8 @@
 <template>
   <div class="row bg-white">
-    <div class="offset-xl-2 col-xl-8 offset-lg-3 col-lg-6 offset-md-1 col-md-10 offset-sm-1 col-sm-10 offset-xs-0 col-xs-12">
+    <div
+      class="offset-xl-2 col-xl-8 offset-lg-3 col-lg-6 offset-md-1 col-md-10 offset-sm-1 col-sm-10 offset-xs-0 col-xs-12"
+    >
       <q-tabs
         align="left"
         :class="dark ? 'bg-grey-9 text-white' : 'bg-white text-grey-9'"

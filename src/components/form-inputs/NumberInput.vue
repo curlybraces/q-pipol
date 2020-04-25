@@ -21,7 +21,7 @@
 import { mapState } from 'vuex';
 
 export default {
-  name: 'TextInput',
+  name: 'NumberInput',
   props: ['label', 'value', 'readonly', 'rules', 'hint', 'suffix'],
   computed: {
     ...mapState('settings', ['dense'])

@@ -34,6 +34,10 @@ export function SET_OPERATING_UNITS(state, payload) {
   state.operating_units = payload;
 }
 
+export function SET_FUNDING_INSTITUTIONS(state, payload) {
+	state.funding_institutions_options = payload;
+}
+
 export function SET_ROLES(state, payload) {
   state.roles = payload;
 }

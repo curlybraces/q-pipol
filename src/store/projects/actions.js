@@ -56,14 +56,14 @@ export function deleteProject({}, payload) {
           data
         });
       },
-	    optimisticResponse: {
-      	__typename: 'Mutation',
-		    deleteProject: {
-      		id: payload.id,
-			    title: payload.title,
-			    __typename: 'Project'
-		    }
-	    }
+      optimisticResponse: {
+        __typename: 'Mutation',
+        deleteProject: {
+          id: payload.id,
+          title: payload.title,
+          __typename: 'Project'
+        }
+      }
     })
     .then(data => {
       // if the project is not present in the database anymore, notify that the project was already deleted

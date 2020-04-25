@@ -1,7 +1,9 @@
 <template>
   <page-container>
     <page-title
-      :title="`Projects (Total: ${relayProjects.edges.length})`"
+      :title="
+        `Projects (Total: ${relayProjects ? relayProjects.edges.length : 0})`
+      "
     ></page-title>
 
     <div class="row q-pa-sm justify-center">
@@ -55,7 +57,12 @@
         <template v-for="{ node } in filteredProjects">
           <project-item :project="node" :key="node.id"></project-item>
         </template>
-        <q-item :clickable="hasMore" v-if="!$apollo.loading" class="text-center" @click="loadMore">
+        <q-item
+          :clickable="hasMore"
+          v-if="!$apollo.loading"
+          class="text-center"
+          @click="loadMore"
+        >
           <q-item-section class="text-primary">
             {{ hasMore ? 'Load More...' : 'End' }}
           </q-item-section>

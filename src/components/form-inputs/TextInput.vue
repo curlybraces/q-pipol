@@ -6,11 +6,9 @@
       :type="type"
       :dense="dense"
       outlined
-      @input="val => $emit('input', val)"
       :readonly="readonly"
       :rules="rules"
       :max-length="maxlength"
-      :counter="type == 'textarea'"
       :hint="hint"
       clearable
       label-color="orange-10"

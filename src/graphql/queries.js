@@ -1,5 +1,9 @@
 import gql from 'graphql-tag';
-import { USER_FRAGMENT, NOTIFICATION_FRAGMENT, BASIC_INFORMATION_FRAGMENT } from './fragments';
+import {
+  USER_FRAGMENT,
+  NOTIFICATION_FRAGMENT,
+  BASIC_INFORMATION_FRAGMENT
+} from './fragments';
 
 /* Auth */
 export const CHECK_EMAIL_AVAILABILITY_QUERY = gql`
@@ -68,6 +72,15 @@ export const FETCH_FUNDING_SOURCES = gql`
       name
     }
   }
+`;
+
+export const FETCH_FUNDING_INSTITUTIONS = gql`
+	query funding_institutions {
+    funding_institutions {
+      id
+      name
+    }
+	}
 `;
 
 export const FETCH_OPERATING_UNITS = gql`
@@ -376,37 +389,12 @@ export const RELAY_PROJECTS_QUERY = gql`
       }
       edges {
         node {
-          id
-          title
-          operating_unit {
-            id
-            name
-            image
-            acronym
-          }
-          description
-          spatial_coverage {
-            id
-            name
-          }
-          target_start_year
-          target_end_year
-          total_project_cost
-          submission_status_id
-          submission_status {
-            id
-            name
-          }
-          creator {
-            id
-            name
-          }
-          created_at
-          updated_at
+          ...basicInformation
         }
       }
     }
   }
+  ${BASIC_INFORMATION_FRAGMENT}
 `;
 
 export const DELETED_PROJECTS_QUERY = gql`
@@ -435,10 +423,169 @@ export const DELETED_PROJECTS_QUERY = gql`
 export const FETCH_PROJECT_QUERY = gql`
   query project($id: ID!) {
     project(id: $id) {
-      ...basicInformation
+      id
+      pip
+      cip
+      trip
+      rdip
+      pcip
+      afmip
+      title
+      type_id
+      infrastructure
+      operating_unit_id
+      main_funding_source_id
+      funding_institution_id
+      implementation_mode_id
+      priority_ranking
+      project_status_id
+      typology_id
+      tier_id
+      spatial_coverage_id
+      cities_municipalities
+      description
+      components
+      goals
+      outcomes
+      purpose
+      expected_outputs
+      beneficiaries
+      employment_generated
+      target_start_year
+      target_end_year
+      implementation_start_date
+      implementation_end_date
+      clearinghouse
+      clearinghouse_date
+      neda_submission
+      neda_submission_date
+      neda_secretariat_review
+      neda_secretariat_review_date
+      icc_endorsed
+      icc_endorsed_date
+      icc_approved
+      icc_approved_date
+      neda_board
+      neda_board_date
+      total_project_cost
+      currency_id
+      implementation_risk
+      mitigation_strategy
+      income_increase
+      gad_score
+      estimated_project_life
+      financial_benefit_cost_ratio
+      financial_internal_rate_return
+      financial_net_present_value
+      economic_benefit_cost_ratio
+      economic_internal_rate_return
+      economic_net_present_value
+      funding_sources {
+        id
+      }
+      ten_point_agenda {
+        id
+      }
+      sustainable_development_goals {
+        id
+      }
+      fs_target_2017
+      fs_target_2018
+      fs_target_2019
+      fs_target_2020
+      fs_target_2021
+      fs_target_2022
+      fs_target_total
+      row_target_2017
+      row_target_2018
+      row_target_2019
+      row_target_2020
+      row_target_2021
+      row_target_2022
+      row_target_total
+      row_affected_2017
+      row_affected_2018
+      row_affected_2019
+      row_affected_2020
+      row_affected_2021
+      row_affected_2022
+      rap_target_2017
+      rap_target_2018
+      rap_target_2019
+      rap_target_2020
+      rap_target_2021
+      rap_target_2022
+      rap_target_total
+      rap_affected_2017
+      rap_affected_2018
+      rap_affected_2019
+      rap_affected_2020
+      rap_affected_2021
+      rap_affected_2022
+      investment_target_2016
+      investment_target_2017
+      investment_target_2018
+      investment_target_2019
+      investment_target_2020
+      investment_target_2021
+      investment_target_2022
+      investment_target_2023
+      investment_target_total
+      infrastructure_target_2016
+      infrastructure_target_2017
+      infrastructure_target_2018
+      infrastructure_target_2019
+      infrastructure_target_2020
+      infrastructure_target_2021
+      infrastructure_target_2022
+      infrastructure_target_2023
+      infrastructure_target_total
+      nep_2016
+      nep_2017
+      nep_2018
+      nep_2019
+      nep_2020
+      nep_2021
+      nep_2022
+      nep_2023
+      nep_total
+      gaa_2016
+      gaa_2017
+      gaa_2018
+      gaa_2019
+      gaa_2020
+      gaa_2021
+      gaa_2022
+      gaa_2023
+      gaa_total
+      disbursement_2016
+      disbursement_2017
+      disbursement_2018
+      disbursement_2019
+      disbursement_2020
+      disbursement_2021
+      disbursement_2022
+      disbursement_2023
+      disbursement_total
+      updates
+      updates_date
+      districts {
+        id
+      }
+      bases {
+        id
+      }
+      regions {
+        id
+      }
+      provinces {
+        id
+      }
+      technical_readinesses {
+        id
+      }
     }
   }
-  ${BASIC_INFORMATION_FRAGMENT}
 `;
 
 /* Activities */

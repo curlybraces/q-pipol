@@ -179,15 +179,6 @@ const routes = [
         }
       },
       {
-        path: 'reports',
-        name: 'reports',
-        component: () =>
-          import(/* webpackChunkName: 'ReportsPage' */ 'pages/Reports.vue'),
-        meta: {
-          requiresAuth: true
-        }
-      },
-      {
         path: 'help',
         name: 'help',
         component: () =>

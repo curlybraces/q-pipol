@@ -24,7 +24,9 @@
                   Implementing Agency
                 </q-item-label>
                 <q-item-label caption>
-                  {{ project.operating_unit ? project.operating_unit.name: '' }}
+                  {{
+                    project.operating_unit ? project.operating_unit.name : ''
+                  }}
                 </q-item-label>
               </q-item-section>
               <q-item-section>
@@ -105,7 +107,7 @@ import PageTitle from '../components/PageTitle.vue';
 import PageContainer from '../components/PageContainer.vue';
 
 export default {
-  components: {PageContainer, PageTitle},
+  components: { PageContainer, PageTitle },
   name: 'ViewProject',
   apollo: {
     project: {
@@ -113,7 +115,7 @@ export default {
       variables() {
         return {
           id: this.$route.params.id
-        }
+        };
       }
     }
   },

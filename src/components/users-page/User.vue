@@ -90,7 +90,7 @@
       <assign-ous :id="user.id" @close="assignOUDialog = false"></assign-ous>
     </q-dialog>
 
-		<!-- Dialog to assign user role -->
+    <!-- Dialog to assign user role -->
     <q-dialog
       v-model="assignRoleDialog"
       full-height
