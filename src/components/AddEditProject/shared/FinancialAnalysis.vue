@@ -91,9 +91,9 @@ import { mapFields } from 'vuex-map-fields';
 
 export default {
   components: {
-    'money-input': () => import('../../form-inputs/MoneyInput.vue'),
-    'number-input': () => import('../../form-inputs/NumberInput.vue'),
-    'text-input': () => import('../../form-inputs/TextInput.vue')
+    'money-input': () => import('../../../modules/shared/components/form-inputs/MoneyInput.vue'),
+    'number-input': () => import('../../../modules/shared/components/form-inputs/NumberInput.vue'),
+    'text-input': () => import('../../../modules/shared/components/form-inputs/TextInput.vue')
   },
   name: 'FinancialAnalysis',
   props: ['dense'],

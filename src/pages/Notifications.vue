@@ -32,7 +32,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import PageTitle from '../components/PageTitle';
+import PageTitle from '../modules/shared/components/PageTitle';
 import NotificationItem from '../components/Notifications/NotificationItem';
 
 export default {

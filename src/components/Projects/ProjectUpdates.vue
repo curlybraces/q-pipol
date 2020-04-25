@@ -24,9 +24,9 @@
 import { mapFields } from 'vuex-map-fields';
 import { mapState } from 'vuex';
 import FinancialAccomplishment from '../AddEditProject/shared/FinancialAccomplishment';
-import DateInput from '../form-inputs/DateInput';
-import SingleSelect from '../form-inputs/SingleSelect';
-import TextInput from '../form-inputs/TextInput';
+import DateInput from '../../modules/shared/components/form-inputs/DateInput';
+import SingleSelect from '../../modules/shared/components/form-inputs/SingleSelect';
+import TextInput from '../../modules/shared/components/form-inputs/TextInput';
 
 export default {
   components: {

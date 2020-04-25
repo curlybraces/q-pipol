@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import PageTitle from '../components/PageTitle';
+import PageTitle from '../modules/shared/components/PageTitle';
 import { FETCH_REVIEWERS_QUERY } from '../graphql/queries';
 
 export default {

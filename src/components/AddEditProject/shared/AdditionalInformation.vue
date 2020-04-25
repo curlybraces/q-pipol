@@ -56,8 +56,8 @@ import { mapFields } from 'vuex-map-fields';
 
 export default {
   components: {
-    'multi-select': () => import('../../form-inputs/MultiSelect.vue'),
-    'text-input': () => import('../../form-inputs/TextInput.vue')
+    'multi-select': () => import('../../../modules/shared/components/form-inputs/MultiSelect.vue'),
+    'text-input': () => import('../../../modules/shared/components/form-inputs/TextInput.vue')
   },
   name: 'AdditionalInformation',
   props: ['dense'],

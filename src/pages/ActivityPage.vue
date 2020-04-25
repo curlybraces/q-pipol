@@ -47,8 +47,8 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 import moment from 'moment';
-import PageContainer from '../components/PageContainer';
-import PageTitle from '../components/PageTitle';
+import PageContainer from '../modules/shared/components/PageContainer';
+import PageTitle from '../modules/shared/components/PageTitle';
 
 export default {
   name: 'PageActivity',

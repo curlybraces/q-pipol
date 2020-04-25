@@ -133,9 +133,9 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 import { mapFields } from 'vuex-map-fields';
-import TextInput from '../form-inputs/TextInput';
-import SingleSelect from '../form-inputs/SingleSelect';
-import MoneyInput from '../form-inputs/MoneyInput';
+import TextInput from '../../modules/shared/components/form-inputs/TextInput';
+import SingleSelect from '../../modules/shared/components/form-inputs/SingleSelect';
+import MoneyInput from '../../modules/shared/components/form-inputs/MoneyInput';
 
 export default {
   name: 'AddProject',
