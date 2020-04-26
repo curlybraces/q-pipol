@@ -53,10 +53,10 @@
 
 <script>
 import { mapState } from 'vuex';
-import User from '../components/users-page/User';
-import PageTitle from '../modules/shared/components/PageTitle';
-import { ALL_USERS } from '../graphql/queries';
-import PageContainer from '../modules/shared/components/PageContainer';
+import User from '../../../components/users-page/User';
+import PageTitle from '../../shared/components/PageTitle';
+import { ALL_USERS } from '../../../graphql/queries';
+import PageContainer from '../../shared/components/PageContainer';
 // import lodash from 'lodash';
 
 export default {
