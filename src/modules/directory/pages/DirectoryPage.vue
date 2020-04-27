@@ -21,7 +21,7 @@
     <div class="q-mt-md q-pa-sm">
       <div class="row q-mb-lg justify-center">
         <q-input
-          class="col-xl-6 col-lg-6 col-md-8 col-sm-8 col-xs-12"
+          class="col"
           dense
           outlined
           placeholder="Filter"
@@ -64,10 +64,12 @@
 
     <q-dialog v-model="uploadImageDialog">
       <q-uploader
-        label="Upload Logo"
+        label="Upload Logo (Max: 50KB)"
         :factory="uploadFileByUploader"
         ref="uploader"
         accept=".jpg, image/*"
+        @start="handleStart"
+        @finish="uploadImageDialog = false"
       ></q-uploader>
     </q-dialog>
 
@@ -162,6 +164,7 @@ import { FETCH_OPERATING_UNITS } from '../../../graphql/queries';
 import DirectoryItem from '../components/DirectoryItem';
 import TextInput from '../../ui/form-inputs/TextInput';
 import PageContainer from '../../ui/page/PageContainer';
+import { showErrorNotification } from '../../../functions/function-show-notifications';
 
 export default {
   components: {
@@ -244,6 +247,10 @@ export default {
         this.uploadImageDialog = true;
       }
     },
+    handleUploading(info) {
+      console.log('uploading');
+      console.dir(info);
+    },
     showEditItemDialog(ou) {
       const {
         id,
@@ -288,14 +295,31 @@ export default {
     },
     uploadFileByUploader() {
       const file = this.$refs.uploader.files[0];
+
+      if (file.size > 50000) {
+        showErrorNotification({
+          message: 'File is too big.'
+        });
+        return;
+      }
+
       const payload = {
         id: this.id,
         image: file
       };
 
-      this.updateOperatingUnitImage(payload).then(
-        () => (this.uploadImageDialog = false)
-      );
+      return new Promise((resolve, reject) => {
+        try {
+          resolve(this.updateOperatingUnitImage(payload));
+        } catch (err) {
+          reject(err);
+        }
+      });
+
+      // return this.updateOperatingUnitImage(payload)
+    },
+    handleStart() {
+      console.log('start uploading');
     }
   },
   mounted() {

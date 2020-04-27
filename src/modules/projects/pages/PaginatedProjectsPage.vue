@@ -9,7 +9,7 @@
     <div class="row q-pa-sm justify-center">
       <q-input
         ref="searchBox"
-        class="col-xl-6 col-lg-6 col-md-8 col-sm-8 col-xs-12"
+        class="col"
         outlined
         placeholder="Search titles"
         v-model="search"
@@ -59,7 +59,7 @@
         </template>
         <q-item
           :clickable="hasMore"
-          v-if="!$apollo.loading"
+          v-if="!$apollo.loading && relayProjects.edges.length"
           class="text-center"
           @click="loadMore"
         >

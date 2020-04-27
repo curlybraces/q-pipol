@@ -6,7 +6,7 @@ import VueApollo from 'vue-apollo';
 import { ApolloLink } from 'apollo-link';
 import localforage from 'localforage';
 import { CachePersistor, persistCache } from 'apollo-cache-persist';
-import { LocalStorage } from 'quasar';
+import { LocalStorage, Notify } from 'quasar';
 
 // define the link that apollo will connect to
 const uri = process.env.DEV
@@ -49,6 +49,7 @@ const authMiddleware = new ApolloLink((operation, forward) => {
   return forward(operation);
 });
 
+// create link for error handling
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors)
     graphQLErrors.forEach(({ message, locations, path }) =>
@@ -56,7 +57,13 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
         `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
       )
     );
-  if (networkError) console.error(`[Network error]: ${networkError}`);
+  if (networkError) {
+    console.error(`[Network error]: ${networkError}`);
+    Notify.create({
+      color: 'negative',
+      message: 'Network Error'
+    });
+  }
 });
 
 const uploadLink = createUploadLink({
