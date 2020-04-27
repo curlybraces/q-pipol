@@ -25,8 +25,8 @@
 
 <script>
 import { mapState } from 'vuex';
-import AppHeader from '../components/layout/Header';
-import AppFooter from '../components/layout/Footer';
+import AppHeader from '../components/Header';
+import AppFooter from '../components/Footer';
 
 export default {
   components: {
@@ -39,7 +39,6 @@ export default {
       appTitle: 'IPMS',
       appTitleFooter: 'Investment Programming & Management System',
       copyright: 'Made by Mark Lester A. Bolotaolo',
-      rightDrawer: false,
       showAbout: false
     };
   },

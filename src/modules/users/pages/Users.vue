@@ -53,15 +53,14 @@
 
 <script>
 import { mapState } from 'vuex';
-import User from '../../../components/users-page/User';
-import PageTitle from '../../shared/components/PageTitle';
+import User from '../components/User';
+import PageTitle from '../../ui/page/PageTitle';
 import { ALL_USERS } from '../../../graphql/queries';
-import PageContainer from '../../shared/components/PageContainer';
-// import lodash from 'lodash';
+import PageContainer from '../../ui/page/PageContainer';
 
 export default {
   components: { PageContainer, PageTitle, User },
-  name: 'PageAdmin',
+  name: 'PageUsers',
   apollo: {
     users: {
       query: ALL_USERS

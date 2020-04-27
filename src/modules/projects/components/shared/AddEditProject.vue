@@ -34,7 +34,7 @@
 <script>
 import { mapState } from 'vuex';
 import { mapFields } from 'vuex-map-fields';
-import ProjectMixins from '../../../mixins/ProjectMixins';
+import ProjectMixins from '../../../../mixins/ProjectMixins';
 
 export default {
   components: {},

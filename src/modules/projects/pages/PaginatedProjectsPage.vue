@@ -84,11 +84,11 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import PageTitle from '../../shared/components/PageTitle';
-import ProjectItem from '../../../components/Projects/ProjectItem';
+import PageTitle from '../../ui/page/PageTitle';
+import ProjectItem from '../components/ProjectItem';
 import { RELAY_PROJECTS_QUERY } from '../../../graphql/queries';
 import FindListener from '../../../mixins/FindListener';
-import PageContainer from '../../shared/components/PageContainer';
+import PageContainer from '../../ui/page/PageContainer';
 
 export default {
   name: 'ProjectsPage',

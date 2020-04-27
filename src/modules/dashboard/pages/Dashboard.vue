@@ -14,7 +14,7 @@
                 <q-item-section>Projects</q-item-section>
                 <q-item-section avatar>
                   <q-avatar color="grey" class="text-white">
-                    {{ relayProjects.edges ? relayProjects.edges.length : 0 }}
+                    {{ relayProjects ? relayProjects.pageInfo.total : 0 }}
                   </q-avatar>
                 </q-item-section>
               </q-item>
@@ -27,18 +27,6 @@
                 <q-item-section avatar>
                   <q-avatar color="grey" class="text-white">
                     0
-                  </q-avatar>
-                </q-item-section>
-              </q-item>
-            </q-card>
-          </div>
-          <div class="col-6">
-            <q-card flat square class="fit" bordered>
-              <q-item>
-                <q-item-section>Activities</q-item-section>
-                <q-item-section avatar>
-                  <q-avatar color="grey" class="text-white">
-                    {{ activitiesPreview.length }}
                   </q-avatar>
                 </q-item-section>
               </q-item>
@@ -85,60 +73,7 @@
 
       <!-- Activity Feed -->
       <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-        <div class="row justify-between">
-          <span class="q-item__label q-px-none q-pb-sm q-item__label--header"
-            >Latest Activity</span
-          >
-          <q-space />
-          <q-btn
-            label="All Activities"
-            dense
-            class="text-capitalize"
-            flat
-            icon-right="play_circle_outline"
-            to="/activity"
-          />
-        </div>
-
-        <q-card square bordered flat style="min-height: 115px;">
-          <q-list separator>
-            <template v-if="loading">
-              <q-inner-loading :showing="loading">
-                <q-spinner-tail :size="50" color="primary"></q-spinner-tail>
-              </q-inner-loading>
-            </template>
-            <template v-else>
-              <template v-if="!loading && activitiesPreview.length">
-                <q-item
-                  v-for="activity in activitiesPreview"
-                  :key="activity.id"
-                >
-                  <q-item-section avatar>
-                    <q-avatar>
-                      <q-icon :name="activity.description | icon" />
-                    </q-avatar>
-                  </q-item-section>
-                  <q-item-section>
-                    <q-item-label
-                      >{{ activity.description | subject }}:
-                      {{
-                        activity.subject ? activity.subject.title : ''
-                      }}</q-item-label
-                    >
-                    <q-item-label caption>{{
-                      activity.created_at | timeDiff
-                    }}</q-item-label>
-                  </q-item-section>
-                </q-item>
-              </template>
-              <template v-else>
-                <q-item>
-                  No activities to show.
-                </q-item>
-              </template>
-            </template>
-          </q-list>
-        </q-card>
+        <activity-component></activity-component>
 
         <div class="row justify-between">
           <span class="q-item__label q-px-none q-pb-sm q-item__label--header"
@@ -237,23 +172,19 @@
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex';
 import { RELAY_PROJECTS_QUERY } from '../../../graphql/queries';
-import PageTitle from '../../shared/components/PageTitle';
+import PageTitle from '../../ui/page/PageTitle';
 import { openURL } from 'quasar';
-import PageContainer from '../../shared/components/PageContainer';
+import PageContainer from '../../ui/page/PageContainer';
+import ActivityComponent from '../components/ActivityComponent';
 
 export default {
   name: 'PageIndex',
-  components: { PageContainer, PageTitle },
+  components: { ActivityComponent, PageContainer, PageTitle },
   computed: {
     ...mapState('auth', ['showValidateEmailReminder', 'user', 'loading']),
     ...mapGetters('auth', ['isEncoder']),
     needEmailValidation() {
       return this.showValidateEmailReminder;
-    },
-    activitiesPreview() {
-      // Todo: implement retrieval of activities outside user
-      // return this.activities.slice(0, 10);
-      return [];
     },
     exchangeRatesPreview() {
       const exchangeRatesToShow = ['USD', 'EUR', 'SGD', 'JPY', 'CNY'];
@@ -287,7 +218,11 @@ export default {
   },
   data() {
     return {
-      relayProjects: [],
+      relayProjects: {
+        pageInfo: {
+          total: 0
+        }
+      },
       exchangeRates: [],
       exchangeRateDate: '',
       exchangeRateLoading: false,
@@ -330,24 +265,6 @@ export default {
         }
       ]
     };
-  },
-  filters: {
-    icon(val) {
-      if (val.includes('created')) {
-        return 'fiber_new';
-      } else if (val.includes('updated')) {
-        return 'update';
-      }
-    },
-    subject(val) {
-      if (val.includes('created')) {
-        return 'Created';
-      }
-      return null;
-    },
-    timeDiff(val) {
-      return this.$moment(val).calendar();
-    }
   },
   created() {
     this.exchangeRateLoading = true;

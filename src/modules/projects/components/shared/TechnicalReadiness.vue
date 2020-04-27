@@ -95,9 +95,10 @@ import { mapFields } from 'vuex-map-fields';
 
 export default {
   components: {
-    'checkbox-input': () => import('../../../modules/shared/components/form-inputs/CheckboxInput.vue'),
-    'date-input': () => import('../../../modules/shared/components/form-inputs/DateInput.vue'),
-    'list-option-group': () => import('../../../modules/shared/components/form-inputs/ListOptionGroup.vue'),
+    'checkbox-input': () => import('../../../ui/form-inputs/CheckboxInput.vue'),
+    'date-input': () => import('../../../ui/form-inputs/DateInput.vue'),
+    'list-option-group': () =>
+      import('../../../ui/form-inputs/ListOptionGroup.vue'),
     'other-costs': () => import('./OtherCosts.vue')
   },
   name: 'TechnicalReadiness',

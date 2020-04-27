@@ -103,8 +103,8 @@
 
 <script>
 import { FETCH_PROJECT_QUERY } from '../../../graphql/queries';
-import PageTitle from '../../shared/components/PageTitle.vue';
-import PageContainer from '../../shared/components/PageContainer.vue';
+import PageTitle from '../../ui/page/PageTitle.vue';
+import PageContainer from '../../ui/page/PageContainer.vue';
 
 export default {
   components: { PageContainer, PageTitle },

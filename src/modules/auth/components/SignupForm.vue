@@ -99,7 +99,7 @@
 import { mapState, mapActions, mapMutations } from 'vuex';
 import ValidateEmailMixins from '../mixins/ValidateEmailMixins';
 import { laAtSolid } from '@quasar/extras/line-awesome';
-import PasswordInput from '../../shared/components/form-inputs/PasswordInput';
+import PasswordInput from '../../ui/form-inputs/PasswordInput';
 
 export default {
   name: 'SignupForm',

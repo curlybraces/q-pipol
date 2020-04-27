@@ -97,7 +97,7 @@ import { mapFields } from 'vuex-map-fields';
 
 export default {
   components: {
-    'money-input': () => import('../../../modules/shared/components/form-inputs/MoneyInput.vue')
+    'money-input': () => import('../../../ui/form-inputs/MoneyInput.vue')
   },
   name: 'FinancialAccomplishment',
   computed: {

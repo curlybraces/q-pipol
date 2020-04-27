@@ -151,8 +151,8 @@
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex';
-import SingleSelect from '../../shared/components/form-inputs/SingleSelect';
-import TextInput from '../../shared/components/form-inputs/TextInput';
+import SingleSelect from '../../ui/form-inputs/SingleSelect';
+import TextInput from '../../ui/form-inputs/TextInput';
 import ChooseAvatar from './/ChooseAvatar';
 
 export default {

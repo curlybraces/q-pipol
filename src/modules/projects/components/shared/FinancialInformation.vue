@@ -19,10 +19,10 @@
 <script>
 import { mapFields } from 'vuex-map-fields';
 import { mapState } from 'vuex';
-import RegionFinancial from '../../Projects/RegionFinancial/RegionFinancial';
-import FundingSources from '../../Projects/FundingSources/FundingSources';
+import RegionFinancial from '../../../../components/Projects/RegionFinancial/RegionFinancial';
+import FundingSources from '../../../../components/Projects/FundingSources/FundingSources';
 import TargetInvestment from './TargetInvestment';
-import SingleSelect from '../../../modules/shared/components/form-inputs/SingleSelect';
+import SingleSelect from '../../../ui/form-inputs/SingleSelect';
 
 export default {
   components: {

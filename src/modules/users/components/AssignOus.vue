@@ -47,7 +47,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import { FETCH_OPERATING_UNITS } from '../../graphql/queries';
+import { FETCH_OPERATING_UNITS } from '../../../graphql/queries';
 
 export default {
   name: 'AssignOus',

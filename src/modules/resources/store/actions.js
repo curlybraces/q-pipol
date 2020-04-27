@@ -1,13 +1,13 @@
-import { apolloClient } from '../../boot/apollo-boost';
+import { apolloClient } from '../../../boot/apollo-boost';
 import {
   CREATE_RESOURCE_MUTATION,
   DELETE_RESOURCE_MUTATION
-} from '../../graphql/mutations';
-import { FETCH_RESOURCES_QUERY } from '../../graphql/queries';
+} from '../../../graphql/mutations';
+import { FETCH_RESOURCES_QUERY } from '../../../graphql/queries';
 import {
   showErrorNotification,
   showSuccessNotification
-} from '../../functions/function-show-notifications';
+} from '../../../functions/function-show-notifications';
 
 export function fetchResources({ commit }) {
   commit('SET_LOADING', true);

@@ -24,10 +24,12 @@
         <q-item>
           <q-item-section class="text-grey">
             <q-input
+              ref="filter"
               placeholder="Filter"
               v-model="filterText"
               outlined
               :dense="dense"
+              autofocus
             />
           </q-item-section>
         </q-item>

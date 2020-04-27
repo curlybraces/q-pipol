@@ -1,11 +1,13 @@
-import { apolloClient } from '../../boot/apollo-boost';
+import { apolloClient } from '../../../boot/apollo-boost';
 import {
   CREATE_CONTACT_MUTATION,
   UPDATE_CONTACT_MUTATION,
-  DELETE_CONTACT_MUTATION
-} from '../../graphql/mutations';
-import { FETCH_CONTACTS } from '../../graphql/queries';
-import { showSuccessNotification } from '../../functions/function-show-notifications';
+  DELETE_CONTACT_MUTATION,
+  UPDATE_OPERATING_UNIT_MUTATION,
+  UPDATE_OPERATING_UNIT_IMAGE
+} from '../../../graphql/mutations';
+import { FETCH_CONTACTS } from '../../../graphql/queries';
+import { showSuccessNotification } from '../../../functions/function-show-notifications';
 
 export function fetchContacts({ commit }) {
   commit('SET_LOADING', true);
@@ -96,6 +98,38 @@ export function updateContact({}, payload) {
     .then(() => {
       showSuccessNotification({
         message: 'Successfully updated contact.'
+      });
+    })
+    .catch(err => console.log(err.message));
+}
+
+export function updateOperatingUnitImage({}, payload) {
+  return apolloClient
+    .mutate({
+      mutation: UPDATE_OPERATING_UNIT_IMAGE,
+      variables: payload
+    })
+    .then(() => {
+      showSuccessNotification({
+        message: 'Successfully changed operating unit image.'
+      });
+      return;
+    })
+    .catch(err => {
+      console.log(err);
+      return;
+    });
+}
+
+export function updateOperatingUnit({}, payload) {
+  return apolloClient
+    .mutate({
+      mutation: UPDATE_OPERATING_UNIT_MUTATION,
+      variables: payload
+    })
+    .then(({ data }) => {
+      showSuccessNotification({
+        message: 'Successfully updated: ' + data.updateOperatingUnit.acronym
       });
     })
     .catch(err => console.log(err.message));

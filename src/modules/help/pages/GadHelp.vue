@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import gadhelper from '../markdowns/gadhelper.md';
+import gadhelper from '../../../markdowns/gadhelper.md';
 
 export default {
   name: 'PageGadHelp',

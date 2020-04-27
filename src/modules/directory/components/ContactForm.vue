@@ -85,8 +85,8 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import TextInput from '../../shared/components/form-inputs/TextInput';
-import SingleSelect from '../../shared/components/form-inputs/SingleSelect';
+import TextInput from '../../ui/form-inputs/TextInput';
+import SingleSelect from '../../ui/form-inputs/SingleSelect';
 
 export default {
   components: { TextInput, SingleSelect },

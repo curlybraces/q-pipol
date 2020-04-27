@@ -28,7 +28,6 @@
           v-model="searchField"
           ref="searchBox"
           :debounce="500"
-          clearable
         >
           <template v-slot:prepend>
             <q-icon name="search" />
@@ -158,14 +157,11 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import JsonExcel from 'vue-json-excel';
-import PageTitle from '../../shared/components/PageTitle';
+import PageTitle from '../../ui/page/PageTitle';
 import { FETCH_OPERATING_UNITS } from '../../../graphql/queries';
 import DirectoryItem from '../components/DirectoryItem';
-import TextInput from '../../shared/components/form-inputs/TextInput';
-import { showSuccessNotification } from '../../../functions/function-show-notifications';
-import { UPDATE_OPERATING_UNIT_IMAGE } from '../../../graphql/mutations';
-import { apolloClient } from '../../../boot/apollo-boost';
-import PageContainer from '../../shared/components/PageContainer';
+import TextInput from '../../ui/form-inputs/TextInput';
+import PageContainer from '../../ui/page/PageContainer';
 
 export default {
   components: {
@@ -190,8 +186,6 @@ export default {
       const searchField = this.searchField.trim().toLowerCase();
 
       if (searchField) {
-        console.log('searching is triggered');
-
         filteredOperatingUnits = operating_units.filter(ou => {
           const headName = ou.agency_head_name
             ? ou.agency_head_name.toLowerCase()
@@ -235,7 +229,10 @@ export default {
     };
   },
   methods: {
-    ...mapActions('operatingUnits', ['updateOperatingUnit']),
+    ...mapActions('directory', [
+      'updateOperatingUnit',
+      'updateOperatingUnitImage'
+    ]),
     toggleMoreInfo(ou) {
       this.isActive = ou;
     },
@@ -272,6 +269,7 @@ export default {
     },
     handleSubmit() {
       this.updatingOperatingUnit = true;
+
       const payload = {
         id: this.id,
         name: this.name,
@@ -282,7 +280,7 @@ export default {
         fax_number: this.fax_number,
         email: this.email
       };
-      console.log(payload);
+
       this.updateOperatingUnit(payload).then(() => {
         this.updatingOperatingUnit = false;
         this.editItemDialog = false;
@@ -290,24 +288,14 @@ export default {
     },
     uploadFileByUploader() {
       const file = this.$refs.uploader.files[0];
+      const payload = {
+        id: this.id,
+        image: file
+      };
 
-      apolloClient
-        .mutate({
-          mutation: UPDATE_OPERATING_UNIT_IMAGE,
-          variables: {
-            id: this.id,
-            image: file
-          }
-        })
-        .then(() => {
-          showSuccessNotification({
-            message: 'Successfully changed operating unit image.'
-          });
-          this.uploadImageDialog = false;
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      this.updateOperatingUnitImage(payload).then(
+        () => (this.uploadImageDialog = false)
+      );
     }
   },
   mounted() {

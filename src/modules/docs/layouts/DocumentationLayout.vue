@@ -66,7 +66,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import AppFooter from '../../shared/components/layout/Footer';
+import AppFooter from '../../shared/components/Footer';
 
 export default {
   name: 'DocumentationLayout',

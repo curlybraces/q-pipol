@@ -32,8 +32,8 @@
 
 <script>
 import { mapState } from 'vuex';
-import PageTitle from '../modules/shared/components/PageTitle';
-import NotificationItem from '../components/Notifications/NotificationItem';
+import PageTitle from '../../ui/page/PageTitle';
+import NotificationItem from '../components/NotificationItem';
 
 export default {
   components: { NotificationItem, PageTitle },

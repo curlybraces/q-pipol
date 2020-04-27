@@ -8,9 +8,9 @@
 
 <script>
 import { mapActions } from 'vuex';
-import AddProject from '../../../components/AddEditProject/AddProject';
-import PageTitle from '../../shared/components/PageTitle';
-import PageContainer from '../../shared/components/PageContainer';
+import AddProject from '../components/AddProject';
+import PageTitle from '../../ui/page/PageTitle';
+import PageContainer from '../../ui/page/PageContainer';
 
 export default {
   components: { PageContainer, PageTitle, AddProject },

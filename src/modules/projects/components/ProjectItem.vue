@@ -36,7 +36,7 @@
           {{ project.description }}
         </q-item-label>
         <q-item-label caption>
-          Created on header{{ project.created_at | timeDiff }}
+          Created {{ project.created_at | timeDiff }}
         </q-item-label>
       </q-item-section>
 

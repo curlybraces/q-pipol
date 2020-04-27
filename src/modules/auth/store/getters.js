@@ -1,5 +1,5 @@
 export function imageUrl(state) {
-  if (!state.loading && state.user && state.user.image_url) {
+  if (state.user && state.user.image_url) {
     return state.user.image_url;
   } else {
     return 'statics/default.png';
@@ -8,7 +8,7 @@ export function imageUrl(state) {
 
 export function unreadNotifications(state) {
   let unreadNotifications = [];
-  if (!state.loading && state.user && state.user.unreadNotifications) {
+  if (state.user && state.user.unreadNotifications) {
     unreadNotifications = state.user.unreadNotifications;
   }
   return unreadNotifications;
@@ -26,23 +26,19 @@ export function error(state) {
   return state.error;
 }
 
-export function errorMessage(state) {
-  return state.errorMessage;
-}
-
 export function user(state) {
   return state.user;
 }
 
 export function isSuperadmin(state) {
-  if (!state.loading) {
+  if (state.user) {
     return state.user.role ? state.user.role.name === 'superadmin' : false;
   }
   return false;
 }
 
 export function isAdmin(state) {
-  if (!state.loading) {
+  if (state.user) {
     return state.user.role
       ? state.user.role.name === 'admin' ||
           state.user.role.name === 'superadmin'
@@ -52,14 +48,14 @@ export function isAdmin(state) {
 }
 
 export function isEncoder(state) {
-  if (!state.loading) {
+  if (state.user) {
     return state.user.role ? state.user.role.name === 'encoder' : false;
   }
   return false;
 }
 
 export function isVerified(state) {
-  if (!state.loading) {
+  if (state.user) {
     return state.user.verified;
   }
   return false;

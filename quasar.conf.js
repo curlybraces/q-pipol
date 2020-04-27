@@ -90,7 +90,12 @@ module.exports = function(ctx) {
     },
 
     // animations: 'all', // --- includes all animations
-    animations: 'all',
+    animations: [
+    	'zoomIn',
+	    'zoomOut',
+	    'fadeIn',
+	    'fadeOut'
+    ],
 
     ssr: {
       pwa: false

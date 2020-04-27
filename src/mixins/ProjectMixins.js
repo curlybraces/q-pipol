@@ -1,13 +1,13 @@
-import ProgrammingDocuments from '../components/AddEditProject/shared/ProgrammingDocuments.vue';
-import AdditionalInformation from '../components/AddEditProject/shared/AdditionalInformation.vue';
-import TechnicalReadiness from '../components/AddEditProject/shared/TechnicalReadiness.vue';
-import FinancialAnalysis from '../components/AddEditProject/shared/FinancialAnalysis.vue';
-import ImplementationPeriod from '../components/AddEditProject/shared/ImplementationPeriod.vue';
-import SpatialCoverage from '../components/AddEditProject/shared/SpatialCoverage.vue';
-import BasicInformation from '../components/AddEditProject/shared/BasicInformation.vue';
-import StepperNavigation from '../components/AddEditProject/shared/StepperNavigation.vue';
-import ProjectUpdates from '../components/Projects/ProjectUpdates';
-import FinancialInformation from '../components/AddEditProject/shared/FinancialInformation';
+import ProgrammingDocuments from '../modules/projects/components/shared/ProgrammingDocuments.vue';
+import AdditionalInformation from '../modules/projects/components/shared/AdditionalInformation.vue';
+import TechnicalReadiness from '../modules/projects/components/shared/TechnicalReadiness.vue';
+import FinancialAnalysis from '../modules/projects/components/shared/FinancialAnalysis.vue';
+import ImplementationPeriod from '../modules/projects/components/shared/ImplementationPeriod.vue';
+import SpatialCoverage from '../modules/projects/components/shared/SpatialCoverage.vue';
+import BasicInformation from '../modules/projects/components/shared/BasicInformation.vue';
+import StepperNavigation from '../modules/projects/components/shared/StepperNavigation.vue';
+import ProjectUpdates from '../modules/projects/components/ProjectUpdates';
+import FinancialInformation from '../modules/projects/components/shared/FinancialInformation';
 
 const ProjectMixins = {
   components: {

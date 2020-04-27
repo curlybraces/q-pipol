@@ -54,9 +54,11 @@
 
 <script>
 import { mapState, mapActions, mapMutations, mapGetters } from 'vuex';
-import PasswordInput from '../../shared/components/form-inputs/PasswordInput';
-import EmailInput from '../../shared/components/form-inputs/EmailInput';
+import PasswordInput from '../../ui/form-inputs/PasswordInput';
+import EmailInput from '../../ui/form-inputs/EmailInput';
 import ValidateEmailMixins from '../mixins/ValidateEmailMixins';
+import RepositoryFactory from '../../../repositories/RepositoryFactory';
+const AuthRepository = RepositoryFactory.get('auth');
 
 export default {
   name: 'LoginForm',
@@ -85,6 +87,7 @@ export default {
     ...mapMutations('auth', ['CLEAR_ERROR']),
     ...mapActions('auth', ['signinUser']),
     handleSubmit() {
+      // validate the form before calling login method
       this.$refs.loginForm.validate().then(success => {
         if (success) {
           const { username, password } = this.$data;
@@ -95,8 +98,19 @@ export default {
           };
 
           this.signinUser(payload);
+          // this.login(payload)
         }
       });
+    },
+    async login(payload) {
+      try {
+        const { data } = await AuthRepository.login(payload);
+        console.log(data);
+      } catch (err) {
+        console.log('from catch: ', err);
+      } finally {
+        console.log('done');
+      }
     }
   }
 };

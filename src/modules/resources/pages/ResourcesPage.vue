@@ -23,7 +23,7 @@
     <div class="q-pa-sm">
       <template v-if="$apollo.loading">
         <q-inner-loading :showing="$apollo.loading">
-          <q-spinner-tail size="50px"></q-spinner-tail>
+          <q-spinner-tail size="50px" color="primary"></q-spinner-tail>
         </q-inner-loading>
       </template>
       <template v-else>
@@ -152,11 +152,11 @@
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex';
-import PageTitle from '../../shared/components/PageTitle';
+import PageTitle from '../../ui/page/PageTitle';
 import { openURL, Dialog } from 'quasar';
-import TextInput from '../../shared/components/form-inputs/TextInput';
+import TextInput from '../../ui/form-inputs/TextInput';
 import { FETCH_RESOURCES_QUERY } from '../../../graphql/queries';
-import PageContainer from '../../shared/components/PageContainer';
+import PageContainer from '../../ui/page/PageContainer';
 
 export default {
   name: 'PageResources',

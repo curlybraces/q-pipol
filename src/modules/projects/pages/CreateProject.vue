@@ -96,7 +96,7 @@
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex';
-import PageTitle from '../../shared/components/PageTitle';
+import PageTitle from '../../ui/page/PageTitle';
 import ProjectMixins from '../../../mixins/ProjectMixins';
 
 export default {

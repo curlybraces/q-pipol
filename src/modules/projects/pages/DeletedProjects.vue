@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <page-breadcrumbs :breadcrumbs="breadcrumbs" />
+    <page-title title="Deleted Projects" />
     <search-component />
     <div class="q-pa-sm">
       <q-card class="fit bg-grey-1">
@@ -34,22 +34,14 @@
 </template>
 
 <script>
+import PageTitle from '../../ui/page/PageTitle';
 export default {
   components: {
-    'page-breadcrumbs': () => import('../../../components/PageBreadcrumbs.vue')
+    PageTitle
   },
   name: 'PageDeletedProjects',
   data() {
     return {
-      breadcrumbs: [
-        {
-          title: 'Home',
-          url: '/'
-        },
-        {
-          title: 'Deleted Projects'
-        }
-      ],
       projects: [],
       current_page: 1
     };

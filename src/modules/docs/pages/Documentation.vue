@@ -39,7 +39,7 @@
 
 <script>
 // import gql from 'graphql-tag';
-import PageTitle from '../modules/shared/components/PageTitle';
+import PageTitle from '../../ui/page/PageTitle';
 
 export default {
   components: { PageTitle },

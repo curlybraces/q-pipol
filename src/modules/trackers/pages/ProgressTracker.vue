@@ -36,8 +36,8 @@
 </template>
 
 <script>
-import PageTitle from '../modules/shared/components/PageTitle';
-import { FETCH_REVIEWERS_QUERY } from '../graphql/queries';
+import PageTitle from '../../ui/page/PageTitle';
+import { FETCH_REVIEWERS_QUERY } from '../../../graphql/queries';
 
 export default {
   components: { PageTitle },

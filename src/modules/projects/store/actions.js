@@ -1,10 +1,10 @@
 import { apolloClient } from 'boot/apollo-boost';
-import { DELETE_PROJECT_MUTATION } from '../../graphql/mutations';
-import { GET_PROJECTS, RELAY_PROJECTS_QUERY } from '../../graphql/queries';
+import { DELETE_PROJECT_MUTATION } from '../../../graphql/mutations';
+import { GET_PROJECTS, RELAY_PROJECTS_QUERY } from '../../../graphql/queries';
 import {
   showErrorNotification,
   showSuccessNotification
-} from '../../functions/function-show-notifications';
+} from '../../../functions/function-show-notifications';
 
 export function fetchProjects({ commit }) {
   commit('SET_LOADING', true);

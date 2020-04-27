@@ -1,7 +1,7 @@
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 import { mount, createLocalVue } from '@vue/test-utils';
-import Header from '../../../src/modules/shared/components/layout/Header';
+import Header from '../../../src/modules/shared/components/Header';
 import * as All from 'quasar'
 
 const { Quasar } = All

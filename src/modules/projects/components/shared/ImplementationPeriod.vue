@@ -27,7 +27,7 @@ import { mapFields } from 'vuex-map-fields';
 
 export default {
   components: {
-    'date-input': () => import('../../../modules/shared/components/form-inputs/DateInput.vue')
+    'date-input': () => import('../../../ui/form-inputs/DateInput.vue')
   },
   name: 'ImplementationPeriod',
   props: ['dense'],

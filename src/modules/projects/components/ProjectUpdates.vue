@@ -23,10 +23,10 @@
 <script>
 import { mapFields } from 'vuex-map-fields';
 import { mapState } from 'vuex';
-import FinancialAccomplishment from '../AddEditProject/shared/FinancialAccomplishment';
-import DateInput from '../../modules/shared/components/form-inputs/DateInput';
-import SingleSelect from '../../modules/shared/components/form-inputs/SingleSelect';
-import TextInput from '../../modules/shared/components/form-inputs/TextInput';
+import FinancialAccomplishment from './shared/FinancialAccomplishment';
+import DateInput from '../../ui/form-inputs/DateInput';
+import SingleSelect from '../../ui/form-inputs/SingleSelect';
+import TextInput from '../../ui/form-inputs/TextInput';
 
 export default {
   components: {

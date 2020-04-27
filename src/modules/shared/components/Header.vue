@@ -17,14 +17,10 @@
       <q-space />
 
       <q-btn flat round icon="notifications" class="q-mr-md text-grey-6">
-        <q-badge
-          color="red"
-          floating
-          v-if="!$apollo.loading && me.unreadNotifications.length"
-        >
+        <q-badge color="red" floating v-if="me.unreadNotifications.length">
           {{ me.unreadNotifications.length }}
         </q-badge>
-        <template v-if="!$apollo.loading && me.unreadNotifications.length">
+        <template v-if="me.unreadNotifications.length">
           <q-menu :offset="[0, 15]">
             <q-item dense class="q-pa-none">
               <q-item-section>
@@ -43,15 +39,11 @@
               </q-item-section>
             </q-item>
             <q-list separator>
-              <q-inner-loading :showing="markingAllAsRead">
-                <q-spinner-tail color="primary"></q-spinner-tail>
-              </q-inner-loading>
               <notification-item
                 v-for="notification in me.unreadNotifications"
                 :key="notification.id"
                 :notification="notification"
-              >
-              </notification-item>
+              />
             </q-list>
           </q-menu>
         </template>
@@ -83,30 +75,33 @@
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex';
 import DropdownMenu from './Dropdown';
-import NotificationItem from '../../../../components/Notifications/NotificationItem';
+import NotificationItem from '../../notifications/components/NotificationItem';
 import RouteTabs from './RouteTabs';
-import { FETCH_UNREAD_NOTIFICATIONS_QUERY } from '../../../../graphql/queries';
+import { FETCH_UNREAD_NOTIFICATIONS_QUERY } from '../../../graphql/queries';
 
 export default {
   components: { RouteTabs, DropdownMenu, NotificationItem },
   name: 'AppHeader',
   computed: {
     ...mapState('settings', ['dark']),
-    ...mapState('auth', ['user']),
-    ...mapGetters('auth', ['imageUrl'])
+    ...mapGetters('auth', ['imageUrl', 'user'])
   },
   apollo: {
+    /**
+     * Load data for notifications
+     */
     me: {
       query: FETCH_UNREAD_NOTIFICATIONS_QUERY
     }
   },
   data() {
     return {
-      me: {},
-      unreadNotifications: [],
       menu: false,
       notificationsDropdown: false,
-      markingAllAsRead: false
+      markingAllAsRead: false,
+      me: {
+        unreadNotifications: [] // placeholder to ensure that the variable is defined while apollo is being called
+      }
     };
   },
   methods: {

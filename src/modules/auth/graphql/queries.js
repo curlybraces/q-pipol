@@ -24,7 +24,6 @@ const USER_FRAGMENT = gql`
   }
 `;
 
-
 /* Queries */
 
 export const CHECK_EMAIL_AVAILABILITY_QUERY = gql`

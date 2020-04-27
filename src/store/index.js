@@ -2,17 +2,17 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
 
-import activities from './activities';
+import activities from '../modules/activities/store';
 import auth from '../modules/auth/store';
-import contacts from './contacts';
-import projects from './projects';
+import directory from '../modules/directory/store';
+import projects from '../modules/projects/store';
 import project from './project';
-import notifications from './notifications';
+import notifications from '../modules/notifications/store';
 import operatingUnits from './operating-units';
 import options from './options';
-import resources from './resources';
-import settings from './settings';
-import users from './users';
+import resources from '../modules/resources/store';
+import settings from '../modules/settings/store';
+import users from '../modules/users/store';
 
 Vue.use(Vuex);
 
@@ -25,8 +25,8 @@ export default function(/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
       activities,
-	    auth,
-      contacts,
+      auth,
+      directory,
       projects,
       project,
       notifications,

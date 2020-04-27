@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import AboutComponent from '../About';
+import AboutComponent from './About';
 
 export default {
   name: 'AppFooter',

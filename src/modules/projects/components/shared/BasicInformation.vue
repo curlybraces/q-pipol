@@ -106,14 +106,14 @@
 <script>
 import { mapState } from 'vuex';
 import { mapFields } from 'vuex-map-fields';
-import RadioInput from '../../../modules/shared/components/form-inputs/RadioInput';
+import RadioInput from '../../../ui/form-inputs/RadioInput';
 
 export default {
   components: {
     RadioInput,
-    'money-input': () => import('../../../modules/shared/components/form-inputs/MoneyInput.vue'),
-    'single-select': () => import('../../../modules/shared/components/form-inputs/SingleSelect.vue'),
-    'text-input': () => import('../../../modules/shared/components/form-inputs/TextInput.vue')
+    'money-input': () => import('../../../ui/form-inputs/MoneyInput.vue'),
+    'single-select': () => import('../../../ui/form-inputs/SingleSelect.vue'),
+    'text-input': () => import('../../../ui/form-inputs/TextInput.vue')
   },
   name: 'BasicInformation',
   computed: {

@@ -46,8 +46,8 @@
 
 <script>
 import { mapState } from 'vuex';
-import MoneyInput from '../../../../../modules/shared/components/form-inputs/MoneyInput';
-import SingleSelect from '../../../../../modules/shared/components/form-inputs/SingleSelect';
+import MoneyInput from '../../../../../modules/ui/form-inputs/MoneyInput';
+import SingleSelect from '../../../../../modules/ui/form-inputs/SingleSelect';
 
 export default {
   components: {

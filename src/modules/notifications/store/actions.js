@@ -1,10 +1,10 @@
-import { apolloClient } from '../../boot/apollo-boost';
+import { apolloClient } from '../../../boot/apollo-boost';
 import {
   MARK_ALL_AS_READ_MUTATION,
   MARK_AS_READ_MUTATION
-} from '../../graphql/mutations';
-import { showErrorNotification } from '../../functions/function-show-notifications';
-import { FETCH_UNREAD_NOTIFICATIONS_QUERY } from '../../graphql/queries';
+} from '../../../graphql/mutations';
+import { showErrorNotification } from '../../../functions/function-show-notifications';
+import { FETCH_UNREAD_NOTIFICATIONS_QUERY } from '../../../graphql/queries';
 
 export function markAsRead({}, payload) {
   return apolloClient
@@ -24,6 +24,14 @@ export function markAsRead({}, payload) {
           query: FETCH_UNREAD_NOTIFICATIONS_QUERY,
           data
         });
+      },
+      optimisticResponse: {
+        __typename: 'Mutation',
+        markAsRead: {
+          id: payload.id,
+          status: 'SUCCESS',
+          __typename: 'Notification'
+        }
       }
     })
     .then(({ data }) => {

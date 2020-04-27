@@ -6,7 +6,7 @@ import {
   FETCH_PROVINCES,
   FETCH_REGIONS,
   FETCH_SPATIAL_COVERAGES,
-	FETCH_FUNDING_INSTITUTIONS,
+  FETCH_FUNDING_INSTITUTIONS,
   FETCH_PROJECT_STATUSES,
   FETCH_TECHNICAL_READINESSES,
   FETCH_ROLES,
@@ -30,16 +30,16 @@ export function fetchDistricts({ commit }) {
 }
 
 export function fetchFundingInstitutions({ commit }) {
-	apolloClient
-		.query({
-			query: FETCH_FUNDING_INSTITUTIONS
-		})
-		.then(({ data }) => {
-			commit('SET_FUNDING_INSTITUTIONS',data.funding_institutions);
-		})
-		.catch(err => {
-			console.log(err.message);
-		})
+  apolloClient
+    .query({
+      query: FETCH_FUNDING_INSTITUTIONS
+    })
+    .then(({ data }) => {
+      commit('SET_FUNDING_INSTITUTIONS', data.funding_institutions);
+    })
+    .catch(err => {
+      console.log(err.message);
+    });
 }
 
 export function fetchFundingSources({ commit }) {
