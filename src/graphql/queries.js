@@ -75,12 +75,12 @@ export const FETCH_FUNDING_SOURCES = gql`
 `;
 
 export const FETCH_FUNDING_INSTITUTIONS = gql`
-	query funding_institutions {
+  query funding_institutions {
     funding_institutions {
       id
       name
     }
-	}
+  }
 `;
 
 export const FETCH_OPERATING_UNITS = gql`
@@ -592,7 +592,8 @@ export const FETCH_PROJECT_QUERY = gql`
 
 export const FETCH_ACTIVITIES = gql`
   query {
-    me {
+    getCurrentUser {
+      id
       activities {
         id
         description

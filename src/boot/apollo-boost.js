@@ -8,11 +8,12 @@ import localforage from 'localforage';
 import { CachePersistor, persistCache } from 'apollo-cache-persist';
 import { LocalStorage } from 'quasar';
 
+// define the link that apollo will connect to
 const uri = process.env.DEV
-  ? // ? 'http://localhost:8000/graphql'
-    'https://da-ipms.herokuapp.com/graphql'
+  ? 'http://localhost:8000/graphql'
   : 'https://da-ipms.herokuapp.com/graphql';
 
+// Create cache
 const cache = new InMemoryCache({
   addTypename: true
 });
@@ -26,9 +27,10 @@ export const persistor = new CachePersistor({
   storage: localforage
 });
 
+// this function determines the size of the localforage database
 persistor.getSize().then(size => console.log(size));
 
-// call the persist cache
+// call/initialize the persist cache
 persistCache({
   cache,
   storage: localforage

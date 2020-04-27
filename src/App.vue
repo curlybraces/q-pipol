@@ -19,6 +19,7 @@ export default {
           position: 'bottom-right',
           ignoreDefaults: true
         });
+        this.$router.push('/dashboard');
       }
     }
   },
