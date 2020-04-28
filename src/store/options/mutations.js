@@ -65,3 +65,7 @@ export function SET_IMPLEMENTATION_MODES(state, payload) {
 export function SET_BASES(state, payload) {
   state.bases = payload;
 }
+
+export function SET_CURRENCIES(state, payload) {
+	state.currencies = payload
+}

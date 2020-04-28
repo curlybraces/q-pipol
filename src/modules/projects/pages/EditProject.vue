@@ -853,16 +853,33 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import PageTitle from '../../ui/page/PageTitle';
 import { FETCH_PROJECT_QUERY } from '../../../graphql/queries';
-import PageContainer from '../../ui/page/PageContainer';
-import TextInput from '../../ui/form-inputs/TextInput';
-import RadioInput from '../../ui/form-inputs/RadioInput';
-import SingleSelect from '../../ui/form-inputs/SingleSelect';
-import MoneyInput from '../../ui/form-inputs/MoneyInput';
-import DateInput from '../../ui/form-inputs/DateInput';
-import GadForm from '../components/GadForm';
-import ListOptionGroup from '../../ui/form-inputs/ListOptionGroup';
+const PageTitle = () =>
+  import(/* webpackChunkName: 'PageTitle' */ '../../ui/page/PageTitle');
+const PageContainer = () =>
+  import(/* webpackChunkName: 'PageContainer' */ '../../ui/page/PageContainer');
+const TextInput = () =>
+  import(/* webpackChunkName: 'TextInput' */ '../../ui/form-inputs/TextInput');
+const RadioInput = () =>
+  import(
+    /* webpackChunkName: 'RadioInput' */ '../../ui/form-inputs/RadioInput'
+  );
+const SingleSelect = () =>
+  import(
+    /* webpackChunkName: 'SingleSelect' */ '../../ui/form-inputs/SingleSelect'
+  );
+const MoneyInput = () =>
+  import(
+    /* webpackChunkName: 'MoneyInput' */ '../../ui/form-inputs/MoneyInput'
+  );
+const DateInput = () =>
+  import(/* webpackChunkName: 'DateInput' */ '../../ui/form-inputs/DateInput');
+const GadForm = () =>
+  import(/* webpackChunkName: 'GadForm' */ '../components/shared/GadForm');
+const ListOptionGroup = () =>
+  import(
+    /* webpackChunkName: 'ListOptionGroup' */ '../../ui/form-inputs/ListOptionGroup'
+  );
 
 export default {
   components: {

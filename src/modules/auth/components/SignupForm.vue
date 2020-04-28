@@ -36,7 +36,7 @@
       dark
     >
       <template v-slot:prepend>
-        <q-icon :name="laAtSolid"></q-icon>
+        <q-icon name="alternate_email"></q-icon>
       </template>
     </q-input>
 
@@ -98,7 +98,6 @@
 <script>
 import { mapState, mapActions, mapMutations } from 'vuex';
 import ValidateEmailMixins from '../mixins/ValidateEmailMixins';
-import { laAtSolid } from '@quasar/extras/line-awesome';
 import PasswordInput from '../../ui/form-inputs/PasswordInput';
 
 export default {
@@ -167,9 +166,6 @@ export default {
         }
       });
     }
-  },
-  created() {
-    this.laAtSolid = laAtSolid;
   }
 };
 </script>

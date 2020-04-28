@@ -41,7 +41,6 @@
     "jspdf": "^1.5.3",
     "jspdf-autotable": "^3.3.2",
     "localforage": "^1.7.3",
-    "moment": "^2.24.0",
     "papaparse": "^5.2.0",
     "quasar": "^1.9.16",
     "v-money": "^0.8.1",

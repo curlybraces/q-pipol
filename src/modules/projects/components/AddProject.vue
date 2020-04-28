@@ -99,12 +99,17 @@
       </div>
     </div>
 
-    <div class="row">
-      <money-input
-        v-model="total_project_cost"
-        label="Total Project Cost (PhP)"
-        :rules="rules.notZero"
-      ></money-input>
+    <div class="row q-col-gutter-sm q-pl-sm">
+			<div class="col-3">
+				<single-select label="Currency" v-model="currency_id" :options="currencies" :rules="rules.required"></single-select>
+			</div>
+			<div class="col-9">
+				<money-input
+					v-model="total_project_cost"
+					label="Total Project Cost (PhP)"
+					:rules="rules.notZero"
+				></money-input>
+			</div>
     </div>
 
     <div class="row q-pl-sm q-pt-sm q-col-gutter-sm">
@@ -161,6 +166,7 @@ export default {
   computed: {
     ...mapState('project', ['project', 'loading']),
     ...mapState('options', [
+    	'currencies',
       'spatial_coverages',
       'currencies',
       'funding_sources_options',
@@ -180,6 +186,7 @@ export default {
       'project.spatial_coverage_id',
       'project.target_start_year',
       'project.target_end_year',
+      'project.currency_id',
       'project.total_project_cost'
     ]),
     filteredYears() {
@@ -210,6 +217,7 @@ export default {
         spatial_coverage_id: this.spatial_coverage_id,
         target_start_year: this.target_start_year,
         target_end_year: this.target_end_year,
+				currency_id: this.currency_id,
         total_project_cost: this.total_project_cost
       };
       this.createProject(payload);

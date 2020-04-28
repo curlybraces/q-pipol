@@ -55,6 +55,15 @@ export const FETCH_UNREAD_NOTIFICATIONS_QUERY = gql`
 
 /* Options */
 
+export const FETCH_CURRENCIES = gql`
+	query currencies {
+		currencies {
+			id
+			name
+		}
+	}
+`;
+
 export const FETCH_DISTRICTS = gql`
   query districts {
     districts {

@@ -10,7 +10,7 @@
       </div>
 
       <div class="row justify-center">
-        <q-card bordered flat class="my-card bg-info" dark>
+        <q-card bordered flat class="my-card bg-info" dark square>
           <div class="row q-pa-md text-weight-light text-h6">
             {{
               tab == 'login'

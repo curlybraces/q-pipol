@@ -2,7 +2,7 @@
   <page-container>
     <page-title
       :title="
-        `Projects (Total: ${relayProjects ? relayProjects.edges.length : 0})`
+        `Projects (Total: ${relayProjects.edges ? relayProjects.edges.length : 0})`
       "
     ></page-title>
 
@@ -49,7 +49,16 @@
           </template>
         </q-banner>
       </template>
-      <q-list separator>
+
+			<div class="row justify-end q-pa-sm">
+				<q-btn
+					color="primary"
+					label="Endorse"
+					@click="endorseProjectDialog = true"
+					icon-right="chevron_right" />
+			</div>
+
+			<q-list separator>
         <q-item-label header v-if="this.search.length >= 3"
           >Found <b>{{ filteredProjects.length }}</b> titles that contains
           <span class="text-negative">{{ search }}...</span></q-item-label
@@ -70,6 +79,19 @@
       </q-list>
     </template>
 
+		<q-dialog
+			v-model="endorseProjectDialog"
+			full-height
+			:position="$q.screen.xs ? void 0 : 'right'"
+			persistent
+			:maximized="$q.screen.xs"
+			transition-show="jump-left"
+			transition-hide="jump-right">
+			<endorse-projects
+				:projects="relayProjects.edges"
+				@close="endorseProjectDialog = false" />
+		</q-dialog>
+
     <q-page-sticky position="bottom" :offset="[18, 18]" v-if="isEncoder">
       <q-btn
         fab
@@ -84,15 +106,19 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import PageTitle from '../../ui/page/PageTitle';
-import ProjectItem from '../components/ProjectItem';
 import { RELAY_PROJECTS_QUERY } from '../../../graphql/queries';
 import FindListener from '../../../mixins/FindListener';
-import PageContainer from '../../ui/page/PageContainer';
+import EndorseProjects from '../components/EndorseProjects'
+const PageTitle = () =>
+  import(/* webpackChunkName: 'PageTitle' */ '../../ui/page/PageTitle');
+const ProjectItem = () =>
+  import(/* webpackChunkName: 'ProjectItem' */ '../components/ProjectItem');
+const PageContainer = () =>
+  import(/* webpackChunkName: 'PageContainer' */ '../../ui/page/PageContainer');
 
 export default {
   name: 'ProjectsPage',
-  components: { PageContainer, PageTitle, ProjectItem },
+  components: {EndorseProjects, PageContainer, PageTitle, ProjectItem },
   mixins: [FindListener],
   apollo: {
     relayProjects: {
@@ -111,11 +137,12 @@ export default {
   },
   data() {
     return {
-      relayProjects: [],
+      relayProjects: {},
       first: 10,
       after: '',
       hasMore: true,
-      search: ''
+      search: '',
+	    endorseProjectDialog: false
     };
   },
   computed: {

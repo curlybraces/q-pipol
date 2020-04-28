@@ -36,14 +36,14 @@
           {{ project.description }}
         </q-item-label>
         <q-item-label caption>
-          Created {{ project.created_at | timeDiff }}
+          Created {{ project.created_at | dateDiff }}
         </q-item-label>
       </q-item-section>
 
       <!-- project cost -->
       <q-item-section class="text-right">
         <q-item-label class="text-orange-9">
-          PhP
+          {{ project.currency ? project.currency.name : '' }}
           {{
             project.total_project_cost
               ? project.total_project_cost.toLocaleString()
@@ -106,9 +106,9 @@
 </template>
 
 <script>
-import moment from 'moment';
 import { mapState, mapActions, mapGetters } from 'vuex';
 import { Dialog } from 'quasar';
+import { dateDiff } from '../../../utils/date-diff.utils';
 
 export default {
   name: 'ProjectItem',
@@ -150,8 +150,8 @@ export default {
       }
       return value;
     },
-    timeDiff(val) {
-      return moment(val).calendar();
+    dateDiff(val) {
+      return dateDiff(val);
     }
   }
 };

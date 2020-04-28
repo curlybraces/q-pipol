@@ -9,7 +9,6 @@ module.exports = function(ctx) {
       'apollo-boost',
 	    'axios',
       'router-auth',
-      'moment',
 	    'test'
     ],
 
@@ -41,7 +40,7 @@ module.exports = function(ctx) {
 
       components: [],
 
-      directives: [ 'TouchPan' ],
+      directives: [ 'TouchPan', 'Ripple' ],
 
       // Quasar plugins
       plugins: [
@@ -62,7 +61,7 @@ module.exports = function(ctx) {
       vueRouterMode: 'history',
       // vueCompiler: true,
       gzip: true,
-      // analyze: true, // analyze after build
+      analyze: true, // analyze after build
       // extractCSS: false,
       extendWebpack(cfg) {
         cfg.module.rules.push({

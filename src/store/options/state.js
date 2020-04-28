@@ -18,6 +18,7 @@ export default function() {
     challenges: [],
     funding_institutions_options: [],
     implementation_modes: [],
-    bases: []
+    bases: [],
+	  currencies: []
   };
 }

@@ -470,6 +470,7 @@ export const CREATE_PROJECT_MUTATION = gql`
     $icc_approved_date: String
     $neda_board: Boolean
     $neda_board_date: String
+	  $currency_id: ID
     $total_project_cost: Float
     $implementation_risk: String
     $mitigation_strategy: String
@@ -616,6 +617,7 @@ export const CREATE_PROJECT_MUTATION = gql`
         icc_approved_date: $icc_approved_date
         neda_board: $neda_board
         neda_board_date: $neda_board_date
+	      currency_id: $currency_id
         total_project_cost: $total_project_cost
         implementation_risk: $implementation_risk
         mitigation_strategy: $mitigation_strategy
@@ -729,6 +731,10 @@ export const CREATE_PROJECT_MUTATION = gql`
       description
       target_start_year
       target_end_year
+	    currency {
+		    id
+		    name
+	    }
       total_project_cost
       can_update
       creator {
@@ -791,6 +797,7 @@ export const UPDATE_PROJECT_MUTATION = gql`
     $icc_approved_date: String
     $neda_board: Boolean
     $neda_board_date: String
+	  $currency_id: ID
     $total_project_cost: Float
     $implementation_risk: String
     $mitigation_strategy: String
@@ -937,6 +944,7 @@ export const UPDATE_PROJECT_MUTATION = gql`
         icc_approved_date: $icc_approved_date
         neda_board: $neda_board
         neda_board_date: $neda_board_date
+      	currency_id: $currency_id
         total_project_cost: $total_project_cost
         implementation_risk: $implementation_risk
         mitigation_strategy: $mitigation_strategy
@@ -1143,6 +1151,11 @@ export const FETCH_PROJECT_QUERY = gql`
       icc_approved_date
       neda_board
       neda_board_date
+	    currency_id
+	    currency {
+		    id
+		    name
+	    }
       total_project_cost
       selected_bases
       bases {
@@ -1266,6 +1279,29 @@ export const FETCH_PROJECT_QUERY = gql`
       }
       created_at
       updated_at
+    }
+  }
+`;
+
+export const ENDORSE_PROJECTS_MUTATION = gql`
+  mutation endorseProjects(
+	  $projects: [ID!]!
+    $file: Upload!
+  ) {
+    endorseProjects(
+      projects: $projects
+      file: $file
+    ) {
+      id
+      file_name
+      file_path
+      file_size
+      file_type
+      dropbox_link
+      projects {
+        id
+	      title
+      }
     }
   }
 `;

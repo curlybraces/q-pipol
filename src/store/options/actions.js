@@ -1,5 +1,6 @@
 import { apolloClient } from 'boot/apollo-boost';
 import {
+	FETCH_CURRENCIES,
   FETCH_DISTRICTS,
   FETCH_FUNDING_SOURCES,
   FETCH_OPERATING_UNITS,
@@ -17,6 +18,17 @@ import {
   FETCH_BASES,
   FETCH_IMPLEMENTATION_MODES
 } from '../../graphql/queries';
+
+export function fetchCurrencies({ commit }) {
+	apolloClient
+		.query({
+			query: FETCH_CURRENCIES
+		})
+		.then(({ data }) => {
+			commit('SET_CURRENCIES', data.currencies)
+		})
+		.catch(err => console.log(err.message))
+}
 
 export function fetchDistricts({ commit }) {
   apolloClient
@@ -201,6 +213,7 @@ export function fetchYears({ commit }) {
 }
 
 export function initializeOptions({ dispatch }) {
+	dispatch('fetchCurrencies');
   dispatch('fetchDistricts');
   dispatch('fetchFundingSources');
   dispatch('fetchFundingInstitutions');

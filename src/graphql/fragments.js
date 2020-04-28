@@ -60,6 +60,10 @@ export const BASIC_INFORMATION_FRAGMENT = gql`
     }
     target_start_year
     target_end_year
+	  currency {
+		  id
+		  name
+	  }
     total_project_cost
     submission_status_id
     submission_status {

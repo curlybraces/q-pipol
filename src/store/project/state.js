@@ -6,6 +6,7 @@ export const INITIAL_STATE = {
   infrastructure: false,
   operating_unit_id: null,
   description: null,
+	currency_id: '1',
   total_project_cost: 0,
   project_status_id: null,
   typology_id: null,

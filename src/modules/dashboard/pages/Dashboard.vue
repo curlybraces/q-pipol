@@ -172,10 +172,13 @@
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex';
 import { RELAY_PROJECTS_QUERY } from '../../../graphql/queries';
-import PageTitle from '../../ui/page/PageTitle';
 import { openURL } from 'quasar';
-import PageContainer from '../../ui/page/PageContainer';
-import ActivityComponent from '../components/ActivityComponent';
+const PageTitle = () =>
+  import(/* webpackChunkName: '' */ '../../ui/page/PageTitle');
+const PageContainer = () =>
+  import(/* webpackChunkName: '' */ '../../ui/page/PageContainer');
+const ActivityComponent = () =>
+  import(/* webpackChunkName: '' */ '../components/ActivityComponent');
 
 export default {
   name: 'PageIndex',

@@ -38,8 +38,12 @@
 
 <script>
 import gql from 'graphql-tag';
-import PageTitle from '../../ui/page/PageTitle';
-import CheckboxImage from '../../ui/form-inputs/CheckboxImage';
+const PageTitle = () =>
+  import(/* webpackChunkName: 'PageTitle' */ '../../ui/page/PageTitle');
+const CheckboxImage = () =>
+  import(
+    /* webpackChunkName: 'CheckboxImage' */ '../../ui/form-inputs/CheckboxImage'
+  );
 
 export default {
   components: { CheckboxImage, PageTitle },
