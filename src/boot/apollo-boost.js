@@ -45,7 +45,6 @@ const authMiddleware = new ApolloLink((operation, forward) => {
       authorization: token ? `Bearer ${token}` : ''
     }
   }));
-
   return forward(operation);
 });
 
@@ -60,9 +59,10 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (networkError) {
     console.error(`[Network error]: ${networkError}`);
     Notify.create({
-      color: 'negative',
-      message: 'Network Error'
-    });
+	    message: 'A network error occurred.',
+	    color: 'negative',
+	    position: 'top-right'
+    })
   }
 });
 

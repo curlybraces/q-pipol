@@ -4,6 +4,7 @@
       <div
         class="offset-xl-2 col-xl-8 offset-lg-3 col-lg-6 offset-md-1 col-md-10 offset-sm-1 col-sm-10 offset-xs-0 col-xs-12"
       >
+				<!-- Content goes here -->
         <slot></slot>
       </div>
     </div>
@@ -14,7 +15,7 @@
       :scroll-offset="150"
       :offset="[18, 18]"
     >
-      <q-btn fab icon="keyboard_arrow_up" color="primary" unelevated />
+      <q-btn fab icon="keyboard_arrow_up" color="secondary" unelevated />
     </q-page-scroller>
   </q-page>
 </template>

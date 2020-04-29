@@ -242,6 +242,12 @@ export default {
           url: '/projects',
           color: 'blue'
         },
+				{
+					label: 'Add Project',
+					icon: 'playlist_add',
+					url: '/projects/add',
+					color: 'secondary'
+				},
         {
           label: 'Activities',
           icon: 'work_outline',

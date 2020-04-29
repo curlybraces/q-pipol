@@ -1,9 +1,7 @@
 <template>
   <page-container>
     <page-title
-      :title="
-        `Projects (Total: ${relayProjects.edges ? relayProjects.edges.length : 0})`
-      "
+      title="Projects"
     ></page-title>
 
     <div class="row q-pa-sm justify-center">
@@ -24,8 +22,8 @@
       </q-input>
     </div>
 
-    <template v-if="$apollo.loading">
-      <q-inner-loading :showing="$apollo.loading">
+    <template v-if="$apollo.queries.relayProjects.loading">
+      <q-inner-loading :showing="$apollo.queries.relayProjects.loading">
         <q-spinner-tail size="50px" color="primary"></q-spinner-tail>
       </q-inner-loading>
     </template>
@@ -50,15 +48,20 @@
         </q-banner>
       </template>
 
-			<div class="row justify-end q-pa-sm">
-				<q-btn
-					color="primary"
-					label="Endorse"
-					@click="endorseProjectDialog = true"
-					icon-right="chevron_right" />
+			<div class="row justify-between items-center q-pa-sm">
+				<div>
+					{{ `Showing ${relayProjects.edges ? relayProjects.edges.length : 0} of ${relayProjects.pageInfo ? relayProjects.pageInfo.total : 0 } projects` }}
+				</div>
+				<div>
+					<q-btn
+						color="primary"
+						label="Endorse"
+						@click="endorseProjectDialog = true"
+						icon-right="chevron_right" />
+				</div>
 			</div>
 
-			<q-list separator>
+			<q-list separator bordered>
         <q-item-label header v-if="this.search.length >= 3"
           >Found <b>{{ filteredProjects.length }}</b> titles that contains
           <span class="text-negative">{{ search }}...</span></q-item-label
@@ -68,7 +71,7 @@
         </template>
         <q-item
           :clickable="hasMore"
-          v-if="!$apollo.loading && relayProjects.edges.length"
+          v-if="!$apollo.queries.relayProjects.loading && relayProjects.edges.length"
           class="text-center"
           @click="loadMore"
         >
@@ -92,7 +95,7 @@
 				@close="endorseProjectDialog = false" />
 		</q-dialog>
 
-    <q-page-sticky position="bottom" :offset="[18, 18]" v-if="isEncoder">
+    <q-page-sticky position="bottom-left" :offset="[18, 18]" v-if="isEncoder">
       <q-btn
         fab
         icon="add"
@@ -107,8 +110,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import { RELAY_PROJECTS_QUERY } from '../../../graphql/queries';
-import FindListener from '../../../mixins/FindListener';
-import EndorseProjects from '../components/EndorseProjects'
+const EndorseProjects = () => import(/* webpackChunkName: 'EndorseProjects' */ '../components/EndorseProjects')
 const PageTitle = () =>
   import(/* webpackChunkName: 'PageTitle' */ '../../ui/page/PageTitle');
 const ProjectItem = () =>
@@ -118,8 +120,7 @@ const PageContainer = () =>
 
 export default {
   name: 'ProjectsPage',
-  components: {EndorseProjects, PageContainer, PageTitle, ProjectItem },
-  mixins: [FindListener],
+  components: { EndorseProjects, PageContainer, PageTitle, ProjectItem },
   apollo: {
     relayProjects: {
       query: RELAY_PROJECTS_QUERY,
