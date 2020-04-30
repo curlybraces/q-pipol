@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import createPersistedState from 'vuex-persistedstate';
+// import createPersistedState from 'vuex-persistedstate';
 
 import activities from '../modules/activities/store';
 import auth from '../modules/auth/store';
@@ -40,13 +40,13 @@ export default function(/* { ssrContext } */) {
     // enable strict mode (adds overhead!)
     // for dev mode only
     strict: process.env.DEV,
-    plugins: [
-      createPersistedState({
-        key: 'da-ipms',
-        paths: ['options'],
-        rehydrated: () => console.log('The store has been reloaded.')
-      })
-    ]
+    // plugins: [
+    //   createPersistedState({
+    //     key: 'da-ipms',
+    //     paths: ['options'],
+    //     rehydrated: () => console.log('The store has been reloaded.')
+    //   })
+    // ]
   });
 
   return Store;

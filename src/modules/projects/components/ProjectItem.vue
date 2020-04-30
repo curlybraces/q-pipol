@@ -74,6 +74,7 @@
                 </q-item-section>
               </q-item>
               <q-item
+                v-if="isEncoder"
                 clickable
                 v-close-popup
                 :to="'/projects/' + project.id + '/edit'"
@@ -122,7 +123,8 @@ export default {
   },
   computed: {
     ...mapState('settings', ['dark']),
-    ...mapGetters('settings', ['buttonColor'])
+    ...mapGetters('settings', ['buttonColor']),
+    ...mapGetters('auth',['isEncoder'])
   },
   data() {
     return {};

@@ -19,7 +19,7 @@
           <q-input
             outlined
             dense
-            :type="showPassword ? 'password' : 'text'"
+            :type="showPassword ? 'text' : 'password'"
             v-model="old_password"
             placeholder="Current Password"
             :rules="[val => !!val || 'Current password is required']"
@@ -27,7 +27,7 @@
           >
             <template v-slot:append>
               <q-icon
-                :name="showPassword ? 'visibility' : 'visibility_off'"
+                :name="showPassword ? 'visibility_off' : 'visibility'"
                 @click="showPassword = !showPassword"
               />
             </template>
@@ -38,7 +38,7 @@
           <q-input
             outlined
             dense
-            :type="showPassword ? 'password' : 'text'"
+            :type="showPassword ? 'text' : 'password'"
             v-model="password"
             placeholder="New Password"
             :rules="[
@@ -48,7 +48,7 @@
           >
             <template v-slot:append>
               <q-icon
-                :name="showPassword ? 'visibility' : 'visibility_off'"
+                :name="showPassword ? 'visibility_off' : 'visibility'"
                 @click="showPassword = !showPassword"
               />
             </template>
@@ -59,7 +59,7 @@
           <q-input
             outlined
             dense
-            :type="showPassword ? 'password' : 'text'"
+            :type="showPassword ? 'text' : 'password'"
             v-model="password_confirmation"
             placeholder="Confirm Password"
             :rules="[
@@ -70,7 +70,7 @@
           >
             <template v-slot:append>
               <q-icon
-                :name="showPassword ? 'visibility' : 'visibility_off'"
+                :name="showPassword ? 'visibility_off' : 'visibility'"
                 @click="showPassword = !showPassword"
               />
             </template>

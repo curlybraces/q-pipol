@@ -1,7 +1,6 @@
 import gql from 'graphql-tag';
 import {
   USER_FRAGMENT,
-  NOTIFICATION_FRAGMENT,
   BASIC_INFORMATION_FRAGMENT
 } from './fragments';
 
@@ -19,9 +18,6 @@ export const GET_CURRENT_USER = gql`
   query getCurrentUser {
     getCurrentUser {
       ...user
-      unreadNotifications {
-        id
-      }
     }
   }
   ${USER_FRAGMENT}
@@ -30,27 +26,53 @@ export const GET_CURRENT_USER = gql`
 /* Notifications */
 
 export const FETCH_NOTIFICATIONS_QUERY = gql`
-  query me {
-    me {
+  query notifications {
+    notifications {
       id
-      notifications {
-        ...notification
+      type
+      notifiable_id
+      notifiable_type
+      notifiable {
+        name
       }
+      data {
+        type
+        from
+        title
+        body
+        actionText
+        actionUrl
+      }
+      read_at
+      created_at
+      updated_at
     }
   }
-  ${NOTIFICATION_FRAGMENT}
 `;
 
 export const FETCH_UNREAD_NOTIFICATIONS_QUERY = gql`
-  query me {
-    me {
+  query unreadNotifications {
+    unreadNotifications {
       id
-      unreadNotifications {
-        ...notification
+      type
+      notifiable_id
+      notifiable_type
+      notifiable {
+        name
       }
+      data {
+        type
+        from
+        title
+        body
+        actionText
+        actionUrl
+      }
+      read_at
+      created_at
+      updated_at
     }
   }
-  ${NOTIFICATION_FRAGMENT}
 `;
 
 /* Options */
@@ -441,16 +463,40 @@ export const FETCH_PROJECT_QUERY = gql`
       afmip
       title
       type_id
+      type {
+        id
+        name
+      }
       infrastructure
       operating_unit_id
       main_funding_source_id
+      main_funding_source {
+        id
+        name
+      }
       funding_institution_id
       implementation_mode_id
+      implementation_mode {
+        id
+        name
+      }
       priority_ranking
       project_status_id
+      project_status {
+        id
+        name
+      }
       typology_id
+      typology {
+        id
+        name
+      }
       tier_id
       spatial_coverage_id
+      spatial_coverage {
+        id
+        name
+      }
       cities_municipalities
       description
       components
@@ -466,6 +512,9 @@ export const FETCH_PROJECT_QUERY = gql`
       implementation_end_date
       clearinghouse
       clearinghouse_date
+      has_row
+      has_rap
+      has_fs
       neda_submission
       neda_submission_date
       neda_secretariat_review
@@ -576,6 +625,7 @@ export const FETCH_PROJECT_QUERY = gql`
       disbursement_2022
       disbursement_2023
       disbursement_total
+      image_url
       updates
       updates_date
       districts {
@@ -601,24 +651,21 @@ export const FETCH_PROJECT_QUERY = gql`
 
 export const FETCH_ACTIVITIES = gql`
   query {
-    getCurrentUser {
+    activities {
       id
-      activities {
+      description
+      properties
+      subject {
         id
-        description
-        properties
-        subject {
-          id
-          name
-          title
-        }
-        causer {
-          id
-          name
-        }
-        created_at
-        updated_at
+        name
+        title
       }
+      causer {
+        id
+        name
+      }
+      created_at
+      updated_at
     }
   }
 `;

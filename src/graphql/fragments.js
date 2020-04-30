@@ -22,27 +22,6 @@ export const USER_FRAGMENT = gql`
   }
 `;
 
-export const NOTIFICATION_FRAGMENT = gql`
-  fragment notification on Notification {
-    id
-    type
-    notifiable_id
-    notifiable_type
-    notifiable {
-      name
-    }
-    data {
-      id
-      from
-      title
-      message
-    }
-    read_at
-    created_at
-    updated_at
-  }
-`;
-
 export const BASIC_INFORMATION_FRAGMENT = gql`
   fragment basicInformation on Project {
     id
@@ -65,11 +44,6 @@ export const BASIC_INFORMATION_FRAGMENT = gql`
 		  name
 	  }
     total_project_cost
-    submission_status_id
-    submission_status {
-      id
-      name
-    }
     creator {
       id
       name

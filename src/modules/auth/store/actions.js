@@ -11,7 +11,7 @@ import {
   UPDATE_PASSWORD_MUTATION,
   VERIFY_EMAIL_MUTATION,
   FORGOT_PASSWORD_MUTATION,
-  UPDATE_IMAGE_URL_MUTATION,
+  UPLOAD_USER_AVATAR_MUTATION,
   UPDATE_PROFILE_MUTATION
 } from '../../../graphql/mutations';
 import { showGraphQLErrorMessage } from 'src/functions/function-graphql-error-messages';
@@ -128,7 +128,24 @@ export function updateProfile({ commit }, payload) {
   apolloClient
     .mutate({
       mutation: UPDATE_PROFILE_MUTATION,
-      variables: payload
+      variables: payload,
+      update: (store, {data: { updateUser } } ) => {
+        const data = store.readQuery({
+          query: GET_CURRENT_USER
+        })
+
+        data.getCurrentUser.name = updateUser.name
+        data.getCurrentUser.position = updateUser.position
+        data.getCurrentUser.contact_number = updateUser.contact_number
+        data.getCurrentUser.operating_unit = updateUser.operating_unit
+
+        console.log(data)
+
+        store.writeQuery({
+          query: GET_CURRENT_USER,
+          data
+        })
+      }
     })
     .then(() => {
       commit('SET_LOADING', false);
@@ -137,7 +154,8 @@ export function updateProfile({ commit }, payload) {
         message: 'Successfully updated profile.'
       });
 
-      this.$router.go();
+      return;
+      // this.$router.go();
     })
     .catch(err => {
       commit('SET_LOADING', false);

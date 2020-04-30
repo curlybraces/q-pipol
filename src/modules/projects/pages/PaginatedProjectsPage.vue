@@ -48,38 +48,42 @@
         </q-banner>
       </template>
 
-			<div class="row justify-between items-center q-pa-sm">
-				<div>
-					{{ `Showing ${relayProjects.edges ? relayProjects.edges.length : 0} of ${relayProjects.pageInfo ? relayProjects.pageInfo.total : 0 } projects` }}
-				</div>
-				<div>
-					<q-btn
-						color="primary"
-						label="Endorse"
-						@click="endorseProjectDialog = true"
-						icon-right="chevron_right" />
-				</div>
-			</div>
+      <template v-else>
+  			<div class="row justify-between items-center q-pa-sm">
+  				<div>
+  					{{ `Showing ${relayProjects.edges ? relayProjects.edges.length : 0} of ${relayProjects.pageInfo ? relayProjects.pageInfo.total : 0 } projects` }}
+  				</div>
+  				<div>
+  					<q-btn
+  						color="primary"
+  						label="Endorse"
+  						@click="endorseProjectDialog = true"
+  						icon-right="chevron_right" />
+  				</div>
+  			</div>
 
-			<q-list separator bordered>
-        <q-item-label header v-if="this.search.length >= 3"
-          >Found <b>{{ filteredProjects.length }}</b> titles that contains
-          <span class="text-negative">{{ search }}...</span></q-item-label
-        >
-        <template v-for="{ node } in filteredProjects">
-          <project-item :project="node" :key="node.id"></project-item>
-        </template>
-        <q-item
-          :clickable="hasMore"
-          v-if="!$apollo.queries.relayProjects.loading && relayProjects.edges.length"
-          class="text-center"
-          @click="loadMore"
-        >
-          <q-item-section class="text-primary">
-            {{ hasMore ? 'Load More...' : 'End' }}
-          </q-item-section>
-        </q-item>
-      </q-list>
+        <div class="q-pa-sm">
+    			<q-list separator bordered>
+            <q-item-label header v-if="this.search.length >= 3"
+              >Found <b>{{ filteredProjects.length }}</b> titles that contains
+              <span class="text-negative">{{ search }}...</span></q-item-label
+            >
+            <template v-for="{ node } in filteredProjects">
+              <project-item :project="node" :key="node.id"></project-item>
+            </template>
+            <q-item
+              :clickable="hasMore"
+              v-if="!$apollo.queries.relayProjects.loading && relayProjects.edges.length"
+              class="text-center"
+              @click="loadMore"
+            >
+              <q-item-section class="text-primary">
+                {{ hasMore ? 'Load More...' : 'End' }}
+              </q-item-section>
+            </q-item>
+          </q-list>
+        </div>
+      </template>
     </template>
 
 		<q-dialog

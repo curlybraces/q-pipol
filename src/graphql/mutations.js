@@ -77,10 +77,11 @@ export const UPDATE_PASSWORD_MUTATION = gql`
   }
 `;
 
-export const UPDATE_IMAGE_URL_MUTATION = gql`
-  mutation updateImageUrlMutation($image_url: String!) {
-    updateImageUrlMutation(image_url: $image_url) {
+export const UPLOAD_USER_AVATAR_MUTATION = gql`
+  mutation uploadUserAvatar($image: Upload!) {
+    uploadUserAvatar(image: $image) {
       id
+      image_url
     }
   }
 `;
@@ -101,6 +102,15 @@ export const UPDATE_PROFILE_MUTATION = gql`
       }
     ) {
       id
+      name
+      operating_unit_id
+      position
+      contact_number
+      operating_unit {
+        id
+        name
+        image_url
+      }
     }
   }
 `;
@@ -120,21 +130,6 @@ export const MARK_AS_READ_MUTATION = gql`
   mutation markAsRead($id: ID!) {
     markAsRead(id: $id) {
       id
-      type
-      notifiable_id
-      notifiable_type
-      notifiable {
-        name
-      }
-      data {
-        id
-        from
-        title
-        message
-      }
-      read_at
-      created_at
-      updated_at
     }
   }
 `;

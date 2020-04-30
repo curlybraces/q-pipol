@@ -9,11 +9,10 @@
     </div>
 
     <div class="row col-lg-8 col-md-6 col-xs-12 q-col-gutter-sm q-gutter-y-sm">
-      <q-item v-if="loading" class="col">
+      <q-item v-if="$apollo.loading" class="col">
         <q-item-section avatar>
           <q-skeleton type="QAvatar" />
         </q-item-section>
-
         <q-item-section>
           <q-item-label>
             <q-skeleton type="text" width="30%" />
@@ -29,19 +28,19 @@
           </q-item-label>
         </q-item-section>
       </q-item>
-      <q-item class="col" v-if="!loading">
+      <q-item class="col" v-if="!$apollo.loading">
         <q-item-section avatar>
           <q-avatar
             @click="chooseAvatar = true"
             class="cursor-pointer"
             color="green"
           >
-            <q-img :src="imageUrl" />
+            <q-img :src="getCurrentUser.image_url" />
           </q-avatar>
         </q-item-section>
         <q-item-section class="col">
           <q-item-label class="text-weight-bolder">
-            {{ user.name }}
+            {{ getCurrentUser.name }}
             <q-icon
               name="edit"
               color="primary"
@@ -49,11 +48,11 @@
               @click="showUpdateProfileForm"
             />
           </q-item-label>
-          <q-item-label caption>{{ user.position }}</q-item-label>
+          <q-item-label caption>{{ getCurrentUser.position }}</q-item-label>
           <q-item-label caption>{{
-            user.operating_unit ? user.operating_unit.name : ''
+            getCurrentUser.operating_unit ? getCurrentUser.operating_unit.name : ''
           }}</q-item-label>
-          <q-item-label caption>{{ user.contact_number }}</q-item-label>
+          <q-item-label caption>{{ getCurrentUser.contact_number }}</q-item-label>
         </q-item-section>
       </q-item>
     </div>
@@ -138,7 +137,7 @@
                   color="primary"
                   type="submit"
                   class="full-width"
-                  :loading="loading"
+                  :loading="$apollo.loading"
                 />
               </div>
             </div>
@@ -150,10 +149,11 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import SingleSelect from '../../ui/form-inputs/SingleSelect';
 import TextInput from '../../ui/form-inputs/TextInput';
 import ChooseAvatar from './/ChooseAvatar';
+import { GET_CURRENT_USER } from '../../../graphql/queries'
 
 export default {
   components: { SingleSelect, TextInput, ChooseAvatar },
@@ -167,21 +167,25 @@ export default {
       operating_unit_id: null,
       position: null,
       contact_number: null,
-      updateProfileDialog: false
+      updateProfileDialog: false,
+      getCurrentUser: {}
     };
   },
   computed: {
-    ...mapState('auth', ['user', 'loading']),
     ...mapState('options', ['operating_units']),
-    ...mapGetters('auth', ['imageUrl'])
+  },
+  apollo: {
+    getCurrentUser: {
+      query: GET_CURRENT_USER
+    }
   },
   methods: {
     ...mapActions('auth', ['updateProfile']),
     showUpdateProfileForm() {
-      this.name = this.user.name;
-      this.operating_unit_id = this.user.operating_unit_id;
-      this.position = this.user.position;
-      this.contact_number = this.user.contact_number;
+      this.name = this.getCurrentUser.name;
+      this.operating_unit_id = this.getCurrentUser.operating_unit_id;
+      this.position = this.getCurrentUser.position;
+      this.contact_number = this.getCurrentUser.contact_number;
 
       this.updateProfileDialog = true;
     },

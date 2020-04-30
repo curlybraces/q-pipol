@@ -16,9 +16,13 @@ export function markAsRead({}, payload) {
           query: FETCH_UNREAD_NOTIFICATIONS_QUERY
         });
 
-        data.me.unreadNotifications = data.me.unreadNotifications.filter(
+        console.log(data.unreadNotifications)
+
+        data.unreadNotifications = data.unreadNotifications.filter(
           notif => notif.id !== markAsRead.id
         );
+
+        console.log(data)
 
         store.writeQuery({
           query: FETCH_UNREAD_NOTIFICATIONS_QUERY,
@@ -56,7 +60,7 @@ export function markAllAsRead({}) {
             query: FETCH_UNREAD_NOTIFICATIONS_QUERY
           });
 
-          data.me.unreadNotifications = [];
+          data.unreadNotifications = [];
 
           store.writeQuery({
             query: FETCH_UNREAD_NOTIFICATIONS_QUERY,
