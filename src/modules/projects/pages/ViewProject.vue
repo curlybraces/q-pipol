@@ -9,6 +9,16 @@
     </template>
 
     <template v-else>
+      <div class="row q-my-md q-pa-sm">
+        <q-img src="http://www.fao.org/uploads/pics/NFQCS_banner.png" height="240px" alt="project banner">
+          <q-btn flat round class="absolute all-pointer-events bg-grey-10" icon="camera_alt" size="md" color="white" style="bottom: 3px; right: 3px">
+            <q-tooltip>
+              Tooltip
+            </q-tooltip>
+          </q-btn>
+        </q-img>
+      </div>
+
       <div class="row q-col-gutter-sm">
         <div class="col-8 q-pa-sm">
           <q-list>
@@ -46,49 +56,59 @@
             </q-item>
           </q-list>
         </div>
-        <div class="col-4 bg-blue-2 q-pa-sm">
-          <q-list>
-            <q-item>
-              <q-item-section>
-                <q-item-label caption>
-                  Goals
-                </q-item-label>
-                <q-item-label>
-                  {{ project.goals }}
-                </q-item-label>
-              </q-item-section>
-            </q-item>
-            <q-item>
-              <q-item-section>
-                <q-item-label caption>
-                  Outcomes
-                </q-item-label>
-                <q-item-label>
-                  {{ project.outcomes }}
-                </q-item-label>
-              </q-item-section>
-            </q-item>
-            <q-item>
-              <q-item-section>
-                <q-item-label caption>
-                  Objectives
-                </q-item-label>
-                <q-item-label>
-                  {{ project.purpose }}
-                </q-item-label>
-              </q-item-section>
-            </q-item>
-            <q-item>
-              <q-item-section>
-                <q-item-label caption>
-                  Expected Outputs
-                </q-item-label>
-                <q-item-label>
-                  {{ project.expected_outputs }}
-                </q-item-label>
-              </q-item-section>
-            </q-item>
-          </q-list>
+        <div class="col-4 bg-fao q-pa-sm">
+          <q-item-label header class="text-uppercase text-subtitle1">Key Facts</q-item-label>
+          <q-item>
+            <q-item-section>
+              <q-item-label caption>
+                Fund Source
+              </q-item-label>
+              <q-item-label class="text-body2">
+                {{ project.main_funding_source ?  project.main_funding_source.name : 'Not specified' }}
+              </q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item>
+            <q-item-section>
+              <q-item-label caption>
+                Total Project Cost
+              </q-item-label>
+              <q-item-label class="text-body2">
+                {{ project.currency ? project.currency.name : 'PHP' }}
+                {{ project.total_project_cost.toLocaleString() }}
+              </q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item>
+            <q-item-section>
+              <q-item-label caption>
+                Duration
+              </q-item-label>
+              <q-item-label class="text-body2">
+                {{ project.target_start_year + ' - ' + project.target_end_year }}
+              </q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item>
+            <q-item-section>
+              <q-item-label caption>
+                Beneficiaries
+              </q-item-label>
+              <q-item-label class="text-body2">
+                {{ project.beneficiaries ? project.beneficiaries : 'Not specified' }}
+              </q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item>
+            <q-item-section>
+              <q-item-label caption>
+                Coverage
+              </q-item-label>
+              <q-item-label class="text-body2">
+                {{ project.spatial_coverage ? project.spatial_coverage.name : 'Not specified' }}
+              </q-item-label>
+            </q-item-section>
+          </q-item>
         </div>
       </div>
     </template>

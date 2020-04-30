@@ -15,9 +15,10 @@
 </template>
 
 <script>
-import gql from 'graphql-tag';
-import { showSuccessNotification } from '../../../functions/function-show-notifications';
-import { apolloClient } from '../../../boot/apollo-boost';
+import { showSuccessNotification } from '../../../functions/function-show-notifications'
+import { apolloClient } from '../../../boot/apollo-boost'
+import { GET_CURRENT_USER } from '../../../graphql/queries'
+import { UPLOAD_USER_AVATAR_MUTATION } from '../../../graphql/mutations' 
 
 export default {
   name: 'ChooseAvatar',
@@ -32,18 +33,23 @@ export default {
   methods: {
     uploadFileByUploader() {
       const file = this.$refs.uploader.files[0];
-      apolloClient
+      return apolloClient
         .mutate({
-          mutation: gql`
-            mutation uploadUserAvatar($image: Upload!) {
-              uploadUserAvatar(image: $image) {
-                id
-                image_url
-              }
-            }
-          `,
+          mutation: UPLOAD_USER_AVATAR_MUTATION,
           variables: {
             image: file
+          },
+          update: (store, { data: { uploadUserAvatar } }) => {
+            const data = store.readQuery({
+              query: GET_CURRENT_USER
+            });
+
+            data.getCurrentUser.image_url = uploadUserAvatar.image_url;
+
+            store.writeQuery({
+              query: GET_CURRENT_USER,
+              data
+            });
           }
         })
         .then(() => {

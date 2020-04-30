@@ -17,10 +17,10 @@
       <q-space />
 
       <q-btn flat round icon="notifications" class="q-mr-md text-grey-6">
-        <q-badge color="red" floating v-if="me.unreadNotifications.length">
-          {{ me.unreadNotifications.length }}
+        <q-badge color="red" floating v-if="unreadNotifications.length">
+          {{ unreadNotifications.length }}
         </q-badge>
-        <template v-if="me.unreadNotifications.length">
+        <template v-if="unreadNotifications.length">
           <q-menu :offset="[0, 15]">
             <q-item dense class="q-pa-none">
               <q-item-section>
@@ -40,7 +40,7 @@
             </q-item>
             <q-list separator>
               <notification-item
-                v-for="notification in me.unreadNotifications"
+                v-for="notification in unreadNotifications"
                 :key="notification.id"
                 :notification="notification"
               />
@@ -57,7 +57,7 @@
         size="sm"
       >
         <q-avatar size="42px">
-          <img :src="imageUrl" />
+          <img :src="getCurrentUser.image_url" />
         </q-avatar>
         <dropdown-menu />
       </q-btn>
@@ -77,7 +77,7 @@ import { mapState, mapGetters, mapActions } from 'vuex';
 import DropdownMenu from './Dropdown';
 import NotificationItem from '../../notifications/components/NotificationItem';
 import RouteTabs from './RouteTabs';
-import { FETCH_UNREAD_NOTIFICATIONS_QUERY } from '../../../graphql/queries';
+import { FETCH_UNREAD_NOTIFICATIONS_QUERY, GET_CURRENT_USER } from '../../../graphql/queries';
 
 export default {
   components: { RouteTabs, DropdownMenu, NotificationItem },
@@ -88,9 +88,12 @@ export default {
   },
   apollo: {
     /**
-     * Load data for notifications
+     * Load data for unread notifications
      */
-    me: {
+    getCurrentUser: {
+      query: GET_CURRENT_USER
+    },
+    unreadNotifications: {
       query: FETCH_UNREAD_NOTIFICATIONS_QUERY
     }
   },
@@ -99,9 +102,8 @@ export default {
       menu: false,
       notificationsDropdown: false,
       markingAllAsRead: false,
-      me: {
-        unreadNotifications: [] // placeholder to ensure that the variable is defined while apollo is being called
-      }
+      unreadNotifications: [], // placeholder to ensure that the variable is defined while apollo is being called
+      getCurrentUser: {}
     };
   },
   methods: {

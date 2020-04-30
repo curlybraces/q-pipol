@@ -3,7 +3,7 @@ import {
   REGISTER_MUTATION,
   LOGIN_MUTATION,
   FORGOT_PASSWORD_MUTATION,
-  UPDATE_IMAGE_URL_MUTATION,
+  UPLOAD_USER_AVATAR_MUTATION,
   UPDATE_PROFILE_MUTATION
 } from 'src/graphql/mutations';
 
@@ -56,7 +56,7 @@ export default {
   uploadAvatar(payload) {
     console.log(payload);
     return client.mutate({
-      mutation: UPDATE_IMAGE_URL_MUTATION,
+      mutation: UPLOAD_USER_AVATAR_MUTATION,
       variables: payload
     });
   },

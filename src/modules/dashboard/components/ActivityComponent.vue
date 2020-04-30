@@ -32,7 +32,7 @@
               </q-item-section>
               <q-item-section>
                 <q-item-label
-                  >{{ activity.description | subject }}:
+                  >{{ activity.description }}:
                   {{
                     activity.subject ? activity.subject.title : ''
                   }}</q-item-label
@@ -73,11 +73,8 @@ export default {
     };
   },
   apollo: {
-    getCurrentUser: {
-      query: FETCH_ACTIVITIES,
-      result({ data }) {
-        this.activities = data.getCurrentUser.activities;
-      }
+    activities: {
+      query: FETCH_ACTIVITIES
     }
   },
   filters: {
@@ -97,6 +94,9 @@ export default {
     timeDiff(val) {
       return moment(val).calendar();
     }
+  },
+  beforeDestroy() {
+    this.$apollo.queries.activities.stop()
   }
 };
 </script>

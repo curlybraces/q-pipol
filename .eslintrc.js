@@ -14,7 +14,7 @@ module.exports = {
   // consider switching to `plugin:vue/strongly-recommended` or `plugin:vue/recommended` for stricter rules.
   extends: [
     'plugin:vue/essential',
-    '@vue/prettier'
+    // '@vue/prettier' .. turn off prettier for a while
   ],
 
   // required to lint *.vue files
@@ -30,6 +30,7 @@ module.exports = {
   },
 
   // add your custom rules here
+
   rules: {
     "quotes": [ 2, "single", { avoidEscape: true } ],
     'no-empty-pattern': 'off',

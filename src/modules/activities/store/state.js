@@ -1,6 +1,6 @@
 export default function() {
   return {
-    activities: {},
+    activities: [],
     loading: false
   };
 }

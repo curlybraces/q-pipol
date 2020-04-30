@@ -38,7 +38,7 @@
                 <q-item-section>Notifications</q-item-section>
                 <q-item-section avatar>
                   <q-avatar color="grey" class="text-white">
-                    {{ user ? user.unreadNotifications.length : 0 }}
+                    {{ unreadNotifications.length }}
                   </q-avatar>
                 </q-item-section>
               </q-item>
@@ -54,12 +54,12 @@
         </div>
 
         <div class="row">
-          <template v-for="(link, index) in links">
+          <template v-for="(link, index) in filteredLinks">
             <div class="col-6" :key="index">
               <q-card flat square class="fit" bordered>
                 <q-item clickable :to="link.url" v-ripple>
                   <q-item-section>
-                    <q-item-label>{{ link.label }}</q-item-label>
+                    <q-item-label>{{ link.label }} {{ link.visible }}</q-item-label>
                   </q-item-section>
                   <q-item-section side top>
                     <q-icon :name="link.icon" size="xl" :color="link.color" />
@@ -171,7 +171,7 @@
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex';
-import { RELAY_PROJECTS_QUERY } from '../../../graphql/queries';
+import { RELAY_PROJECTS_QUERY, FETCH_UNREAD_NOTIFICATIONS_QUERY } from '../../../graphql/queries';
 import { openURL } from 'quasar';
 const PageTitle = () =>
   import(/* webpackChunkName: '' */ '../../ui/page/PageTitle');
@@ -199,6 +199,15 @@ export default {
       );
 
       return exchangeRatesPreview;
+    },
+    filteredLinks() {
+      let filteredLinks = []
+      if (this.isEncoder) {
+        filteredLinks = this.links;
+      } else {
+        filteredLinks = this.links.filter(link => link.encoder === undefined)
+      }
+      return filteredLinks;
     }
   },
   apollo: {
@@ -208,6 +217,9 @@ export default {
         first: 10,
         after: ''
       }
+    },
+    unreadNotifications: {
+      query: FETCH_UNREAD_NOTIFICATIONS_QUERY
     }
   },
   methods: {
@@ -226,13 +238,14 @@ export default {
           total: 0
         }
       },
+      unreadNotifications: [],
       exchangeRates: [],
       exchangeRateDate: '',
       exchangeRateLoading: false,
       links: [
         {
           label: 'Account Settings',
-          icon: 'playlist_add',
+          icon: 'person',
           url: '/account',
           color: 'green'
         },
@@ -242,12 +255,13 @@ export default {
           url: '/projects',
           color: 'blue'
         },
-        {
-          label: 'Activities',
-          icon: 'work_outline',
-          url: '/activity',
-          color: 'purple'
-        },
+				{
+					label: 'Add Project',
+					icon: 'playlist_add',
+					url: '/projects/add',
+					color: 'secondary',
+          encoder: true
+				},
         {
           label: 'Resources',
           icon: 'folder_open',

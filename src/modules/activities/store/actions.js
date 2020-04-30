@@ -7,14 +7,8 @@ export function fetchActivities({ commit }) {
     .query({
       query: FETCH_ACTIVITIES
     })
-    .then(res => {
-      res.data.me.activities.forEach(activity => {
-        const payload = {
-          id: activity.id,
-          activity: activity
-        };
-        commit('ADD_ACTIVITY', payload);
-      });
+    .then(({ data }) => {
+      commit('SET_ACTIVITIES', data.activities);
     })
     .catch(err => console.log(err.message))
     .finally(() => commit('SET_LOADING', false));
