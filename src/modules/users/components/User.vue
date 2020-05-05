@@ -2,7 +2,6 @@
   <q-item
     flat
     bordered
-    :class="user.role && user.role.name === 'guest' ? 'bg-red-1' : ''"
   >
     <q-item-section avatar>
       <q-avatar class="text-white text-uppercase">

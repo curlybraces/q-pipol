@@ -54,7 +54,7 @@
     <div class="row">
       <single-select
         v-model="main_funding_source_id"
-        :options="funding_sources_options"
+        :options="funding_sources"
         label="Main Funding Source"
         :rules="rules.notEmpty"
       />
@@ -141,6 +141,15 @@ import { mapFields } from 'vuex-map-fields';
 import TextInput from '../../ui/form-inputs/TextInput';
 import SingleSelect from '../../ui/form-inputs/SingleSelect';
 import MoneyInput from '../../ui/form-inputs/MoneyInput';
+import { 
+  FETCH_CURRENCIES,
+  FETCH_OPERATING_UNITS, 
+  FETCH_FUNDING_SOURCES, 
+  FETCH_PROJECT_STATUSES, 
+  FETCH_SPATIAL_COVERAGES,
+  FETCH_TYPES,
+  FETCH_YEARS
+} from 'src/graphql/queries'
 
 export default {
   name: 'AddProject',
@@ -149,8 +158,38 @@ export default {
     SingleSelect,
     TextInput
   },
+  apollo: {
+    currencies: {
+      query: FETCH_CURRENCIES
+    },
+    operating_units: {
+      query: FETCH_OPERATING_UNITS
+    },
+    funding_sources: {
+      query: FETCH_FUNDING_SOURCES
+    },
+    project_statuses: {
+      query: FETCH_PROJECT_STATUSES
+    },
+    spatial_coverages: {
+      query: FETCH_SPATIAL_COVERAGES
+    },
+    types: {
+      query: FETCH_TYPES
+    },
+    years: {
+      query: FETCH_YEARS
+    }
+  },
   data() {
     return {
+      operating_units: [],
+      funding_sources: [],
+      project_statuses: [],
+      spatial_coverages: [],
+      currencies: [],
+      types: [],
+      years: [],
       rules: {
         required: [val => !!val || '* Required'],
         notEmpty: [val => !!val || '* Select one'],
@@ -160,35 +199,37 @@ export default {
             '* Should be higher than start year'
         ],
         notZero: [val => !!val || '* Should be positive number']
-      }
+      },
+      title: null,
+      description: null,
+      operating_unit_id: null,
+      project_status_id: null,
+      type_id: null,
+      infrastructure: null,
+      main_funding_source_id: null,
+      spatial_coverage_id: null,
+      target_start_year: null,
+      target_end_year: null,
+      currency_id: null,
+      total_project_cost: null
     };
   },
   computed: {
     ...mapState('project', ['project', 'loading']),
-    ...mapState('options', [
-    	'currencies',
-      'spatial_coverages',
-      'currencies',
-      'funding_sources_options',
-      'operating_units',
-      'project_statuses',
-      'types',
-      'years'
-    ]),
-    ...mapFields('project', [
-      'project.title',
-      'project.description',
-      'project.operating_unit_id',
-      'project.project_status_id',
-      'project.type_id',
-      'project.infrastructure',
-      'project.main_funding_source_id',
-      'project.spatial_coverage_id',
-      'project.target_start_year',
-      'project.target_end_year',
-      'project.currency_id',
-      'project.total_project_cost'
-    ]),
+    // ...mapFields('project', [
+    //   'project.title',
+    //   'project.description',
+    //   'project.operating_unit_id',
+    //   'project.project_status_id',
+    //   'project.type_id',
+    //   'project.infrastructure',
+    //   'project.main_funding_source_id',
+    //   'project.spatial_coverage_id',
+    //   'project.target_start_year',
+    //   'project.target_end_year',
+    //   'project.currency_id',
+    //   'project.total_project_cost'
+    // ]),
     filteredYears() {
       const years = this.years;
       const start = this.target_start_year;

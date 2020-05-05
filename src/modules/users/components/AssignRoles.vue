@@ -12,7 +12,7 @@
 
     <div class="q-pa-md">
       <q-item-label class="q-mb-md">Select role to assign to user</q-item-label>
-      <q-option-group :options="optionRoles" v-model="model" type="radio" />
+      <q-option-group :options="roles" v-model="model" type="radio" />
     </div>
 
     <q-card-actions align="right">
@@ -29,24 +29,29 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import { FETCH_ROLES } from '../../../graphql/queries'
 
 export default {
   name: 'AssignRoles',
   props: ['id', 'role'],
+  apollo: {
+    roles: {
+      query: FETCH_ROLES,
+      result({ data  }) {
+        const roles = data.roles
+        this.roles = roles.map(role => {
+          return { value: role.id, label: role.name };
+        });
+      }
+    }
+  },
   data() {
     return {
       panel: 'role',
       model: null,
-      loading: false
+      loading: false,
+      roles: []
     };
-  },
-  computed: {
-    ...mapState('options', ['roles']),
-    optionRoles() {
-      return this.roles.map(role => {
-        return { value: role.id, label: role.name };
-      });
-    }
   },
   methods: {
     ...mapActions('users', ['assignRole']),

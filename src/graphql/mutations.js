@@ -109,7 +109,7 @@ export const UPDATE_PROFILE_MUTATION = gql`
       operating_unit {
         id
         name
-        image_url
+        image
       }
     }
   }

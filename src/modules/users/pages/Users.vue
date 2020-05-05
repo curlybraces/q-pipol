@@ -1,26 +1,9 @@
 <template>
   <page-container>
-    <page-title title="Admin"></page-title>
+    <page-title title="Manage Users"></page-title>
 
     <!-- Search Field -->
-    <div class="q-mt-md q-pa-sm">
-      <div class="row justify-center">
-        <q-input
-          class="col-xl-6 col-lg-6 col-md-8 col-sm-8 col-xs-12"
-          dense
-          outlined
-          placeholder="Filter Users"
-          v-model="searchField"
-          clearable
-          debounce="500"
-          ref="searchBox"
-        >
-          <template v-slot:prepend>
-            <q-icon name="search" />
-          </template>
-        </q-input>
-      </div>
-    </div>
+    <search-component v-model="searchField" placeholder="Filter Users"></search-component>
 
     <div class="q-pa-sm">
       <!-- Loading -->
@@ -32,34 +15,41 @@
 
       <template v-else>
         <!-- User List -->
-        <div class="col">
-          <template v-for="(users, key) in groupedUsers">
-            <q-list separator bordered :key="key" class="q-mt-md">
-              <q-item-label
-                header
-                class="text-uppercase bg-primary text-white text-weight-bolder text-center"
-                >{{ key + 's' }}</q-item-label
-              >
-              <template v-for="user in users">
-                <user :key="user.id" :user="user"></user>
-              </template>
-            </q-list>
-          </template>
-        </div>
+        <template v-if="!groupedUsers">
+          <no-item message="No users to show"></no-item>
+        </template>
+        <template v-else>
+          <div class="col">
+            <template v-for="(users, key) in groupedUsers">
+              <q-list separator bordered :key="key" class="q-mt-md">
+                <q-item-label
+                  header
+                  class="text-uppercase bg-primary text-white text-weight-bolder text-center"
+                  >{{ key + 's' }}</q-item-label
+                >
+                <template v-for="user in users">
+                  <user :key="user.id" :user="user"></user>
+                </template>
+              </q-list>
+            </template>
+          </div>
+        </template>
       </template>
     </div>
   </page-container>
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import User from '../components/User';
-import PageTitle from '../../ui/page/PageTitle';
-import { ALL_USERS } from '../../../graphql/queries';
-import PageContainer from '../../ui/page/PageContainer';
+import { mapState } from 'vuex'
+import { ALL_USERS } from '../../../graphql/queries'
+const User = () => import('../components/User')
+const PageTitle = () => import('../../ui/page/PageTitle')
+const PageContainer = () =>import('../../ui/page/PageContainer')
+const SearchComponent = () => import('../../shared/components/SearchComponent')
+import NoItem from '../../shared/components/NoItem'
 
 export default {
-  components: { PageContainer, PageTitle, User },
+  components: { PageContainer, PageTitle, User, SearchComponent, NoItem },
   name: 'PageUsers',
   apollo: {
     users: {

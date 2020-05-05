@@ -62,6 +62,7 @@
       </template>
     </div>
 
+    <!-- Upload Image Dialog -->
     <q-dialog v-model="uploadImageDialog">
       <q-uploader
         label="Upload Logo (Max: 50KB)"
@@ -73,6 +74,7 @@
       ></q-uploader>
     </q-dialog>
 
+    <!-- Upload Contact Dialog -->
     <q-dialog
       v-model="editItemDialog"
       full-height

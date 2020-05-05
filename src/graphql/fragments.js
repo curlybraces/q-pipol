@@ -52,3 +52,26 @@ export const BASIC_INFORMATION_FRAGMENT = gql`
     updated_at
   }
 `;
+
+export const NOTIFICATION_FRAGMENT = gql`
+  fragment notificationDetails on Notification {
+    id
+    type
+    notifiable_id
+    notifiable_type
+    notifiable {
+      name
+    }
+    data {
+      type
+      from
+      title
+      body
+      actionText
+      actionUrl
+    }
+    read_at
+    created_at
+    updated_at
+  }
+`

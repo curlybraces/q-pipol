@@ -1,26 +1,8 @@
 <template>
   <page-container>
-    <page-title
-      title="Projects"
-    ></page-title>
+    <page-title title="Projects"></page-title>
 
-    <div class="row q-pa-sm justify-center">
-      <q-input
-        ref="searchBox"
-        class="col"
-        outlined
-        placeholder="Search titles"
-        v-model="search"
-        :debounce="500"
-        :rules="[val => val >= 3 || 'Please input at least 3 characters.']"
-        lazy-rules
-        dense
-      >
-        <template v-slot:prepend>
-          <q-icon name="search"></q-icon>
-        </template>
-      </q-input>
-    </div>
+    <search-component v-model="search" placeholder="Search titles"></search-component>
 
     <template v-if="$apollo.queries.relayProjects.loading">
       <q-inner-loading :showing="$apollo.queries.relayProjects.loading">
@@ -30,22 +12,8 @@
 
     <template v-else>
       <template v-if="!relayProjects.edges.length">
-        <q-banner dense class="q-ma-sm bg-grey-3">
-          <template v-slot:avatar>
-            <q-icon name="cancel" color="red" />
-          </template>
-          You have no projects to show. If you have added a project but was not
-          listed here even after refreshing. Please seek our assistance.
-          <template v-slot:action>
-            <q-btn
-              flat
-              color="primary"
-              label="Add a New Project"
-              to="/projects/add"
-              v-if="isEncoder"
-            />
-          </template>
-        </q-banner>
+        <no-item icon="cancel" message="You have no projects to show. If you have added a project but was not
+          listed here even after refreshing. Please seek our assistance."></no-item>
       </template>
 
       <template v-else>
@@ -65,7 +33,7 @@
         <div class="q-pa-sm">
     			<q-list separator bordered>
             <q-item-label header v-if="this.search.length >= 3"
-              >Found <b>{{ filteredProjects.length }}</b> titles that contains
+              >Found <b>{{ filteredProjects.length }}</b> titles that match 
               <span class="text-negative">{{ search }}...</span></q-item-label
             >
             <template v-for="{ node } in filteredProjects">
@@ -121,10 +89,12 @@ const ProjectItem = () =>
   import(/* webpackChunkName: 'ProjectItem' */ '../components/ProjectItem');
 const PageContainer = () =>
   import(/* webpackChunkName: 'PageContainer' */ '../../ui/page/PageContainer');
+const SearchComponent = () => import(/* webpackChunkName: 'SearchComponent' */ '../../shared/components/SearchComponent')
+const NoItem = () => import(/* webpackChunkName: 'NoItem' */ '../../shared/components/NoItem')
 
 export default {
   name: 'ProjectsPage',
-  components: { EndorseProjects, PageContainer, PageTitle, ProjectItem },
+  components: { EndorseProjects, PageContainer, PageTitle, ProjectItem, SearchComponent, NoItem },
   apollo: {
     relayProjects: {
       query: RELAY_PROJECTS_QUERY,

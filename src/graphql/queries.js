@@ -1,7 +1,8 @@
 import gql from 'graphql-tag';
 import {
   USER_FRAGMENT,
-  BASIC_INFORMATION_FRAGMENT
+  BASIC_INFORMATION_FRAGMENT,
+  NOTIFICATION_FRAGMENT
 } from './fragments';
 
 /* Auth */
@@ -28,51 +29,19 @@ export const GET_CURRENT_USER = gql`
 export const FETCH_NOTIFICATIONS_QUERY = gql`
   query notifications {
     notifications {
-      id
-      type
-      notifiable_id
-      notifiable_type
-      notifiable {
-        name
-      }
-      data {
-        type
-        from
-        title
-        body
-        actionText
-        actionUrl
-      }
-      read_at
-      created_at
-      updated_at
+      ...notificationDetails
     }
   }
+  ${NOTIFICATION_FRAGMENT}
 `;
 
 export const FETCH_UNREAD_NOTIFICATIONS_QUERY = gql`
   query unreadNotifications {
     unreadNotifications {
-      id
-      type
-      notifiable_id
-      notifiable_type
-      notifiable {
-        name
-      }
-      data {
-        type
-        from
-        title
-        body
-        actionText
-        actionUrl
-      }
-      read_at
-      created_at
-      updated_at
+      ...notificationDetails
     }
   }
+  ${NOTIFICATION_FRAGMENT}
 `;
 
 /* Options */
@@ -382,6 +351,7 @@ export const INFINITE_SCROLL_PROJECTS = gql`
         id
         title
         operating_unit {
+          id
           name
           image
           acronym
@@ -390,6 +360,7 @@ export const INFINITE_SCROLL_PROJECTS = gql`
         total_project_cost
         can_update
         creator {
+          id
           name
         }
         created_at
@@ -475,6 +446,10 @@ export const FETCH_PROJECT_QUERY = gql`
         name
       }
       funding_institution_id
+      funding_institution {
+        id
+        name
+      }
       implementation_mode_id
       implementation_mode {
         id
@@ -492,6 +467,10 @@ export const FETCH_PROJECT_QUERY = gql`
         name
       }
       tier_id
+      tier {
+        id
+        name
+      }
       spatial_coverage_id
       spatial_coverage {
         id
@@ -669,3 +648,22 @@ export const FETCH_ACTIVITIES = gql`
     }
   }
 `;
+
+/* Fetch GAD Questions */
+
+export const FETCH_GAD_QUESTIONS = gql`
+  query {
+    gad_questions {
+      id
+      name
+      gad_subquestions {
+        id
+        name
+        gad_choices {
+          id
+          name
+          value
+        }
+      }
+    }
+  }`;

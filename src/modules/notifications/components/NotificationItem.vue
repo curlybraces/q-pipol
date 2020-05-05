@@ -7,8 +7,9 @@
         </q-avatar>
       </q-item-section>
       <q-item-section>
-        <q-item-label :lines="2" class="text-subtitle">
-          {{ content }}
+        <q-item-label>
+          <span class="text-weight-medium">[{{ notification.data.title }}]</span>
+          <span class="text-grey-8"> - {{ notification.data.body }}</span>
         </q-item-label>
         <q-item-label caption>
           {{ notification.created_at | dateDiff }}

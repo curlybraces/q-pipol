@@ -171,7 +171,7 @@
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex';
-import { RELAY_PROJECTS_QUERY, FETCH_UNREAD_NOTIFICATIONS_QUERY } from '../../../graphql/queries';
+import { RELAY_PROJECTS_QUERY, FETCH_UNREAD_NOTIFICATIONS_QUERY, FETCH_GAD_QUESTIONS } from '../../../graphql/queries';
 import { openURL } from 'quasar';
 const PageTitle = () =>
   import(/* webpackChunkName: '' */ '../../ui/page/PageTitle');
@@ -208,6 +208,20 @@ export default {
         filteredLinks = this.links.filter(link => link.encoder === undefined)
       }
       return filteredLinks;
+    },
+    mappedAnswers() {
+      let mappedAnswers = []
+      const answers = this.answers
+
+      mappedAnswers = answers.map((answer, index) => {
+        return {
+          id: null,
+          subquestion_id: index,
+          gad_choice_id: answer
+        }
+      })
+
+      return mappedAnswers
     }
   },
   apollo: {
@@ -220,6 +234,9 @@ export default {
     },
     unreadNotifications: {
       query: FETCH_UNREAD_NOTIFICATIONS_QUERY
+    },
+    gad_questions: {
+      query: FETCH_GAD_QUESTIONS
     }
   },
   methods: {
@@ -229,10 +246,22 @@ export default {
     },
     goToExchangeRates(url) {
       openURL(url);
+    },
+    map(items) {
+      let mappedItems = []
+      mappedItems = items.map(item => {
+        return {
+          label: item.name,
+          value: item.id
+        }
+      })
+      return mappedItems
     }
   },
   data() {
     return {
+      gad_questions: [],
+      answers: [],
       relayProjects: {
         pageInfo: {
           total: 0

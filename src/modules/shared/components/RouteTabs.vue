@@ -7,7 +7,7 @@
         align="left"
         :class="dark ? 'bg-grey-9 text-white' : 'bg-white text-grey-9'"
       >
-        <template v-for="({ to, label, icon }, index) in tabs">
+        <template v-for="({ to, label, icon }, index) in filteredTabs">
           <q-route-tab
             :key="index"
             :to="to"
@@ -23,12 +23,27 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   name: 'RouteTabs',
   computed: {
-    ...mapState('settings', ['dark'])
+    ...mapState('settings', ['dark']),
+    ...mapGetters('auth',['isAdmin']),
+    filteredTabs() {
+      // This function hides the users tab if the user is not admin or superadmin
+      let filteredTabs = []
+
+      if (this.isAdmin) {
+        filteredTabs = this.tabs
+
+        return filteredTabs
+      }
+
+      filteredTabs = this.tabs.filter(tab => tab.label !== 'Users')
+
+      return filteredTabs
+    }
   },
   data() {
     return {
@@ -52,6 +67,11 @@ export default {
           label: 'Directory',
           icon: 'phone',
           to: '/directory'
+        },
+        {
+          label: 'Users',
+          icon: 'lock',
+          to: '/admin'
         }
       ]
     };

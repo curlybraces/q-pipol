@@ -24,16 +24,10 @@ export default {
     }
   },
   methods: {
-    ...mapActions('auth', ['getCurrentUser']),
-    ...mapActions('options', ['initializeOptions']),
-    initialize() {
-      this.getCurrentUser();
-      this.initializeOptions();
-    }
+    ...mapActions('auth', ['getCurrentUser'])
   },
   created() {
-    console.log('initializing');
-    this.initialize();
+    this.getCurrentUser();
   }
 };
 </script>

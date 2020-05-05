@@ -15,7 +15,6 @@ export default {
    * @returns void
    */
   register(payload) {
-    console.log(payload);
     return client.mutate({
       mutation: REGISTER_MUTATION,
       variables: payload
@@ -28,7 +27,6 @@ export default {
    * @returns response
    */
   login(payload) {
-    console.log(payload);
     return client.mutate({
       mutation: LOGIN_MUTATION,
       variables: payload
@@ -41,7 +39,6 @@ export default {
    * @returns void
    */
   forgotPassword(payload) {
-    console.log(payload);
     return client.mutate({
       mutation: FORGOT_PASSWORD_MUTATION,
       variables: payload
@@ -54,7 +51,6 @@ export default {
    * @returns response
    */
   uploadAvatar(payload) {
-    console.log(payload);
     return client.mutate({
       mutation: UPLOAD_USER_AVATAR_MUTATION,
       variables: payload
@@ -67,7 +63,6 @@ export default {
    * @returns response
    */
   updateProfile(payload) {
-    console.log(payload);
     return apolloClient.mutate({
       mutation: UPDATE_PROFILE_MUTATION,
       variables: payload

@@ -6,7 +6,8 @@ import VueApollo from 'vue-apollo';
 import { ApolloLink } from 'apollo-link';
 import localforage from 'localforage';
 import { CachePersistor, persistCache } from 'apollo-cache-persist';
-import { LocalStorage, Notify } from 'quasar';
+import { LocalStorage, Notify, Dialog } from 'quasar';
+import store from '../store'
 
 // define the link that apollo will connect to
 const uri = process.env.DEV
@@ -51,11 +52,22 @@ const authMiddleware = new ApolloLink((operation, forward) => {
 // create link for error handling
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors)
-    graphQLErrors.forEach(({ message, locations, path }) =>
+    graphQLErrors.forEach(({ debugMessage, message, locations, path }) => {
+      // if unauthenticated, notify user and allow them to logout
+      if (debugMessage === 'Unauthenticated.') {
+        console.log('Token is not valid.')
+        Dialog.create({
+          title: 'Invalid Token',
+          message: 'You are no longer logged in.'
+        })
+        .onOk(() => {
+          store.dispatch('auth/signoutUser')
+        })
+      }
       console.log(
         `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
       )
-    );
+    });
   if (networkError) {
     console.error(`[Network error]: ${networkError}`);
     Notify.create({

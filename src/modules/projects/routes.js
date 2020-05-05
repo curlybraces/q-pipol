@@ -14,23 +14,23 @@ const ProjectsRoutes = {
       }
     },
     {
-      path: 'projects/create',
-      name: 'create-project',
-      component: () =>
-        import(
-          /* webpackChunkName: 'CreateProject' */ './pages/CreateProject.vue'
-        ),
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
       path: 'projects/add',
       name: 'add-project',
       component: () =>
         import(
           /* webpackChunkName: 'AddProjectPage' */ './pages/AddProjectPage.vue'
         )
+    },
+    {
+      path: 'projects/deleted',
+      name: 'deleted-projects',
+      component: () =>
+        import(
+          /* webpackChunkName: 'DeletedProjects' */ './pages/DeletedProjects.vue'
+        ),
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: 'projects/:id/edit',
@@ -59,17 +59,6 @@ const ProjectsRoutes = {
       name: 'view-project',
       component: () =>
         import(/* webpackChunkName: 'ViewProject' */ './pages/ViewProject.vue'),
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
-      path: 'projects/deleted',
-      name: 'deleted-projects',
-      component: () =>
-        import(
-          /* webpackChunkName: 'DeletedProjects' */ './pages/DeletedProjects.vue'
-        ),
       meta: {
         requiresAuth: true
       }

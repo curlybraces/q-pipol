@@ -1,15 +1,13 @@
 <template>
   <q-menu max-width="300px" :offset="[0, 15]" v-if="!loading">
     <div class="q-pa-md q-gutter-y-sm text-center">
-      <q-avatar>
-        <img :src="imageUrl" />
-      </q-avatar>
+      <user-avatar></user-avatar>
       <q-item-label>{{ user ? user.name : '' }}</q-item-label>
       <q-item-label caption :class="dark ? 'text-grey-1' : 'text-black'">
         {{ user ? user.email : '' }}
       </q-item-label>
       <q-item-label>
-        <q-badge :color="iconColor">
+        <q-badge>
           {{ user && user.role ? user.role.name : 'No role.' }}
         </q-badge>
       </q-item-label>
@@ -21,7 +19,7 @@
       <q-item clickable v-close-popup to="/account">
         <q-item-section avatar>
           <q-avatar>
-            <q-icon name="tune" :color="iconColor" />
+            <q-icon name="tune" />
           </q-avatar>
         </q-item-section>
         <q-item-section>Account Settings</q-item-section>
@@ -30,15 +28,11 @@
         clickable
         v-close-popup
         to="/admin"
-        v-if="
-          user &&
-            user.role &&
-            (user.role.name == 'admin' || user.role.name == 'superadmin')
-        "
+        v-if="isAdmin"
       >
         <q-item-section avatar>
           <q-avatar>
-            <q-icon name="lock" :color="iconColor" />
+            <q-icon name="lock" />
           </q-avatar>
         </q-item-section>
         <q-item-section>Admin</q-item-section>
@@ -46,7 +40,7 @@
       <q-item clickable v-close-popup to="/activity">
         <q-item-section avatar>
           <q-avatar>
-            <q-icon name="work_outline" :color="iconColor" />
+            <q-icon name="work_outline"  />
           </q-avatar>
         </q-item-section>
         <q-item-section>Activity</q-item-section>
@@ -54,7 +48,7 @@
       <q-item clickable v-close-popup to="/settings">
         <q-item-section avatar>
           <q-avatar>
-            <q-icon name="settings" :color="iconColor" />
+            <q-icon name="settings" />
           </q-avatar>
         </q-item-section>
         <q-item-section>Settings</q-item-section>
@@ -63,7 +57,7 @@
       <q-item clickable v-close-popup>
         <q-item-section avatar>
           <q-avatar>
-            <q-icon name="contact_support" :color="iconColor" />
+            <q-icon name="contact_support" />
           </q-avatar>
         </q-item-section>
         <q-item-section>
@@ -78,7 +72,7 @@
       <q-item clickable v-close-popup @click="handleSignoutUser">
         <q-item-section avatar>
           <q-avatar>
-            <q-icon name="exit_to_app" :color="iconColor" />
+            <q-icon name="exit_to_app" />
           </q-avatar>
         </q-item-section>
         <q-item-section>Logout</q-item-section>
@@ -90,16 +84,18 @@
 <script>
 import { Dialog } from 'quasar';
 import { mapState, mapActions, mapGetters } from 'vuex';
+import UserAvatar from '../../ui/components/UserAvatar'
 
 export default {
+  components: { UserAvatar },
   name: 'DropdownMenu',
   computed: {
     ...mapState('settings', ['dark']),
     ...mapState('auth', ['loading']),
-    ...mapGetters('auth', ['imageUrl', 'user']),
-    iconColor() {
-      return this.dark ? 'purple-11' : 'primary';
-    }
+    ...mapGetters('auth', ['user','isAdmin'])
+  },
+  data() {
+    
   },
   methods: {
     ...mapActions('auth', ['signoutUser']),
