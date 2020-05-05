@@ -84,7 +84,8 @@
 <script>
 import { Dialog } from 'quasar';
 import { mapState, mapActions, mapGetters } from 'vuex';
-import UserAvatar from '../../ui/components/UserAvatar'
+import UserAvatar from 'src/modules/ui/components/UserAvatar'
+import { GET_CURRENT_USER } from 'src/graphql/queries'
 
 export default {
   components: { UserAvatar },
@@ -92,10 +93,21 @@ export default {
   computed: {
     ...mapState('settings', ['dark']),
     ...mapState('auth', ['loading']),
-    ...mapGetters('auth', ['user','isAdmin'])
+    ...mapGetters('auth', ['isAdmin'])
   },
+	apollo: {
+  	getCurrentUser: {
+  		query: GET_CURRENT_USER,
+			result({ data }) {
+  			const { getCurrentUser } = data
+				this.user = getCurrentUser
+			}
+		}
+	},
   data() {
-    
+    return {
+    	user: {}
+		}
   },
   methods: {
     ...mapActions('auth', ['signoutUser']),

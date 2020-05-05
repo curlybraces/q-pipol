@@ -106,31 +106,25 @@
 			<div class="col-9">
 				<money-input
 					v-model="total_project_cost"
-					label="Total Project Cost (PhP)"
+					label="Total Project Cost"
 					:rules="rules.notZero"
 				></money-input>
 			</div>
     </div>
 
-    <div class="row q-pl-sm q-pt-sm q-col-gutter-sm">
-      <div class="col-6">
-        <q-btn
-          label="Reset"
-          type="reset"
-          class="full-width"
-          outline
-          color="primary"
-        ></q-btn>
-      </div>
-      <div class="col">
-        <q-btn
-          label="Save"
-          type="submit"
-          class="full-width"
-          color="primary"
-          :loading="loading"
-        ></q-btn>
-      </div>
+    <div class="row q-gutter-sm justify-center">
+      <q-btn
+        label="Reset"
+        type="reset"
+        outline
+        color="primary"
+      ></q-btn>
+      <q-btn
+        label="Save"
+        type="submit"
+        color="primary"
+        :loading="loading"
+      ></q-btn>
     </div>
   </q-form>
 </template>

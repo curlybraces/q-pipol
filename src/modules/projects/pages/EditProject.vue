@@ -27,11 +27,8 @@
       </template>
 
       <template v-else>
-        <div class="row">
-          <div class="col-4">
-            <pre>{{ project }}</pre>
-          </div>
-          <div class="col-8 q-col-gutter-y-sm">
+        <div class="row q-pa-sm">
+          <div class="q-col-gutter-y-sm">
             <text-input
               v-model="project.title"
               label="Project/Program Title"
@@ -234,7 +231,7 @@
             <single-select
               v-model="project.funding_institution_id"
               label="Funding Institution"
-              :options="funding_institutions_options"
+              :options="funding_institutions"
             ></single-select>
 
             <single-select
@@ -830,22 +827,18 @@
             </div>
           </div>
         </div>
-        <div class="row q-col-gutter-sm">
-          <div class="col">
-            <q-btn
-              label="Finalize"
-              class="full-width"
-              color="secondary"
-            ></q-btn>
-          </div>
-          <div class="col">
-            <q-btn
-              label="Save Changes"
-              class="full-width"
-              color="primary"
-            ></q-btn>
-          </div>
-        </div>
+        <div class="row justify-center q-gutter-sm">
+					<q-btn
+						label="Finalize"
+						color="secondary"
+						@click="handleFinalize"
+					></q-btn>
+					<q-btn
+						label="Save Changes"
+						color="primary"
+						type="submit"
+					></q-btn>
+				</div>
       </template>
     </template>
   </page-container>
@@ -853,7 +846,19 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import { FETCH_PROJECT_QUERY } from '../../../graphql/queries';
+import {
+	FETCH_PROJECT_QUERY,
+	FETCH_TYPES,
+	FETCH_SPATIAL_COVERAGES,
+	FETCH_REGIONS,
+	FETCH_OPERATING_UNITS,
+	FETCH_YEARS,
+	FETCH_TIERS,
+	FETCH_TYPOLOGIES,
+	FETCH_PROJECT_STATUSES,
+	FETCH_IMPLEMENTATION_MODES,
+	FETCH_FUNDING_SOURCES, FETCH_FUNDING_INSTITUTIONS
+} from '../../../graphql/queries'
 const PageTitle = () =>
   import(/* webpackChunkName: 'PageTitle' */ '../../ui/page/PageTitle');
 const PageContainer = () =>
@@ -872,6 +877,8 @@ const MoneyInput = () =>
   import(
     /* webpackChunkName: 'MoneyInput' */ '../../ui/form-inputs/MoneyInput'
   );
+const CheckboxInput = () =>
+  import(/* webpackChunkName: 'CheckboxInput' */ '../../ui/form-inputs/CheckboxInput');
 const DateInput = () =>
   import(/* webpackChunkName: 'DateInput' */ '../../ui/form-inputs/DateInput');
 const GadForm = () =>
@@ -891,7 +898,8 @@ export default {
     RadioInput,
     TextInput,
     PageContainer,
-    PageTitle
+    PageTitle,
+    CheckboxInput
   },
   apollo: {
     project: {
@@ -910,21 +918,52 @@ export default {
       error(error) {
         console.log(error);
       }
-    }
+    },
+	  implementation_modes: {
+    	query: FETCH_IMPLEMENTATION_MODES
+		},
+    types: {
+      query: FETCH_TYPES
+    },
+    spatial_coverages: {
+      query: FETCH_SPATIAL_COVERAGES
+    },
+		regions: {
+    	query: FETCH_REGIONS,
+			result({ data }) {
+    		this.regions_options = data.regions
+			}
+		},
+		operating_units: {
+    	query: FETCH_OPERATING_UNITS
+		},
+		years: {
+    	query: FETCH_YEARS
+		},
+		tiers: {
+    	query: FETCH_TIERS
+		},
+		typologies: {
+    	query: FETCH_TYPOLOGIES
+		},
+	  project_statuses: {
+    	query: FETCH_PROJECT_STATUSES
+		},
+		funding_sources: {
+    	query: FETCH_FUNDING_SOURCES,
+			result({ data }) {
+    		this.funding_sources_options = data.funding_sources
+			}
+		},
+		funding_institutions: {
+    	query: FETCH_FUNDING_INSTITUTIONS
+		}
   },
   computed: {
     ...mapState('options', [
       'funding_sources_options',
-      'funding_institutions_options',
+      // 'funding_institutions_options',
       'implementation_modes',
-      'types',
-      'typologies',
-      'project_statuses',
-      'spatial_coverages',
-      'operating_units',
-      'regions_options',
-      'years',
-      'tiers'
     ]),
     filteredYears() {
       const years = this.years;
@@ -942,7 +981,18 @@ export default {
   },
   data() {
     return {
+	    funding_institutions: [],
+	    funding_sources_options: [],
+	    implementation_modes: [],
+    	operating_units: [],
+	    project_statuses: [],
+    	regions_options: [],
+      types: [],
+      spatial_coverages: [],
+			years: [],
       project: {},
+			tiers: [],
+	    typologies: [],
       trueOrFalse: [
         {
           label: 'No',
@@ -971,7 +1021,10 @@ export default {
     updateGadScore(e) {
       this.project.gad_score = e;
       this.showGadForm = false;
-    }
+    },
+	  handleFinalize() {
+    	console.log('handle finalization')
+		}
   },
   filters: {
     money(val) {

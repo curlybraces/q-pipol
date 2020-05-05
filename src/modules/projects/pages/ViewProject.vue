@@ -41,6 +41,12 @@
         <div class="col-9 text-blue-grey-10">
           <div class="text-h5 q-mb-md text-cyan">
             {{ project.title }}
+            <q-badge>
+              {{ project.type.name }}
+            </q-badge>
+            <q-badge color="red" v-if="project.infrastructure">
+              Infrastructure
+            </q-badge>
           </div>
           <div class="column q-mb-sm">
             <div class="text-weight-lighter text-subtitle1">DESCRIPTION</div>
@@ -65,11 +71,103 @@
           <q-separator spaced/>
           <div class="column q-mb-sm">
             <div class="text-weight-lighter text-subtitle1">UPDATES</div>
-            <div class="text-body2">
+            <div class="text-body2" v-if="project.updates">
               As of {{ project.updates_date | formatDate }},
-              {{ project.expected_outputs }}
-              }
+              {{ project.updates }}
             </div>
+            <div class="text-body2" v-else>
+              No updates.
+            </div>
+          </div>
+          <q-separator spaced/>
+          <div class="column">
+            <div class="text-weight-lighter text-subtitle1">INVESTMENTS</div>
+            <q-markup-table class="col">
+              <thead>
+                <tr>
+                  <td>Year</td>
+                  <td>Total</td>
+                  <td>Infrastructure</td>
+                  <td>NEP</td>
+                  <td>GAA</td>
+                  <td>Disbursement</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>2016 &amp; Prior</td>
+                  <td>{{ project.investment_target_2016 }}</td>
+                  <td>{{ project.infrastructure_target_2016 }}</td>
+                  <td>{{ project.nep_2016 }}</td>
+                  <td>{{ project.gaa_2016 }}</td>
+                  <td>{{ project.disbursement_2016 }}</td>
+                </tr>
+                <tr>
+                  <td>2017</td>
+                  <td>{{ project.investment_target_2017 }}</td>
+                  <td>{{ project.infrastructure_target_2017 }}</td>
+                  <td>{{ project.nep_2017 }}</td>
+                  <td>{{ project.gaa_2017 }}</td>
+                  <td>{{ project.disbursement_2017 }}</td>
+                </tr>
+                <tr>
+                  <td>2018</td>
+                  <td>{{ project.investment_target_2018 }}</td>
+                  <td>{{ project.infrastructure_target_2018 }}</td>
+                  <td>{{ project.nep_2018 }}</td>
+                  <td>{{ project.gaa_2018 }}</td>
+                  <td>{{ project.disbursement_2018 }}</td>
+                </tr>
+                <tr>
+                  <td>2019</td>
+                  <td>{{ project.investment_target_2019 }}</td>
+                  <td>{{ project.infrastructure_target_2019 }}</td>
+                  <td>{{ project.nep_2019 }}</td>
+                  <td>{{ project.gaa_2019 }}</td>
+                  <td>{{ project.disbursement_2019 }}</td>
+                </tr>
+                <tr>
+                  <td>2020</td>
+                  <td>{{ project.investment_target_2020 }}</td>
+                  <td>{{ project.infrastructure_target_2020 }}</td>
+                  <td>{{ project.nep_2020 }}</td>
+                  <td>{{ project.gaa_2020 }}</td>
+                  <td>{{ project.disbursement_2020 }}</td>
+                </tr>
+                <tr>
+                  <td>2021</td>
+                  <td>{{ project.investment_target_2021 }}</td>
+                  <td>{{ project.infrastructure_target_2021 }}</td>
+                  <td>{{ project.nep_2021 }}</td>
+                  <td>{{ project.gaa_2021 }}</td>
+                  <td>{{ project.disbursement_2021 }}</td>
+                </tr>
+                <tr>
+                  <td>2022</td>
+                  <td>{{ project.investment_target_2022 }}</td>
+                  <td>{{ project.infrastructure_target_2022 }}</td>
+                  <td>{{ project.nep_2022 }}</td>
+                  <td>{{ project.gaa_2022 }}</td>
+                  <td>{{ project.disbursement_2022 }}</td>
+                </tr>
+                <tr>
+                  <td>2023 &amp; Beyond</td>
+                  <td>{{ project.investment_target_2023 }}</td>
+                  <td>{{ project.infrastructure_target_2023 }}</td>
+                  <td>{{ project.nep_2023 }}</td>
+                  <td>{{ project.gaa_2023 }}</td>
+                  <td>{{ project.disbursement_2023 }}</td>
+                </tr>
+                <tr>
+                  <td>Total</td>
+                  <td>{{ project.investment_target_total }}</td>
+                  <td>{{ project.infrastructure_target_total }}</td>
+                  <td>{{ project.nep_total }}</td>
+                  <td>{{ project.gaa_total }}</td>
+                  <td>{{ project.disbursement_total }}</td>
+                </tr>
+              </tbody>
+            </q-markup-table>
           </div>
         </div>
         

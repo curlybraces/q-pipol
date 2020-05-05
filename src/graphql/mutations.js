@@ -424,6 +424,7 @@ export const CREATE_PROJECT_MUTATION = gql`
     $afmip: Boolean
     $title: String!
     $type_id: ID
+    $infrastructure: Boolean
     $operating_unit_id: ID
     $main_funding_source_id: ID
     $implementation_mode_id: ID
@@ -571,6 +572,7 @@ export const CREATE_PROJECT_MUTATION = gql`
         afmip: $afmip
         title: $title
         type_id: $type_id
+        infrastructure: $infrastructure
         operating_unit_id: $operating_unit_id
         main_funding_source_id: $main_funding_source_id
         implementation_mode_id: $implementation_mode_id
@@ -753,6 +755,7 @@ export const UPDATE_PROJECT_MUTATION = gql`
     $pcip: Boolean
     $afmip: Boolean
     $title: String!
+    $infrastructure: Boolean
     $type_id: ID
     $operating_unit_id: ID
     $implementation_mode_id: ID
@@ -899,6 +902,7 @@ export const UPDATE_PROJECT_MUTATION = gql`
         afmip: $afmip
         title: $title
         type_id: $type_id
+        infrastructure: $infrastructure
         operating_unit_id: $operating_unit_id
         implementation_mode_id: $implementation_mode_id
         priority_ranking: $priority_ranking
