@@ -1,4 +1,3 @@
-import { getField } from 'vuex-map-fields';
 import { convertToNumber } from '../../functions/function-convert-to-number';
 
 export function nep_total(state) {
@@ -49,5 +48,3 @@ export function progress(state) {
 
   return progress;
 }
-
-export { getField };

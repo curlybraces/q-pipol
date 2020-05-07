@@ -1,4 +1,4 @@
-import { apolloClient } from '../../../boot/apollo-boost';
+import { client } from '../../../boot/apollo-boost';
 import {
   MARK_ALL_AS_READ_MUTATION,
   MARK_AS_READ_MUTATION
@@ -7,7 +7,7 @@ import { showErrorNotification } from '../../../functions/function-show-notifica
 import { FETCH_UNREAD_NOTIFICATIONS_QUERY } from '../../../graphql/queries';
 
 export function markAsRead({}, payload) {
-  return apolloClient
+  return client
     .mutate({
       mutation: MARK_AS_READ_MUTATION,
       variables: payload,
@@ -51,7 +51,7 @@ export function markAsRead({}, payload) {
 }
 
 export function markAllAsRead({}) {
-  return apolloClient
+  return client
     .mutate({
       mutation: MARK_ALL_AS_READ_MUTATION,
       update: (store, { data: { markAllAsRead } }) => {

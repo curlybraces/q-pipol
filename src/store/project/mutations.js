@@ -1,4 +1,3 @@
-import { updateField } from 'vuex-map-fields';
 import { INITIAL_STATE } from './state';
 
 export function CLEAR_PROJECT(state) {
@@ -41,5 +40,3 @@ export function SET_PROJECT(state, payload) {
 export function SET_LOADING(state, value) {
   state.loading = value;
 }
-
-export { updateField };

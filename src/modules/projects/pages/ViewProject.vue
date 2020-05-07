@@ -82,159 +82,184 @@
           <q-separator spaced/>
           <div class="column">
             <div class="text-weight-lighter text-subtitle1">INVESTMENTS</div>
-            <q-markup-table class="col">
+            <q-markup-table class="col q-pa-sm bg-transparent" flat>
               <thead>
                 <tr>
-                  <td>Year</td>
-                  <td>Total</td>
-                  <td>Infrastructure</td>
-                  <td>NEP</td>
-                  <td>GAA</td>
-                  <td>Disbursement</td>
+                  <th>Year</th>
+                  <th>Total</th>
+                  <th>Infrastructure</th>
+                  <th>NEP</th>
+                  <th>GAA</th>
+                  <th>Disbursement</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <tr v-if="project.target_start_year >= 2016 && project.target_start_year <= 2016">
                   <td>2016 &amp; Prior</td>
-                  <td>{{ project.investment_target_2016 }}</td>
-                  <td>{{ project.infrastructure_target_2016 }}</td>
-                  <td>{{ project.nep_2016 }}</td>
-                  <td>{{ project.gaa_2016 }}</td>
-                  <td>{{ project.disbursement_2016 }}</td>
+									<table-data :value="project.investment_target_2016"></table-data>
+									<table-data :value="project.infrastructure_target_2016"></table-data>
+									<table-data :value="project.nep_2016"></table-data>
+									<table-data :value="project.gaa_2016"></table-data>
+									<table-data :value="project.disbursement_2016"></table-data>
                 </tr>
-                <tr>
+                <tr v-if="project.target_start_year >= 2017 && project.target_start_year <= 2017">
                   <td>2017</td>
-                  <td>{{ project.investment_target_2017 }}</td>
-                  <td>{{ project.infrastructure_target_2017 }}</td>
-                  <td>{{ project.nep_2017 }}</td>
-                  <td>{{ project.gaa_2017 }}</td>
-                  <td>{{ project.disbursement_2017 }}</td>
+                  <table-data :value="project.investment_target_2017" />
+                  <table-data :value="project.infrastructure_target_2017" />
+                  <table-data :value="project.nep_2017" />
+                  <table-data :value="project.gaa_2017" />
+                  <table-data :value="project.disbursement_2017" />
                 </tr>
-                <tr>
+                <tr v-if="project.target_start_year >= 2018 && project.target_start_year <= 2018">
                   <td>2018</td>
-                  <td>{{ project.investment_target_2018 }}</td>
-                  <td>{{ project.infrastructure_target_2018 }}</td>
-                  <td>{{ project.nep_2018 }}</td>
-                  <td>{{ project.gaa_2018 }}</td>
-                  <td>{{ project.disbursement_2018 }}</td>
+                  <table-data :value="project.investment_target_2018" />
+                  <table-data :value="project.infrastructure_target_2018" />
+                  <table-data :value="project.nep_2018" />
+                  <table-data :value="project.gaa_2018" />
+                  <table-data :value="project.disbursement_2018" />
                 </tr>
-                <tr>
+                <tr v-if="project.target_start_year >= 2019 && project.target_start_year <= 2019">
                   <td>2019</td>
-                  <td>{{ project.investment_target_2019 }}</td>
-                  <td>{{ project.infrastructure_target_2019 }}</td>
-                  <td>{{ project.nep_2019 }}</td>
-                  <td>{{ project.gaa_2019 }}</td>
-                  <td>{{ project.disbursement_2019 }}</td>
+                  <table-data :value="project.investment_target_2019" />
+                  <table-data :value="project.infrastructure_target_2019" />
+                  <table-data :value="project.nep_2019" />
+                  <table-data :value="project.gaa_2019" />
+                  <table-data :value="project.disbursement_2019" />
                 </tr>
-                <tr>
+                <tr v-if="project.target_start_year >= 2020 && project.target_start_year <= 2020">
                   <td>2020</td>
-                  <td>{{ project.investment_target_2020 }}</td>
-                  <td>{{ project.infrastructure_target_2020 }}</td>
-                  <td>{{ project.nep_2020 }}</td>
-                  <td>{{ project.gaa_2020 }}</td>
-                  <td>{{ project.disbursement_2020 }}</td>
+                  <table-data :value="project.investment_target_2020" />
+                  <table-data :value="project.infrastructure_target_2020" />
+                  <table-data :value="project.nep_2020" />
+                  <table-data :value="project.gaa_2020" />
+                  <table-data :value="project.disbursement_2020" />
                 </tr>
-                <tr>
+                <tr v-if="project.target_start_year >= 2021 && project.target_start_year <= 2021">
                   <td>2021</td>
-                  <td>{{ project.investment_target_2021 }}</td>
-                  <td>{{ project.infrastructure_target_2021 }}</td>
-                  <td>{{ project.nep_2021 }}</td>
-                  <td>{{ project.gaa_2021 }}</td>
-                  <td>{{ project.disbursement_2021 }}</td>
+                  <table-data :value="project.investment_target_2021" />
+                  <table-data :value="project.infrastructure_target_2021" />
+                  <table-data :value="project.nep_2021" />
+                  <table-data :value="project.gaa_2021" />
+                  <table-data :value="project.disbursement_2021" />
                 </tr>
-                <tr>
+                <tr v-if="project.target_start_year >= 2022 && project.target_start_year <= 2022">
                   <td>2022</td>
-                  <td>{{ project.investment_target_2022 }}</td>
-                  <td>{{ project.infrastructure_target_2022 }}</td>
-                  <td>{{ project.nep_2022 }}</td>
-                  <td>{{ project.gaa_2022 }}</td>
-                  <td>{{ project.disbursement_2022 }}</td>
+                  <table-data :value="project.investment_target_2022" />
+                  <table-data :value="project.infrastructure_target_2022" />
+                  <table-data :value="project.nep_2022" />
+                  <table-data :value="project.gaa_2022" />
+                  <table-data :value="project.disbursement_2022" />
                 </tr>
-                <tr>
+                <tr v-if="project.target_start_year >= 2023 && project.target_start_year <= 2023">
                   <td>2023 &amp; Beyond</td>
-                  <td>{{ project.investment_target_2023 }}</td>
-                  <td>{{ project.infrastructure_target_2023 }}</td>
-                  <td>{{ project.nep_2023 }}</td>
-                  <td>{{ project.gaa_2023 }}</td>
-                  <td>{{ project.disbursement_2023 }}</td>
+                  <table-data :value="project.investment_target_2023" />
+                  <table-data :value="project.infrastructure_target_2023" />
+                  <table-data :value="project.nep_2023" />
+                  <table-data :value="project.gaa_2023" />
+                  <table-data :value="project.disbursement_2023" />
                 </tr>
                 <tr>
                   <td>Total</td>
-                  <td>{{ project.investment_target_total }}</td>
-                  <td>{{ project.infrastructure_target_total }}</td>
-                  <td>{{ project.nep_total }}</td>
-                  <td>{{ project.gaa_total }}</td>
-                  <td>{{ project.disbursement_total }}</td>
+                  <table-data :value="project.investment_target_total" />
+                  <table-data :value="project.infrastructure_target_total" />
+                  <table-data :value="project.nep_total" />
+                  <table-data :value="project.gaa_total" />
+                  <table-data :value="project.disbursement_total" />
                 </tr>
               </tbody>
             </q-markup-table>
           </div>
         </div>
-        
+
         <!-- Right side -->
-        <div class="col-3 bg-fao q-pa-sm q-mt-sm">
-          <q-item-label header class="text-uppercase text-subtitle1">Key Facts</q-item-label>
-          <q-item>
-            <q-item-section>
-              <q-item-label caption>
-                Fund Source
-              </q-item-label>
-              <q-item-label class="text-body2">
-                {{ project.main_funding_source ?  project.main_funding_source.name : 'Not specified' }}
-              </q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-item>
-            <q-item-section>
-              <q-item-label caption>
-                Total Project Cost
-              </q-item-label>
-              <q-item-label class="text-body2">
-                {{ project.currency ? project.currency.name : 'PHP' }}
-                {{ project.total_project_cost.toLocaleString() }}
-              </q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-item>
-            <q-item-section>
-              <q-item-label caption>
-                Duration
-              </q-item-label>
-              <q-item-label class="text-body2">
-                {{ project.target_start_year + ' - ' + project.target_end_year }}
-              </q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-item>
-            <q-item-section>
-              <q-item-label caption>
-                Beneficiaries
-              </q-item-label>
-              <q-item-label class="text-body2">
-                {{ project.beneficiaries ? project.beneficiaries : 'Not specified' }}
-              </q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-item>
-            <q-item-section>
-              <q-item-label caption>
-                Coverage
-              </q-item-label>
-              <q-item-label class="text-body2">
-                {{ project.spatial_coverage ? project.spatial_coverage.name : 'Not specified' }}
-              </q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-item>
-            <q-item-section>
-              <q-item-label caption>
-                Status
-              </q-item-label>
-              <q-item-label class="text-body2">
-                {{ project.project_status ? project.project_status.name : 'Not specified' }}
-              </q-item-label>
-            </q-item-section>
-          </q-item>
+        <div class="col-3">
+					<div class="column bg-fao">
+						<q-item-label header class="text-uppercase text-subtitle1">Key Facts</q-item-label>
+						<q-item>
+							<q-item-section>
+								<q-item-label caption>
+									Fund Source/Institution
+								</q-item-label>
+								<q-item-label class="text-body2">
+									{{ project.main_funding_source ?  project.main_funding_source.name : 'Not specified' }}
+									<span v-if="project.main_funding_source_id === '2' || project.main_funding_source_id === '3'">
+										{{ project.funding_institution ? `>> ${project.funding_institution.name}` : '' }}
+									</span>
+								</q-item-label>
+							</q-item-section>
+						</q-item>
+						<q-item>
+							<q-item-section>
+								<q-item-label caption>
+									Total Project Cost
+								</q-item-label>
+								<q-item-label class="text-body2">
+									{{ project.currency ? project.currency.name : 'PHP' }}
+									{{ project.total_project_cost.toLocaleString() }}
+								</q-item-label>
+							</q-item-section>
+						</q-item>
+						<q-item>
+							<q-item-section>
+								<q-item-label caption>
+									Duration
+								</q-item-label>
+								<q-item-label class="text-body2">
+									{{ project.target_start_year + ' - ' + project.target_end_year }}
+								</q-item-label>
+							</q-item-section>
+						</q-item>
+						<q-item>
+							<q-item-section>
+								<q-item-label caption>
+									Beneficiaries
+								</q-item-label>
+								<q-item-label class="text-body2">
+									{{ project.beneficiaries ? project.beneficiaries : 'Not specified' }}
+								</q-item-label>
+							</q-item-section>
+						</q-item>
+						<q-item>
+							<q-item-section>
+								<q-item-label caption>
+									Coverage
+								</q-item-label>
+								<q-item-label class="text-body2">
+									{{ project.spatial_coverage ? project.spatial_coverage.name : 'Not specified' }}
+								</q-item-label>
+							</q-item-section>
+						</q-item>
+						<q-item>
+							<q-item-section>
+								<q-item-label caption>
+									Status
+								</q-item-label>
+								<q-item-label class="text-body2">
+									{{ project.project_status ? project.project_status.name : 'Not specified' }}
+								</q-item-label>
+							</q-item-section>
+						</q-item>
+						<q-item>
+							<q-item-section>
+								<q-item-label caption>
+									Created
+								</q-item-label>
+								<q-item-label class="text-body2">
+									{{ project.created_at | formatDateTime }}
+								</q-item-label>
+							</q-item-section>
+						</q-item>
+						<q-item>
+							<q-item-section>
+								<q-item-label caption>
+									Last Updated
+								</q-item-label>
+								<q-item-label class="text-body2">
+									{{ project.updated_at | formatDateTime }}
+								</q-item-label>
+							</q-item-section>
+						</q-item>
+					</div>
         </div>
       </div>
     </template>
@@ -250,9 +275,10 @@ import { FETCH_PROJECT_QUERY } from '../../../graphql/queries';
 import PageTitle from '../../ui/page/PageTitle.vue';
 import PageContainer from '../../ui/page/PageContainer.vue';
 import { date } from 'quasar'
+import TableData from '../components/TableData'
 
 export default {
-  components: { PageContainer, PageTitle },
+  components: {TableData, PageContainer, PageTitle },
   name: 'ViewProject',
   apollo: {
     project: {
@@ -280,9 +306,21 @@ export default {
       if (!val) {
         return '';
       }
-      console.log(val)
+
       return date.formatDate(val, 'MMM D, YYYY (ddd)')
-    }
+    },
+		formatDateTime(val) {
+    	if (!val) {
+    		return '';
+			}
+    	return date.formatDate(val, 'MMM DD YYYY HH:mm:ss A')
+		},
+		formatMoney(val) {
+    	if (val) {
+    		return val.toLocaleString('en-GB', { maximumFractionDigits: 2 })
+			}
+    	return 0.00
+		}
   }
 };
 </script>

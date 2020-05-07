@@ -1,4 +1,4 @@
-import { apolloClient } from '../../../boot/apollo-boost';
+import { client } from '../../../boot/apollo-boost';
 import {
   CREATE_RESOURCE_MUTATION,
   DELETE_RESOURCE_MUTATION
@@ -12,7 +12,7 @@ import {
 export function fetchResources({ commit }) {
   commit('SET_LOADING', true);
 
-  return apolloClient
+  return client
     .query({
       query: FETCH_RESOURCES_QUERY
     })
@@ -36,7 +36,7 @@ export function fetchResources({ commit }) {
 }
 
 export function createResource({}, payload) {
-  return apolloClient
+  return client
     .mutate({
       mutation: CREATE_RESOURCE_MUTATION,
       variables: payload,
@@ -70,7 +70,7 @@ export function createResource({}, payload) {
 }
 
 export function deleteResource({ commit }, payload) {
-  return apolloClient
+  return client
     .mutate({
       mutation: DELETE_RESOURCE_MUTATION,
       variables: {

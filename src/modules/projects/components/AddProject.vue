@@ -131,7 +131,6 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import { mapFields } from 'vuex-map-fields';
 import TextInput from '../../ui/form-inputs/TextInput';
 import SingleSelect from '../../ui/form-inputs/SingleSelect';
 import MoneyInput from '../../ui/form-inputs/MoneyInput';
@@ -210,20 +209,6 @@ export default {
   },
   computed: {
     ...mapState('project', ['project', 'loading']),
-    // ...mapFields('project', [
-    //   'project.title',
-    //   'project.description',
-    //   'project.operating_unit_id',
-    //   'project.project_status_id',
-    //   'project.type_id',
-    //   'project.infrastructure',
-    //   'project.main_funding_source_id',
-    //   'project.spatial_coverage_id',
-    //   'project.target_start_year',
-    //   'project.target_end_year',
-    //   'project.currency_id',
-    //   'project.total_project_cost'
-    // ]),
     filteredYears() {
       const years = this.years;
       const start = this.target_start_year;

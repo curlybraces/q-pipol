@@ -34,7 +34,7 @@
 
 <script>
 import { mapActions } from 'vuex';
-import moment from 'moment';
+import { date } from 'quasar'
 
 export default {
   name: 'NotificationItem',
@@ -74,8 +74,9 @@ export default {
   },
   filters: {
     dateDiff(val) {
+    	const today = new Date()
       if (val) {
-        return moment(val).calendar();
+        return date.getDateDiff(today, val)
       }
       return '';
     }

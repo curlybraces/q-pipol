@@ -1,4 +1,4 @@
-import { apolloClient } from '../../../boot/apollo-boost';
+import { client } from '../../../boot/apollo-boost';
 import {
   ACTIVATE_USER,
   DEACTIVATE_USER,
@@ -13,7 +13,7 @@ import {
 
 export function fetchUsers({ commit }) {
   commit('SET_LOADING', true);
-  return apolloClient
+  return client
     .query({
       query: ALL_USERS
     })
@@ -31,7 +31,7 @@ export function fetchUsers({ commit }) {
 }
 
 export function activateUser({ commit }, payload) {
-  return apolloClient
+  return client
     .mutate({
       mutation: ACTIVATE_USER,
       variables: {
@@ -51,7 +51,7 @@ export function activateUser({ commit }, payload) {
 }
 
 export function deactivateUser({ commit }, payload) {
-  return apolloClient
+  return client
     .mutate({
       mutation: DEACTIVATE_USER,
       variables: {
@@ -71,7 +71,7 @@ export function deactivateUser({ commit }, payload) {
 }
 
 export function assignRole({ commit }, payload) {
-  return apolloClient
+  return client
     .mutate({
       mutation: ASSIGN_ROLE_MUTATION,
       variables: {
@@ -97,7 +97,7 @@ export function assignRole({ commit }, payload) {
 }
 
 export function assignOperatingUnitToReview({}, payload) {
-  return apolloClient
+  return client
     .mutate({
       mutation: ASSIGN_OPERATING_UNIT_TO_REVIEW_MUTATION,
       variables: {

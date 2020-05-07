@@ -1,5 +1,5 @@
 import { LocalStorage, Loading, Dialog } from 'quasar';
-import { apolloClient } from 'boot/apollo-boost';
+import { client } from 'boot/apollo-boost';
 import {
   CHECK_EMAIL_AVAILABILITY_QUERY,
   GET_CURRENT_USER
@@ -30,7 +30,7 @@ export function signinUser({ commit }, payload) {
   commit('SET_LOADING', true);
 
   // can be replaced by AuthService
-  apolloClient
+  client
     .mutate({
       mutation: LOGIN_MUTATION,
       variables: payload
@@ -43,7 +43,7 @@ export function signinUser({ commit }, payload) {
       this.$router.go();
 
       // reset the store
-      apolloClient.resetStore();
+      client.resetStore();
     })
     .catch(err => {
       commit('SET_ERROR', err);
@@ -57,7 +57,7 @@ export function signinUser({ commit }, payload) {
 export function getCurrentUser({ commit }) {
   commit('SET_LOADING', true);
 
-  apolloClient
+  client
     .query({
       query: GET_CURRENT_USER
     })
@@ -77,8 +77,8 @@ export function getCurrentUser({ commit }) {
 export async function signoutUser({ commit }) {
   // see https://github.com/apollographql/apollo-cache-persist/issues/34#issuecomment-371177206 for info in purging cache
 
-  // clear apolloClient store, this will not refetch queries unlike resetStore
-  apolloClient.clearStore();
+  // clear client store, this will not refetch queries unlike resetStore
+  client.clearStore();
 
   persistor.purge();
 
@@ -102,7 +102,7 @@ export function hideValidateEmailReminder({ commit }, val) {
 }
 
 export function setImageUrl({ commit }, payload) {
-  return apolloClient
+  return client
     .mutate({
       mutation: UPDATE_IMAGE_URL_MUTATION,
       variables: {
@@ -125,7 +125,7 @@ export function setImageUrl({ commit }, payload) {
 export function updateProfile({ commit }, payload) {
   commit('SET_LOADING', true);
 
-  apolloClient
+  client
     .mutate({
       mutation: UPDATE_PROFILE_MUTATION,
       variables: payload,
@@ -165,7 +165,7 @@ export function updateProfile({ commit }, payload) {
 }
 
 export function forgotPassword({}, email) {
-  return apolloClient
+  return client
     .mutate({
       mutation: FORGOT_PASSWORD_MUTATION,
       variables: {
@@ -184,7 +184,7 @@ export function forgotPassword({}, email) {
 
 export function register({ commit }, payload) {
   commit('SET_LOADING', true);
-  apolloClient
+  client
     .mutate({
       mutation: REGISTER_MUTATION,
       variables: payload
@@ -207,7 +207,7 @@ export function register({ commit }, payload) {
 
 export function resendEmailVerification({}, payload) {
   const email = payload;
-  return apolloClient
+  return client
     .mutate({
       mutation: RESEND_EMAIL_VERIFICATION_MUTATION,
       variables: {
@@ -227,7 +227,7 @@ export function resendEmailVerification({}, payload) {
 }
 
 export function verifyEmail({ commit, dispatch }, token) {
-  return apolloClient
+  return client
     .mutate({
       mutation: VERIFY_EMAIL_MUTATION,
       variables: {
@@ -255,7 +255,7 @@ export function updatePassword({ dispatch }, payload) {
 
   Loading.show();
 
-  apolloClient
+  client
     .mutate({
       mutation: UPDATE_PASSWORD_MUTATION,
       variables: {
@@ -279,7 +279,7 @@ export function updatePassword({ dispatch }, payload) {
 }
 
 export function checkEmailAvailability({}, payload) {
-  return apolloClient
+  return client
     .query({
       query: CHECK_EMAIL_AVAILABILITY_QUERY,
       variables: {
@@ -294,4 +294,32 @@ export function checkEmailAvailability({}, payload) {
       }
     })
     .catch(err => console.log(err.message));
+}
+
+export function uploadUserAvatar({}, payload) {
+	client
+		.mutate({
+			mutation: UPLOAD_USER_AVATAR_MUTATION,
+			variables: payload,
+			update: (store, { data: { uploadUserAvatar } }) => {
+				const data = store.readQuery({
+					query: GET_CURRENT_USER
+				});
+				
+				data.getCurrentUser.image_url = uploadUserAvatar.image_url;
+				
+				store.writeQuery({
+					query: GET_CURRENT_USER,
+					data
+				});
+			}
+		})
+		.then(() => {
+			showSuccessNotification({
+				message: 'Successfully changed user image.'
+			});
+		})
+		.catch(err => {
+			console.log(err);
+		});
 }

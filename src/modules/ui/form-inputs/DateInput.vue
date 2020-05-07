@@ -17,7 +17,7 @@
           transition-show="scale"
           transition-hide="scale"
         >
-          <q-date color="secondary" v-model="model" @input="handleInput" />
+          <q-date color="secondary" v-model="model" />
         </q-popup-proxy>
       </q-icon>
     </template>
@@ -32,21 +32,21 @@ export default {
   name: 'DateInput',
   props: {
     label: String,
-    hint: String
+    hint: String,
+		value: String
   },
   computed: {
-    ...mapState('settings', ['dense'])
-  },
-  data() {
-    return {
-      model: null
-    };
-  },
-  methods: {
-    handleInput() {
-      this.$refs.qDateProxy.hide();
-      this.$emit('input', this.model);
-    }
+    ...mapState('settings', ['dense']),
+		model: {
+    	get() {
+		    return this.$props.value
+			},
+			set(val) {
+    		this.$refs.qDateProxy.hide();
+				this.$emit('input', val);
+			}
+
+		}
   }
 };
 </script>

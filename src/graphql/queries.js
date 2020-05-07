@@ -606,22 +606,57 @@ export const FETCH_PROJECT_QUERY = gql`
       disbursement_total
       image_url
       updates
-      updates_date
+    	updates_date
+	    has_fs
+	    has_row
+	    has_rap
       districts {
         id
       }
       bases {
         id
       }
+	    region_id
+	    selected_regions
       regions {
         id
       }
+	    province_id
+	    province {
+		    id
+		    name
+	    }
       provinces {
         id
       }
+	    district_id
+	    district {
+		    id
+		    name
+	    }
+	    city_municipality_id
+	    city_municipality {
+		    id
+		    name
+	    }
       technical_readinesses {
         id
       }
+	    region_financials {
+		    id
+		    region_id
+		    target_2016
+        target_2017
+        target_2018
+        target_2019
+        target_2020
+        target_2021
+        target_2022
+        target_2023
+        target_total
+	    }
+	    created_at
+	    updated_at
     }
   }
 `;

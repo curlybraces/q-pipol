@@ -62,9 +62,6 @@ export default {
       markingAllAsRead: false,
       getCurrentUser: {}
     };
-  },
-  methods: {
-    ...mapActions('notifications', ['markAllAsRead'])
   }
 };
 </script>

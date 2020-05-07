@@ -5,7 +5,7 @@ import {
   showSuccessNotification
 } from '../functions/function-show-notifications';
 import { UPDATE_OPERATING_UNIT_MUTATION } from '../graphql/mutations';
-import { apolloClient } from '../boot/apollo-boost';
+import { client } from '../boot/apollo-boost';
 
 const state = {
   operating_units: {}
@@ -21,7 +21,7 @@ const mutations = {
 
 const actions = {
   fetchOperatingUnits: ({ commit }) => {
-    return apolloClient
+    return client
       .query({
         query: gql`
           query operating_units {
@@ -49,7 +49,7 @@ const actions = {
       );
   },
   updateOperatingUnit: ({}, payload) => {
-    return apolloClient
+    return client
       .mutate({
         mutation: UPDATE_OPERATING_UNIT_MUTATION,
         variables: payload

@@ -45,10 +45,10 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
-import moment from 'moment';
-import PageContainer from '../../ui/page/PageContainer';
-import PageTitle from '../../ui/page/PageTitle';
+import { mapState, mapActions } from 'vuex'
+import PageContainer from '../../ui/page/PageContainer'
+import PageTitle from '../../ui/page/PageTitle'
+import { date } from 'quasar'
 
 export default {
   name: 'PageActivity',
@@ -77,7 +77,13 @@ export default {
       return null;
     },
     timeDiff(val) {
-      return moment(val).calendar();
+    	if (!val) {
+    		return ''
+			}
+
+    	const today = new Date()
+
+      return date.getDateDiff(today, val);
     }
   },
   methods: {

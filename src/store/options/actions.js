@@ -1,4 +1,4 @@
-import { apolloClient } from 'boot/apollo-boost';
+import { client } from 'boot/apollo-boost';
 import {
 	FETCH_CURRENCIES,
   FETCH_DISTRICTS,
@@ -20,7 +20,7 @@ import {
 } from '../../graphql/queries';
 
 export function fetchCurrencies({ commit }) {
-	apolloClient
+	client
 		.query({
 			query: FETCH_CURRENCIES
 		})
@@ -31,7 +31,7 @@ export function fetchCurrencies({ commit }) {
 }
 
 export function fetchDistricts({ commit }) {
-  apolloClient
+  client
     .query({
       query: FETCH_DISTRICTS
     })
@@ -42,7 +42,7 @@ export function fetchDistricts({ commit }) {
 }
 
 export function fetchFundingInstitutions({ commit }) {
-  apolloClient
+  client
     .query({
       query: FETCH_FUNDING_INSTITUTIONS
     })
@@ -55,7 +55,7 @@ export function fetchFundingInstitutions({ commit }) {
 }
 
 export function fetchFundingSources({ commit }) {
-  apolloClient
+  client
     .query({
       query: FETCH_FUNDING_SOURCES
     })
@@ -66,7 +66,7 @@ export function fetchFundingSources({ commit }) {
 }
 
 export function fetchBases({ commit }) {
-  apolloClient
+  client
     .query({
       query: FETCH_BASES
     })
@@ -77,7 +77,7 @@ export function fetchBases({ commit }) {
 }
 
 export function fetchImplementationModes({ commit }) {
-  apolloClient
+  client
     .query({
       query: FETCH_IMPLEMENTATION_MODES
     })
@@ -88,7 +88,7 @@ export function fetchImplementationModes({ commit }) {
 }
 
 export function fetchOperatingUnits({ commit }) {
-  apolloClient
+  client
     .query({
       query: FETCH_OPERATING_UNITS
     })
@@ -99,7 +99,7 @@ export function fetchOperatingUnits({ commit }) {
 }
 
 export function fetchProjectStatuses({ commit }) {
-  apolloClient
+  client
     .query({
       query: FETCH_PROJECT_STATUSES
     })
@@ -110,7 +110,7 @@ export function fetchProjectStatuses({ commit }) {
 }
 
 export function fetchProvinces({ commit }) {
-  apolloClient
+  client
     .query({
       query: FETCH_PROVINCES
     })
@@ -121,7 +121,7 @@ export function fetchProvinces({ commit }) {
 }
 
 export function fetchRegions({ commit }) {
-  apolloClient
+  client
     .query({
       query: FETCH_REGIONS
     })
@@ -132,7 +132,7 @@ export function fetchRegions({ commit }) {
 }
 
 export function fetchSpatialCoverages({ commit }) {
-  apolloClient
+  client
     .query({
       query: FETCH_SPATIAL_COVERAGES
     })
@@ -143,7 +143,7 @@ export function fetchSpatialCoverages({ commit }) {
 }
 
 export function fetchTechnicalReadinesses({ commit }) {
-  apolloClient
+  client
     .query({
       query: FETCH_TECHNICAL_READINESSES
     })
@@ -154,7 +154,7 @@ export function fetchTechnicalReadinesses({ commit }) {
 }
 
 export function fetchRoles({ commit }) {
-  apolloClient
+  client
     .query({
       query: FETCH_ROLES
     })
@@ -165,7 +165,7 @@ export function fetchRoles({ commit }) {
 }
 
 export function fetchTiers({ commit }) {
-  apolloClient
+  client
     .query({
       query: FETCH_TIERS
     })
@@ -176,7 +176,7 @@ export function fetchTiers({ commit }) {
 }
 
 export function fetchTypes({ commit }) {
-  apolloClient
+  client
     .query({
       query: FETCH_TYPES
     })
@@ -190,7 +190,7 @@ export function fetchTypes({ commit }) {
 }
 
 export function fetchTypologies({ commit }) {
-  apolloClient
+  client
     .query({
       query: FETCH_TYPOLOGIES
     })
@@ -201,7 +201,7 @@ export function fetchTypologies({ commit }) {
 }
 
 export function fetchYears({ commit }) {
-  apolloClient
+  client
     .query({
       query: FETCH_YEARS
     })

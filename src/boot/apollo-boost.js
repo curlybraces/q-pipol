@@ -6,7 +6,12 @@ import VueApollo from 'vue-apollo';
 import { ApolloLink } from 'apollo-link';
 import localforage from 'localforage';
 import { CachePersistor, persistCache } from 'apollo-cache-persist';
-import { LocalStorage, Notify, Dialog } from 'quasar';
+import {
+	LocalStorage,
+	Notify,
+	Dialog,
+	Loading
+} from 'quasar';
 import store from '../store'
 
 // define the link that apollo will connect to
@@ -30,12 +35,6 @@ export const persistor = new CachePersistor({
 
 // this function determines the size of the localforage database
 persistor.getSize().then(size => console.log(size));
-
-// call/initialize the persist cache
-persistCache({
-  cache,
-  storage: localforage
-});
 
 const authMiddleware = new ApolloLink((operation, forward) => {
   const token = LocalStorage.getItem('token');
@@ -82,16 +81,23 @@ const uploadLink = createUploadLink({
   uri: uri
 });
 
-export const apolloClient = new ApolloClient({
+export const client = new ApolloClient({
   link: ApolloLink.from([authMiddleware, errorLink, uploadLink]),
   cache
 });
 
 const apolloProvider = new VueApollo({
-  defaultClient: apolloClient
+  defaultClient: client
 });
 
-export default ({ app, Vue }) => {
+export default async ({ app, Vue }) => {
   Vue.use(VueApollo);
-  app.apolloProvider = apolloProvider;
+  // if this starts acting up, just delete this
+  await persistCache({
+	  cache,
+	  storage: localforage
+  }).then(() => {
+  	app.apolloProvider = apolloProvider
+  })
+  // app.apolloProvider = apolloProvider;
 };

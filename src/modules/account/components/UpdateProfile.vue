@@ -153,7 +153,7 @@ import { mapState, mapActions } from 'vuex';
 import SingleSelect from '../../ui/form-inputs/SingleSelect';
 import TextInput from '../../ui/form-inputs/TextInput';
 import ChooseAvatar from './/ChooseAvatar';
-import { GET_CURRENT_USER } from '../../../graphql/queries'
+import {FETCH_OPERATING_UNITS, GET_CURRENT_USER} from '../../../graphql/queries'
 
 export default {
   components: { SingleSelect, TextInput, ChooseAvatar },
@@ -168,16 +168,17 @@ export default {
       position: null,
       contact_number: null,
       updateProfileDialog: false,
-      getCurrentUser: {}
+      getCurrentUser: {},
+	    operating_units: []
     };
-  },
-  computed: {
-    ...mapState('options', ['operating_units']),
   },
   apollo: {
     getCurrentUser: {
       query: GET_CURRENT_USER
-    }
+    },
+		operating_units: {
+    	query: FETCH_OPERATING_UNITS
+		}
   },
   methods: {
     ...mapActions('auth', ['updateProfile']),

@@ -1,4 +1,4 @@
-import { apolloClient } from '../../../boot/apollo-boost';
+import { client } from '../../../boot/apollo-boost';
 import {
   CREATE_CONTACT_MUTATION,
   UPDATE_CONTACT_MUTATION,
@@ -11,7 +11,7 @@ import { showSuccessNotification } from '../../../functions/function-show-notifi
 
 export function fetchContacts({ commit }) {
   commit('SET_LOADING', true);
-  apolloClient
+  client
     .query({
       query: FETCH_CONTACTS
     })
@@ -33,7 +33,7 @@ export function fetchContacts({ commit }) {
 }
 
 export function createContact({}, payload) {
-  apolloClient
+  client
     .mutate({
       mutation: CREATE_CONTACT_MUTATION,
       variables: payload,
@@ -62,7 +62,7 @@ export function createContact({}, payload) {
 
 /* Delete contact */
 export function deleteContact({}, id) {
-  apolloClient
+  client
     .mutate({
       mutation: DELETE_CONTACT_MUTATION,
       variables: {
@@ -90,7 +90,7 @@ export function deleteContact({}, id) {
 }
 
 export function updateContact({}, payload) {
-  apolloClient
+  client
     .mutate({
       mutation: UPDATE_CONTACT_MUTATION,
       variables: payload
@@ -104,7 +104,7 @@ export function updateContact({}, payload) {
 }
 
 export function updateOperatingUnitImage({}, payload) {
-  return apolloClient
+  return client
     .mutate({
       mutation: UPDATE_OPERATING_UNIT_IMAGE,
       variables: payload
@@ -122,7 +122,7 @@ export function updateOperatingUnitImage({}, payload) {
 }
 
 export function updateOperatingUnit({}, payload) {
-  return apolloClient
+  return client
     .mutate({
       mutation: UPDATE_OPERATING_UNIT_MUTATION,
       variables: payload

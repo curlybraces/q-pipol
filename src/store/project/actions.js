@@ -1,15 +1,15 @@
 import {
   CREATE_PROJECT_MUTATION,
-  FETCH_PROJECT_QUERY,
   UPDATE_PROJECT_MUTATION
 } from '../../graphql/mutations';
+import { FETCH_PROJECT_QUERY } from 'src/graphql/queries'
 import { convertToNumber } from '../../functions/function-convert-to-number';
 import {
   showErrorNotification,
   showSuccessNotification
 } from '../../functions/function-show-notifications';
 
-import { apolloClient } from '../../boot/apollo-boost';
+import { client } from '../../boot/apollo-boost';
 import { RELAY_PROJECTS_QUERY } from '../../graphql/queries';
 import { INITIAL_STATE } from './state';
 
@@ -48,6 +48,7 @@ export function createFullProject({ state, getters, commit }) {
     implementation_end_date: project.implementation_end_date,
     clearinghouse: project.clearinghouse,
     clearinghouse_date: project.clearinghouse_date,
+	  currency_id: project.currency_id,
     total_project_cost: convertToNumber(project.total_project_cost),
     implementation_risk: project.implementation_risk,
     mitigation_strategy: project.mitigation_strategy,
@@ -176,7 +177,7 @@ export function createFullProject({ state, getters, commit }) {
     updates_date: project.updates_date
   };
 
-  apolloClient
+  client
     .mutate({
       mutation: CREATE_PROJECT_MUTATION,
       variables: payload,
@@ -241,7 +242,7 @@ export function createFullProject({ state, getters, commit }) {
 export function createProject({ commit }, payload) {
   commit('SET_LOADING', true);
 
-  apolloClient
+  client
     .mutate({
       mutation: CREATE_PROJECT_MUTATION,
       variables: payload,
@@ -302,9 +303,8 @@ export function createProject({ commit }, payload) {
     });
 }
 
-export function updateProject({ state, getters, dispatch }) {
-  const { project } = state;
-  apolloClient
+export function updateProject({ state, dispatch }, project) {
+  client
     .mutate({
       mutation: UPDATE_PROJECT_MUTATION,
       variables: {
@@ -317,6 +317,7 @@ export function updateProject({ state, getters, dispatch }) {
         afmip: project.afmip,
         title: project.title,
         type_id: project.type_id,
+	      infrastructure: project.infrastructure,
         operating_unit_id: project.operating_unit_id,
         implementation_mode_id: project.implementation_mode_id,
         project_status_id: project.project_status_id,
@@ -338,7 +339,18 @@ export function updateProject({ state, getters, dispatch }) {
         implementation_end_date: project.implementation_end_date,
         clearinghouse: project.clearinghouse,
         clearinghouse_date: project.clearinghouse_date,
-        total_project_cost: convertToNumber(project.total_project_cost),
+	      neda_submission: project.neda_submission,
+	      neda_submission_date: project.neda_submission_date,
+	      neda_secretariat_review: project.neda_secretariat_review,
+	      neda_secretariat_review_date: project.neda_secretariat_review_date,
+	      icc_endorsed: project.icc_endorsed,
+	      icc_endorsed_date: project.icc_endorsed_date,
+	      icc_approved: project.icc_approved,
+	      icc_approved_date: project.icc_approved_date,
+	      neda_board: project.neda_board,
+	      neda_board_date: project.neda_board_date,
+	      currency_id: project.currency_id,
+        total_project_cost: project.total_project_cost,
         implementation_risk: project.implementation_risk,
         mitigation_strategy: project.mitigation_strategy,
         income_increase: project.income_increase,
@@ -350,6 +362,11 @@ export function updateProject({ state, getters, dispatch }) {
         economic_benefit_cost_ratio: project.economic_benefit_cost_ratio,
         economic_internal_rate_return: project.economic_internal_rate_return,
         economic_net_present_value: project.economic_net_present_value,
+	      main_funding_source_id: project.main_funding_source_id,
+	      funding_institution_id: project.funding_institution_id,
+	      has_fs: project.has_fs,
+	      has_row: project.has_row,
+	      has_rap: project.has_rap,
         fs_target_2017: project.fs_target_2017,
         fs_target_2018: project.fs_target_2018,
         fs_target_2019: project.fs_target_2019,
@@ -409,7 +426,7 @@ export function updateProject({ state, getters, dispatch }) {
         nep_2021: project.nep_2021,
         nep_2022: project.nep_2022,
         nep_2023: project.nep_2023,
-        nep_total: getters.nep_total,
+        // nep_total: getters.nep_total,
         gaa_2016: project.gaa_2016,
         gaa_2017: project.gaa_2017,
         gaa_2018: project.gaa_2018,
@@ -418,7 +435,7 @@ export function updateProject({ state, getters, dispatch }) {
         gaa_2021: project.gaa_2021,
         gaa_2022: project.gaa_2022,
         gaa_2023: project.gaa_2023,
-        gaa_total: getters.gaa_total,
+        // gaa_total: getters.gaa_total,
         disbursement_2016: project.disbursement_2016,
         disbursement_2017: project.disbursement_2017,
         disbursement_2018: project.disbursement_2018,
@@ -427,12 +444,16 @@ export function updateProject({ state, getters, dispatch }) {
         disbursement_2021: project.disbursement_2021,
         disbursement_2022: project.disbursement_2022,
         disbursement_2023: project.disbursement_2023,
-        disbursement_total: getters.disbursement_total,
+        // disbursement_total: getters.disbursement_total,
         bases: {
           sync: project.selected_bases
         },
+	      region_id: project.region_id,
+	      province_id: project.province_id,
+	      district_id: project.district_id,
+	      city_municipality_id: project.city_municipality_id,
         regions: {
-          sync: project.regions
+          sync: project.selected_regions
         },
         provinces: {
           sync: project.selected_provinces
@@ -449,8 +470,11 @@ export function updateProject({ state, getters, dispatch }) {
       }
     })
     .then(data => {
-      console.log(data);
-      dispatch('CLEAR_PROJECT');
+      showSuccessNotification({
+	      message: 'Project successfully updated'
+      })
+    	
+      dispatch('clearProject');
     })
     .catch(err => {
       console.log(err.message);
@@ -463,7 +487,7 @@ export function updateProject({ state, getters, dispatch }) {
 export function fetchProject({ commit }, id) {
   commit('SET_LOADING', true);
 
-  return apolloClient
+  return client
     .query({
       query: FETCH_PROJECT_QUERY,
       variables: {

@@ -11,7 +11,7 @@
       :options-dense="dense"
       outlined
       :hint="hint ? hint : void 0"
-      label-color="orange-10"
+      label-color="secondary"
       :rules="rules"
       dropdown-icon="unfold_more"
       map-options
@@ -20,7 +20,7 @@
       :readonly="readonly"
       hide-bottom-space
     >
-      <template v-slot:before-options v-if="options.length > 5">
+      <template v-slot:before-options v-if="options.length > 10">
         <q-item>
           <q-item-section class="text-grey">
             <q-input

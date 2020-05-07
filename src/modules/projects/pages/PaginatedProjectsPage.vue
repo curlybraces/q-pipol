@@ -4,8 +4,8 @@
 
     <search-component v-model="search" placeholder="Search titles"></search-component>
 
-    <template v-if="$apollo.queries.relayProjects.loading">
-      <q-inner-loading :showing="$apollo.queries.relayProjects.loading">
+    <template v-if="initialLoading">
+      <q-inner-loading :showing="!!initialLoading">
         <q-spinner-tail size="50px" color="primary"></q-spinner-tail>
       </q-inner-loading>
     </template>
@@ -33,21 +33,28 @@
         <div class="q-pa-sm">
     			<q-list separator bordered>
             <q-item-label header v-if="this.search.length >= 3"
-              >Found <b>{{ filteredProjects.length }}</b> titles that match 
+              >Found <b>{{ filteredProjects.length }}</b> titles that match
               <span class="text-negative">{{ search }}...</span></q-item-label
             >
             <template v-for="{ node } in filteredProjects">
               <project-item :project="node" :key="node.id"></project-item>
             </template>
             <q-item
-              :clickable="hasMore"
-              v-if="!$apollo.queries.relayProjects.loading && relayProjects.edges.length"
+              :clickable="hasMore && !loadingMore"
+              v-if="!initialLoading && relayProjects.edges.length"
               class="text-center"
               @click="loadMore"
             >
-              <q-item-section class="text-primary">
-                {{ hasMore ? 'Load More...' : 'End' }}
-              </q-item-section>
+							<template v-if="!!loadingMore">
+								<q-inner-loading :showing="!!loadingMore" >
+									<q-spinner-dots color="primary" size="50px"></q-spinner-dots>
+								</q-inner-loading>
+							</template>
+							<template v-else>
+								<q-item-section class="text-primary">
+									{{ hasMore ? 'Load More...' : 'End' }}
+								</q-item-section>
+							</template>
             </q-item>
           </q-list>
         </div>
@@ -81,7 +88,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { RELAY_PROJECTS_QUERY } from '../../../graphql/queries';
+import { RELAY_PROJECTS_QUERY } from 'src/graphql/queries';
 const EndorseProjects = () => import(/* webpackChunkName: 'EndorseProjects' */ '../components/EndorseProjects')
 const PageTitle = () =>
   import(/* webpackChunkName: 'PageTitle' */ '../../ui/page/PageTitle');
@@ -94,7 +101,14 @@ const NoItem = () => import(/* webpackChunkName: 'NoItem' */ '../../shared/compo
 
 export default {
   name: 'ProjectsPage',
-  components: { EndorseProjects, PageContainer, PageTitle, ProjectItem, SearchComponent, NoItem },
+  components: {
+  	EndorseProjects,
+		PageContainer,
+		PageTitle,
+		ProjectItem,
+		SearchComponent,
+		NoItem
+	},
   apollo: {
     relayProjects: {
       query: RELAY_PROJECTS_QUERY,
@@ -102,8 +116,9 @@ export default {
         first: 10,
         after: ''
       },
-      result({ data }) {
-        this.hasMore = data.relayProjects.pageInfo.hasNextPage;
+      result({ data, loading }) {
+        this.hasMore = data.relayProjects ? data.relayProjects.pageInfo.hasNextPage : false;
+        this.initialLoading = loading
       },
       error(err) {
         console.log(err);
@@ -112,6 +127,8 @@ export default {
   },
   data() {
     return {
+	    initialLoading: 0,
+	    loadingMore: false,
       relayProjects: {},
       first: 10,
       after: '',
@@ -138,7 +155,7 @@ export default {
         return filteredProjects;
       }
 
-      filteredProjects = this.relayProjects.edges;
+      filteredProjects = this.relayProjects ? this.relayProjects.edges: [];
 
       return filteredProjects;
     }
@@ -151,12 +168,15 @@ export default {
       // console.log(this.first);
       // console.log(after);
 
+			this.loadingMore = true;
+
       this.$apollo.queries.relayProjects.fetchMore({
         variables: {
           first: this.first,
           after: after
         },
-        updateQuery: (previousResult, { fetchMoreResult }) => {
+	      notifyOnNetworkStatusChange: true,
+	      updateQuery: (previousResult, { fetchMoreResult }) => {
           // console.log('previous result: ', previousResult);
           // console.log('fetch more result: ', fetchMoreResult);
 
@@ -178,6 +198,8 @@ export default {
           //   ...previousResult.relayProjects.edges
           // );
           // console.log('incoming edges: ', ...newProjects);
+
+					this.loadingMore = false;
 
           return {
             relayProjects: {

@@ -1,9 +1,9 @@
 <template>
   <q-list bordered>
-    <q-item>
+    <q-item class="bg-accent text-white">
       <q-item-section>
         <q-item-label>
-          Total Score: {{ totalScore }} ({{ totalScore | interpretation }})
+          Gender and Development Evaluation Form
         </q-item-label>
       </q-item-section>
       <q-item-section side>
@@ -19,9 +19,9 @@
                 <q-item-label>{{ sq.name }}</q-item-label>
               </q-item-section>
               <q-item-section side>
-                <q-option-group 
+                <q-option-group
                   v-model="answers[sq.id]"
-                  inline type="radio" 
+                  inline type="radio"
                   :options="map(sq.gad_choices)"></q-option-group>
               </q-item-section>
             </q-item>
@@ -59,6 +59,7 @@ export default {
           gad_choice_id: answer
         }
       })
+				.filter(answer => answer.subquestion_id !== 0)
 
       return mappedAnswers
     }

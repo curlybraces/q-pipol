@@ -34,8 +34,9 @@
 </template>
 
 <script>
-	import NotificationItem from '../../notifications/components/NotificationItem';
-	import { FETCH_UNREAD_NOTIFICATIONS_QUERY, GET_CURRENT_USER } from '../../../graphql/queries';
+	import { mapActions } from 'vuex'
+	import NotificationItem from '../../notifications/components/NotificationItem'
+	import { FETCH_UNREAD_NOTIFICATIONS_QUERY } from '@/graphql/queries'
 
 	export default {
 		components: { NotificationItem },
@@ -44,6 +45,9 @@
 			unreadNotifications: {
 	      query: FETCH_UNREAD_NOTIFICATIONS_QUERY
 	    }
+		},
+		methods: {
+			...mapActions('notifications',['markAllAsRead'])
 		},
 		data() {
 			return {

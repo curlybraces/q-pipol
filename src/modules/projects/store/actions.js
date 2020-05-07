@@ -1,4 +1,4 @@
-import { apolloClient } from 'boot/apollo-boost';
+import { client } from 'boot/apollo-boost';
 import { DELETE_PROJECT_MUTATION } from '../../../graphql/mutations';
 import { GET_PROJECTS, RELAY_PROJECTS_QUERY } from '../../../graphql/queries';
 import {
@@ -9,7 +9,7 @@ import {
 export function fetchProjects({ commit }) {
   commit('SET_LOADING', true);
 
-  apolloClient
+  client
     .query({
       query: GET_PROJECTS
     })
@@ -23,7 +23,7 @@ export function fetchProjects({ commit }) {
 }
 
 export function deleteProject({}, payload) {
-  apolloClient
+  client
     .mutate({
       mutation: DELETE_PROJECT_MUTATION,
       variables: payload,
