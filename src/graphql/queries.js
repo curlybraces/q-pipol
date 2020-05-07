@@ -517,9 +517,6 @@ export const FETCH_PROJECT_QUERY = gql`
       economic_benefit_cost_ratio
       economic_internal_rate_return
       economic_net_present_value
-      funding_sources {
-        id
-      }
       ten_point_agenda {
         id
       }
@@ -655,6 +652,19 @@ export const FETCH_PROJECT_QUERY = gql`
         target_2023
         target_total
 	    }
+      funding_source_financials {
+        id
+        funding_source_id
+        target_2016
+        target_2017
+        target_2018
+        target_2019
+        target_2020
+        target_2021
+        target_2022
+        target_2023
+        target_total
+      }
 	    created_at
 	    updated_at
     }

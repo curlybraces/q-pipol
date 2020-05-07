@@ -816,7 +816,6 @@ export const UPDATE_PROJECT_MUTATION = gql`
     $technical_readinesses: UpdateTechnicalReadinessesInput
     $main_funding_source_id: ID
 	  $funding_institution_id: ID
-    $funding_sources: UpdateFundingSourceRelation
 	  $has_fs: Boolean
     $fs_target_2017: Float
     $fs_target_2018: Float
@@ -900,6 +899,8 @@ export const UPDATE_PROJECT_MUTATION = gql`
     $disbursement_total: Float
     $updates: String
     $updates_date: String
+	  $region_financials: UpdateRegionFinancialsHasMany
+    $funding_source_financials: UpdateFundingSourceFinancialsHasMany
   ) {
     updateProject(
       input: {
@@ -973,7 +974,6 @@ export const UPDATE_PROJECT_MUTATION = gql`
         technical_readinesses: $technical_readinesses
 	      main_funding_source_id: $main_funding_source_id
 	      funding_institution_id: $funding_institution_id
-        funding_sources: $funding_sources
 		    has_fs: $has_fs
         fs_target_2017: $fs_target_2017
         fs_target_2018: $fs_target_2018
@@ -1057,6 +1057,8 @@ export const UPDATE_PROJECT_MUTATION = gql`
         disbursement_total: $disbursement_total
         updates: $updates
         updates_date: $updates_date
+	      region_financials: $region_financials
+        funding_source_financials: $funding_source_financials
       }
     ) {
         id
@@ -1120,21 +1122,6 @@ export const UPDATE_PROJECT_MUTATION = gql`
         currency_id
         total_project_cost
         selected_bases
-        funding_sources {
-            id
-            name
-            pivot {
-                target_2016
-                target_2017
-                target_2018
-                target_2019
-                target_2020
-                target_2021
-                target_2022
-                target_2023
-                target_total
-            }
-        }
 		    has_fs
         fs_target_2017
         fs_target_2018
@@ -1229,6 +1216,30 @@ export const UPDATE_PROJECT_MUTATION = gql`
         }
         created_at
         updated_at
+		    region_financials {
+				    id
+				    region_id
+				    target_2016
+				    target_2017
+				    target_2018
+				    target_2019
+				    target_2020
+				    target_2021
+				    target_2022
+				    target_2023
+		    }
+        funding_source_financials {
+            id
+            funding_source_id
+            target_2016
+            target_2017
+            target_2018
+            target_2019
+            target_2020
+            target_2021
+            target_2022
+            target_2023
+        }
     }
   }
 `;

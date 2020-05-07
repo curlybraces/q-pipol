@@ -397,13 +397,12 @@
 									<table-data :value="project.row_target_2022" />
 									<td class="text-right">
 										{{
-										(project.row_target_2017 +
-										project.row_target_2018 +
-										project.row_target_2019 +
-										project.row_target_2020 +
-										project.row_target_2021 +
-										project.row_target_2022)
-										| money
+											(project.row_target_2017 +
+											project.row_target_2018 +
+											project.row_target_2019 +
+											project.row_target_2020 +
+											project.row_target_2021 +
+											project.row_target_2022 ) | money
 										}}
 									</td>
 								</tr>
@@ -711,7 +710,7 @@
 							</q-card>
 						</q-dialog>
 
-						<q-item-label header>Investment Requirements by Region (PhP)</q-item-label>
+						<q-item-label header>Investment Requirements by Region (PhP) <q-icon name="add_box" class="cursor-pointer" color="primary" @click="showAddRegionFinancial"></q-icon></q-item-label>
 
 						<div class="row">
 							<q-markup-table class="col bg-transparent" flat bordered>
@@ -740,34 +739,407 @@
 									</template>
 									<template v-else>
 										<tr v-for="(region, index) in project.region_financials" :key="index">
-											<table-data :value="getRegion(region.region_id)"></table-data>
-											<table-data :value="region.infrastructure_target_2016" />
-											<table-data :value="region.infrastructure_target_2017" />
-											<table-data :value="region.infrastructure_target_2018" />
-											<table-data :value="region.infrastructure_target_2019" />
-											<table-data :value="region.infrastructure_target_2020" />
-											<table-data :value="region.infrastructure_target_2021" />
-											<table-data :value="region.infrastructure_target_2022" />
-											<table-data :value="region.infrastructure_target_2023" />
+											<td class="text-left">{{ getRegion(region.region_id) }}</td>
+											<table-data :value="region.target_2016" />
+											<table-data :value="region.target_2017" />
+											<table-data :value="region.target_2018" />
+											<table-data :value="region.target_2019" />
+											<table-data :value="region.target_2020" />
+											<table-data :value="region.target_2021" />
+											<table-data :value="region.target_2022" />
+											<table-data :value="region.target_2023" />
 											<td class="text-right">
 												{{
 													(
-														region.infrastructure_target_2016 +
-														region.infrastructure_target_2017 +
-														region.infrastructure_target_2018 +
-														region.infrastructure_target_2019 +
-														region.infrastructure_target_2020 +
-														region.infrastructure_target_2021 +
-														region.infrastructure_target_2022 +
-														region.infrastructure_target_2023 ) | money
+														region.target_2016 +
+														region.target_2017 +
+														region.target_2018 +
+														region.target_2019 +
+														region.target_2020 +
+														region.target_2021 +
+														region.target_2022 +
+														region.target_2023 ) | money
 												}}
 											</td>
+											<td>
+												<q-icon class="cursor-pointer" name="delete" color="red" @click="confirmDeleteRegionRow(region, index)" />
+												<q-icon class="cursor-pointer" name="edit" color="secondary" @click="editRegionFinancialDialog = true" />
+											</td>
+											<!-- Add region dialog -->
+											<q-dialog
+													v-model="editRegionFinancialDialog"
+													full-height
+													:position="$q.screen.xs ? void 0 : 'right'"
+													persistent
+													:maximized="$q.screen.xs"
+													transition-show="jump-left"
+													transition-hide="jump-right"
+											>
+												<q-card :style="$q.screen.gt.xs ? 'min-width:400px' : ''">
+													<q-toolbar class="bg-info text-white">
+														<q-toolbar-title class="absolute-center text-subtitle1"
+														>Edit Region Financial Data</q-toolbar-title
+														>
+														<q-space />
+														<q-btn
+																flat
+																round
+																dense
+																icon="close"
+																@click="editRegionFinancialDialog = false"
+														></q-btn>
+													</q-toolbar>
+													<q-separator />
+													<div class="q-pa-sm q-gutter-y-sm">
+														<single-select
+																label="Region"
+																:options="regions"
+																v-model="region.region_id" />
+														<money-input
+																v-model="region.target_2016"
+																label="2016 &amp; Prior"
+														/>
+														<money-input
+																v-model="region.target_2017"
+																label="2017"
+														/>
+														<money-input
+																v-model="region.target_2018"
+																label="2018"
+														/>
+														<money-input
+																v-model="region.target_2019"
+																label="2019"
+														/>
+														<money-input
+																v-model="region.target_2020"
+																label="2020"
+														/>
+														<money-input
+																v-model="region.target_2021"
+																label="2021"
+														/>
+														<money-input
+																v-model="region.target_2022"
+																label="2022"
+														/>
+														<money-input
+																v-model="region.target_2023"
+																label="2023 &amp; Beyond"
+														/>
+													</div>
+													<q-card-actions align="right">
+														<q-btn
+															outline
+															label="Delete"
+															color="red"
+															@click="confirmDeleteRegionRow(region, index)"
+															></q-btn>
+														<q-btn
+																label="Update"
+																color="primary"
+																@click="editRegionFinancialDialog = false"
+														></q-btn>
+													</q-card-actions>
+												</q-card>
+											</q-dialog>
 										</tr>
 									</template>
 								</tbody>
 							</q-markup-table>
 						</div>
 
+						<!-- Add region dialog -->
+						<q-dialog
+								v-model="addRegionFinancialDialog"
+								full-height
+								:position="$q.screen.xs ? void 0 : 'right'"
+								persistent
+								:maximized="$q.screen.xs"
+								transition-show="jump-left"
+								transition-hide="jump-right"
+						>
+							<q-card :style="$q.screen.gt.xs ? 'min-width:400px' : ''">
+								<q-toolbar class="bg-info text-white">
+									<q-toolbar-title class="absolute-center text-subtitle1"
+									>Add Region Financial Data</q-toolbar-title
+									>
+									<q-space />
+									<q-btn
+											flat
+											round
+											dense
+											icon="close"
+											@click="addRegionFinancialDialog = false"
+									></q-btn>
+								</q-toolbar>
+								<q-separator />
+								<div class="q-pa-sm q-gutter-y-sm">
+									<single-select
+										label="Region"
+										:options="regions"
+										v-model="newRegion.region_id" />
+									<money-input
+										v-model="newRegion.target_2016"
+										label="2016 &amp; Prior"
+									/>
+									<money-input
+										v-model="newRegion.target_2017"
+										label="2017"
+									/>
+									<money-input
+										v-model="newRegion.target_2018"
+										label="2018"
+									/>
+									<money-input
+										v-model="newRegion.target_2019"
+										label="2019"
+									/>
+									<money-input
+										v-model="newRegion.target_2020"
+										label="2020"
+									/>
+									<money-input
+										v-model="newRegion.target_2021"
+										label="2021"
+									/>
+									<money-input
+										v-model="newRegion.target_2022"
+										label="2022"
+									/>
+									<money-input
+										v-model="newRegion.target_2023"
+										label="2023 &amp; Beyond"
+									/>
+								</div>
+								<q-card-actions>
+									<q-btn
+											class="col"
+											label="Add"
+											color="primary"
+											@click="addRegionRow"
+									></q-btn>
+								</q-card-actions>
+							</q-card>
+						</q-dialog>
+
+						<q-item-label header>
+							Investment Requirements by Funding Source (PhP)
+							<q-icon name="add_box" class="cursor-pointer" color="primary" @click="showAddFundingSourceFinancial"/>
+						</q-item-label>
+
+						<div class="row">
+							<q-markup-table class="col bg-transparent" flat bordered>
+								<thead>
+								<tr>
+									<th>Funding Source</th>
+									<th>2016 &amp; Prior</th>
+									<th>2017</th>
+									<th>2018</th>
+									<th>2019</th>
+									<th>2020</th>
+									<th>2021</th>
+									<th>2022</th>
+									<th>2023 &amp; Beyond</th>
+									<th>Total</th>
+									<th>Actions</th>
+								</tr>
+								</thead>
+								<tbody>
+								<template v-if="!project.region_financials.length">
+									<tr>
+										<td colspan="9">
+											No funding sources added yet.
+										</td>
+									</tr>
+								</template>
+								<template v-else>
+									<tr v-for="(funding_source, index) in project.funding_source_financials" :key="index">
+										<td class="text-left">{{ getFundingSource(funding_source.funding_source_id) }}</td>
+										<table-data :value="funding_source.target_2016" />
+										<table-data :value="funding_source.target_2017" />
+										<table-data :value="funding_source.target_2018" />
+										<table-data :value="funding_source.target_2019" />
+										<table-data :value="funding_source.target_2020" />
+										<table-data :value="funding_source.target_2021" />
+										<table-data :value="funding_source.target_2022" />
+										<table-data :value="funding_source.target_2023" />
+										<td class="text-right">
+											{{
+											(
+												funding_source.target_2016 +
+												funding_source.target_2017 +
+												funding_source.target_2018 +
+												funding_source.target_2019 +
+												funding_source.target_2020 +
+												funding_source.target_2021 +
+												funding_source.target_2022 +
+												funding_source.target_2023 ) | money
+											}}
+										</td>
+										<td>
+											<q-icon class="cursor-pointer" name="delete" color="red" @click="confirmDeleteFundingSourceRow(funding_source, index)" />
+											<q-icon class="cursor-pointer" name="edit" color="secondary" @click="editFundingSourceFinancialDialog = true" />
+										</td>
+										<!-- Edit funding source dialog -->
+										<q-dialog
+												v-model="editFundingSourceFinancialDialog"
+												full-height
+												:position="$q.screen.xs ? void 0 : 'right'"
+												persistent
+												:maximized="$q.screen.xs"
+												transition-show="jump-left"
+												transition-hide="jump-right"
+										>
+											<q-card :style="$q.screen.gt.xs ? 'min-width:400px' : ''">
+												<q-toolbar class="bg-info text-white">
+													<q-toolbar-title class="absolute-center text-subtitle1"
+													>Edit Funding Source Financial Data</q-toolbar-title
+													>
+													<q-space />
+													<q-btn
+															flat
+															round
+															dense
+															icon="close"
+															@click="editFundingSourceFinancialDialog = false"
+													></q-btn>
+												</q-toolbar>
+												<q-separator />
+												<div class="q-pa-sm q-gutter-y-sm">
+													<single-select
+															label="Region"
+															:options="funding_sources_options"
+															v-model="funding_source.funding_source_id" />
+													<money-input
+															v-model="funding_source.target_2016"
+															label="2016 &amp; Prior"
+													/>
+													<money-input
+															v-model="funding_source.target_2017"
+															label="2017"
+													/>
+													<money-input
+															v-model="funding_source.target_2018"
+															label="2018"
+													/>
+													<money-input
+															v-model="funding_source.target_2019"
+															label="2019"
+													/>
+													<money-input
+															v-model="funding_source.target_2020"
+															label="2020"
+													/>
+													<money-input
+															v-model="funding_source.target_2021"
+															label="2021"
+													/>
+													<money-input
+															v-model="funding_source.target_2022"
+															label="2022"
+													/>
+													<money-input
+															v-model="funding_source.target_2023"
+															label="2023 &amp; Beyond"
+													/>
+												</div>
+												<q-card-actions align="right">
+													<q-btn
+															outline
+															label="Delete"
+															color="red"
+															@click="confirmDeleteFundingSourceRow(funding_source, index)"
+													></q-btn>
+													<q-btn
+															label="Update"
+															color="primary"
+															@click="editFundingSourceFinancialDialog = false"
+													></q-btn>
+												</q-card-actions>
+											</q-card>
+										</q-dialog>
+									</tr>
+								</template>
+								</tbody>
+							</q-markup-table>
+						</div>
+
+						<!-- Add funding source dialog -->
+						<q-dialog
+								v-model="addFundingSourceFinancialDialog"
+								full-height
+								:position="$q.screen.xs ? void 0 : 'right'"
+								persistent
+								:maximized="$q.screen.xs"
+								transition-show="jump-left"
+								transition-hide="jump-right"
+						>
+							<q-card :style="$q.screen.gt.xs ? 'min-width:400px' : ''">
+								<q-toolbar class="bg-info text-white">
+									<q-toolbar-title class="absolute-center text-subtitle1"
+									>Add Funding Source Financial Data</q-toolbar-title
+									>
+									<q-space />
+									<q-btn
+											flat
+											round
+											dense
+											icon="close"
+											@click="addFundingSourceFinancialDialog = false"
+									></q-btn>
+								</q-toolbar>
+								<q-separator />
+								<div class="q-pa-sm q-gutter-y-sm">
+									<single-select
+											label="Funding Source"
+											:options="funding_sources_options"
+											v-model="newFundingSource.funding_source_id" />
+									<money-input
+											v-model="newFundingSource.target_2016"
+											label="2016 &amp; Prior"
+									/>
+									<money-input
+											v-model="newFundingSource.target_2017"
+											label="2017"
+									/>
+									<money-input
+											v-model="newFundingSource.target_2018"
+											label="2018"
+									/>
+									<money-input
+											v-model="newFundingSource.target_2019"
+											label="2019"
+									/>
+									<money-input
+											v-model="newFundingSource.target_2020"
+											label="2020"
+									/>
+									<money-input
+											v-model="newFundingSource.target_2021"
+											label="2021"
+									/>
+									<money-input
+											v-model="newFundingSource.target_2022"
+											label="2022"
+									/>
+									<money-input
+											v-model="newFundingSource.target_2023"
+											label="2023 &amp; Beyond"
+									/>
+								</div>
+								<q-card-actions>
+									<q-btn
+											class="col"
+											label="Add"
+											color="primary"
+											@click="addFundingSourceRow"
+									></q-btn>
+								</q-card-actions>
+							</q-card>
+						</q-dialog>
+
+						<!-- Investment Requirements (Total, Infrastructure, GAA, NEP, Disbursement -->
             <q-item-label header>Investment Requirements (in absolute PhP)</q-item-label>
 
             <div class="row">
@@ -1354,6 +1726,7 @@ import {
 	FETCH_IMPLEMENTATION_MODES,
 	FETCH_FUNDING_SOURCES, FETCH_FUNDING_INSTITUTIONS, FETCH_PROVINCES, FETCH_DISTRICTS, FETCH_CITY_MUNICIPALITIES_QUERY
 } from '@/graphql/queries'
+import Vue from 'vue'
 import {FETCH_CURRENCIES} from '../../../graphql/queries'
 import TableData from '../components/TableData'
 const PageTitle = () =>
@@ -1486,6 +1859,30 @@ export default {
   },
   data() {
     return {
+    	newFundingSource: {
+		    id: null,
+		    funding_source_id: null,
+		    target_2016: 0,
+		    target_2017: 0,
+		    target_2018: 0,
+		    target_2019: 0,
+		    target_2020: 0,
+		    target_2021: 0,
+		    target_2022: 0,
+		    target_2023: 0
+			},
+    	newRegion: {
+    		id: null,
+    		region_id: null,
+				target_2016: 0,
+				target_2017: 0,
+		    target_2018: 0,
+		    target_2019: 0,
+		    target_2020: 0,
+		    target_2021: 0,
+		    target_2022: 0,
+		    target_2023: 0
+			},
     	currencies: [],
 	    funding_institutions: [],
 	    funding_sources_options: [],
@@ -1519,12 +1916,16 @@ export default {
       editNepDialog: false,
       editGaaDialog: false,
       editDisbursementDialog: false,
+			addRegionFinancialDialog: false,
       error: null,
       rules: {
         required: [val => !!val || '* Required']
       },
 	    editFSCostDialog: false,
-	    editRowCostDialog: false
+	    editRowCostDialog: false,
+	    editRegionFinancialDialog: false,
+			addFundingSourceFinancialDialog: false,
+			editFundingSourceFinancialDialog: false
     };
   },
   name: 'PageEditProject',
@@ -1547,6 +1948,105 @@ export default {
     	const region = regions.find(region => region.id === val)
 
     	return region.name
+		},
+	  getFundingSource(val) {
+    	const funding_sources = this.funding_sources_options
+			const funding_source = funding_sources.find(funding_source => funding_source.id === val)
+
+			return funding_source.name
+		},
+		addRegionRow() {
+    	const payload = this.newRegion
+
+			console.dir(payload)
+
+			this.project.region_financials.push(payload)
+
+			console.dir(this.project.region_financials)
+
+			this.addRegionFinancialDialog = false
+		},
+		deleteRegionRow(region, index) {
+			console.log('deleteRegionRows: ', this.project.deleteRegionRows)
+
+			if (typeof this.project.deleteRegionRows === 'undefined') {
+				console.log('above is undefined')
+				Vue.set(this.project, 'deleteRegionRows', [])
+			}
+			this.project.region_financials.splice(index, 1)
+			if (region.id) {
+				this.project.deleteRegionRows.push(region.id)
+			}
+
+			console.log('deleteRegionRows: ', this.project.deleteRegionRows)
+		},
+		editRegionRow(region) {
+    	this.newRegion = region
+
+			this.addRegionFinancialDialog = true
+		},
+	  confirmDeleteRegionRow(region, index) {
+    	this.$q.dialog({
+				title: 'Confirm Delete',
+				message: 'Are you sure you want to delete this data?',
+				cancel: true
+			})
+			.onOk(() => this.deleteRegionRow(region, index))
+		},
+		updateRegionRow() {
+
+		},
+	  showAddRegionFinancial() {
+    	this.newRegion = {
+		    id: null,
+		    region_id: null,
+		    target_2016: 0,
+		    target_2017: 0,
+		    target_2018: 0,
+		    target_2019: 0,
+		    target_2020: 0,
+		    target_2021: 0,
+		    target_2022: 0,
+		    target_2023: 0
+	    }
+
+	    this.addRegionFinancialDialog = true
+		},
+	  showAddFundingSourceFinancial() {
+    	this.addFundingSourceFinancialDialog = true
+		},
+		addFundingSourceRow() {
+			const payload = this.newFundingSource
+
+			console.dir(payload)
+
+			this.project.funding_source_financials.push(payload)
+
+			console.dir(this.project.funding_source_financials)
+
+			this.addFundingSourceFinancialDialog = false
+		},
+		deleteFundingSourceRow(funding_source, index) {
+			console.log('deleteFundingSourceRows: ', this.project.deleteFundingSourceRows)
+
+			if (typeof this.project.deleteFundingSourceRows === 'undefined') {
+				console.log('above is undefined')
+				Vue.set(this.project, 'deleteFundingSourceRows', [])
+			}
+			this.project.funding_source_financials.splice(index, 1)
+			if (funding_source.id) {
+				this.project.deleteFundingSourceRows.push(funding_source.id)
+			}
+
+			console.log('deleteFundingSourceRows: ', this.project.deleteFundingSourceRows)
+		},
+		confirmDeleteFundingSourceRow(funding_source, index) {
+			this.$q.dialog({
+				title: 'Confirm Delete',
+				message: 'Are you sure you want to delete this data?',
+				cancel: true
+			})
+			.onOk(() => this.deleteFundingSourceRow(funding_source, index))
 		}
   },
   filters: {

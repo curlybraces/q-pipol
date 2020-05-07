@@ -7,7 +7,7 @@ const ProjectsRoutes = {
       name: 'index-project',
       component: () =>
         import(
-          /* webpackChunkName: 'ProjectsPage' */ './pages/PaginatedProjectsPage.vue'
+          /* webpackChunkName: 'ProjectsPage' */ './pages/ProjectsPage.vue'
         ),
       meta: {
         requiresAuth: true
