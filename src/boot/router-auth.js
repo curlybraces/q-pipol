@@ -5,7 +5,8 @@ let user = {}, token = ''
 const getRole = async () => {
 	token = await LocalStorage.getItem('token')
 	user = await LocalStorage.getItem('user')
-	const role = user.role ? user.role.name: ''
+	const role = user ? (user.role ? user.role.name: '') : ''
+	
 	return { token, role }
 }
 

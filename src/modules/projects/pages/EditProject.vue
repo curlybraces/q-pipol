@@ -2,9 +2,7 @@
   <page-container>
     <page-title title="Edit Project"></page-title>
 
-		{{ project }}
-
-    <template v-if="$apollo.loading">
+		<template v-if="$apollo.loading">
       <q-inner-loading :showing="$apollo.loading">
         <q-spinner-tail color="primary" size="50px"></q-spinner-tail>
       </q-inner-loading>
@@ -135,13 +133,7 @@
 
 							<spatial-coverage v-model="project.spatial_coverage_id"></spatial-coverage>
 
-							<list-option-group
-								label="Regions"
-								v-model="project.selected_regions"
-								:options="regions_options"
-								:recode="true"
-								v-if="project.spatial_coverage_id === '2'"
-							/>
+							<regions v-model="project.selected_regions" v-if="project.spatial_coverage_id === '2'"></regions>
 
 							<region v-model="project.region_id" v-if="project.spatial_coverage_id === '3'"></region>
 
@@ -1654,6 +1646,7 @@ import {
 	FETCH_YEARS
 } from '@/graphql/queries'
 import BudgetTier from '../components/dropdowns/BudgetTier'
+import Regions from '../components/dropdowns/Regions'
 const TableData = () => import('../components/TableData')
 const Typology = () => import('../components/dropdowns/Typology')
 const Region = () => import('../components/dropdowns/Region')
@@ -1689,16 +1682,13 @@ const DateInput = () =>
   import(/* webpackChunkName: 'DateInput' */ '../../ui/form-inputs/DateInput');
 const GadForm = () =>
   import(/* webpackChunkName: 'GadForm' */ '../components/shared/GadForm');
-const ListOptionGroup = () =>
-  import(
-    /* webpackChunkName: 'ListOptionGroup' */ '../../ui/form-inputs/ListOptionGroup'
-  );
 // dropdowns
 const ImplementingAgency = () => import('../components/dropdowns/ImplementingAgency')
 const ProjectStatus = () => import('../components/dropdowns/ProjectStatus')
 
 export default {
   components: {
+	  Regions,
 	  BudgetTier,
 	  SpatialCoverage,
 	  Currency,
@@ -1713,7 +1703,6 @@ export default {
 	  ProjectStatus,
 	  ImplementingAgency,
 	  TableData,
-    ListOptionGroup,
     GadForm,
     DateInput,
     MoneyInput,
@@ -1820,7 +1809,8 @@ export default {
 	    editRowCostDialog: false,
 	    editRegionFinancialDialog: false,
 			addFundingSourceFinancialDialog: false,
-			editFundingSourceFinancialDialog: false
+			editFundingSourceFinancialDialog: false,
+			regions: []
     };
   },
   name: 'PageEditProject',
@@ -1839,10 +1829,12 @@ export default {
     	this.updateProject(payload)
 		},
 		getRegion(val) {
-    	const regions = this.regions_options
-    	const region = regions.find(region => region.id === val)
-
-    	return region.name
+    	const regions = this.regions
+			if (regions.length) {
+    		const region = regions.find(region => region.id === val)
+				return region.name
+			}
+    	return ''
 		},
 	  getFundingSource(val) {
     	const funding_sources = this.funding_sources_options

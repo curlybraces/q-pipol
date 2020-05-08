@@ -9,6 +9,7 @@
       label="Upload Avatar (Max file size (50KB))"
       accept=".jpg, image/*"
       :max-file-size="50000"
+			@finish="$emit('close')"
     >
     </q-uploader>
   </q-card>
@@ -35,11 +36,18 @@ export default {
   	...mapActions('auth',['uploadUserAvatar']),
     uploadFileByUploader() {
       const file = this.$refs.uploader.files[0];
+
       const payload = {
       	image: file
 			}
-			this.uploadUserAvatar(payload)
-	    this.$emit('close');
+
+	    return new Promise((resolve, reject) => {
+		    try {
+			    resolve(this.uploadUserAvatar(payload));
+		    } catch (err) {
+			    reject(err);
+		    }
+	    });
     }
   }
 };
