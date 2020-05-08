@@ -55,8 +55,8 @@
 </template>
 
 <script>
-import { FETCH_ACTIVITIES } from '../../../graphql/queries';
-import moment from 'moment';
+import { FETCH_ACTIVITIES } from '@/graphql/queries'
+import { date } from 'quasar'
 
 export default {
   name: 'ActivityComponent',
@@ -92,7 +92,12 @@ export default {
       return null;
     },
     timeDiff(val) {
-      return moment(val).calendar();
+    	const today = new Date()
+			if (val) {
+				const diff = date.getDateDiff(today, val, 'days')
+				return diff + ' days ago'
+			}
+			return ''
     }
   },
   beforeDestroy() {

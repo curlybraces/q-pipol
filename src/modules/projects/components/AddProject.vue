@@ -29,6 +29,7 @@
             { id: true, name: 'Yes' },
             { id: false, name: 'No' }
           ]"
+					:rules="rules.notNull"
         />
       </div>
     </div>
@@ -107,7 +108,7 @@
 				<money-input
 					v-model="total_project_cost"
 					label="Total Project Cost"
-					:rules="rules.notZero"
+					:rules="rules.greaterThanZero"
 				></money-input>
 			</div>
     </div>
@@ -134,15 +135,16 @@ import { mapState, mapActions } from 'vuex';
 import TextInput from '../../ui/form-inputs/TextInput';
 import SingleSelect from '../../ui/form-inputs/SingleSelect';
 import MoneyInput from '../../ui/form-inputs/MoneyInput';
-import { 
+import {
   FETCH_CURRENCIES,
-  FETCH_OPERATING_UNITS, 
-  FETCH_FUNDING_SOURCES, 
-  FETCH_PROJECT_STATUSES, 
+  FETCH_OPERATING_UNITS,
+  FETCH_FUNDING_SOURCES,
+  FETCH_PROJECT_STATUSES,
   FETCH_SPATIAL_COVERAGES,
   FETCH_TYPES,
   FETCH_YEARS
 } from 'src/graphql/queries'
+import {convertToNumber} from '../../../functions/function-convert-to-number'
 
 export default {
   name: 'AddProject',
@@ -191,7 +193,10 @@ export default {
             (!!val && val >= this.target_start_year) ||
             '* Should be higher than start year'
         ],
-        notZero: [val => !!val || '* Should be positive number']
+        greaterThanZero: [val => this.checkPositiveNumber(val) || '* Should be positive number'],
+				notNull: [
+					val => val !== null || '* Select one'
+				]
       },
       title: null,
       description: null,
@@ -245,8 +250,15 @@ export default {
     handleReset() {
       console.log('resetting');
       this.clearProject();
-    }
-  },
-  mounted() {}
+    },
+		checkPositiveNumber(val) {
+    	const value = convertToNumber(val)
+
+			if (value > 0) {
+				return true
+			}
+			return false
+		}
+  }
 };
 </script>

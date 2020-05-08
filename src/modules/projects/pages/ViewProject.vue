@@ -14,10 +14,30 @@
                 <q-item-label>Print Project</q-item-label>
               </q-item-section>
             </q-item>
+						<q-item clickable @click="reviewProject = true">
+							<q-item-section>
+								<q-item-label>Review Project</q-item-label>
+							</q-item-section>
+						</q-item>
           </q-list>
         </q-menu>
       </q-btn>
     </page-title>
+
+		<q-dialog
+				v-model="reviewProject"
+				full-height
+				:position="$q.screen.xs ? void 0 : 'right'"
+				persistent
+				:maximized="$q.screen.xs"
+				transition-show="jump-left"
+				transition-hide="jump-right"
+				seamless
+		>
+			<q-card class="bg-white">
+				<review-form :full-path="`${$route.fullPath}/review`" @close="reviewProject = false"></review-form>
+			</q-card>
+		</q-dialog>
 
     <template v-if="$apollo.loading">
       <q-inner-loading :showing="$apollo.loading">
@@ -276,9 +296,10 @@ import PageTitle from '../../ui/page/PageTitle.vue';
 import PageContainer from '../../ui/page/PageContainer.vue';
 import { date } from 'quasar'
 import TableData from '../components/TableData'
+import ReviewForm from '../components/ReviewForm'
 
 export default {
-  components: {TableData, PageContainer, PageTitle },
+  components: {ReviewForm, TableData, PageContainer, PageTitle },
   name: 'ViewProject',
   apollo: {
     project: {
@@ -297,7 +318,8 @@ export default {
           label: 'Basic Information',
           ref: '#basicInformation'
         }
-      ]
+      ],
+	    reviewProject: true
     };
   },
   filters: {

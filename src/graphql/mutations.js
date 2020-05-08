@@ -714,11 +714,13 @@ export const CREATE_PROJECT_MUTATION = gql`
       id
       title
       operating_unit {
+	      id
         name
         image
         acronym
       }
       spatial_coverage {
+	      id
         name
       }
       main_funding_source {
@@ -736,6 +738,7 @@ export const CREATE_PROJECT_MUTATION = gql`
       total_project_cost
       can_update
       creator {
+	      id
         name
       }
       created_at

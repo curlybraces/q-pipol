@@ -3,15 +3,17 @@ import { LocalStorage, Dialog } from 'quasar';
 let user = {}, token = ''
 
 const getRole = async () => {
-	token = await LocalStorage.getItem('token')
-	user = await LocalStorage.getItem('user')
+	token = LocalStorage.getItem('token')
+	user = LocalStorage.getItem('user')
 	const role = user ? (user.role ? user.role.name: '') : ''
 	
 	return { token, role }
 }
 
-export default ({ router }) => {
-	getRole().then(({ role, token}) => {
+export default async ({ router }) => {
+	const { role, token } = await getRole()
+	
+	// getRole().then(({ role, token}) => {
 		// console.log('role: ', role)
 		// console.log('token', token)
 		router.beforeEach((to, from, next) => {
@@ -36,8 +38,7 @@ export default ({ router }) => {
 							// redirect to origin page
 							next({ name: 'dashboard' })
 						}
-					}
-					if (to.matched.some(record => record.meta.isEncoder)) {
+					} else if (to.matched.some(record => record.meta.isEncoder)) {
 						if (role === 'encoder') {
 							next();
 						} else {
@@ -51,10 +52,7 @@ export default ({ router }) => {
 							// redirect to origin page
 							next({ name: 'index-project' })
 						}
-					} else {
-						next();
-					}
-					if (to.matched.some(record => record.meta.isReviewer)) {
+					} else if (to.matched.some(record => record.meta.isReviewer)) {
 						if (role === 'reviewer') {
 							next();
 						} else {
@@ -69,18 +67,13 @@ export default ({ router }) => {
 							next({ name: 'index-project' })
 						}
 					} else {
-						next();
+						return next()
 					}
 				}
-			} else if (to.matched.some(record => record.meta.guest)) {
-				if (!token) {
-					next();
-				} else {
-					next({ name: 'home' });
-				}
 			} else {
-				next();
+				return next();
 			}
 		});
-	})
+	// })
+	// 	.catch(err => console.log(err.message));
 };

@@ -79,19 +79,10 @@ export function assignRole({ commit }, payload) {
         role_id: payload.role_id
       }
     })
-    .then(res => {
-      const newRole = {
-        id: 'ID' + res.data.assignRole.user.id,
-        role: res.data.assignRole.user.role
-      };
-
+    .then(() => {
       showSuccessNotification({
         message: 'Successfully assigned role.'
       });
-
-      commit('ASSIGN_ROLE', newRole);
-
-      return;
     })
     .catch(err => console.log(err.message));
 }
