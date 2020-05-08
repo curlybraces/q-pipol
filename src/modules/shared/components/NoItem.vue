@@ -1,5 +1,5 @@
 <template>
-	<q-banner dense class="q-ma-sm bg-grey-3">
+	<q-banner>
     <template v-slot:avatar>
       <q-icon :name="icon" color="red" />
     </template>

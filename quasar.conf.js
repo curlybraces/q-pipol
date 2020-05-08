@@ -45,8 +45,8 @@ module.exports = function(ctx) {
 
       // Quasar plugins
       plugins: [
+      	'BottomSheet',
       	'Dialog',
-	      'AddressbarColor',
 	      'LocalStorage',
 	      'Notify',
 	      'LoadingBar',

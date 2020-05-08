@@ -54,53 +54,7 @@
 
       <!-- action buttons -->
       <q-item-section side>
-        <q-btn :color="buttonColor" dense outline icon="unfold_more" size="sm">
-          <q-menu
-            :offset="[0, 2]"
-            transition-show="jump-down"
-            transition-hide="jump-up"
-          >
-            <q-list style="min-width: 100px" dense>
-              <q-item
-                clickable
-                v-close-popup
-                :to="'/projects/' + project.id"
-                tag="a"
-              >
-                <q-item-section>
-                  <q-item-label>
-                    <q-icon name="open_in_new" /> View
-                  </q-item-label>
-                </q-item-section>
-              </q-item>
-              <q-item
-                v-if="isEncoder"
-                clickable
-                v-close-popup
-                :to="'/projects/' + project.id + '/edit'"
-                tag="a"
-              >
-                <q-item-section>
-                  <q-item-label> <q-icon name="edit" /> Edit </q-item-label>
-                </q-item-section>
-              </q-item>
-              <q-separator />
-              <q-item
-                clickable
-                v-close-popup
-                :class="dark ? 'text-pink-11' : 'text-negative'"
-                @click="promptDelete(project)"
-              >
-                <q-item-section>
-                  <q-item-label>
-                    <q-icon name="close" />
-                    Delete
-                  </q-item-label>
-                </q-item-section>
-              </q-item>
-            </q-list>
-          </q-menu>
-        </q-btn>
+        <q-btn :color="buttonColor" dense outline icon="unfold_more" size="sm" @click="showBottomSheet(project)"></q-btn>
       </q-item-section>
     </q-item>
   </transition>
@@ -124,10 +78,52 @@ export default {
   computed: {
     ...mapState('settings', ['dark']),
     ...mapGetters('settings', ['buttonColor']),
-    ...mapGetters('auth',['isEncoder'])
+    ...mapGetters('auth',['isEncoder','user']),
+	  filteredActions() {
+    	let filteredActions = []
+			const actions = this.actions
+			const role = this.user.role.name
+
+			filteredActions = actions.filter(action => (action.visibleTo ? action.visibleTo.includes(role) : null))
+
+    	return filteredActions
+		}
   },
   data() {
-    return {};
+    return {
+	    actions: [
+		    {
+			    label: 'View Project',
+			    img: 'statics/menu/inspect.png',
+			    id: 'view',
+					visibleTo: ['encoder','admin','superadmin','viewer','guest']
+		    },
+				{
+					label: 'Update Project',
+					img: 'https://cdn.quasar.dev/img/logo_keep_128px.png',
+					id: 'edit',
+					visibleTo: ['encoder']
+				},
+				{
+					label: 'Delete Project',
+					img: 'https://cdn.quasar.dev/img/logo_keep_128px.png',
+					id: 'delete',
+					visibleTo: ['encoder']
+				},
+				{
+					label: 'Reviewer',
+					img: 'https://cdn.quasar.dev/img/logo_hangouts_128px.png',
+					id: 'review',
+					visibleTo: ['reviewer']
+				},
+				{
+					label: 'Print Project',
+					img: 'statics/menu/cloud_print.png',
+					id: 'print',
+					visibleTo: ['encoder','admin','superadmin','viewer','guest']
+				}
+			]
+		};
   },
   methods: {
     ...mapActions('projects', ['deleteProject']),
@@ -140,7 +136,41 @@ export default {
       }).onOk(() => {
         this.deleteProject(project);
       });
-    }
+    },
+	  showBottomSheet(project) {
+		  this.$q.bottomSheet({
+			  dark: this.dark,
+				title: 'Menu',
+			  message: project.title,
+			  grid: true,
+			  actions: this.filteredActions
+		  }).onOk(action => {
+			  // console.log('Action chosen:', action.id)
+				switch(action.id) {
+					case 'view':
+						this.$router.push(`/projects/${project.id}`)
+						break;
+					case 'edit':
+						this.$router.push(`/projects/${project.id}/edit`)
+						break;
+					case 'delete':
+						this.promptDelete(project.id)
+						break;
+					case 'review':
+						this.$router.push(`/projects/${project.id}/review`)
+						break;
+					case 'print':
+						console.log('print project')
+						break;
+					default:
+						return;
+				}
+		  }).onCancel(() => {
+			  // console.log('Dismissed')
+		  }).onDismiss(() => {
+			  // console.log('I am triggered on both OK and Cancel')
+		  })
+		}
   },
   filters: {
     searchHighlight(value, search) {

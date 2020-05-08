@@ -5,33 +5,19 @@
 </template>
 
 <script>
-// import { mapGetters, mapActions } from 'vuex';
-// import { Notify } from 'quasar';
-import { mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'App',
-	// computed: {
-  // 	...mapGetters('auth',['user'])
-	// },
-  // watch: {
-  //   user(newValue) {
-  //     if (newValue) {
-  //       Notify.create({
-  //         type: 'positive',
-  //         message: 'Welcome back!',
-  //         position: 'bottom-right',
-  //         ignoreDefaults: true
-  //       });
-  //       this.$router.push('/');
-  //     }
-  //   }
-  // },
+	computed: {
+  	...mapState('settings',['dark'])
+	},
   methods: {
     ...mapActions('auth', ['getCurrentUser'])
   },
   created() {
     this.getCurrentUser();
+    this.$q.dark.set(this.dark)
   }
 };
 </script>

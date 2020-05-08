@@ -2,28 +2,32 @@
   <page-container>
     <page-title title="Activity Feed"></page-title>
 
-    <q-inner-loading :showing="loading">
-      <q-spinner-tail size="50px" color="primary"></q-spinner-tail>
-    </q-inner-loading>
+		<template v-if="loading">
 
-    <div class="q-mt-lg q-pa-sm" v-if="!loading">
-      <q-list separator>
-        <q-item
-          v-for="(activity, index) in activities"
-          :key="index"
-          class="q-py-sm"
-        >
-          <q-item-section avatar>
-            <q-avatar color="primary" class="text-white" size="sm">
-              {{ activity.causer.name.charAt(0) }}
-            </q-avatar>
-          </q-item-section>
-          <q-item-section>
-            <q-item-label lines="1">
+			<inner-loading :loading="loading"></inner-loading>
+
+		</template>
+
+		<template v-else>
+
+			<div v-if="activities.length > 0" class="q-mt-lg q-pa-sm" >
+				<q-list separator>
+					<q-item
+							v-for="(activity, index) in activities"
+							:key="index"
+							class="q-py-sm"
+					>
+						<q-item-section avatar>
+							<q-avatar color="primary" class="text-white" size="sm">
+								{{ activity.causer.name.charAt(0) }}
+							</q-avatar>
+						</q-item-section>
+						<q-item-section>
+							<q-item-label lines="1">
               <span class="text-weight-bolder">
                 {{ activity.causer.name }}:
               </span>
-              <span>
+								<span>
                 {{ activity.description | subject }}:
                 <q-badge outline color="primary">
                   {{
@@ -33,41 +37,48 @@
                   }}
                 </q-badge>
               </span>
-            </q-item-label>
-            <q-item-label caption>
-              {{ activity.created_at | timeDiff }}
-            </q-item-label>
-          </q-item-section>
-        </q-item>
-      </q-list>
-    </div>
+							</q-item-label>
+							<q-item-label caption>
+								{{ activity.created_at | timeDiff }}
+							</q-item-label>
+						</q-item-section>
+					</q-item>
+				</q-list>
+			</div>
+
+			<div v-else>
+				<no-item icon="cancel" message="No activities yet."></no-item>
+			</div>
+
+		</template>
+
   </page-container>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
 import PageContainer from '../../ui/page/PageContainer'
 import PageTitle from '../../ui/page/PageTitle'
 import { date } from 'quasar'
+import {FETCH_ACTIVITIES} from '@/graphql/queries'
+import InnerLoading from '../../ui/components/InnerLoading'
+import NoItem from '../../shared/components/NoItem'
 
 export default {
   name: 'PageActivity',
-  components: { PageTitle, PageContainer },
+  components: {NoItem, InnerLoading, PageTitle, PageContainer },
+	apollo: {
+  	activities: {
+  		query: FETCH_ACTIVITIES,
+			result({ loading }) {
+  			this.loading = loading
+			}
+		}
+	},
   data() {
     return {
-      breadcrumbs: [
-        {
-          title: 'Home',
-          url: '/'
-        },
-        {
-          title: 'Activity'
-        }
-      ]
+      activities: [],
+			loading: false
     };
-  },
-  computed: {
-    ...mapState('activities', ['activities', 'loading'])
   },
   filters: {
     subject(val) {
@@ -85,12 +96,6 @@ export default {
 
       return date.getDateDiff(today, val);
     }
-  },
-  methods: {
-    ...mapActions('activities', ['fetchActivities'])
-  },
-  mounted() {
-    this.fetchActivities();
   }
 };
 </script>

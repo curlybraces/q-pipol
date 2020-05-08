@@ -28,22 +28,7 @@
       </template>
       <template v-else>
         <template v-if="!resources.length">
-          <q-banner dense class="q-ma-sm bg-grey-3">
-            <template v-slot:avatar>
-              <q-icon name="cancel" color="red" />
-            </template>
-            There are no resources to show. If you have added a resource but was
-            not listed here even after refreshing. Please seek our assistance.
-            <template v-slot:action>
-              <q-btn
-                flat
-                color="primary"
-                label="Add a New Resource"
-                @click="createResourceDialog = true"
-                v-if="isAdmin"
-              />
-            </template>
-          </q-banner>
+					<no-item icon="cancel" message="There are no resources to show. If you have added a resource but was not listed here even after refreshing. Please seek our assistance."></no-item>
         </template>
         <div class="row q-gutter-sm">
           <q-list bordered separator v-if="resources.length">
@@ -157,10 +142,11 @@ import { openURL, Dialog } from 'quasar';
 import TextInput from '../../ui/form-inputs/TextInput';
 import { FETCH_RESOURCES_QUERY } from '../../../graphql/queries';
 import PageContainer from '../../ui/page/PageContainer';
+import NoItem from '../../shared/components/NoItem'
 
 export default {
   name: 'PageResources',
-  components: { PageContainer, TextInput, PageTitle },
+  components: {NoItem, PageContainer, TextInput, PageTitle },
   apollo: {
     resources: {
       query: FETCH_RESOURCES_QUERY

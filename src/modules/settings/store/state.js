@@ -1,4 +1,4 @@
-import { LocalStorage } from 'quasar';
+import { LocalStorage, Dark } from 'quasar';
 
 export default function() {
   return {

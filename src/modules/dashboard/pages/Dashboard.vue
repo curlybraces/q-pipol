@@ -301,7 +301,7 @@ export default {
           label: 'Directory',
           icon: 'call',
           url: '/directory',
-          color: 'black'
+          color: 'purple'
         },
         {
           label: 'Settings',

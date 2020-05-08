@@ -15,7 +15,7 @@ import iconSet from 'quasar/icon-set/svg-material-icons'
 
 import Vue from 'vue'
 
-import {Quasar,TouchPan,Ripple,Dialog,AddressbarColor,LocalStorage,Notify,LoadingBar,Dark,Loading} from 'quasar'
+import {Quasar,TouchPan,Ripple,BottomSheet,Dialog,LocalStorage,Notify,LoadingBar,Dark,Loading} from 'quasar'
 
 
-Vue.use(Quasar, { config: {"dark":"auto"},iconSet: iconSet,directives: {TouchPan,Ripple},plugins: {Dialog,AddressbarColor,LocalStorage,Notify,LoadingBar,Dark,Loading} })
+Vue.use(Quasar, { config: {"dark":"auto"},iconSet: iconSet,directives: {TouchPan,Ripple},plugins: {BottomSheet,Dialog,LocalStorage,Notify,LoadingBar,Dark,Loading} })

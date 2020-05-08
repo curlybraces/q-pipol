@@ -11,7 +11,7 @@
       <app-footer></app-footer>
     </q-footer>
 
-    <q-page-container class="bg-grey-1">
+    <q-page-container>
       <transition
         appear
         enter-active-class="animated fadeIn"
