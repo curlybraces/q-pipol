@@ -60,12 +60,7 @@
               :rules="rules.required"
             />
 
-            <single-select
-              v-model="project.typology_id"
-              label="Typology"
-              :options="typologies"
-              :rules="rules.required"
-            />
+						<typology v-model="project.typology_id"></typology>
 
             <div class="row q-col-gutter-sm">
               <div class="col">
@@ -138,11 +133,7 @@
 
 							<q-item-label header>Spatial Coverage</q-item-label>
 
-							<single-select
-								v-model="project.spatial_coverage_id"
-								label="Spatial Coverage"
-								:options="spatial_coverages"
-							/>
+							<spatial-coverage v-model="project.spatial_coverage_id"></spatial-coverage>
 
 							<list-option-group
 								label="Regions"
@@ -152,62 +143,19 @@
 								v-if="project.spatial_coverage_id === '2'"
 							/>
 
-							<single-select
-								label="Region"
-								v-model="project.region_id"
-								:options="regions_options"
-								v-if="project.spatial_coverage_id === '3'"
-							/>
+							<region v-model="project.region_id" v-if="project.spatial_coverage_id === '3'"></region>
 
-							<single-select
-								label="Province"
-								v-model="project.province_id"
-								:options="provinces"
-								v-if="project.spatial_coverage_id === '4'"/>
+							<province v-model="project.province_id" v-if="project.spatial_coverage_id === '4'"></province>
 
-							<single-select
-								label="District"
-								v-model="project.district_id"
-								:options="districts"
-								v-if="project.spatial_coverage_id === '5'"/>
+							<district v-model="project.district_id" v-if="project.spatial_coverage_id === '5'"></district>
 
-							<single-select
-								label="City/Municipality"
-								v-model="project.city_municipality_id"
-								:options="city_municipalities"
-								v-if="project.spatial_coverage_id === '6'"/>
+							<city-municipality v-model="project.city_municipality_id" v-if="project.spatial_coverage_id === '6'"></city-municipality>
 
 						</q-card>
 
-            <single-select
-              v-model="project.operating_unit_id"
-              label="Implementing Agency"
-              :options="operating_units"
-            />
+            <implementing-agency v-model="project.operating_unit_id"></implementing-agency>
 
-            <single-select
-              v-model="project.project_status_id"
-              label="Project Status"
-              :options="project_statuses"
-            />
-
-						<div class="row q-col-gutter-sm">
-
-							<div class="col-3">
-								<single-select
-									label="Currency"
-									v-model="project.currency_id"
-									:options="currencies"/>
-							</div>
-
-							<div class="col-9">
-								<money-input
-									v-model="project.total_project_cost"
-									label="Total Project Cost"
-								/>
-							</div>
-
-						</div>
+						<project-status v-model="project.project_status_id"></project-status>
 
 						<q-card class="q-my-sm q-pa-sm q-gutter-y-sm">
 
@@ -329,30 +277,28 @@
 
             <date-input v-model="project.updates_date" label="As of" />
 
-            <single-select
-              v-model="project.main_funding_source_id"
-              label="Main Funding Source"
-              :options="funding_sources_options"
-            ></single-select>
+						<funding-source v-model="project.main_funding_source_id"></funding-source>
 
-            <single-select
-              v-model="project.funding_institution_id"
-              label="Funding Institution"
-              :options="funding_institutions"
-							v-if="project.main_funding_source_id === '2' || project.main_funding_source_id === '3'"
-            ></single-select>
+            <funding-institution v-model="project.funding_institution_id" v-if="project.main_funding_source_id === '2' || project.main_funding_source_id === '3'"></funding-institution>
 
-            <single-select
-              v-model="project.implementation_mode_id"
-              label="Implementation Mode"
-              :options="implementation_modes"
-            ></single-select>
+						<div class="row q-col-gutter-sm">
 
-            <single-select
-              v-model="project.tier_id"
-              label="Budget Tier"
-              :options="tiers"
-            ></single-select>
+							<div class="col-3">
+								<currency v-model="project.currency_id"></currency>
+							</div>
+
+							<div class="col-9">
+								<money-input
+										v-model="project.total_project_cost"
+										label="Total Project Cost"
+								/>
+							</div>
+
+						</div>
+
+						<implementation-mode v-model="project.implementation_mode_id"></implementation-mode>
+
+            <budget-tier v-model="project.tier_id"></budget-tier>
 
 						<q-item tag="label">
 							<q-item-section avatar>
@@ -791,10 +737,7 @@
 													</q-toolbar>
 													<q-separator />
 													<div class="q-pa-sm q-gutter-y-sm">
-														<single-select
-																label="Region"
-																:options="regions"
-																v-model="region.region_id" />
+														<region v-model="region.region_id"></region>
 														<money-input
 																v-model="region.target_2016"
 																label="2016 &amp; Prior"
@@ -875,10 +818,7 @@
 								</q-toolbar>
 								<q-separator />
 								<div class="q-pa-sm q-gutter-y-sm">
-									<single-select
-										label="Region"
-										:options="regions"
-										v-model="newRegion.region_id" />
+									<region v-model="newRegion.region_id"></region>
 									<money-input
 										v-model="newRegion.target_2016"
 										label="2016 &amp; Prior"
@@ -1007,10 +947,7 @@
 												</q-toolbar>
 												<q-separator />
 												<div class="q-pa-sm q-gutter-y-sm">
-													<single-select
-															label="Region"
-															:options="funding_sources_options"
-															v-model="funding_source.funding_source_id" />
+													<funding-source v-model="funding_source.funding_source_id"></funding-source>
 													<money-input
 															v-model="funding_source.target_2016"
 															label="2016 &amp; Prior"
@@ -1091,10 +1028,7 @@
 								</q-toolbar>
 								<q-separator />
 								<div class="q-pa-sm q-gutter-y-sm">
-									<single-select
-											label="Funding Source"
-											:options="funding_sources_options"
-											v-model="newFundingSource.funding_source_id" />
+									<funding-source v-model="newFundingSource.funding_source_id"></funding-source>
 									<money-input
 											v-model="newFundingSource.target_2016"
 											label="2016 &amp; Prior"
@@ -1712,23 +1646,25 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import { mapActions } from 'vuex'
 import {
 	FETCH_PROJECT_QUERY,
 	FETCH_TYPES,
-	FETCH_SPATIAL_COVERAGES,
-	FETCH_REGIONS,
-	FETCH_OPERATING_UNITS,
-	FETCH_YEARS,
-	FETCH_TIERS,
-	FETCH_TYPOLOGIES,
-	FETCH_PROJECT_STATUSES,
-	FETCH_IMPLEMENTATION_MODES,
-	FETCH_FUNDING_SOURCES, FETCH_FUNDING_INSTITUTIONS, FETCH_PROVINCES, FETCH_DISTRICTS, FETCH_CITY_MUNICIPALITIES_QUERY
+	FETCH_YEARS
 } from '@/graphql/queries'
-import Vue from 'vue'
-import {FETCH_CURRENCIES} from '../../../graphql/queries'
-import TableData from '../components/TableData'
+import BudgetTier from '../components/dropdowns/BudgetTier'
+const TableData = () => import('../components/TableData')
+const Typology = () => import('../components/dropdowns/Typology')
+const Region = () => import('../components/dropdowns/Region')
+const Province = () => import('../components/dropdowns/Province')
+const FundingSource = () => import('../components/dropdowns/FundingSource')
+const FundingInstitution = () => import('../components/dropdowns/FundingInstitution')
+const ImplementationMode = () => import('../components/dropdowns/ImplementationMode')
+const CityMunicipality = () => import('../components/dropdowns/CityMunicipality')
+const District = () => import('../components/dropdowns/District')
+const Currency = () => import('../components/dropdowns/Currency')
+const SpatialCoverage = () => import('../components/dropdowns/SpatialCoverage')
 const PageTitle = () =>
   import(/* webpackChunkName: 'PageTitle' */ '../../ui/page/PageTitle');
 const PageContainer = () =>
@@ -1757,9 +1693,25 @@ const ListOptionGroup = () =>
   import(
     /* webpackChunkName: 'ListOptionGroup' */ '../../ui/form-inputs/ListOptionGroup'
   );
+// dropdowns
+const ImplementingAgency = () => import('../components/dropdowns/ImplementingAgency')
+const ProjectStatus = () => import('../components/dropdowns/ProjectStatus')
 
 export default {
   components: {
+	  BudgetTier,
+	  SpatialCoverage,
+	  Currency,
+	  District,
+	  CityMunicipality,
+	  ImplementationMode,
+	  FundingInstitution,
+	  FundingSource,
+	  Province,
+	  Region,
+	  Typology,
+	  ProjectStatus,
+	  ImplementingAgency,
 	  TableData,
     ListOptionGroup,
     GadForm,
@@ -1790,56 +1742,11 @@ export default {
         console.log(error);
       }
     },
-	  implementation_modes: {
-    	query: FETCH_IMPLEMENTATION_MODES
-		},
     types: {
       query: FETCH_TYPES
     },
-    spatial_coverages: {
-      query: FETCH_SPATIAL_COVERAGES
-    },
-		regions: {
-    	query: FETCH_REGIONS,
-			result({ data }) {
-    		this.regions_options = data.regions
-			}
-		},
-		districts: {
-    	query: FETCH_DISTRICTS
-		},
-		operating_units: {
-    	query: FETCH_OPERATING_UNITS
-		},
-		provinces: {
-    	query: FETCH_PROVINCES
-		},
 		years: {
     	query: FETCH_YEARS
-		},
-		tiers: {
-    	query: FETCH_TIERS
-		},
-		typologies: {
-    	query: FETCH_TYPOLOGIES
-		},
-	  project_statuses: {
-    	query: FETCH_PROJECT_STATUSES
-		},
-		funding_sources: {
-    	query: FETCH_FUNDING_SOURCES,
-			result({ data }) {
-    		this.funding_sources_options = data.funding_sources
-			}
-		},
-		funding_institutions: {
-    	query: FETCH_FUNDING_INSTITUTIONS
-		},
-	  city_municipalities: {
-    	query: FETCH_CITY_MUNICIPALITIES_QUERY
-		},
-		currencies: {
-    	query: FETCH_CURRENCIES
 		}
   },
   computed: {
@@ -1883,22 +1790,10 @@ export default {
 		    target_2022: 0,
 		    target_2023: 0
 			},
-    	currencies: [],
-	    funding_institutions: [],
-	    funding_sources_options: [],
-	    implementation_modes: [],
-    	operating_units: [],
-	    project_statuses: [],
-			provinces: [],
-			districts: [],
-			city_municipalities: [],
-    	regions_options: [],
       types: [],
-      spatial_coverages: [],
 			years: [],
       project: {},
 			tiers: [],
-	    typologies: [],
       trueOrFalse: [
         {
           label: 'No',

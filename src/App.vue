@@ -5,11 +5,14 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import { Notify } from 'quasar';
 
 export default {
   name: 'App',
+	computed: {
+  	...mapGetters('auth',['user'])
+	},
   watch: {
     user(newValue) {
       if (newValue) {
