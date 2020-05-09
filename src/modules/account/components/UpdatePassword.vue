@@ -83,7 +83,6 @@
             dense
             color="primary"
             type="submit"
-            :disable="formIsInvalid"
             :loading="loading"
           />
         </div>

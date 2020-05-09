@@ -58,7 +58,7 @@
       <template v-slot:append>
         <q-icon
           :name="emailAvailable ? 'done_outline' : 'cancel'"
-          :color="emailAvailable ? 'green' : 'red'"
+          :color="emailAvailable ? 'primary' : 'negative'"
           v-show="username && !checkingEmail"
         />
       </template>

@@ -276,7 +276,7 @@ export default {
           label: 'Account Settings',
           icon: 'person',
           url: '/account',
-          color: 'green'
+          color: 'primary'
         },
         {
           label: 'View Projects',

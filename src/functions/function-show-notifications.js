@@ -7,7 +7,7 @@ export const showSuccessNotification = ({
   Notify.create({
     icon: icon,
     position: 'bottom-right',
-    color: 'green',
+    color: 'primary',
     message: message,
     timeout: 3000,
     progress: true
@@ -21,7 +21,7 @@ export const showErrorNotification = ({
   Notify.create({
     icon: icon,
     position: 'bottom-right',
-    color: 'red',
+    color: 'negative',
     message: message,
     timeout: 3000,
     progress: true

@@ -28,7 +28,7 @@
         {{ user.email }}
         <q-icon
           name="done_outline"
-          color="green"
+          color="primary"
           v-if="user.verified"
           class="cursor-pointer"
         >
