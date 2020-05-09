@@ -19,7 +19,11 @@ const ProjectsRoutes = {
       component: () =>
         import(
           /* webpackChunkName: 'AddProjectPage' */ './pages/AddProjectPage.vue'
-        )
+        ),
+      meta: {
+        requiresAuth: true,
+        isEncoder: true
+      }
     },
     {
       path: 'projects/deleted',
@@ -29,7 +33,8 @@ const ProjectsRoutes = {
           /* webpackChunkName: 'DeletedProjects' */ './pages/DeletedProjects.vue'
         ),
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        isEncoder: true
       }
     },
     {
@@ -40,7 +45,8 @@ const ProjectsRoutes = {
           /* webpackChunkName: 'UpdateProjectPage' */ './pages/EditProject.vue'
         ),
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        isEncoder: true
       }
     },
     {
@@ -51,7 +57,8 @@ const ProjectsRoutes = {
           /* webpackChunkName: 'ReviewProject' */ './pages/ReviewProject.vue'
         ),
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        isReviewer: true
       }
     },
     {
