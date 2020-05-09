@@ -283,15 +283,11 @@ export const ASSIGN_OPERATING_UNIT_TO_REVIEW_MUTATION = gql`
 export const ASSIGN_ROLE_MUTATION = gql`
   mutation assignRole($user_id: ID!, $role_id: ID) {
     assignRole(user_id: $user_id, role_id: $role_id) {
-      user {
+      id
+      role {
         id
-        role {
-          id
-          name
-        }
+        name
       }
-      status
-      message
     }
   }
 `;

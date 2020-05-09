@@ -78,7 +78,6 @@
         </div>
         <div>
           <q-btn
-            glossy
             label="Update Password"
             class="text-capitalize"
             dense

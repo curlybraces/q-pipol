@@ -13,6 +13,8 @@ import {
 	Loading
 } from 'quasar';
 import store from '../store'
+import PusherLink from './pusher-link'
+import Pusher from 'pusher-js'
 
 // define the link that apollo will connect to
 const uri = process.env.DEV
@@ -36,8 +38,9 @@ export const persistor = new CachePersistor({
 // this function determines the size of the localforage database
 persistor.getSize().then(size => console.log(size));
 
+const token = LocalStorage.getItem('token');
+
 const authMiddleware = new ApolloLink((operation, forward) => {
-  const token = LocalStorage.getItem('token');
   // add the authorization to the headers
   operation.setContext(({ headers = {} }) => ({
     headers: {
@@ -77,12 +80,25 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
   }
 });
 
+// define PusherLink
+const pusherLink = new PusherLink({
+	pusher: new Pusher('50ea5b3a34026db27886', {
+		cluster: 'ap1',
+		authEndpoint: `${uri}/subscriptions/auth`,
+		auth: {
+			headers: {
+				authorization: token ? `Bearer ${token}` : ''
+			}
+		}
+	})
+})
+
 const uploadLink = createUploadLink({
   uri: uri
 });
 
 export const client = new ApolloClient({
-  link: ApolloLink.from([authMiddleware, errorLink, uploadLink]),
+  link: ApolloLink.from([authMiddleware, errorLink, pusherLink, uploadLink]),
   cache
 });
 
