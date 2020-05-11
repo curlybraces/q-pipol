@@ -1,6 +1,22 @@
 <template>
   <page-container>
-    <page-title title="Review Project"></page-title>
+    <page-title title="Review Project">
+      <div class="row q-gutter-sm">
+        <q-btn 
+          icon="subdirectory_arrow_right" 
+          color="negative" 
+          label="Return" 
+          @click="handleReturnProject">
+        </q-btn>
+
+        <q-btn 
+          icon="check" 
+          color="green" 
+          label="Validate"
+          @click="handleValidateProject">
+          </q-btn>
+      </div>
+    </page-title>
 
     <div class="row">
       <div class="col-8">
@@ -29,38 +45,46 @@ export default {
   components: { PageTitle, PageContainer, ProjectProfile, ReviewForm },
   name: 'PageReviewProject',
   props: ['id'],
-  apollo: {
-    sustainable_development_goals: {
-      query: gql`
-        query sustainable_development_goals {
-          sustainable_development_goals {
-            id
-            name
-          }
-        }
-      `
-    }
-  },
   data() {
     return {
-      sustainable_development_goals: [],
-      check: false,
-      sdgs: []
+      remarks: null
     };
   },
   methods: {
-    handleInput(e) {
-      const sdgs = this.sdgs;
-      if (sdgs.length && sdgs.includes(e)) {
-        const index = sdgs.indexOf(e);
-        sdgs.splice(index, 1);
-      } else {
-        this.sdgs.push(e);
-      }
+    handleReturnProject() {
+      this.$q.dialog({
+        title: 'Return Project',
+        message: 'Indicate reason for returning project (Min. 10 chars)',
+        prompt: {
+          model: '',
+          isValid: val => val.length > 10,
+          type: 'text'
+        },
+        persistent: true,
+        cancel: true
+      })
+      .onOk(data => {
+        alert(data)
+        // Todo: implement return logic here
+      })
+    },
+    handleValidateProject() {
+      this.$q.dialog({
+        title: 'Validate Project',
+        message: 'Remarks (min. 10 chars)',
+        prompt: {
+          model: '',
+          isValid: val => val.length >= 10,
+          type: 'text'
+        },
+        persistent: true,
+        cancel: true
+      })
+      .onOk((data) => {
+        alert(data)
+        // Todo: implement validation logic here
+      })
     }
-  },
-  mounted() {
-    console.log(this.$route.params.id);
   }
 };
 </script>
