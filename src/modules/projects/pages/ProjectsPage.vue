@@ -23,6 +23,7 @@
   				</div>
   				<div>
   					<q-btn
+							v-if="isEncoder"
   						color="primary"
   						label="Endorse"
   						@click="endorseProjectDialog = true"
