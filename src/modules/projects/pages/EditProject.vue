@@ -147,8 +147,6 @@
 
             <implementing-agency v-model="project.operating_unit_id"></implementing-agency>
 
-						<project-status v-model="project.project_status_id"></project-status>
-
 						<q-card class="q-my-sm q-pa-sm q-gutter-y-sm">
 
 							<q-item-label header>Technical Readiness</q-item-label>
@@ -210,39 +208,9 @@
 						</q-card>
 
             <div class="col">
-              <span class="text-caption text-weight-bold">GAD Score</span>
-              <q-input
-                type="number"
-                v-model="project.gad_score"
-                readonly
-                outlined
-              >
-                <template v-slot:append>
-                  <q-icon
-                    name="format_list_numbered"
-                    @click="showGadForm = true"
-                    color="secondary"
-                  ></q-icon>
-                </template>
-              </q-input>
+              <span class="text-caption text-weight-bold">GAD Classification</span>
+              <gad v-model="project.gad_id" />
             </div>
-
-            <q-dialog
-              v-model="showGadForm"
-              full-height
-              :position="$q.screen.xs ? void 0 : 'right'"
-              persistent
-              :maximized="$q.screen.xs"
-              transition-show="jump-left"
-              transition-hide="jump-right"
-            >
-              <q-card class="bg-white">
-                <gad-form
-                  @update="updateGadScore"
-                  @close="showGadForm = false"
-                ></gad-form>
-              </q-card>
-            </q-dialog>
 
             <div class="column">
               <checkbox-input
@@ -260,14 +228,6 @@
                 v-model="project.pcip"
               />
             </div>
-
-            <text-input
-              v-model="project.updates"
-              label="Updates"
-              type="textarea"
-            />
-
-            <date-input v-model="project.updates_date" label="As of" />
 
 						<funding-source v-model="project.main_funding_source_id"></funding-source>
 
@@ -878,7 +838,7 @@
 								</tr>
 								</thead>
 								<tbody>
-								<template v-if="!project.region_financials.length">
+								<template v-if="!project.funding_source_financials.length">
 									<tr>
 										<td colspan="9">
 											No funding sources added yet.
@@ -1616,6 +1576,16 @@
                 </q-card>
               </q-dialog>
             </div>
+
+            <project-status v-model="project.project_status_id"></project-status>
+
+            <text-input
+              v-model="project.updates"
+              label="Updates"
+              type="textarea"
+            />
+
+            <date-input v-model="project.updates_date" label="As of" />
           </div>
         </div>
 
@@ -1643,11 +1613,14 @@ import { mapActions } from 'vuex'
 import {
 	FETCH_PROJECT_QUERY,
 	FETCH_TYPES,
-	FETCH_YEARS
+	FETCH_YEARS,
+	FETCH_FUNDING_SOURCES,
+	FETCH_REGIONS
 } from '@/graphql/queries'
 import BudgetTier from '../components/dropdowns/BudgetTier'
 import Regions from '../components/dropdowns/Regions'
 const TableData = () => import('../components/TableData')
+const Gad = () => import('../components/dropdowns/Gad')
 const Typology = () => import('../components/dropdowns/Typology')
 const Region = () => import('../components/dropdowns/Region')
 const Province = () => import('../components/dropdowns/Province')
@@ -1680,8 +1653,6 @@ const CheckboxInput = () =>
   import(/* webpackChunkName: 'CheckboxInput' */ '../../ui/form-inputs/CheckboxInput');
 const DateInput = () =>
   import(/* webpackChunkName: 'DateInput' */ '../../ui/form-inputs/DateInput');
-const GadForm = () =>
-  import(/* webpackChunkName: 'GadForm' */ '../components/shared/GadForm');
 // dropdowns
 const ImplementingAgency = () => import('../components/dropdowns/ImplementingAgency')
 const ProjectStatus = () => import('../components/dropdowns/ProjectStatus')
@@ -1691,6 +1662,7 @@ export default {
 	  Regions,
 	  BudgetTier,
 	  SpatialCoverage,
+	  Gad,
 	  Currency,
 	  District,
 	  CityMunicipality,
@@ -1703,7 +1675,6 @@ export default {
 	  ProjectStatus,
 	  ImplementingAgency,
 	  TableData,
-    GadForm,
     DateInput,
     MoneyInput,
     SingleSelect,
@@ -1736,6 +1707,12 @@ export default {
     },
 		years: {
     	query: FETCH_YEARS
+		},
+		funding_sources: {
+			query: FETCH_FUNDING_SOURCES
+		},
+		regions: {
+			query: FETCH_REGIONS
 		}
   },
   computed: {
@@ -1810,7 +1787,8 @@ export default {
 	    editRegionFinancialDialog: false,
 			addFundingSourceFinancialDialog: false,
 			editFundingSourceFinancialDialog: false,
-			regions: []
+			regions: [],
+			funding_sources: []
     };
   },
   name: 'PageEditProject',
@@ -1837,7 +1815,7 @@ export default {
     	return ''
 		},
 	  getFundingSource(val) {
-    	const funding_sources = this.funding_sources_options
+    	const funding_sources = this.funding_sources
 			const funding_source = funding_sources.find(funding_source => funding_source.id === val)
 
 			return funding_source.name

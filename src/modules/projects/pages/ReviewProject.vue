@@ -1,53 +1,34 @@
 <template>
-  <q-page class="q-pt-lg">
+  <page-container>
     <page-title title="Review Project"></page-title>
 
-    <div class="q-pa-sm">
-      <div class="row q-col-gutter-sm">
-        <template v-for="sdg in sustainable_development_goals">
-          <div
-            class="col-xl-1 col-lg-1 col-md-2 col-sm-2 col-xs-3"
-            :key="sdg.id"
-          >
-            <checkbox-image
-              :image="`statics/sdg/${sdg.id}.jpg`"
-              :value="sdgs"
-              @input="handleInput"
-              :val="sdg.id"
-            ></checkbox-image>
-          </div>
-        </template>
+    <div class="row">
+      <div class="col-8">
+        <q-scroll-area style="height:80vh;">
+          <project-profile :id="$route.params.id"></project-profile>
+        </q-scroll-area>
+      </div>
+      <div class="col-4 q-pa-sm">
+        <review-form :id="$route.params.id"></review-form>
       </div>
     </div>
 
-    <div class="row q-pa-sm">
-      <ul>
-        <li>Select PDP Chapter</li>
-        <li>Select PDP Indicators</li>
-        <li>Select SDG</li>
-        <li>Select 0+10</li>
-        <li>Select 8 paradigms</li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-      </ul>
-    </div>
-  </q-page>
+  </page-container>
 </template>
 
 <script>
 import gql from 'graphql-tag';
 const PageTitle = () =>
   import(/* webpackChunkName: 'PageTitle' */ '../../ui/page/PageTitle');
-const CheckboxImage = () =>
-  import(
-    /* webpackChunkName: 'CheckboxImage' */ '../../ui/form-inputs/CheckboxImage'
-  );
+const PageContainer = () =>
+  import(/* webpackChunkName: 'PageTitle' */ '../../ui/page/PageContainer');
+const ProjectProfile = () => import('../components/ProjectProfile')
+const ReviewForm = () => import('../components/ReviewForm')
 
 export default {
-  components: { CheckboxImage, PageTitle },
+  components: { PageTitle, PageContainer, ProjectProfile, ReviewForm },
   name: 'PageReviewProject',
+  props: ['id'],
   apollo: {
     sustainable_development_goals: {
       query: gql`

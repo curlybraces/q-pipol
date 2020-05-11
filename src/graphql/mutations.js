@@ -275,7 +275,11 @@ export const ASSIGN_OPERATING_UNIT_TO_REVIEW_MUTATION = gql`
       user_id: $user_id
       operating_units: $operating_units
     ) {
-      message
+      id
+      reviews {
+        id
+        name
+      }
     }
   }
 `;
@@ -467,7 +471,7 @@ export const CREATE_PROJECT_MUTATION = gql`
     $implementation_risk: String
     $mitigation_strategy: String
     $income_increase: String
-    $gad_score: Int
+    $gad_id: Int
     $estimated_project_life: String
     $financial_benefit_cost_ratio: Float
     $financial_internal_rate_return: Float
@@ -615,7 +619,7 @@ export const CREATE_PROJECT_MUTATION = gql`
         implementation_risk: $implementation_risk
         mitigation_strategy: $mitigation_strategy
         income_increase: $income_increase
-        gad_score: $gad_score
+        gad_id: $gad_id
         estimated_project_life: $estimated_project_life
         financial_benefit_cost_ratio: $financial_benefit_cost_ratio
         financial_internal_rate_return: $financial_internal_rate_return
@@ -804,7 +808,7 @@ export const UPDATE_PROJECT_MUTATION = gql`
     $implementation_risk: String
     $mitigation_strategy: String
     $income_increase: String
-    $gad_score: Int
+    $gad_id: Int
     $estimated_project_life: String
     $financial_benefit_cost_ratio: Float
     $financial_internal_rate_return: Float
@@ -962,7 +966,7 @@ export const UPDATE_PROJECT_MUTATION = gql`
         implementation_risk: $implementation_risk
         mitigation_strategy: $mitigation_strategy
         income_increase: $income_increase
-        gad_score: $gad_score
+        gad_id: $gad_id
         estimated_project_life: $estimated_project_life
         financial_benefit_cost_ratio: $financial_benefit_cost_ratio
         financial_internal_rate_return: $financial_internal_rate_return
@@ -1068,7 +1072,7 @@ export const UPDATE_PROJECT_MUTATION = gql`
         rdip
         pcip
         afmip
-        gad_score
+        gad_id
         project_status_id
         target_start_year
         target_end_year
@@ -1239,6 +1243,27 @@ export const UPDATE_PROJECT_MUTATION = gql`
             target_2022
             target_2023
         }
+    }
+  }
+`;
+
+export const ASSESS_GAD_RESPONSIVENESS = gql`
+  mutation assessGadResponsiveness(
+    $id: ID!
+    $project_gad_subquestions: UpdateProjectGadSubquestionHasMany
+  ) {
+    assessGadResponsiveness(
+      input: {
+        id: $id
+        project_gad_subquestions: $project_gad_subquestions
+      }
+    ) {
+      id
+      project_gad_subquestions {
+        id
+        gad_subquestion_id
+        gad_choice_id
+      }
     }
   }
 `;

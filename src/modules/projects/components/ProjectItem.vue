@@ -96,7 +96,7 @@ export default {
 			    label: 'View Project',
 			    img: 'statics/menu/inspect.png',
 			    id: 'view',
-					visibleTo: ['encoder','admin','superadmin','viewer','guest']
+					visibleTo: ['encoder','admin','superadmin','viewer','guest','reviewer']
 		    },
 				{
 					label: 'Update Project',
@@ -111,7 +111,7 @@ export default {
 					visibleTo: ['encoder']
 				},
 				{
-					label: 'Reviewer',
+					label: 'Review Project',
 					img: 'https://cdn.quasar.dev/img/logo_hangouts_128px.png',
 					id: 'review',
 					visibleTo: ['reviewer']

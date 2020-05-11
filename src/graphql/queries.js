@@ -505,7 +505,11 @@ export const FETCH_PROJECT_QUERY = gql`
 			gaa_2022
 			gaa_2023
 			gaa_total
-			gad_score
+			gad_id
+      gad {
+        id
+        name
+      }
       goals
 			has_fs
 			has_rap
@@ -710,3 +714,12 @@ export const FETCH_GAD_QUESTIONS = gql`
       }
     }
   }`;
+
+export const FETCH_GADS_QUERY = gql`
+  query {
+    gads {
+      id
+      name
+    }
+  }
+`;

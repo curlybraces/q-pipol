@@ -6,24 +6,17 @@
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex'
-import gql from 'graphql-tag'
-import {GET_CURRENT_USER} from './graphql/queries'
+import { GET_CURRENT_USER } from './graphql/queries'
+import { ASSIGNED_ROLE, ASSIGNED_OPERATING_UNIT_TO_REVIEW } from '@/graphql/subscriptions'
 import { Notify } from 'quasar'
+import { showSuccessNotification } from '@/functions/function-show-notifications'
 
 export default {
   name: 'App',
 	apollo: {
   	$subscribe: {
   		assignedRole: {
-  			query: gql`subscription assignRole($user_id: ID) {
-					assignedRole(user_id: $user_id) {
-						id
-						role {
-							id
-							name
-						}
-					}
-				}`,
+  			query: ASSIGNED_ROLE,
 				variables() {
 					return {
 						user_id: this.user_id
@@ -50,6 +43,22 @@ export default {
 						color: 'primary'
 					})
 				}
+			},
+			assignedOperatingUnitToReview: {
+				query: ASSIGNED_OPERATING_UNIT_TO_REVIEW,
+				variables() {
+					return {
+						user_id: this.user_id
+					}
+				},
+				result({ data }) {
+					const offices = data.assignedOperatingUnitToReview.reviews.map(ou => {
+						return ou.acronym
+					}).join(', ')
+					showSuccessNotification({
+						message: `You have been assigned to review ${offices}.`
+					})
+				}
 			}
 		}
 	},
@@ -57,7 +66,7 @@ export default {
   	...mapState('settings',['dark']),
 		...mapGetters('auth',['user']),
 		user_id() {
-  		return this.user.id
+  		return this.user ? this.user.id: null
 		}
 	},
   methods: {

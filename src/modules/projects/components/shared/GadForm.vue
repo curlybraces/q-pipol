@@ -20,7 +20,7 @@
               </q-item-section>
               <q-item-section side>
                 <q-option-group
-                  v-model="answers[sq.id]"
+                  v-model="answers"
                   inline type="radio"
                   :options="map(sq.gad_choices)"></q-option-group>
               </q-item-section>
@@ -28,14 +28,22 @@
           </template>
       </q-expansion-item>
     </template>
+
+    {{ value }}
+
+    <div class="row q-pa-sm">
+		  <q-btn color="primary" @click="saveGadForm" label="Save Changes"></q-btn>
+    </div>
   </q-list>
 </template>
 
 <script>
-import { FETCH_GAD_QUESTIONS } from 'src/graphql/queries'
+import { FETCH_GAD_QUESTIONS } from '@/graphql/queries'
+import { ASSESS_GAD_RESPONSIVENESS } from '@/graphql/mutations'
+
 export default {
   name: 'GadForm',
-  props: ['value'],
+  props: ['value', 'projectId'],
   apollo: {
     gad_questions: {
       query: FETCH_GAD_QUESTIONS
@@ -44,7 +52,7 @@ export default {
   data() {
     return {
       gad_questions: [],
-      answers: []
+      // answers: []
     };
   },
   computed: {
@@ -55,13 +63,21 @@ export default {
       mappedAnswers = answers.map((answer, index) => {
         return {
           id: null,
-          subquestion_id: index,
+          gad_subquestion_id: index,
           gad_choice_id: answer
         }
       })
-				.filter(answer => answer.subquestion_id !== 0)
+			.filter(answer => answer.subquestion_id !== 0)
 
       return mappedAnswers
+    },
+    answers: {
+      get() {
+        return this.$props.value
+      },
+      set(val) {
+        console.log(val)
+      }
     }
   },
   methods: {
@@ -74,7 +90,24 @@ export default {
         }
       })
       return mappedItems
-    }
+    },
+	  saveGadForm() {
+      const payload = {
+        id: this.$props.projectId,
+        project_gad_subquestions: {
+          upsert: this.mappedAnswers
+        }
+      }
+      console.log(payload)
+      this.$apollo.mutate({
+        mutation: ASSESS_GAD_RESPONSIVENESS,
+        variables: payload
+      })
+      .then(({ data }) => {
+        console.log(data.assessGadResponsiveness)
+      })
+      .catch(err => console.log(err))
+		}
   },
   filters: {
     interpretation(val) {
