@@ -1,7 +1,7 @@
-import { LOGIN_MUTATION, REGISTER_MUTATION } from '../../../graphql/mutations';
+import { LOGIN_MUTATION, REGISTER_MUTATION } from '@/graphql/mutations';
 import { LocalStorage } from 'quasar';
-import { apolloClient } from '../../../boot/apollo-boost';
-import { GET_CURRENT_USER } from '../../../graphql/queries';
+import { apolloClient } from '@/boot/apollo';
+import { GET_CURRENT_USER } from '@/graphql/queries';
 
 export default {
   login(payload) {

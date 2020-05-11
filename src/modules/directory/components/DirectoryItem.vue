@@ -3,7 +3,7 @@
     <q-list>
       <q-item>
         <q-item-section avatar>
-          <q-avatar @click="$emit('upload')" class="cursor-pointer">
+          <q-avatar @click="$emit('upload')" class="cursor-pointer" :clickable="isAdmin">
             <q-img :src="ou.image" placeholder-src="/statics/placeholder.jpg">
               <template v-slot:error>
                 <q-img src="/statics/placeholder.jpg" />
@@ -36,46 +36,14 @@
 
       <q-separator />
 
-      <q-item>
-        <q-item-section avatar>
-          <q-icon color="primary" name="portrait" />
-        </q-item-section>
+			<item-info color="primary" icon="portrait" :label="ou.agency_head_name" :caption="ou.agency_head_designation"></item-info>
 
-        <q-item-section>
-          <q-item-label>{{ ou.agency_head_name }}</q-item-label>
-          <q-item-label caption>{{ ou.agency_head_designation }}</q-item-label>
-        </q-item-section>
-      </q-item>
+			<item-info color="red" icon="call" :label="ou.telephone_number"></item-info>
 
-      <q-item>
-        <q-item-section avatar>
-          <q-icon color="red" name="call" />
-        </q-item-section>
+			<item-info color="blue" icon="print" :label="ou.fax_number"></item-info>
 
-        <q-item-section>
-          <q-item-label>{{ ou.telephone_number }}</q-item-label>
-        </q-item-section>
-      </q-item>
+			<item-info color="amber" icon="email" :label="ou.email"></item-info>
 
-      <q-item>
-        <q-item-section avatar>
-          <q-icon color="blue" name="print" />
-        </q-item-section>
-
-        <q-item-section>
-          <q-item-label>{{ ou.fax_number }}</q-item-label>
-        </q-item-section>
-      </q-item>
-
-      <q-item>
-        <q-item-section avatar>
-          <q-icon color="amber" name="email" />
-        </q-item-section>
-
-        <q-item-section>
-          <q-item-label :lines="1">{{ ou.email }}</q-item-label>
-        </q-item-section>
-      </q-item>
       <q-separator />
       <q-item clickable @click="showMore = true">
         <q-item-section>
@@ -103,47 +71,22 @@
 					<q-item-label header class="text-uppercase">Focals</q-item-label>
 					<q-separator/>
 					<template v-if="ou.focals.length">
-						<q-item v-for="focal in ou.focals" :key="focal.id">
-							<q-item-section avatar>
-								<q-avatar>
-									<q-icon name="person"/>
-								</q-avatar>
-							</q-item-section>
-							<q-item-section>
-								<q-item-label>
-									{{ focal.name }}
-								</q-item-label>
-								<q-item-label caption>
-									{{ focal.position }}
-								</q-item-label>
-							</q-item-section>
-						</q-item>
+						<template v-for="focal in ou.focals" >
+							<item-info :key="focal.id" icon="person" :label="focal.name" :caption="focal.position"></item-info>
+						</template>
 					</template>
 					<template v-else>
-						<q-item>
-							<q-item-section>
-								<q-item-label>
-									No users yet.
-								</q-item-label>
-							</q-item-section>
-						</q-item>
+						<item-info color="red" icon="error" label="No users assigned."></item-info>
 					</template>
 					<q-item-label header class="text-uppercase">Reviewers</q-item-label>
 					<q-separator/>
 					<template v-if="ou.reviewers.length">
-						<q-item v-for="reviewer in ou.reviewers" :key="reviewer.id">
-							<q-card-section>{{ reviewer.name }}</q-card-section>
-							<q-card-section></q-card-section>
-						</q-item>
+						<template v-for="reviewer in ou.reviewers" >
+							<item-info :key="reviewer.id" icon="person" :label="reviewer.name" :caption="reviewer.position"></item-info>
+						</template>
 					</template>
 					<template v-else>
-						<q-item>
-							<q-item-section>
-								<q-item-label>
-									No reviewers assigned.
-								</q-item-label>
-							</q-item-section>
-						</q-item>
+						<item-info color="red" icon="error" label="No reviewers assigned."></item-info>
 					</template>
 				</q-list>
 
@@ -154,10 +97,12 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import ItemInfo from './ItemInfo'
 
 export default {
   name: 'DirectoryItem',
-  props: ['ou'],
+	components: {ItemInfo},
+	props: ['ou'],
 	data() {
   	return {
 		  showMore: false

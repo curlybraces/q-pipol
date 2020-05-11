@@ -1,9 +1,9 @@
 import { LocalStorage, Loading, Dialog } from 'quasar';
-import { client } from 'boot/apollo-boost';
+import { client, persistor } from 'boot/apollo';
 import {
   CHECK_EMAIL_AVAILABILITY_QUERY,
   GET_CURRENT_USER
-} from '../../../graphql/queries';
+} from '@/graphql/queries';
 import {
   LOGIN_MUTATION,
   REGISTER_MUTATION,
@@ -13,13 +13,12 @@ import {
   FORGOT_PASSWORD_MUTATION,
   UPLOAD_USER_AVATAR_MUTATION,
   UPDATE_PROFILE_MUTATION
-} from '../../../graphql/mutations';
+} from '@/graphql/mutations';
 import { showGraphQLErrorMessage } from 'src/functions/function-graphql-error-messages';
 import {
   showErrorNotification,
   showSuccessNotification
-} from '../../../functions/function-show-notifications';
-import { persistor } from '../../../boot/apollo-boost';
+} from '@/functions/function-show-notifications';
 
 export function signinUser({ commit }, payload) {
   // clear token so it does not get sent to server

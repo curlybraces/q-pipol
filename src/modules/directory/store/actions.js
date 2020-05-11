@@ -1,13 +1,13 @@
-import { client } from '../../../boot/apollo-boost';
+import { client } from '@/boot/apollo';
 import {
   CREATE_CONTACT_MUTATION,
   UPDATE_CONTACT_MUTATION,
   DELETE_CONTACT_MUTATION,
   UPDATE_OPERATING_UNIT_MUTATION,
   UPDATE_OPERATING_UNIT_IMAGE
-} from '../../../graphql/mutations';
-import { FETCH_CONTACTS } from '../../../graphql/queries';
-import { showSuccessNotification } from '../../../functions/function-show-notifications';
+} from '@/graphql/mutations';
+import { FETCH_CONTACTS } from '@/graphql/queries';
+import { showSuccessNotification } from '@/functions/function-show-notifications';
 
 export function fetchContacts({ commit }) {
   commit('SET_LOADING', true);

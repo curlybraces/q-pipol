@@ -7,7 +7,7 @@ module.exports = function(ctx) {
     // app boot file (/src/boot)
     // --> boot files are part of 'main.js'
     boot: [
-      'apollo-boost',
+      'apollo',
 	    'axios',
       'router-auth',
 	    'test'

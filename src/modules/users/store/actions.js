@@ -1,15 +1,15 @@
-import { client } from '../../../boot/apollo-boost';
+import { client } from '@/boot/apollo';
 import {
   ACTIVATE_USER,
   DEACTIVATE_USER,
   ASSIGN_ROLE_MUTATION,
   ASSIGN_OPERATING_UNIT_TO_REVIEW_MUTATION
-} from '../../../graphql/mutations';
-import { ALL_USERS } from '../../../graphql/queries';
+} from '@/graphql/mutations';
+import { ALL_USERS } from '@/graphql/queries';
 import {
   showErrorNotification,
   showSuccessNotification
-} from '../../../functions/function-show-notifications';
+} from '@/functions/function-show-notifications';
 
 export function fetchUsers({ commit }) {
   commit('SET_LOADING', true);

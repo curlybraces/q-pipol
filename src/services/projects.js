@@ -1,4 +1,4 @@
-import { apolloClient } from '../boot/apollo-boost';
+import { apolloClient } from '../boot/apollo';
 import { GET_PROJECTS } from '../graphql/queries';
 import {
   CREATE_PROJECT_MUTATION,

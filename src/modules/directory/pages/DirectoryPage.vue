@@ -38,9 +38,7 @@
 
     <div class="row q-pa-sm item-start q-col-gutter-sm">
       <!-- Show Loading -->
-      <q-inner-loading :showing="$apollo.loading">
-        <q-spinner-tail size="50px" color="primary" />
-      </q-inner-loading>
+			<inner-loading :loading="$apollo.loading"></inner-loading>
 
       <template v-if="!$apollo.loading && !operating_units.length">
         <div>No operating units yet.</div>
@@ -163,6 +161,7 @@ import { mapActions, mapGetters } from 'vuex';
 import JsonExcel from 'vue-json-excel';
 import { FETCH_OPERATING_UNITS } from '../../../graphql/queries';
 import { showErrorNotification } from '../../../functions/function-show-notifications';
+import InnerLoading from '../../ui/components/InnerLoading'
 const PageTitle = () =>
   import(/* webpackChunkName: 'PageTitle' */ '../../ui/page/PageTitle');
 const DirectoryItem = () =>
@@ -174,6 +173,7 @@ const PageContainer = () =>
 
 export default {
   components: {
+	  InnerLoading,
     PageContainer,
     TextInput,
     DirectoryItem,

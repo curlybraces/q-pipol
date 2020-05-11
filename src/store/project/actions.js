@@ -1,16 +1,14 @@
+import { client } from '@/boot/apollo';
 import {
   CREATE_PROJECT_MUTATION,
   UPDATE_PROJECT_MUTATION
-} from '../../graphql/mutations';
-import { FETCH_PROJECT_QUERY } from 'src/graphql/queries'
-import { convertToNumber } from '../../functions/function-convert-to-number';
+} from '@/graphql/mutations';
+import { FETCH_PROJECT_QUERY, RELAY_PROJECTS_QUERY } from '@/graphql/queries'
+import { convertToNumber } from '@/functions/function-convert-to-number';
 import {
   showErrorNotification,
   showSuccessNotification
-} from '../../functions/function-show-notifications';
-
-import { client } from '../../boot/apollo-boost';
-import { RELAY_PROJECTS_QUERY } from '../../graphql/queries';
+} from '@/functions/function-show-notifications';
 import { INITIAL_STATE } from './state';
 
 export function createFullProject({ state, getters, commit }) {

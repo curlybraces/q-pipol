@@ -5,7 +5,7 @@ import {
   showSuccessNotification
 } from '../functions/function-show-notifications';
 import { UPDATE_OPERATING_UNIT_MUTATION } from '../graphql/mutations';
-import { client } from '../boot/apollo-boost';
+import { client } from '@/boot/apollo';
 
 const state = {
   operating_units: {}

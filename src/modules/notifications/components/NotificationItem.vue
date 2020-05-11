@@ -76,7 +76,7 @@ export default {
     dateDiff(val) {
     	const today = new Date()
       if (val) {
-        return date.getDateDiff(today, val)
+        return date.getDateDiff(today, val) + ' days ago'
       }
       return '';
     }

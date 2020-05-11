@@ -18,7 +18,7 @@
 <script>
 import { mapActions } from 'vuex'
 import { showSuccessNotification } from '../../../functions/function-show-notifications'
-import { client } from '../../../boot/apollo-boost'
+import { client } from '../../../boot/apollo'
 import { GET_CURRENT_USER } from '../../../graphql/queries'
 import { UPLOAD_USER_AVATAR_MUTATION } from '../../../graphql/mutations'
 

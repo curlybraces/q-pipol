@@ -1,4 +1,4 @@
-import { client } from '../boot/apollo-boost';
+import { client } from '../boot/apollo';
 import {
   REGISTER_MUTATION,
   LOGIN_MUTATION,

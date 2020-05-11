@@ -46,7 +46,7 @@ import createApp from './app.js'
 
 
 
-import qboot_Bootapolloboost from 'boot/apollo-boost'
+import qboot_Bootapollo from 'boot/apollo'
 
 import qboot_Bootaxios from 'boot/axios'
 
@@ -86,7 +86,7 @@ async function start () {
   }
 
   const urlPath = window.location.href.replace(window.location.origin, '')
-  const bootFiles = [qboot_Bootapolloboost,qboot_Bootaxios,qboot_Bootrouterauth,qboot_Boottest,qboot_Quasarquasarappextensionqmarkdownsrcbootregisterjs]
+  const bootFiles = [qboot_Bootapollo,qboot_Bootaxios,qboot_Bootrouterauth,qboot_Boottest,qboot_Quasarquasarappextensionqmarkdownsrcbootregisterjs]
 
   for (let i = 0; routeUnchanged === true && i < bootFiles.length; i++) {
     if (typeof bootFiles[i] !== 'function') {
