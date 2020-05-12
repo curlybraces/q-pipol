@@ -1,41 +1,61 @@
 <template>
   <q-page class="flex flex-center">
-    <q-card style="width:360px;">
-      <q-item-label class="text-weight-bold" header>Verify Email</q-item-label>
-      <q-separator></q-separator>
-      <q-card-section>
-        <q-input outlined label="Token" v-model="token" readonly />
-      </q-card-section>
-      <q-card-actions class="q-pa-md">
-        <q-btn
-          color="primary"
-          label="Verify Email"
-          class="text-capitalize"
-          @click="verifyMyEmail"
-        ></q-btn>
-      </q-card-actions>
-    </q-card>
+    <div class="column q-gutter-y-xl" v-if="success">
+      <div class="text-h3 text-center">You have successfully verified your email.</div>
+
+      <div class="row justify-center">
+        <q-btn size="lg" color="primary" label="Login" to="/login"></q-btn>
+      </div>
+    </div>
+    <div v-else>
+      <div class="text-h3 text-center">Something went wrong.</div>
+
+      <div class="row justify-center">
+        Contact us
+      </div>
+    </div>
   </q-page>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import gql from 'graphql-tag'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'EmailVerify',
   data() {
     return {
-      token: ''
-    };
-  },
-  methods: {
-    ...mapActions('auth', ['verifyEmail']),
-    verifyMyEmail() {
-      this.verifyEmail(this.token);
+      success: false
     }
   },
-  mounted() {
-    this.token = this.$route.query.token;
+  beforeCreate() {
+    console.log('beforeCreate')
+    this.$apollo.mutate({
+      mutation: gql`
+        mutation verifyEmail($token: String!) {
+          verifyEmail(input: {
+            token: $token
+          }) {
+            access_token
+            refresh_token
+            user {
+              id
+              name
+              email
+            }
+          }
+        }
+      `,
+      variables: {
+        token: this.$route.query.token
+      }
+    })
+    .then(({ data }) => {
+      if (data.verifyEmail) {
+        this.success = true
+      }
+    })
+    .catch(err => console.error(err))
   }
 };
 </script>

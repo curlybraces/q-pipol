@@ -1365,3 +1365,33 @@ export const REVIEW_PROJECT_MUTATION = gql`
     }
   }
 `;
+
+export const PROCESS_PROJECT_MUTATION = gql`
+  mutation processProject(
+    $project_id: ID!
+    $processing_status_id: ID!
+    $remarks: String
+  ) {
+    processProject(
+      project_id: $project_id
+      processing_status_id: $processing_status_id
+      remarks: $remarks
+    ) {
+      id
+      project_processing_statuses {
+        processing_status_id
+        processing_status {
+          id
+        }
+        processed_by
+        processor {
+          id
+        }
+        remarks
+        processed_at
+        created_at
+        updated_at
+      }
+    }
+  }
+`;

@@ -6,7 +6,7 @@
           icon="subdirectory_arrow_right" 
           color="negative" 
           label="Return" 
-          @click="handleReturnProject">
+          @click="showReturnProjectDialog = true">
         </q-btn>
 
         <q-btn 
@@ -29,6 +29,33 @@
       </div>
     </div>
 
+    <q-dialog v-model="showReturnProjectDialog" persistent>
+      <q-card style="width: 400px;">
+        <q-toolbar class="bg-black text-white">
+          Return Project
+          <q-space/>
+          <q-btn flat round dense icon="close" @click="showReturnProjectDialog = false" />
+        </q-toolbar>
+        <q-form ref="form" @submit.prevent="handleReturnProject">
+          <q-card-section>
+            <p>Add remarks for later reference.</p>
+            <q-input
+              dense 
+              outlined 
+              label="Remarks" 
+              type="textarea" 
+              v-model="remarks"
+              :rules="[ val => !!val || '* Required']"
+              hint="Remarks (if any)" />
+          </q-card-section>
+          <q-card-actions align="right">
+            <q-btn flat label="Cancel" color="primary" @click="showReturnProjectDialog = false"></q-btn>
+            <q-btn type="submit" label="Confirm" color="primary"></q-btn>
+          </q-card-actions>
+        </q-form>
+      </q-card>
+    </q-dialog>
+
   </page-container>
 </template>
 
@@ -40,33 +67,37 @@ const PageContainer = () =>
   import(/* webpackChunkName: 'PageTitle' */ '../../ui/page/PageContainer');
 const ProjectProfile = () => import('../components/ProjectProfile')
 const ReviewForm = () => import('../components/ReviewForm')
+import { PROCESS_PROJECT_MUTATION } from '@/graphql/mutations'
 
 export default {
   components: { PageTitle, PageContainer, ProjectProfile, ReviewForm },
   name: 'PageReviewProject',
-  props: ['id'],
   data() {
     return {
-      remarks: null
+      remarks: null,
+      showReturnProjectDialog: false
     };
   },
   methods: {
     handleReturnProject() {
-      this.$q.dialog({
-        title: 'Return Project',
-        message: 'Indicate reason for returning project (Min. 10 chars)',
-        prompt: {
-          model: '',
-          isValid: val => val.length > 10,
-          type: 'text'
-        },
-        persistent: true,
-        cancel: true
+      const payload = {
+        project_id: this.$route.params.id,
+        processing_status_id: '2', // 2 is for returned status
+        remarks: this.remarks
+      }
+
+      this.$refs.form.validate().then(success => {
+        if (success) {
+          alert('success')
+        }
       })
-      .onOk(data => {
-        alert(data)
-        // Todo: implement return logic here
-      })
+      
+      this.$apollo.mutate({
+          mutation: PROCESS_PROJECT_MUTATION,
+          variables: payload
+        })
+        .then(({ data }) => console.log(data.processProject))
+        .catch(err => console.log(err))
     },
     handleValidateProject() {
       this.$q.dialog({
