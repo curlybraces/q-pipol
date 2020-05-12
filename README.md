@@ -19,6 +19,30 @@ Quasar Framework: https://github.com/quasarframework/quasar
 4. This repository uses Yarn as it is the recommended package manager of Quasar. To install dependencies, run `yarn install`
 5. To test the app, run `quasar dev`.
 
+## File Directory
+
+```bash
+.
++-- _config.yml
++-- _drafts
+|   +-- begin-with-the-crazy-ideas.textile
+|   +-- on-simplicity-in-technology.markdown
++-- _includes
+|   +-- footer.html
+|   +-- header.html
++-- _layouts
+|   +-- default.html
+|   +-- post.html
++-- _posts
+|   +-- 2007-10-29-why-every-programmer-should-play-nethack.textile
+|   +-- 2009-04-26-barcamp-boston-4-roundup.textile
++-- _data
+|   +-- members.yml
++-- _site
++-- index.html
+```
+├──
+
 ## Deploying in the Live Server
 1. To build the application for deployment: 
    SPA:       `quasar build spa`
