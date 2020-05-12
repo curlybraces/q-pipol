@@ -12,6 +12,8 @@ const getRole = async () => {
 
 export default async ({ router }) => {
 	const { role, token } = await getRole()
+
+	console.log(`role: ${role}, token: ${!!token}`)
 	
 	router.beforeEach((to, from, next) => {
 		if (to.matched.some(record => record.meta.requiresAuth)) {

@@ -36,7 +36,7 @@ export const persistor = new CachePersistor({
 });
 
 // this function determines the size of the localforage database
-persistor.getSize().then(size => console.log(size));
+persistor.getSize().then(size => console.log(`cache size: ${size}`));
 
 const token = LocalStorage.getItem('token');
 
@@ -57,16 +57,14 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
     graphQLErrors.forEach(({ debugMessage, message, locations, path }) => {
       // if unauthenticated, notify user and allow them to logout
       if (debugMessage === 'Unauthenticated.') {
-        console.log('Token is not valid.')
-        Dialog.create({
-          title: 'Invalid Token',
-          message: 'You are no longer logged in.'
-        })
-        .onOk(() => {
-          store.dispatch('auth/signoutUser')
-        })
+        console.error('Token is not valid.')
+        // Notify.create({
+        //   message: 'Token is not valid',
+        //   color: 'negative',
+        //   position: 'bottom-right'
+        // })
       }
-      console.log(
+      console.error(
         `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
       )
     });

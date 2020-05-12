@@ -1,5 +1,5 @@
 import { client } from 'boot/apollo';
-import { DELETE_PROJECT_MUTATION } from '@/graphql/mutations';
+import { DELETE_PROJECT_MUTATION, REVIEW_PROJECT_MUTATION } from '@/graphql/mutations';
 import { GET_PROJECTS, RELAY_PROJECTS_QUERY } from '@/graphql/queries';
 import {
   showErrorNotification,
@@ -83,6 +83,16 @@ export function deleteProject({}, payload) {
         message: err.message
       });
     });
+}
+
+export function reviewProject({}, payload) {
+  client
+    .mutate({
+      mutation: REVIEW_PROJECT_MUTATION,
+      variables: payload
+    })
+    .then(() => console.log('success'))
+    .catch(err => console.log(err))
 }
 
 export function setSearch({ commit }, value) {

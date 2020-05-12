@@ -1299,3 +1299,69 @@ export const DELETE_PROJECT_MUTATION = gql`
     }
   }
 `;
+
+export const REVIEW_PROJECT_MUTATION = gql`
+  mutation reviewProject(
+    $id: ID!
+    $ten_point_agenda: UpdateTenPointAgendaRelation
+    $sustainable_development_goals: UpdateSustainableDevelopmentGoalRelation
+    $paradigms: UpdateParadigmsRelation
+    $pdp_chapters: UpdatePdpChaptersRelation
+    $pdp_indicators: UpdatePdpIndicatorsRelation
+    $bases: UpdateBasisRelation
+    $review: ProjectReviewBelongsTo
+  ) {
+    reviewProject(
+      input: {
+        id: $id
+        ten_point_agenda: $ten_point_agenda
+        sustainable_development_goals: $sustainable_development_goals
+        paradigms: $paradigms
+        pdp_chapters: $pdp_chapters
+        pdp_indicators: $pdp_indicators
+        bases: $bases
+        review: $review
+      }
+    ) {
+      id
+      selected_sustainable_development_goals
+      sustainable_development_goals {
+        id
+      }
+      selected_ten_point_agenda
+      ten_point_agenda {
+        id
+      }
+      selected_paradigms
+      paradigms {
+        id
+      }
+      selected_pdp_chapters
+      pdp_chapters {
+        id
+      }
+      selected_pdp_indicators
+      pdp_indicators {
+        id
+      }
+      selected_bases
+      bases {
+        id
+      }
+      review {
+        id
+        cip_type {
+          id
+        }
+        trip
+        cip
+        readiness {
+          id
+        }
+        reviewer {
+          id
+        }
+      }
+    }
+  }
+`;

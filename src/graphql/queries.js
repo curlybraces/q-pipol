@@ -723,3 +723,53 @@ export const FETCH_GADS_QUERY = gql`
     }
   }
 `;
+
+export const FETCH_REVIEW_QUERY = gql`
+  query project($id: ID!) {
+    project(id: $id) {
+      id
+      selected_sustainable_development_goals
+      sustainable_development_goals {
+        id
+      }
+      selected_ten_point_agenda
+      ten_point_agenda {
+        id
+      }
+      selected_paradigms
+      paradigms {
+        id
+      }
+      selected_pdp_chapters
+      pdp_chapters {
+        id
+      }
+      selected_pdp_indicators
+      pdp_indicators {
+        id
+      }
+      selected_bases
+      bases {
+        id
+      }
+      review {
+        id
+        typology_id
+        cip_type_id
+        cip_type {
+          id
+        }
+        trip
+        cip
+        within_period
+        readiness_id
+        readiness {
+          id
+        }
+        reviewer {
+          id
+        }
+      }
+    }
+  }
+`;

@@ -2,7 +2,7 @@
 	<div v-if="project">
 		<div class="row q-pa-sm">
 	    <q-img :src="project.image_url ? project.image_url : 'http://www.fao.org/uploads/pics/NFQCS_banner.png'" height="240px" alt="project banner">
-	      <q-btn flat round class="absolute all-pointer-events bg-grey-10" icon="camera_alt" size="md" color="white" style="bottom: 3px; right: 3px">
+	      <q-btn v-if="isEncoder" flat round class="absolute all-pointer-events bg-grey-10" icon="camera_alt" size="md" color="white" style="bottom: 3px; right: 3px">
 	        <q-tooltip>
 	          Upload Image
 	        </q-tooltip>
@@ -243,6 +243,7 @@
 </template>
 
 <script>
+	import { mapGetters } from 'vuex'
 	import TableData from './TableData'
 	import { FETCH_PROJECT_QUERY } from '@/graphql/queries'
 	import { date } from 'quasar'
@@ -269,6 +270,9 @@
 					}
 				}
 			}
+		},
+		computed: {
+			...mapGetters('auth',['isEncoder'])
 		},
 		data() {
 			return {

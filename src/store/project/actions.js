@@ -459,10 +459,10 @@ export function updateProject({ state, dispatch }, project) {
         bases: {
           sync: project.selected_bases
         },
-	      region_id: project.region_id,
-	      province_id: project.province_id,
-	      district_id: project.district_id,
-	      city_municipality_id: project.city_municipality_id,
+        region_id: project.region_id,
+        province_id: project.province_id,
+        district_id: project.district_id,
+        city_municipality_id: project.city_municipality_id,
         regions: {
           sync: project.selected_regions
         },
@@ -478,14 +478,14 @@ export function updateProject({ state, dispatch }, project) {
         funding_sources: project.funding_sources,
         updates: project.updates,
         updates_date: project.updates_date,
-	      region_financials: {
-        	upsert: region_financials,
-		      delete: project.deleteRegionRows ? project.deleteRegionRows: []
-	      },
-          funding_source_financials: {
-            upsert: funding_source_financials,
-            delete: project.deleteFundingSourceRows ? project.deleteFundingSourceRows: []
-          }
+        region_financials: {
+           upsert: region_financials,
+    	   delete: project.deleteRegionRows ? project.deleteRegionRows: []
+        },
+        funding_source_financials: {
+          upsert: funding_source_financials,
+          delete: project.deleteFundingSourceRows ? project.deleteFundingSourceRows: []
+        }
       }
     })
     .then(data => {
