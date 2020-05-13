@@ -344,43 +344,6 @@ export const GET_PROJECTS = gql`
   }
 `;
 
-export const INFINITE_SCROLL_PROJECTS = gql`
-  query paginatedProjects($first: Int!, $page: Int) {
-    paginatedProjects(first: $first, page: $page) {
-      data {
-        id
-        title
-        operating_unit {
-          id
-          name
-          image
-          acronym
-        }
-        description
-        total_project_cost
-        can_update
-        creator {
-          id
-          name
-        }
-        created_at
-        updated_at
-      }
-      paginatorInfo {
-        count
-        currentPage
-        firstItem
-        lastItem
-        hasMorePages
-        lastItem
-        lastPage
-        perPage
-        total
-      }
-    }
-  }
-`;
-
 export const RELAY_PROJECTS_QUERY = gql`
   query relayProjects($first: Int!, $after: String) {
     relayProjects(first: $first, after: $after) {
@@ -440,6 +403,10 @@ export const FETCH_PROJECT_QUERY = gql`
 			}
 			clearinghouse
 			clearinghouse_date
+      creator {
+        id
+        name
+      }
 			created_at
 			currency_id
 			currency {

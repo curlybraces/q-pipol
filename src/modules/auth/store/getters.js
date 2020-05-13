@@ -30,6 +30,13 @@ export function user(state) {
   return state.user;
 }
 
+export function isReviewer(state) {
+  if (state.user) {
+    return state.user.role ? state.user.role.name === 'reviewer' : false;
+  }
+  return false;
+}
+
 export function isSuperadmin(state) {
   if (state.user) {
     return state.user.role ? state.user.role.name === 'superadmin' : false;

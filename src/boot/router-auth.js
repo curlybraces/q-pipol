@@ -1,21 +1,13 @@
 import { LocalStorage, Dialog } from 'quasar';
 
-let user = {}, token = ''
-
-const getRole = async () => {
-	token = LocalStorage.getItem('token')
-	user = LocalStorage.getItem('user')
-	const role = user ? (user.role ? user.role.name: '') : ''
-	
-	return { token, role }
-}
-
-export default async ({ router }) => {
-	const { role, token } = await getRole()
-
-	console.log(`role: ${role}, token: ${!!token}`)
+export default async ({ router, store }) => {
 	
 	router.beforeEach((to, from, next) => {
+		const token = LocalStorage.getItem('token')
+		const user = store.state.auth.user
+		const role = user ? (user.role ? user.role.name: 'guest') : 'guest'
+		// console.log(`user: ${user} role: ${role}, token: ${!!token}`)
+
 		if (to.matched.some(record => record.meta.requiresAuth)) {
 			if (!token) {
 				next({

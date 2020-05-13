@@ -8,7 +8,7 @@
 import { mapState, mapActions, mapGetters } from 'vuex'
 import { GET_CURRENT_USER } from './graphql/queries'
 import { ASSIGNED_ROLE, ASSIGNED_OPERATING_UNIT_TO_REVIEW } from '@/graphql/subscriptions'
-import { Notify } from 'quasar'
+import { Notify, LocalStorage } from 'quasar'
 import { showSuccessNotification } from '@/functions/function-show-notifications'
 
 export default {
@@ -69,11 +69,8 @@ export default {
   		return this.user ? this.user.id: null
 		}
 	},
-  methods: {
-    ...mapActions('auth', ['getCurrentUser'])
-  },
   created() {
-    this.getCurrentUser();
+  	this.$store.dispatch('auth/getCurrentUser');
     this.$q.dark.set(this.dark)
   }
 };

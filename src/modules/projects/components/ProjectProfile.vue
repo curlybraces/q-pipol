@@ -1,5 +1,5 @@
 <template>
-	<div v-if="project">
+	<div v-if="!$apollo.project">
 		<div class="row q-pa-sm">
 	    <q-img :src="project.image_url ? project.image_url : 'http://www.fao.org/uploads/pics/NFQCS_banner.png'" height="240px" alt="project banner">
 	      <q-btn v-if="isEncoder" flat round class="absolute all-pointer-events bg-grey-10" icon="camera_alt" size="md" color="white" style="bottom: 3px; right: 3px">
@@ -16,7 +16,7 @@
 	      <div class="text-h5 q-mb-md text-cyan">
 	        {{ project.title }}
 	        <q-badge>
-	          {{ project.type.name }}
+	          {{ project.type ? project.type.name: '' }}
 	        </q-badge>
 	        <q-badge color="red" v-if="project.infrastructure">
 	          Infrastructure
@@ -243,63 +243,63 @@
 </template>
 
 <script>
-	import { mapGetters } from 'vuex'
-	import TableData from './TableData'
-	import { FETCH_PROJECT_QUERY } from '@/graphql/queries'
-	import { date } from 'quasar'
+import { mapGetters } from 'vuex'
+import { FETCH_PROJECT_QUERY } from '@/graphql/queries'
+import { date } from 'quasar'
+const TableData = () => import('./TableData')
 
-	export default {
-		components: {TableData},
-		name: 'ProjectProfile',
-		props: ['id'],
-		apollo: {
-			project: {
-				query: FETCH_PROJECT_QUERY,
-				variables() {
-					return {
-						id: this.$props.id
-					}
-				},
-				result({ data }) {
-					if (data.project === null) {
-						this.$q.dialog({
-							title: 'Project not found',
-							message: 'It\'s either you don\'t have access or it has been deleted.'
-						})
-						.onDismiss(() => this.$router.push('/projects'))
-					}
+export default {
+	components: {TableData},
+	name: 'ProjectProfile',
+	props: ['id'],
+	apollo: {
+		project: {
+			query: FETCH_PROJECT_QUERY,
+			variables() {
+				return {
+					id: this.$props.id
 				}
-			}
-		},
-		computed: {
-			...mapGetters('auth',['isEncoder'])
-		},
-		data() {
-			return {
-				project: {}
-			}
-		},
-		filters: {
-	    formatDate(val) {
-	      // let newDate = new Date(val)
-	      if (!val) {
-	        return '';
-	      }
-
-	      return date.formatDate(val, 'MMM D, YYYY (ddd)')
-	    },
-			formatDateTime(val) {
-	    	if (!val) {
-	    		return '';
-				}
-	    	return date.formatDate(val, 'MMM DD YYYY HH:mm:ss A')
 			},
-			formatMoney(val) {
-	    	if (val) {
-	    		return val.toLocaleString('en-GB', { maximumFractionDigits: 2 })
+			result({ data }) {
+				if (data.project === null) {
+					this.$q.dialog({
+						title: 'Project not found',
+						message: 'It\'s either you don\'t have access or it has been deleted.'
+					})
+					.onDismiss(() => this.$router.push('/projects'))
 				}
-	    	return 0.00
 			}
-	  }
-	}
+		}
+	},
+	computed: {
+		...mapGetters('auth',['isEncoder'])
+	},
+	data() {
+		return {
+			project: {}
+		}
+	},
+	filters: {
+    formatDate(val) {
+      // let newDate = new Date(val)
+      if (!val) {
+        return '';
+      }
+
+      return date.formatDate(val, 'MMM D, YYYY (ddd)')
+    },
+		formatDateTime(val) {
+    	if (!val) {
+    		return '';
+			}
+    	return date.formatDate(val, 'MMM DD YYYY HH:mm:ss A')
+		},
+		formatMoney(val) {
+    	if (val) {
+    		return val.toLocaleString('en-GB', { maximumFractionDigits: 2 })
+			}
+    	return 0.00
+		}
+  }
+}
 </script>

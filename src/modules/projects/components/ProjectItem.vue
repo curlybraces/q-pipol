@@ -54,7 +54,17 @@
 
       <!-- action buttons -->
       <q-item-section side>
-        <q-btn :color="buttonColor" dense outline icon="unfold_more" size="sm" @click="showBottomSheet(project)"></q-btn>
+        <q-btn color="primary" dense outline icon="unfold_more" size="sm" >
+          <q-menu transition-show="jump-down" transition-hide="jump-up">
+            <q-list>
+              <project-menu @click="viewProject(project.id)" label="View" image="statics/menu/inspect.png"></project-menu>
+              <project-menu v-if="isOwner" @click="updateProject(project.id)" label="Update" image="statics/menu/update.png"></project-menu>
+              <project-menu v-if="isReviewer" @click="reviewProject(project.id)" label="Review" image="statics/menu/review.png"></project-menu>
+              <q-separator/>
+              <project-menu @click="promptDelete(project.id)" label="Delete" image="statics/menu/delete.png"></project-menu>
+            </q-list>
+          </q-menu>
+        </q-btn>
       </q-item-section>
     </q-item>
   </transition>
@@ -63,8 +73,10 @@
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex';
 import { Dialog, date } from 'quasar';
+import ProjectMenu from './dropdowns/ProjectMenu'
 
 export default {
+  components: {ProjectMenu},
   name: 'ProjectItem',
   props: {
     project: {
@@ -77,102 +89,77 @@ export default {
   computed: {
     ...mapState('settings', ['dark']),
     ...mapGetters('settings', ['buttonColor']),
-    ...mapGetters('auth',['isEncoder','user']),
-	  filteredActions() {
-    	let filteredActions = []
-			const actions = this.actions
-      const user = this.user
-      // if user is not assigned a role, assign him as guest
-			const role = user.role ? user.role.name: 'guest'
+    ...mapGetters('auth',['isEncoder','user','isReviewer']),
+	  isOwner() {
+      return this.user.id === this.project.creator.id
+    }
 
-			filteredActions = actions.filter(action => (action.visibleTo ? action.visibleTo.includes(role) : null))
-
-    	return filteredActions
-		}
   },
   data() {
     return {
-	    actions: [
-		    {
-			    label: 'View Project',
-			    img: 'statics/menu/inspect.png',
-			    id: 'view',
-					visibleTo: ['encoder','admin','superadmin','viewer','guest','reviewer']
-		    },
-				{
-					label: 'Update Project',
-					img: 'https://cdn.quasar.dev/img/logo_keep_128px.png',
-					id: 'edit',
-					visibleTo: ['encoder']
-				},
-				{
-					label: 'Delete Project',
-					img: 'https://cdn.quasar.dev/img/logo_keep_128px.png',
-					id: 'delete',
-					visibleTo: ['encoder']
-				},
-				{
-					label: 'Review Project',
-					img: 'https://cdn.quasar.dev/img/logo_hangouts_128px.png',
-					id: 'review',
-					visibleTo: ['reviewer']
-				},
-				{
-					label: 'Print Project',
-					img: 'statics/menu/cloud_print.png',
-					id: 'print',
-					visibleTo: ['encoder','admin','superadmin','viewer','guest']
-				}
-			]
+      handleClick() {
+        console.log('clicked')
+      },
+      viewProject(id) {
+        this.$router.push(`/projects/${id}`)
+      },
+      reviewProject(id) {
+        this.$router.push(`/projects/${id}/review`)
+      },
+      updateProject(id) {
+        this.$router.push(`/projects/${id}/edit`)
+      }
 		};
   },
   methods: {
     ...mapActions('projects', ['deleteProject']),
-    promptDelete(project) {
+    promptDelete(id) {
       Dialog.create({
         title: 'Delete Project',
         message: 'Are you sure you want to delete this project?',
         transitionShow: 'fade',
         cancel: true
       }).onOk(() => {
-        this.deleteProject(project);
+        this.deleteProject({
+          id: id
+        });
       });
     },
 	  showBottomSheet(project) {
-      const filteredActions = this.filteredActions
+    //   const filteredActions = this.filteredActions
 
-		  this.$q.bottomSheet({
-			  dark: this.dark,
-				title: 'Menu',
-			  message: project.title,
-			  grid: true,
-			  actions: filteredActions
-		  }).onOk(action => {
-			  // console.log('Action chosen:', action.id)
-				switch(action.id) {
-					case 'view':
-						this.$router.push(`/projects/${project.id}`)
-						break;
-					case 'edit':
-						this.$router.push(`/projects/${project.id}/edit`)
-						break;
-					case 'delete':
-						this.promptDelete(project.id)
-						break;
-					case 'review':
-						this.$router.push(`/projects/${project.id}/review`)
-						break;
-					case 'print':
-						console.log('print project')
-						break;
-					default:
-						return;
-				}
-		  }).onCancel(() => {
-			  // console.log('Dismissed')
-		  }).onDismiss(() => {
-			  // console.log('I am triggered on both OK and Cancel')
-		  })
+		  // this.$q.bottomSheet({
+			 //  dark: this.dark,
+				// title: 'Menu',
+			 //  message: project.title,
+			 //  grid: true,
+			 //  actions: filteredActions
+		  // }).onOk(action => {
+			 //  // console.log('Action chosen:', action.id)
+				// switch(action.id) {
+				// 	case 'view':
+				// 		this.$router.push(`/projects/${project.id}`)
+				// 		break;
+				// 	case 'edit':
+				// 		this.$router.push(`/projects/${project.id}/edit`)
+				// 		break;
+				// 	case 'delete':
+				// 		this.promptDelete(project.id)
+				// 		break;
+				// 	case 'review':
+				// 		this.$router.push(`/projects/${project.id}/review`)
+				// 		break;
+				// 	case 'print':
+				// 		console.log('print project')
+				// 		break;
+				// 	default:
+				// 		return;
+				// }
+		  // }).onCancel(() => {
+			 //  // console.log('Dismissed')
+		  // }).onDismiss(() => {
+			 //  // console.log('I am triggered on both OK and Cancel')
+		  // })
 		}
   },
   filters: {

@@ -60,7 +60,6 @@ export function deleteProject({}, payload) {
         __typename: 'Mutation',
         deleteProject: {
           id: payload.id,
-          title: payload.title,
           __typename: 'Project'
         }
       }
