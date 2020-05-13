@@ -1,15 +1,14 @@
-import { apolloClient } from '../boot/apollo';
-import { GET_PROJECTS } from '../graphql/queries';
+import { client } from '@/boot/apollo';
+import { GET_PROJECTS, FETCH_PROJECT_QUERY } from '@/graphql/queries';
 import {
   CREATE_PROJECT_MUTATION,
   DELETE_PROJECT_MUTATION,
-  FETCH_PROJECT_QUERY,
   UPDATE_PROJECT_MUTATION
-} from '../graphql/mutations';
+} from '@/graphql/mutations';
 
 const projectsService = {
   get() {
-    return apolloClient
+    return client
       .query({
         query: GET_PROJECTS
       })
@@ -21,7 +20,7 @@ const projectsService = {
       });
   },
   create(payload) {
-    return apolloClient
+    return client
       .mutate({
         mutation: CREATE_PROJECT_MUTATION,
         variables: payload
@@ -33,12 +32,12 @@ const projectsService = {
         throw err;
       });
   },
-  read(payload) {
-    return apolloClient
+  read(id) {
+    return client
       .mutate({
         mutation: FETCH_PROJECT_QUERY,
         variables: {
-          id: payload.id
+          id: id
         }
       })
       .then(({ data }) => {
@@ -49,7 +48,7 @@ const projectsService = {
       });
   },
   update(payload) {
-    return apolloClient
+    return client
       .mutate({
         mutation: UPDATE_PROJECT_MUTATION,
         variables: payload
@@ -61,12 +60,12 @@ const projectsService = {
         throw err;
       });
   },
-  delete(payload) {
-    return apolloClient
+  delete(id) {
+    return client
       .mutate({
         mutation: DELETE_PROJECT_MUTATION,
         variables: {
-          id: payload.id
+          id: id
         }
       })
       .then(({ data }) => {

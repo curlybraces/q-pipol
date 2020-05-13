@@ -62,8 +62,7 @@
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex';
-import { Dialog } from 'quasar';
-import { dateDiff } from '../../../utils/date-diff.utils';
+import { Dialog, date } from 'quasar';
 
 export default {
   name: 'ProjectItem',
@@ -82,7 +81,9 @@ export default {
 	  filteredActions() {
     	let filteredActions = []
 			const actions = this.actions
-			const role = this.user.role.name
+      const user = this.user
+      // if user is not assigned a role, assign him as guest
+			const role = user.role ? user.role.name: 'guest'
 
 			filteredActions = actions.filter(action => (action.visibleTo ? action.visibleTo.includes(role) : null))
 
@@ -138,12 +139,14 @@ export default {
       });
     },
 	  showBottomSheet(project) {
+      const filteredActions = this.filteredActions
+
 		  this.$q.bottomSheet({
 			  dark: this.dark,
 				title: 'Menu',
 			  message: project.title,
 			  grid: true,
-			  actions: this.filteredActions
+			  actions: filteredActions
 		  }).onOk(action => {
 			  // console.log('Action chosen:', action.id)
 				switch(action.id) {
@@ -183,7 +186,13 @@ export default {
       return value;
     },
     dateDiff(val) {
-      return dateDiff(val);
+      const today = new Date()
+
+      if (!val) {
+        return ''
+      }
+
+      return date.getDateDiff(today, val, 'days') + ' days ago'
     }
   }
 };

@@ -14,7 +14,7 @@
         Error: Incorrect username or password.
 
         <template v-slot:action>
-          <q-btn flat round icon="close" @click="CLEAR_ERROR" />
+          <q-btn flat round icon="close" @click="clearError" />
         </template>
       </q-banner>
     </transition>
@@ -53,12 +53,10 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapMutations, mapGetters } from 'vuex';
+import { mapState, mapMutations, mapGetters } from 'vuex';
 import PasswordInput from '../../ui/form-inputs/PasswordInput';
 import EmailInput from '../../ui/form-inputs/EmailInput';
 import ValidateEmailMixins from '../mixins/ValidateEmailMixins';
-import RepositoryFactory from '../../../repositories/RepositoryFactory';
-const AuthRepository = RepositoryFactory.get('auth');
 
 export default {
   name: 'LoginForm',
@@ -84,33 +82,24 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('auth', ['CLEAR_ERROR']),
-    ...mapActions('auth', ['signinUser']),
+    clearError() {
+      this.$store.dispatch('auth/clearError')
+    },
     handleSubmit() {
       // validate the form before calling login method
       this.$refs.loginForm.validate().then(success => {
         if (success) {
-          const { username, password } = this.$data;
+          const { username, password } = this.$data
 
           const payload = {
             username: username,
             password: password
           };
 
-          this.signinUser(payload);
-          // this.login(payload)
+          // this.signinUser(payload);
+          this.$store.dispatch('auth/signinUser', payload)
         }
       });
-    },
-    async login(payload) {
-      try {
-        const { data } = await AuthRepository.login(payload);
-        console.log(data);
-      } catch (err) {
-        console.log('from catch: ', err);
-      } finally {
-        console.log('done');
-      }
     }
   }
 };

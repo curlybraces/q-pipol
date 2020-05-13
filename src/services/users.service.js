@@ -1,5 +1,5 @@
-import { apolloClient } from '../boot/apollo-boost-v2';
-import { ALL_USERS } from '../graphql/queries';
+import { client } from '@/boot/apollo'
+import { ALL_USERS } from '@/graphql/queries'
 
 const usersService = {
   get() {

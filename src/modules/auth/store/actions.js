@@ -20,6 +20,8 @@ import {
   showSuccessNotification
 } from '@/functions/function-show-notifications';
 
+import { authService } from '@/services'
+
 export function signinUser({ commit }, payload) {
   // clear token so it does not get sent to server
   LocalStorage.set('token', '');
@@ -28,29 +30,46 @@ export function signinUser({ commit }, payload) {
 
   commit('SET_LOADING', true);
 
-  // can be replaced by AuthService
-  client
-    .mutate({
-      mutation: LOGIN_MUTATION,
-      variables: payload
-    })
-    .then(({ data }) => {
-      LocalStorage.set('token', data.login.access_token);
+  authService
+    .login(payload)
+    .then(res => {
+      LocalStorage.set('token', res.login.access_token)
+      commit('SET_LOADING', false)
+      this.$router.go()
 
-      commit('SET_LOADING', false);
-
-      this.$router.go();
-
-      // reset the store
-      client.resetStore();
+      client.resetStore()
     })
     .catch(err => {
-      commit('SET_ERROR', err);
+      commit('SET_ERROR', err)
 
-      LocalStorage.set('token', '');
+      console.error(err)
 
-      commit('SET_LOADING', false);
-    });
+      commit('SET_LOADING', false)
+    })
+
+  // can be replaced by AuthService
+  // client
+  //   .mutate({
+  //     mutation: LOGIN_MUTATION,
+  //     variables: payload
+  //   })
+  //   .then(({ data }) => {
+  //     LocalStorage.set('token', data.login.access_token);
+
+  //     commit('SET_LOADING', false);
+
+  //     this.$router.go();
+
+  //     // reset the store
+  //     client.resetStore();
+  //   })
+  //   .catch(err => {
+  //     commit('SET_ERROR', err);
+
+  //     LocalStorage.set('token', '');
+
+  //     commit('SET_LOADING', false);
+  //   });
 }
 
 export function getCurrentUser({ commit }) {
@@ -71,6 +90,10 @@ export function getCurrentUser({ commit }) {
       console.error(err);
       commit('SET_LOADING', false);
     });
+}
+
+export function clearError({ commit }) {
+  commit('CLEAR_ERROR')
 }
 
 export async function signoutUser({ commit }) {
