@@ -11,8 +11,7 @@
         class="bg-red text-white"
         v-if="error"
       >
-        Error: Incorrect username or password.
-
+        {{ error }}
         <template v-slot:action>
           <q-btn flat round icon="close" @click="clearError" />
         </template>

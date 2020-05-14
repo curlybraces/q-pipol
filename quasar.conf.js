@@ -10,7 +10,8 @@ module.exports = function(ctx) {
       'apollo',
 	    'axios',
       'router-auth',
-	    'test'
+	    'test',
+      'loading-defaults'
     ],
 
     css: ['app.styl'],
@@ -51,7 +52,8 @@ module.exports = function(ctx) {
 	      'Notify',
 	      'LoadingBar',
 	      'Dark',
-	      'Loading' ]
+	      'Loading' 
+      ]
     },
 
     supportIE: false,

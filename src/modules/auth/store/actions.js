@@ -14,13 +14,34 @@ import {
   UPLOAD_USER_AVATAR_MUTATION,
   UPDATE_PROFILE_MUTATION
 } from '@/graphql/mutations';
-import { showGraphQLErrorMessage } from 'src/functions/function-graphql-error-messages';
 import {
   showErrorNotification,
   showSuccessNotification
 } from '@/functions/function-show-notifications';
 
-import { authService } from '@/services'
+export function register({ commit }, payload) {
+  Loading.show()
+  client
+    .mutate({
+      mutation: REGISTER_MUTATION,
+      variables: payload
+    })
+    .then(res => {
+      commit('SET_LOADING', false);
+      console.log(res);
+      Dialog.create({
+        title: 'Registration Successful',
+        message: 'You have successfully registered. Please check your email.',
+        persistent: true,
+        ok: true
+      });
+    })
+    .catch(err => {
+      commit('SET_LOADING', false);
+      commit('SET_ERROR', err.message);
+    })
+    .finally(() => Loading.hide());
+}
 
 export function signinUser({ commit }, payload) {
   // clear token so it does not get sent to server
@@ -28,48 +49,28 @@ export function signinUser({ commit }, payload) {
 
   commit('CLEAR_ERROR');
 
-  commit('SET_LOADING', true);
+  Loading.show()
 
-  authService
-    .login(payload)
-    .then(res => {
-      LocalStorage.set('token', res.login.access_token)
-      commit('SET_LOADING', false)
-      this.$router.go()
+  client
+    .mutate({
+      mutation: LOGIN_MUTATION,
+      variables: payload
+    })
+    .then(({ data }) => {
+      LocalStorage.set('token', data.login.access_token);
 
-      client.resetStore()
+      commit('SET_LOADING', false);
+
+      this.$router.go();
+
+      // reset the store
+      client.resetStore();
     })
     .catch(err => {
-      commit('SET_ERROR', err)
-
-      console.error(err)
-
-      commit('SET_LOADING', false)
+      console.error(err.message)
+      LocalStorage.set('token', '');
     })
-
-  // can be replaced by AuthService
-  // client
-  //   .mutate({
-  //     mutation: LOGIN_MUTATION,
-  //     variables: payload
-  //   })
-  //   .then(({ data }) => {
-  //     LocalStorage.set('token', data.login.access_token);
-
-  //     commit('SET_LOADING', false);
-
-  //     this.$router.go();
-
-  //     // reset the store
-  //     client.resetStore();
-  //   })
-  //   .catch(err => {
-  //     commit('SET_ERROR', err);
-
-  //     LocalStorage.set('token', '');
-
-  //     commit('SET_LOADING', false);
-  //   });
+    .finally(() => Loading.hide());
 }
 
 export function getCurrentUser({ commit }) {
@@ -124,6 +125,7 @@ export function hideValidateEmailReminder({ commit }, val) {
 }
 
 export function setImageUrl({ commit }, payload) {
+  Loading.show()
   return client
     .mutate({
       mutation: UPDATE_IMAGE_URL_MUTATION,
@@ -141,11 +143,12 @@ export function setImageUrl({ commit }, payload) {
 
       commit('SET_IMAGE_URL', payload);
     })
-    .catch(err => console.log(err.message));
+    .catch(err => console.log(err.message))
+    .finally(() => Loading.hide());
 }
 
 export function updateProfile({ commit }, payload) {
-  commit('SET_LOADING', true);
+  Loading.show()
 
   client
     .mutate({
@@ -170,8 +173,6 @@ export function updateProfile({ commit }, payload) {
       }
     })
     .then(() => {
-      commit('SET_LOADING', false);
-
       showSuccessNotification({
         message: 'Successfully updated profile.'
       });
@@ -180,13 +181,13 @@ export function updateProfile({ commit }, payload) {
       // this.$router.go();
     })
     .catch(err => {
-      commit('SET_LOADING', false);
-
-      console.log(err.message);
-    });
+      console.error(err)
+    })
+    .finally(() => Loading.hide());
 }
 
 export function forgotPassword({}, email) {
+  Loading.show()
   return client
     .mutate({
       mutation: FORGOT_PASSWORD_MUTATION,
@@ -194,41 +195,28 @@ export function forgotPassword({}, email) {
         email: email
       }
     })
-    .then(res => {
-      showSuccessNotification({
-        message: res.data.forgotPassword.message
-      });
+    .then(({ data }) => {
+      if (data.forgotPassword.status === 'EMAIL_NOT_SENT') {
+        showErrorNotification({
+          message: data.forgotPassword.message
+        })
+      } else {
+        showSuccessNotification({
+          message: data.forgotPassword.message
+        });
+      }
     })
     .catch(err => {
       console.log(err.message);
-    });
-}
-
-export function register({ commit }, payload) {
-  commit('SET_LOADING', true);
-  client
-    .mutate({
-      mutation: REGISTER_MUTATION,
-      variables: payload
     })
-    .then(res => {
-      commit('SET_LOADING', false);
-      console.log(res);
-      Dialog.create({
-        title: 'Registration Successful',
-        message: 'You have successfully registered. Please check your email.',
-        persistent: true,
-        ok: true
-      });
-    })
-    .catch(err => {
-      commit('SET_LOADING', false);
-      commit('SET_ERROR', err);
-    });
+    .finally(() => Loading.hide());
 }
 
 export function resendEmailVerification({}, payload) {
   const email = payload;
+
+  Loading.show()
+
   return client
     .mutate({
       mutation: RESEND_EMAIL_VERIFICATION_MUTATION,
@@ -242,10 +230,9 @@ export function resendEmailVerification({}, payload) {
       });
     })
     .catch(err => {
-      showErrorNotification({
-        message: err.message
-      });
-    });
+      console.log(err.message)
+    })
+    .finally(() => Loading.hide());;
 }
 
 export function verifyEmail({ commit, dispatch }, token) {
@@ -269,7 +256,7 @@ export function verifyEmail({ commit, dispatch }, token) {
         setTimeout(() => this.$router.push('/'), 1000);
       }
     })
-    .catch(err => console.log(err.message));
+    .catch(err => console.error(err.message));
 }
 
 export function updatePassword({ dispatch }, payload) {
@@ -295,7 +282,7 @@ export function updatePassword({ dispatch }, payload) {
       }
     })
     .catch(err => {
-      showGraphQLErrorMessage(err);
+      console.error(err.message)
     })
     .finally(() => Loading.hide());
 }
@@ -315,10 +302,13 @@ export function checkEmailAvailability({}, payload) {
         return false;
       }
     })
-    .catch(err => console.log(err.message));
+    .catch(err => console.log(err.message))
+    .finally(() => Loading.hide());
 }
 
 export function uploadUserAvatar({}, payload) {
+  Loading.show()
+
 	client
 		.mutate({
 			mutation: UPLOAD_USER_AVATAR_MUTATION,
@@ -342,6 +332,7 @@ export function uploadUserAvatar({}, payload) {
 			});
 		})
 		.catch(err => {
-			console.log(err);
-		});
+			console.error(err.message);
+		})
+    .finally(() => Loading.hide());
 }

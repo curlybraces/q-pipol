@@ -10,7 +10,9 @@ const  authService = {
   			variables: payload
   		})
   		.then(({ data }) => data)
-  		.catch(err => console.error(err))
+  		.catch(err => {
+        Promise.reject(err)
+      })
   },
   logout() {}
 };

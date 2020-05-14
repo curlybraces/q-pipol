@@ -55,7 +55,8 @@ const authMiddleware = new ApolloLink((operation, forward) => {
 // create link for error handling
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors)
-    graphQLErrors.forEach(({ debugMessage, message, locations, path }) => {
+    graphQLErrors.forEach(({ debugMessage, message, locations, path, extensions }) => {
+      console.log(extensions)
       // if unauthenticated, notify user and allow them to logout
       if (debugMessage === 'Unauthenticated.') {
         console.error('Token is not valid.')
