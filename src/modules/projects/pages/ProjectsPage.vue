@@ -159,6 +159,9 @@ export default {
       filteredProjects = this.relayProjects ? this.relayProjects.edges: [];
 
       return filteredProjects;
+    },
+    finalizedProjects() {
+      return []
     }
   },
   methods: {

@@ -1,4 +1,8 @@
 /**
+ * src/boot/pusher-link.js
+ *
+ * Defines a function to create pusher link which can be added to apollo link
+ * 
  * Configuration is based on Lightouse-PHP documentation
  * See https://lighthouse-php.com/4.12/subscriptions/client-implementations.html#apollo
  */

@@ -70,7 +70,13 @@ export default {
 		}
 	},
   created() {
-  	this.$store.dispatch('auth/getCurrentUser');
+  	const token = LocalStorage.getItem('token')
+  	if (token && (token !== null || token !== '')) {
+  		this.$store.dispatch('auth/getCurrentUser');
+  	} else {
+  		this.$apollo.subscriptions.assignedRole.skip = true
+  		this.$apollo.subscriptions.assignedOperatingUnitToReview.skip = true
+  	}
     this.$q.dark.set(this.dark)
   }
 };

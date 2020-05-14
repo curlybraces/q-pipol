@@ -15,6 +15,7 @@ import {
 import store from '../store'
 import PusherLink from './pusher-link'
 import Pusher from 'pusher-js'
+import Router from '@/router'
 
 // define the link that apollo will connect to
 const uri = process.env.DEV
@@ -64,6 +65,15 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
         //   position: 'bottom-right'
         // })
       }
+      Notify.create({
+        message: `${message}`,
+        position: 'bottom-right',
+        timeout: 5000,
+        color: 'negative',
+        actions: [
+          { label: 'Learn More', color: 'white', handler: () => Router.push('/docs/errors') }
+        ]
+      })
       console.error(
         `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
       )

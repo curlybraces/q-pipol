@@ -1,6 +1,14 @@
+/**
+ * src/boot/router-auth.js
+ * 
+ * Defines router authentication guard
+ * It is a boot file to ensure that it runs even before the app is loaded
+ * 
+ */
+
 import { LocalStorage, Dialog } from 'quasar';
 
-export default async ({ router, store }) => {
+export default ({ router, store }) => {
 	
 	router.beforeEach((to, from, next) => {
 		const token = LocalStorage.getItem('token')
@@ -39,7 +47,7 @@ export default async ({ router, store }) => {
 								'The page you are trying to access is restricted to encoders only',
 							cancel: true
 						});
-						// next({ name: 'home' });
+
 						// redirect to origin page
 						next({ name: 'index-project' })
 					}
@@ -53,15 +61,16 @@ export default async ({ router, store }) => {
 								'The page you are trying to access is restricted to reviewers only',
 							cancel: true
 						});
-						// next({ name: 'home' });
 						// redirect to origin page
 						next({ name: 'index-project' })
 					}
 				} else {
+					// if it does not require special authorization
 					return next()
 				}
 			}
 		} else {
+			// if the route does not require auth
 			return next();
 		}
 	});

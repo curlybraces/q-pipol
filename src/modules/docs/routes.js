@@ -21,6 +21,11 @@ const DocumentationRoutes = {
       path: 'installation',
       name: 'docs-installation',
       component: () => import('./pages/Installation.vue')
+    },
+    {
+      path: 'errors',
+      name: 'docs-errors',
+      component: () => import('./pages/Errors.vue')
     }
   ]
 };

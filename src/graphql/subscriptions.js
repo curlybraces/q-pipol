@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 
-export const ASSIGNED_ROLE = gql`subscription assignRole($user_id: ID) {
+export const ASSIGNED_ROLE = gql`subscription assignedRole($user_id: ID) {
 	assignedRole(user_id: $user_id) {
 		id
 		role {

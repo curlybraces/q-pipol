@@ -812,7 +812,7 @@ export const UPDATE_PROJECT_MUTATION = gql`
     $implementation_risk: String
     $mitigation_strategy: String
     $income_increase: String
-    $gad_id: Int
+    $gad_id: ID
     $estimated_project_life: String
     $financial_benefit_cost_ratio: Float
     $financial_internal_rate_return: Float

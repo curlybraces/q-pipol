@@ -1617,6 +1617,10 @@ import {
 	FETCH_FUNDING_SOURCES,
 	FETCH_REGIONS
 } from '@/graphql/queries'
+import {
+	PROCESS_PROJECT_MUTATION
+} from '@/graphql/mutations'
+import { PROCESSING_STATUS } from '@/constants/processing_status'
 import BudgetTier from '../components/dropdowns/BudgetTier'
 import Regions from '../components/dropdowns/Regions'
 const TableData = () => import('../components/TableData')
@@ -1800,6 +1804,36 @@ export default {
     },
 	  handleFinalize() {
     	console.log('handle finalization')
+    	this.$q.dialog({
+    		title: 'Finalize Project',
+    		message: 'Add remarks (if any). Input N/A if none.',
+    		prompt: {
+    			model: '',
+    			type: 'text',
+    			isValid: val => !!val
+    		},
+    		cancel: true
+    	})
+    	.onOk(data => {
+    		console.log(data)
+    		this.finalizeProject(data)
+    	})
+		},
+		checkProject() {
+			// check if data is valid
+		},
+		finalizeProject(remarks) {
+			// run validation before running mutation
+			this.$apollo.mutate({
+				mutation: PROCESS_PROJECT_MUTATION,
+				variables: {
+					project_id: this.$route.params.id,
+					processing_status_id: PROCESSING_STATUS.finalized,
+					remarks: remarks
+				}
+			})
+			.then(({ data }) => console.log(data))
+			.catch(err => console.error(err))
 		},
 		handleSubmit() {
     	const payload = this.project
