@@ -79,8 +79,6 @@
         <div>
           <q-btn
             label="Update Password"
-            class="text-capitalize"
-            dense
             color="primary"
             type="submit"
             :loading="loading"

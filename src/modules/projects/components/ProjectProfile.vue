@@ -16,7 +16,7 @@
 	      <div class="text-h5 q-mb-md text-cyan">
 	        {{ project.title }}
 	        <q-badge>
-	          {{ project.type ? project.type.name: '' }}
+	          {{ project.type ? project.type.name: 'Not specified.' }}
 	        </q-badge>
 	        <q-badge color="red" v-if="project.infrastructure">
 	          Infrastructure
@@ -71,7 +71,8 @@
 	            </tr>
 	          </thead>
 	          <tbody>
-	            <tr v-if="project.target_start_year >= 2016 && project.target_start_year <= 2016">
+	          	<tr>
+	            <!-- <tr v-if="project.target_start_year <= 2016 && project.target_end_year >= 2016"> -->
 	              <td>2016 &amp; Prior</td>
 								<table-data :value="project.investment_target_2016"></table-data>
 								<table-data :value="project.infrastructure_target_2016"></table-data>
@@ -79,7 +80,8 @@
 								<table-data :value="project.gaa_2016"></table-data>
 								<table-data :value="project.disbursement_2016"></table-data>
 	            </tr>
-	            <tr v-if="project.target_start_year >= 2017 && project.target_start_year <= 2017">
+	            <!-- <tr v-if="project.target_start_year <= 2017 && project.target_end_year >= 2017"> -->
+            	<tr>
 	              <td>2017</td>
 	              <table-data :value="project.investment_target_2017" />
 	              <table-data :value="project.infrastructure_target_2017" />
@@ -87,7 +89,8 @@
 	              <table-data :value="project.gaa_2017" />
 	              <table-data :value="project.disbursement_2017" />
 	            </tr>
-	            <tr v-if="project.target_start_year >= 2018 && project.target_start_year <= 2018">
+	            <!-- <tr v-if="project.target_start_year <= 2018 && project.target_end_year >= 2018"> -->
+	            <tr>
 	              <td>2018</td>
 	              <table-data :value="project.investment_target_2018" />
 	              <table-data :value="project.infrastructure_target_2018" />
@@ -95,7 +98,8 @@
 	              <table-data :value="project.gaa_2018" />
 	              <table-data :value="project.disbursement_2018" />
 	            </tr>
-	            <tr v-if="project.target_start_year >= 2019 && project.target_start_year <= 2019">
+	            <!-- <tr v-if="project.target_start_year <= 2019 && project.target_end_year >= 2019"> -->
+	            <tr>
 	              <td>2019</td>
 	              <table-data :value="project.investment_target_2019" />
 	              <table-data :value="project.infrastructure_target_2019" />
@@ -103,7 +107,8 @@
 	              <table-data :value="project.gaa_2019" />
 	              <table-data :value="project.disbursement_2019" />
 	            </tr>
-	            <tr v-if="project.target_start_year >= 2020 && project.target_start_year <= 2020">
+	            <!-- <tr v-if="project.target_start_year <= 2020 && project.target_end_year >= 2020"> -->
+	            <tr>
 	              <td>2020</td>
 	              <table-data :value="project.investment_target_2020" />
 	              <table-data :value="project.infrastructure_target_2020" />
@@ -111,7 +116,8 @@
 	              <table-data :value="project.gaa_2020" />
 	              <table-data :value="project.disbursement_2020" />
 	            </tr>
-	            <tr v-if="project.target_start_year >= 2021 && project.target_start_year <= 2021">
+	            <!-- <tr v-if="project.target_start_year <= 2021 && project.target_end_year >= 2021"> -->
+	            <tr>
 	              <td>2021</td>
 	              <table-data :value="project.investment_target_2021" />
 	              <table-data :value="project.infrastructure_target_2021" />
@@ -119,7 +125,8 @@
 	              <table-data :value="project.gaa_2021" />
 	              <table-data :value="project.disbursement_2021" />
 	            </tr>
-	            <tr v-if="project.target_start_year >= 2022 && project.target_start_year <= 2022">
+	            <!-- <tr v-if="project.target_start_year <= 2022 && project.target_end_year >= 2022"> -->
+	            <tr>
 	              <td>2022</td>
 	              <table-data :value="project.investment_target_2022" />
 	              <table-data :value="project.infrastructure_target_2022" />
@@ -127,7 +134,8 @@
 	              <table-data :value="project.gaa_2022" />
 	              <table-data :value="project.disbursement_2022" />
 	            </tr>
-	            <tr v-if="project.target_start_year >= 2023 && project.target_start_year <= 2023">
+	            <!-- <tr v-if="project.target_start_year <= 2023 && project.target_end_year >= 2023"> -->
+            	<tr>
 	              <td>2023 &amp; Beyond</td>
 	              <table-data :value="project.investment_target_2023" />
 	              <table-data :value="project.infrastructure_target_2023" />
@@ -172,7 +180,7 @@
 							</q-item-label>
 							<q-item-label class="text-body2">
 								{{ project.currency ? project.currency.name : 'PHP' }}
-								{{ project.total_project_cost.toLocaleString() }}
+								{{ project.total_project_cost | formatMoney }}
 							</q-item-label>
 						</q-item-section>
 					</q-item>

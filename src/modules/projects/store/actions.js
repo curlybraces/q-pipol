@@ -90,18 +90,14 @@ export function reviewProject({}, payload) {
       mutation: REVIEW_PROJECT_MUTATION,
       variables: payload
     })
-    .then(() => console.log('success'))
+    .then(() => {
+      showSuccessNotification({
+        message: 'Successfully reviewed project.'
+      })
+    })
     .catch(err => console.log(err))
 }
 
 export function setSearch({ commit }, value) {
   commit('SET_SEARCH', value);
-}
-
-export function setDirection({ commit }, value) {
-  commit('SET_DIRECTION', value);
-}
-
-export function setSort({ commit }, value) {
-  commit('SET_SORT', value);
 }

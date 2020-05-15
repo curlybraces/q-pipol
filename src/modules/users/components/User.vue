@@ -36,6 +36,9 @@
         </q-icon>
       </q-item-label>
     </q-item-section>
+    <q-item-section>
+      <q-item-label>{{ user.role ? user.role.name : 'no role' }}</q-item-label>
+    </q-item-section>
     <q-item-section class="text-center">
       <q-item-label>
         <div class="q-gutter-xs">

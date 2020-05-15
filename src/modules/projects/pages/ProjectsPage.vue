@@ -4,7 +4,7 @@
 
     <search-component v-model="search" placeholder="Search titles"></search-component>
 
-    <template v-if="initialLoading">
+    <template v-if="!!initialLoading">
       <q-inner-loading :showing="!!initialLoading">
         <q-spinner-tail size="50px" color="primary"></q-spinner-tail>
       </q-inner-loading>
@@ -88,8 +88,10 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import { RELAY_PROJECTS_QUERY } from 'src/graphql/queries';
+import Vue from 'vue'
+import { mapGetters } from 'vuex'
+import { RELAY_PROJECTS_QUERY } from 'src/graphql/queries'
+import { TRANSFERRED_PROJECT } from '@/graphql/subscriptions'
 const EndorseProjects = () => import(/* webpackChunkName: 'EndorseProjects' */ '../components/EndorseProjects')
 const PageTitle = () =>
   import(/* webpackChunkName: 'PageTitle' */ '../../ui/page/PageTitle');
@@ -99,6 +101,7 @@ const PageContainer = () =>
   import(/* webpackChunkName: 'PageContainer' */ '../../ui/page/PageContainer');
 const SearchComponent = () => import(/* webpackChunkName: 'SearchComponent' */ '../../shared/components/SearchComponent')
 const NoItem = () => import(/* webpackChunkName: 'NoItem' */ '../../shared/components/NoItem')
+
 
 export default {
   name: 'ProjectsPage',
@@ -123,6 +126,35 @@ export default {
       },
       error(err) {
         console.log(err);
+      },
+      subscribeToMore: {
+        document: TRANSFERRED_PROJECT,
+        // Variables passed to the subscription. Since we're using a function,
+        // they are reactive
+        variables () {
+          return {
+            user_id: this.user.id,
+          }
+        },
+        // Mutate the previous result
+        updateQuery: (previousResult, { subscriptionData } ) => {
+          const pageInfo = previousResult.relayProjects.pageInfo
+          pageInfo.hasMore = true
+          pageInfo.hasNextPage = true
+          pageInfo.total += 1
+
+          console.log(pageInfo)
+
+          const updateProjects = {
+            relayProjects: {
+              __typename: previousResult.relayProjects.__typename,
+              edges: [...previousResult.relayProjects.edges],
+              pageInfo
+            }
+          }
+
+          return updateProjects;
+        },
       }
     }
   },
@@ -139,7 +171,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('auth', ['isEncoder']),
+    ...mapGetters('auth', ['user','isEncoder']),
     filteredProjects() {
       let filteredProjects = [];
 

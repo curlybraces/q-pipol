@@ -15,23 +15,16 @@
 
       <template v-else>
         <!-- User List -->
-        <template v-if="!groupedUsers">
+        <template v-if="!filteredUsers">
           <no-item message="No users to show"></no-item>
         </template>
         <template v-else>
           <div class="col">
-            <template v-for="(users, key) in groupedUsers">
-              <q-list separator bordered :key="key" class="q-mt-md">
-                <q-item-label
-                  header
-                  class="text-uppercase bg-primary text-white text-weight-bolder text-center"
-                  >{{ key + 's' }}</q-item-label
-                >
-                <template v-for="user in users">
-                  <user :key="user.id" :user="user"></user>
-                </template>
-              </q-list>
-            </template>
+            <q-list separator bordered>
+              <template v-for="(user, index) in filteredUsers">
+                <user :key="index" :user="user"></user>
+              </template> 
+            </q-list>
           </div>
         </template>
       </template>
@@ -41,12 +34,12 @@
 
 <script>
 import { mapState } from 'vuex'
-import { ALL_USERS } from '../../../graphql/queries'
+import { ALL_USERS } from '@/graphql/queries'
 const User = () => import('../components/User')
-const PageTitle = () => import('../../ui/page/PageTitle')
-const PageContainer = () =>import('../../ui/page/PageContainer')
-const SearchComponent = () => import('../../shared/components/SearchComponent')
-import NoItem from '../../shared/components/NoItem'
+const PageTitle = () => import('@/modules/ui/page/PageTitle')
+const PageContainer = () =>import('@/modules/ui/page/PageContainer')
+const SearchComponent = () => import('@/modules/shared/components/SearchComponent')
+import NoItem from '@/modules/shared/components/NoItem'
 
 export default {
   components: { PageContainer, PageTitle, User, SearchComponent, NoItem },
@@ -76,7 +69,7 @@ export default {
         console.log(search);
 
         filteredUsers = users.filter(user =>
-          user.name.toLowerCase().includes(search)
+          user.name.toLowerCase().includes(search) || (user.role.name.toLowerCase() === (search))
         );
 
         return filteredUsers;
@@ -86,32 +79,9 @@ export default {
 
       return filteredUsers;
     },
-    groupedUsers() {
-      let groupedUsers = [];
-      const users = this.filteredUsers;
-
-      groupedUsers = users.reduce((acc, val) => {
-        const roleName = val.role ? val.role.name : 'No Role';
-        (acc[roleName] = acc[roleName] || []).push(val);
-        return acc;
-      }, {});
-
-      return groupedUsers;
-
-      // return lodash.groupBy(this.users,'role.name')
-    },
     avatarColor() {
       return this.dark ? 'pink-13' : 'primary';
     }
-  },
-  methods: {},
-  mounted() {
-    window.addEventListener('keydown', e => {
-      if (e.ctrlKey && e.keyCode === 70) {
-        e.preventDefault();
-        this.$refs.searchBox.$el.focus();
-      }
-    });
   }
 };
 </script>

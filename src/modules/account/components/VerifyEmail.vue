@@ -11,9 +11,6 @@
     </div>
     <div class="col-lg-8 col-md-6 col-xs-12">
       <q-btn
-        outline
-        dense
-        class="text-capitalize"
         color="primary"
         label="Verify Email"
         @click="verifyEmail"
@@ -24,7 +21,6 @@
         color="primary"
         v-else
         label="Verified"
-        outline
         icon="check_outline"
         disable
       ></q-btn>

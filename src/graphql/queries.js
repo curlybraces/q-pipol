@@ -19,6 +19,7 @@ export const GET_CURRENT_USER = gql`
   query getCurrentUser {
     getCurrentUser {
       ...user
+      project_count
     }
   }
   ${USER_FRAGMENT}
@@ -315,6 +316,20 @@ export const FETCH_REVIEWERS_QUERY = gql`
   }
 `;
 
+export const FETCH_ENCODERS_QUERY = gql`
+  query encoders {
+    encoders {
+      id
+      name
+      operating_unit {
+        id
+        acronym
+      }
+      image_url
+    }
+  }
+`
+
 /* Projects */
 
 export const GET_PROJECTS = gql`
@@ -354,12 +369,36 @@ export const RELAY_PROJECTS_QUERY = gql`
       }
       edges {
         node {
-          ...basicInformation
+          id
+          title
+          operating_unit {
+            id
+            name
+            image
+            acronym
+          }
+          description
+          spatial_coverage {
+            id
+            name
+          }
+          target_start_year
+          target_end_year
+          currency {
+            id
+            name
+          }
+          total_project_cost
+          creator {
+            id
+            name
+          }
+          created_at
+          updated_at
         }
       }
     }
   }
-  ${BASIC_INFORMATION_FRAGMENT}
 `;
 
 export const DELETED_PROJECTS_QUERY = gql`

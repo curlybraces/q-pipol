@@ -11,10 +11,10 @@
           <div class="col-6">
             <q-card flat square class="fit" bordered>
               <q-item>
-                <q-item-section>Projects</q-item-section>
+                <q-item-section>Owned Projects</q-item-section>
                 <q-item-section avatar>
                   <q-avatar color="grey" class="text-white">
-                    {{ relayProjects ? relayProjects.pageInfo.total : 0 }}
+                    {{ user.project_count }}
                   </q-avatar>
                 </q-item-section>
               </q-item>
@@ -225,18 +225,8 @@ export default {
     }
   },
   apollo: {
-    relayProjects: {
-      query: RELAY_PROJECTS_QUERY,
-      variables: {
-        first: 10,
-        after: ''
-      }
-    },
     unreadNotifications: {
       query: FETCH_UNREAD_NOTIFICATIONS_QUERY
-    },
-    gad_questions: {
-      query: FETCH_GAD_QUESTIONS
     }
   },
   methods: {

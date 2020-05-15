@@ -39,7 +39,7 @@
               </span>
 							</q-item-label>
 							<q-item-label caption>
-								{{ activity.created_at | timeDiff }}
+                {{ displayDateDifference(activity.created_at) }}
 							</q-item-label>
 						</q-item-section>
 					</q-item>
@@ -62,6 +62,7 @@ import { date } from 'quasar'
 import {FETCH_ACTIVITIES} from '@/graphql/queries'
 import InnerLoading from '../../ui/components/InnerLoading'
 import NoItem from '../../shared/components/NoItem'
+import { displayDateDifference } from '@/helpers/display-date-difference'
 
 export default {
   name: 'PageActivity',
@@ -80,21 +81,15 @@ export default {
 			loading: false
     };
   },
+  methods: {
+    displayDateDifference
+  },
   filters: {
     subject(val) {
       if (val.includes('created')) {
         return 'Created';
       }
       return null;
-    },
-    timeDiff(val) {
-    	if (!val) {
-    		return ''
-			}
-
-    	const today = new Date()
-
-      return date.getDateDiff(today, val);
     }
   }
 };

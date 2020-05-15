@@ -7,9 +7,11 @@
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex'
 import { GET_CURRENT_USER } from './graphql/queries'
-import { ASSIGNED_ROLE, ASSIGNED_OPERATING_UNIT_TO_REVIEW } from '@/graphql/subscriptions'
+import { ASSIGNED_ROLE, ASSIGNED_OPERATING_UNIT_TO_REVIEW, TRANSFERRED_PROJECT } from '@/graphql/subscriptions'
 import { Notify, LocalStorage } from 'quasar'
 import { showSuccessNotification } from '@/functions/function-show-notifications'
+import gql from 'graphql-tag'
+import { RELAY_PROJECTS_QUERY } from '@/graphql/queries'
 
 export default {
   name: 'App',
@@ -59,6 +61,23 @@ export default {
 						message: `You have been assigned to review ${offices}.`
 					})
 				}
+			},
+			transferredProject: {
+				query: TRANSFERRED_PROJECT,
+				variables() {
+					return {
+						user_id: this.user_id
+					}
+				},
+				result({ data }) {
+					console.log(data)
+					showSuccessNotification({
+						message: 'A new project was transferred to you',
+						actions: [ 
+							{ label: 'VIEW', color: 'white', handler: () => this.$router.push(`/projects/${data.transferredProject.id}`) },
+						]
+					})
+				}
 			}
 		}
 	},
@@ -73,9 +92,6 @@ export default {
   	const token = LocalStorage.getItem('token')
   	if (token && (token !== null || token !== '')) {
   		this.$store.dispatch('auth/getCurrentUser');
-  	} else {
-  		this.$apollo.subscriptions.assignedRole.skip = true
-  		this.$apollo.subscriptions.assignedOperatingUnitToReview.skip = true
   	}
     this.$q.dark.set(this.dark)
   }

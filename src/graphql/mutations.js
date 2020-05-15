@@ -1399,3 +1399,23 @@ export const PROCESS_PROJECT_MUTATION = gql`
     }
   }
 `;
+
+
+export const TRANSFER_PROJECT_MUTATION = gql`
+  mutation transferProject(
+    $project_id: ID!
+    $user_id: ID!
+  ) {
+    transferProject(
+      project_id: $project_id
+      user_id: $user_id
+    ) {
+      project {
+        id
+        title
+      }
+      message
+      status
+    }
+  }
+`
