@@ -244,9 +244,17 @@ export default {
               pageInfo
             }
           };
+        },
+        error(error) {
+          console.log(`fetchMore error: ${error}`)
         }
       });
     }
+  },
+  created() {
+    const page = this.$route.query.page
+    
+    console.dir(page)
   }
 };
 </script>
