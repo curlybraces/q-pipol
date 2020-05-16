@@ -1,6 +1,8 @@
 <template>
   <page-container>
-    <page-title title="Projects"></page-title>
+    <page-title title="Projects">
+      <q-btn color="primary" label="search" @click="searchProjectDialog = true"></q-btn>
+    </page-title>
 
     <template v-if="$apollo.loading">
       <q-inner-loading :showing="$apollo.loading">
@@ -9,8 +11,6 @@
     </template>
 
     <template v-else>
-
-      <search-component v-model="search" placeholder="Search titles"></search-component>
 
       <project-pagination 
         v-model="currentPage" 
@@ -29,6 +29,10 @@
         @input="setPage" />
 
     </template>
+
+    <dialog-main v-model="searchProjectDialog">
+      <search-project @close="searchProjectDialog = false"></search-project>
+    </dialog-main>
 
     <!-- Back to top button -->
     <q-page-sticky position="bottom-left" :offset="[18, 18]" v-if="isEncoder">
@@ -51,8 +55,9 @@ import { TRANSFERRED_PROJECT } from '@/graphql/subscriptions'
 import PageTitle from '../../ui/page/PageTitle'
 import ProjectItem from '../components/ProjectItem'
 import PageContainer from '../../ui/page/PageContainer'
-import SearchComponent from '../../shared/components/SearchComponent'
 import ProjectPagination from '../components/ProjectPagination'
+import SearchProject from '../components/dialogs/SearchProject'
+import DialogMain from '@/modules/ui/components/dialog/DialogMain'
 
 const PER_PAGE = 10
 
@@ -63,8 +68,9 @@ export default {
 		PageContainer,
 		PageTitle,
 		ProjectItem,
-		SearchComponent,
-    ProjectPagination
+    ProjectPagination,
+    SearchProject,
+    DialogMain
 		// NoItem
 	},
   apollo: {
@@ -87,7 +93,8 @@ export default {
       search: '',
       currentPage: 1,
       first: PER_PAGE,
-      lastPage: null
+      lastPage: null,
+      searchProjectDialog: false
     };
   },
   watch: {
