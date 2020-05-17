@@ -11,7 +11,8 @@ import { ASSIGNED_ROLE, ASSIGNED_OPERATING_UNIT_TO_REVIEW, TRANSFERRED_PROJECT }
 import { Notify, LocalStorage } from 'quasar'
 import { showSuccessNotification } from '@/functions/function-show-notifications'
 import gql from 'graphql-tag'
-import { RELAY_PROJECTS_QUERY } from '@/graphql/queries'
+
+import { profileService } from './services/profile.service'
 
 export default {
   name: 'App',
@@ -94,6 +95,8 @@ export default {
   		this.$store.dispatch('auth/getCurrentUser');
   	}
     this.$q.dark.set(this.dark)
+    // testing if service works
+    profileService.getCurrentUser().then(data => console.log(`profileService response data: ${JSON.stringify(data)}`))
   }
 };
 </script>

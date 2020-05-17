@@ -17,6 +17,8 @@ import PusherLink from './pusher-link'
 import Pusher from 'pusher-js'
 import Router from '@/router'
 
+import { CONFIG } from '../config'
+
 // define the link that apollo will connect to
 const uri = process.env.DEV
   ? 'http://localhost:8000/graphql'
@@ -103,7 +105,7 @@ const pusherLink = new PusherLink({
 })
 
 const uploadLink = createUploadLink({
-  uri: uri
+  uri: CONFIG.graphQLEndpoint
 });
 
 export const client = new ApolloClient({

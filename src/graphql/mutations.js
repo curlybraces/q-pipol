@@ -77,6 +77,16 @@ export const UPDATE_PASSWORD_MUTATION = gql`
   }
 `;
 
+export const FORGOT_PASSWORD_MUTATION = gql`
+  mutation forgotPassword($email: String!) {
+    forgotPassword(input: { email: $email }) {
+      status
+      message
+    }
+  }
+`;
+
+/* Profile */
 export const UPLOAD_USER_AVATAR_MUTATION = gql`
   mutation uploadUserAvatar($image: Upload!) {
     uploadUserAvatar(image: $image) {
@@ -111,15 +121,6 @@ export const UPDATE_PROFILE_MUTATION = gql`
         name
         image
       }
-    }
-  }
-`;
-
-export const FORGOT_PASSWORD_MUTATION = gql`
-  mutation forgotPassword($email: String!) {
-    forgotPassword(input: { email: $email }) {
-      status
-      message
     }
   }
 `;
