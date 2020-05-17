@@ -5,8 +5,9 @@
       <q-toolbar class="bg-info">
         <q-btn flat round dense icon="menu" @click="leftDrawer = !leftDrawer" />
         <q-toolbar-title>
-          Investment Programming &amp; Management System
+          {{ appName }}
         </q-toolbar-title>
+
         <q-space />
 
         <q-separator vertical inset dark></q-separator>
@@ -67,6 +68,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import AppFooter from '../../shared/components/Footer';
+import { CONFIG } from '@/config'
 
 export default {
   name: 'DocumentationLayout',
@@ -76,6 +78,7 @@ export default {
   },
   data() {
     return {
+      appName: CONFIG.appName,
       leftDrawer: true,
       links: [
         {

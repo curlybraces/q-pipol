@@ -14,6 +14,10 @@
 
             <q-space />
 
+            <q-btn flat stretch class="text-capitalize" to="/docs"
+              >Get Started</q-btn
+            >
+
             <q-separator vertical color="white"></q-separator>
 
             <q-btn

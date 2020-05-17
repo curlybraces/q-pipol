@@ -144,7 +144,6 @@ import {
   FETCH_TYPES,
   FETCH_YEARS
 } from 'src/graphql/queries'
-import {convertToNumber} from '../../../functions/function-convert-to-number'
 
 export default {
   name: 'AddProject',
@@ -252,7 +251,7 @@ export default {
       this.clearProject();
     },
 		checkPositiveNumber(val) {
-    	const value = convertToNumber(val)
+    	const value = parseFloat(val)
 
 			if (value > 0) {
 				return true
