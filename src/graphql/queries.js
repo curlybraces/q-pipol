@@ -332,6 +332,7 @@ export const FETCH_ENCODERS_QUERY = gql`
 
 /* Projects */
 
+// This query fetches all projects at once, not ideal esp if you have a long list
 export const GET_PROJECTS = gql`
   query projects {
     projects {
@@ -400,6 +401,46 @@ export const RELAY_PROJECTS_QUERY = gql`
     }
   }
 `;
+
+export const PAGINATED_PROJECTS = gql`
+  query paginatedProjects($first: Int!, $page: Int) {
+    paginatedProjects(first: $first, page: $page) {
+      data {
+        id
+        title
+        operating_unit {
+          id
+          name
+          image
+          acronym
+        }
+        description
+        spatial_coverage {
+          id
+          name
+        }
+        target_start_year
+        target_end_year
+        currency {
+          id
+          name
+        }
+        total_project_cost
+        creator {
+          id
+          name
+        }
+        created_at
+        updated_at
+      }
+      paginatorInfo {
+        currentPage
+        lastPage
+        total
+      }
+    }
+  }
+`
 
 export const DELETED_PROJECTS_QUERY = gql`
   query projects {

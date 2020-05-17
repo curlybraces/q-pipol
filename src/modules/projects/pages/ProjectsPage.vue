@@ -1,80 +1,40 @@
 <template>
   <page-container>
-    <page-title title="Projects"></page-title>
+    <page-title title="Projects">
+      <q-btn color="primary" label="search" @click="searchProjectDialog = true"></q-btn>
+    </page-title>
 
-    <search-component v-model="search" placeholder="Search titles"></search-component>
-
-    <template v-if="!!initialLoading">
-      <q-inner-loading :showing="!!initialLoading">
+    <template v-if="$apollo.loading">
+      <q-inner-loading :showing="$apollo.loading">
         <q-spinner-tail size="50px" color="primary"></q-spinner-tail>
       </q-inner-loading>
     </template>
 
     <template v-else>
-      <template v-if="!relayProjects.edges.length">
-        <no-item icon="cancel" message="You have no projects to show. If you have added a project but was not
-          listed here even after refreshing. Please seek our assistance."></no-item>
+
+      <project-pagination 
+        v-model="currentPage" 
+        :max="paginatedProjects.paginatorInfo.lastPage" 
+        :max-pages="10" 
+        @input="setPage" />
+
+      <template v-for="project in paginatedProjects.data">
+        <project-item :project="project" :key="project.id"></project-item>
       </template>
 
-      <template v-else>
-  			<div class="row justify-between items-center q-pa-sm">
-  				<div>
-  					{{ `Showing ${relayProjects.edges ? relayProjects.edges.length : 0} of ${relayProjects.pageInfo ? relayProjects.pageInfo.total : 0 } projects` }}
-  				</div>
-  				<div>
-  					<q-btn
-							v-if="isEncoder"
-  						color="primary"
-  						label="Endorse"
-  						@click="endorseProjectDialog = true"
-  						icon-right="chevron_right" />
-  				</div>
-  			</div>
+      <project-pagination 
+        v-model="currentPage" 
+        :max="paginatedProjects.paginatorInfo.lastPage" 
+        :max-pages="10" 
+        @input="setPage" />
 
-        <div class="q-pa-sm">
-    			<q-list separator bordered>
-            <q-item-label header v-if="this.search.length >= 3"
-              >Found <b>{{ filteredProjects.length }}</b> titles that match
-              <span class="text-negative">{{ search }}...</span></q-item-label
-            >
-            <template v-for="{ node } in filteredProjects">
-              <project-item :project="node" :key="node.id"></project-item>
-            </template>
-            <q-item
-              :clickable="hasMore && !loadingMore"
-              v-if="!initialLoading && relayProjects.edges.length"
-              class="text-center"
-              @click="loadMore"
-            >
-							<template v-if="!!loadingMore">
-								<q-inner-loading :showing="!!loadingMore" >
-									<q-spinner-dots color="primary" size="50px"></q-spinner-dots>
-								</q-inner-loading>
-							</template>
-							<template v-else>
-								<q-item-section class="text-primary">
-									{{ hasMore ? 'Load More...' : 'End' }}
-								</q-item-section>
-							</template>
-            </q-item>
-          </q-list>
-        </div>
-      </template>
     </template>
 
-		<q-dialog
-			v-model="endorseProjectDialog"
-			full-height
-			:position="$q.screen.xs ? void 0 : 'right'"
-			persistent
-			:maximized="$q.screen.xs"
-			transition-show="jump-left"
-			transition-hide="jump-right">
-			<endorse-projects
-				:projects="relayProjects.edges"
-				@close="endorseProjectDialog = false" />
-		</q-dialog>
+    <dialog-main v-model="searchProjectDialog">
+      <search-project @close="searchProjectDialog = false"></search-project>
+    </dialog-main>
 
+    <!-- Back to top button -->
     <q-page-sticky position="bottom-left" :offset="[18, 18]" v-if="isEncoder">
       <q-btn
         fab
@@ -90,171 +50,77 @@
 <script>
 import Vue from 'vue'
 import { mapGetters } from 'vuex'
-import { RELAY_PROJECTS_QUERY } from 'src/graphql/queries'
+import { PAGINATED_PROJECTS } from 'src/graphql/queries'
 import { TRANSFERRED_PROJECT } from '@/graphql/subscriptions'
-const EndorseProjects = () => import(/* webpackChunkName: 'EndorseProjects' */ '../components/EndorseProjects')
-const PageTitle = () =>
-  import(/* webpackChunkName: 'PageTitle' */ '../../ui/page/PageTitle');
-const ProjectItem = () =>
-  import(/* webpackChunkName: 'ProjectItem' */ '../components/ProjectItem');
-const PageContainer = () =>
-  import(/* webpackChunkName: 'PageContainer' */ '../../ui/page/PageContainer');
-const SearchComponent = () => import(/* webpackChunkName: 'SearchComponent' */ '../../shared/components/SearchComponent')
-const NoItem = () => import(/* webpackChunkName: 'NoItem' */ '../../shared/components/NoItem')
+import PageTitle from '../../ui/page/PageTitle'
+import ProjectItem from '../components/ProjectItem'
+import PageContainer from '../../ui/page/PageContainer'
+import ProjectPagination from '../components/ProjectPagination'
+import SearchProject from '../components/dialogs/SearchProject'
+import DialogMain from '@/modules/ui/components/dialog/DialogMain'
 
+const PER_PAGE = 10
 
 export default {
   name: 'ProjectsPage',
   components: {
-  	EndorseProjects,
+  	// EndorseProjects,
 		PageContainer,
 		PageTitle,
 		ProjectItem,
-		SearchComponent,
-		NoItem
+    ProjectPagination,
+    SearchProject,
+    DialogMain
+		// NoItem
 	},
   apollo: {
-    relayProjects: {
-      query: RELAY_PROJECTS_QUERY,
-      variables: {
-        first: 10,
-        after: ''
+    paginatedProjects: {
+      query: PAGINATED_PROJECTS,
+      variables() {
+        return {
+          first: this.first,
+          page: this.currentPage
+        }
       },
-      result({ data, loading }) {
-        this.hasMore = data.relayProjects ? data.relayProjects.pageInfo.hasNextPage : false;
-        this.initialLoading = loading
-      },
-      error(err) {
-        console.log(err);
-      },
-      subscribeToMore: {
-        document: TRANSFERRED_PROJECT,
-        // Variables passed to the subscription. Since we're using a function,
-        // they are reactive
-        variables () {
-          return {
-            user_id: this.user.id,
-          }
-        },
-        // Mutate the previous result
-        updateQuery: (previousResult, { subscriptionData } ) => {
-          const pageInfo = previousResult.relayProjects.pageInfo
-          pageInfo.hasMore = true
-          pageInfo.hasNextPage = true
-          pageInfo.total += 1
-
-          console.log(pageInfo)
-
-          const updateProjects = {
-            relayProjects: {
-              __typename: previousResult.relayProjects.__typename,
-              edges: [...previousResult.relayProjects.edges],
-              pageInfo
-            }
-          }
-
-          return updateProjects;
-        },
+      result({ data }) {
+        this.lastPage = data.paginatedProjects.paginatorInfo.lastPage
       }
     }
   },
   data() {
     return {
-	    initialLoading: 0,
-	    loadingMore: false,
-      relayProjects: {},
-      first: 10,
-      after: '',
-      hasMore: true,
+      paginatedProjects: {},
       search: '',
-	    endorseProjectDialog: false
+      currentPage: 1,
+      first: PER_PAGE,
+      lastPage: null,
+      searchProjectDialog: false
     };
   },
-  computed: {
-    ...mapGetters('auth', ['user','isEncoder']),
-    filteredProjects() {
-      let filteredProjects = [];
-
-      if (this.search.length >= 3) {
-        const search = this.search.trim().toLowerCase();
-        const projectsToFilter = this.relayProjects.edges;
-
-        filteredProjects = projectsToFilter.filter(({ node }) => {
-          const title = node.title.toLowerCase();
-
-          return title.includes(search);
-        });
-
-        return filteredProjects;
-      }
-
-      filteredProjects = this.relayProjects ? this.relayProjects.edges: [];
-
-      return filteredProjects;
-    },
-    finalizedProjects() {
-      return []
+  watch: {
+    $route(to, from) {
+      // set currentPage to the query page of destination
+      // this will update the query since the variables is reactive
+      this.currentPage = parseInt(to.query.page)
     }
   },
+  computed: {
+    ...mapGetters('auth', ['user','isEncoder'])
+  },
   methods: {
-    loadProjects() {},
-    loadMore() {
-      const after = this.relayProjects.pageInfo.endCursor;
-
-      // console.log(this.first);
-      // console.log(after);
-
-			this.loadingMore = true;
-
-      this.$apollo.queries.relayProjects.fetchMore({
-        variables: {
-          first: this.first,
-          after: after
-        },
-	      notifyOnNetworkStatusChange: true,
-	      updateQuery: (previousResult, { fetchMoreResult }) => {
-          // console.log('previous result: ', previousResult);
-          // console.log('fetch more result: ', fetchMoreResult);
-
-          const newProjects = fetchMoreResult.relayProjects.edges;
-          // console.log('projects to add: ', newProjects);
-          const pageInfo = fetchMoreResult.relayProjects.pageInfo;
-          // console.log('page info: ', pageInfo);
-          const hasNextPage =
-            fetchMoreResult.relayProjects.pageInfo.hasNextPage;
-          const endCursor = fetchMoreResult.relayProjects.pageInfo.endCursor;
-
-          this.hasMore = hasNextPage;
-          this.after = endCursor;
-
-          // console.log('__typename: ', previousResult.relayProjects.__typename);
-
-          // console.log(
-          //   'previous result to append to: ',
-          //   ...previousResult.relayProjects.edges
-          // );
-          // console.log('incoming edges: ', ...newProjects);
-
-					this.loadingMore = false;
-
-          return {
-            relayProjects: {
-              __typename: previousResult.relayProjects.__typename,
-              edges: [...previousResult.relayProjects.edges, ...newProjects],
-              pageInfo
-            }
-          };
-        },
-        error(error) {
-          console.log(`fetchMore error: ${error}`)
-        }
-      });
+    setPage(pageNumber) {
+      console.log(`page: ${pageNumber}`)
+      // this will change the route based on the incoming pageNumber
+      this.$router.push({ name: 'index-project', query: { page: pageNumber } })
     }
   },
   created() {
-    const page = this.$route.query.page
+    // set the current page to the query page param, 
+    // if it is not defined, set it to 1
+    const currentPage = (this.$route.query.page === undefined) ? 1 : parseInt(this.$route.query.page)
     
-    console.dir(page)
+    // finally set currentPage to the variable defined
+    this.currentPage = currentPage
   }
 };
 </script>
