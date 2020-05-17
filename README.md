@@ -61,8 +61,10 @@ The Quasar Framework is open-source software licensed under the MIT license.
 
 ### General Problem
 
-In general, the problem with performing Public Investment Program (PIP) formulation and updating poor, if not lack, of data management.
-How to develop a system that will provide a comprehensive Investment Programming and Management for the Investment Programming Division that would enhance the current system, manage the resources efficiently, and generate a more pertinent and statistical reports that would help the management in decision-making.
+In general, the problem with performing Public Investment Program (PIP) formulation and updating is the poor, if not lack, of data management.
+
+The basic question is how to develop a system that will provide a comprehensive Investment Programming and Management for the Investment Programming Division that would enhance the current system, manage the resources efficiently, and generate a more pertinent and statistical reports that would help the management in decision-making.
+
 Previously, the IPD used Google Sheets to create PIP Data Entry System (DES) as the means to collect, review and store data on programs and projects of operating units of the DA. The DES is organized as follows:
 
 1.	Each operating unit has its own folder.
