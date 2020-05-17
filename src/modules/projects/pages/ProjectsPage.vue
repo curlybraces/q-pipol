@@ -30,9 +30,9 @@
 
     </template>
 
-    <dialog-main v-model="searchProjectDialog">
-      <search-project @close="searchProjectDialog = false"></search-project>
-    </dialog-main>
+    <search-project 
+      v-model="searchProjectDialog" 
+      @close="searchProjectDialog = false"/>
 
     <!-- Back to top button -->
     <q-page-sticky position="bottom-left" :offset="[18, 18]" v-if="isEncoder">
@@ -57,7 +57,6 @@ import ProjectItem from '../components/ProjectItem'
 import PageContainer from '../../ui/page/PageContainer'
 import ProjectPagination from '../components/ProjectPagination'
 import SearchProject from '../components/dialogs/SearchProject'
-import DialogMain from '@/modules/ui/components/dialog/DialogMain'
 
 const PER_PAGE = 10
 
@@ -69,8 +68,7 @@ export default {
 		PageTitle,
 		ProjectItem,
     ProjectPagination,
-    SearchProject,
-    DialogMain
+    SearchProject
 		// NoItem
 	},
   apollo: {

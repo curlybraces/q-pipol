@@ -1,8 +1,5 @@
 <template>
-	<dialog-card>
-		<dialog-header title="Search Projects" @close="$emit('close')"></dialog-header>
-
-		
+	<dialog-container v-model="show" title="Search Projects">
 		<div class="q-pa-sm q-gutter-sm">
 			<q-input dense type="text" v-model="search" outlined @keyup.enter="handleSearchProjects">
 				<template v-slot:append>
@@ -38,17 +35,17 @@
 				</q-list>
 			</template>	
 		</div>
-		
-	</dialog-card>
+	</dialog-container>
 </template>
 
 <script>
-	import DialogHeader from '@/modules/ui/components/Dialog/DialogHeader'
-	import DialogCard from '@/modules/ui/components/Dialog/DialogCard'
+	import DialogContainer from '@/modules/ui/components/Dialog/DialogContainer'
 	import gql from 'graphql-tag'
 
+	import { projectService } from '@/services/project.service'
+
 	export default {
-		components: { DialogHeader, DialogCard },
+		components: { DialogContainer },
 		name: 'SearchProject',
 		props: ['value'],
 		data() {
@@ -59,31 +56,36 @@
 				error: ''
 			}
 		},
+		computed: {
+			show: {
+				get() {
+					return this.$props.value
+				},
+				set(val) {
+					this.$emit('input',val)
+				}
+			}
+		},
 		methods: {
 			handleSearchProjects() {
+				console.log('search projects')
 				const search = this.search ? this.search.toLowerCase(): ''
 				if (search) {
 					this.loading = true
-					this.$apollo.query({
-						query: gql`
-							query searchProjects($search: String!) {
-								searchProjects(search: $search) {
-									id
-									title
-								}
-							}
-						`,
-						variables: {
-							search: search
-						}
-					})
-					.then(({ data }) => {
-						this.searchProjects = data.searchProjects
-					})
-					.catch(err => {
-						this.error = err.message
-					})
-					.finally(() => this.loading = false)
+					
+					const payload = {
+						search: search
+					}
+
+					// call search function and assign result to searchProjects
+					// the handleResponse returns the response.data so just have to call
+					// the name of the original function
+					// which is nice
+					projectService
+						.search(payload)
+						.then(res => this.searchProjects = res.searchProjects)
+						.then(() => this.loading = false)
+					
 				}
 			}
 		},

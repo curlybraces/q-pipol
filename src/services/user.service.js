@@ -48,21 +48,3 @@ export const userService = {
       .catch(handleError)
   }
 }
-
-export const userService = {
-  index() {
-
-  },
-  store() {
-
-  },
-  show() {
-
-  },
-  update() {
-    
-  },
-  destroy() {
-
-  }
-}
