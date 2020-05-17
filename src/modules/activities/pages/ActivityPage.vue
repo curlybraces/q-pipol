@@ -62,7 +62,7 @@ import { date } from 'quasar'
 import {FETCH_ACTIVITIES} from '@/graphql/queries'
 import InnerLoading from '../../ui/components/InnerLoading'
 import NoItem from '../../shared/components/NoItem'
-import { displayDateDifference } from '@/helpers/display-date-difference'
+import { displayDateDifference } from '@/utils'
 
 export default {
   name: 'PageActivity',

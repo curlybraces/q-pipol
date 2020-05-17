@@ -1,6 +1,5 @@
 import { client } from '@/boot/apollo'
-import { handleResponse } from '@/helpers/handle-response'
-import { handleError } from '@/helpers/handle-error'
+import { handleResponse, handleError } from '@/utils'
 
 import { ALL_USERS } from '@/graphql/queries';
 import {

@@ -69,7 +69,7 @@
 import { mapState, mapActions, mapGetters } from 'vuex';
 import { Dialog, date } from 'quasar';
 import ProjectMenu from './dropdowns/ProjectMenu'
-import { displayDateDifference } from '@/helpers/display-date-difference'
+import { displayDateDifference } from '@/utils'
 
 export default {
   components: {ProjectMenu},
