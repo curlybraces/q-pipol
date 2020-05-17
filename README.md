@@ -64,18 +64,25 @@ The Quasar Framework is open-source software licensed under the MIT license.
 In general, the problem with performing Public Investment Program (PIP) formulation and updating poor, if not lack, of data management.
 How to develop a system that will provide a comprehensive Investment Programming and Management for the Investment Programming Division that would enhance the current system, manage the resources efficiently, and generate a more pertinent and statistical reports that would help the management in decision-making.
 Previously, the IPD used Google Sheets to create PIP Data Entry System (DES) as the means to collect, review and store data on programs and projects of operating units of the DA. The DES is organized as follows:
+
 1.	Each operating unit has its own folder.
 2.	Each folder has several spreadsheets divided into programs (banner and regular), and projects (pipeline and ongoing).
 3.	Each banner program spreadsheet is further subdivided into subprograms (MFOs) while regular program is subdivided into GASS, STO and Operations.
 4.	Each worksheet within a spreadsheet contains more than 200 columns each representing a data field in the PIPOL System of the NEDA.
 5.	Each row in the worksheet represents one activity within the program and one project if it is a project.
 6.	To consolidate all the data coming from individual spreadsheets, the data is extracted using a script and stored in a Summary Sheet.
+
 Counting all the individual worksheets that need to be monitored and reviewed, the total exceeds 2000. One of the problems frequently reported is poor (or even lack of, in the case of Region 12) internet connection which makes it difficult for some to use the PIP DES. Some OUs resort to downloading the Spreadsheets and uploading them once they are done. However, this introduces problems as copy-pasting data overwrites hidden columns resulting in the consolidation script breaking. This can only be tracked if the data in the consolidation sheets shows invalid data (#N/A); otherwise, the error is just overlooked. This process takes most of the time of the staff, leaving very little time for actual technical review. This experience went on from 2016 to 2018. The PIP-DES was a good solution at the beginning; however, as NEDA data requirement change, so does the PIP-DES which means editing 2000+ worksheets.
+
 The other less obvious problem is data security. The files are being protected by whitelisting official Gmail accounts of agencies and this is manually done per folder/sheet. Sometimes, the staff forgets to lock their worksheets from editing, resulting in changing of the data past the deadline. This has caused inconsistencies in the past making it difficult to track where they came from and even if they do, it is difficult to undo the changes.
+
 In 2019, the IPD introduced a form-based approach to updating the investment programming. The form was based on the Budget Preparation (BP) Form 202 with additional data to cover the data requirements of the NEDA. This was an attempt to link investment programming to budget preparation with the assumption that the PIP Form can be used to prepare the BP 202. The IPD also introduced Form 2 or the rating form, Form 3 or the ranking form, and Form 4 or the investment program form. This was an attempt to guide operating units to do investment programming by evaluating and prioritizing their programs and projects. The time constraint (one month) was probably a huge bottleneck. The sudden change in tool also resulted in misunderstanding esp. for those who were not able to attend the orientation. Some just chose to stick with the old PIP-DES.
+
 The other problem is how to store the data collected from the forms. Since these are individual files in Excel, they will have to be encoded in a consolidated Excel file. The PIP Form 4 was supposed to address this making the forms easy to consolidate; however, the OUs did not follow instructions on how to fill it out making it useless.
 Why not rely on NEDA’s PIP Online (PIPOL) System?
+
 From the point of view of the NEDA PIP Secretariat, the PIPOL System helped. However, for agencies, it introduced some problems:
+
 1.	Only official PIP focal persons can access the PIPOL System and most of the time, these are only for the Central Offices. DA has more than 50 offices contributing and submitting their PIP.
 2.	The NEDA did not provide a physical form that agencies can use. The agencies must come up with their own ways to collect data.
 3.	The PIPOL System does not have an export data functionality. You must request data from PIP Secretariat which in turn they will request from the ICT Office. This could take days to do and they do not provide all the data DA submitted.
