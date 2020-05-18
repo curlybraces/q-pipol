@@ -6,11 +6,11 @@ All the plugins used by the app.
 
 ### Apollo
 
-Defines the apollo-client to integrate GraphQL to the app.
+Defines the `apollo-client` to integrate GraphQL to the app as well as the `VueApollo`
 
 ### Axios
 
-Defines a $axios plugin for the app.
+Defines a `$axios` plugin for the app.
 
 ### Charts
 

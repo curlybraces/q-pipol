@@ -14,7 +14,7 @@
 
       <project-pagination 
         v-model="currentPage" 
-        :max="paginatedProjects.paginatorInfo.lastPage" 
+        :max="paginatedProjects.paginatorInfo ? paginatedProjects.paginatorInfo.lastPage: 1" 
         :max-pages="10" 
         @input="setPage" />
 
@@ -24,7 +24,7 @@
 
       <project-pagination 
         v-model="currentPage" 
-        :max="paginatedProjects.paginatorInfo.lastPage" 
+        :max="paginatedProjects.paginatorInfo ? paginatedProjects.paginatorInfo.lastPage: 1" 
         :max-pages="10" 
         @input="setPage" />
 
@@ -57,34 +57,19 @@ import ProjectItem from '../components/ProjectItem'
 import PageContainer from '../../ui/page/PageContainer'
 import ProjectPagination from '../components/ProjectPagination'
 import SearchProject from '../components/dialogs/SearchProject'
+import { Loading } from 'quasar'
 
 const PER_PAGE = 10
 
 export default {
   name: 'ProjectsPage',
   components: {
-  	// EndorseProjects,
 		PageContainer,
 		PageTitle,
 		ProjectItem,
     ProjectPagination,
     SearchProject
-		// NoItem
 	},
-  apollo: {
-    paginatedProjects: {
-      query: PAGINATED_PROJECTS,
-      variables() {
-        return {
-          first: this.first,
-          page: this.currentPage
-        }
-      },
-      result({ data }) {
-        this.lastPage = data.paginatedProjects.paginatorInfo.lastPage
-      }
-    }
-  },
   data() {
     return {
       paginatedProjects: {},
@@ -97,9 +82,10 @@ export default {
   },
   watch: {
     $route(to, from) {
+      console.log('i am triggered from route change')
       // set currentPage to the query page of destination
       // this will update the query since the variables is reactive
-      this.currentPage = parseInt(to.query.page)
+      this.loadProjects(parseInt(to.query.page))
     }
   },
   computed: {
@@ -107,18 +93,32 @@ export default {
   },
   methods: {
     setPage(pageNumber) {
-      console.log(`page: ${pageNumber}`)
+      console.log(`setPage: ${pageNumber}`)
+
       // this will change the route based on the incoming pageNumber
-      this.$router.push({ name: 'index-project', query: { page: pageNumber } })
+      this.$router.push({ name: 'index-project', query: { page: pageNumber } }).catch(() => { console.log('changed route from setPage')})
+    },
+    loadProjects(pageNumber) {
+      Loading.show()
+      this.$store.dispatch('projects/fetchProjects', {
+        first: 10,
+        page: pageNumber
+      })
+      .then(res => {
+        this.paginatedProjects = res.paginatedProjects
+
+        Loading.hide()
+      })
     }
   },
   created() {
     // set the current page to the query page param, 
     // if it is not defined, set it to 1
     const currentPage = (this.$route.query.page === undefined) ? 1 : parseInt(this.$route.query.page)
-    
-    // finally set currentPage to the variable defined
-    this.currentPage = currentPage
+
+    this.currentPage = currentPage;
+
+    this.loadProjects(currentPage)
   }
 };
 </script>

@@ -120,11 +120,12 @@ const apolloProvider = new VueApollo({
 export default async ({ app, Vue }) => {
   Vue.use(VueApollo);
   // if this starts acting up, just delete this
-  await persistCache({
+  /* await persistCache({
 	  cache,
 	  storage: localforage
   }).then(() => {
   	app.apolloProvider = apolloProvider
   })
-  // app.apolloProvider = apolloProvider;
+  */
+  app.apolloProvider = apolloProvider;
 };
