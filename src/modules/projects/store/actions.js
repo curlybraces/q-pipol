@@ -12,3 +12,7 @@ export function deleteProject({}, payload) {
 export function reviewProject({}, payload) {
   projectService.review(payload)
 }
+
+export function viewProject({}, payload) {
+  return projectService.view(payload)
+}

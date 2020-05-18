@@ -1,11 +1,12 @@
 import { client } from '@/boot/apollo'
 import { handleResponse, handleError } from '@/utils'
 
-import { 
-	SEARCH_PROJECTS, 
+import {
+	SEARCH_PROJECTS,
+	FETCH_PROJECT_QUERY,
 	PAGINATED_PROJECTS } from '@/graphql/queries'
-import { 
-	CREATE_PROJECT_MUTATION, 
+import {
+	CREATE_PROJECT_MUTATION,
 	DELETE_PROJECT_MUTATION,
 	REVIEW_PROJECT_MUTATION } from '@/graphql/mutations'
 
@@ -22,6 +23,13 @@ export const projectService = {
 	},
 	show(payload) {
 		// get based on id
+		return client
+			.query({
+				query: FETCH_PROJECT_QUERY,
+				variables: payload
+			})
+			.then(handleResponse)
+			.catch(handleError)
 	},
 	search(payload) {
 		return client.query({
