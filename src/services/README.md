@@ -5,9 +5,16 @@ Defines the services used by the app. This primarily houses all API calls to the
 
 ### Auth
 
-
+register
+login
+logout
+updatePassword
+forgotPassword
+resendEmailVerification
+verifyEmail
 
 ### Profile
+
 
 
 ### Project

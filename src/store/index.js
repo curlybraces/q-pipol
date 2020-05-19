@@ -9,6 +9,7 @@ import projects from '../modules/projects/store';
 import project from './project';
 import notifications from '../modules/notifications/store';
 import operatingUnits from './operating-units';
+import profile from '../modules/profile/store'
 import resources from '../modules/resources/store';
 import settings from '../modules/settings/store';
 import users from '../modules/users/store';
@@ -29,6 +30,7 @@ const Store = new Vuex.Store({
     project,
     notifications,
     operatingUnits,
+    profile,
     resources,
     users,
     settings

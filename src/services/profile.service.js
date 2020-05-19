@@ -16,18 +16,25 @@ export const profileService = {
       .then(handleResponse)
       .catch(handleError)
   },
-  uploadUserAvatar(payload) {
+  uploadUserAvatar({ image }) {
     return client.mutate({
       mutation: UPDATE_PROFILE_MUTATION,
-      variables: payload
+      variables: {
+        image: image
+      }
     })
     .then(handleResponse)
     .catch(handleError)
   },
-  updateProfile(payload) {
+  updateProfile({ name, operating_unit_id, position, contact_number }) {
     return client.mutate({
       mutation: UPDATE_PROFILE_MUTATION,
-      variables: payload
+      variables: {
+        name: name, 
+        operating_unit_id: operating_unit_id, 
+        position: position, 
+        contact_number: contact_number
+      }
     })
     .then(handleResponse)
     .catch(handleError)

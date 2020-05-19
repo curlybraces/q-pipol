@@ -1,6 +1,6 @@
 <template>
   <page-container>
-    <page-title title="Account"></page-title>
+    <page-title title="Profile"></page-title>
 
     <update-profile></update-profile>
 

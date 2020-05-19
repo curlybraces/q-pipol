@@ -1,9 +1,9 @@
-import AccountRoutes from '../modules/account/routes';
 import AuthRoutes from '../modules/auth/routes';
 import DirectoryRoutes from '../modules/directory/routes';
 import DocumentationRoutes from '../modules/docs/routes';
 import DashboardRoutes from '../modules/dashboard/routes';
 import LandingRoute from '../modules/landing/routes';
+import ProfileRoutes from '../modules/profile/routes';
 import ProjectsRoutes from '../modules/projects/routes';
 import ResourcesRoutes from '../modules/resources/routes';
 import SettingsRoute from '../modules/settings/routes';
@@ -20,42 +20,11 @@ const routes = [
       UsersRoutes,
       ActivityRoutes,
       NotificationsRoutes
-      // {
-      // 	path: 'help',
-      // 	name: 'help',
-      // 	component: () =>
-      // 		import(/* webpackChunkName: 'HelpPage' */ 'pages/Help.vue'),
-      // 	meta: {
-      // 		requiresAuth: true
-      // 	}
-      // },
-      // {
-      // 	path: 'gad',
-      // 	name: 'gad',
-      // 	component: () =>
-      // 		import(
-      // 			/* webpackChunkName: 'GenderResponsivenessPage' */ 'pages/GenderResponsiveness.vue'
-      // 			)
-      // },
-      // {
-      // 	path: 'gad-help',
-      // 	name: 'gad-help',
-      // 	component: () =>
-      // 		import(/* webpackChunkName: 'GadHelpPage' */ 'pages/GadHelp.vue')
-      // },
-      // {
-      // 	path: 'progress-tracker',
-      // 	name: 'progress-tracker',
-      // 	component: () =>
-      // 		import(
-      // 			/* webpackChunkName: 'ProgressTrackerPage' */ 'pages/ProgressTracker.vue'
-      // 			)
-      // }
     ]
   },
   DashboardRoutes,
   DocumentationRoutes,
-  AccountRoutes,
+  ProfileRoutes,
   ...AuthRoutes,
   ResourcesRoutes,
   DirectoryRoutes,

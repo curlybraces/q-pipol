@@ -16,13 +16,13 @@
     <q-separator />
 
     <q-list style="min-width: 280px" separator dense>
-      <q-item clickable v-close-popup to="/account">
+      <q-item clickable v-close-popup to="/Profile">
         <q-item-section avatar>
           <q-avatar>
             <q-icon name="tune" />
           </q-avatar>
         </q-item-section>
-        <q-item-section>Account Settings</q-item-section>
+        <q-item-section>Profile</q-item-section>
       </q-item>
       <q-item
         clickable
