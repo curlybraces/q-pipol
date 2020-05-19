@@ -91,11 +91,10 @@
 
 <script>
 import { mapActions } from 'vuex';
-import ValidateEmailMixins from '../../auth/mixins/ValidateEmailMixins';
+
 
 export default {
   name: 'UpdatePassword',
-  mixins: [ValidateEmailMixins],
   data() {
     return {
       showPassword: false,

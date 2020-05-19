@@ -55,12 +55,11 @@
 import { mapState, mapMutations, mapGetters } from 'vuex';
 import PasswordInput from '../../ui/form-inputs/PasswordInput';
 import EmailInput from '../../ui/form-inputs/EmailInput';
-import ValidateEmailMixins from '../mixins/ValidateEmailMixins';
+import { validateEmail } from '@/utils'
 
 export default {
   name: 'LoginForm',
   components: { EmailInput, PasswordInput },
-  mixins: [ValidateEmailMixins],
   data() {
     return {
       username: null,
@@ -83,6 +82,9 @@ export default {
   methods: {
     clearError() {
       this.$store.dispatch('auth/clearError')
+    },
+    validEmail(email) {
+      validateEmail(email)
     },
     handleSubmit() {
       // validate the form before calling login method
