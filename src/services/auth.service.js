@@ -11,18 +11,26 @@ import {
   FORGOT_PASSWORD_MUTATION } from '@/graphql/mutations'
 
 export const authService = {
-  register(payload) {
+  register({ name, email, password, password_confirmation }) {
     return client.query({
       mutation: REGISTER_MUTATION,
-      variables: payload
+      variables: {
+        name: name, 
+        email: email, 
+        password: password, 
+        password_confirmation: password_confirmation 
+      }
     })
     .then(handleResponse)
     .catch(handleError)
   },
-  login(payload) {
+  login({ username, password }) {
     return client.mutate({
       query: LOGIN_MUTATION,
-      variables: payload
+      variables: {
+        username: username,
+        password: password
+      }
     })
     .then(handleResponse)
     .catch(handleError)
@@ -35,34 +43,44 @@ export const authService = {
     .then(handleResponse)
     .catch(handleError)
   },
-  updatePassword(payload) {
+  updatePassword({ old_password, password, password_confirmation }) {
     return client.mutate({
       mutation: UPDATE_PASSWORD_MUTATION,
-      variables: payload
+      variables: {
+        old_password: old_password,
+        password: password,
+        password_confirmation: password_confirmation
+      }
     })
     .then(handleResponse)
     .catch(handleError)
   },
-  forgotPassword(payload) {
+  forgotPassword({ email }) {
     return client.mutate({
       mutation: FORGOT_PASSWORD_MUTATION,
-      variables: payload
+      variables: {
+        email: email
+      }
     })
     .then(handleResponse)
     .catch(handleError)
   },
-  resendEmailVerification(payload) {
+  resendEmailVerification({ email }) {
     return client.mutate({
       mutation: RESEND_EMAIL_VERIFICATION_MUTATION,
-      variables: payload
+      variables: {
+        email: email
+      }
     })
     .then(handleResponse)
     .catch(handleError)
   },
-  verifyEmail(payload) {
+  verifyEmail({ token }) {
     return client.mutate({
       mutation: VERIFY_EMAIL_MUTATION,
-      variables: payload
+      variables: { 
+        token: token 
+      }
     })
     .then(handleResponse)
     .catch(handleError)
