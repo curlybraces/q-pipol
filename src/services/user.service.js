@@ -16,21 +16,6 @@ export const userService = {
       .then(handleResponse)
       .catch(handleError)
   },
-  store() {
-    // create aa user
-    // not applicable since user should register
-  },
-  show(payload) {
-    // retrieve single user, payload must be id
-    // again, non-existent since users are fetch in index
-    // might consider thi though
-  },
-  update() {
-    // update user
-  },
-  destroy() {
-    // delete user
-  },
   assignRole(payload) {
     return client.mutate({
         mutations: ASSIGN_ROLE_MUTATION,

@@ -126,7 +126,6 @@
             label="Save"
             color="primary"
             type="submit"
-            :loading="updatingOperatingUnit"
           ></q-btn>
         </q-card-actions>
       </q-form>
