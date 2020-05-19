@@ -62,9 +62,9 @@
 <script>
 import gql from 'graphql-tag';
 const PageTitle = () =>
-  import(/* webpackChunkName: 'PageTitle' */ '../../ui/page/PageTitle');
+  import(/* webpackChunkName: 'PageTitle' */ '@/ui/page/PageTitle');
 const PageContainer = () =>
-  import(/* webpackChunkName: 'PageTitle' */ '../../ui/page/PageContainer');
+  import(/* webpackChunkName: 'PageTitle' */ '@/ui/page/PageContainer');
 const ProjectProfile = () => import('../components/ProjectProfile')
 const ReviewForm = () => import('../components/ReviewForm')
 import { PROCESS_PROJECT_MUTATION } from '@/graphql/mutations'

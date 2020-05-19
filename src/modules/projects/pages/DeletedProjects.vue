@@ -34,7 +34,8 @@
 </template>
 
 <script>
-import PageTitle from '../../ui/page/PageTitle';
+import PageTitle from '@/ui/page/PageTitle';
+
 export default {
   components: {
     PageTitle

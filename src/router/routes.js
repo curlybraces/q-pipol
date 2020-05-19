@@ -15,21 +15,21 @@ const routes = [
   LandingRoute,
   {
     path: '/',
-    component: () => import('../modules/shared/layouts/AppLayout.vue'),
+    component: () => import('@/ui/layouts/AppLayout.vue'),
     children: [
       UsersRoutes,
       ActivityRoutes,
-      NotificationsRoutes
+      NotificationsRoutes,
+      DashboardRoutes,
+      SettingsRoute,
+      ProfileRoutes,
+      ResourcesRoutes,
+      ...ProjectsRoutes,
+      DirectoryRoutes
     ]
   },
-  DashboardRoutes,
+  AuthRoutes,
   DocumentationRoutes,
-  ProfileRoutes,
-  ...AuthRoutes,
-  ResourcesRoutes,
-  DirectoryRoutes,
-  ProjectsRoutes,
-  SettingsRoute,
   {
     path: '/error',
     name: 'error',

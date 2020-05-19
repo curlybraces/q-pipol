@@ -137,12 +137,12 @@
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex';
-import PageTitle from '../../ui/page/PageTitle';
+import PageTitle from '@/ui/page/PageTitle';
 import { openURL, Dialog } from 'quasar';
-import TextInput from '../../ui/form-inputs/TextInput';
-import { FETCH_RESOURCES_QUERY } from '../../../graphql/queries';
-import PageContainer from '../../ui/page/PageContainer';
-import NoItem from '../../shared/components/NoItem'
+import TextInput from '@/ui/form-inputs/TextInput';
+import { FETCH_RESOURCES_QUERY } from '@/graphql/queries';
+import PageContainer from '@/ui/page/PageContainer';
+import NoItem from '@/ui/components/NoItem'
 
 export default {
   name: 'PageResources',

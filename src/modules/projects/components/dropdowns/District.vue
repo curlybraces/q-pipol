@@ -7,8 +7,8 @@
 </template>
 
 <script>
-	import SingleSelect from '../../../ui/form-inputs/SingleSelect'
-	import {FETCH_CITY_MUNICIPALITIES_QUERY, FETCH_DISTRICTS} from '../../../../graphql/queries'
+	import SingleSelect from '@/ui/form-inputs/SingleSelect'
+	import { FETCH_DISTRICTS} from '@/graphql/queries'
 
 	export default {
 		components: { SingleSelect },

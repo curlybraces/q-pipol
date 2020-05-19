@@ -67,8 +67,8 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import PageContainer from '../../ui/page/PageContainer';
-import PageTitle from '../../ui/page/PageTitle';
+import PageContainer from '@/ui/page/PageContainer';
+import PageTitle from '@/ui/page/PageTitle';
 
 export default {
   name: 'PageSettings',

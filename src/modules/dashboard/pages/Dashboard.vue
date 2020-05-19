@@ -174,9 +174,9 @@ import { mapState, mapActions, mapGetters } from 'vuex';
 import { RELAY_PROJECTS_QUERY, FETCH_UNREAD_NOTIFICATIONS_QUERY, FETCH_GAD_QUESTIONS } from '../../../graphql/queries';
 import { openURL } from 'quasar';
 const PageTitle = () =>
-  import(/* webpackChunkName: '' */ '../../ui/page/PageTitle');
+  import(/* webpackChunkName: '' */ '@/ui/page/PageTitle');
 const PageContainer = () =>
-  import(/* webpackChunkName: '' */ '../../ui/page/PageContainer');
+  import(/* webpackChunkName: '' */ '@/ui/page/PageContainer');
 const ActivityComponent = () =>
   import(/* webpackChunkName: '' */ '../components/ActivityComponent');
 

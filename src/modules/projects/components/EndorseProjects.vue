@@ -44,8 +44,8 @@
 </template>
 
 <script>
-	import {ENDORSE_PROJECTS_MUTATION} from '../../../graphql/mutations'
-	import {showSuccessNotification} from '../../../functions/function-show-notifications'
+	import {ENDORSE_PROJECTS_MUTATION} from '@/graphql/mutations'
+	import {showSuccessNotification} from '@/functions/function-show-notifications'
 
 	export default {
 		name: 'EndorseProjects',

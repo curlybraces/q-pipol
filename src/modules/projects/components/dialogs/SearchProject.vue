@@ -39,8 +39,8 @@
 </template>
 
 <script>
-	import DialogContainer from '@/modules/ui/components/Dialog/DialogContainer'
 	import gql from 'graphql-tag'
+	import DialogContainer from '@/ui/dialogs/DialogContainer'
 
 	import { projectService } from '@/services/project.service'
 

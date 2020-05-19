@@ -56,13 +56,13 @@
 </template>
 
 <script>
-import PageContainer from '../../ui/page/PageContainer'
-import PageTitle from '../../ui/page/PageTitle'
-import { date } from 'quasar'
+import PageContainer from '@/ui/page/PageContainer'
+import PageTitle from '@/ui/page/PageTitle'
 import {FETCH_ACTIVITIES} from '@/graphql/queries'
-import InnerLoading from '../../ui/components/InnerLoading'
-import NoItem from '../../shared/components/NoItem'
+import InnerLoading from '@/ui/components/InnerLoading'
+import NoItem from '@/ui/components/NoItem'
 import { displayDateDifference } from '@/utils'
+import { date } from 'quasar'
 
 export default {
   name: 'PageActivity',

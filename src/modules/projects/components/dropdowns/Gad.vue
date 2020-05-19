@@ -4,7 +4,7 @@
 
 <script>
 import { FETCH_GADS_QUERY } from '@/graphql/queries'
-const SingleSelect = () => import('@/modules/ui/form-inputs/SingleSelect')
+import SingleSelect from '@/ui/form-inputs/SingleSelect'
 
 export default {
 	components: { SingleSelect },

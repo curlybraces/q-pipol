@@ -97,7 +97,7 @@
 
 <script>
 import { mapState, mapActions, mapMutations } from 'vuex';
-import PasswordInput from '../../ui/form-inputs/PasswordInput';
+import PasswordInput from '@/ui/form-inputs/PasswordInput';
 import { validateEmail } from '@/utils'
 
 export default {

@@ -35,7 +35,7 @@
 
 <script>
 	import { mapActions } from 'vuex'
-	import NotificationItem from '../../notifications/components/NotificationItem'
+	import NotificationItem from '@/modules/notifications/components/NotificationItem'
 	import { FETCH_UNREAD_NOTIFICATIONS_QUERY } from '@/graphql/queries'
 
 	export default {

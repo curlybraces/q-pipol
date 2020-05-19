@@ -1,7 +1,4 @@
-const ProjectsRoutes = {
-  path: '',
-  component: () => import('../shared/layouts/AppLayout.vue'),
-  children: [
+const ProjectsRoutes = [
     {
       path: 'projects',
       name: 'index-project',
@@ -71,6 +68,5 @@ const ProjectsRoutes = {
       }
     }
   ]
-};
 
 export default ProjectsRoutes;

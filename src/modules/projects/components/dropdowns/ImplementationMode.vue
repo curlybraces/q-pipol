@@ -7,8 +7,8 @@
 </template>
 
 <script>
-	import SingleSelect from '../../../ui/form-inputs/SingleSelect'
-	import { FETCH_IMPLEMENTATION_MODES } from '../../../../graphql/queries'
+	import SingleSelect from '@/ui/form-inputs/SingleSelect'
+	import { FETCH_IMPLEMENTATION_MODES } from '@/graphql/queries'
 
 	export default {
 		components: { SingleSelect },

@@ -8,8 +8,8 @@
 </template>
 
 <script>
-	import ListOptionGroup from '../../../ui/form-inputs/ListOptionGroup'
-	import {FETCH_REGIONS} from '../../../../graphql/queries'
+	import ListOptionGroup from '@/ui/form-inputs/ListOptionGroup'
+	import { FETCH_REGIONS } from '@/graphql/queries'
 
 	export default {
 		components: { ListOptionGroup },

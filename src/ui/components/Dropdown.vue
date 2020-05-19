@@ -1,7 +1,7 @@
 <template>
   <q-menu max-width="300px" :offset="[0, 15]" v-if="!loading">
     <div class="q-pa-md q-gutter-y-sm text-center">
-      <user-avatar></user-avatar>
+      <user-avatar :src="getCurrentUser.image_url"></user-avatar>
       <q-item-label>{{ user ? user.name : '' }}</q-item-label>
       <q-item-label caption :class="dark ? 'text-grey-1' : 'text-black'">
         {{ user ? user.email : '' }}
@@ -84,7 +84,7 @@
 <script>
 import { Dialog } from 'quasar';
 import { mapState, mapActions, mapGetters } from 'vuex';
-import UserAvatar from 'src/modules/ui/components/UserAvatar'
+import UserAvatar from '@/ui/components/UserAvatar'
 import { GET_CURRENT_USER } from 'src/graphql/queries'
 
 export default {

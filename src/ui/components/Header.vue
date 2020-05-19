@@ -19,7 +19,8 @@
       <notification-button></notification-button>
 
       <q-btn flat round>
-        <user-avatar></user-avatar>
+        <user-avatar :src="getCurrentUser.image_url"></user-avatar>
+
         <dropdown-menu />
       </q-btn>
     </q-toolbar>
@@ -37,9 +38,11 @@
 import { mapState, mapGetters, mapActions } from 'vuex';
 import DropdownMenu from './Dropdown';
 import RouteTabs from './RouteTabs';
-import UserAvatar from '../../ui/components/UserAvatar'
+import UserAvatar from './UserAvatar'
 import NotificationButton from './NotificationButton'
-import { FETCH_UNREAD_NOTIFICATIONS_QUERY, GET_CURRENT_USER } from '../../../graphql/queries';
+import { 
+  FETCH_UNREAD_NOTIFICATIONS_QUERY, 
+  GET_CURRENT_USER } from '@/graphql/queries';
 
 export default {
   components: { RouteTabs, DropdownMenu, NotificationButton, UserAvatar },

@@ -76,8 +76,8 @@
 
 <script>
 import { FETCH_PROJECT_QUERY } from '../../../graphql/queries';
-import PageTitle from '../../ui/page/PageTitle.vue';
-import PageContainer from '../../ui/page/PageContainer.vue';
+import PageTitle from '@/ui/page/PageTitle.vue';
+import PageContainer from '@/ui/page/PageContainer.vue';
 import { date } from 'quasar'
 import ProjectProfile from '../components/ProjectProfile'
 import TransferProject from '../components/dialogs/TransferProject'

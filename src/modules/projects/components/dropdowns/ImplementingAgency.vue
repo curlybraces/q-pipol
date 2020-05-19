@@ -8,7 +8,7 @@
 
 <script>
 	import gql from 'graphql-tag'
-	import SingleSelect from '../../../ui/form-inputs/SingleSelect'
+	import SingleSelect from '@/ui/form-inputs/SingleSelect'
 
 	export default {
 		components: { SingleSelect },

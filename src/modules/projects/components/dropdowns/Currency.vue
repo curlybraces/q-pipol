@@ -7,8 +7,8 @@
 </template>
 
 <script>
-	import SingleSelect from '../../../ui/form-inputs/SingleSelect'
-	import { FETCH_CURRENCIES } from '../../../../graphql/queries'
+	import SingleSelect from '@/ui/form-inputs/SingleSelect'
+	import { FETCH_CURRENCIES } from '@/graphql/queries'
 
 	export default {
 		components: { SingleSelect },

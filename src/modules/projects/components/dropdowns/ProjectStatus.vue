@@ -7,7 +7,7 @@
 </template>
 
 <script>
-	import SingleSelect from '../../../ui/form-inputs/SingleSelect'
+	import SingleSelect from '@/ui/form-inputs/SingleSelect'
 	import {FETCH_PROJECT_STATUSES} from '@/graphql/queries'
 
 	export default {

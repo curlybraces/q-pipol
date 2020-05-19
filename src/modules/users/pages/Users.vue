@@ -35,11 +35,11 @@
 <script>
 import { mapState } from 'vuex'
 import { ALL_USERS } from '@/graphql/queries'
-const User = () => import('../components/User')
-const PageTitle = () => import('@/modules/ui/page/PageTitle')
-const PageContainer = () =>import('@/modules/ui/page/PageContainer')
-const SearchComponent = () => import('@/modules/shared/components/SearchComponent')
-import NoItem from '@/modules/shared/components/NoItem'
+import User from '../components/User'
+import PageTitle from '@/ui/page/PageTitle'
+import PageContainer from '@/ui/page/PageContainer'
+import SearchComponent from '@/ui/components/SearchComponent'
+import NoItem from '@/ui/components/NoItem'
 
 export default {
   components: { PageContainer, PageTitle, User, SearchComponent, NoItem },

@@ -1636,27 +1636,27 @@ const District = () => import('../components/dropdowns/District')
 const Currency = () => import('../components/dropdowns/Currency')
 const SpatialCoverage = () => import('../components/dropdowns/SpatialCoverage')
 const PageTitle = () =>
-  import(/* webpackChunkName: 'PageTitle' */ '../../ui/page/PageTitle');
+  import(/* webpackChunkName: 'PageTitle' */ '@/ui/page/PageTitle');
 const PageContainer = () =>
-  import(/* webpackChunkName: 'PageContainer' */ '../../ui/page/PageContainer');
+  import(/* webpackChunkName: 'PageContainer' */ '@/ui/page/PageContainer');
 const TextInput = () =>
-  import(/* webpackChunkName: 'TextInput' */ '../../ui/form-inputs/TextInput');
+  import(/* webpackChunkName: 'TextInput' */ '@/ui/form-inputs/TextInput');
 const RadioInput = () =>
   import(
-    /* webpackChunkName: 'RadioInput' */ '../../ui/form-inputs/RadioInput'
+    /* webpackChunkName: 'RadioInput' */ '@/ui/form-inputs/RadioInput'
   );
 const SingleSelect = () =>
   import(
-    /* webpackChunkName: 'SingleSelect' */ '../../ui/form-inputs/SingleSelect'
+    /* webpackChunkName: 'SingleSelect' */ '@/ui/form-inputs/SingleSelect'
   );
 const MoneyInput = () =>
   import(
-    /* webpackChunkName: 'MoneyInput' */ '../../ui/form-inputs/MoneyInput'
+    /* webpackChunkName: 'MoneyInput' */ '@/ui/form-inputs/MoneyInput'
   );
 const CheckboxInput = () =>
-  import(/* webpackChunkName: 'CheckboxInput' */ '../../ui/form-inputs/CheckboxInput');
+  import(/* webpackChunkName: 'CheckboxInput' */ '@/ui/form-inputs/CheckboxInput');
 const DateInput = () =>
-  import(/* webpackChunkName: 'DateInput' */ '../../ui/form-inputs/DateInput');
+  import(/* webpackChunkName: 'DateInput' */ '@/ui/form-inputs/DateInput');
 // dropdowns
 const ImplementingAgency = () => import('../components/dropdowns/ImplementingAgency')
 const ProjectStatus = () => import('../components/dropdowns/ProjectStatus')

@@ -53,8 +53,8 @@
 
 <script>
 import { mapState, mapMutations, mapGetters } from 'vuex';
-import PasswordInput from '../../ui/form-inputs/PasswordInput';
-import EmailInput from '../../ui/form-inputs/EmailInput';
+import PasswordInput from '@/ui/form-inputs/PasswordInput';
+import EmailInput from '@/ui/form-inputs/EmailInput';
 import { validateEmail } from '@/utils'
 
 export default {

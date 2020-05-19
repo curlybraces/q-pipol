@@ -28,7 +28,6 @@
 
 <script>
 	import DialogHeader from './DialogHeader'
-
 	export default {
 		components: { DialogHeader },
 		name: 'DialogContainer',

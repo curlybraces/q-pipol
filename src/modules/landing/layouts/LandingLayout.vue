@@ -53,11 +53,11 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import AppFooter from '../../shared/components/Footer';
+import AppFooter from '@/ui/components/Footer';
 
 export default {
-  name: 'LandingLayout',
   components: { AppFooter },
+  name: 'LandingLayout',
   computed: {
     ...mapGetters('auth', ['isLoggedIn'])
   }

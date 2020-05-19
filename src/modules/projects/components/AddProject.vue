@@ -132,9 +132,9 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import TextInput from '../../ui/form-inputs/TextInput';
-import SingleSelect from '../../ui/form-inputs/SingleSelect';
-import MoneyInput from '../../ui/form-inputs/MoneyInput';
+import TextInput from '@/ui/form-inputs/TextInput';
+import SingleSelect from '@/ui/form-inputs/SingleSelect';
+import MoneyInput from '@/ui/form-inputs/MoneyInput';
 import {
   FETCH_CURRENCIES,
   FETCH_OPERATING_UNITS,

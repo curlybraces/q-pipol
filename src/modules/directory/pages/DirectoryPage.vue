@@ -159,17 +159,17 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import JsonExcel from 'vue-json-excel';
-import { FETCH_OPERATING_UNITS } from '../../../graphql/queries';
-import { showErrorNotification } from '../../../functions/function-show-notifications';
-import InnerLoading from '../../ui/components/InnerLoading'
+import { FETCH_OPERATING_UNITS } from '@/graphql/queries';
+import { showErrorNotification } from '@/functions/function-show-notifications';
+import InnerLoading from '@/ui/components/InnerLoading'
 const PageTitle = () =>
-  import(/* webpackChunkName: 'PageTitle' */ '../../ui/page/PageTitle');
+  import(/* webpackChunkName: 'PageTitle' */ '@/ui/page/PageTitle');
 const DirectoryItem = () =>
   import(/* webpackChunkName: 'DirectoryItem' */ '../components/DirectoryItem');
 const TextInput = () =>
-  import(/* webpackChunkName: 'TextInput' */ '../../ui/form-inputs/TextInput');
+  import(/* webpackChunkName: 'TextInput' */ '@/ui/form-inputs/TextInput');
 const PageContainer = () =>
-  import(/* webpackChunkName: 'PageContainer' */ '../../ui/page/PageContainer');
+  import(/* webpackChunkName: 'PageContainer' */ '@/ui/page/PageContainer');
 
 export default {
   components: {

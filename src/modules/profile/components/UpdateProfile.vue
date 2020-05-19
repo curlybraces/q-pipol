@@ -150,10 +150,10 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import SingleSelect from '../../ui/form-inputs/SingleSelect';
-import TextInput from '../../ui/form-inputs/TextInput';
-import ChooseAvatar from './/ChooseAvatar';
-import {FETCH_OPERATING_UNITS, GET_CURRENT_USER} from '../../../graphql/queries'
+import SingleSelect from '@/ui/form-inputs/SingleSelect';
+import TextInput from '@/ui/form-inputs/TextInput';
+import ChooseAvatar from './ChooseAvatar';
+import {FETCH_OPERATING_UNITS, GET_CURRENT_USER} from '@/graphql/queries'
 
 export default {
   components: { SingleSelect, TextInput, ChooseAvatar },

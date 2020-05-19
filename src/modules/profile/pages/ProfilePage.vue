@@ -15,11 +15,11 @@
 </template>
 
 <script>
-import PageTitle from '../../ui/page/PageTitle';
+import PageTitle from '@/ui/page/PageTitle';
+import PageContainer from '@/ui/page/PageContainer';
 import UpdatePassword from '../components/UpdatePassword';
 import UpdateProfile from '../components/UpdateProfile';
 import VerifyEmail from '../components/VerifyEmail';
-import PageContainer from '../../ui/page/PageContainer';
 
 export default {
   name: 'PageAccount',

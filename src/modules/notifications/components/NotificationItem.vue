@@ -34,7 +34,7 @@
 
 <script>
 import { mapActions } from 'vuex';
-import { date } from 'quasar'
+import { displayDateDifference } from '@/utils'
 
 export default {
   name: 'NotificationItem',
@@ -70,16 +70,8 @@ export default {
       this.markAsRead({
         id: id
       });
-    }
-  },
-  filters: {
-    dateDiff(val) {
-    	const today = new Date()
-      if (val) {
-        return date.getDateDiff(today, val) + ' days ago'
-      }
-      return '';
-    }
+    },
+    displayDateDifference
   }
 };
 </script>
