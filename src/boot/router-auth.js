@@ -9,8 +9,6 @@
 import { LocalStorage, Dialog } from 'quasar';
 
 export default ({ router, store }) => {
-
-	console.dir(router.options);
 	
 	router.beforeEach((to, from, next) => {
 		const token = LocalStorage.getItem('token')

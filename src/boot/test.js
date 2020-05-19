@@ -1,4 +1,7 @@
-// import test directive from directives folder
+/**
+ * Create a test directive (v-test) to affix to elements for testing
+ *
+ */ 
 import TestDirective from '../directives/test';
 
 export default ({ Vue }) => {

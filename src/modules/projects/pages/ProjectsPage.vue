@@ -25,7 +25,7 @@
     </template>
 
     <template v-else>
-      <div class="flex flex-center">
+      <div class="flex flex-center text-primary">
         Loading content...
       </div>
     </template>
