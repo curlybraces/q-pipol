@@ -40,7 +40,9 @@ module.exports = function(ctx) {
         dark: 'auto'
       },
 
-      components: [],
+      components: [
+        'QBtn',
+      ],
 
       directives: [ 'TouchPan', 'Ripple' ],
 

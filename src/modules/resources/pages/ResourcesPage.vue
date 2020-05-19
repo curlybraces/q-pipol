@@ -1,7 +1,7 @@
 <template>
   <page-container>
     <page-title title="Resources">
-      <q-btn flat round color="primary" icon="settings" v-if="isAdmin">
+      <settings-button vif="isAdmin">
         <q-menu transition-show="jump-down" transition-hide="jump-up">
           <q-list>
             <q-item
@@ -15,10 +15,8 @@
             </q-item>
           </q-list>
         </q-menu>
-      </q-btn>
+      </settings-button>
     </page-title>
-
-    <!--		 -->
 
     <div class="q-pa-sm">
       <template v-if="$apollo.loading">
@@ -143,10 +141,11 @@ import TextInput from '@/ui/form-inputs/TextInput';
 import { FETCH_RESOURCES_QUERY } from '@/graphql/queries';
 import PageContainer from '@/ui/page/PageContainer';
 import NoItem from '@/ui/components/NoItem'
+import SettingsButton from '@/ui/buttons/SettingsButton'
 
 export default {
   name: 'PageResources',
-  components: {NoItem, PageContainer, TextInput, PageTitle },
+  components: { NoItem, PageContainer, TextInput, PageTitle, SettingsButton },
   apollo: {
     resources: {
       query: FETCH_RESOURCES_QUERY

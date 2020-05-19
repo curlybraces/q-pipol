@@ -1,7 +1,7 @@
 <template>
   <page-container>
     <page-title title="Project Profile">
-      <q-btn icon="settings" flat round color="primary">
+      <settings-button>
         <q-menu transition-show="jump-down" transition-hide="jump-up">
           <q-list>
             <q-item clickable :to="`${$route.fullPath}/edit`">
@@ -47,7 +47,7 @@
             </q-item>
           </q-list>
         </q-menu>
-      </q-btn>
+      </settings-button>
     </page-title>
 
     <template v-if="$apollo.loading">
@@ -81,9 +81,10 @@ import PageContainer from '@/ui/page/PageContainer.vue';
 import { date } from 'quasar'
 import ProjectProfile from '../components/ProjectProfile'
 import TransferProject from '../components/dialogs/TransferProject'
+import SettingsButton from '@/ui/buttons/SettingsButton'
 
 export default {
-  components: { PageContainer, PageTitle, ProjectProfile, TransferProject },
+  components: { PageContainer, PageTitle, ProjectProfile, TransferProject, SettingsButton },
   name: 'ViewProject',
   data() {
     return {
