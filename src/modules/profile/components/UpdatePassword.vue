@@ -10,7 +10,7 @@
     <div class="col-lg-8 col-md-6 col-xs-12">
       <q-form
         ref="changePasswordForm"
-        @submit="updatePasswordDialog"
+        @submit="handleSubmit"
         class="q-gutter-y-sm"
         greedy
       >
@@ -81,7 +81,6 @@
             label="Update Password"
             color="primary"
             type="submit"
-            :loading="loading"
           />
         </div>
       </q-form>
@@ -92,7 +91,6 @@
 <script>
 import { mapActions } from 'vuex';
 
-
 export default {
   name: 'UpdatePassword',
   data() {
@@ -100,46 +98,39 @@ export default {
       showPassword: false,
       old_password: '',
       password: '',
-      password_confirmation: '',
-      loading: false
+      password_confirmation: ''
     };
   },
-  computed: {
-    formIsInvalid() {
-      return (
-        !this.old_password ||
-        !this.password ||
-        !this.password.length >= 8 ||
-        this.password_confirmation !== this.password
-      );
-    }
-  },
   methods: {
-    ...mapActions('auth', ['updatePassword']),
-    updatePasswordDialog() {
-      const { password, old_password, password_confirmation } = this.$data;
-
+    handleSubmit() {
       this.$refs.changePasswordForm.validate().then(success => {
         if (success) {
-          this.$q
-            .dialog({
-              title: 'Update Password',
-              message:
-                'Changing your password will log you out from the app. You will need to sign in again.',
-              cancel: true,
-              persistent: true
-            })
-            .onOk(() => {
-              this.updatePassword({
-                old_password: old_password,
-                password: password,
-                password_confirmation: password_confirmation
-              });
-            });
+          const { password, old_password, password_confirmation } = this.$data;
+
+          const payload = {
+            old_password: old_password,
+            password: password,
+            password_confirmation: password_confirmation
+          }
+
+          this.updatePasswordDialog(payload)
         } else {
-          alert('Please check form inputs for error');
+          return;
         }
-      });
+      })
+    },
+    updatePasswordDialog(payload) {
+      this.$q
+        .dialog({
+          title: 'Update Password',
+          message:
+            'Changing your password will log you out from the app. You will need to sign in again.',
+          cancel: true,
+          persistent: true
+        })
+        .onOk(() => {
+          this.$store.dispatch('auth/updatePassword', payload)
+        })
     }
   }
 };

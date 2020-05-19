@@ -137,7 +137,7 @@ export default {
       return val === this.password;
     },
     validEmail(email) {
-      validateEmail(email)
+      return validateEmail(email)
     },
     checkEmail() {
       const { username } = this.$data;

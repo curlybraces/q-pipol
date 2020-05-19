@@ -84,7 +84,7 @@ export default {
       this.$store.dispatch('auth/clearError')
     },
     validEmail(email) {
-      validateEmail(email)
+      return validateEmail(email)
     },
     handleSubmit() {
       // validate the form before calling login method
