@@ -11,15 +11,14 @@ const ProjectsRoutes = [
       }
     },
     {
-      path: 'projects/add',
-      name: 'add-project',
+      path: 'projects/endorse',
+      name: 'endorse-projects',
       component: () =>
         import(
-          /* webpackChunkName: 'AddProjectPage' */ './pages/AddProjectPage.vue'
+          /* webpackChunkName: 'EndorseProjects' */ './pages/EndorseProjects.vue'
         ),
       meta: {
-        requiresAuth: true,
-        isEncoder: true
+        requiresAuth: true
       }
     },
     {
@@ -28,6 +27,18 @@ const ProjectsRoutes = [
       component: () =>
         import(
           /* webpackChunkName: 'DeletedProjects' */ './pages/DeletedProjects.vue'
+        ),
+      meta: {
+        requiresAuth: true,
+        isEncoder: true
+      }
+    },
+    {
+      path: 'projects/add',
+      name: 'add-project',
+      component: () =>
+        import(
+          /* webpackChunkName: 'AddProjectPage' */ './pages/AddProjectPage.vue'
         ),
       meta: {
         requiresAuth: true,
