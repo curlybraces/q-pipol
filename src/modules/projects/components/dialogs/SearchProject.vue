@@ -47,7 +47,12 @@
 	export default {
 		components: { DialogContainer },
 		name: 'SearchProject',
-		props: ['value'],
+		props: {
+			value: {
+				type: Boolean,
+				default: false
+			}
+		},
 		data() {
 			return {
 				search: '',
