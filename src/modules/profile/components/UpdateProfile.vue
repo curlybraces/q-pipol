@@ -61,90 +61,51 @@
       <choose-avatar @close="chooseAvatar = false"></choose-avatar>
     </q-dialog>
 
-    <q-dialog
-      v-model="updateProfileDialog"
-      full-height
-      :position="$q.screen.xs ? void 0 : 'right'"
-      persistent
-      :maximized="$q.screen.xs"
-      transition-show="jump-left"
-      transition-hide="jump-right"
-    >
-      <q-card style="width:400px;">
-        <q-form greedy @submit.prevent="handleFormSubmit" @reset="handleReset">
-          <q-toolbar class="bg-info text-white">
-            <q-toolbar-title class="absolute-center text-subtitle1"
-              >Update Profile</q-toolbar-title
-            >
-            <q-space />
-            <q-btn
-              flat
-              round
-              dense
-              icon="close"
-              @click="updateProfileDialog = false"
-            ></q-btn>
-          </q-toolbar>
-          <q-separator></q-separator>
-
-          <div class="column q-pa-sm">
-            <div class="bg-red-1 q-mb-sm q-pa-sm" v-if="errors.length">
-              Please check the following:
-              <ul>
-                <li v-for="error in errors" :key="error">{{ error }}</li>
-              </ul>
-            </div>
-
-            <text-input
-              label="Name"
-              v-model="name"
-              :rules="[val => !!val || '* Required']"
-            ></text-input>
-
-            <single-select
-              label="Office"
-              :options="operating_units"
-              v-model="operating_unit_id"
-              :rules="[val => !!val || '* Required']"
-            ></single-select>
-
-            <text-input
-              v-model="position"
-              label="Position/Designation"
-              :rules="[val => !!val || '* Required']"
-            />
-
-            <text-input
-              v-model="contact_number"
-              label="Contact No."
-              hint="Include area code"
-              :rules="[val => !!val || '* Required']"
-            />
-
-            <div class="row justify-end q-col-gutter-sm q-mt-md">
-              <div class="col">
-                <q-btn
-                  outline
-                  label="Reset"
-                  color="primary"
-                  class="full-width"
-                  type="reset"
-                />
-              </div>
-              <div class="col">
-                <q-btn
-                  label="Save"
-                  color="primary"
-                  type="submit"
-                  class="full-width"
-                  :loading="$apollo.loading"
-                />
-              </div>
-            </div>
+    <dialog-container v-model="updateProfileDialog">
+      <dialog-header title="Update Profile" @close="updateProfileDialog = false"></dialog-header>
+      <q-form greedy @submit.prevent="handleFormSubmit" @reset="handleReset">
+        <div class="column q-pa-sm">
+          <div class="bg-red-1 q-mb-sm q-pa-sm" v-if="errors.length">
+            Please check the following:
+            <ul>
+              <li v-for="error in errors" :key="error">{{ error }}</li>
+            </ul>
           </div>
-        </q-form>
-      </q-card>
-    </q-dialog>
+
+          <text-input
+            label="Name"
+            v-model="name"
+            :rules="[val => !!val || '* Required']"
+          ></text-input>
+
+          <single-select
+            label="Office"
+            :options="operating_units"
+            v-model="operating_unit_id"
+            :rules="[val => !!val || '* Required']"
+          ></single-select>
+
+          <text-input
+            v-model="position"
+            label="Position/Designation"
+            :rules="[val => !!val || '* Required']"
+          />
+
+          <text-input
+            v-model="contact_number"
+            label="Contact No."
+            hint="Include area code"
+            :rules="[val => !!val || '* Required']"
+          />
+
+          <q-card-actions align="right">
+            <reset-button label="Reset" @click="handleReset"></reset-button>
+            <submit-button label="Save" @click="handleFormSubmit"></submit-button>
+          </q-card-actions>
+        </div>
+      </q-form> 
+    </dialog-container>
+
   </div>
 </template>
 
@@ -154,9 +115,13 @@ import SingleSelect from '@/ui/form-inputs/SingleSelect';
 import TextInput from '@/ui/form-inputs/TextInput';
 import ChooseAvatar from './ChooseAvatar';
 import {FETCH_OPERATING_UNITS, GET_CURRENT_USER} from '@/graphql/queries'
+import DialogContainer from '@/ui/dialogs/DialogContainer'
+import DialogHeader from '@/ui/dialogs/DialogHeader'
+import SubmitButton from '@/ui/buttons/SubmitButton'
+import ResetButton from '@/ui/buttons/ResetButton'
 
 export default {
-  components: { SingleSelect, TextInput, ChooseAvatar },
+  components: { SingleSelect, TextInput, ChooseAvatar, DialogContainer, DialogHeader, SubmitButton, ResetButton },
   name: 'UpdateProfile',
   data() {
     return {

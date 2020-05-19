@@ -56,6 +56,7 @@
             <project-menu @click="viewProject(project.id)" label="View" image="statics/menu/inspect.png"></project-menu>
             <project-menu v-if="isOwner" @click="updateProject(project.id)" label="Update" image="statics/menu/update.png"></project-menu>
             <project-menu v-if="isReviewer" @click="reviewProject(project.id)" label="Review" image="statics/menu/review.png"></project-menu>
+            <project-menu @click="handleSelectProject(project)" label="Select" v-if="added"></project-menu>
             <q-separator/>
             <project-menu @click="promptDelete(project.id)" label="Delete" image="statics/menu/delete.png"></project-menu>
           </q-list>
@@ -86,8 +87,12 @@ export default {
     ...mapState('settings', ['dark']),
     ...mapGetters('settings', ['buttonColor']),
     ...mapGetters('auth',['isEncoder','user','isReviewer']),
+    ...mapState('projects',['selectedProjects']),
 	  isOwner() {
       return this.user.id === this.project.creator.id
+    },
+    added() {
+      return this.selectedProjects.includes(this.$props.project)
     }
 
   },
@@ -109,6 +114,9 @@ export default {
   },
   methods: {
     ...mapActions('projects', ['deleteProject']),
+    handleSelectProject(project) {
+      this.$store.dispatch('projects/selectProject', project)
+    },
     displayDateDifference,
     promptDelete(id) {
       Dialog.create({

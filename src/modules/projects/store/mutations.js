@@ -4,8 +4,8 @@ export function SET_PROJECTS(state, payload) {
   state.projects = payload;
 }
 
-export function ADD_PROJECT(state, payload) {
-  Vue.set(state.projects, payload.id, payload.project);
+export function SELECT_PROJECT(state, payload) {
+  state.selectedProjects.push(payload)
 }
 
 export function updateProject(state, payload) {

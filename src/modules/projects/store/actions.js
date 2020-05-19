@@ -16,3 +16,7 @@ export function reviewProject({}, payload) {
 export function viewProject({}, payload) {
   return projectService.view(payload)
 }
+
+export function selectProject({ commit }, payload) {
+	commit('SELECT_PROJECT', payload)
+}

@@ -25,6 +25,8 @@ export const resourceService = {
           document_type: document_type
 				}
 			})
+			.then(handleResponse)
+			.catch(handleError)
 	},
 	delete({ id }) {
 		return client

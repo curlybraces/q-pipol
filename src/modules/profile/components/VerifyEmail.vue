@@ -10,28 +10,18 @@
       </div>
     </div>
     <div class="col-lg-8 col-md-6 col-xs-12">
-      <q-btn
-        color="primary"
-        label="Verify Email"
-        @click="verifyEmail"
-        :loading="resendingEmail"
-        v-if="!isVerified"
-      ></q-btn>
-      <q-btn
-        color="primary"
-        v-else
-        label="Verified"
-        icon="check_outline"
-        disable
-      ></q-btn>
+      <submit-button label="Resend Email" @click="verifyEmail" v-if="!isVerified"></submit-button>
+      <span v-else>VERIFIED</span>
     </div>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex';
+import SubmitButton from '@/ui/buttons/SubmitButton'
 
 export default {
+  components: { SubmitButton },
   name: 'VerifyEmail',
   data() {
     return {

@@ -77,11 +77,7 @@
           </q-input>
         </div>
         <div>
-          <q-btn
-            label="Update Password"
-            color="primary"
-            type="submit"
-          />
+          <submit-button label="Update" @click="handleSubmit"></submit-button>
         </div>
       </q-form>
     </div>
@@ -90,8 +86,10 @@
 
 <script>
 import { mapActions } from 'vuex';
+import SubmitButton from '@/ui/buttons/SubmitButton'
 
 export default {
+  components: { SubmitButton },
   name: 'UpdatePassword',
   data() {
     return {

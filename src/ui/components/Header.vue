@@ -16,6 +16,22 @@
       </q-toolbar-title>
       <q-space />
 
+      <q-btn flat round icon="shopping_cart">
+        <q-badge floating color="red">
+          {{ selectedProjects.length }}
+        </q-badge>
+        <q-menu>
+          <q-list>
+            <q-item v-for="project in selectedProjects" :key="project.id">
+              <q-item-section avatar></q-item-section>
+              <q-item-section>
+                <q-item-label>{{ project.title }}</q-item-label>
+              </q-item-section>
+            </q-item>
+          </q-list>
+        </q-menu>
+      </q-btn>
+
       <notification-button></notification-button>
 
       <q-btn flat round>
@@ -48,7 +64,8 @@ export default {
   components: { RouteTabs, DropdownMenu, NotificationButton, UserAvatar },
   name: 'AppHeader',
   computed: {
-    ...mapGetters('auth', ['user'])
+    ...mapGetters('auth', ['user']),
+    ...mapState('projects',['selectedProjects'])
   },
   apollo: {
     /**
