@@ -4,13 +4,7 @@
       <q-btn color="primary" label="search" @click="searchProjectDialog = true"></q-btn>
     </page-title>
 
-    <template v-if="$apollo.loading">
-      <q-inner-loading :showing="$apollo.loading">
-        <q-spinner-tail size="50px" color="primary"></q-spinner-tail>
-      </q-inner-loading>
-    </template>
-
-    <template v-else>
+    <template v-if="paginatedProjects.data && paginatedProjects.data.length">
 
       <project-pagination 
         v-model="currentPage" 
@@ -28,6 +22,12 @@
         :max-pages="10" 
         @input="setPage" />
 
+    </template>
+
+    <template v-else>
+      <div class="flex flex-center">
+        Loading content...
+      </div>
     </template>
 
     <search-project 
