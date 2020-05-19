@@ -1,5 +1,5 @@
 <template>
-	<div v-if="!$apollo.project">
+	<div v-if="project">
 		<div class="row q-pa-sm">
 	    <q-img 
 	    :src="project.image_url ? project.image_url : 'http://www.fao.org/uploads/pics/NFQCS_banner.png'" 
@@ -24,13 +24,21 @@
 	    <!-- Left side -->
 	    <div class="col-9 text-blue-grey-10">
 	      <div class="text-h5 q-mb-md text-cyan">
+	      	<div class="row">
+		      	<q-badge>
+		          {{ project.type ? project.type.name: 'Not specified.' }}
+		        </q-badge>
+		        <q-badge color="red" v-if="project.infrastructure" class="q-ml-sm">
+		          Infrastructure
+		        </q-badge>
+		        <q-badge color="red" v-if="project.afmip" class="q-ml-sm">
+		          AFMIP
+		        </q-badge>
+		        <q-badge color="orange" v-if="project.pcip" class="q-ml-sm">
+		          PCIP
+		        </q-badge>
+		      </div>
 	        {{ project.title }}
-	        <q-badge>
-	          {{ project.type ? project.type.name: 'Not specified.' }}
-	        </q-badge>
-	        <q-badge color="red" v-if="project.infrastructure">
-	          Infrastructure
-	        </q-badge>
 	      </div>
 
 	      <div class="column q-mb-sm">
@@ -41,36 +49,221 @@
 	          {{ project.description }}
 	        </div>
 	      </div>
+
 	      <q-separator spaced/>
+
 	      <div class="column q-mb-sm">
 	        <div class="text-weight-lighter text-subtitle1">PURPOSE</div>
 	        <div class="text-body2">
 	          {{ project.purpose }}
 	        </div>
 	      </div>
+
 	      <q-separator spaced/>
+
+	      <div class="column q-mb-sm">
+	        <div class="text-weight-lighter text-subtitle1">OUTCOMES</div>
+	        <div class="text-body2">
+	          {{ project.outcomes }}
+	        </div>
+	      </div>
+
+	      <q-separator spaced/>
+
 	      <div class="column q-mb-sm">
 	        <div class="text-weight-lighter text-subtitle1">EXPECTED OUTPUTS</div>
 	        <div class="text-body2">
 	          {{ project.expected_outputs }}
 	        </div>
 	      </div>
+
 	      <q-separator spaced/>
+
 	      <div class="column q-mb-sm">
-	        <div class="text-weight-lighter text-subtitle1">UPDATES</div>
-	        <div class="text-body2" v-if="project.updates">
-	          As of {{ project.updates_date | formatDate }},
-	          {{ project.updates }}
-	        </div>
-	        <div class="text-body2" v-else>
-	          No updates.
+	        <div class="text-weight-lighter text-subtitle1">BASES FOR IMPLEMENTATION</div>
+	        <div class="text-body2">
+	        	<span v-for="ib in project.bases" :key="ib.id">
+	        		{{ ib.name }},
+	        	</span>
 	        </div>
 	      </div>
 
 	      <q-separator spaced/>
 
 	      <div class="column">
+	      	<div class="text-weight-lighter text-subtitle1">FINANCIAL INFORMATION</div>
+	      	<div class="text-body2">
+	          {{ project.main_funding_source ? project.main_funding_source.name : '' }} >>
+	          {{ project.funding_institution ? `>> ${project.funding_institution.name}` : '' }}
+	        </div>
+	        <div class="text-body2">
+	        	{{ project.tier ? project.tier.name : '' }}
+	        </div>
+	      </div>
+
+	      <q-separator spaced />
+
+	      <div class="column q-mb-sm">
+	        <div class="text-weight-lighter text-subtitle1">TECHNICAL READINESS</div>
+	        <div class="text-body2">
+	        	{{ clearinghouse ? `Approved by DA-Wide Clearinghouse on ${clearinghouse_date}` : '' }}
+	        	{{ neda_submission ? `Submitted to NEDA on ${neda_submission_date}` : '' }}
+	        	{{ neda_secretariat_review ? `Reviewed by NEDA Secretariat on ${neda_secretariat_review_date}` : '' }}
+	        	{{ icc_endorsed ? `Endorsed by ICC on ${icc_endorsed_date}` : '' }}
+	        	{{ icc_approved ? `Approved by ICC on ${icc_approved_date}` : '' }}
+	        	{{ neda_board ? `Approved by NEDA Board on ${neda_board_date}` : '' }}
+	        </div>
+	      </div>
+
+	      <q-separator spaced />
+
+	      <div class="column">
+	        <div class="text-weight-lighter text-subtitle1">PRE-INVESTMENT REQUIREMENT</div>
+	        <q-markup-table class="col q-pa-sm bg-transparent" flat>
+		        	<thead>
+		        		<tr>
+		        			<th>Type</th>
+		        			<th>2017</th>
+		        			<th>2018</th>
+		        			<th>2019</th>
+		        			<th>2020</th>
+		        			<th>2021</th>
+		        			<th>2022</th>
+		        			<th>Total</th>
+		        		</tr>
+		        	</thead>
+		        	<tbody>
+		        		<tr>
+		        			<td colspan="8">Financial Cost</td>
+		        		</tr>
+		        		<tr v-if="project.has_fs">
+		        			<td>Feasibility Study</td>
+		        			<td>{{ project.fs_target_2017 }}</td>
+		        			<td>{{ project.fs_target_2018 }}</td>
+		        			<td>{{ project.fs_target_2019 }}</td>
+		        			<td>{{ project.fs_target_2020 }}</td>
+		        			<td>{{ project.fs_target_2021 }}</td>
+		        			<td>{{ project.fs_target_2022 }}</td>
+		        			<td>{{ project.fs_target_total }}</td>
+		        		</tr>
+		        		<tr v-if="project.has_row">
+		        			<td>Right of Way</td>
+		        			<td>{{ project.row_target_2017 }}</td>
+		        			<td>{{ project.row_target_2018 }}</td>
+		        			<td>{{ project.row_target_2019 }}</td>
+		        			<td>{{ project.row_target_2020 }}</td>
+		        			<td>{{ project.row_target_2021 }}</td>
+		        			<td>{{ project.row_target_2022 }}</td>
+		        			<td>{{ project.row_target_total }}</td>
+		        		</tr>
+		        		<tr v-if="project.has_rap">
+		        			<td>Resettlement Action Plan</td>
+		        			<td>{{ project.rap_target_2017 }}</td>
+		        			<td>{{ project.rap_target_2018 }}</td>
+		        			<td>{{ project.rap_target_2019 }}</td>
+		        			<td>{{ project.rap_target_2020 }}</td>
+		        			<td>{{ project.rap_target_2021 }}</td>
+		        			<td>{{ project.rap_target_2022 }}</td>
+		        			<td>{{ project.rap_target_total }}</td>
+		        		</tr>
+		        		<tr>
+		        			<td colspan="8">Social Cost</td>
+		        		</tr>
+		        		<tr v-if="project.has_row">
+		        			<td>Right of Way</td>
+		        			<td>{{ project.row_affected_2017 }}</td>
+		        			<td>{{ project.row_affected_2018 }}</td>
+		        			<td>{{ project.row_affected_2019 }}</td>
+		        			<td>{{ project.row_affected_2020 }}</td>
+		        			<td>{{ project.row_affected_2021 }}</td>
+		        			<td>{{ project.row_affected_2022 }}</td>
+		        			<td>Not cumulative</td>
+		        		</tr>
+		        		<tr v-if="project.has_rap">
+		        			<td>Resettlement Action Plan</td>
+		        			<td>{{ project.rap_affected_2017 }}</td>
+		        			<td>{{ project.rap_affected_2018 }}</td>
+		        			<td>{{ project.rap_affected_2019 }}</td>
+		        			<td>{{ project.rap_affected_2020 }}</td>
+		        			<td>{{ project.rap_affected_2021 }}</td>
+		        			<td>{{ project.rap_affected_2022 }}</td>
+		        			<td>Not cumulative</td>
+		        		</tr>
+		        	</tbody>
+		        </q-markup-table>
+	      </div>
+
+	      <q-separator spaced />
+
+	      <div class="column">
 	        <div class="text-weight-lighter text-subtitle1">INVESTMENTS</div>
+
+	        <template v-if="project.funding_source_financials && project.funding_source_financials.length">
+		        <q-markup-table class="col q-pa-sm bg-transparent" flat>
+		        	<thead>
+		        		<tr>
+		        			<th>Funding Source</th>
+		        			<th>2016 &amp; Prior</th>
+		        			<th>2017</th>
+		        			<th>2018</th>
+		        			<th>2019</th>
+		        			<th>2020</th>
+		        			<th>2021</th>
+		        			<th>2022</th>
+		        			<th>2023 &amp; Beyond</th>
+		        			<th>Total</th>
+		        		</tr>
+		        	</thead>
+		        	<tbody>
+		        		<tr v-for="fs in project.funding_source_financials" :key="fs.id">
+		        			<td>{{ fs.funding_source.name }}</td>
+		        			<td>{{ fs.target_2016 }}</td>
+		        			<td>{{ fs.target_2017 }}</td>
+		        			<td>{{ fs.target_2018 }}</td>
+		        			<td>{{ fs.target_2019 }}</td>
+		        			<td>{{ fs.target_2020 }}</td>
+		        			<td>{{ fs.target_2021 }}</td>
+		        			<td>{{ fs.target_2022 }}</td>
+		        			<td>{{ fs.target_2023 }}</td>
+		        			<td>{{ fs.target_total }</td>
+		        		</tr>
+		        	</tbody>
+		        </q-markup-table>
+		      </template>
+
+		      <template v-if="project.region_financials && project.region_financials.length">
+		      	<q-markup-table class="col q-pa-sm bg-transparent" flat>
+		        	<thead>
+		        		<tr>
+		        			<th>Region</th>
+		        			<th>2016 &amp; Prior</th>
+		        			<th>2017</th>
+		        			<th>2018</th>
+		        			<th>2019</th>
+		        			<th>2020</th>
+		        			<th>2021</th>
+		        			<th>2022</th>
+		        			<th>2023 &amp; Beyond</th>
+		        			<th>Total</th>
+		        		</tr>
+		        	</thead>
+		        	<tbody>
+		        		<tr v-for="rf in project.region_financials" :key="rf.id">
+		        			<td>{{ rf.region.name }}</td>
+		        			<td>{{ rf.target_2016 }}</td>
+		        			<td>{{ rf.target_2017 }}</td>
+		        			<td>{{ rf.target_2018 }}</td>
+		        			<td>{{ rf.target_2019 }}</td>
+		        			<td>{{ rf.target_2020 }}</td>
+		        			<td>{{ rf.target_2021 }}</td>
+		        			<td>{{ rf.target_2022 }}</td>
+		        			<td>{{ rf.target_2023 }}</td>
+		        			<td>{{ rf.target_total }</td>
+		        		</tr>
+		        	</tbody>
+		        </q-markup-table>
+		      </template>
+
 	        <q-markup-table class="col q-pa-sm bg-transparent" flat>
 	          <thead>
 	            <tr>
@@ -166,12 +359,49 @@
 	          </tbody>
 	        </q-markup-table>
 	      </div>
+
+	      <q-separator spaced/>
+
+	      <div class="column q-mb-sm">
+	        <div class="text-weight-lighter text-subtitle1">IMPLEMENTATION RISK &amp; MITIGATION STRATEGY</div>
+	        <div class="text-body2" v-if="project.updates">
+	          <b>Risk:</b> {{ project.implementation_risk }}<br/>
+	          <b>Strategy:</b> {{ project.mitigation_strategy }}
+	        </div>
+	        <div class="text-body2" v-else>
+	          No updates.
+	        </div>
+	      </div>
+
+	      <q-separator spaced/>
+
+	      <div class="column q-mb-sm">
+	        <div class="text-weight-lighter text-subtitle1">UPDATES</div>
+	        <div class="text-body2" v-if="project.updates">
+	          As of {{ project.updates_date | formatDate }},
+	          {{ project.updates }}
+	        </div>
+	        <div class="text-body2" v-else>
+	          No updates.
+	        </div>
+	      </div>
+
 	    </div>
 
 	    <!-- Right side -->
 	    <div class="col-3">
 				<div class="column bg-fao">
 					<q-item-label header class="text-uppercase text-subtitle1">Key Facts</q-item-label>
+					<q-item>
+						<q-item-section>
+							<q-item-label caption>
+								Implementation Agency
+							</q-item-label>
+							<q-item-label class="text-body2">
+								{{ project.operating_unit ?  project.operating_unit.name : 'Not specified' }}
+							</q-item-label>
+						</q-item-section>
+					</q-item>
 					<q-item>
 						<q-item-section>
 							<q-item-label caption>
@@ -182,6 +412,9 @@
 								<span v-if="project.main_funding_source_id === '2' || project.main_funding_source_id === '3'">
 									{{ project.funding_institution ? `>> ${project.funding_institution.name}` : '' }}
 								</span>
+							</q-item-label>
+							<q-item-label class="text-body2">
+								through {{ project.implementation_mode ? project.implementation_mode.name : 'Not Specified' }}
 							</q-item-label>
 						</q-item-section>
 					</q-item>
@@ -242,6 +475,9 @@
 								Created
 							</q-item-label>
 							<q-item-label class="text-body2">
+								{{ project.creator.name }}
+							</q-item-label>
+							<q-item-label caption>
 								{{ project.created_at | formatDateTime }}
 							</q-item-label>
 						</q-item-section>

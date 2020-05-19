@@ -472,6 +472,7 @@ export const FETCH_PROJECT_QUERY = gql`
 			afmip
       bases {
 				id
+        name
 			}
 			beneficiaries
       cities_municipalities
@@ -708,11 +709,6 @@ export const FETCH_PROJECT_QUERY = gql`
 				id
 				name
 			}
-			typology_id
-			typology {
-				id
-				name
-			}
 			updates
     	updates_date
 			updated_at
@@ -787,26 +783,32 @@ export const FETCH_REVIEW_QUERY = gql`
       selected_sustainable_development_goals
       sustainable_development_goals {
         id
+        name
       }
       selected_ten_point_agenda
       ten_point_agenda {
         id
+        name
       }
       selected_paradigms
       paradigms {
         id
+        name
       }
       selected_pdp_chapters
       pdp_chapters {
         id
+        name
       }
       selected_pdp_indicators
       pdp_indicators {
         id
+        name
       }
       selected_bases
       bases {
         id
+        name
       }
       review {
         id
