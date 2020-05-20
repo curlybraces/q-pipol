@@ -1,5 +1,5 @@
 <template>
-  <q-item>
+  <q-item :class="added ? 'bg-green-1': ''">
     <!-- operating unit -->
     <q-item-section avatar class="gt-xs">
       <q-avatar color="grey-1">
@@ -53,12 +53,16 @@
       <q-btn color="primary" dense outline icon="unfold_more" size="sm" >
         <q-menu transition-show="jump-down" transition-hide="jump-up">
           <q-list>
-            <project-menu @click="viewProject(project.id)" label="View" image="statics/menu/inspect.png"></project-menu>
-            <project-menu v-if="isOwner" @click="updateProject(project.id)" label="Update" image="statics/menu/update.png"></project-menu>
+            <project-menu 
+              @click="viewProject(project.id)" 
+              label="View" 
+              icon="search">
+            </project-menu>
+            <project-menu v-if="isOwner" @click="updateProject(project.id)" label="Update" icon="update"></project-menu>
             <project-menu v-if="isReviewer" @click="reviewProject(project.id)" label="Review" image="statics/menu/review.png"></project-menu>
-            <project-menu @click="handleSelectProject(project)" label="Select" v-if="added"></project-menu>
+            <project-menu @click="handleSelectProject(project)" :label="added ? 'Remove': 'Add'" :icon="added ? 'clear': 'add'"></project-menu>
             <q-separator/>
-            <project-menu @click="promptDelete(project.id)" label="Delete" image="statics/menu/delete.png"></project-menu>
+            <project-menu @click="promptDelete(project.id)" label="Delete" icon="delete"></project-menu>
           </q-list>
         </q-menu>
       </q-btn>
@@ -92,6 +96,7 @@ export default {
       return this.user.id === this.project.creator.id
     },
     added() {
+      console.log(this.selectedProjects)
       return this.selectedProjects.includes(this.$props.project)
     }
 
@@ -115,7 +120,12 @@ export default {
   methods: {
     ...mapActions('projects', ['deleteProject']),
     handleSelectProject(project) {
-      this.$store.dispatch('projects/selectProject', project)
+      if (this.added) {
+        this.$store.dispatch('projects/removeProject', project)
+      }
+      else {
+        this.$store.dispatch('projects/selectProject', project)
+      }
     },
     displayDateDifference,
     promptDelete(id) {

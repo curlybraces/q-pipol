@@ -42,6 +42,7 @@ module.exports = function(ctx) {
 
       components: [
         'QBtn',
+        'QIcon'
       ],
 
       directives: [ 'TouchPan', 'Ripple' ],

@@ -161,11 +161,6 @@ export default {
     DialogHeader
   },
   name: 'PageDirectory',
-  apollo: {
-    operating_units: {
-      query: FETCH_OPERATING_UNITS
-    }
-  },
   computed: {
     ...mapGetters('settings', ['buttonColor']),
     ...mapGetters('auth', ['isAdmin']),
@@ -309,12 +304,7 @@ export default {
     }
   },
   mounted() {
-    window.addEventListener('keydown', e => {
-      if (e.ctrlKey && e.keyCode === 70) {
-        e.preventDefault();
-        this.$refs.searchBox.$el.focus();
-      }
-    });
+    this.$store.dispatch('directory/fetchContacts').then(res => this.operating_units = res.operating_units)
   }
 };
 </script>

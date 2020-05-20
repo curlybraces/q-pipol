@@ -17,7 +17,7 @@ import PusherLink from './pusher-link'
 import Pusher from 'pusher-js'
 import Router from '@/router'
 
-import { CONFIG } from '../config'
+import { CONFIG } from '@/config'
 
 // define the link that apollo will connect to
 const uri = process.env.DEV

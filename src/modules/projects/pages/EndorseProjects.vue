@@ -7,7 +7,7 @@
 			
 			<div class="row">
 				
-				<div class="col q-pa-sm">
+				<div class="col-8 q-pa-sm">
 				
 					<q-list separator bordered>
 						<template v-for="project in selectedProjects">
@@ -19,7 +19,7 @@
 				
 				</div>
 
-				<div class="col q-pa-sm">
+				<div class="col-4 q-pa-md">
 
 					<q-card class="q-pa-sm">					
 						<q-file v-model="file" label="Endorsement Letter" outlined>
@@ -30,8 +30,8 @@
 
 						<div class="row justify-end">
 							<q-btn
-								class="q-mt-sm" 
-								label="Submit" 
+								class="q-mt-sm full-width" 
+								label="Endorse" 
 								color="primary" 
 								type="submit"></q-btn>
 						</div>	

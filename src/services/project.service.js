@@ -135,12 +135,8 @@ export const projectService = {
 	      mutation: REVIEW_PROJECT_MUTATION,
 	      variables: payload
 	    })
-	    .then(() => {
-	      showSuccessNotification({
-	        message: 'Successfully reviewed project.'
-	      })
-	    })
-	    .catch(err => console.log(err))
+	    .then(handleResponse)
+	    .catch(handleError)
 	},
 	endorse(payload) {
 		return client

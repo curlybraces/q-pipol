@@ -11,3 +11,8 @@ export function updateProfile(payload) {
 export function uploadUserAvatar(payload) {
 	profileService.uploadUserAvatar(payload)
 }
+
+export function chooseAvatar({}, payload) {
+	console.log(payload)
+	profileService.chooseAvatar(payload)
+}

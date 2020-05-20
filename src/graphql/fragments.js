@@ -13,7 +13,7 @@ export const USER_FRAGMENT = gql`
       image
       name
     }
-    image_url
+    avatar
     contact_number
     role {
       id

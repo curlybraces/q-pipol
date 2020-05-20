@@ -20,12 +20,18 @@
         <q-badge floating color="red">
           {{ selectedProjects.length }}
         </q-badge>
-        <q-menu>
+        <q-menu max-width="400px">
           <q-list>
             <q-item v-for="project in selectedProjects" :key="project.id">
               <q-item-section avatar></q-item-section>
               <q-item-section>
-                <q-item-label>{{ project.title }}</q-item-label>
+                <q-item-label :lines="2">{{ project.title }}</q-item-label>
+              </q-item-section>
+            </q-item>
+            <q-separator/>
+            <q-item class="text-center text-weight-bold" clickable to="/projects/endorse">
+              <q-item-section>
+                <q-item-label>Endorse</q-item-label>
               </q-item-section>
             </q-item>
           </q-list>
@@ -35,7 +41,7 @@
       <notification-button></notification-button>
 
       <q-btn flat round>
-        <user-avatar :src="getCurrentUser.image_url"></user-avatar>
+        <user-avatar :src="getCurrentUser.avatar"></user-avatar>
 
         <dropdown-menu />
       </q-btn>

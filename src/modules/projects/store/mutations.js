@@ -8,6 +8,10 @@ export function SELECT_PROJECT(state, payload) {
   state.selectedProjects.push(payload)
 }
 
+export function REMOVE_PROJECT(state, payload) {
+  state.selectedProjects = state.selectedProjects.filter(project => project.id !== payload.id)
+}
+
 export function updateProject(state, payload) {
   let projectIndex = state.projects.findIndex(project => {
     return project.id == payload.id;

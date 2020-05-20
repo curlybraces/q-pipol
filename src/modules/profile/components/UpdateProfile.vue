@@ -35,7 +35,7 @@
             class="cursor-pointer"
             color="green"
           >
-            <q-img :src="getCurrentUser.image_url" />
+            <q-img :src="getCurrentUser.avatar" />
           </q-avatar>
         </q-item-section>
         <q-item-section class="col">
@@ -57,9 +57,32 @@
       </q-item>
     </div>
 
-    <q-dialog v-model="chooseAvatar">
-      <choose-avatar @close="chooseAvatar = false"></choose-avatar>
-    </q-dialog>
+    <q-dialog v-model="uploadAvatar">
+      <choose-avatar @close="uploadAvatar = false"></choose-avatar>
+    </q-dialog> 
+
+    <dialog-container v-model="chooseAvatar">
+      <dialog-header title="Upload/Select Avatar" @close="chooseAvatar = false"></dialog-header>
+
+      <q-list class="q-pa-sm">
+        <q-item v-for="image in images" :key="image.id" :class="selectedAvatar === image.id ? 'bg-green-3': ''" clickable @click="selectImage(image)">
+          <q-item-section avatar>
+            <q-avatar>
+              <q-img :src="image.dropbox_link" />
+            </q-avatar>
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>{{ image.name }}</q-item-label>
+            <q-item-label caption>{{ Math.ceil(image.size / 1000) + ' KB' }}</q-item-label>
+          </q-item-section>
+        </q-item>
+      </q-list>
+
+      <q-card-actions align="right">
+        <q-btn label="Upload" @click="handleUpload"></q-btn>
+        <submit-button label="Save" @click="handleChooseAvatar"></submit-button>
+      </q-card-actions>
+    </dialog-container>
 
     <dialog-container v-model="updateProfileDialog">
       <dialog-header title="Update Profile" @close="updateProfileDialog = false"></dialog-header>
@@ -114,7 +137,7 @@ import { mapState, mapActions } from 'vuex';
 import SingleSelect from '@/ui/form-inputs/SingleSelect';
 import TextInput from '@/ui/form-inputs/TextInput';
 import ChooseAvatar from './ChooseAvatar';
-import {FETCH_OPERATING_UNITS, GET_CURRENT_USER} from '@/graphql/queries'
+import { FETCH_OPERATING_UNITS, GET_CURRENT_USER, GET_IMAGES } from '@/graphql/queries'
 import DialogContainer from '@/ui/dialogs/DialogContainer'
 import DialogHeader from '@/ui/dialogs/DialogHeader'
 import SubmitButton from '@/ui/buttons/SubmitButton'
@@ -126,6 +149,7 @@ export default {
   data() {
     return {
       chooseAvatar: false,
+      uploadAvatar: false,
       errors: [],
       isEditing: false,
       name: null,
@@ -134,7 +158,9 @@ export default {
       contact_number: null,
       updateProfileDialog: false,
       getCurrentUser: {},
-	    operating_units: []
+	    operating_units: [],
+      images: [],
+      selectedAvatar: null
     };
   },
   apollo: {
@@ -143,10 +169,25 @@ export default {
     },
 		operating_units: {
     	query: FETCH_OPERATING_UNITS
-		}
+		},
+    images: {
+      query: GET_IMAGES,
+      result({ data }) {
+        console.log(data.images)
+      }
+    }
   },
   methods: {
     ...mapActions('auth', ['updateProfile']),
+    selectImage(image) {
+      this.selectedAvatar = image.id
+    },
+    handleChooseAvatar() {
+      // implement choose avatar mutation
+      this.$store.dispatch('profile/chooseAvatar', {
+        image_id: this.selectedAvatar
+      })
+    },
     showUpdateProfileForm() {
       this.name = this.getCurrentUser.name;
       this.operating_unit_id = this.getCurrentUser.operating_unit_id;
@@ -172,6 +213,10 @@ export default {
       this.updateProfile(payload);
 
       setTimeout(() => (this.updateProfileDialog = false), 1000);
+    },
+    handleUpload() {
+      this.chooseAvatar = false
+      this.uploadAvatar = true
     }
   }
 };

@@ -25,6 +25,17 @@ export const GET_CURRENT_USER = gql`
   ${USER_FRAGMENT}
 `;
 
+export const GET_IMAGES = gql`
+  query images {
+    images {
+      id
+      name
+      dropbox_link
+      size    
+    }
+  }
+`;
+
 /* Notifications */
 
 export const FETCH_NOTIFICATIONS_QUERY = gql`

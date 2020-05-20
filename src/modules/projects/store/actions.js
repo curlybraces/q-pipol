@@ -20,3 +20,11 @@ export function viewProject({}, payload) {
 export function selectProject({ commit }, payload) {
 	commit('SELECT_PROJECT', payload)
 }
+
+export function removeProject({ commit }, payload) {
+	commit('REMOVE_PROJECT', payload)
+}
+
+export function endorseProjects({}, payload) {
+	return projectService.endorse(payload)
+}

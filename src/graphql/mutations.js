@@ -96,6 +96,15 @@ export const UPLOAD_USER_AVATAR_MUTATION = gql`
   }
 `;
 
+export const CHOOSE_AVATAR_MUTATION = gql`
+  mutation chooseAvatar($image_id: ID!) {
+    chooseAvatar(image_id: $image_id) {
+      id
+      avatar
+    }
+  }
+`;
+
 export const UPDATE_PROFILE_MUTATION = gql`
   mutation updateUser(
     $name: String
