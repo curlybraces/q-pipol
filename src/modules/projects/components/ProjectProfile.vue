@@ -45,11 +45,13 @@
               PCIP
             </q-badge>
           </div>
+          <copy-button v-copy="project.title"></copy-button>
           {{ project.title }}
         </div>
 
         <div class="column q-mb-sm">
           <div class="text-weight-lighter text-subtitle1">
+            <copy-button v-copy="project.description"></copy-button>
             DESCRIPTION
           </div>
           <div class="text-body2">
@@ -60,7 +62,10 @@
         <q-separator spaced />
 
         <div class="column q-mb-sm">
-          <div class="text-weight-lighter text-subtitle1">PURPOSE</div>
+          <div class="text-weight-lighter text-subtitle1">
+            <copy-button v-copy="project.purpose"></copy-button>
+            PURPOSE
+          </div>
           <div class="text-body2">
             {{ project.purpose }}
           </div>
@@ -69,7 +74,10 @@
         <q-separator spaced />
 
         <div class="column q-mb-sm">
-          <div class="text-weight-lighter text-subtitle1">OUTCOMES</div>
+          <div class="text-weight-lighter text-subtitle1">
+            <copy-button v-copy="project.outcomes"></copy-button>
+            OUTCOMES
+          </div>
           <div class="text-body2">
             {{ project.outcomes }}
           </div>
@@ -78,7 +86,10 @@
         <q-separator spaced />
 
         <div class="column q-mb-sm">
-          <div class="text-weight-lighter text-subtitle1">EXPECTED OUTPUTS</div>
+          <div class="text-weight-lighter text-subtitle1">
+            <copy-button v-copy="project.expected_outputs"></copy-button>
+            EXPECTED OUTPUTS
+          </div>
           <div class="text-body2">
             {{ project.expected_outputs }}
           </div>
@@ -426,7 +437,10 @@
 
         <div class="column q-mb-sm">
           <div class="text-weight-lighter text-subtitle1">
-            IMPLEMENTATION RISK &amp; MITIGATION STRATEGY
+            IMPLEMENTATION RISK
+            <copy-button v-copy="project.implementation_risk"></copy-button>
+            &amp; MITIGATION STRATEGY
+            <copy-button v-copy="project.mitigation_strategy"></copy-button>
           </div>
           <div class="text-body2" v-if="project.updates">
             <b>Risk:</b> {{ project.implementation_risk }}<br />
@@ -440,7 +454,10 @@
         <q-separator spaced />
 
         <div class="column q-mb-sm">
-          <div class="text-weight-lighter text-subtitle1">UPDATES</div>
+          <div class="text-weight-lighter text-subtitle1">
+            <copy-button v-copy="project.updates"></copy-button>
+            UPDATES
+          </div>
           <div class="text-body2" v-if="project.updates">
             As of {{ project.updates_date | formatDate }},
             {{ project.updates }}
@@ -604,9 +621,10 @@ import { mapGetters } from 'vuex';
 import { FETCH_PROJECT_QUERY } from '@/graphql/queries';
 import TableData from './TableData';
 import { date } from 'quasar';
+import CopyButton from '@/ui/buttons/CopyButton';
 
 export default {
-  components: { TableData },
+  components: { TableData, CopyButton },
   name: 'ProjectProfile',
   props: ['id'],
   apollo: {
@@ -635,8 +653,14 @@ export default {
   },
   data() {
     return {
-      project: {}
+      project: {},
+      copyData: '' // cannot be null
     };
+  },
+  methods: {
+    doCopy(e) {
+      console.log(e);
+    }
   },
   filters: {
     formatDate(val) {

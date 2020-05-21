@@ -3,7 +3,7 @@
  *
  */
 
-import TestDirective from '../directives/test';
+import TestDirective from '@/directives/test';
 
 export default ({ Vue }) => {
   // define v-test directive

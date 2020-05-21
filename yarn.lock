@@ -8147,6 +8147,11 @@ highlight.js@^9.3.0:
   resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-9.18.1.tgz#ed21aa001fe6252bb10a3d76d47573c6539fe13c"
   integrity sha512-OrVKYz70LHsnCgmbXctv/bfuvntIKDz177h0Co37DQ5jamGZLVmoCVMtjMtNZY3X9DrCcKfklHPNeA0uPZhSJg==
 
+highlightjs@^8.7.0:
+  version "8.7.0"
+  resolved "https://registry.yarnpkg.com/highlightjs/-/highlightjs-8.7.0.tgz#13397cd8dd8ad7d4cfe77adffb8088a10ee3b708"
+  integrity sha1-Ezl82N2K19TP53rf+4CIoQ7jtwg=
+
 hmac-drbg@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/hmac-drbg/-/hmac-drbg-1.0.1.tgz#d2745701025a6c775a6c545793ed502fc0c649a1"
@@ -11052,6 +11057,11 @@ mkdirp@~1.0.3:
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-1.0.4.tgz#3eb5ed62622756d79a5f0e2a221dfebad75c2f7e"
   integrity sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
 
+modern-copy@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/modern-copy/-/modern-copy-1.0.3.tgz#1b0a3e8548316cae95e76f9f75cacb561d193b8e"
+  integrity sha512-2JGQcw7PFY74QsVupT1xzR09w7JGWjO9/XxFr42gCVuqPdeSmtRUlfcJnZTTPyRi0dbIXJ5Gotp1Pij4llMNWQ==
+
 moment@2.24.0:
   version "2.24.0"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
@@ -12730,6 +12740,11 @@ pretty@2.0.0, pretty@^2.0.0:
     condense-newlines "^0.2.1"
     extend-shallow "^2.0.1"
     js-beautify "^1.6.12"
+
+primer-css@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/primer-css/-/primer-css-3.0.1.tgz#24df67944189b970f2035ca17a4e2c09b5b15532"
+  integrity sha1-JN9nlEGJuXDyA1yhek4sCbWxVTI=
 
 prismjs@^1.13.0, prismjs@^1.19.0:
   version "1.20.0"
@@ -15567,6 +15582,18 @@ uuid@^7.0.3:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-7.0.3.tgz#c5c9f2c8cf25dc0a372c4df1441c41f5bd0c680b"
   integrity sha512-DPSke0pXhTZgoF/d+WSt2QaKMCFSfx7QegxEWT+JOuHF5aWrKEn0G+ztjuJg/gG8/ItK+rbPCD/yNv8yyih6Cg==
 
+v-clipboard@^2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/v-clipboard/-/v-clipboard-2.2.3.tgz#f5db3d7004145041b6d7d06ca48236de4cee3a41"
+  integrity sha512-Wg+ObZoYK6McHb5OOCFWvm0R7xHp0/p0G1ocx/8bO22jvA/yVY05rADbfiztwCokXBNfQuGv/XSd1ozcTFgekw==
+
+v-copy@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/v-copy/-/v-copy-0.1.0.tgz#05214524346be27bf149f10fff4660bbd7e69e67"
+  integrity sha512-ZW2niLJYVYSiUSlG/aweI/iQ4nr3HcfGnIHxGjCbdSSV3YQOk2AjVK09ba/WrlprCispWagpkLoOBaNqphsEYA==
+  dependencies:
+    modern-copy "^1.0.3"
+
 v8-compile-cache@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/v8-compile-cache/-/v8-compile-cache-1.1.2.tgz#8d32e4f16974654657e676e0e467a348e89b0dc4"
@@ -15598,6 +15625,13 @@ vary@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
+
+vcopy@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/vcopy/-/vcopy-0.0.1.tgz#0f09cb30e989a4687277c6db61c990a497299feb"
+  integrity sha512-cZjO7nXMUo15usUQXWKjAvjzfCGurlM0/HXVC00+g14d4ghBmZfU3jhvGG/Qiq9Rhd756N8InjPD3xM+AC5NZw==
+  dependencies:
+    vue "^2.3.3"
 
 vendors@^1.0.0:
   version "1.0.4"
@@ -15668,6 +15702,14 @@ vue-chartkick@^0.6.0:
     chartkick "^3.2.0"
     deep-equal "^1.0.1"
     deepmerge "^4.2.0"
+
+vue-clipboard@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/vue-clipboard/-/vue-clipboard-0.0.1.tgz#7037ec8fe032f6622d46d5686124abff92eed878"
+  integrity sha1-cDfsj+Ay9mItRtVoYSSr/5Lu2Hg=
+  dependencies:
+    highlightjs "^8.7.0"
+    primer-css "^3.0.1"
 
 vue-eslint-parser@^5.0.0:
   version "5.0.0"
@@ -15771,7 +15813,7 @@ vue-template-es2015-compiler@^1.6.0, vue-template-es2015-compiler@^1.9.0:
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 
-vue@2.6.11, vue@^2.6.10:
+vue@2.6.11, vue@^2.3.3, vue@^2.6.10:
   version "2.6.11"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.11.tgz#76594d877d4b12234406e84e35275c6d514125c5"
   integrity sha512-VfPwgcGABbGAue9+sfrD4PuwFar7gPb1yl1UK1MwXoQPAw0BKSqWfoYCT/ThFrdEVWoI51dBuyCoiNU9bZDZxQ==

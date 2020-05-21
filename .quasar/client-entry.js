@@ -50,11 +50,13 @@ import qboot_Bootapollo from 'boot/apollo'
 
 import qboot_Bootaxios from 'boot/axios'
 
+import qboot_Bootcopy from 'boot/copy'
+
+import qboot_Bootloadingdefaults from 'boot/loading-defaults'
+
 import qboot_Bootrouterauth from 'boot/router-auth'
 
 import qboot_Boottest from 'boot/test'
-
-import qboot_Bootloadingdefaults from 'boot/loading-defaults'
 
 import qboot_Quasarquasarappextensionqmarkdownsrcbootregisterjs from '@quasar/quasar-app-extension-qmarkdown/src/boot/register.js'
 
@@ -88,7 +90,7 @@ async function start () {
   }
 
   const urlPath = window.location.href.replace(window.location.origin, '')
-  const bootFiles = [qboot_Bootapollo,qboot_Bootaxios,qboot_Bootrouterauth,qboot_Boottest,qboot_Bootloadingdefaults,qboot_Quasarquasarappextensionqmarkdownsrcbootregisterjs]
+  const bootFiles = [qboot_Bootapollo,qboot_Bootaxios,qboot_Bootcopy,qboot_Bootloadingdefaults,qboot_Bootrouterauth,qboot_Boottest,qboot_Quasarquasarappextensionqmarkdownsrcbootregisterjs]
 
   for (let i = 0; routeUnchanged === true && i < bootFiles.length; i++) {
     if (typeof bootFiles[i] !== 'function') {
