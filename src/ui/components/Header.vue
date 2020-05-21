@@ -16,7 +16,7 @@
       </q-toolbar-title>
       <q-space />
 
-      <q-btn flat round icon="shopping_cart">
+      <q-btn flat round icon="shopping_cart" class="text-grey-6">
         <q-badge floating color="red">
           {{ selectedProjects.length }}
         </q-badge>

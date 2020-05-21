@@ -51,7 +51,7 @@
     <!-- action buttons -->
     <q-item-section side>
       <q-btn color="primary" dense outline icon="unfold_more" size="sm" >
-        <q-menu transition-show="jump-down" transition-hide="jump-up">
+        <q-menu transition-show="jump-down" transition-hide="jump-up" auto-close>
           <q-list>
             <project-menu 
               @click="viewProject(project.id)" 

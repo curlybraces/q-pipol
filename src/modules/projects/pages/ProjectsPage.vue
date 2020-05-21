@@ -5,9 +5,9 @@
     </page-title>
 
     <template v-if="$apollo.loading">
-      <div>
-        Loading...
-      </div>
+      <q-list>
+        <project-skeleton v-for="i in 10" :key="i"></project-skeleton>
+      </q-list>
     </template>
 
     <template v-else>
@@ -68,6 +68,7 @@ import ProjectPagination from '../components/ProjectPagination'
 import SearchProject from '../components/dialogs/SearchProject'
 import { Loading } from 'quasar'
 import NoItem from '@/ui/components/NoItem'
+import ProjectSkeleton from '../components/ProjectSkeleton'
 
 const PER_PAGE = 10
 
@@ -79,7 +80,8 @@ export default {
 		ProjectItem,
     ProjectPagination,
     SearchProject,
-    NoItem
+    NoItem,
+    ProjectSkeleton
 	},
   apollo: {
     paginatedProjects: {
