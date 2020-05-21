@@ -9,27 +9,10 @@ import {
 import { FETCH_CONTACTS } from '@/graphql/queries';
 import { showSuccessNotification } from '@/functions/function-show-notifications';
 
-export function fetchContacts({ commit }) {
-  commit('SET_LOADING', true);
-  client
-    .query({
-      query: FETCH_CONTACTS
-    })
-    .then(res => {
-      res.data.contacts.forEach(contact => {
-        const payload = {
-          id: 'ID' + contact.id,
-          contact: contact
-        };
-        commit('ADD_CONTACT', payload);
-      });
-      commit('SET_LOADING', false);
-    })
-    .catch(err => {
-      console.log('An error occurred: ', err);
-      commit('SET_ERROR', true);
-      commit('SET_LOADING', false);
-    });
+import { contactService } from '@/services/contact.service';
+
+export function fetchContacts({}) {
+  return contactService.index();
 }
 
 export function createContact({}, payload) {

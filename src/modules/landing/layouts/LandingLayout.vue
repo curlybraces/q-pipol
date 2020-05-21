@@ -14,6 +14,10 @@
 
             <q-space />
 
+            <q-btn flat stretch class="text-capitalize" to="/docs"
+              >Get Started</q-btn
+            >
+
             <q-separator vertical color="white"></q-separator>
 
             <q-btn
@@ -49,11 +53,11 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import AppFooter from '../../shared/components/Footer';
+import AppFooter from '@/ui/components/Footer';
 
 export default {
-  name: 'LandingLayout',
   components: { AppFooter },
+  name: 'LandingLayout',
   computed: {
     ...mapGetters('auth', ['isLoggedIn'])
   }

@@ -77,11 +77,30 @@ export const UPDATE_PASSWORD_MUTATION = gql`
   }
 `;
 
+export const FORGOT_PASSWORD_MUTATION = gql`
+  mutation forgotPassword($email: String!) {
+    forgotPassword(input: { email: $email }) {
+      status
+      message
+    }
+  }
+`;
+
+/* Profile */
 export const UPLOAD_USER_AVATAR_MUTATION = gql`
   mutation uploadUserAvatar($image: Upload!) {
     uploadUserAvatar(image: $image) {
       id
       image_url
+    }
+  }
+`;
+
+export const CHOOSE_AVATAR_MUTATION = gql`
+  mutation chooseAvatar($image_id: ID!) {
+    chooseAvatar(image_id: $image_id) {
+      id
+      avatar
     }
   }
 `;
@@ -111,15 +130,6 @@ export const UPDATE_PROFILE_MUTATION = gql`
         name
         image
       }
-    }
-  }
-`;
-
-export const FORGOT_PASSWORD_MUTATION = gql`
-  mutation forgotPassword($email: String!) {
-    forgotPassword(input: { email: $email }) {
-      status
-      message
     }
   }
 `;
@@ -470,7 +480,7 @@ export const CREATE_PROJECT_MUTATION = gql`
     $icc_approved_date: String
     $neda_board: Boolean
     $neda_board_date: String
-	  $currency_id: ID
+    $currency_id: ID
     $total_project_cost: Float
     $implementation_risk: String
     $mitigation_strategy: String
@@ -618,7 +628,7 @@ export const CREATE_PROJECT_MUTATION = gql`
         icc_approved_date: $icc_approved_date
         neda_board: $neda_board
         neda_board_date: $neda_board_date
-	      currency_id: $currency_id
+        currency_id: $currency_id
         total_project_cost: $total_project_cost
         implementation_risk: $implementation_risk
         mitigation_strategy: $mitigation_strategy
@@ -718,13 +728,13 @@ export const CREATE_PROJECT_MUTATION = gql`
       id
       title
       operating_unit {
-	      id
+        id
         name
         image
         acronym
       }
       spatial_coverage {
-	      id
+        id
         name
       }
       main_funding_source {
@@ -734,15 +744,15 @@ export const CREATE_PROJECT_MUTATION = gql`
       description
       target_start_year
       target_end_year
-	    currency_id
-	    currency {
-		    id
-		    name
-	    }
+      currency_id
+      currency {
+        id
+        name
+      }
       total_project_cost
       can_update
       creator {
-	      id
+        id
         name
       }
       created_at
@@ -776,13 +786,13 @@ export const UPDATE_PROJECT_MUTATION = gql`
     $ten_point_agenda: UpdateTenPointAgendaRelation
     $sustainable_development_goals: UpdateSustainableDevelopmentGoalRelation
     $bases: UpdateBasisRelation
-	  $region_id: ID
+    $region_id: ID
     $regions: UpdateRegionRelation
-	  $province_id: ID
+    $province_id: ID
     $provinces: UpdateProvinceRelation
-	  $district_id: ID
+    $district_id: ID
     $districts: UpdateDistrictInput
-	  $city_municipality_id: ID
+    $city_municipality_id: ID
     $description: String
     $components: String
     $goals: String
@@ -807,7 +817,7 @@ export const UPDATE_PROJECT_MUTATION = gql`
     $icc_approved_date: String
     $neda_board: Boolean
     $neda_board_date: String
-	  $currency_id: ID
+    $currency_id: ID
     $total_project_cost: Float
     $implementation_risk: String
     $mitigation_strategy: String
@@ -822,8 +832,8 @@ export const UPDATE_PROJECT_MUTATION = gql`
     $economic_net_present_value: Float
     $technical_readinesses: UpdateTechnicalReadinessesInput
     $main_funding_source_id: ID
-	  $funding_institution_id: ID
-	  $has_fs: Boolean
+    $funding_institution_id: ID
+    $has_fs: Boolean
     $fs_target_2017: Float
     $fs_target_2018: Float
     $fs_target_2019: Float
@@ -831,7 +841,7 @@ export const UPDATE_PROJECT_MUTATION = gql`
     $fs_target_2021: Float
     $fs_target_2022: Float
     $fs_target_total: Float
-	  $has_row: Boolean
+    $has_row: Boolean
     $row_target_2017: Float
     $row_target_2018: Float
     $row_target_2019: Float
@@ -845,7 +855,7 @@ export const UPDATE_PROJECT_MUTATION = gql`
     $row_affected_2020: Int
     $row_affected_2021: Int
     $row_affected_2022: Int
-	  $has_rap: Boolean
+    $has_rap: Boolean
     $rap_target_2017: Float
     $rap_target_2018: Float
     $rap_target_2019: Float
@@ -906,7 +916,7 @@ export const UPDATE_PROJECT_MUTATION = gql`
     $disbursement_total: Float
     $updates: String
     $updates_date: String
-	  $region_financials: UpdateRegionFinancialsHasMany
+    $region_financials: UpdateRegionFinancialsHasMany
     $funding_source_financials: UpdateFundingSourceFinancialsHasMany
   ) {
     updateProject(
@@ -932,13 +942,13 @@ export const UPDATE_PROJECT_MUTATION = gql`
         ten_point_agenda: $ten_point_agenda
         sustainable_development_goals: $sustainable_development_goals
         bases: $bases
-	      region_id: $region_id
+        region_id: $region_id
         regions: $regions
-	      province_id: $province_id
+        province_id: $province_id
         provinces: $provinces
-	      district_id: $district_id
+        district_id: $district_id
         districts: $districts
-	      city_municipality_id: $city_municipality_id
+        city_municipality_id: $city_municipality_id
         rdip: $rdip
         pcip: $pcip
         description: $description
@@ -965,7 +975,7 @@ export const UPDATE_PROJECT_MUTATION = gql`
         icc_approved_date: $icc_approved_date
         neda_board: $neda_board
         neda_board_date: $neda_board_date
-      	currency_id: $currency_id
+        currency_id: $currency_id
         total_project_cost: $total_project_cost
         implementation_risk: $implementation_risk
         mitigation_strategy: $mitigation_strategy
@@ -979,9 +989,9 @@ export const UPDATE_PROJECT_MUTATION = gql`
         economic_internal_rate_return: $economic_internal_rate_return
         economic_net_present_value: $economic_net_present_value
         technical_readinesses: $technical_readinesses
-	      main_funding_source_id: $main_funding_source_id
-	      funding_institution_id: $funding_institution_id
-		    has_fs: $has_fs
+        main_funding_source_id: $main_funding_source_id
+        funding_institution_id: $funding_institution_id
+        has_fs: $has_fs
         fs_target_2017: $fs_target_2017
         fs_target_2018: $fs_target_2018
         fs_target_2019: $fs_target_2019
@@ -1003,7 +1013,7 @@ export const UPDATE_PROJECT_MUTATION = gql`
         row_affected_2020: $row_affected_2020
         row_affected_2021: $row_affected_2021
         row_affected_2022: $row_affected_2022
-	      has_rap: $has_rap
+        has_rap: $has_rap
         rap_target_2017: $rap_target_2017
         rap_target_2018: $rap_target_2018
         rap_target_2019: $rap_target_2019
@@ -1064,189 +1074,189 @@ export const UPDATE_PROJECT_MUTATION = gql`
         disbursement_total: $disbursement_total
         updates: $updates
         updates_date: $updates_date
-	      region_financials: $region_financials
+        region_financials: $region_financials
         funding_source_financials: $funding_source_financials
       }
     ) {
+      id
+      title
+      pip
+      cip
+      trip
+      rdip
+      pcip
+      afmip
+      gad_id
+      project_status_id
+      target_start_year
+      target_end_year
+      implementation_end_date
+      implementation_start_date
+      operating_unit_id
+      main_funding_source_id
+      funding_institution_id
+      spatial_coverage_id
+      tier_id
+      typology_id
+      infrastructure
+      cities_municipalities
+      implementation_mode_id
+      type_id
+      region_id
+      selected_regions
+      province_id
+      selected_provinces
+      district_id
+      city_municipality_id
+      description
+      goals
+      outcomes
+      purpose
+      expected_outputs
+      beneficiaries
+      mitigation_strategy
+      implementation_risk
+      clearinghouse
+      clearinghouse_date
+      estimated_project_life
+      financial_benefit_cost_ratio
+      financial_internal_rate_return
+      financial_net_present_value
+      economic_benefit_cost_ratio
+      economic_internal_rate_return
+      economic_net_present_value
+      selected_technical_readinesses
+      neda_submission
+      neda_submission_date
+      neda_secretariat_review
+      neda_secretariat_review_date
+      icc_endorsed
+      icc_endorsed_date
+      icc_approved
+      icc_approved_date
+      neda_board
+      neda_board_date
+      currency_id
+      total_project_cost
+      selected_bases
+      has_fs
+      fs_target_2017
+      fs_target_2018
+      fs_target_2019
+      fs_target_2020
+      fs_target_2021
+      fs_target_2022
+      fs_target_total
+      has_row
+      row_target_2017
+      row_target_2018
+      row_target_2019
+      row_target_2020
+      row_target_2021
+      row_target_2022
+      row_target_total
+      row_affected_2017
+      row_affected_2018
+      row_affected_2019
+      row_affected_2020
+      row_affected_2021
+      row_affected_2022
+      has_rap
+      rap_target_2017
+      rap_target_2018
+      rap_target_2019
+      rap_target_2020
+      rap_target_2021
+      rap_target_2022
+      rap_target_total
+      rap_affected_2017
+      rap_affected_2018
+      rap_affected_2019
+      rap_affected_2020
+      rap_affected_2021
+      rap_affected_2022
+      investment_target_2016
+      investment_target_2017
+      investment_target_2018
+      investment_target_2019
+      investment_target_2020
+      investment_target_2021
+      investment_target_2022
+      investment_target_2023
+      investment_target_total
+      infrastructure_target_2016
+      infrastructure_target_2017
+      infrastructure_target_2018
+      infrastructure_target_2019
+      infrastructure_target_2020
+      infrastructure_target_2021
+      infrastructure_target_2022
+      infrastructure_target_2023
+      infrastructure_target_total
+      nep_2016
+      nep_2017
+      nep_2018
+      nep_2019
+      nep_2020
+      nep_2021
+      nep_2022
+      nep_2023
+      nep_total
+      gaa_2016
+      gaa_2017
+      gaa_2018
+      gaa_2019
+      gaa_2020
+      gaa_2021
+      gaa_2022
+      gaa_2023
+      gaa_total
+      disbursement_2016
+      disbursement_2017
+      disbursement_2018
+      disbursement_2019
+      disbursement_2020
+      disbursement_2021
+      disbursement_2022
+      disbursement_2023
+      disbursement_total
+      updates
+      updates_date
+      selected_districts
+      creator {
         id
-        title
-        pip
-        cip
-        trip
-        rdip
-        pcip
-        afmip
-        gad_id
-        project_status_id
-        target_start_year
-        target_end_year
-        implementation_end_date
-        implementation_start_date
-        operating_unit_id
-        main_funding_source_id
-        funding_institution_id
-        spatial_coverage_id
-        tier_id
-        typology_id
-		    infrastructure
-        cities_municipalities
-        implementation_mode_id
-        type_id
-		    region_id
-        selected_regions
-		    province_id
-        selected_provinces
-		    district_id
-		    city_municipality_id
-        description
-        goals
-        outcomes
-        purpose
-        expected_outputs
-		    beneficiaries
-		    mitigation_strategy
-		    implementation_risk
-        clearinghouse
-        clearinghouse_date
-        estimated_project_life
-        financial_benefit_cost_ratio
-        financial_internal_rate_return
-        financial_net_present_value
-        economic_benefit_cost_ratio
-        economic_internal_rate_return
-        economic_net_present_value
-        selected_technical_readinesses
-        neda_submission
-        neda_submission_date
-        neda_secretariat_review
-        neda_secretariat_review_date
-        icc_endorsed
-        icc_endorsed_date
-        icc_approved
-        icc_approved_date
-        neda_board
-        neda_board_date
-        currency_id
-        total_project_cost
-        selected_bases
-		    has_fs
-        fs_target_2017
-        fs_target_2018
-        fs_target_2019
-        fs_target_2020
-        fs_target_2021
-        fs_target_2022
-        fs_target_total
-		    has_row
-        row_target_2017
-        row_target_2018
-        row_target_2019
-        row_target_2020
-        row_target_2021
-        row_target_2022
-        row_target_total
-        row_affected_2017
-        row_affected_2018
-        row_affected_2019
-        row_affected_2020
-        row_affected_2021
-        row_affected_2022
-		    has_rap
-        rap_target_2017
-        rap_target_2018
-        rap_target_2019
-        rap_target_2020
-        rap_target_2021
-        rap_target_2022
-        rap_target_total
-        rap_affected_2017
-        rap_affected_2018
-        rap_affected_2019
-        rap_affected_2020
-        rap_affected_2021
-        rap_affected_2022
-        investment_target_2016
-        investment_target_2017
-        investment_target_2018
-        investment_target_2019
-        investment_target_2020
-        investment_target_2021
-        investment_target_2022
-        investment_target_2023
-        investment_target_total
-        infrastructure_target_2016
-        infrastructure_target_2017
-        infrastructure_target_2018
-        infrastructure_target_2019
-        infrastructure_target_2020
-        infrastructure_target_2021
-        infrastructure_target_2022
-        infrastructure_target_2023
-        infrastructure_target_total
-        nep_2016
-        nep_2017
-        nep_2018
-        nep_2019
-        nep_2020
-        nep_2021
-        nep_2022
-        nep_2023
-        nep_total
-        gaa_2016
-        gaa_2017
-        gaa_2018
-        gaa_2019
-        gaa_2020
-        gaa_2021
-        gaa_2022
-        gaa_2023
-        gaa_total
-        disbursement_2016
-        disbursement_2017
-        disbursement_2018
-        disbursement_2019
-        disbursement_2020
-        disbursement_2021
-        disbursement_2022
-        disbursement_2023
-        disbursement_total
-        updates
-        updates_date
-        selected_districts
-        creator {
-            id
-            name
-        }
-        updater {
-            id
-            name
-        }
-        created_at
-        updated_at
-		    region_financials {
-				    id
-				    region_id
-				    target_2016
-				    target_2017
-				    target_2018
-				    target_2019
-				    target_2020
-				    target_2021
-				    target_2022
-				    target_2023
-		    }
-        funding_source_financials {
-            id
-            funding_source_id
-            target_2016
-            target_2017
-            target_2018
-            target_2019
-            target_2020
-            target_2021
-            target_2022
-            target_2023
-        }
+        name
+      }
+      updater {
+        id
+        name
+      }
+      created_at
+      updated_at
+      region_financials {
+        id
+        region_id
+        target_2016
+        target_2017
+        target_2018
+        target_2019
+        target_2020
+        target_2021
+        target_2022
+        target_2023
+      }
+      funding_source_financials {
+        id
+        funding_source_id
+        target_2016
+        target_2017
+        target_2018
+        target_2019
+        target_2020
+        target_2021
+        target_2022
+        target_2023
+      }
     }
   }
 `;
@@ -1257,10 +1267,7 @@ export const ASSESS_GAD_RESPONSIVENESS = gql`
     $project_gad_subquestions: UpdateProjectGadSubquestionHasMany
   ) {
     assessGadResponsiveness(
-      input: {
-        id: $id
-        project_gad_subquestions: $project_gad_subquestions
-      }
+      input: { id: $id, project_gad_subquestions: $project_gad_subquestions }
     ) {
       id
       project_gad_subquestions {
@@ -1273,14 +1280,8 @@ export const ASSESS_GAD_RESPONSIVENESS = gql`
 `;
 
 export const ENDORSE_PROJECTS_MUTATION = gql`
-  mutation endorseProjects(
-	  $projects: [ID!]!
-    $file: Upload!
-  ) {
-    endorseProjects(
-      projects: $projects
-      file: $file
-    ) {
+  mutation endorseProjects($projects: [ID!]!, $file: Upload!) {
+    endorseProjects(projects: $projects, file: $file) {
       id
       file_name
       file_path
@@ -1289,7 +1290,7 @@ export const ENDORSE_PROJECTS_MUTATION = gql`
       dropbox_link
       projects {
         id
-	      title
+        title
       }
     }
   }
@@ -1400,16 +1401,9 @@ export const PROCESS_PROJECT_MUTATION = gql`
   }
 `;
 
-
 export const TRANSFER_PROJECT_MUTATION = gql`
-  mutation transferProject(
-    $project_id: ID!
-    $user_id: ID!
-  ) {
-    transferProject(
-      project_id: $project_id
-      user_id: $user_id
-    ) {
+  mutation transferProject($project_id: ID!, $user_id: ID!) {
+    transferProject(project_id: $project_id, user_id: $user_id) {
       project {
         id
         title
@@ -1418,4 +1412,4 @@ export const TRANSFER_PROJECT_MUTATION = gql`
       status
     }
   }
-`
+`;

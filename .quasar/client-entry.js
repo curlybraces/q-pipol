@@ -44,17 +44,22 @@ import Vue from 'vue'
 import createApp from './app.js'
 
 
+import 'app/src-pwa/register-service-worker.js'
+
+
 
 
 import qboot_Bootapollo from 'boot/apollo'
 
 import qboot_Bootaxios from 'boot/axios'
 
+import qboot_Bootcopy from 'boot/copy'
+
+import qboot_Bootloadingdefaults from 'boot/loading-defaults'
+
 import qboot_Bootrouterauth from 'boot/router-auth'
 
 import qboot_Boottest from 'boot/test'
-
-import qboot_Bootloadingdefaults from 'boot/loading-defaults'
 
 import qboot_Quasarquasarappextensionqmarkdownsrcbootregisterjs from '@quasar/quasar-app-extension-qmarkdown/src/boot/register.js'
 
@@ -64,15 +69,14 @@ import qboot_Quasarquasarappextensionqmarkdownsrcbootregisterjs from '@quasar/qu
 
 
 
-Vue.config.devtools = true
-Vue.config.productionTip = false
 
 
 
-console.info('[Quasar] Running SPA.')
 
-
-
+// Needed only for iOS PWAs
+if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream && window.navigator.standalone) {
+  import(/* webpackChunkName: "fastclick"  */ '@quasar/fastclick')
+}
 
 
 async function start () {
@@ -88,7 +92,7 @@ async function start () {
   }
 
   const urlPath = window.location.href.replace(window.location.origin, '')
-  const bootFiles = [qboot_Bootapollo,qboot_Bootaxios,qboot_Bootrouterauth,qboot_Boottest,qboot_Bootloadingdefaults,qboot_Quasarquasarappextensionqmarkdownsrcbootregisterjs]
+  const bootFiles = [qboot_Bootapollo,qboot_Bootaxios,qboot_Bootcopy,qboot_Bootloadingdefaults,qboot_Bootrouterauth,qboot_Boottest,qboot_Quasarquasarappextensionqmarkdownsrcbootregisterjs]
 
   for (let i = 0; routeUnchanged === true && i < bootFiles.length; i++) {
     if (typeof bootFiles[i] !== 'function') {

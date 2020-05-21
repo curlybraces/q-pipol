@@ -16,13 +16,13 @@ export function markAsRead({}, payload) {
           query: FETCH_UNREAD_NOTIFICATIONS_QUERY
         });
 
-        console.log(data.unreadNotifications)
+        console.log(data.unreadNotifications);
 
         data.unreadNotifications = data.unreadNotifications.filter(
           notif => notif.id !== markAsRead.id
         );
 
-        console.log(data)
+        console.log(data);
 
         store.writeQuery({
           query: FETCH_UNREAD_NOTIFICATIONS_QUERY,

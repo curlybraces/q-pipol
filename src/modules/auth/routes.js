@@ -1,30 +1,22 @@
-const AuthRoutes = [
-  {
-    path: '/login',
-    component: () => import('./layouts/AuthLayout.vue'),
-    children: [
-      {
-        path: '',
-        name: 'login',
-        component: () =>
-          import(/* webpackChunkName: 'LoginPage' */ './pages/Login.vue'),
-        meta: {
-          guest: true
-        }
+const AuthRoutes = {
+  path: '',
+  component: () => import('./layouts/AuthLayout.vue'),
+  children: [
+    {
+      path: 'login',
+      name: 'login',
+      component: () =>
+        import(/* webpackChunkName: 'LoginPage' */ './pages/Login.vue'),
+      meta: {
+        guest: true
       }
-    ]
-  },
-  {
-    path: '/email-verify',
-    component: () => import('./layouts/AuthLayout.vue'),
-    children: [
-      {
-        path: '',
-        name: 'email-verify',
-        component: () => import('./pages/EmailVerify.vue')
-      }
-    ]
-  }
-];
+    },
+    {
+      path: 'email-verify',
+      name: 'email-verify',
+      component: () => import('./pages/EmailVerify.vue')
+    }
+  ]
+};
 
 export default AuthRoutes;

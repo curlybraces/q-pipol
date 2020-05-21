@@ -10,9 +10,7 @@ import {
   RESEND_EMAIL_VERIFICATION_MUTATION,
   UPDATE_PASSWORD_MUTATION,
   VERIFY_EMAIL_MUTATION,
-  FORGOT_PASSWORD_MUTATION,
-  UPLOAD_USER_AVATAR_MUTATION,
-  UPDATE_PROFILE_MUTATION
+  FORGOT_PASSWORD_MUTATION
 } from '@/graphql/mutations';
 import {
   showErrorNotification,
@@ -20,7 +18,7 @@ import {
 } from '@/functions/function-show-notifications';
 
 export function register({ commit }, payload) {
-  Loading.show()
+  Loading.show();
   client
     .mutate({
       mutation: REGISTER_MUTATION,
@@ -49,7 +47,7 @@ export function signinUser({ commit }, payload) {
 
   commit('CLEAR_ERROR');
 
-  Loading.show()
+  Loading.show();
 
   client
     .mutate({
@@ -67,7 +65,7 @@ export function signinUser({ commit }, payload) {
       client.resetStore();
     })
     .catch(err => {
-      console.error(err.message)
+      console.error(err.message);
       LocalStorage.set('token', '');
     })
     .finally(() => Loading.hide());
@@ -94,7 +92,7 @@ export function getCurrentUser({ commit }) {
 }
 
 export function clearError({ commit }) {
-  commit('CLEAR_ERROR')
+  commit('CLEAR_ERROR');
 }
 
 export async function signoutUser({ commit }) {
@@ -124,70 +122,8 @@ export function hideValidateEmailReminder({ commit }, val) {
   commit('SET_SHOW_VALIDATE_EMAIL_REMINDER', val);
 }
 
-export function setImageUrl({ commit }, payload) {
-  Loading.show()
-  return client
-    .mutate({
-      mutation: UPDATE_IMAGE_URL_MUTATION,
-      variables: {
-        image_url: payload
-      }
-    })
-    .then(() => {
-      showSuccessNotification({
-        message: 'Successfully updated avatar.',
-        icon: 'check'
-      });
-
-      LocalStorage.set('image_url', payload);
-
-      commit('SET_IMAGE_URL', payload);
-    })
-    .catch(err => console.log(err.message))
-    .finally(() => Loading.hide());
-}
-
-export function updateProfile({ commit }, payload) {
-  Loading.show()
-
-  client
-    .mutate({
-      mutation: UPDATE_PROFILE_MUTATION,
-      variables: payload,
-      update: (store, {data: { updateUser } } ) => {
-        const data = store.readQuery({
-          query: GET_CURRENT_USER
-        })
-
-        data.getCurrentUser.name = updateUser.name
-        data.getCurrentUser.position = updateUser.position
-        data.getCurrentUser.contact_number = updateUser.contact_number
-        data.getCurrentUser.operating_unit = updateUser.operating_unit
-
-        console.log(data)
-
-        store.writeQuery({
-          query: GET_CURRENT_USER,
-          data
-        })
-      }
-    })
-    .then(() => {
-      showSuccessNotification({
-        message: 'Successfully updated profile.'
-      });
-
-      return;
-      // this.$router.go();
-    })
-    .catch(err => {
-      console.error(err)
-    })
-    .finally(() => Loading.hide());
-}
-
 export function forgotPassword({}, email) {
-  Loading.show()
+  Loading.show();
   return client
     .mutate({
       mutation: FORGOT_PASSWORD_MUTATION,
@@ -199,7 +135,7 @@ export function forgotPassword({}, email) {
       if (data.forgotPassword.status === 'EMAIL_NOT_SENT') {
         showErrorNotification({
           message: data.forgotPassword.message
-        })
+        });
       } else {
         showSuccessNotification({
           message: data.forgotPassword.message
@@ -215,7 +151,7 @@ export function forgotPassword({}, email) {
 export function resendEmailVerification({}, payload) {
   const email = payload;
 
-  Loading.show()
+  Loading.show();
 
   return client
     .mutate({
@@ -230,9 +166,9 @@ export function resendEmailVerification({}, payload) {
       });
     })
     .catch(err => {
-      console.log(err.message)
+      console.log(err.message);
     })
-    .finally(() => Loading.hide());;
+    .finally(() => Loading.hide());
 }
 
 export function verifyEmail({ commit, dispatch }, token) {
@@ -282,7 +218,7 @@ export function updatePassword({ dispatch }, payload) {
       }
     })
     .catch(err => {
-      console.error(err.message)
+      console.error(err.message);
     })
     .finally(() => Loading.hide());
 }
@@ -303,36 +239,5 @@ export function checkEmailAvailability({}, payload) {
       }
     })
     .catch(err => console.log(err.message))
-    .finally(() => Loading.hide());
-}
-
-export function uploadUserAvatar({}, payload) {
-  Loading.show()
-
-	client
-		.mutate({
-			mutation: UPLOAD_USER_AVATAR_MUTATION,
-			variables: payload,
-			update: (store, { data: { uploadUserAvatar } }) => {
-				const data = store.readQuery({
-					query: GET_CURRENT_USER
-				});
-				
-				data.getCurrentUser.image_url = uploadUserAvatar.image_url;
-				
-				store.writeQuery({
-					query: GET_CURRENT_USER,
-					data
-				});
-			}
-		})
-		.then(() => {
-			showSuccessNotification({
-				message: 'Successfully changed user image.'
-			});
-		})
-		.catch(err => {
-			console.error(err.message);
-		})
     .finally(() => Loading.hide());
 }

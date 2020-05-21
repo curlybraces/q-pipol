@@ -12,34 +12,40 @@
     </q-item>
 
     <template v-for="question in gad_questions">
-      <q-expansion-item :label="question.name" :key="question.id" default-expand-all>
-          <template v-for="sq in question.gad_subquestions">
-            <q-item :key="sq.id">
-              <q-item-section>
-                <q-item-label>{{ sq.name }}</q-item-label>
-              </q-item-section>
-              <q-item-section side>
-                <q-option-group
-                  v-model="answers"
-                  inline type="radio"
-                  :options="map(sq.gad_choices)"></q-option-group>
-              </q-item-section>
-            </q-item>
-          </template>
+      <q-expansion-item
+        :label="question.name"
+        :key="question.id"
+        default-expand-all
+      >
+        <template v-for="sq in question.gad_subquestions">
+          <q-item :key="sq.id">
+            <q-item-section>
+              <q-item-label>{{ sq.name }}</q-item-label>
+            </q-item-section>
+            <q-item-section side>
+              <q-option-group
+                v-model="answers"
+                inline
+                type="radio"
+                :options="map(sq.gad_choices)"
+              ></q-option-group>
+            </q-item-section>
+          </q-item>
+        </template>
       </q-expansion-item>
     </template>
 
     {{ value }}
 
     <div class="row q-pa-sm">
-		  <q-btn color="primary" @click="saveGadForm" label="Save Changes"></q-btn>
+      <q-btn color="primary" @click="saveGadForm" label="Save Changes"></q-btn>
     </div>
   </q-list>
 </template>
 
 <script>
-import { FETCH_GAD_QUESTIONS } from '@/graphql/queries'
-import { ASSESS_GAD_RESPONSIVENESS } from '@/graphql/mutations'
+import { FETCH_GAD_QUESTIONS } from '@/graphql/queries';
+import { ASSESS_GAD_RESPONSIVENESS } from '@/graphql/mutations';
 
 export default {
   name: 'GadForm',
@@ -51,63 +57,65 @@ export default {
   },
   data() {
     return {
-      gad_questions: [],
+      gad_questions: []
       // answers: []
     };
   },
   computed: {
     mappedAnswers() {
-      let mappedAnswers = []
-      const answers = this.answers
+      let mappedAnswers = [];
+      const answers = this.answers;
 
-      mappedAnswers = answers.map((answer, index) => {
-        return {
-          id: null,
-          gad_subquestion_id: index,
-          gad_choice_id: answer
-        }
-      })
-			.filter(answer => answer.subquestion_id !== 0)
+      mappedAnswers = answers
+        .map((answer, index) => {
+          return {
+            id: null,
+            gad_subquestion_id: index,
+            gad_choice_id: answer
+          };
+        })
+        .filter(answer => answer.subquestion_id !== 0);
 
-      return mappedAnswers
+      return mappedAnswers;
     },
     answers: {
       get() {
-        return this.$props.value
+        return this.$props.value;
       },
       set(val) {
-        console.log(val)
+        console.log(val);
       }
     }
   },
   methods: {
     map(items) {
-      let mappedItems = []
+      let mappedItems = [];
       mappedItems = items.map(item => {
         return {
           label: item.name,
           value: item.id
-        }
-      })
-      return mappedItems
+        };
+      });
+      return mappedItems;
     },
-	  saveGadForm() {
+    saveGadForm() {
       const payload = {
         id: this.$props.projectId,
         project_gad_subquestions: {
           upsert: this.mappedAnswers
         }
-      }
-      console.log(payload)
-      this.$apollo.mutate({
-        mutation: ASSESS_GAD_RESPONSIVENESS,
-        variables: payload
-      })
-      .then(({ data }) => {
-        console.log(data.assessGadResponsiveness)
-      })
-      .catch(err => console.log(err))
-		}
+      };
+      console.log(payload);
+      this.$apollo
+        .mutate({
+          mutation: ASSESS_GAD_RESPONSIVENESS,
+          variables: payload
+        })
+        .then(({ data }) => {
+          console.log(data.assessGadResponsiveness);
+        })
+        .catch(err => console.log(err));
+    }
   },
   filters: {
     interpretation(val) {

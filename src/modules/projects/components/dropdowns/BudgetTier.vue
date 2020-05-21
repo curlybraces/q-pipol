@@ -1,38 +1,35 @@
 <template>
-	<single-select
-			v-model="model"
-			label="Budget Tier"
-			:options="tiers"
-	/>
+  <single-select v-model="model" label="Budget Tier" :options="tiers" />
 </template>
 
 <script>
-	import SingleSelect from '../../../ui/form-inputs/SingleSelect'
-	import { FETCH_TIERS } from '../../../../graphql/queries'
+import SingleSelect from '@/ui/form-inputs/SingleSelect';
 
-	export default {
-		components: { SingleSelect },
-		name: 'BudgetTier',
-		props: ['value'],
-		computed: {
-			model: {
-				get() {
-					return this.$props.value
-				},
-				set(val) {
-					this.$emit('input', val)
-				}
-			}
-		},
-		apollo: {
-			tiers: {
-				query: FETCH_TIERS
-			}
-		},
-		data() {
-			return {
-				tiers: []
-			}
-		}
-	}
+import { FETCH_TIERS } from '@/graphql/queries';
+
+export default {
+  components: { SingleSelect },
+  name: 'BudgetTier',
+  props: ['value'],
+  computed: {
+    model: {
+      get() {
+        return this.$props.value;
+      },
+      set(val) {
+        this.$emit('input', val);
+      }
+    }
+  },
+  apollo: {
+    tiers: {
+      query: FETCH_TIERS
+    }
+  },
+  data() {
+    return {
+      tiers: []
+    };
+  }
+};
 </script>

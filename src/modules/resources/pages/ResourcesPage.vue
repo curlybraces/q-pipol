@@ -1,7 +1,7 @@
 <template>
   <page-container>
     <page-title title="Resources">
-      <q-btn flat round color="primary" icon="settings" v-if="isAdmin">
+      <settings-button vif="isAdmin">
         <q-menu transition-show="jump-down" transition-hide="jump-up">
           <q-list>
             <q-item
@@ -15,10 +15,8 @@
             </q-item>
           </q-list>
         </q-menu>
-      </q-btn>
+      </settings-button>
     </page-title>
-
-    <!--		 -->
 
     <div class="q-pa-sm">
       <template v-if="$apollo.loading">
@@ -28,7 +26,10 @@
       </template>
       <template v-else>
         <template v-if="!resources.length">
-					<no-item icon="cancel" message="There are no resources to show. If you have added a resource but was not listed here even after refreshing. Please seek our assistance."></no-item>
+          <no-item
+            icon="cancel"
+            message="There are no resources to show. If you have added a resource but was not listed here even after refreshing. Please seek our assistance."
+          ></no-item>
         </template>
         <div class="row q-gutter-sm">
           <q-list bordered separator v-if="resources.length">
@@ -65,92 +66,75 @@
       </template>
     </div>
 
-    <q-dialog
-      v-model="createResourceDialog"
-      full-height
-      :position="$q.screen.xs ? void 0 : 'right'"
-      persistent
-      :maximized="$q.screen.xs"
-      transition-show="jump-left"
-      transition-hide="jump-right"
-    >
-      <q-card :style="$q.screen.xs ? void 0 : 'width:400px'">
-        <q-toolbar class="bg-info text-white">
-          <q-toolbar-title class="absolute-center text-subtitle1"
-            >Create Resource</q-toolbar-title
+    <dialog-container v-model="createResourceDialog">
+      <dialog-header
+        title="Create Resource"
+        @close="createResourceDialog = false"
+      ></dialog-header>
+      <q-form @submit="onSubmit" ref="form">
+        <q-card-section class="q-pa-sm">
+          <text-input
+            v-model="title"
+            label="Title"
+            :rules="required"
+          ></text-input>
+          <text-input
+            v-model="description"
+            label="Description"
+            type="textarea"
+            :rules="required"
+          ></text-input>
+          <text-input
+            v-model="url"
+            label="Link (Complete URL)"
+            :rules="required"
+          ></text-input>
+          <text-input
+            v-model="image_url"
+            label="Image URL (for Preview)"
+            :rules="required"
+          ></text-input>
+          <span class="text-caption text-weight-bold q-mt-md" :rules="required"
+            >Document Type</span
           >
-          <q-space />
-          <q-btn
-            flat
-            round
-            dense
-            icon="close"
-            @click="createResourceDialog = false"
-          ></q-btn>
-        </q-toolbar>
-        <q-separator></q-separator>
-        <q-form @submit="onSubmit" ref="form">
-          <q-card-section class="q-pa-sm">
-            <text-input
-              v-model="title"
-              label="Title"
-              :rules="required"
-            ></text-input>
-            <text-input
-              v-model="description"
-              label="Description"
-              type="textarea"
-              :rules="required"
-            ></text-input>
-            <text-input
-              v-model="url"
-              label="Link (Complete URL)"
-              :rules="required"
-            ></text-input>
-            <text-input
-              v-model="image_url"
-              label="Image URL (for Preview)"
-              :rules="required"
-            ></text-input>
-            <span
-              class="text-caption text-weight-bold q-mt-md"
-              :rules="required"
-              >Document Type</span
-            >
-            <q-select
-              outlined
-              :dense="dense"
-              v-model="document_type"
-              :options="document_types"
-              :rules="required"
-            ></q-select>
-          </q-card-section>
-          <q-card-actions align="right">
-            <q-btn flat label="Cancel" v-close-popup></q-btn>
-            <q-btn type="submit" label="Submit" color="primary"></q-btn>
-          </q-card-actions>
-        </q-form>
-      </q-card>
-    </q-dialog>
+          <q-select
+            outlined
+            :dense="dense"
+            v-model="document_type"
+            :options="document_types"
+            :rules="required"
+          ></q-select>
+        </q-card-section>
+        <q-card-actions align="right">
+          <q-btn flat label="Cancel" v-close-popup></q-btn>
+          <q-btn type="submit" label="Submit" color="primary"></q-btn>
+        </q-card-actions>
+      </q-form>
+    </dialog-container>
   </page-container>
 </template>
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex';
-import PageTitle from '../../ui/page/PageTitle';
+import PageTitle from '@/ui/page/PageTitle';
 import { openURL, Dialog } from 'quasar';
-import TextInput from '../../ui/form-inputs/TextInput';
-import { FETCH_RESOURCES_QUERY } from '../../../graphql/queries';
-import PageContainer from '../../ui/page/PageContainer';
-import NoItem from '../../shared/components/NoItem'
+import TextInput from '@/ui/form-inputs/TextInput';
+import PageContainer from '@/ui/page/PageContainer';
+import NoItem from '@/ui/components/NoItem';
+import SettingsButton from '@/ui/buttons/SettingsButton';
+import DialogContainer from '@/ui/dialogs/DialogContainer';
+import DialogHeader from '@/ui/dialogs/DialogHeader';
 
 export default {
   name: 'PageResources',
-  components: {NoItem, PageContainer, TextInput, PageTitle },
-  apollo: {
-    resources: {
-      query: FETCH_RESOURCES_QUERY
-    }
+  components: {
+    NoItem,
+    PageContainer,
+    TextInput,
+    PageTitle,
+    SettingsButton,
+    DialogContainer,
+    DialogHeader
   },
   computed: {
     ...mapState('settings', ['dense']),
@@ -209,10 +193,13 @@ export default {
             document_type: this.document_type
           });
         } else {
-          console.log('Please check inputs');
+          alert('Please check form');
         }
       });
     }
+  },
+  created() {
+    this.fetchResources().then(res => (this.resources = res.resources));
   }
 };
 </script>

@@ -1,8 +1,5 @@
 <template>
-  <q-item
-    flat
-    bordered
-  >
+  <q-item flat bordered>
     <q-item-section avatar>
       <q-avatar class="text-white text-uppercase">
         <q-img

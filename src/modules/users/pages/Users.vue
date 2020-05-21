@@ -3,7 +3,10 @@
     <page-title title="Manage Users"></page-title>
 
     <!-- Search Field -->
-    <search-component v-model="searchField" placeholder="Filter Users"></search-component>
+    <search-component
+      v-model="searchField"
+      placeholder="Filter Users"
+    ></search-component>
 
     <div class="q-pa-sm">
       <!-- Loading -->
@@ -23,7 +26,7 @@
             <q-list separator bordered>
               <template v-for="(user, index) in filteredUsers">
                 <user :key="index" :user="user"></user>
-              </template> 
+              </template>
             </q-list>
           </div>
         </template>
@@ -33,13 +36,13 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import { ALL_USERS } from '@/graphql/queries'
-const User = () => import('../components/User')
-const PageTitle = () => import('@/modules/ui/page/PageTitle')
-const PageContainer = () =>import('@/modules/ui/page/PageContainer')
-const SearchComponent = () => import('@/modules/shared/components/SearchComponent')
-import NoItem from '@/modules/shared/components/NoItem'
+import { mapState } from 'vuex';
+import { ALL_USERS } from '@/graphql/queries';
+import User from '../components/User';
+import PageTitle from '@/ui/page/PageTitle';
+import PageContainer from '@/ui/page/PageContainer';
+import SearchComponent from '@/ui/components/SearchComponent';
+import NoItem from '@/ui/components/NoItem';
 
 export default {
   components: { PageContainer, PageTitle, User, SearchComponent, NoItem },
@@ -68,8 +71,10 @@ export default {
       if (search) {
         console.log(search);
 
-        filteredUsers = users.filter(user =>
-          user.name.toLowerCase().includes(search) || (user.role.name.toLowerCase() === (search))
+        filteredUsers = users.filter(
+          user =>
+            user.name.toLowerCase().includes(search) ||
+            user.role.name.toLowerCase() === search
         );
 
         return filteredUsers;

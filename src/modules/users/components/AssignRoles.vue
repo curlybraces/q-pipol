@@ -28,8 +28,8 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
-import { FETCH_ROLES } from '../../../graphql/queries'
+import { mapActions } from 'vuex';
+import { FETCH_ROLES } from '../../../graphql/queries';
 
 export default {
   name: 'AssignRoles',
@@ -37,8 +37,8 @@ export default {
   apollo: {
     roles: {
       query: FETCH_ROLES,
-      result({ data  }) {
-        const roles = data.roles
+      result({ data }) {
+        const roles = data.roles;
         this.roles = roles.map(role => {
           return { value: role.id, label: role.name };
         });

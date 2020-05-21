@@ -9,9 +9,10 @@ module.exports = function(ctx) {
     boot: [
       'apollo',
 	    'axios',
+      'copy',
+      'loading-defaults',
       'router-auth',
-	    'test',
-      'loading-defaults'
+	    'test'
     ],
 
     css: ['app.styl'],
@@ -40,7 +41,10 @@ module.exports = function(ctx) {
         dark: 'auto'
       },
 
-      components: [],
+      components: [
+        'QBtn',
+        'QIcon'
+      ],
 
       directives: [ 'TouchPan', 'Ripple' ],
 
@@ -52,7 +56,7 @@ module.exports = function(ctx) {
 	      'Notify',
 	      'LoadingBar',
 	      'Dark',
-	      'Loading' 
+	      'Loading'
       ]
     },
 

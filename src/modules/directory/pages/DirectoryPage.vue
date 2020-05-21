@@ -2,7 +2,7 @@
   <page-container>
     <!-- Page Title -->
     <page-title title="Directory">
-      <q-btn flat round color="primary" icon="settings">
+      <settings-button>
         <q-menu transition-show="jump-down" transition-hide="jump-up">
           <q-list>
             <json-excel :data="operating_units">
@@ -14,7 +14,7 @@
             </json-excel>
           </q-list>
         </q-menu>
-      </q-btn>
+      </settings-button>
     </page-title>
 
     <!-- Search operating units -->
@@ -38,7 +38,7 @@
 
     <div class="row q-pa-sm item-start q-col-gutter-sm">
       <!-- Show Loading -->
-			<inner-loading :loading="$apollo.loading"></inner-loading>
+      <inner-loading :loading="$apollo.loading"></inner-loading>
 
       <template v-if="!$apollo.loading && !operating_units.length">
         <div>No operating units yet.</div>
@@ -72,120 +72,90 @@
       ></q-uploader>
     </q-dialog>
 
-    <!-- Upload Contact Dialog -->
-    <q-dialog
-      v-model="editItemDialog"
-      full-height
-      :position="$q.screen.xs ? void 0 : 'right'"
-      persistent
-      :maximized="$q.screen.xs"
-      transition-show="jump-left"
-      transition-hide="jump-right"
-    >
-      <q-card :style="$q.screen.gt.xs ? 'min-width:400px' : ''">
-        <q-toolbar class="bg-info text-white">
-          <q-toolbar-title class="absolute-center text-subtitle1"
-            >Update Operating Unit</q-toolbar-title
-          >
-          <q-space />
+    <!-- Edit Contact Dialog -->
+    <dialog-container v-model="editItemDialog">
+      <dialog-header
+        title="Update Operating Unit"
+        @close="editItemDialog = false"
+      ></dialog-header>
+      <q-form @submit.prevent="handleSubmit" ref="editItemForm" greedy>
+        <div class="column q-pa-sm q-gutter-sm">
+          <text-input
+            label="Name"
+            v-model="name"
+            :rules="required"
+          ></text-input>
+          <text-input
+            label="Acronym"
+            v-model="acronym"
+            :rules="required"
+          ></text-input>
+          <text-input
+            label="Head of Agency"
+            v-model="agency_head_name"
+            :rules="required"
+          ></text-input>
+          <text-input
+            label="Designation/Position of Head of Agency"
+            v-model="agency_head_designation"
+            :rules="required"
+          ></text-input>
+          <text-input
+            label="Telephone number"
+            v-model="telephone_number"
+            :rules="required"
+          ></text-input>
+          <text-input
+            label="Fax number"
+            v-model="fax_number"
+            :rules="required"
+          ></text-input>
+          <text-input
+            label="Email"
+            v-model="email"
+            :rules="required"
+          ></text-input>
+        </div>
+        <q-card-actions>
           <q-btn
-            flat
-            round
-            dense
-            icon="close"
+            class="col"
+            label="Cancel"
             @click="editItemDialog = false"
+            outline
           ></q-btn>
-        </q-toolbar>
-        <q-separator />
-        <q-form @submit.prevent="handleSubmit" ref="editItemForm" greedy>
-          <div class="column q-pa-sm q-gutter-sm">
-            <text-input
-              label="Name"
-              v-model="name"
-              :rules="required"
-            ></text-input>
-            <text-input
-              label="Acronym"
-              v-model="acronym"
-              :rules="required"
-            ></text-input>
-            <text-input
-              label="Head of Agency"
-              v-model="agency_head_name"
-              :rules="required"
-            ></text-input>
-            <text-input
-              label="Designation/Position of Head of Agency"
-              v-model="agency_head_designation"
-              :rules="required"
-            ></text-input>
-            <text-input
-              label="Telephone number"
-              v-model="telephone_number"
-              :rules="required"
-            ></text-input>
-            <text-input
-              label="Fax number"
-              v-model="fax_number"
-              :rules="required"
-            ></text-input>
-            <text-input
-              label="Email"
-              v-model="email"
-              :rules="required"
-            ></text-input>
-          </div>
-          <q-card-actions>
-            <q-btn
-              class="col"
-              label="Cancel"
-              @click="editItemDialog = false"
-              outline
-            ></q-btn>
-            <q-btn
-              class="col"
-              label="Save"
-              color="primary"
-              type="submit"
-              :loading="updatingOperatingUnit"
-            ></q-btn>
-          </q-card-actions>
-        </q-form>
-      </q-card>
-    </q-dialog>
+          <q-btn class="col" label="Save" color="primary" type="submit"></q-btn>
+        </q-card-actions>
+      </q-form>
+    </dialog-container>
   </page-container>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import JsonExcel from 'vue-json-excel';
-import { FETCH_OPERATING_UNITS } from '../../../graphql/queries';
-import { showErrorNotification } from '../../../functions/function-show-notifications';
-import InnerLoading from '../../ui/components/InnerLoading'
-const PageTitle = () =>
-  import(/* webpackChunkName: 'PageTitle' */ '../../ui/page/PageTitle');
-const DirectoryItem = () =>
-  import(/* webpackChunkName: 'DirectoryItem' */ '../components/DirectoryItem');
-const TextInput = () =>
-  import(/* webpackChunkName: 'TextInput' */ '../../ui/form-inputs/TextInput');
-const PageContainer = () =>
-  import(/* webpackChunkName: 'PageContainer' */ '../../ui/page/PageContainer');
+import { showErrorNotification } from '@/functions/function-show-notifications';
+import InnerLoading from '@/ui/components/InnerLoading';
+import PageTitle from '@/ui/page/PageTitle';
+import DirectoryItem from '../components/DirectoryItem';
+import TextInput from '@/ui/form-inputs/TextInput';
+import PageContainer from '@/ui/page/PageContainer';
+import SettingsButton from '@/ui/buttons/SettingsButton';
+import DialogContainer from '@/ui/dialogs/DialogContainer';
+import DialogHeader from '@/ui/dialogs/DialogHeader';
 
 export default {
   components: {
-	  InnerLoading,
+    InnerLoading,
     PageContainer,
     TextInput,
     DirectoryItem,
     PageTitle,
-    JsonExcel
+    JsonExcel,
+    SettingsButton,
+    DialogContainer,
+    DialogHeader
   },
   name: 'PageDirectory',
-  apollo: {
-    operating_units: {
-      query: FETCH_OPERATING_UNITS
-    }
-  },
   computed: {
     ...mapGetters('settings', ['buttonColor']),
     ...mapGetters('auth', ['isAdmin']),
@@ -329,12 +299,9 @@ export default {
     }
   },
   mounted() {
-    window.addEventListener('keydown', e => {
-      if (e.ctrlKey && e.keyCode === 70) {
-        e.preventDefault();
-        this.$refs.searchBox.$el.focus();
-      }
-    });
+    this.$store
+      .dispatch('directory/fetchContacts')
+      .then(res => (this.operating_units = res.operating_units));
   }
 };
 </script>

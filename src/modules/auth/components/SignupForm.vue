@@ -97,8 +97,8 @@
 
 <script>
 import { mapState, mapActions, mapMutations } from 'vuex';
-import ValidateEmailMixins from '../mixins/ValidateEmailMixins';
-import PasswordInput from '../../ui/form-inputs/PasswordInput';
+import PasswordInput from '@/ui/form-inputs/PasswordInput';
+import { validateEmail } from '@/utils';
 
 export default {
   name: 'SignupForm',
@@ -130,12 +130,14 @@ export default {
     ...mapState('settings', ['dense', 'dark']),
     ...mapState('auth', ['error', 'loading'])
   },
-  mixins: [ValidateEmailMixins],
   methods: {
     ...mapActions('auth', ['checkEmailAvailability', 'register']),
     ...mapMutations('auth', ['CLEAR_ERROR']),
     passwordMatch(val) {
       return val === this.password;
+    },
+    validEmail(email) {
+      return validateEmail(email);
     },
     checkEmail() {
       const { username } = this.$data;

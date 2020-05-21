@@ -8,11 +8,13 @@
       </q-item-section>
       <q-item-section>
         <q-item-label>
-          <span class="text-weight-medium">[{{ notification.data.title }}]</span>
+          <span class="text-weight-medium"
+            >[{{ notification.data.title }}]</span
+          >
           <span class="text-grey-8"> - {{ notification.data.body }}</span>
         </q-item-label>
         <q-item-label caption>
-          {{ notification.created_at | dateDiff }}
+          {{ displayDateDifference(notification.created_at) }}
         </q-item-label>
       </q-item-section>
       <q-item-section top side>
@@ -34,7 +36,7 @@
 
 <script>
 import { mapActions } from 'vuex';
-import { date } from 'quasar'
+import { displayDateDifference } from '@/utils';
 
 export default {
   name: 'NotificationItem',
@@ -70,16 +72,8 @@ export default {
       this.markAsRead({
         id: id
       });
-    }
-  },
-  filters: {
-    dateDiff(val) {
-    	const today = new Date()
-      if (val) {
-        return date.getDateDiff(today, val) + ' days ago'
-      }
-      return '';
-    }
+    },
+    displayDateDifference
   }
 };
 </script>

@@ -1,6 +1,10 @@
-import { Loading, QSpinnerTail } from 'quasar'
+/**
+ * Set up default for { Loading } indicator
+ *
+ */
+import { Loading, QSpinnerTail } from 'quasar';
 
 Loading.setDefaults({
-	spinnerColor: 'primary',
-	spinner: QSpinnerTail
-})
+  spinnerColor: 'primary',
+  spinner: QSpinnerTail
+});

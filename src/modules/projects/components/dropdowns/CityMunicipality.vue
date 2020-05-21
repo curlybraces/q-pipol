@@ -1,38 +1,38 @@
 <template>
-	<single-select
-		v-model="model"
-		label="City/Municipality"
-		:options="city_municipalities"
-	/>
+  <single-select
+    v-model="model"
+    label="City/Municipality"
+    :options="city_municipalities"
+  />
 </template>
 
 <script>
-	import SingleSelect from '../../../ui/form-inputs/SingleSelect'
-	import {FETCH_CITY_MUNICIPALITIES_QUERY} from '../../../../graphql/queries'
+import SingleSelect from '@/ui/form-inputs/SingleSelect';
+import { FETCH_CITY_MUNICIPALITIES_QUERY } from '@/graphql/queries';
 
-	export default {
-		components: { SingleSelect },
-		name: 'CityMunicipality',
-		props: ['value'],
-		computed: {
-			model: {
-				get() {
-					return this.$props.value
-				},
-				set(val) {
-					this.$emit('input', val)
-				}
-			}
-		},
-		apollo: {
-			city_municipalities: {
-				query: FETCH_CITY_MUNICIPALITIES_QUERY
-			}
-		},
-		data() {
-			return {
-				city_municipalities: []
-			}
-		}
-	}
+export default {
+  components: { SingleSelect },
+  name: 'CityMunicipality',
+  props: ['value'],
+  computed: {
+    model: {
+      get() {
+        return this.$props.value;
+      },
+      set(val) {
+        this.$emit('input', val);
+      }
+    }
+  },
+  apollo: {
+    city_municipalities: {
+      query: FETCH_CITY_MUNICIPALITIES_QUERY
+    }
+  },
+  data() {
+    return {
+      city_municipalities: []
+    };
+  }
+};
 </script>

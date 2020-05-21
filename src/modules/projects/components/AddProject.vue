@@ -29,7 +29,7 @@
             { id: true, name: 'Yes' },
             { id: false, name: 'No' }
           ]"
-					:rules="rules.notNull"
+          :rules="rules.notNull"
         />
       </div>
     </div>
@@ -101,25 +101,25 @@
     </div>
 
     <div class="row q-col-gutter-sm q-pl-sm">
-			<div class="col-3">
-				<single-select label="Currency" v-model="currency_id" :options="currencies" :rules="rules.required"></single-select>
-			</div>
-			<div class="col-9">
-				<money-input
-					v-model="total_project_cost"
-					label="Total Project Cost"
-					:rules="rules.greaterThanZero"
-				></money-input>
-			</div>
+      <div class="col-3">
+        <single-select
+          label="Currency"
+          v-model="currency_id"
+          :options="currencies"
+          :rules="rules.required"
+        ></single-select>
+      </div>
+      <div class="col-9">
+        <money-input
+          v-model="total_project_cost"
+          label="Total Project Cost"
+          :rules="rules.greaterThanZero"
+        ></money-input>
+      </div>
     </div>
 
     <div class="row q-gutter-sm justify-center">
-      <q-btn
-        label="Reset"
-        type="reset"
-        outline
-        color="primary"
-      ></q-btn>
+      <q-btn label="Reset" type="reset" outline color="primary"></q-btn>
       <q-btn
         label="Save"
         type="submit"
@@ -132,9 +132,9 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import TextInput from '../../ui/form-inputs/TextInput';
-import SingleSelect from '../../ui/form-inputs/SingleSelect';
-import MoneyInput from '../../ui/form-inputs/MoneyInput';
+import TextInput from '@/ui/form-inputs/TextInput';
+import SingleSelect from '@/ui/form-inputs/SingleSelect';
+import MoneyInput from '@/ui/form-inputs/MoneyInput';
 import {
   FETCH_CURRENCIES,
   FETCH_OPERATING_UNITS,
@@ -143,8 +143,7 @@ import {
   FETCH_SPATIAL_COVERAGES,
   FETCH_TYPES,
   FETCH_YEARS
-} from 'src/graphql/queries'
-import {convertToNumber} from '../../../functions/function-convert-to-number'
+} from 'src/graphql/queries';
 
 export default {
   name: 'AddProject',
@@ -193,10 +192,10 @@ export default {
             (!!val && val >= this.target_start_year) ||
             '* Should be higher than start year'
         ],
-        greaterThanZero: [val => this.checkPositiveNumber(val) || '* Should be positive number'],
-				notNull: [
-					val => val !== null || '* Select one'
-				]
+        greaterThanZero: [
+          val => this.checkPositiveNumber(val) || '* Should be positive number'
+        ],
+        notNull: [val => val !== null || '* Select one']
       },
       title: null,
       description: null,
@@ -242,7 +241,7 @@ export default {
         spatial_coverage_id: this.spatial_coverage_id,
         target_start_year: this.target_start_year,
         target_end_year: this.target_end_year,
-				currency_id: this.currency_id,
+        currency_id: this.currency_id,
         total_project_cost: this.total_project_cost
       };
       this.createProject(payload);
@@ -251,14 +250,14 @@ export default {
       console.log('resetting');
       this.clearProject();
     },
-		checkPositiveNumber(val) {
-    	const value = convertToNumber(val)
+    checkPositiveNumber(val) {
+      const value = parseFloat(val);
 
-			if (value > 0) {
-				return true
-			}
-			return false
-		}
+      if (value > 0) {
+        return true;
+      }
+      return false;
+    }
   }
 };
 </script>

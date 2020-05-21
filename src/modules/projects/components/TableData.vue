@@ -1,20 +1,28 @@
 <template>
-	<td class="text-right">
-		{{ value | formatMoney }}
-	</td>
+  <td class="text-right">
+    {{ value | formatMoney }}
+    <copy-button v-copy="value"></copy-button>
+  </td>
 </template>
 
 <script>
-	export default {
-		name: 'TableData',
-		props: ['value'],
-		filters: {
-			formatMoney(val) {
-				if (!val) {
-					return 0.00
-				}
-				return val.toLocaleString('en-GB', { maximumFractionDigits: 2 })
-			}
-		}
-	}
+import CopyButton from '../../../ui/buttons/CopyButton';
+export default {
+  name: 'TableData',
+  components: { CopyButton },
+  props: {
+    value: {
+      type: Number,
+      default: 0
+    }
+  },
+  filters: {
+    formatMoney(val) {
+      if (!val) {
+        return 0.0;
+      }
+      return val.toLocaleString('en-GB', { maximumFractionDigits: 2 });
+    }
+  }
+};
 </script>

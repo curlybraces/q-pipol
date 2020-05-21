@@ -14,7 +14,7 @@ module.exports = {
   // consider switching to `plugin:vue/strongly-recommended` or `plugin:vue/recommended` for stricter rules.
   extends: [
     'plugin:vue/essential',
-    // '@vue/prettier' .. turn off prettier for a while
+    '@vue/prettier' // .. turn off prettier for a while
   ],
 
   // required to lint *.vue files

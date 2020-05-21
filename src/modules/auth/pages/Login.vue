@@ -66,7 +66,7 @@
 import { mapActions, mapState } from 'vuex';
 import LoginForm from '../components/LoginForm';
 import SignupForm from '../components/SignupForm';
-import ValidateEmailMixins from '../mixins/ValidateEmailMixins';
+import { validateEmail } from '@/utils';
 
 export default {
   name: 'PageLogin',
@@ -77,12 +77,8 @@ export default {
       tab: 'login'
     };
   },
-  mixins: [ValidateEmailMixins],
   computed: {
-    ...mapState('settings', ['dark']),
-    availableEmail() {
-      return this.checkEmail();
-    }
+    ...mapState('settings', ['dark'])
   },
   methods: {
     ...mapActions('auth', ['forgotPassword', 'register']),
@@ -94,7 +90,7 @@ export default {
           prompt: {
             model: '',
             type: 'text',
-            isValid: val => this.validEmail(val)
+            isValid: val => validateEmail(val)
           },
           cancel: true,
           persistent: true

@@ -8,6 +8,7 @@ export default function() {
     filter: '',
     loading: false,
     pageInfo: {},
-    error: false
+    error: false,
+    selectedProjects: []
   };
 }
