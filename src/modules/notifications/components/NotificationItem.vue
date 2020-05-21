@@ -12,7 +12,7 @@
           <span class="text-grey-8"> - {{ notification.data.body }}</span>
         </q-item-label>
         <q-item-label caption>
-          {{ notification.created_at | dateDiff }}
+          {{ displayDateDifference(notification.created_at) }}
         </q-item-label>
       </q-item-section>
       <q-item-section top side>

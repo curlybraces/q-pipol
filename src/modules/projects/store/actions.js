@@ -6,11 +6,11 @@ export function fetchProjects({}, payload) {
 }
 
 export function deleteProject({}, payload) {
-  projectService.delete(payload)
+  return projectService.delete(payload)
 }
 
 export function reviewProject({}, payload) {
-  projectService.review(payload)
+  return projectService.review(payload)
 }
 
 export function viewProject({}, payload) {

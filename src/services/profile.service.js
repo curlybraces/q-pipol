@@ -28,17 +28,35 @@ export const profileService = {
     .catch(handleError)
   },
   updateProfile({ name, operating_unit_id, position, contact_number }) {
-    return client.mutate({
-      mutation: UPDATE_PROFILE_MUTATION,
-      variables: {
-        name: name, 
-        operating_unit_id: operating_unit_id, 
-        position: position, 
-        contact_number: contact_number
-      }
-    })
-    .then(handleResponse)
-    .catch(handleError)
+    return client
+      .mutate({
+        mutation: UPDATE_PROFILE_MUTATION,
+        variables: {
+          name: name, 
+          operating_unit_id: operating_unit_id, 
+          position: position, 
+          contact_number: contact_number
+        },
+        update: (store, {data: { updateUser } } ) => {
+          const data = store.readQuery({
+            query: GET_CURRENT_USER
+          })
+
+          data.getCurrentUser.name = updateUser.name
+          data.getCurrentUser.position = updateUser.position
+          data.getCurrentUser.contact_number = updateUser.contact_number
+          data.getCurrentUser.operating_unit = updateUser.operating_unit
+
+          console.log(data)
+
+          store.writeQuery({
+            query: GET_CURRENT_USER,
+            data
+          })
+        }
+      })
+      .then(handleResponse)
+      .catch(handleError);
   },
   chooseAvatar({ image_id }) {
     return client.mutate({

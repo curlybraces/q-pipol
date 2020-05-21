@@ -106,12 +106,12 @@
 	      <div class="column q-mb-sm">
 	        <div class="text-weight-lighter text-subtitle1">TECHNICAL READINESS</div>
 	        <div class="text-body2">
-	        	{{ clearinghouse ? `Approved by DA-Wide Clearinghouse on ${clearinghouse_date}` : '' }}
-	        	{{ neda_submission ? `Submitted to NEDA on ${neda_submission_date}` : '' }}
-	        	{{ neda_secretariat_review ? `Reviewed by NEDA Secretariat on ${neda_secretariat_review_date}` : '' }}
-	        	{{ icc_endorsed ? `Endorsed by ICC on ${icc_endorsed_date}` : '' }}
-	        	{{ icc_approved ? `Approved by ICC on ${icc_approved_date}` : '' }}
-	        	{{ neda_board ? `Approved by NEDA Board on ${neda_board_date}` : '' }}
+	        	{{ project.clearinghouse ? `Approved by DA-Wide Clearinghouse on ${project.clearinghouse_date}` : '' }}
+	        	{{ project.neda_submission ? `Submitted to NEDA on ${project.neda_submission_date}` : '' }}
+	        	{{ project.neda_secretariat_review ? `Reviewed by NEDA Secretariat on ${project.neda_secretariat_review_date}` : '' }}
+	        	{{ project.icc_endorsed ? `Endorsed by ICC on ${project.icc_endorsed_date}` : '' }}
+	        	{{ project.icc_approved ? `Approved by ICC on ${project.icc_approved_date}` : '' }}
+	        	{{ project.neda_board ? `Approved by NEDA Board on ${project.neda_board_date}` : '' }}
 	        </div>
 	      </div>
 
@@ -369,7 +369,7 @@
 	          <b>Strategy:</b> {{ project.mitigation_strategy }}
 	        </div>
 	        <div class="text-body2" v-else>
-	          No updates.
+	          Not specified.
 	        </div>
 	      </div>
 
@@ -475,7 +475,7 @@
 								Created
 							</q-item-label>
 							<q-item-label class="text-body2">
-								{{ project.creator.name }}
+								{{ project.creator ? project.creator.name: '' }}
 							</q-item-label>
 							<q-item-label caption>
 								{{ project.created_at | formatDateTime }}

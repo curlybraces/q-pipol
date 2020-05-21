@@ -102,6 +102,8 @@ export const projectService = {
 	          }
 	        });
 
+	        console.log('is store being run?')
+
 	        // filter out the deleted id from the list
 	        data.paginatedProjects.data = data.paginatedProjects.data.filter(
 	          project => project.id !== deletedId

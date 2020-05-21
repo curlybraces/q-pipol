@@ -178,7 +178,6 @@ export default {
     }
   },
   methods: {
-    ...mapActions('auth', ['updateProfile']),
     selectImage(image) {
       this.selectedAvatar = image.id
     },
@@ -204,13 +203,15 @@ export default {
     },
     handleFormSubmit() {
       const { name, operating_unit_id, position, contact_number } = this.$data;
+
       const payload = {
         name: name,
         operating_unit_id: operating_unit_id,
         position: position,
         contact_number: contact_number
       };
-      this.updateProfile(payload);
+      
+      this.$store.dispatch('profile/updateProfile', payload);
 
       setTimeout(() => (this.updateProfileDialog = false), 1000);
     },

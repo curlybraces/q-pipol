@@ -147,45 +147,6 @@ export function setImageUrl({ commit }, payload) {
     .finally(() => Loading.hide());
 }
 
-export function updateProfile({ commit }, payload) {
-  Loading.show()
-
-  client
-    .mutate({
-      mutation: UPDATE_PROFILE_MUTATION,
-      variables: payload,
-      update: (store, {data: { updateUser } } ) => {
-        const data = store.readQuery({
-          query: GET_CURRENT_USER
-        })
-
-        data.getCurrentUser.name = updateUser.name
-        data.getCurrentUser.position = updateUser.position
-        data.getCurrentUser.contact_number = updateUser.contact_number
-        data.getCurrentUser.operating_unit = updateUser.operating_unit
-
-        console.log(data)
-
-        store.writeQuery({
-          query: GET_CURRENT_USER,
-          data
-        })
-      }
-    })
-    .then(() => {
-      showSuccessNotification({
-        message: 'Successfully updated profile.'
-      });
-
-      return;
-      // this.$router.go();
-    })
-    .catch(err => {
-      console.error(err)
-    })
-    .finally(() => Loading.hide());
-}
-
 export function forgotPassword({}, email) {
   Loading.show()
   return client

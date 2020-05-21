@@ -95,7 +95,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 const pusherLink = new PusherLink({
 	pusher: new Pusher('50ea5b3a34026db27886', {
 		cluster: 'ap1',
-		authEndpoint: `${uri}/subscriptions/auth`,
+		authEndpoint: `${CONFIG.graphQLEndpoint}/subscriptions/auth`,
 		auth: {
 			headers: {
 				authorization: token ? `Bearer ${token}` : ''
