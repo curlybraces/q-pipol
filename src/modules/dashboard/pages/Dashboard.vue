@@ -59,7 +59,9 @@
               <q-card flat square class="fit" bordered>
                 <q-item clickable :to="link.url" v-ripple>
                   <q-item-section>
-                    <q-item-label>{{ link.label }} {{ link.visible }}</q-item-label>
+                    <q-item-label
+                      >{{ link.label }} {{ link.visible }}</q-item-label
+                    >
                   </q-item-section>
                   <q-item-section side top>
                     <q-icon :name="link.icon" size="xl" :color="link.color" />
@@ -77,22 +79,20 @@
         <!-- Activity Feed -->
         <exchange-rate></exchange-rate>
       </div>
-      
     </div>
-
   </page-container>
 </template>
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex';
-import { RELAY_PROJECTS_QUERY, FETCH_UNREAD_NOTIFICATIONS_QUERY, FETCH_GAD_QUESTIONS } from '@/graphql/queries';
+import { FETCH_UNREAD_NOTIFICATIONS_QUERY } from '@/graphql/queries';
 const PageTitle = () =>
   import(/* webpackChunkName: '' */ '@/ui/page/PageTitle');
 const PageContainer = () =>
   import(/* webpackChunkName: '' */ '@/ui/page/PageContainer');
 const ActivityComponent = () =>
   import(/* webpackChunkName: '' */ '../components/ActivityComponent');
-const ExchangeRate = () => import('../components/ExchangeRate')
+const ExchangeRate = () => import('../components/ExchangeRate');
 
 export default {
   name: 'PageIndex',
@@ -101,11 +101,11 @@ export default {
     ...mapState('auth', ['user', 'loading']),
     ...mapGetters('auth', ['isEncoder']),
     filteredLinks() {
-      let filteredLinks = []
+      let filteredLinks = [];
       if (this.isEncoder) {
         filteredLinks = this.links;
       } else {
-        filteredLinks = this.links.filter(link => link.encoder === undefined)
+        filteredLinks = this.links.filter(link => link.encoder === undefined);
       }
       return filteredLinks;
     }
@@ -120,16 +120,16 @@ export default {
     hideReminder() {
       this.hideValidateEmailReminder(false);
     },
-    
+
     map(items) {
-      let mappedItems = []
+      let mappedItems = [];
       mappedItems = items.map(item => {
         return {
           label: item.name,
           value: item.id
-        }
-      })
-      return mappedItems
+        };
+      });
+      return mappedItems;
     }
   },
   data() {
@@ -155,13 +155,13 @@ export default {
           url: '/projects',
           color: 'blue'
         },
-				{
-					label: 'Add Project',
-					icon: 'playlist_add',
-					url: '/projects/add',
-					color: 'secondary',
+        {
+          label: 'Add Project',
+          icon: 'playlist_add',
+          url: '/projects/add',
+          color: 'secondary',
           encoder: true
-				},
+        },
         {
           label: 'Resources',
           icon: 'folder_open',

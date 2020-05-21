@@ -24,12 +24,7 @@
         </q-item-section>
         <q-item-section>Profile</q-item-section>
       </q-item>
-      <q-item
-        clickable
-        v-close-popup
-        to="/admin"
-        v-if="isAdmin"
-      >
+      <q-item clickable v-close-popup to="/admin" v-if="isAdmin">
         <q-item-section avatar>
           <q-avatar>
             <q-icon name="lock" />
@@ -40,7 +35,7 @@
       <q-item clickable v-close-popup to="/activity">
         <q-item-section avatar>
           <q-avatar>
-            <q-icon name="work_outline"  />
+            <q-icon name="work_outline" />
           </q-avatar>
         </q-item-section>
         <q-item-section>Activity</q-item-section>
@@ -84,8 +79,8 @@
 <script>
 import { Dialog } from 'quasar';
 import { mapState, mapActions, mapGetters } from 'vuex';
-import UserAvatar from '@/ui/components/UserAvatar'
-import { GET_CURRENT_USER } from 'src/graphql/queries'
+import UserAvatar from '@/ui/components/UserAvatar';
+import { GET_CURRENT_USER } from 'src/graphql/queries';
 
 export default {
   components: { UserAvatar },
@@ -95,19 +90,19 @@ export default {
     ...mapState('auth', ['loading']),
     ...mapGetters('auth', ['isAdmin'])
   },
-	apollo: {
-  	getCurrentUser: {
-  		query: GET_CURRENT_USER,
-			result({ data }) {
-  			const { getCurrentUser } = data
-				this.user = getCurrentUser
-			}
-		}
-	},
+  apollo: {
+    getCurrentUser: {
+      query: GET_CURRENT_USER,
+      result({ data }) {
+        const { getCurrentUser } = data;
+        this.user = getCurrentUser;
+      }
+    }
+  },
   data() {
     return {
-    	user: {}
-		}
+      user: {}
+    };
   },
   methods: {
     ...mapActions('auth', ['signoutUser']),

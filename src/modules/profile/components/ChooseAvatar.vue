@@ -9,18 +9,14 @@
       label="Upload Avatar (Max file size (50KB))"
       accept=".jpg, image/*"
       :max-file-size="50000"
-			@finish="$emit('close')"
+      @finish="$emit('close')"
     >
     </q-uploader>
   </q-card>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-import { showSuccessNotification } from '@/functions/function-show-notifications'
-import { client } from '@/boot/apollo'
-import { GET_CURRENT_USER } from '@/graphql/queries'
-import { UPLOAD_USER_AVATAR_MUTATION } from '@/graphql/mutations'
+import { mapActions } from 'vuex';
 
 export default {
   name: 'ChooseAvatar',
@@ -33,21 +29,21 @@ export default {
     };
   },
   methods: {
-  	...mapActions('auth',['uploadUserAvatar']),
+    ...mapActions('auth', ['uploadUserAvatar']),
     uploadFileByUploader() {
       const file = this.$refs.uploader.files[0];
 
       const payload = {
-      	image: file
-			}
+        image: file
+      };
 
-	    return new Promise((resolve, reject) => {
-		    try {
-			    resolve(this.uploadUserAvatar(payload));
-		    } catch (err) {
-			    reject(err);
-		    }
-	    });
+      return new Promise((resolve, reject) => {
+        try {
+          resolve(this.uploadUserAvatar(payload));
+        } catch (err) {
+          reject(err);
+        }
+      });
     }
   }
 };

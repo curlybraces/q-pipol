@@ -55,8 +55,8 @@
 </template>
 
 <script>
-import { FETCH_ACTIVITIES } from '@/graphql/queries'
-import { date } from 'quasar'
+import { FETCH_ACTIVITIES } from '@/graphql/queries';
+import { date } from 'quasar';
 
 export default {
   name: 'ActivityComponent',
@@ -92,16 +92,16 @@ export default {
       return null;
     },
     timeDiff(val) {
-    	const today = new Date()
-			if (val) {
-				const diff = date.getDateDiff(today, val, 'days')
-				return diff + ' days ago'
-			}
-			return ''
+      const today = new Date();
+      if (val) {
+        const diff = date.getDateDiff(today, val, 'days');
+        return diff + ' days ago';
+      }
+      return '';
     }
   },
   beforeDestroy() {
-    this.$apollo.queries.activities.stop()
+    this.$apollo.queries.activities.stop();
   }
 };
 </script>

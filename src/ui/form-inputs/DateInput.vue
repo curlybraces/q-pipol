@@ -33,20 +33,19 @@ export default {
   props: {
     label: String,
     hint: String,
-		value: String
+    value: String
   },
   computed: {
     ...mapState('settings', ['dense']),
-		model: {
-    	get() {
-		    return this.$props.value
-			},
-			set(val) {
-    		this.$refs.qDateProxy.hide();
-				this.$emit('input', val);
-			}
-
-		}
+    model: {
+      get() {
+        return this.$props.value;
+      },
+      set(val) {
+        this.$refs.qDateProxy.hide();
+        this.$emit('input', val);
+      }
+    }
   }
 };
 </script>

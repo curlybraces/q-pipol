@@ -98,7 +98,7 @@
 <script>
 import { mapState, mapActions, mapMutations } from 'vuex';
 import PasswordInput from '@/ui/form-inputs/PasswordInput';
-import { validateEmail } from '@/utils'
+import { validateEmail } from '@/utils';
 
 export default {
   name: 'SignupForm',
@@ -137,7 +137,7 @@ export default {
       return val === this.password;
     },
     validEmail(email) {
-      return validateEmail(email)
+      return validateEmail(email);
     },
     checkEmail() {
       const { username } = this.$data;

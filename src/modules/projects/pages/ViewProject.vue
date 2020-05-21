@@ -17,11 +17,11 @@
                 <q-icon name="warning" color="red"></q-icon>
               </q-item-section>
             </q-item>
-						<q-item clickable @click="reviewProject = true">
-							<q-item-section>
-								<q-item-label>Review Project</q-item-label>
-							</q-item-section>
-						</q-item>
+            <q-item clickable @click="reviewProject = true">
+              <q-item-section>
+                <q-item-label>Review Project</q-item-label>
+              </q-item-section>
+            </q-item>
             <q-item clickable @click="shareProjectDialog = true">
               <q-item-section avatar>
                 <q-avatar>
@@ -60,37 +60,44 @@
       <project-profile :id="$route.params.id" />
     </template>
 
-    <q-dialog 
+    <q-dialog
       v-model="transferProjectDialog"
       full-height
       :position="$q.screen.xs ? void 0 : 'right'"
       persistent
       :maximized="$q.screen.xs"
       transition-show="jump-left"
-      transition-hide="jump-right">
-      <transfer-project :projectId="$route.params.id" @close="transferProjectDialog = false"></transfer-project>
+      transition-hide="jump-right"
+    >
+      <transfer-project
+        :projectId="$route.params.id"
+        @close="transferProjectDialog = false"
+      ></transfer-project>
     </q-dialog>
-
   </page-container>
 </template>
 
 <script>
-import { FETCH_PROJECT_QUERY } from '../../../graphql/queries';
 import PageTitle from '@/ui/page/PageTitle.vue';
 import PageContainer from '@/ui/page/PageContainer.vue';
-import { date } from 'quasar'
-import ProjectProfile from '../components/ProjectProfile'
-import TransferProject from '../components/dialogs/TransferProject'
-import SettingsButton from '@/ui/buttons/SettingsButton'
+import ProjectProfile from '../components/ProjectProfile';
+import TransferProject from '../components/dialogs/TransferProject';
+import SettingsButton from '@/ui/buttons/SettingsButton';
 
 export default {
-  components: { PageContainer, PageTitle, ProjectProfile, TransferProject, SettingsButton },
+  components: {
+    PageContainer,
+    PageTitle,
+    ProjectProfile,
+    TransferProject,
+    SettingsButton
+  },
   name: 'ViewProject',
   data() {
     return {
       shareProjectDialog: true,
       transferProjectDialog: false
-    }
+    };
   },
   methods: {
     shareProject() {

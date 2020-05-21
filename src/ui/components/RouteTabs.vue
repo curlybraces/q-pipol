@@ -1,11 +1,14 @@
 <template>
-  <div class="row" :class="dark ? 'bg-accent text-white': 'bg-white text-grey-9'">
+  <div
+    class="row"
+    :class="dark ? 'bg-accent text-white' : 'bg-white text-grey-9'"
+  >
     <div
       class="offset-xl-2 col-xl-8 offset-lg-3 col-lg-6 offset-md-1 col-md-10 offset-sm-1 col-sm-10 offset-xs-0 col-xs-12"
     >
       <q-tabs
         align="left"
-				:class="dark ? 'bg-accent text-white': 'bg-white text-grey-9'"
+        :class="dark ? 'bg-accent text-white' : 'bg-white text-grey-9'"
       >
         <template v-for="({ to, label, icon }, index) in filteredTabs">
           <q-route-tab
@@ -29,20 +32,20 @@ export default {
   name: 'RouteTabs',
   computed: {
     ...mapState('settings', ['dark']),
-    ...mapGetters('auth',['isAdmin']),
+    ...mapGetters('auth', ['isAdmin']),
     filteredTabs() {
       // This function hides the users tab if the user is not admin or superadmin
-      let filteredTabs = []
+      let filteredTabs = [];
 
       if (this.isAdmin) {
-        filteredTabs = this.tabs
+        filteredTabs = this.tabs;
 
-        return filteredTabs
+        return filteredTabs;
       }
 
-      filteredTabs = this.tabs.filter(tab => tab.label !== 'Users')
+      filteredTabs = this.tabs.filter(tab => tab.label !== 'Users');
 
-      return filteredTabs
+      return filteredTabs;
     }
   },
   data() {

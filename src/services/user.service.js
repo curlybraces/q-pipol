@@ -1,5 +1,5 @@
-import { client } from '@/boot/apollo'
-import { handleResponse, handleError } from '@/utils'
+import { client } from '@/boot/apollo';
+import { handleResponse, handleError } from '@/utils';
 
 import { ALL_USERS } from '@/graphql/queries';
 import {
@@ -10,26 +10,29 @@ import {
 export const userService = {
   index() {
     // get all users
-    return client.query({
+    return client
+      .query({
         query: ALL_USERS
       })
       .then(handleResponse)
-      .catch(handleError)
+      .catch(handleError);
   },
   assignRole(payload) {
-    return client.mutate({
+    return client
+      .mutate({
         mutations: ASSIGN_ROLE_MUTATION,
         variables: payload
       })
       .then(handleResponse)
-      .catch(handleError)
+      .catch(handleError);
   },
   assignOperatingUnitToReview(payload) {
-    return client.mutate({
+    return client
+      .mutate({
         mutation: ASSIGN_OPERATING_UNIT_TO_REVIEW_MUTATION,
         variables: payload
       })
       .then(handleResponse)
-      .catch(handleError)
+      .catch(handleError);
   }
-}
+};

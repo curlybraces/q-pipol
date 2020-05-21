@@ -1,5 +1,3 @@
-import Vue from 'vue';
-
 export function SET_ACTIVITIES(state, payload) {
   state.activities = payload;
 }

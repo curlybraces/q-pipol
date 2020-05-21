@@ -10,7 +10,11 @@
       </div>
     </div>
     <div class="col-lg-8 col-md-6 col-xs-12">
-      <submit-button label="Resend Email" @click="verifyEmail" v-if="!isVerified"></submit-button>
+      <submit-button
+        label="Resend Email"
+        @click="verifyEmail"
+        v-if="!isVerified"
+      ></submit-button>
       <span v-else>VERIFIED</span>
     </div>
   </div>
@@ -18,7 +22,7 @@
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex';
-import SubmitButton from '@/ui/buttons/SubmitButton'
+import SubmitButton from '@/ui/buttons/SubmitButton';
 
 export default {
   components: { SubmitButton },

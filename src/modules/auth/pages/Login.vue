@@ -66,7 +66,7 @@
 import { mapActions, mapState } from 'vuex';
 import LoginForm from '../components/LoginForm';
 import SignupForm from '../components/SignupForm';
-import { validateEmail } from '@/utils'
+import { validateEmail } from '@/utils';
 
 export default {
   name: 'PageLogin',

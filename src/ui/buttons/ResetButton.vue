@@ -1,5 +1,5 @@
 <template functional>
-	<q-btn
+  <q-btn
     outline
     :label="props.label"
     color="primary"

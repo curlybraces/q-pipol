@@ -28,8 +28,12 @@
                 <q-item-label :lines="2">{{ project.title }}</q-item-label>
               </q-item-section>
             </q-item>
-            <q-separator/>
-            <q-item class="text-center text-weight-bold" clickable to="/projects/endorse">
+            <q-separator />
+            <q-item
+              class="text-center text-weight-bold"
+              clickable
+              to="/projects/endorse"
+            >
               <q-item-section>
                 <q-item-label>Endorse</q-item-label>
               </q-item-section>
@@ -47,31 +51,26 @@
       </q-btn>
     </q-toolbar>
 
-    <q-separator
-      color="primary"
-      class="header-separator"
-    />
+    <q-separator color="primary" class="header-separator" />
 
     <route-tabs></route-tabs>
   </div>
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import DropdownMenu from './Dropdown';
 import RouteTabs from './RouteTabs';
-import UserAvatar from './UserAvatar'
-import NotificationButton from './NotificationButton'
-import { 
-  FETCH_UNREAD_NOTIFICATIONS_QUERY, 
-  GET_CURRENT_USER } from '@/graphql/queries';
+import UserAvatar from './UserAvatar';
+import NotificationButton from './NotificationButton';
+import { GET_CURRENT_USER } from '@/graphql/queries';
 
 export default {
   components: { RouteTabs, DropdownMenu, NotificationButton, UserAvatar },
   name: 'AppHeader',
   computed: {
     ...mapGetters('auth', ['user']),
-    ...mapState('projects',['selectedProjects'])
+    ...mapState('projects', ['selectedProjects'])
   },
   apollo: {
     /**

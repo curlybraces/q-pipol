@@ -1,6 +1,6 @@
 <template>
-	<q-item>
-		<q-item-section avatar>
+  <q-item>
+    <q-item-section avatar>
       <q-skeleton type="QAvatar" />
     </q-item-section>
 
@@ -16,22 +16,20 @@
       </q-item-label>
     </q-item-section>
 
-    <q-item-section>
-    	
-    </q-item-section>
+    <q-item-section> </q-item-section>
 
     <q-item-section>
-    	<q-skeleton type="text"></q-skeleton>
+      <q-skeleton type="text"></q-skeleton>
     </q-item-section>
 
     <q-item-section side>
-    	<q-skeleton type="QBtn"></q-skeleton>
+      <q-skeleton type="QBtn"></q-skeleton>
     </q-item-section>
-	</q-item>
+  </q-item>
 </template>
 
 <script>
-	export default {
-		name: 'ProjectSkeleton'
-	}
+export default {
+  name: 'ProjectSkeleton'
+};
 </script>

@@ -12,11 +12,7 @@
         class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12"
       >
         <q-item-section avatar>
-          <q-checkbox
-            color="secondary"
-            v-model="model"
-            :val="option.id"
-          />
+          <q-checkbox color="secondary" v-model="model" :val="option.id" />
         </q-item-section>
         <q-item-section>
           <q-item-label>

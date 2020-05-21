@@ -26,7 +26,10 @@
       </template>
       <template v-else>
         <template v-if="!resources.length">
-					<no-item icon="cancel" message="There are no resources to show. If you have added a resource but was not listed here even after refreshing. Please seek our assistance."></no-item>
+          <no-item
+            icon="cancel"
+            message="There are no resources to show. If you have added a resource but was not listed here even after refreshing. Please seek our assistance."
+          ></no-item>
         </template>
         <div class="row q-gutter-sm">
           <q-list bordered separator v-if="resources.length">
@@ -64,7 +67,10 @@
     </div>
 
     <dialog-container v-model="createResourceDialog">
-      <dialog-header title="Create Resource" @close="createResourceDialog = false"></dialog-header>
+      <dialog-header
+        title="Create Resource"
+        @close="createResourceDialog = false"
+      ></dialog-header>
       <q-form @submit="onSubmit" ref="form">
         <q-card-section class="q-pa-sm">
           <text-input
@@ -88,9 +94,7 @@
             label="Image URL (for Preview)"
             :rules="required"
           ></text-input>
-          <span
-            class="text-caption text-weight-bold q-mt-md"
-            :rules="required"
+          <span class="text-caption text-weight-bold q-mt-md" :rules="required"
             >Document Type</span
           >
           <q-select
@@ -107,7 +111,6 @@
         </q-card-actions>
       </q-form>
     </dialog-container>
-    
   </page-container>
 </template>
 
@@ -116,20 +119,19 @@ import { mapState, mapActions, mapGetters } from 'vuex';
 import PageTitle from '@/ui/page/PageTitle';
 import { openURL, Dialog } from 'quasar';
 import TextInput from '@/ui/form-inputs/TextInput';
-import { FETCH_RESOURCES_QUERY } from '@/graphql/queries';
 import PageContainer from '@/ui/page/PageContainer';
-import NoItem from '@/ui/components/NoItem'
-import SettingsButton from '@/ui/buttons/SettingsButton'
-import DialogContainer from '@/ui/dialogs/DialogContainer'
-import DialogHeader from '@/ui/dialogs/DialogHeader'
+import NoItem from '@/ui/components/NoItem';
+import SettingsButton from '@/ui/buttons/SettingsButton';
+import DialogContainer from '@/ui/dialogs/DialogContainer';
+import DialogHeader from '@/ui/dialogs/DialogHeader';
 
 export default {
   name: 'PageResources',
-  components: { 
-    NoItem, 
-    PageContainer, 
-    TextInput, 
-    PageTitle, 
+  components: {
+    NoItem,
+    PageContainer,
+    TextInput,
+    PageTitle,
     SettingsButton,
     DialogContainer,
     DialogHeader
@@ -191,14 +193,13 @@ export default {
             document_type: this.document_type
           });
         } else {
-          alert('Please check form')
+          alert('Please check form');
         }
       });
     }
   },
   created() {
-    this.fetchResources()
-      .then(res => this.resources = res.resources)
+    this.fetchResources().then(res => (this.resources = res.resources));
   }
 };
 </script>

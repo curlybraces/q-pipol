@@ -38,7 +38,7 @@
 
     <div class="row q-pa-sm item-start q-col-gutter-sm">
       <!-- Show Loading -->
-			<inner-loading :loading="$apollo.loading"></inner-loading>
+      <inner-loading :loading="$apollo.loading"></inner-loading>
 
       <template v-if="!$apollo.loading && !operating_units.length">
         <div>No operating units yet.</div>
@@ -73,9 +73,11 @@
     </q-dialog>
 
     <!-- Edit Contact Dialog -->
-    <dialog-container
-      v-model="editItemDialog">
-      <dialog-header title="Update Operating Unit" @close="editItemDialog = false"></dialog-header>
+    <dialog-container v-model="editItemDialog">
+      <dialog-header
+        title="Update Operating Unit"
+        @close="editItemDialog = false"
+      ></dialog-header>
       <q-form @submit.prevent="handleSubmit" ref="editItemForm" greedy>
         <div class="column q-pa-sm q-gutter-sm">
           <text-input
@@ -121,36 +123,29 @@
             @click="editItemDialog = false"
             outline
           ></q-btn>
-          <q-btn
-            class="col"
-            label="Save"
-            color="primary"
-            type="submit"
-          ></q-btn>
+          <q-btn class="col" label="Save" color="primary" type="submit"></q-btn>
         </q-card-actions>
       </q-form>
     </dialog-container>
-    
   </page-container>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import JsonExcel from 'vue-json-excel';
-import { FETCH_OPERATING_UNITS } from '@/graphql/queries';
 import { showErrorNotification } from '@/functions/function-show-notifications';
-import InnerLoading from '@/ui/components/InnerLoading'
-import PageTitle from '@/ui/page/PageTitle'
-import DirectoryItem from '../components/DirectoryItem'
-import TextInput from '@/ui/form-inputs/TextInput'
-import PageContainer from '@/ui/page/PageContainer'
-import SettingsButton from '@/ui/buttons/SettingsButton'
-import DialogContainer from '@/ui/dialogs/DialogContainer'
-import DialogHeader from '@/ui/dialogs/DialogHeader'
+import InnerLoading from '@/ui/components/InnerLoading';
+import PageTitle from '@/ui/page/PageTitle';
+import DirectoryItem from '../components/DirectoryItem';
+import TextInput from '@/ui/form-inputs/TextInput';
+import PageContainer from '@/ui/page/PageContainer';
+import SettingsButton from '@/ui/buttons/SettingsButton';
+import DialogContainer from '@/ui/dialogs/DialogContainer';
+import DialogHeader from '@/ui/dialogs/DialogHeader';
 
 export default {
   components: {
-	  InnerLoading,
+    InnerLoading,
     PageContainer,
     TextInput,
     DirectoryItem,
@@ -304,7 +299,9 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch('directory/fetchContacts').then(res => this.operating_units = res.operating_units)
+    this.$store
+      .dispatch('directory/fetchContacts')
+      .then(res => (this.operating_units = res.operating_units));
   }
 };
 </script>

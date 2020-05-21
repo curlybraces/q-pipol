@@ -3,16 +3,16 @@ import {
   CREATE_PROJECT_MUTATION,
   UPDATE_PROJECT_MUTATION
 } from '@/graphql/mutations';
-import { FETCH_PROJECT_QUERY, PAGINATED_PROJECTS } from '@/graphql/queries'
+import { FETCH_PROJECT_QUERY, PAGINATED_PROJECTS } from '@/graphql/queries';
 import {
   showErrorNotification,
   showSuccessNotification
 } from '@/functions/function-show-notifications';
 import { INITIAL_STATE } from './state';
-import { Loading } from 'quasar'
+import { Loading } from 'quasar';
 
-export function createProject({ commit }, payload) {
-  Loading.show()
+export function createProject({}, payload) {
+  Loading.show();
 
   client
     .mutate({
@@ -71,24 +71,68 @@ export function createProject({ commit }, payload) {
       });
     })
     .finally(() => {
-      Loading.hide()
+      Loading.hide();
     });
 }
 
-export function updateProject({ state, dispatch }, project) {
-	// strip __typename from array
-	const region_financials = project.region_financials.map(({ id, region_id, target_2016, target_2017, target_2018, target_2019, target_2020, target_2021, target_2022, target_2023 }) => ({
-		id, region_id, target_2016, target_2017, target_2018, target_2019, target_2020, target_2021, target_2022, target_2023
-	}))
-	
-	console.log(region_financials)
+export function updateProject({ dispatch }, project) {
+  // strip __typename from array
+  const region_financials = project.region_financials.map(
+    ({
+      id,
+      region_id,
+      target_2016,
+      target_2017,
+      target_2018,
+      target_2019,
+      target_2020,
+      target_2021,
+      target_2022,
+      target_2023
+    }) => ({
+      id,
+      region_id,
+      target_2016,
+      target_2017,
+      target_2018,
+      target_2019,
+      target_2020,
+      target_2021,
+      target_2022,
+      target_2023
+    })
+  );
 
-    const funding_source_financials = project.funding_source_financials.map(({ id, funding_source_id, target_2016, target_2017, target_2018, target_2019, target_2020, target_2021, target_2022, target_2023 }) => ({
-        id, funding_source_id, target_2016, target_2017, target_2018, target_2019, target_2020, target_2021, target_2022, target_2023
-    }))
+  console.log(region_financials);
 
-    console.log(funding_source_financials)
-	
+  const funding_source_financials = project.funding_source_financials.map(
+    ({
+      id,
+      funding_source_id,
+      target_2016,
+      target_2017,
+      target_2018,
+      target_2019,
+      target_2020,
+      target_2021,
+      target_2022,
+      target_2023
+    }) => ({
+      id,
+      funding_source_id,
+      target_2016,
+      target_2017,
+      target_2018,
+      target_2019,
+      target_2020,
+      target_2021,
+      target_2022,
+      target_2023
+    })
+  );
+
+  console.log(funding_source_financials);
+
   client
     .mutate({
       mutation: UPDATE_PROJECT_MUTATION,
@@ -102,7 +146,7 @@ export function updateProject({ state, dispatch }, project) {
         afmip: project.afmip,
         title: project.title,
         type_id: project.type_id,
-	    infrastructure: project.infrastructure,
+        infrastructure: project.infrastructure,
         operating_unit_id: project.operating_unit_id,
         implementation_mode_id: project.implementation_mode_id,
         project_status_id: project.project_status_id,
@@ -124,17 +168,17 @@ export function updateProject({ state, dispatch }, project) {
         implementation_end_date: project.implementation_end_date,
         clearinghouse: project.clearinghouse,
         clearinghouse_date: project.clearinghouse_date,
-	    neda_submission: project.neda_submission,
-	    neda_submission_date: project.neda_submission_date,
-	    neda_secretariat_review: project.neda_secretariat_review,
-	    neda_secretariat_review_date: project.neda_secretariat_review_date,
-	    icc_endorsed: project.icc_endorsed,
-	    icc_endorsed_date: project.icc_endorsed_date,
-	    icc_approved: project.icc_approved,
-	    icc_approved_date: project.icc_approved_date,
-	    neda_board: project.neda_board,
-	    neda_board_date: project.neda_board_date,
-	    currency_id: project.currency_id,
+        neda_submission: project.neda_submission,
+        neda_submission_date: project.neda_submission_date,
+        neda_secretariat_review: project.neda_secretariat_review,
+        neda_secretariat_review_date: project.neda_secretariat_review_date,
+        icc_endorsed: project.icc_endorsed,
+        icc_endorsed_date: project.icc_endorsed_date,
+        icc_approved: project.icc_approved,
+        icc_approved_date: project.icc_approved_date,
+        neda_board: project.neda_board,
+        neda_board_date: project.neda_board_date,
+        currency_id: project.currency_id,
         total_project_cost: project.total_project_cost,
         implementation_risk: project.implementation_risk,
         mitigation_strategy: project.mitigation_strategy,
@@ -147,11 +191,11 @@ export function updateProject({ state, dispatch }, project) {
         economic_benefit_cost_ratio: project.economic_benefit_cost_ratio,
         economic_internal_rate_return: project.economic_internal_rate_return,
         economic_net_present_value: project.economic_net_present_value,
-	    main_funding_source_id: project.main_funding_source_id,
-	    funding_institution_id: project.funding_institution_id,
-	    has_fs: project.has_fs,
-	    has_row: project.has_row,
-	    has_rap: project.has_rap,
+        main_funding_source_id: project.main_funding_source_id,
+        funding_institution_id: project.funding_institution_id,
+        has_fs: project.has_fs,
+        has_row: project.has_row,
+        has_rap: project.has_rap,
         fs_target_2017: project.fs_target_2017,
         fs_target_2018: project.fs_target_2018,
         fs_target_2019: project.fs_target_2019,
@@ -253,20 +297,24 @@ export function updateProject({ state, dispatch }, project) {
         updates: project.updates,
         updates_date: project.updates_date,
         region_financials: {
-           upsert: region_financials,
-    	   delete: project.deleteRegionRows ? project.deleteRegionRows: []
+          upsert: region_financials,
+          delete: project.deleteRegionRows ? project.deleteRegionRows : []
         },
         funding_source_financials: {
           upsert: funding_source_financials,
-          delete: project.deleteFundingSourceRows ? project.deleteFundingSourceRows: []
+          delete: project.deleteFundingSourceRows
+            ? project.deleteFundingSourceRows
+            : []
         }
       }
     })
     .then(data => {
       showSuccessNotification({
-	      message: 'Project successfully updated'
-      })
-    	
+        message: 'Project successfully updated'
+      });
+
+      console.log(data);
+
       dispatch('clearProject');
     })
     .catch(err => {
@@ -278,7 +326,7 @@ export function updateProject({ state, dispatch }, project) {
 }
 
 export function fetchProject({ commit }, id) {
-  Loading.show()
+  Loading.show();
 
   return client
     .query({

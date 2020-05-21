@@ -2,19 +2,21 @@
   <page-container>
     <page-title title="Review Project">
       <div class="row q-gutter-sm">
-        <q-btn 
-          icon="subdirectory_arrow_right" 
-          color="negative" 
-          label="Return" 
-          @click="showReturnProjectDialog = true">
+        <q-btn
+          icon="subdirectory_arrow_right"
+          color="negative"
+          label="Return"
+          @click="showReturnProjectDialog = true"
+        >
         </q-btn>
 
-        <q-btn 
-          icon="check" 
-          color="green" 
+        <q-btn
+          icon="check"
+          color="green"
           label="Validate"
-          @click="handleValidateProject">
-          </q-btn>
+          @click="handleValidateProject"
+        >
+        </q-btn>
       </div>
     </page-title>
 
@@ -33,41 +35,51 @@
       <q-card style="width: 400px;">
         <q-toolbar class="bg-black text-white">
           Return Project
-          <q-space/>
-          <q-btn flat round dense icon="close" @click="showReturnProjectDialog = false" />
+          <q-space />
+          <q-btn
+            flat
+            round
+            dense
+            icon="close"
+            @click="showReturnProjectDialog = false"
+          />
         </q-toolbar>
         <q-form ref="form" @submit.prevent="handleReturnProject">
           <q-card-section>
             <p>Add remarks for later reference.</p>
             <q-input
-              dense 
-              outlined 
-              label="Remarks" 
-              type="textarea" 
+              dense
+              outlined
+              label="Remarks"
+              type="textarea"
               v-model="remarks"
-              :rules="[ val => !!val || '* Required']"
-              hint="Remarks (if any)" />
+              :rules="[val => !!val || '* Required']"
+              hint="Remarks (if any)"
+            />
           </q-card-section>
           <q-card-actions align="right">
-            <q-btn flat label="Cancel" color="primary" @click="showReturnProjectDialog = false"></q-btn>
+            <q-btn
+              flat
+              label="Cancel"
+              color="primary"
+              @click="showReturnProjectDialog = false"
+            ></q-btn>
             <q-btn type="submit" label="Confirm" color="primary"></q-btn>
           </q-card-actions>
         </q-form>
       </q-card>
     </q-dialog>
-
   </page-container>
 </template>
 
 <script>
-import gql from 'graphql-tag';
 const PageTitle = () =>
   import(/* webpackChunkName: 'PageTitle' */ '@/ui/page/PageTitle');
 const PageContainer = () =>
   import(/* webpackChunkName: 'PageTitle' */ '@/ui/page/PageContainer');
-const ProjectProfile = () => import('../components/ProjectProfile')
-const ReviewForm = () => import('../components/ReviewForm')
-import { PROCESS_PROJECT_MUTATION } from '@/graphql/mutations'
+const ProjectProfile = () => import('../components/ProjectProfile');
+const ReviewForm = () => import('../components/ReviewForm');
+import { PROCESS_PROJECT_MUTATION } from '@/graphql/mutations';
 
 export default {
   components: { PageTitle, PageContainer, ProjectProfile, ReviewForm },
@@ -84,37 +96,39 @@ export default {
         project_id: this.$route.params.id,
         processing_status_id: '2', // 2 is for returned status
         remarks: this.remarks
-      }
+      };
 
       this.$refs.form.validate().then(success => {
         if (success) {
-          alert('success')
+          alert('success');
         }
-      })
-      
-      this.$apollo.mutate({
+      });
+
+      this.$apollo
+        .mutate({
           mutation: PROCESS_PROJECT_MUTATION,
           variables: payload
         })
         .then(({ data }) => console.log(data.processProject))
-        .catch(err => console.log(err))
+        .catch(err => console.log(err));
     },
     handleValidateProject() {
-      this.$q.dialog({
-        title: 'Validate Project',
-        message: 'Remarks (min. 10 chars)',
-        prompt: {
-          model: '',
-          isValid: val => val.length >= 10,
-          type: 'text'
-        },
-        persistent: true,
-        cancel: true
-      })
-      .onOk((data) => {
-        alert(data)
-        // Todo: implement validation logic here
-      })
+      this.$q
+        .dialog({
+          title: 'Validate Project',
+          message: 'Remarks (min. 10 chars)',
+          prompt: {
+            model: '',
+            isValid: val => val.length >= 10,
+            type: 'text'
+          },
+          persistent: true,
+          cancel: true
+        })
+        .onOk(data => {
+          alert(data);
+          // Todo: implement validation logic here
+        });
     }
   }
 };

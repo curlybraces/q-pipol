@@ -1,5 +1,5 @@
 <template>
-	<q-banner>
+  <q-banner>
     <template v-slot:avatar>
       <q-icon :name="icon" color="red" />
     </template>
@@ -11,8 +11,8 @@
 </template>
 
 <script>
-	export default {
-		name: 'NoItem',
-		props: ['icon','message']
-	}
+export default {
+  name: 'NoItem',
+  props: ['icon', 'message']
+};
 </script>

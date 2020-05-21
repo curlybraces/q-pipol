@@ -6,6 +6,6 @@ const ProfileRoutes = {
   meta: {
     requiresAuth: true
   }
-}
+};
 
 export default ProfileRoutes;

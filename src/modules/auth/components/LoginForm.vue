@@ -52,10 +52,10 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapGetters } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import PasswordInput from '@/ui/form-inputs/PasswordInput';
 import EmailInput from '@/ui/form-inputs/EmailInput';
-import { validateEmail } from '@/utils'
+import { validateEmail } from '@/utils';
 
 export default {
   name: 'LoginForm',
@@ -81,16 +81,16 @@ export default {
   },
   methods: {
     clearError() {
-      this.$store.dispatch('auth/clearError')
+      this.$store.dispatch('auth/clearError');
     },
     validEmail(email) {
-      return validateEmail(email)
+      return validateEmail(email);
     },
     handleSubmit() {
       // validate the form before calling login method
       this.$refs.loginForm.validate().then(success => {
         if (success) {
-          const { username, password } = this.$data
+          const { username, password } = this.$data;
 
           const payload = {
             username: username,
@@ -98,7 +98,7 @@ export default {
           };
 
           // this.signinUser(payload);
-          this.$store.dispatch('auth/signinUser', payload)
+          this.$store.dispatch('auth/signinUser', payload);
         }
       });
     }

@@ -6,6 +6,6 @@ const DashboardRoutes = {
   meta: {
     requiresAuth: true
   }
-}
+};
 
 export default DashboardRoutes;

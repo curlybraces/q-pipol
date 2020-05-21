@@ -9,10 +9,10 @@ import {
 import { FETCH_CONTACTS } from '@/graphql/queries';
 import { showSuccessNotification } from '@/functions/function-show-notifications';
 
-import { contactService } from '@/services/contact.service'
+import { contactService } from '@/services/contact.service';
 
-export function fetchContacts({ commit }) {
-  return contactService.index()
+export function fetchContacts({}) {
+  return contactService.index();
 }
 
 export function createContact({}, payload) {

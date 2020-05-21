@@ -8,7 +8,9 @@
       </q-item-section>
       <q-item-section>
         <q-item-label>
-          <span class="text-weight-medium">[{{ notification.data.title }}]</span>
+          <span class="text-weight-medium"
+            >[{{ notification.data.title }}]</span
+          >
           <span class="text-grey-8"> - {{ notification.data.body }}</span>
         </q-item-label>
         <q-item-label caption>
@@ -34,7 +36,7 @@
 
 <script>
 import { mapActions } from 'vuex';
-import { displayDateDifference } from '@/utils'
+import { displayDateDifference } from '@/utils';
 
 export default {
   name: 'NotificationItem',

@@ -85,8 +85,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-import SubmitButton from '@/ui/buttons/SubmitButton'
+import SubmitButton from '@/ui/buttons/SubmitButton';
 
 export default {
   components: { SubmitButton },
@@ -109,13 +108,13 @@ export default {
             old_password: old_password,
             password: password,
             password_confirmation: password_confirmation
-          }
+          };
 
-          this.updatePasswordDialog(payload)
+          this.updatePasswordDialog(payload);
         } else {
           return;
         }
-      })
+      });
     },
     updatePasswordDialog(payload) {
       this.$q
@@ -127,8 +126,8 @@ export default {
           persistent: true
         })
         .onOk(() => {
-          this.$store.dispatch('auth/updatePassword', payload)
-        })
+          this.$store.dispatch('auth/updatePassword', payload);
+        });
     }
   }
 };

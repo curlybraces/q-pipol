@@ -1,5 +1,5 @@
 <template>
-  <q-item :class="added ? 'bg-green-1': ''">
+  <q-item :class="added ? 'bg-green-1' : ''">
     <!-- operating unit -->
     <q-item-section avatar class="gt-xs">
       <q-avatar color="grey-1">
@@ -50,19 +50,42 @@
 
     <!-- action buttons -->
     <q-item-section side>
-      <q-btn color="primary" dense outline icon="unfold_more" size="sm" >
-        <q-menu transition-show="jump-down" transition-hide="jump-up" auto-close>
+      <q-btn color="primary" dense outline icon="unfold_more" size="sm">
+        <q-menu
+          transition-show="jump-down"
+          transition-hide="jump-up"
+          auto-close
+        >
           <q-list>
-            <project-menu 
-              @click="viewProject(project.id)" 
-              label="View" 
-              icon="search">
+            <project-menu
+              @click="viewProject(project.id)"
+              label="View"
+              icon="search"
+            >
             </project-menu>
-            <project-menu v-if="isOwner" @click="updateProject(project.id)" label="Update" icon="update"></project-menu>
-            <project-menu v-if="isReviewer" @click="reviewProject(project.id)" label="Review" image="statics/menu/review.png"></project-menu>
-            <project-menu @click="handleSelectProject(project)" :label="added ? 'Remove': 'Add'" :icon="added ? 'clear': 'add'"></project-menu>
-            <q-separator/>
-            <project-menu @click="promptDelete(project.id)" label="Delete" icon="delete"></project-menu>
+            <project-menu
+              v-if="isOwner"
+              @click="updateProject(project.id)"
+              label="Update"
+              icon="update"
+            ></project-menu>
+            <project-menu
+              v-if="isReviewer"
+              @click="reviewProject(project.id)"
+              label="Review"
+              image="statics/menu/review.png"
+            ></project-menu>
+            <project-menu
+              @click="handleSelectProject(project)"
+              :label="added ? 'Remove' : 'Add'"
+              :icon="added ? 'clear' : 'add'"
+            ></project-menu>
+            <q-separator />
+            <project-menu
+              @click="promptDelete(project.id)"
+              label="Delete"
+              icon="delete"
+            ></project-menu>
           </q-list>
         </q-menu>
       </q-btn>
@@ -72,12 +95,12 @@
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex';
-import { Dialog, date } from 'quasar';
-import ProjectMenu from './dropdowns/ProjectMenu'
-import { displayDateDifference } from '@/utils'
+import { Dialog } from 'quasar';
+import ProjectMenu from './dropdowns/ProjectMenu';
+import { displayDateDifference } from '@/utils';
 
 export default {
-  components: {ProjectMenu},
+  components: { ProjectMenu },
   name: 'ProjectItem',
   props: {
     project: {
@@ -90,41 +113,39 @@ export default {
   computed: {
     ...mapState('settings', ['dark']),
     ...mapGetters('settings', ['buttonColor']),
-    ...mapGetters('auth',['isEncoder','user','isReviewer']),
-    ...mapState('projects',['selectedProjects']),
-	  isOwner() {
-      return this.user.id === this.project.creator.id
+    ...mapGetters('auth', ['isEncoder', 'user', 'isReviewer']),
+    ...mapState('projects', ['selectedProjects']),
+    isOwner() {
+      return this.user.id === this.project.creator.id;
     },
     added() {
-      console.log(this.selectedProjects)
-      return this.selectedProjects.includes(this.$props.project)
+      console.log(this.selectedProjects);
+      return this.selectedProjects.includes(this.$props.project);
     }
-
   },
   data() {
     return {
       handleClick() {
-        console.log('clicked')
+        console.log('clicked');
       },
       viewProject(id) {
-        this.$router.push(`/projects/${id}`)
+        this.$router.push(`/projects/${id}`);
       },
       reviewProject(id) {
-        this.$router.push(`/projects/${id}/review`)
+        this.$router.push(`/projects/${id}/review`);
       },
       updateProject(id) {
-        this.$router.push(`/projects/${id}/edit`)
+        this.$router.push(`/projects/${id}/edit`);
       }
-		};
+    };
   },
   methods: {
     ...mapActions('projects', ['deleteProject']),
     handleSelectProject(project) {
       if (this.added) {
-        this.$store.dispatch('projects/removeProject', project)
-      }
-      else {
-        this.$store.dispatch('projects/selectProject', project)
+        this.$store.dispatch('projects/removeProject', project);
+      } else {
+        this.$store.dispatch('projects/selectProject', project);
       }
     },
     displayDateDifference,

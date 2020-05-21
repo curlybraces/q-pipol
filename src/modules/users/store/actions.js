@@ -70,7 +70,7 @@ export function deactivateUser({ commit }, payload) {
     .catch(err => console.log(err.message));
 }
 
-export function assignRole({ commit }, payload) {
+export function assignRole({}, payload) {
   return client
     .mutate({
       mutation: ASSIGN_ROLE_MUTATION,
