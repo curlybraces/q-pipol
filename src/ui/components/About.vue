@@ -24,7 +24,7 @@
           href="https://semver.org/#spec-item-2"
           style="text-decoration: none; color: black;"
           target="_blank"
-          >Version {{ appVersion }}</a
+          >Version {{ version }}</a
         >
       </div>
       <div class="row q-pt-lg text-caption">
@@ -35,12 +35,14 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { CONFIG } from '@/config';
 
 export default {
   name: 'AboutComponent',
-  computed: {
-    ...mapState('settings', ['appVersion'])
+  data() {
+    return {
+      version: CONFIG.version
+    };
   }
 };
 </script>

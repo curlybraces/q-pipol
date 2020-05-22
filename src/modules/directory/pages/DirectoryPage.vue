@@ -142,6 +142,7 @@ import PageContainer from '@/ui/page/PageContainer';
 import SettingsButton from '@/ui/buttons/SettingsButton';
 import DialogContainer from '@/ui/dialogs/DialogContainer';
 import DialogHeader from '@/ui/dialogs/DialogHeader';
+import { FETCH_OPERATING_UNITS } from '@/graphql/queries';
 
 export default {
   components: {
@@ -156,6 +157,11 @@ export default {
     DialogHeader
   },
   name: 'PageDirectory',
+  apollo: {
+    operating_units: {
+      query: FETCH_OPERATING_UNITS
+    }
+  },
   computed: {
     ...mapGetters('settings', ['buttonColor']),
     ...mapGetters('auth', ['isAdmin']),
@@ -297,11 +303,6 @@ export default {
     handleStart() {
       console.log('start uploading');
     }
-  },
-  mounted() {
-    this.$store
-      .dispatch('directory/fetchContacts')
-      .then(res => (this.operating_units = res.operating_units));
   }
 };
 </script>

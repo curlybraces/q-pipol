@@ -49,7 +49,7 @@
         <q-item-section>Settings</q-item-section>
       </q-item>
       <q-separator />
-      <q-item clickable v-close-popup>
+      <q-item clickable v-close-popup @click="showWarning">
         <q-item-section avatar>
           <q-avatar>
             <q-icon name="contact_support" />
@@ -62,6 +62,24 @@
         </q-item-section>
         <q-item-section side>
           <q-icon color="red" name="priority_high" />
+        </q-item-section>
+      </q-item>
+      <q-item
+        clickable
+        v-close-popup
+        @click="openURL('https://github.com/mlab817/q-pipol')"
+        type="a"
+        target="_blank"
+      >
+        <q-item-section avatar>
+          <q-avatar>
+            <q-icon name="img:statics/github.svg" />
+          </q-avatar>
+        </q-item-section>
+        <q-item-section>
+          <q-item-label>
+            Report Issues
+          </q-item-label>
         </q-item-section>
       </q-item>
       <q-item clickable v-close-popup @click="handleSignoutUser">
@@ -77,10 +95,11 @@
 </template>
 
 <script>
-import { Dialog } from 'quasar';
+import { Dialog, openURL } from 'quasar';
 import { mapState, mapActions, mapGetters } from 'vuex';
 import UserAvatar from '@/ui/components/UserAvatar';
 import { GET_CURRENT_USER } from 'src/graphql/queries';
+import github from '@/statics/github.svg';
 
 export default {
   components: { UserAvatar },
@@ -101,7 +120,8 @@ export default {
   },
   data() {
     return {
-      user: {}
+      user: {},
+      github: null
     };
   },
   methods: {
@@ -114,7 +134,19 @@ export default {
         transitionShow: 'fade',
         transitionHide: 'fade'
       }).onOk(() => this.signoutUser());
+    },
+    openURL,
+    showWarning() {
+      this.$q.dialog({
+        title: 'Coming soon',
+        message: 'This feature is currently under development.',
+        transitionShow: 'fade',
+        transitionHide: 'fade'
+      });
     }
+  },
+  created() {
+    this.github = github;
   }
 };
 </script>
