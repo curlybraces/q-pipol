@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import CopyButton from '../../../ui/buttons/CopyButton';
+import CopyButton from '@/ui/buttons/CopyButton';
 export default {
   name: 'TableData',
   components: { CopyButton },
