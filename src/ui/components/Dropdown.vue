@@ -1,10 +1,10 @@
 <template>
-  <q-menu max-width="300px" :offset="[0, 15]" v-if="!loading">
+  <q-menu max-width="300px" :offset="[0, 15]">
     <div class="q-pa-md q-gutter-y-sm text-center">
-      <user-avatar :src="getCurrentUser.avatar"></user-avatar>
-      <q-item-label>{{ user ? user.name : '' }}</q-item-label>
+      <user-avatar :src="user.avatar ? user.avatar : 'statics/placeholder.jpg' "></user-avatar>
+      <q-item-label>{{ user ? user.name : 'Not logged in' }}</q-item-label>
       <q-item-label caption :class="dark ? 'text-grey-1' : 'text-black'">
-        {{ user ? user.email : '' }}
+        {{ user ? user.email : 'Not logged in' }}
       </q-item-label>
       <q-item-label>
         <q-badge>
