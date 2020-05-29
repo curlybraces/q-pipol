@@ -31,7 +31,7 @@
                 </q-avatar>
               </q-item-section>
               <q-item-section>
-                <q-item-label
+                <q-item-label :lines="2"
                   >{{ activity.description }}:
                   {{
                     activity.subject ? activity.subject.title : ''

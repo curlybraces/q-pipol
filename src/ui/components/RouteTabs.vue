@@ -26,13 +26,15 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
   name: 'RouteTabs',
   computed: {
     ...mapState('settings', ['dark']),
-    ...mapGetters('auth', ['isAdmin']),
+    isAdmin() {
+      return this.$store.getters['auth/isAdmin']
+    },
     filteredTabs() {
       // This function hides the users tab if the user is not admin or superadmin
       let filteredTabs = [];
@@ -61,25 +63,20 @@ export default {
           icon: 'storage',
           to: '/projects'
         },
-        // {
-        //   label: 'Resources',
-        //   icon: 'attach_file',
-        //   to: '/resources'
-        // },
         {
           label: 'Directory',
           icon: 'phone',
           to: '/directory'
         },
         {
+          label: 'Profile',
+          icon: 'tune',
+          to: '/profile'
+        },
+        {
           label: 'Users',
           icon: 'lock',
           to: '/admin'
-        },
-        {
-          label: 'Profile',
-          icon: '',
-          to: '/profile'
         }
       ]
     };
