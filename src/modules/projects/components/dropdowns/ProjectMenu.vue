@@ -58,11 +58,11 @@
 	    }
 		},
 		methods: {
-	    handleSelectProject(project) {
+	    handleSelectProject() {
 	      if (this.added) {
-	        this.$store.dispatch('projects/removeProject', project);
+	        this.$store.dispatch('projects/removeProject', this.project);
 	      } else {
-	        this.$store.dispatch('projects/selectProject', project);
+	        this.$store.dispatch('projects/selectProject', this.project);
 	      }
 	    },
       viewProject() {
