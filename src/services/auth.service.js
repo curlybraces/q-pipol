@@ -10,6 +10,7 @@ import {
   VERIFY_EMAIL_MUTATION,
   FORGOT_PASSWORD_MUTATION
 } from '@/graphql/mutations';
+import { CHECK_EMAIL_AVAILABILITY_QUERY } from '@/graphql/queries';
 
 export const authService = {
   register({ name, email, password, password_confirmation }) {
@@ -29,7 +30,7 @@ export const authService = {
   login({ username, password }) {
     return client
       .mutate({
-        query: LOGIN_MUTATION,
+        mutation: LOGIN_MUTATION,
         variables: {
           username: username,
           password: password
@@ -88,6 +89,17 @@ export const authService = {
         mutation: VERIFY_EMAIL_MUTATION,
         variables: {
           token: token
+        }
+      })
+      .then(handleResponse)
+      .catch(handleError);
+  },
+  checkEmailAvailability({ email }) {
+    return client
+      .query({
+        query: CHECK_EMAIL_AVAILABILITY_QUERY,
+        variables: {
+          email: email
         }
       })
       .then(handleResponse)

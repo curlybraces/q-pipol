@@ -97,8 +97,11 @@ export default {
             password: password
           };
 
-          // this.signinUser(payload);
-          this.$store.dispatch('auth/signinUser', payload);
+          try {
+            this.$store.dispatch('auth/signinUser', payload);
+          } catch (err) {
+            console.log(err.message);
+          }
         }
       });
     }

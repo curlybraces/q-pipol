@@ -55,11 +55,11 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
         // if unauthenticated, notify user and allow them to logout
         if (debugMessage === 'Unauthenticated.') {
           console.error('Token is not valid.');
-          // Notify.create({
-          //   message: 'Token is not valid. Please login again.',
-          //   color: 'negative',
-          //   position: 'bottom-right'
-          // })
+          Notify.create({
+            message: 'Token is not valid. Please login again.',
+            color: 'negative',
+            position: 'bottom-right'
+          });
         }
         Notify.create({
           message: `${message}`,

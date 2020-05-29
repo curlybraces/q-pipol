@@ -1,29 +1,16 @@
 import { LocalStorage, Loading, Dialog } from 'quasar';
 import { client, persistor } from 'boot/apollo';
 import {
-  CHECK_EMAIL_AVAILABILITY_QUERY,
-  GET_CURRENT_USER
-} from '@/graphql/queries';
-import {
-  LOGIN_MUTATION,
-  REGISTER_MUTATION,
-  RESEND_EMAIL_VERIFICATION_MUTATION,
-  UPDATE_PASSWORD_MUTATION,
-  VERIFY_EMAIL_MUTATION,
-  FORGOT_PASSWORD_MUTATION
-} from '@/graphql/mutations';
-import {
   showErrorNotification,
   showSuccessNotification
 } from '@/functions/function-show-notifications';
 
+import { authService, profileService } from '@/services';
+
 export function register({ commit }, payload) {
   Loading.show();
-  client
-    .mutate({
-      mutation: REGISTER_MUTATION,
-      variables: payload
-    })
+  return authService
+    .register(payload)
     .then(res => {
       commit('SET_LOADING', false);
       console.log(res);
@@ -49,13 +36,10 @@ export function signinUser({ commit }, payload) {
 
   Loading.show();
 
-  client
-    .mutate({
-      mutation: LOGIN_MUTATION,
-      variables: payload
-    })
-    .then(({ data }) => {
-      LocalStorage.set('token', data.login.access_token);
+  return authService
+    .login(payload)
+    .then(res => {
+      LocalStorage.set('token', res.login.access_token);
 
       commit('SET_LOADING', false);
 
@@ -74,14 +58,12 @@ export function signinUser({ commit }, payload) {
 export function getCurrentUser({ commit }) {
   commit('SET_LOADING', true);
 
-  client
-    .query({
-      query: GET_CURRENT_USER
-    })
-    .then(({ data }) => {
-      LocalStorage.set('user', data.getCurrentUser);
+  return profileService
+    .getCurrentUser()
+    .then(res => {
+      LocalStorage.set('user', res.getCurrentUser);
 
-      commit('SET_USER', data.getCurrentUser);
+      commit('SET_USER', res.getCurrentUser);
 
       commit('SET_LOADING', false);
     })
@@ -114,23 +96,14 @@ export async function signoutUser({ commit }) {
   commit('CLEAR_TOKEN');
 
   // redirect to login page
-  this.$router.replace('/login');
-}
-
-export function hideValidateEmailReminder({ commit }, val) {
-  LocalStorage.set('showValidateEmailReminder', val);
-  commit('SET_SHOW_VALIDATE_EMAIL_REMINDER', val);
+  this.$router.replace({ name: 'login' });
 }
 
 export function forgotPassword({}, email) {
   Loading.show();
-  return client
-    .mutate({
-      mutation: FORGOT_PASSWORD_MUTATION,
-      variables: {
-        email: email
-      }
-    })
+
+  return authService
+    .forgotPassword({ email: email })
     .then(({ data }) => {
       if (data.forgotPassword.status === 'EMAIL_NOT_SENT') {
         showErrorNotification({
@@ -149,17 +122,10 @@ export function forgotPassword({}, email) {
 }
 
 export function resendEmailVerification({}, payload) {
-  const email = payload;
-
   Loading.show();
 
-  return client
-    .mutate({
-      mutation: RESEND_EMAIL_VERIFICATION_MUTATION,
-      variables: {
-        email: email
-      }
-    })
+  return authService
+    .resendEmailVerification(payload)
     .then(res => {
       showSuccessNotification({
         message: res.data.resendEmailVerification.message
@@ -172,13 +138,8 @@ export function resendEmailVerification({}, payload) {
 }
 
 export function verifyEmail({ commit, dispatch }, token) {
-  return client
-    .mutate({
-      mutation: VERIFY_EMAIL_MUTATION,
-      variables: {
-        token: token
-      }
-    })
+  return authService
+    .verifyEmail({ token: token })
     .then(res => {
       console.log(res.data.verifyEmail);
       if (res.data.verifyEmail.access_token) {
@@ -196,22 +157,13 @@ export function verifyEmail({ commit, dispatch }, token) {
 }
 
 export function updatePassword({ dispatch }, payload) {
-  const { old_password, password, password_confirmation } = payload;
-
   Loading.show();
 
-  client
-    .mutate({
-      mutation: UPDATE_PASSWORD_MUTATION,
-      variables: {
-        old_password: old_password,
-        password: password,
-        password_confirmation: password_confirmation
-      }
-    })
+  return authService
+    .updatePassword(payload)
     .then(res => {
-      console.log(res.data.updatePassword);
-      if (res.data.updatePassword.status === 'PASSWORD_UPDATED') {
+      console.log(res.updatePassword);
+      if (res.updatePassword.status === 'PASSWORD_UPDATED') {
         dispatch('signoutUser');
       } else {
         return Promise.reject();
@@ -224,20 +176,17 @@ export function updatePassword({ dispatch }, payload) {
 }
 
 export function checkEmailAvailability({}, payload) {
-  return client
-    .query({
-      query: CHECK_EMAIL_AVAILABILITY_QUERY,
-      variables: {
-        email: payload
-      }
-    })
+  return authService
+    .checkEmailAvailability(payload)
     .then(res => {
-      if (res.data.checkEmailAvailability.status === 'AVAILABLE') {
+      if (res.checkEmailAvailability.status === 'AVAILABLE') {
         return true;
       } else {
         return false;
       }
     })
-    .catch(err => console.log(err.message))
-    .finally(() => Loading.hide());
+    .catch(err => {
+      console.log(err.message);
+      return false;
+    });
 }

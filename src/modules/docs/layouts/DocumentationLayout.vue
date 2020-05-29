@@ -12,18 +12,9 @@
 
         <q-separator vertical inset dark></q-separator>
 
-        <q-btn flat stretch class="text-capitalize" to="/">Home</q-btn>
-        <q-btn
-          flat
-          stretch
-          class="text-capitalize"
-          to="/dashboard"
-          v-if="isLoggedIn"
-          >Go to App</q-btn
-        >
-        <q-btn flat stretch class="text-capitalize" to="/dashboard" v-else
-          >Login</q-btn
-        >
+        <q-btn flat stretch to="/">Home</q-btn>
+        <q-btn flat stretch to="/dashboard" v-if="isLoggedIn">Go to App</q-btn>
+        <q-btn flat stretch to="/dashboard" v-else>Login</q-btn>
       </q-toolbar>
     </q-header>
 

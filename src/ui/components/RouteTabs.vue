@@ -61,11 +61,11 @@ export default {
           icon: 'storage',
           to: '/projects'
         },
-        {
-          label: 'Resources',
-          icon: 'attach_file',
-          to: '/resources'
-        },
+        // {
+        //   label: 'Resources',
+        //   icon: 'attach_file',
+        //   to: '/resources'
+        // },
         {
           label: 'Directory',
           icon: 'phone',
@@ -75,7 +75,12 @@ export default {
           label: 'Users',
           icon: 'lock',
           to: '/admin'
-        }
+        },
+				{
+					label: 'Profile',
+					icon: '',
+					to: '/profile'
+				}
       ]
     };
   }

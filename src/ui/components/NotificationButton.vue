@@ -4,7 +4,7 @@
       {{ unreadNotifications.length }}
     </q-badge>
     <template v-if="unreadNotifications.length">
-      <q-menu :offset="[0, 15]">
+      <q-menu :offset="[0, 15]" max-width="400px">
         <q-item dense class="q-pa-none">
           <q-item-section>
             <q-item-label header class="text-weight-bolder"

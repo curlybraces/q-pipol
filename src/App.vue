@@ -15,8 +15,6 @@ import {
 import { Notify, LocalStorage } from 'quasar';
 import { showSuccessNotification } from '@/functions/function-show-notifications';
 
-import { profileService } from './services/profile.service';
-
 export default {
   name: 'App',
   apollo: {
@@ -104,12 +102,6 @@ export default {
       this.$store.dispatch('auth/getCurrentUser');
     }
     this.$q.dark.set(this.dark);
-    // testing if service works
-    profileService
-      .getCurrentUser()
-      .then(data =>
-        console.log(`profileService response data: ${JSON.stringify(data)}`)
-      );
   }
 };
 </script>

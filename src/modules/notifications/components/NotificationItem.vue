@@ -7,7 +7,7 @@
         </q-avatar>
       </q-item-section>
       <q-item-section>
-        <q-item-label>
+        <q-item-label :lines="2">
           <span class="text-weight-medium"
             >[{{ notification.data.title }}]</span
           >

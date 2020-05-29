@@ -6,5 +6,7 @@ export const CONFIG = {
   // graphQLEndpoint: 'http://localhost:8000/graphql'
   // graphQLEndpoint: 'https://wh490179.ispot.cc/graphql'
 
-  graphQLEndpoint: process.env.DEV ? 'http://localhost:8000/graphql': 'https://wh490179.ispot.cc/graphql'
+  graphQLEndpoint: process.env.DEV
+    ? 'http://localhost:8000/graphql'
+    : 'https://wh490179.ispot.cc/graphql'
 };
