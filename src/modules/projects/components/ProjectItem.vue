@@ -56,37 +56,7 @@
           transition-hide="jump-up"
           auto-close
         >
-          <q-list>
-            <project-menu
-              @click="viewProject(project.id)"
-              label="View"
-              icon="search"
-            >
-            </project-menu>
-            <project-menu
-              v-if="isOwner"
-              @click="updateProject(project.id)"
-              label="Update"
-              icon="update"
-            ></project-menu>
-            <project-menu
-              v-if="isReviewer"
-              @click="reviewProject(project.id)"
-              label="Review"
-              image="statics/menu/review.png"
-            ></project-menu>
-            <project-menu
-              @click="handleSelectProject(project)"
-              :label="added ? 'Remove' : 'Add'"
-              :icon="added ? 'clear' : 'add'"
-            ></project-menu>
-            <q-separator />
-            <project-menu
-              @click="promptDelete(project.id)"
-              label="Delete"
-              icon="delete"
-            ></project-menu>
-          </q-list>
+          <project-menu :project="project" :added="added"></project-menu>
         </q-menu>
       </q-btn>
     </q-item-section>
@@ -94,10 +64,9 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from 'vuex';
-import { Dialog } from 'quasar';
-import ProjectMenu from './dropdowns/ProjectMenu';
+import { mapState, mapGetters } from 'vuex';
 import { displayDateDifference } from '@/utils';
+import ProjectMenu from './dropdowns/ProjectMenu';
 
 export default {
   components: { ProjectMenu },
@@ -113,54 +82,15 @@ export default {
   computed: {
     ...mapState('settings', ['dark']),
     ...mapGetters('settings', ['buttonColor']),
-    ...mapGetters('auth', ['isEncoder', 'user', 'isReviewer']),
-    ...mapState('projects', ['selectedProjects']),
-    isOwner() {
-      return this.user.id === this.project.creator.id;
+    selectedProjects() {
+      return this.$store.state.projects.selectedProjects
     },
     added() {
-      console.log(this.selectedProjects);
       return this.selectedProjects.includes(this.$props.project);
-    }
-  },
-  data() {
-    return {
-      handleClick() {
-        console.log('clicked');
-      },
-      viewProject(id) {
-        this.$router.push(`/projects/${id}`);
-      },
-      reviewProject(id) {
-        this.$router.push(`/projects/${id}/review`);
-      },
-      updateProject(id) {
-        this.$router.push(`/projects/${id}/edit`);
-      }
-    };
+    },
   },
   methods: {
-    ...mapActions('projects', ['deleteProject']),
-    handleSelectProject(project) {
-      if (this.added) {
-        this.$store.dispatch('projects/removeProject', project);
-      } else {
-        this.$store.dispatch('projects/selectProject', project);
-      }
-    },
-    displayDateDifference,
-    promptDelete(id) {
-      Dialog.create({
-        title: 'Delete Project',
-        message: 'Are you sure you want to delete this project?',
-        transitionShow: 'fade',
-        cancel: true
-      }).onOk(() => {
-        this.deleteProject({
-          id: id
-        });
-      });
-    }
+    displayDateDifference
   },
   filters: {
     searchHighlight(value, search) {
