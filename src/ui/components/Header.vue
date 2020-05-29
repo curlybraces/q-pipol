@@ -40,16 +40,16 @@ import RouteTabs from './RouteTabs';
 import UserAvatar from './UserAvatar';
 import NotificationButton from './NotificationButton';
 import { GET_CURRENT_USER } from '@/graphql/queries';
-import EndorseButton from './EndorseButton'
+import EndorseButton from './EndorseButton';
 
 export default {
   components: {
-  	EndorseButton,
-		RouteTabs,
-		DropdownMenu,
-		NotificationButton,
-		UserAvatar
-	},
+    EndorseButton,
+    RouteTabs,
+    DropdownMenu,
+    NotificationButton,
+    UserAvatar
+  },
   name: 'AppHeader',
   computed: {
     ...mapGetters('auth', ['user'])

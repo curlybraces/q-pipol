@@ -12,6 +12,7 @@ import {
   REVIEW_PROJECT_MUTATION,
   ENDORSE_PROJECTS_MUTATION
 } from '@/graphql/mutations';
+import {UPDATE_PROJECT_MUTATION} from '../graphql/mutations'
 
 export const projectService = {
   index(payload) {
@@ -152,5 +153,14 @@ export const projectService = {
       })
       .then(handleResponse)
       .catch(handleError);
-  }
+  },
+	update(payload) {
+  	return client
+		  .mutate({
+			  mutation: UPDATE_PROJECT_MUTATION,
+			  variables: payload
+		  })
+		  .then(handleResponse)
+		  .catch(handleError)
+	}
 };

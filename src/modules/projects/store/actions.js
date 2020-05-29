@@ -1,4 +1,4 @@
-import { projectService } from '@/services/project.service';
+import { projectService } from '@/services';
 
 export function fetchProjects({}, payload) {
   console.log('fetchProjects triggered');

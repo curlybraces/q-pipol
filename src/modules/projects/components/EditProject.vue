@@ -1,7 +1,5 @@
 <template>
-  <page-container>
-    <page-title title="Edit Project"></page-title>
-
+  <div>
     <template v-if="$apollo.loading">
       <q-inner-loading :showing="$apollo.loading">
         <q-spinner-tail color="primary" size="50px"></q-spinner-tail>
@@ -27,6 +25,27 @@
       </template>
 
       <template v-else>
+        <div class="column">
+          <q-item-label header
+            >Inclusion in any of the following documents</q-item-label
+          >
+
+          <checkbox-input
+            label="Agriculture and Fisheries Modernization and Industrialization Plan"
+            v-model="project.afmip"
+          />
+
+          <checkbox-input
+            label="Regional Development Investment Program"
+            v-model="project.rdip"
+          />
+
+          <checkbox-input
+            label="Provincial Commodity Investment Plan"
+            v-model="project.pcip"
+          />
+        </div>
+
         <div class="row q-pa-sm">
           <div class="q-col-gutter-y-sm">
             <text-input
@@ -57,8 +76,6 @@
               type="textarea"
               :rules="rules.required"
             />
-
-            <typology v-model="project.typology_id"></typology>
 
             <div class="row q-col-gutter-sm">
               <div class="col">
@@ -127,145 +144,129 @@
               </div>
             </div>
 
-            <q-card class="q-my-sm q-pa-sm q-gutter-y-sm">
-              <q-item-label header>Spatial Coverage</q-item-label>
+            <q-item-label header>Spatial Coverage</q-item-label>
 
-              <spatial-coverage
-                v-model="project.spatial_coverage_id"
-              ></spatial-coverage>
+            <spatial-coverage
+              v-model="project.spatial_coverage_id"
+            ></spatial-coverage>
 
-              <regions
-                v-model="project.selected_regions"
-                v-if="project.spatial_coverage_id === '2'"
-              ></regions>
+            <regions
+              v-model="project.selected_regions"
+              v-if="project.spatial_coverage_id === '2'"
+            ></regions>
 
-              <region
-                v-model="project.region_id"
-                v-if="project.spatial_coverage_id === '3'"
-              ></region>
+            <region
+              v-model="project.region_id"
+              v-if="project.spatial_coverage_id === '3'"
+            ></region>
 
-              <province
-                v-model="project.province_id"
-                v-if="project.spatial_coverage_id === '4'"
-              ></province>
+            <province
+              v-model="project.province_id"
+              v-if="project.spatial_coverage_id === '4'"
+            ></province>
 
-              <district
-                v-model="project.district_id"
-                v-if="project.spatial_coverage_id === '5'"
-              ></district>
+            <district
+              v-model="project.district_id"
+              v-if="project.spatial_coverage_id === '5'"
+            ></district>
 
-              <city-municipality
-                v-model="project.city_municipality_id"
-                v-if="project.spatial_coverage_id === '6'"
-              ></city-municipality>
-            </q-card>
+            <city-municipality
+              v-model="project.city_municipality_id"
+              v-if="project.spatial_coverage_id === '6'"
+            ></city-municipality>
 
             <implementing-agency
               v-model="project.operating_unit_id"
             ></implementing-agency>
 
-            <q-card class="q-my-sm q-pa-sm q-gutter-y-sm">
-              <q-item-label header>Technical Readiness</q-item-label>
+            <q-item-label header>Technical Readiness</q-item-label>
 
-              <div class="row">
-                <div class="col">
-                  <checkbox-input
-                    label="Approved by DA-wide Clearinghouse"
-                    v-model="project.clearinghouse"
-                  ></checkbox-input>
-                </div>
-                <div class="col">
-                  <date-input v-model="project.clearinghouse_date"></date-input>
-                </div>
+            <div class="row">
+              <div class="col">
+                <checkbox-input
+                  label="Approved by DA-wide Clearinghouse"
+                  v-model="project.clearinghouse"
+                ></checkbox-input>
               </div>
+              <div class="col">
+                <date-input v-if="project.clearinghouse" v-model="project.clearinghouse_date"></date-input>
+              </div>
+            </div>
 
-              <div class="row">
-                <div class="col">
-                  <checkbox-input
-                    label="NEDA Submission"
-                    v-model="project.neda_submission"
-                  ></checkbox-input>
-                </div>
-                <div class="col">
-                  <date-input
-                    v-model="project.neda_submission_date"
-                  ></date-input>
-                </div>
+            <div class="row">
+              <div class="col">
+                <checkbox-input
+                  label="NEDA Submission"
+                  v-model="project.neda_submission"
+                ></checkbox-input>
               </div>
+              <div class="col">
+                <date-input v-if="project.neda_submission" v-model="project.neda_submission_date"></date-input>
+              </div>
+            </div>
 
-              <div class="row">
-                <div class="col">
-                  <checkbox-input
-                    label="NEDA Secretariat Review"
-                    v-model="project.neda_secretariat_review"
-                  ></checkbox-input>
-                </div>
-                <div class="col">
-                  <date-input
-                    v-model="project.neda_secretariat_review_date"
-                  ></date-input>
-                </div>
+            <div class="row">
+              <div class="col">
+                <checkbox-input
+                  label="NEDA Secretariat Review"
+                  v-model="project.neda_secretariat_review"
+                ></checkbox-input>
               </div>
+              <div class="col">
+                <date-input
+									v-if="project.neda_secretariat_review"
+                  v-model="project.neda_secretariat_review_date"
+                ></date-input>
+              </div>
+            </div>
 
-              <div class="row">
-                <div class="col">
-                  <checkbox-input
-                    label="NEDA Board"
-                    v-model="project.neda_board"
-                  ></checkbox-input>
-                </div>
-                <div class="col">
-                  <date-input v-model="project.neda_board_date"></date-input>
-                </div>
+            <div class="row">
+              <div class="col">
+                <checkbox-input
+                  label="NEDA Board"
+                  v-model="project.neda_board"
+                ></checkbox-input>
               </div>
+              <div class="col">
+                <date-input
+										v-if="project.neda_board"
+										v-model="project.neda_board_date"></date-input>
+              </div>
+            </div>
 
-              <div class="row">
-                <div class="col">
-                  <checkbox-input
-                    label="ICC Endorsed"
-                    v-model="project.icc_endorsed"
-                  ></checkbox-input>
-                </div>
-                <div class="col">
-                  <date-input v-model="project.icc_endorsed_date"></date-input>
-                </div>
+            <div class="row">
+              <div class="col">
+                <checkbox-input
+                  label="ICC Endorsed"
+                  v-model="project.icc_endorsed"
+                ></checkbox-input>
               </div>
+              <div class="col">
+                <date-input
+									v-if="project.icc_endorsed"
+									v-model="project.icc_endorsed_date"></date-input>
+              </div>
+            </div>
 
-              <div class="row">
-                <div class="col">
-                  <checkbox-input
-                    label="ICC Approved"
-                    v-model="project.icc_approved"
-                  ></checkbox-input>
-                </div>
-                <div class="col">
-                  <date-input v-model="project.icc_approved_date"></date-input>
-                </div>
+            <div class="row">
+              <div class="col">
+                <checkbox-input
+                  label="ICC Approved"
+                  v-model="project.icc_approved"
+                ></checkbox-input>
               </div>
-            </q-card>
+              <div class="col">
+                <date-input
+									v-if="project.icc_approved"
+									v-model="project.icc_approved_date"></date-input>
+              </div>
+            </div>
 
             <div class="col">
               <span class="text-caption text-weight-bold"
                 >GAD Classification</span
               >
               <gad v-model="project.gad_id" />
-            </div>
-
-            <div class="column">
-              <checkbox-input
-                label="Agriculture and Fisheries Modernization and Industrialization Plan"
-                v-model="project.afmip"
-              />
-
-              <checkbox-input
-                label="Regional Development Investment Program"
-                v-model="project.rdip"
-              />
-
-              <checkbox-input
-                label="Provincial Commodity Investment Plan"
-                v-model="project.pcip"
-              />
             </div>
 
             <funding-source
@@ -297,7 +298,7 @@
               v-model="project.implementation_mode_id"
             ></implementation-mode>
 
-            <budget-tier v-model="project.tier_id"></budget-tier>
+            <q-item-label header>Pre-Investment Requirements</q-item-label>
 
             <q-item tag="label">
               <q-item-section avatar>
@@ -1086,6 +1087,11 @@
                   </tr>
                 </thead>
                 <tbody>
+									<tr>
+										<td colspan="11">
+											Target Investment Requirements
+										</td>
+									</tr>
                   <tr>
                     <td>
                       <q-icon
@@ -1152,6 +1158,11 @@
                       }}
                     </td>
                   </tr>
+									<tr>
+										<td colspan="11">
+											Actual Investments
+										</td>
+									</tr>
                   <tr>
                     <td>
                       <q-icon
@@ -1621,6 +1632,8 @@
               v-model="project.project_status_id"
             ></project-status>
 
+						<budget-tier v-model="project.tier_id"></budget-tier>
+
             <text-input
               v-model="project.updates"
               label="Updates"
@@ -1628,6 +1641,7 @@
             />
 
             <date-input v-model="project.updates_date" label="As of" />
+
           </div>
         </div>
 
@@ -1646,7 +1660,7 @@
         </div>
       </template>
     </template>
-  </page-container>
+  </div>
 </template>
 
 <script>
@@ -1665,7 +1679,6 @@ import BudgetTier from '../components/dropdowns/BudgetTier';
 import Regions from '../components/dropdowns/Regions';
 const TableData = () => import('../components/TableData');
 const Gad = () => import('../components/dropdowns/Gad');
-const Typology = () => import('../components/dropdowns/Typology');
 const Region = () => import('../components/dropdowns/Region');
 const Province = () => import('../components/dropdowns/Province');
 const FundingSource = () => import('../components/dropdowns/FundingSource');
@@ -1678,10 +1691,6 @@ const CityMunicipality = () =>
 const District = () => import('../components/dropdowns/District');
 const Currency = () => import('../components/dropdowns/Currency');
 const SpatialCoverage = () => import('../components/dropdowns/SpatialCoverage');
-const PageTitle = () =>
-  import(/* webpackChunkName: 'PageTitle' */ '@/ui/page/PageTitle');
-const PageContainer = () =>
-  import(/* webpackChunkName: 'PageContainer' */ '@/ui/page/PageContainer');
 const TextInput = () =>
   import(/* webpackChunkName: 'TextInput' */ '@/ui/form-inputs/TextInput');
 const RadioInput = () =>
@@ -1717,7 +1726,6 @@ export default {
     FundingSource,
     Province,
     Region,
-    Typology,
     ProjectStatus,
     ImplementingAgency,
     TableData,
@@ -1726,10 +1734,9 @@ export default {
     SingleSelect,
     RadioInput,
     TextInput,
-    PageContainer,
-    PageTitle,
     CheckboxInput
   },
+  name: 'EditProject',
   apollo: {
     project: {
       query: FETCH_PROJECT_QUERY,
@@ -1778,6 +1785,7 @@ export default {
   },
   data() {
     return {
+      project: {},
       newFundingSource: {
         id: null,
         funding_source_id: null,
@@ -1804,7 +1812,6 @@ export default {
       },
       types: [],
       years: [],
-      project: {},
       tiers: [],
       trueOrFalse: [
         {
@@ -1834,50 +1841,18 @@ export default {
       addFundingSourceFinancialDialog: false,
       editFundingSourceFinancialDialog: false,
       regions: [],
-      funding_sources: []
+      funding_sources: [],
+	    validationErrors: []
     };
   },
-  name: 'PageEditProject',
   methods: {
     ...mapActions('project', ['updateProject']),
     updateGadScore(e) {
       this.project.gad_score = e;
       this.showGadForm = false;
     },
-    handleFinalize() {
-      console.log('handle finalization');
-      this.$q
-        .dialog({
-          title: 'Finalize Project',
-          message: 'Add remarks (if any). Input N/A if none.',
-          prompt: {
-            model: '',
-            type: 'text',
-            isValid: val => !!val
-          },
-          cancel: true
-        })
-        .onOk(data => {
-          console.log(data);
-          this.finalizeProject(data);
-        });
-    },
     checkProject() {
       // check if data is valid
-    },
-    finalizeProject(remarks) {
-      // run validation before running mutation
-      this.$apollo
-        .mutate({
-          mutation: PROCESS_PROJECT_MUTATION,
-          variables: {
-            project_id: this.$route.params.id,
-            processing_status_id: PROCESSING_STATUS.finalized,
-            remarks: remarks
-          }
-        })
-        .then(({ data }) => console.log(data))
-        .catch(err => console.error(err));
     },
     handleSubmit() {
       const payload = this.project;
@@ -1998,7 +1973,39 @@ export default {
           cancel: true
         })
         .onOk(() => this.deleteFundingSourceRow(funding_source, index));
-    }
+    },
+	  handleFinalize() {
+		  this.$q
+			  .dialog({
+				  title: 'Finalize Project',
+				  message: 'Add remarks (if any). Input N/A if none.',
+				  prompt: {
+					  model: '',
+					  type: 'text',
+					  isValid: val => !!val
+				  },
+				  cancel: true
+			  })
+			  .onOk(data => {
+				  console.log(data);
+				  this.updateProject(this.project)
+						.then(() => this.finalizeProject(data))
+						.catch(err => console.error(err.message))
+			  });
+	  },
+	  finalizeProject(remarks) {
+		  this.$apollo
+			  .mutate({
+				  mutation: PROCESS_PROJECT_MUTATION,
+				  variables: {
+					  project_id: this.$route.params.id,
+					  processing_status_id: PROCESSING_STATUS.finalized,
+					  remarks: remarks
+				  }
+			  })
+			  .then(({ data }) => console.log(data))
+			  .catch(err => console.error(err));
+	  },
   },
   filters: {
     money(val) {

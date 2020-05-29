@@ -48,7 +48,7 @@ const ProjectsRoutes = [
     name: 'edit-project',
     component: () =>
       import(
-        /* webpackChunkName: 'UpdateProjectPage' */ './pages/EditProject.vue'
+        /* webpackChunkName: 'EditProjectPage' */ './pages/EditProjectPage.vue'
       ),
     meta: {
       requiresAuth: true,

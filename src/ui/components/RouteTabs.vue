@@ -76,11 +76,11 @@ export default {
           icon: 'lock',
           to: '/admin'
         },
-				{
-					label: 'Profile',
-					icon: '',
-					to: '/profile'
-				}
+        {
+          label: 'Profile',
+          icon: '',
+          to: '/profile'
+        }
       ]
     };
   }
