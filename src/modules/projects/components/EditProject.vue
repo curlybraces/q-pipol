@@ -189,7 +189,10 @@
                 ></checkbox-input>
               </div>
               <div class="col">
-                <date-input v-if="project.clearinghouse" v-model="project.clearinghouse_date"></date-input>
+                <date-input
+                  v-if="project.clearinghouse"
+                  v-model="project.clearinghouse_date"
+                ></date-input>
               </div>
             </div>
 
@@ -201,7 +204,10 @@
                 ></checkbox-input>
               </div>
               <div class="col">
-                <date-input v-if="project.neda_submission" v-model="project.neda_submission_date"></date-input>
+                <date-input
+                  v-if="project.neda_submission"
+                  v-model="project.neda_submission_date"
+                ></date-input>
               </div>
             </div>
 
@@ -214,7 +220,7 @@
               </div>
               <div class="col">
                 <date-input
-									v-if="project.neda_secretariat_review"
+                  v-if="project.neda_secretariat_review"
                   v-model="project.neda_secretariat_review_date"
                 ></date-input>
               </div>
@@ -229,8 +235,9 @@
               </div>
               <div class="col">
                 <date-input
-										v-if="project.neda_board"
-										v-model="project.neda_board_date"></date-input>
+                  v-if="project.neda_board"
+                  v-model="project.neda_board_date"
+                ></date-input>
               </div>
             </div>
 
@@ -243,8 +250,9 @@
               </div>
               <div class="col">
                 <date-input
-									v-if="project.icc_endorsed"
-									v-model="project.icc_endorsed_date"></date-input>
+                  v-if="project.icc_endorsed"
+                  v-model="project.icc_endorsed_date"
+                ></date-input>
               </div>
             </div>
 
@@ -257,8 +265,9 @@
               </div>
               <div class="col">
                 <date-input
-									v-if="project.icc_approved"
-									v-model="project.icc_approved_date"></date-input>
+                  v-if="project.icc_approved"
+                  v-model="project.icc_approved_date"
+                ></date-input>
               </div>
             </div>
 
@@ -1087,11 +1096,11 @@
                   </tr>
                 </thead>
                 <tbody>
-									<tr>
-										<td colspan="11">
-											Target Investment Requirements
-										</td>
-									</tr>
+                  <tr>
+                    <td colspan="11">
+                      Target Investment Requirements
+                    </td>
+                  </tr>
                   <tr>
                     <td>
                       <q-icon
@@ -1158,11 +1167,11 @@
                       }}
                     </td>
                   </tr>
-									<tr>
-										<td colspan="11">
-											Actual Investments
-										</td>
-									</tr>
+                  <tr>
+                    <td colspan="11">
+                      Actual Investments
+                    </td>
+                  </tr>
                   <tr>
                     <td>
                       <q-icon
@@ -1632,7 +1641,7 @@
               v-model="project.project_status_id"
             ></project-status>
 
-						<budget-tier v-model="project.tier_id"></budget-tier>
+            <budget-tier v-model="project.tier_id"></budget-tier>
 
             <text-input
               v-model="project.updates"
@@ -1641,7 +1650,6 @@
             />
 
             <date-input v-model="project.updates_date" label="As of" />
-
           </div>
         </div>
 
@@ -1842,7 +1850,7 @@ export default {
       editFundingSourceFinancialDialog: false,
       regions: [],
       funding_sources: [],
-	    validationErrors: []
+      validationErrors: []
     };
   },
   methods: {
@@ -1974,38 +1982,38 @@ export default {
         })
         .onOk(() => this.deleteFundingSourceRow(funding_source, index));
     },
-	  handleFinalize() {
-		  this.$q
-			  .dialog({
-				  title: 'Finalize Project',
-				  message: 'Add remarks (if any). Input N/A if none.',
-				  prompt: {
-					  model: '',
-					  type: 'text',
-					  isValid: val => !!val
-				  },
-				  cancel: true
-			  })
-			  .onOk(data => {
-				  console.log(data);
-				  this.updateProject(this.project)
-						.then(() => this.finalizeProject(data))
-						.catch(err => console.error(err.message))
-			  });
-	  },
-	  finalizeProject(remarks) {
-		  this.$apollo
-			  .mutate({
-				  mutation: PROCESS_PROJECT_MUTATION,
-				  variables: {
-					  project_id: this.$route.params.id,
-					  processing_status_id: PROCESSING_STATUS.finalized,
-					  remarks: remarks
-				  }
-			  })
-			  .then(({ data }) => console.log(data))
-			  .catch(err => console.error(err));
-	  },
+    handleFinalize() {
+      this.$q
+        .dialog({
+          title: 'Finalize Project',
+          message: 'Add remarks (if any). Input N/A if none.',
+          prompt: {
+            model: '',
+            type: 'text',
+            isValid: val => !!val
+          },
+          cancel: true
+        })
+        .onOk(data => {
+          console.log(data);
+          this.updateProject(this.project)
+            .then(() => this.finalizeProject(data))
+            .catch(err => console.error(err.message));
+        });
+    },
+    finalizeProject(remarks) {
+      this.$apollo
+        .mutate({
+          mutation: PROCESS_PROJECT_MUTATION,
+          variables: {
+            project_id: this.$route.params.id,
+            processing_status_id: PROCESSING_STATUS.finalized,
+            remarks: remarks
+          }
+        })
+        .then(({ data }) => console.log(data))
+        .catch(err => console.error(err));
+    }
   },
   filters: {
     money(val) {

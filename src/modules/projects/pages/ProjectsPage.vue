@@ -28,9 +28,11 @@
             @input="setPage"
           />
 
-          <template v-for="project in paginatedProjects.data">
-            <project-item :project="project" :key="project.id"></project-item>
-          </template>
+          <q-list separator bordered>
+            <template v-for="project in paginatedProjects.data">
+              <project-item :project="project" :key="project.id"></project-item>
+            </template>
+          </q-list>
 
           <project-pagination
             v-model="currentPage"

@@ -2,50 +2,16 @@
   <page-container>
     <page-title title="Project Profile">
       <settings-button>
-        <q-menu transition-show="jump-down" transition-hide="jump-up">
-          <q-list>
-            <q-item clickable :to="`${$route.fullPath}/edit`">
-              <q-item-section>
-                <q-item-label>Edit Project</q-item-label>
-              </q-item-section>
-            </q-item>
-            <q-item>
-              <q-item-section>
-                <q-item-label>Print Project</q-item-label>
-              </q-item-section>
-              <q-item-section side>
-                <q-icon name="warning" color="red"></q-icon>
-              </q-item-section>
-            </q-item>
-            <q-item clickable @click="reviewProject = true">
-              <q-item-section>
-                <q-item-label>Review Project</q-item-label>
-              </q-item-section>
-            </q-item>
-            <q-item clickable @click="shareProjectDialog = true">
-              <q-item-section avatar>
-                <q-avatar>
-                  <q-icon name="share" color="blue"></q-icon>
-                </q-avatar>
-              </q-item-section>
-              <q-item-section>
-                <q-item-label>Share Project</q-item-label>
-              </q-item-section>
-              <q-item-section side>
-                <q-icon name="warning" color="red"></q-icon>
-              </q-item-section>
-            </q-item>
-            <q-item clickable @click="transferProjectDialog = true">
-              <q-item-section avatar>
-                <q-avatar>
-                  <q-icon name="share" color="blue"></q-icon>
-                </q-avatar>
-              </q-item-section>
-              <q-item-section>
-                <q-item-label>Transfer Project</q-item-label>
-              </q-item-section>
-            </q-item>
-          </q-list>
+        <q-menu
+          transition-show="jump-down"
+          transition-hide="jump-up"
+          auto-close
+        >
+          <project-menu
+            :project="project"
+            :added="added"
+            :finalized="finalized"
+          ></project-menu>
         </q-menu>
       </settings-button>
     </page-title>
@@ -57,7 +23,7 @@
     </template>
 
     <template v-else>
-      <project-profile :id="$route.params.id" />
+      <project-profile :project="project" />
     </template>
 
     <q-dialog
@@ -82,7 +48,9 @@ import PageTitle from '@/ui/page/PageTitle.vue';
 import PageContainer from '@/ui/page/PageContainer.vue';
 import ProjectProfile from '../components/ProjectProfile';
 import TransferProject from '../components/dialogs/TransferProject';
+import ProjectMenu from '../components/dropdowns/ProjectMenu';
 import SettingsButton from '@/ui/buttons/SettingsButton';
+import { FETCH_PROJECT_QUERY } from '@/graphql/queries';
 
 export default {
   components: {
@@ -90,11 +58,45 @@ export default {
     PageTitle,
     ProjectProfile,
     TransferProject,
+    ProjectMenu,
     SettingsButton
   },
   name: 'ViewProject',
+  apollo: {
+    project: {
+      query: FETCH_PROJECT_QUERY,
+      variables() {
+        return {
+          id: this.$route.params.id
+        };
+      },
+      result({ data }) {
+        if (data.project === null) {
+          this.$q
+            .dialog({
+              title: 'Project not found',
+              message:
+                "It's either you don't have access or it has been deleted."
+            })
+            .onDismiss(() => this.$router.push('/projects'));
+        }
+      }
+    }
+  },
+  computed: {
+    selectedProjects() {
+      return this.$store.state.projects.selectedProjects;
+    },
+    added() {
+      return this.selectedProjects.includes(this.project);
+    },
+    finalized() {
+      return this.project.latest_status === 'finalized';
+    }
+  },
   data() {
     return {
+      project: {},
       shareProjectDialog: true,
       transferProjectDialog: false
     };

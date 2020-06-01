@@ -618,42 +618,19 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { FETCH_PROJECT_QUERY } from '@/graphql/queries';
 import TableData from './TableData';
-import { date } from 'quasar';
 import CopyButton from '@/ui/buttons/CopyButton';
+import { date } from 'quasar';
 
 export default {
   components: { TableData, CopyButton },
   name: 'ProjectProfile',
-  props: ['id'],
-  apollo: {
-    project: {
-      query: FETCH_PROJECT_QUERY,
-      variables() {
-        return {
-          id: this.$props.id
-        };
-      },
-      result({ data }) {
-        if (data.project === null) {
-          this.$q
-            .dialog({
-              title: 'Project not found',
-              message:
-                "It's either you don't have access or it has been deleted."
-            })
-            .onDismiss(() => this.$router.push('/projects'));
-        }
-      }
-    }
-  },
+  props: ['project'],
   computed: {
     ...mapGetters('auth', ['isEncoder'])
   },
   data() {
     return {
-      project: {},
       copyData: '' // cannot be null
     };
   },

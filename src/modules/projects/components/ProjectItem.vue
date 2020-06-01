@@ -15,7 +15,7 @@
 
     <!-- project information -->
     <q-item-section class="col-6">
-      <q-item-label>
+      <q-item-label :lines="2">
         <span class="text-weight-bold">
           {{
             project.operating_unit
@@ -56,7 +56,11 @@
           transition-hide="jump-up"
           auto-close
         >
-          <project-menu :project="project" :added="added"></project-menu>
+          <project-menu
+            :project="project"
+            :added="added"
+            :finalized="finalized"
+          ></project-menu>
         </q-menu>
       </q-btn>
     </q-item-section>
@@ -83,11 +87,14 @@ export default {
     ...mapState('settings', ['dark']),
     ...mapGetters('settings', ['buttonColor']),
     selectedProjects() {
-      return this.$store.state.projects.selectedProjects
+      return this.$store.state.projects.selectedProjects;
     },
     added() {
       return this.selectedProjects.includes(this.$props.project);
     },
+    finalized() {
+      return this.project.latest_status === 'finalized';
+    }
   },
   methods: {
     displayDateDifference
