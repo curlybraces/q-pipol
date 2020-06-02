@@ -164,7 +164,6 @@ export default {
             password: password,
             password_confirmation: password_confirmation
           });
-          this.loading = false;
         }
       });
     }

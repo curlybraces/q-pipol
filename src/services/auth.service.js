@@ -15,7 +15,7 @@ import { CHECK_EMAIL_AVAILABILITY_QUERY } from '@/graphql/queries';
 export const authService = {
   register({ name, email, password, password_confirmation }) {
     return client
-      .query({
+      .mutate({
         mutation: REGISTER_MUTATION,
         variables: {
           name: name,

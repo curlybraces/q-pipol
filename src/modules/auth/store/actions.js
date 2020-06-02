@@ -13,7 +13,7 @@ export function register({ commit }, payload) {
     .register(payload)
     .then(res => {
       commit('SET_LOADING', false);
-      console.log(res);
+      console.log('response', res);
       Dialog.create({
         title: 'Registration Successful',
         message: 'You have successfully registered. Please check your email.',
@@ -104,14 +104,14 @@ export function forgotPassword({}, email) {
 
   return authService
     .forgotPassword({ email: email })
-    .then(({ data }) => {
-      if (data.forgotPassword.status === 'EMAIL_NOT_SENT') {
+    .then(res => {
+      if (res.forgotPassword.status === 'EMAIL_NOT_SENT') {
         showErrorNotification({
-          message: data.forgotPassword.message
+          message: res.forgotPassword.message
         });
       } else {
         showSuccessNotification({
-          message: data.forgotPassword.message
+          message: res.forgotPassword.message
         });
       }
     })
@@ -177,7 +177,7 @@ export function updatePassword({ dispatch }, payload) {
 
 export function checkEmailAvailability({}, payload) {
   return authService
-    .checkEmailAvailability(payload)
+    .checkEmailAvailability({ email: payload })
     .then(res => {
       if (res.checkEmailAvailability.status === 'AVAILABLE') {
         return true;
