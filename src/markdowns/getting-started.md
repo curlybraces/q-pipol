@@ -7,13 +7,13 @@ Users need individual accounts to use the IPMS.
 - [Login to your account](#login)
 - [Verifying your email address](#verify-email) 
 
-### <a name="welcome-screen"></a>Welcome Screen
+### <a name="welcome-screen"></a># Welcome Screen
 
 When you navigate to the application's URL, you will be shown the welcome screen of the IPMS. At the top-right, there are two buttons to help you navigate: `Getting Started` and `Login`. Clicking on `Getting Started` will take you to the system's documentation and tutorial/help. `Login`, on the other hand, will take you to the login page. 
 
 ![landing_page](https://user-images.githubusercontent.com/29625844/83469518-87efe000-a4b2-11ea-9f05-625b4ab080a9.png)
 
-### <a name="create-account"></a>Creating a new account
+### <a name="create-account"></a># Creating a new account
 
 To use the application, a user needs to create an account.
 
@@ -33,7 +33,7 @@ The signup process may take a few seconds but if it doesn't complete, something 
 
 As with other application, while not required, make sure you verify your [email](#verify-email). Instructions are shown below.
 
-### <a name="verify-email"></a>Verifying your email address
+### <a name="verify-email"></a># Verifying your email address
 
 Upon creating a new account, you will receive an email from the system asking you to verify your email. Please check your `SPAM` folder as verification email often enters spam folder. The email should look like the picture below:
 
@@ -45,11 +45,11 @@ Just click on the `Verify Email` button. You should see the following screen:
 
 Verifying your email address ensures strengthened security, allows IPD staff to better assist you if you forget your password, and gives you access to more features on IPMS.
 
-### <a name="login"></a>Login to your account
+### <a name="login"></a># Login to your account
 
 ![login_page](https://user-images.githubusercontent.com/29625844/83469362-10ba4c00-a4b2-11ea-812d-305e5aa3641c.png)
 
-### <a name="forgot-password"></a>Forgot Password
+### <a name="forgot-password"></a># Forgot Password
 
 ![forgot_password](https://user-images.githubusercontent.com/29625844/83469416-39dadc80-a4b2-11ea-8ac8-fde7c4755c4b.png)
 
