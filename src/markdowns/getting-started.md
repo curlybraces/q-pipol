@@ -1,6 +1,6 @@
 ## Getting Started with IPMS
 
-Users need individual accounts to use the IPMS.
+This section of the manual aims to inform the user of how to create an account, login, verify email, and recover forgotten password. The content are as follows:
 
 - [Welcome Screen](#welcome-screen)
 - [Creating a new account](#create-account)
