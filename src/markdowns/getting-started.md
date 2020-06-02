@@ -43,27 +43,16 @@ Just click on the `Verify Email` button. You should see the following screen:
 
 ![verify_success](https://user-images.githubusercontent.com/29625844/83473052-43b50d80-a4bb-11ea-9078-2a5593091643.png)
 
-Verifying your email address ensures strengthened security, allows IPD staff to better assist you if you forget your password, and gives you access to more features on IPMS.
+**Verifying your email address ensures strengthened security, allows IPD staff to better assist you if you forget your password, and gives you access to more features on IPMS.**
 
 ### <a name="login"></a># Login to your account
+
+Note that as soon as you create an account, you can already login. Email verification ensures you can recover your account in case you forget/lose your password. To login, go to the login page and enter the email and password you used to create your account. Then, click `Login`.
 
 ![login_page](https://user-images.githubusercontent.com/29625844/83469362-10ba4c00-a4b2-11ea-812d-305e5aa3641c.png)
 
 ### <a name="forgot-password"></a># Forgot Password
 
+If you forget your password, just click on the `Forgot Password` and enter the email you used to create your account. This will send a Password Reset link to your email. Remember to check your `SPAM` folder.
+
 ![forgot_password](https://user-images.githubusercontent.com/29625844/83469416-39dadc80-a4b2-11ea-8ac8-fde7c4755c4b.png)
-
-
-
-#### About email verification
-
-You can verify your email address after signing up for a new account. If an email address is undeliverable or bouncing, it will be unverified.
-
-If you do not verify your email address, you will not be able to:
-
-- Receive important updates.
-- Recover lost password.
-
-### How to sign up for IPMS
-### How to install app
-### Getting Started
