@@ -3,11 +3,20 @@
 Users need individual accounts to use the IPMS.
 
 - [Creating a new account](#create-account)
+- [Login to your account](#login)
 - [Verifying your email address](#verify-email) 
 
 ### <a name="create-account"></a>Creating a new account
 
-![signup_page](https://user-images.githubusercontent.com/29625844/83469231-adc8b500-a4b1-11ea-81af-f7ded80b2214.png =250x250)
+![signup_page](https://user-images.githubusercontent.com/29625844/83469231-adc8b500-a4b1-11ea-81af-f7ded80b2214.png)
+
+### <a name="login"></a>Login to your account
+
+![login_page](https://user-images.githubusercontent.com/29625844/83469362-10ba4c00-a4b2-11ea-812d-305e5aa3641c.png)
+
+### <a name="forgot-password"></a>Forgot Password
+
+![forgot_password](https://user-images.githubusercontent.com/29625844/83469416-39dadc80-a4b2-11ea-8ac8-fde7c4755c4b.png)
 
 ### <a name="verify-email"></a>Verifying your email address
 
