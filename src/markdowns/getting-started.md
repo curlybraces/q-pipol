@@ -65,3 +65,14 @@ Upon clicking the `Reset Password`, you will be prompted to confirm visiting a `
 You will be taken to the screen where you can create a new password. This is referenced in [#44](https://github.com/mlab817/q-pipol/issues/44#issue-628861813) for improvement.
 
 ![reset_password_screen](https://user-images.githubusercontent.com/29625844/83474789-7103ba80-a4bf-11ea-815c-660f05219365.png)
+
+If you encounter no problems, you will see the following problem. Sometimes, the System will prompt you that the token is invalid. In this case, just send another `Forgot Password` request from the `Login` page.
+
+![password_reset_success](https://user-images.githubusercontent.com/29625844/83475115-3fd7ba00-a4c0-11ea-940f-04169ede2216.png)
+
+# Next Steps
+
+- [Dashboard]()
+- [Projects]()
+- [Profile]()
+- [Settings]()
