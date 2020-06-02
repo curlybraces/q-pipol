@@ -6,6 +6,7 @@ Users need individual accounts to use the IPMS.
 - [Creating a new account](#create-account)
 - [Login to your account](#login)
 - [Verifying your email address](#verify-email) 
+- [Recovering Forgotten Password](#forgot-password)
 
 ### <a name="welcome-screen"></a># Welcome Screen
 
@@ -51,8 +52,16 @@ Note that as soon as you create an account, you can already login. Email verific
 
 ![login_page](https://user-images.githubusercontent.com/29625844/83469362-10ba4c00-a4b2-11ea-812d-305e5aa3641c.png)
 
-### <a name="forgot-password"></a># Forgot Password
+### <a name="forgot-password"></a># Recovering Forgotten Password
 
-If you forget your password, just click on the `Forgot Password` and enter the email you used to create your account. This will send a Password Reset link to your email. Remember to check your `SPAM` folder.
+If you forget your password, just click on the `Forgot Password` and enter the email you used to create your account. This will send a Password Reset link to your email. Remember to check your `SPAM` folder. Note that you cannot recover your password since this is encrypted. Instead, you will need to reset your password through the link sent to your email. This is why having a verified email is very important. The password reset link is valid for 60 minutes.
 
 ![forgot_password](https://user-images.githubusercontent.com/29625844/83469416-39dadc80-a4b2-11ea-8ac8-fde7c4755c4b.png)
+
+Upon clicking the `Reset Password`, you will be prompted to confirm visiting a `Suspicious Link`. You may ignore this warning and click `Confirm.`
+
+![reset_password](https://user-images.githubusercontent.com/29625844/83474529-d60ae080-a4be-11ea-8f7d-4232b54ff963.png)
+
+You will be taken to the screen where you can create a new password. This is referenced in [#44](https://github.com/mlab817/q-pipol/issues/44#issue-628861813) for improvement.
+
+![reset_password_screen](https://user-images.githubusercontent.com/29625844/83474789-7103ba80-a4bf-11ea-815c-660f05219365.png)
