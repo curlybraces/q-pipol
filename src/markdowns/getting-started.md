@@ -7,7 +7,7 @@ Users need individual accounts to use the IPMS.
 
 ### <a name="create-account"></a>Creating a new account
 
-
+![signup_page](https://user-images.githubusercontent.com/29625844/83469231-adc8b500-a4b1-11ea-81af-f7ded80b2214.png)
 
 ### <a name="verify-email"></a>Verifying your email address
 
