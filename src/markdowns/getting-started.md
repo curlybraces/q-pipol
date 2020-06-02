@@ -37,7 +37,7 @@ As with other application, while not required, make sure you verify your [email]
 
 Upon creating a new account, you will receive an email from the system asking you to verify your email. Please check your `SPAM` folder as verification email often enters spam folder. The email should look like the picture below:
 
-![verify_email](https://user-images.githubusercontent.com/29625844/83472061-eb7d0c00-a4b8-11ea-893b-9c8f4b1cd097.png)
+![verify_email](https://user-images.githubusercontent.com/29625844/83473313-d6ee4300-a4bb-11ea-96cd-3591f76c62fe.png)
 
 Just click on the `Verify Email` button. You should see the following screen:
 
