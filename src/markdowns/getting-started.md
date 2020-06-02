@@ -70,7 +70,7 @@ If you encounter no problems, you will see the following problem. Sometimes, the
 
 ![password_reset_success](https://user-images.githubusercontent.com/29625844/83475115-3fd7ba00-a4c0-11ea-940f-04169ede2216.png)
 
-# Next Steps
+## Next Steps
 
 - [Dashboard]()
 - [Projects]()
