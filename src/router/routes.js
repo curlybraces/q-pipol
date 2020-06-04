@@ -1,11 +1,9 @@
 import AuthRoutes from '../modules/auth/routes';
 import DirectoryRoutes from '../modules/directory/routes';
-import DocumentationRoutes from '../modules/docs/routes';
 import DashboardRoutes from '../modules/dashboard/routes';
 import LandingRoute from '../modules/landing/routes';
 import ProfileRoutes from '../modules/profile/routes';
 import ProjectsRoutes from '../modules/projects/routes';
-import ResourcesRoutes from '../modules/resources/routes';
 import SettingsRoute from '../modules/settings/routes';
 import ActivityRoutes from '../modules/activities/routes';
 import UsersRoutes from '../modules/users/routes';
@@ -23,13 +21,12 @@ const routes = [
       DashboardRoutes,
       SettingsRoute,
       ProfileRoutes,
-      ResourcesRoutes,
+      // ResourcesRoutes,
       ...ProjectsRoutes,
       DirectoryRoutes
     ]
   },
   AuthRoutes,
-  DocumentationRoutes,
   {
     path: '/error',
     name: 'error',

@@ -163,12 +163,6 @@ export default {
           encoder: true
         },
         {
-          label: 'Resources',
-          icon: 'folder_open',
-          url: '/resources',
-          color: 'amber'
-        },
-        {
           label: 'Directory',
           icon: 'call',
           url: '/directory',
