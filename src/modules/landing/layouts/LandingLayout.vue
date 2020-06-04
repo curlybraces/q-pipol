@@ -14,7 +14,7 @@
 
             <q-space />
 
-            <q-btn flat stretch to="/docs">Get Started</q-btn>
+            <q-btn type="a" flat stretch href="https://ipms-docs.web.app" target="_blank">Get Started</q-btn>
 
             <q-separator vertical color="white"></q-separator>
 
