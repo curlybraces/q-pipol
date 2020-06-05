@@ -32,7 +32,7 @@
         {{ project.description }}
       </q-item-label>
       <q-item-label caption>
-        Created {{ displayDateDifference(project.created_at) }}
+        Created by {{ project.creator ? project.creator.name : '' }}  {{ project.created_at ? displayDateDifference(project.created_at) : '' }}
       </q-item-label>
     </q-item-section>
 

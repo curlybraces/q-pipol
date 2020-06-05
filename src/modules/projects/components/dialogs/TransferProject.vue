@@ -14,8 +14,14 @@
         v-model="filterUsers"
       ></q-input>
     </div>
-    <q-option-group v-model="user_id" :options="filteredOptions">
-    </q-option-group>
+    <template v-if="$apollo.loading">
+      <q-inner-loading :showing="$apollo.loading">
+        <q-spinner-tail size="50px" color="primary"></q-spinner-tail>
+      </q-inner-loading>
+    </template>
+    <template v-else>
+      <q-option-group v-model="user_id" :options="filteredOptions"></q-option-group>
+    </template>
     <q-card-actions align="right">
       <q-btn outline color="primary" label="Cancel" @click="close"></q-btn>
       <q-btn
