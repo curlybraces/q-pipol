@@ -60,10 +60,26 @@
             :project="project"
             :added="added"
             :finalized="finalized"
+            @transfer="transferProjectDialog = true"
           ></project-menu>
         </q-menu>
       </q-btn>
     </q-item-section>
+
+    <q-dialog
+      v-model="transferProjectDialog"
+      full-height
+      :position="$q.screen.xs ? void 0 : 'right'"
+      persistent
+      :maximized="$q.screen.xs"
+      transition-show="jump-left"
+      transition-hide="jump-right"
+    >
+      <transfer-project
+        :projectId="project.id"
+        @close="transferProjectDialog = false"
+      ></transfer-project>
+    </q-dialog>
   </q-item>
 </template>
 
@@ -71,9 +87,10 @@
 import { mapState, mapGetters } from 'vuex';
 import { displayDateDifference } from '@/utils';
 import ProjectMenu from './dropdowns/ProjectMenu';
+import TransferProject from './dialogs/TransferProject';
 
 export default {
-  components: { ProjectMenu },
+  components: { ProjectMenu, TransferProject },
   name: 'ProjectItem',
   props: {
     project: {
@@ -81,6 +98,11 @@ export default {
     },
     search: {
       type: String
+    }
+  },
+  data() {
+    return {
+      transferProjectDialog: false
     }
   },
   computed: {

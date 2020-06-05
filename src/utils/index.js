@@ -11,7 +11,7 @@ export const handleError = err => {
 };
 
 export const displayDateDifference = data => {
-  if (!data) {
+  if (!data || typeof data === undefined) {
     return null;
   }
 

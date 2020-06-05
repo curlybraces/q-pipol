@@ -37,7 +37,9 @@
               class="text-capitalize text-weight-bolder"
               outline
               style="width: 220px;"
-              to="/docs"
+              type="a"
+              href="https://ipms-docs.web.app/"
+              target="_blank"
             >
               Learn More
             </q-btn>
@@ -67,7 +69,9 @@
                 outline
                 color="primary"
                 style="width: 220px;"
-                to="/docs"
+                type="a"
+                href="https://ipms-docs.web.app/"
+                target="_blank"
               >
                 Learn More
               </q-btn>
@@ -100,7 +104,9 @@
                 outline
                 color="primary"
                 style="width: 220px;"
-                to="/docs"
+                type="a"
+                href="https://ipms-docs.web.app/"
+                target="_blank"
               >
                 Learn More
               </q-btn>

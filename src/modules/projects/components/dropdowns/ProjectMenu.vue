@@ -1,11 +1,15 @@
 <template>
   <q-list>
-    <menu-item @click="viewProject" label="View" icon="search"> </menu-item>
+    <menu-item 
+      @click="viewProject" 
+      label="View" 
+      icon="search">
+    </menu-item>
     <menu-item
       @click="updateProject"
       label="Update"
       icon="update"
-      :disable="!isOwner && finalized"
+      :disable="!isOwner || isFinalized"
     ></menu-item>
     <menu-item
       @click="reviewProject"
@@ -24,7 +28,7 @@
       @click="handleTransferProject"
       label="Transfer"
       icon="subdirectory_arrow_right"
-      :disable="!isFinalized"
+      :disable="!isOwner"
     ></menu-item>
     <menu-item
       @click="handleShareProject"
@@ -103,6 +107,15 @@ export default {
       }).onOk(() => {
         this.$store.dispatch('projects/deleteProject', { id: id });
       });
+    },
+    handleShareProject() {
+      this.$q.dialog({
+        title: 'Coming Soon',
+        message: 'This feature is under development.'
+      })
+    },
+    handleTransferProject() {
+      this.$emit('transfer')
     }
   }
 };

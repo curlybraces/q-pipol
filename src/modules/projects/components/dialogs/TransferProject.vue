@@ -141,6 +141,9 @@ export default {
       // implement transfer
       // be sure to remove project from list if successful
     }
+  },
+  created() {
+    console.log('created transfer project')
   }
 };
 </script>
