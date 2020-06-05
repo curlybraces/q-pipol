@@ -5,7 +5,7 @@
       @click="updateProject"
       label="Update"
       icon="update"
-      :disable="!isOwner"
+      :disable="!isOwner && finalized"
     ></menu-item>
     <menu-item
       @click="reviewProject"
@@ -15,8 +15,21 @@
     ></menu-item>
     <menu-item
       @click="handleSelectProject"
-      :label="added ? 'Remove' : 'Add'"
+      :label="added ? 'Remove' : 'Select'"
       :icon="added ? 'clear' : 'add'"
+      :disable="!isFinalized && !isEncoder"
+    ></menu-item>
+    <q-separator />
+    <menu-item
+      @click="handleTransferProject"
+      label="Transfer"
+      icon="subdirectory_arrow_right"
+      :disable="!isFinalized"
+    ></menu-item>
+    <menu-item
+      @click="handleShareProject"
+      label="Share"
+      icon="share"
       :disable="!isFinalized"
     ></menu-item>
     <q-separator />

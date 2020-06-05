@@ -16,7 +16,7 @@
       </q-toolbar-title>
       <q-space />
 
-      <endorse-button></endorse-button>
+      <endorse-button v-if="isEncoder"></endorse-button>
 
       <notification-button></notification-button>
 
@@ -52,7 +52,10 @@ export default {
   },
   name: 'AppHeader',
   computed: {
-    ...mapGetters('auth', ['user'])
+    ...mapGetters('auth', ['user']),
+    isEncoder() {
+      return this.$store.getters['auth/isEncoder'];
+    }
   },
   apollo: {
     /**

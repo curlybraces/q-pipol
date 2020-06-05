@@ -41,45 +41,6 @@
         </q-list>
       </div>
     </div>
-    <div class="row q-pa-sm">
-      <div class="col-lg-4 col-md-6 col-xs-12">
-        <span
-          class="text-subtitle1"
-          :class="dark ? 'text-purple' : 'text-primary'"
-          >Shortcuts</span
-        >
-        <p class="text-caption">
-          Select shortcuts to appear in the dashboard.
-        </p>
-      </div>
-      <div class="col-lg-8 col-md-6 col-xs-12">
-        <q-list>
-          <q-item tag="label" v-ripple>
-            <q-item-section>
-              <q-item-label>Compact Mode</q-item-label>
-              <q-item-label caption> </q-item-label>
-            </q-item-section>
-            <q-item-section side>
-              <q-toggle color="blue" v-model="denseMode" val="compact" />
-            </q-item-section>
-          </q-item>
-          <q-item tag="label" v-ripple>
-            <q-item-section>
-              <q-item-label>Dark Mode</q-item-label>
-              <q-item-label caption> </q-item-label>
-            </q-item-section>
-            <q-item-section side>
-              <q-toggle
-                color="purple"
-                v-model="darkMode"
-                val="dark"
-                @input="toggleDark"
-              />
-            </q-item-section>
-          </q-item>
-        </q-list>
-      </div>
-    </div>
     <q-separator inset />
     <div class="row q-pa-sm">
       <div class="col-lg-4 col-md-6 col-xs-12">
@@ -134,28 +95,6 @@ export default {
   data() {
     return {
       compact: true,
-      links: [
-        {
-          name: 'add-project',
-          icon: 'add',
-          link: '/add-project'
-        },
-        {
-          name: 'view-projects',
-          icon: 'list',
-          link: '/projects'
-        },
-        {
-          name: 'settings',
-          icon: 'settings',
-          link: '/settings'
-        },
-        {
-          name: 'profile',
-          icon: 'person',
-          link: '/profile'
-        }
-      ],
       shortcuts: []
     };
   },

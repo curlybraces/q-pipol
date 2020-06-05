@@ -69,7 +69,7 @@
       <q-item
         clickable
         v-close-popup
-        @click="openURL('https://github.com/mlab817/q-pipol')"
+        @click="openURL('https://github.com/mlab817/q-pipol/issues')"
         type="a"
         target="_blank"
       >
