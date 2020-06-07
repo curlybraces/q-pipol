@@ -20,21 +20,19 @@
             flat
             label="Projects"
             v-if="children"
+            class="text-capitalize"
           >
             <q-list>
               <q-item
-                v-for="({ to, label }, index) in children"
-                :key="index"
+                v-for="(value, name) in children"
+                :key="value"
                 clickable
-                :to="to"
+                :to="`/projects/${name}`"
               >
-                <q-item-section>{{ label }}</q-item-section>
+                <q-item-section class="text-capitalize">{{ name }}</q-item-section>
               </q-item>
             </q-list>
           </q-btn-dropdown>
-          <q-route-tab v-if="children" :key="index" :label="label">
-            {{ children }}
-          </q-route-tab>
           <q-route-tab
             v-else
             :key="index"
@@ -54,16 +52,6 @@
 <script>
 import { mapState } from 'vuex';
 import { PROCESSING_STATUS } from '@/constants/processing_status';
-
-let processing_statuses = [];
-
-Object.keys(PROCESSING_STATUS).map(key => {
-  processing_statuses.push({
-    to: `/projects/${key}`,
-    label: key.toUpperCase(),
-    icon: ''
-  });
-});
 
 export default {
   name: 'RouteTabs',
@@ -89,6 +77,7 @@ export default {
   },
   data() {
     return {
+      processing_statuses: [],
       tabs: [
         {
           label: 'Dashboard',
@@ -99,7 +88,7 @@ export default {
           label: 'Projects',
           icon: 'storage',
           to: '/projects',
-          children: processing_statuses
+          children: PROCESSING_STATUS
         },
         {
           label: 'Directory',
