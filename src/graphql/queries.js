@@ -410,8 +410,12 @@ export const RELAY_PROJECTS_QUERY = gql`
 `;
 
 export const PAGINATED_PROJECTS = gql`
-  query paginatedProjects($first: Int!, $page: Int) {
-    paginatedProjects(first: $first, page: $page) {
+  query projects($processing_status_id: ID!, $first: Int!, $page: Int) {
+    projects(
+      processing_status_id: $processing_status_id
+      first: $first
+      page: $page
+    ) {
       data {
         id
         title

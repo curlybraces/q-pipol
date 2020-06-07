@@ -20,12 +20,14 @@ export default {
   mounted() {
     this.clearProject();
   },
-  beforeRouteLeave (to, from , next) {
-    const answer = window.confirm('Do you really want to leave? Your progress will not be saved.')
+  beforeRouteLeave(to, from, next) {
+    const answer = window.confirm(
+      'Do you really want to leave? Your progress will not be saved.'
+    );
     if (answer) {
-      next()
+      next();
     } else {
-      next(false)
+      next(false);
     }
   }
 };

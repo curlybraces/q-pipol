@@ -12,11 +12,7 @@
         </div>
 
         <div class="row justify-center">
-          <q-btn 
-            size="lg" 
-            color="primary" 
-            label="Login" 
-            to="/login"></q-btn>
+          <q-btn size="lg" color="primary" label="Login" to="/login"></q-btn>
         </div>
       </div>
       <div v-else>
@@ -40,12 +36,12 @@ export default {
   created() {
     this.loading = true;
 
-    const TOKEN = this.$route.query.token ? this.$route.query.token : null
+    const TOKEN = this.$route.query.token ? this.$route.query.token : null;
 
     if (!TOKEN) {
       this.loading = false;
       this.success = false;
-      alert('Unable to retrieve token. Please check the email again.')
+      alert('Unable to retrieve token. Please check the email again.');
     } else {
       this.$apollo
         .mutate({

@@ -1,6 +1,6 @@
 <template>
   <page-container>
-    <page-title title="Projects">
+    <page-title :title="`${status.toUpperCase()} Projects`">
       <q-btn
         color="primary"
         label="search"
@@ -15,35 +15,25 @@
     </template>
 
     <template v-else>
-      <template v-if="paginatedProjects.data">
-        <template v-if="paginatedProjects.data.length">
+      <template v-if="projects.data">
+        <template v-if="projects.data.length">
           <project-pagination
             v-model="currentPage"
-            :max="
-              paginatedProjects.paginatorInfo
-                ? paginatedProjects.paginatorInfo.lastPage
-                : 1
-            "
+            :max="projects.paginatorInfo ? projects.paginatorInfo.lastPage : 1"
             :max-pages="10"
             @input="setPage"
           />
 
           <q-list separator bordered>
-            <template v-for="project in paginatedProjects.data">
-              <project-item 
-                :project="project" 
-                :key="project.id">
+            <template v-for="project in projects.data">
+              <project-item :project="project" :key="project.id">
               </project-item>
             </template>
           </q-list>
 
           <project-pagination
             v-model="currentPage"
-            :max="
-              paginatedProjects.paginatorInfo
-                ? paginatedProjects.paginatorInfo.lastPage
-                : 1
-            "
+            :max="projects.paginatorInfo ? projects.paginatorInfo.lastPage : 1"
             :max-pages="10"
             @input="setPage"
           />
@@ -83,6 +73,7 @@ import ProjectPagination from '../components/ProjectPagination';
 import SearchProject from '../components/dialogs/SearchProject';
 import NoItem from '@/ui/components/NoItem';
 import ProjectSkeleton from '../components/ProjectSkeleton';
+import { PROCESSING_STATUS } from '@/constants/processing_status';
 
 const PER_PAGE = 10;
 
@@ -98,19 +89,21 @@ export default {
     ProjectSkeleton
   },
   apollo: {
-    paginatedProjects: {
+    projects: {
       query: PAGINATED_PROJECTS,
       variables() {
         return {
+          processing_status_id: this.processing_status_id,
           first: PER_PAGE,
           page: this.currentPage
         };
       }
     }
   },
+  props: ['status'],
   data() {
     return {
-      paginatedProjects: {},
+      projects: {},
       search: '',
       currentPage: 1,
       first: PER_PAGE,
@@ -118,21 +111,26 @@ export default {
       searchProjectDialog: false
     };
   },
-  // watch: {
-  //   $route(to, from) {
-  //     console.log('i am triggered from route change');
-  //     // set currentPage to the query page of destination
-  //     // this will update the query since the variables is reactive
-  //     // this.loadProjects(parseInt(to.query.page))
-  //   }
-  // },
   computed: {
-    ...mapGetters('auth', ['user', 'isEncoder'])
+    ...mapGetters('auth', ['user', 'isEncoder']),
+    processing_status_id() {
+      const status = this.$props.status;
+
+      if (!status) {
+        return 1;
+      }
+
+      return PROCESSING_STATUS[status];
+    }
   },
   methods: {
     setPage(pageNumber) {
       // this will change the route based on the incoming pageNumber
-      this.$router.push({ name: 'index-project', query: { page: pageNumber } });
+      // console.log(this.$route)
+      this.$router.push({
+        name: this.$route.name,
+        query: { page: pageNumber }
+      });
     }
   },
   created() {
@@ -144,6 +142,8 @@ export default {
         : parseInt(this.$route.query.page);
 
     this.currentPage = currentPage;
+
+    console.log(this.$props);
 
     // this.loadProjects(currentPage)
   }

@@ -70,6 +70,16 @@
               </q-card>
             </div>
           </template>
+          <div class="col-6">
+            <q-card flat square class="fit" bordered>
+              <q-item clickable to="/projects/draft" v-ripple>
+                <q-item-section>
+                  <q-item-label>Draft Projects</q-item-label>
+                </q-item-section>
+                <q-item-section side top> </q-item-section>
+              </q-item>
+            </q-card>
+          </div>
         </div>
       </div>
 

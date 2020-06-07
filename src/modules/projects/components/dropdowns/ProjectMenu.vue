@@ -1,10 +1,6 @@
 <template>
   <q-list>
-    <menu-item 
-      @click="viewProject" 
-      label="View" 
-      icon="search">
-    </menu-item>
+    <menu-item @click="viewProject" label="View" icon="search"> </menu-item>
     <menu-item
       @click="updateProject"
       label="Update"
@@ -112,10 +108,10 @@ export default {
       this.$q.dialog({
         title: 'Coming Soon',
         message: 'This feature is under development.'
-      })
+      });
     },
     handleTransferProject() {
-      this.$emit('transfer')
+      this.$emit('transfer');
     }
   }
 };

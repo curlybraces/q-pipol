@@ -10,15 +10,41 @@
         align="left"
         :class="dark ? 'bg-accent text-white' : 'bg-white text-grey-9'"
       >
-        <template v-for="({ to, label, icon }, index) in filteredTabs">
+        <template
+          v-for="({ to, label, icon, children }, index) in filteredTabs"
+        >
+          <q-btn-dropdown
+            :key="index"
+            auto-close
+            stretch
+            flat
+            label="Projects"
+            v-if="children"
+          >
+            <q-list>
+              <q-item
+                v-for="({ to, label }, index) in children"
+                :key="index"
+                clickable
+                :to="to"
+              >
+                <q-item-section>{{ label }}</q-item-section>
+              </q-item>
+            </q-list>
+          </q-btn-dropdown>
+          <q-route-tab v-if="children" :key="index" :label="label">
+            {{ children }}
+          </q-route-tab>
           <q-route-tab
+            v-else
             :key="index"
             :to="to"
             :label="$q.screen.gt.xs ? label : void 0"
             :icon="$q.screen.lt.md ? icon : void 0"
             class="text-capitalize"
             exact
-          />
+          >
+          </q-route-tab>
         </template>
       </q-tabs>
     </div>
@@ -27,6 +53,17 @@
 
 <script>
 import { mapState } from 'vuex';
+import { PROCESSING_STATUS } from '@/constants/processing_status';
+
+let processing_statuses = [];
+
+Object.keys(PROCESSING_STATUS).map(key => {
+  processing_statuses.push({
+    to: `/projects/${key}`,
+    label: key.toUpperCase(),
+    icon: ''
+  });
+});
 
 export default {
   name: 'RouteTabs',
@@ -61,7 +98,8 @@ export default {
         {
           label: 'Projects',
           icon: 'storage',
-          to: '/projects'
+          to: '/projects',
+          children: processing_statuses
         },
         {
           label: 'Directory',

@@ -20,7 +20,10 @@
       </q-inner-loading>
     </template>
     <template v-else>
-      <q-option-group v-model="user_id" :options="filteredOptions"></q-option-group>
+      <q-option-group
+        v-model="user_id"
+        :options="filteredOptions"
+      ></q-option-group>
     </template>
     <q-card-actions align="right">
       <q-btn outline color="primary" label="Cancel" @click="close"></q-btn>
@@ -149,7 +152,7 @@ export default {
     }
   },
   created() {
-    console.log('created transfer project')
+    console.log('created transfer project');
   }
 };
 </script>

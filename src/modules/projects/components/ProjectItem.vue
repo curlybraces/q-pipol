@@ -32,7 +32,10 @@
         {{ project.description }}
       </q-item-label>
       <q-item-label caption>
-        Created by {{ project.creator ? project.creator.name : '' }}  {{ project.created_at ? displayDateDifference(project.created_at) : '' }}
+        Created by {{ project.creator ? project.creator.name : '' }}
+        {{
+          project.created_at ? displayDateDifference(project.created_at) : ''
+        }}
       </q-item-label>
     </q-item-section>
 
@@ -103,7 +106,7 @@ export default {
   data() {
     return {
       transferProjectDialog: false
-    }
+    };
   },
   computed: {
     ...mapState('settings', ['dark']),
