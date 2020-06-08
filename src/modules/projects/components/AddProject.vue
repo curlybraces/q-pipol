@@ -107,7 +107,9 @@
           v-model="currency_id"
           :options="currencies"
           :rules="rules.required"
+          @input="checkExchangeRate"
         ></single-select>
+        <small>{{ conversionRate }}</small>
       </div>
       <div class="col-9">
         <money-input
@@ -115,6 +117,7 @@
           label="Total Project Cost"
           :rules="rules.greaterThanZero"
         ></money-input>
+        <small>PHP: {{ (total_project_cost * exchangeRate.PHP).toFixed(2).replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, '$1,') }}</small>
       </div>
     </div>
 
@@ -208,7 +211,9 @@ export default {
       target_start_year: null,
       target_end_year: null,
       currency_id: null,
-      total_project_cost: null
+      total_project_cost: null,
+      exchangeRate: { PHP: 1 },
+      conversionRate: null
     };
   },
   computed: {
@@ -257,7 +262,27 @@ export default {
         return true;
       }
       return false;
+    },
+    checkExchangeRate(e) {
+      const selectedCurrency = this.currencies.filter(currency => currency.id === e)
+      const currencySymbol = selectedCurrency[0].name
+
+      this.$http
+        .get(`https://api.exchangeratesapi.io/latest?base=${currencySymbol}&symbols=PHP`)
+        .then(({ data: { rates } }) => {
+          this.exchangeRate = rates
+          
+          this.conversionRate = `${currencySymbol} 1 = PHP ${rates.PHP.toFixed(2)}`
+        })
+        .catch(err => {
+          console.log(err);
+          this.conversionRate = 'Not found.'
+          this.exchangeRate = { PHP: 1 }
+        });
     }
+  },
+  created() {
+    
   }
 };
 </script>

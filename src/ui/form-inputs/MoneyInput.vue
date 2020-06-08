@@ -13,6 +13,7 @@
       :rules="rules"
       @blur="isInputActive = false"
       @focus="isInputActive = true"
+      hide-bottom-space
     />
   </div>
 </template>
