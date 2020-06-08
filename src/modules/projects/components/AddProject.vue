@@ -147,6 +147,7 @@ import {
   FETCH_TYPES,
   FETCH_YEARS
 } from 'src/graphql/queries';
+import { exchangeRateService } from '@/services'
 
 export default {
   name: 'AddProject',
@@ -267,9 +268,9 @@ export default {
       const selectedCurrency = this.currencies.filter(currency => currency.id === e)
       const currencySymbol = selectedCurrency[0].name
 
-      this.$http
-        .get(`https://api.exchangeratesapi.io/latest?base=${currencySymbol}&symbols=PHP`)
-        .then(({ data: { rates } }) => {
+      exchangeRateService
+        .get(currencySymbol)
+        .then(({ rates }) => {
           this.exchangeRate = rates
           
           this.conversionRate = `${currencySymbol} 1 = PHP ${rates.PHP.toFixed(2)}`
@@ -282,7 +283,8 @@ export default {
     }
   },
   created() {
-    
+    exchangeRateService.index()
+      .then(res => console.log(res))
   }
 };
 </script>
