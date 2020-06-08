@@ -10,9 +10,7 @@
         align="left"
         :class="dark ? 'bg-accent text-white' : 'bg-white text-grey-9'"
       >
-        <template
-          v-for="({ to, label, icon, children }, index) in filteredTabs"
-        >
+        <template v-for="({ to, label, children }, index) in filteredTabs">
           <q-btn-dropdown
             :key="index"
             auto-close
@@ -22,14 +20,21 @@
             v-if="children"
             class="text-capitalize"
           >
-            <q-list>
+            <q-list separator>
               <q-item
-                v-for="(value, name) in children"
-                :key="value"
+                v-for="{ id, name, count_projects } in children"
+                :key="id"
                 clickable
                 :to="`/projects/${name}`"
               >
-                <q-item-section class="text-capitalize">{{ name }}</q-item-section>
+                <q-item-section class="text-capitalize">{{
+                  name
+                }}</q-item-section>
+                <q-item-section avatar side>
+                  <q-avatar class="bg-grey-6 text-white" size="sm">{{
+                    count_projects
+                  }}</q-avatar>
+                </q-item-section>
               </q-item>
             </q-list>
           </q-btn-dropdown>
@@ -38,7 +43,6 @@
             :key="index"
             :to="to"
             :label="$q.screen.gt.xs ? label : void 0"
-            :icon="$q.screen.lt.md ? icon : void 0"
             class="text-capitalize"
             exact
           >
@@ -51,7 +55,8 @@
 
 <script>
 import { mapState } from 'vuex';
-import { PROCESSING_STATUS } from '@/constants/processing_status';
+import gql from 'graphql-tag';
+// import { PROCESSING_STATUS } from '@/constants/processing_status';
 
 export default {
   name: 'RouteTabs',
@@ -75,6 +80,28 @@ export default {
       return filteredTabs;
     }
   },
+  apollo: {
+    processing_statuses: {
+      query: gql`
+        query {
+          processing_statuses {
+            id
+            name
+            count_projects
+          }
+        }
+      `,
+      variables: {},
+      result({ data }) {
+        this.tabs.map(tab => {
+          if (tab.label === 'Projects') {
+            tab.children = data.processing_statuses;
+          }
+          return tab;
+        });
+      }
+    }
+  },
   data() {
     return {
       processing_statuses: [],
@@ -88,7 +115,7 @@ export default {
           label: 'Projects',
           icon: 'storage',
           to: '/projects',
-          children: PROCESSING_STATUS
+          children: []
         },
         {
           label: 'Directory',

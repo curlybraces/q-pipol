@@ -47,6 +47,22 @@
         <span
           class="text-subtitle1"
           :class="dark ? 'text-purple' : 'text-primary'"
+          >Change Log</span
+        >
+        <p class="text-caption">
+          Lists features and bug fixes made for past versions of the application
+        </p>
+      </div>
+      <div class="col-lg-8 col-md-6 col-xs-12 q-pl-md">
+        <q-btn outline label="VIEW" @click="changeLogDialog = true"></q-btn>
+      </div>
+    </div>
+    <q-separator inset />
+    <div class="row q-pa-sm">
+      <div class="col-lg-4 col-md-6 col-xs-12">
+        <span
+          class="text-subtitle1"
+          :class="dark ? 'text-purple' : 'text-primary'"
           >Reset App</span
         >
         <p class="text-caption">
@@ -62,6 +78,17 @@
         ></q-btn>
       </div>
     </div>
+
+    <q-dialog v-model="changeLogDialog" v-close-popup>
+      <q-card square style="max-width:400px;width:80vw">
+        <q-toolbar class="bg-dark text-white">
+          <q-toolbar-title>Change Logs</q-toolbar-title>
+        </q-toolbar>
+        <q-card-section class="q-pa-sm">
+          <q-markdown :src="markdown"></q-markdown>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
   </page-container>
 </template>
 
@@ -69,6 +96,7 @@
 import { mapState, mapActions } from 'vuex';
 import PageContainer from '@/ui/page/PageContainer';
 import PageTitle from '@/ui/page/PageTitle';
+import changelog from '@/markdowns/changelog.md';
 
 export default {
   name: 'PageSettings',
@@ -95,7 +123,9 @@ export default {
   data() {
     return {
       compact: true,
-      shortcuts: []
+      shortcuts: [],
+      changeLogDialog: false,
+      markdown: changelog
     };
   },
   methods: {

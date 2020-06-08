@@ -1,5 +1,9 @@
 <template>
-  <single-select v-model="model" :options="gads"></single-select>
+  <single-select
+    v-model="model"
+    :options="gads"
+    label="GAD Classification"
+  ></single-select>
 </template>
 
 <script>

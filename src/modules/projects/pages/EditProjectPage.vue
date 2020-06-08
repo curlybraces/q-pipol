@@ -1,6 +1,6 @@
 <template>
   <page-container>
-    <page-title title="Edit Project"></page-title>
+    <page-title title="Update Project"></page-title>
 
     <edit-project></edit-project>
   </page-container>

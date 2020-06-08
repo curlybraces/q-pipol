@@ -18,8 +18,6 @@
 
       <header-search></header-search>
 
-      <endorse-button v-if="isEncoder"></endorse-button>
-
       <notification-button></notification-button>
 
       <q-btn flat round>
@@ -42,12 +40,10 @@ import RouteTabs from './RouteTabs';
 import UserAvatar from './UserAvatar';
 import NotificationButton from './NotificationButton';
 import { GET_CURRENT_USER } from '@/graphql/queries';
-import EndorseButton from './EndorseButton';
 import HeaderSearch from './HeaderSearch';
 
 export default {
   components: {
-    EndorseButton,
     RouteTabs,
     DropdownMenu,
     NotificationButton,

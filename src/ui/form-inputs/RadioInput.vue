@@ -1,20 +1,28 @@
 <template>
-  <div class="col">
-    <span class="text-caption text-weight-bold">{{ label }}</span>
-    <q-option-group
-      type="radio"
-      :options="recodedOptions"
-      v-model="model"
-      inline
-    >
-    </q-option-group>
-  </div>
+  <q-field
+    :rules="rules"
+    stack-label
+    :label="label"
+    v-model="model"
+    borderless
+    hide-bottom-space
+  >
+    <template v-slot:control>
+      <q-option-group
+        type="radio"
+        :options="recodedOptions"
+        v-model="model"
+        inline
+      >
+      </q-option-group>
+    </template>
+  </q-field>
 </template>
 
 <script>
 export default {
   name: 'RadioInput',
-  props: ['value', 'options', 'label', 'recode'],
+  props: ['value', 'options', 'label', 'recode', 'rules'],
   computed: {
     model: {
       get() {

@@ -1,11 +1,11 @@
 <template>
   <page-container>
     <page-title :title="`${status.toUpperCase()} Projects`">
-      <q-btn
+      <!-- <q-btn
         color="primary"
         label="search"
         @click="searchProjectDialog = true"
-      ></q-btn>
+      ></q-btn> -->
     </page-title>
 
     <template v-if="$apollo.loading">
@@ -45,10 +45,10 @@
       </template>
     </template>
 
-    <search-project
+    <!-- <search-project
       v-model="searchProjectDialog"
       @close="searchProjectDialog = false"
-    />
+    /> -->
 
     <!-- Back to top button -->
     <q-page-sticky position="bottom-left" :offset="[18, 18]" v-if="isEncoder">
@@ -70,7 +70,7 @@ import PageTitle from '@/ui/page/PageTitle';
 import ProjectItem from '../components/ProjectItem';
 import PageContainer from '@/ui/page/PageContainer';
 import ProjectPagination from '../components/ProjectPagination';
-import SearchProject from '../components/dialogs/SearchProject';
+// import SearchProject from '../components/dialogs/SearchProject';
 import NoItem from '@/ui/components/NoItem';
 import ProjectSkeleton from '../components/ProjectSkeleton';
 import { PROCESSING_STATUS } from '@/constants/processing_status';
@@ -84,7 +84,7 @@ export default {
     PageTitle,
     ProjectItem,
     ProjectPagination,
-    SearchProject,
+    // SearchProject,
     NoItem,
     ProjectSkeleton
   },

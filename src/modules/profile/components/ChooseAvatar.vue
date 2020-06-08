@@ -39,7 +39,7 @@ export default {
 
       return new Promise((resolve, reject) => {
         try {
-          resolve(this.uploadUserAvatar(payload));
+          resolve(this.$store.dispatch('profile/uploadUserAvatar', payload));
         } catch (err) {
           reject(err);
         }

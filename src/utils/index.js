@@ -1,13 +1,12 @@
 import { date } from 'quasar';
 
 export const handleResponse = response => {
-  console.dir('handleResponse:');
-  console.dir(response.data);
   return response.data;
 };
 
 export const handleError = err => {
   console.error(`error: ${err.message}`);
+  return err;
 };
 
 export const displayDateDifference = data => {

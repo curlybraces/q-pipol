@@ -1,5 +1,6 @@
 import { client } from '@/boot/apollo';
 import { handleResponse, handleError } from '@/utils';
+import gql from 'graphql-tag';
 
 import {
   SEARCH_PROJECTS,
@@ -162,5 +163,23 @@ export const projectService = {
       })
       .then(handleResponse)
       .catch(handleError);
+  },
+  uploadGad({ project_id, gad_form }) {
+    return client
+      .mutate({
+        mutation: gql`
+          mutation createGadForm($project_id: ID!, $gad_form: Upload!) {
+            createGadForm(project_id: $project_id, gad_form: $gad_form) {
+              id
+            }
+          }
+        `,
+        variables: {
+          project_id: project_id,
+          gad_form: gad_form
+        }
+      })
+      .then(res => console.log(res.data))
+      .catch(err => console.log(err.message));
   }
 };

@@ -145,10 +145,10 @@ export default {
     &:hover
       color: $light-blue-9
   &__toolbar-select.q-field--focused
-    width: 450px !important
+    width: 400px !important
     .q-field__append
       display: none
 
 .q-virtual-scroll__content
-	width: 450px !important
+	width: 400px !important
 </style>
