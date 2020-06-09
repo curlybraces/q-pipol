@@ -114,7 +114,7 @@ export default {
 };
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
 .GL
   &__select-GL__menu-link
     .default-type

@@ -1,8 +1,11 @@
 import { projectService } from '@/services';
 
 export function fetchProjects({}, payload) {
-  console.log('fetchProjects triggered');
   return projectService.index(payload);
+}
+
+export function createProject({}, payload) {
+	return projectService.create(payload)
 }
 
 export function deleteProject({}, payload) {

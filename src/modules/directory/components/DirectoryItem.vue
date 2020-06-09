@@ -77,7 +77,7 @@
             {{ ou.name }}
           </q-toolbar-title>
           <q-space />
-          <q-btn flat round icon="close" @click="showMore = false" />
+          <q-btn flat round icon="close" @click="showMore = false" dense />
         </q-toolbar>
 
         <q-list>

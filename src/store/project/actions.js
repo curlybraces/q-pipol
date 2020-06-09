@@ -12,7 +12,7 @@ import { projectService } from '@/services';
 export function createProject({}, payload) {
   Loading.show();
 
-  client
+  return client
     .mutate({
       mutation: CREATE_PROJECT_MUTATION,
       variables: payload,

@@ -47,40 +47,7 @@
         </div>
 
         <!-- Shortcuts -->
-        <div class="row">
-          <q-item-label header class="q-px-none q-pb-sm q-mt-md"
-            >Shortcuts</q-item-label
-          >
-        </div>
-
-        <div class="row">
-          <template v-for="(link, index) in filteredLinks">
-            <div class="col-6" :key="index">
-              <q-card flat square class="fit" bordered>
-                <q-item clickable :to="link.url" v-ripple>
-                  <q-item-section>
-                    <q-item-label
-                      >{{ link.label }} {{ link.visible }}</q-item-label
-                    >
-                  </q-item-section>
-                  <q-item-section side top>
-                    <q-icon :name="link.icon" size="xl" :color="link.color" />
-                  </q-item-section>
-                </q-item>
-              </q-card>
-            </div>
-          </template>
-          <div class="col-6">
-            <q-card flat square class="fit" bordered>
-              <q-item clickable to="/projects/draft" v-ripple>
-                <q-item-section>
-                  <q-item-label>Draft Projects</q-item-label>
-                </q-item-section>
-                <q-item-section side top> </q-item-section>
-              </q-item>
-            </q-card>
-          </div>
-        </div>
+        <short-cuts/>
       </div>
 
       <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
@@ -103,22 +70,14 @@ const PageContainer = () =>
 const ActivityComponent = () =>
   import(/* webpackChunkName: '' */ '../components/ActivityComponent');
 const ExchangeRate = () => import('../components/ExchangeRate');
+const ShortCuts = () => import('../components/ShortCuts.vue')
 
 export default {
   name: 'PageIndex',
-  components: { ActivityComponent, PageContainer, PageTitle, ExchangeRate },
+  components: { ActivityComponent, PageContainer, PageTitle, ExchangeRate, ShortCuts },
   computed: {
     ...mapState('auth', ['user', 'loading']),
-    ...mapGetters('auth', ['isEncoder']),
-    filteredLinks() {
-      let filteredLinks = [];
-      if (this.isEncoder) {
-        filteredLinks = this.links;
-      } else {
-        filteredLinks = this.links.filter(link => link.encoder === undefined);
-      }
-      return filteredLinks;
-    }
+    ...mapGetters('auth', ['isEncoder'])
   },
   apollo: {
     unreadNotifications: {
@@ -130,7 +89,6 @@ export default {
     hideReminder() {
       this.hideValidateEmailReminder(false);
     },
-
     map(items) {
       let mappedItems = [];
       mappedItems = items.map(item => {
@@ -151,40 +109,7 @@ export default {
           total: 0
         }
       },
-      unreadNotifications: [],
-      links: [
-        {
-          label: 'Profile',
-          icon: 'person',
-          url: '/profile',
-          color: 'primary'
-        },
-        {
-          label: 'View Projects',
-          icon: 'list',
-          url: '/projects',
-          color: 'blue'
-        },
-        {
-          label: 'Add Project',
-          icon: 'playlist_add',
-          url: '/projects/add',
-          color: 'secondary',
-          encoder: true
-        },
-        {
-          label: 'Directory',
-          icon: 'call',
-          url: '/directory',
-          color: 'purple'
-        },
-        {
-          label: 'Settings',
-          icon: 'settings',
-          url: '/settings',
-          color: 'pink'
-        }
-      ]
+      unreadNotifications: []
     };
   }
 };

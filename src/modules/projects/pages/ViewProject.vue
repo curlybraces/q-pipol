@@ -70,16 +70,15 @@ export default {
           id: this.$route.params.id
         };
       },
-      result({ data }) {
-        if (data.project === null) {
-          this.$q
-            .dialog({
-              title: 'Project not found',
-              message:
-                "It's either you don't have access or it has been deleted."
-            })
-            .onDismiss(() => this.$router.push('/projects'));
-        }
+      error(error) {
+        console.log(error)
+        this.$q
+          .dialog({
+            title: 'Project not found',
+            message:
+              "It's either you don't have access or it has been deleted."
+          })
+          .onDismiss(() => this.$router.push('/projects'));
       }
     }
   },
@@ -91,7 +90,7 @@ export default {
       return this.selectedProjects.includes(this.project);
     },
     finalized() {
-      return this.project.latest_status === 'finalized';
+      return this.project ? this.project.latest_status === 'finalized': false;
     }
   },
   data() {

@@ -12,7 +12,8 @@ module.exports = function(ctx) {
       'copy',
       'loading-defaults',
       'router-auth',
-	    'test'
+	    'test',
+      'faker'
     ],
 
     css: ['app.styl'],
