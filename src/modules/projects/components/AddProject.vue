@@ -263,8 +263,10 @@ export default {
       this.submit(payload)
     },
     submit(payload) {
+      this.$q.loading.show()
       this.$store.dispatch('projects/createProject',payload)
         .then(res => {
+          this.$q.loading.hide()
           this.resetForm()
           this.$emit('saved', res.createProject.id)
         });
