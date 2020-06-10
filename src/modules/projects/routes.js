@@ -3,7 +3,9 @@ const ProjectsRoutes = [
     path: 'projects',
     name: 'index-project',
     component: () =>
-      import(/* webpackChunkName: 'ProjectsPage' */ './pages/ProjectsDirectory.vue'),
+      import(
+        /* webpackChunkName: 'ProjectsPage' */ './pages/ProjectsDirectory.vue'
+      ),
     meta: {
       requiresAuth: true
     }

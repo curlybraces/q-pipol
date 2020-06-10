@@ -1,145 +1,161 @@
 <template>
-  <q-form
-    class="q-pa-sm q-gutter-sm"
-    ref="addProject"
-    @submit.prevent="handleSubmit"
-    @reset="handleReset"
-  >
-    <span class="text-red">* All fields are required.</span>
-
-    <div class="row">
-      <text-input label="Title" v-model="title" :rules="rules.required" />
-    </div>
-
-    <div class="row q-pl-sm q-col-gutter-sm">
-      <div class="col-6">
-        <single-select
-          v-model="type_id"
-          label="Type"
-          :options="types"
-          :rules="rules.notEmpty"
-        />
-      </div>
-      <div class="col-6">
-        <single-select
-          v-model="infrastructure"
-          label="Infrastructure Project"
-          :options="[
-            { id: true, name: 'Yes' },
-            { id: false, name: 'No' }
-          ]"
-          :rules="rules.notNull"
-        />
-      </div>
-    </div>
-
-    <div class="row">
-      <text-input
-        label="Description"
-        type="textarea"
-        v-model="description"
-        :rules="rules.required"
-      />
-    </div>
-
-    <div class="row">
-      <single-select
-        v-model="operating_unit_id"
-        :options="operating_units"
-        label="Implementing Agency"
-        :rules="rules.notEmpty"
-      />
-    </div>
-
-    <div class="row">
-      <single-select
-        v-model="main_funding_source_id"
-        :options="funding_sources"
-        label="Main Funding Source"
-        :rules="rules.notEmpty"
-      />
-    </div>
-
-    <div class="row">
-      <single-select
-        v-model="spatial_coverage_id"
-        label="Spatial Coverage"
-        :options="spatial_coverages"
-        :rules="rules.notEmpty"
+  <div>
+    <template v-if="$apollo.loading">
+      <inner-loading :loading="true" message="Loading Form"></inner-loading>
+    </template>
+    <template v-else>
+      <q-form
+        class="q-pa-sm q-gutter-sm"
+        ref="addProject"
+        @submit="submitForm"
+        @reset="resetForm"
+        greedy
       >
-      </single-select>
-    </div>
+        <span class="text-red">* All fields are required.</span>
 
-    <div class="row">
-      <single-select
-        v-model="project_status_id"
-        :options="project_statuses"
-        label="Project Status"
-        :rules="rules.notEmpty"
-      />
-    </div>
+        <div class="row">
+          <text-input label="Title" v-model="title" :rules="rules.required" />
+        </div>
 
-    <div class="row q-pl-sm q-col-gutter-sm">
-      <div class="col-6">
-        <single-select
-          v-model="target_start_year"
-          :options="years"
-          label="Implementation Start"
-          :rules="rules.notEmpty"
-        />
-      </div>
+        <div class="row q-pl-sm q-col-gutter-sm">
+          <div class="col-6">
+            <single-select
+              v-model="type_id"
+              label="Type"
+              :options="types"
+              :rules="rules.notEmpty"
+            />
+          </div>
+          <div class="col-6">
+            <single-select
+              v-model="infrastructure"
+              label="Infrastructure Project"
+              :options="[
+                { id: true, name: 'Yes' },
+                { id: false, name: 'No' }
+              ]"
+              :rules="rules.notNull"
+            />
+          </div>
+        </div>
 
-      <div class="col-6">
-        <single-select
-          v-model="target_end_year"
-          :options="filteredYears"
-          label="Implementation End"
-          :rules="rules.notLower"
-        />
-      </div>
-    </div>
+        <div class="row">
+          <text-input
+            label="Description"
+            type="textarea"
+            v-model="description"
+            :rules="rules.required"
+          />
+        </div>
 
-    <div class="row q-col-gutter-sm q-pl-sm">
-      <div class="col-3">
-        <single-select
-          label="Currency"
-          v-model="currency_id"
-          :options="currencies"
-          :rules="rules.required"
-          @input="checkExchangeRate"
-        ></single-select>
-        <small>{{ conversionRate }}</small>
-      </div>
-      <div class="col-9">
-        <money-input
-          v-model="total_project_cost"
-          label="Total Project Cost"
-          :rules="rules.greaterThanZero"
-        ></money-input>
-        <small>PHP: {{ (total_project_cost * exchangeRate.PHP).toFixed(2).replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, '$1,') }}</small>
-      </div>
-    </div>
+        <div class="row">
+          <single-select
+            v-model="operating_unit_id"
+            :options="operating_units"
+            label="Implementing Agency"
+            :rules="rules.notEmpty"
+          />
+        </div>
 
-    <div class="row q-gutter-sm justify-center">
-      <q-btn 
-        label="Reset" 
-        type="reset" 
-        outline 
-        color="primary"></q-btn>
-      <q-btn
-        label="Save"
-        type="submit"
-        color="primary"
-        :loading="loading"
-      ></q-btn>
-      <q-btn
-        label="Generate Fake Data"
-        @click="generateFakeData"
-        color="negative"
-        outline
-        ></q-btn>
-    </div>
-  </q-form>
+        <div class="row">
+          <single-select
+            v-model="main_funding_source_id"
+            :options="funding_sources"
+            label="Main Funding Source"
+            :rules="rules.notEmpty"
+          />
+        </div>
+
+        <div class="row">
+          <single-select
+            v-model="spatial_coverage_id"
+            label="Spatial Coverage"
+            :options="spatial_coverages"
+            :rules="rules.notEmpty"
+          >
+          </single-select>
+        </div>
+
+        <div class="row">
+          <single-select
+            v-model="project_status_id"
+            :options="project_statuses"
+            label="Project Status"
+            :rules="rules.notEmpty"
+          />
+        </div>
+
+        <div class="row q-pl-sm q-col-gutter-sm">
+          <div class="col-6">
+            <single-select
+              v-model="target_start_year"
+              :options="years"
+              label="Implementation Start"
+              :rules="rules.notEmpty"
+            />
+          </div>
+
+          <div class="col-6">
+            <single-select
+              v-model="target_end_year"
+              :options="filteredYears"
+              label="Implementation End"
+              :rules="rules.notLower"
+            />
+          </div>
+        </div>
+
+        <div class="row q-col-gutter-sm q-pl-sm">
+          <div class="col-3">
+            <single-select
+              label="Currency"
+              v-model="currency_id"
+              :options="currencies"
+              :rules="rules.required"
+              @input="checkExchangeRate"
+            ></single-select>
+            <small>{{ conversionRate }}</small>
+          </div>
+          <div class="col-9">
+            <money-input
+              v-model="total_project_cost"
+              label="Total Project Cost"
+              :rules="rules.greaterThanZero"
+            ></money-input>
+            <small
+              >PHP:
+              {{
+                (total_project_cost * exchangeRate.PHP)
+                  .toFixed(2)
+                  .replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, '$1,')
+              }}</small
+            >
+          </div>
+        </div>
+
+        <div class="row q-gutter-sm justify-center">
+          <q-btn
+            label="Reset"
+            @click="handleReset"
+            outline
+            color="primary"
+          ></q-btn>
+          <q-btn
+            label="Save"
+            @click="handleSubmit"
+            color="primary"
+            :loading="loading"
+          ></q-btn>
+          <q-btn
+            label="Generate Fake Data"
+            @click="generateFakeData"
+            color="negative"
+            outline
+          ></q-btn>
+        </div>
+      </q-form>
+    </template>
+  </div>
 </template>
 
 <script>
@@ -147,6 +163,7 @@ import { mapState } from 'vuex';
 import TextInput from '@/ui/form-inputs/TextInput';
 import SingleSelect from '@/ui/form-inputs/SingleSelect';
 import MoneyInput from '@/ui/form-inputs/MoneyInput';
+import InnerLoading from '@/ui/components/InnerLoading';
 import {
   FETCH_CURRENCIES,
   FETCH_OPERATING_UNITS,
@@ -156,14 +173,15 @@ import {
   FETCH_TYPES,
   FETCH_YEARS
 } from 'src/graphql/queries';
-import { exchangeRateService } from '@/services'
+import { exchangeRateService } from '@/services';
 
 export default {
   name: 'AddProject',
   components: {
     MoneyInput,
     SingleSelect,
-    TextInput
+    TextInput,
+    InnerLoading
   },
   apollo: {
     currencies: {
@@ -246,6 +264,17 @@ export default {
   methods: {
     handleSubmit() {
       // prepare data
+      this.$q
+        .dialog({
+          title: 'Confirm',
+          message: 'Are you done with the form?',
+          cancel: true
+        })
+        .onOk(() => {
+          this.$refs.addProject.submit();
+        });
+    },
+    submitForm() {
       const payload = {
         title: this.title,
         description: this.description,
@@ -260,42 +289,38 @@ export default {
         currency_id: this.currency_id,
         total_project_cost: this.total_project_cost
       };
-      this.submit(payload)
-    },
-    submit(payload) {
-      this.$q.loading.show()
-      this.$store.dispatch('projects/createProject',payload)
-        .then(res => {
-          this.$q.loading.hide()
-          this.resetForm()
-          this.$emit('saved', res.createProject.id)
-        });
+      this.$q.loading.show();
+      this.$store.dispatch('projects/createProject', payload).then(res => {
+        this.$q.loading.hide();
+        this.handleSaved(res.createProject.id);
+      });
     },
     handleReset() {
-      this.$q.dialog({
-        title: 'Confirm Reset',
-        message: 'Are you sure you want to reset the form?',
-        transitionShow: 'fadeIn',
-        transitionHide: 'fadeOut',
-        cancel: true
-      })
-      .onOk(() => {
-        this.resetForm()
-      })
+      this.$q
+        .dialog({
+          title: 'Confirm Reset',
+          message: 'Are you sure you want to reset the form?',
+          transitionShow: 'fadeIn',
+          transitionHide: 'fadeOut',
+          cancel: true
+        })
+        .onOk(() => {
+          this.$refs.addProject.reset();
+        });
     },
     resetForm() {
-      this.title = null
-      this.description = null
-      this.operating_unit_id = null
-      this.project_status_id = null
-      this.type_id = null
-      this.infrastructure = null
-      this.main_funding_source_id = null
-      this.spatial_coverage_id = null
-      this.target_start_year = null
-      this.target_end_year = null
-      this.currency_id = null
-      this.total_project_cost = null
+      this.title = null;
+      this.description = null;
+      this.operating_unit_id = null;
+      this.project_status_id = null;
+      this.type_id = null;
+      this.infrastructure = null;
+      this.main_funding_source_id = null;
+      this.spatial_coverage_id = null;
+      this.target_start_year = null;
+      this.target_end_year = null;
+      this.currency_id = null;
+      this.total_project_cost = null;
     },
     checkPositiveNumber(val) {
       const value = parseFloat(val);
@@ -306,53 +331,71 @@ export default {
       return false;
     },
     checkExchangeRate(e) {
-      const selectedCurrency = this.currencies.filter(currency => currency.id === e)
-      const currencySymbol = selectedCurrency[0].name
+      const selectedCurrency = this.currencies.filter(
+        currency => currency.id === e
+      );
+      const currencySymbol = selectedCurrency[0].name;
 
       exchangeRateService
         .get(currencySymbol)
         .then(({ rates }) => {
-          this.exchangeRate = rates
-          
-          this.conversionRate = `${currencySymbol} 1 = PHP ${rates.PHP.toFixed(2)}`
+          this.exchangeRate = rates;
+
+          this.conversionRate = `${currencySymbol} 1 = PHP ${rates.PHP.toFixed(
+            2
+          )}`;
         })
         .catch(err => {
           console.log(err);
-          this.conversionRate = 'Not found.'
-          this.exchangeRate = { PHP: 1 }
+          this.conversionRate = 'Not found.';
+          this.exchangeRate = { PHP: 1 };
         });
     },
     generateFakeData() {
-      this.title = this.$faker().lorem.sentence()
-      this.description = this.$faker().lorem.sentences(5)
-      this.operating_unit_id = this.$faker().helpers.randomize(this.operating_units).id
-      this.project_status_id = this.$faker().helpers.randomize(this.project_statuses).id
-      this.type_id = this.$faker().helpers.randomize(this.types).id
-      this.infrastructure = this.$faker().random.boolean()
-      this.main_funding_source_id = this.$faker().helpers.randomize(this.funding_sources).id
-      this.spatial_coverage_id = this.$faker().helpers.randomize(this.spatial_coverages).id
-      const start_year = this.$faker().helpers.randomize(this.years).id
-      this.target_start_year = start_year
-      this.target_end_year = (start_year < 2039) ? start_year + 2 : 2040
-      this.currency_id = this.$faker().helpers.randomize(this.currencies).id
-      this.total_project_cost = this.$faker().random.number() * 1000
+      this.title = this.$faker().lorem.sentence();
+      this.description = this.$faker().lorem.sentences(5);
+      this.operating_unit_id = this.$faker().helpers.randomize(
+        this.operating_units
+      ).id;
+      this.project_status_id = this.$faker().helpers.randomize(
+        this.project_statuses
+      ).id;
+      this.type_id = this.$faker().helpers.randomize(this.types).id;
+      this.infrastructure = this.$faker().random.boolean();
+      this.main_funding_source_id = this.$faker().helpers.randomize(
+        this.funding_sources
+      ).id;
+      this.spatial_coverage_id = this.$faker().helpers.randomize(
+        this.spatial_coverages
+      ).id;
+      const start_year = this.$faker().helpers.randomize(this.years).id;
+      this.target_start_year = start_year;
+      this.target_end_year = start_year < 2039 ? start_year + 2 : 2040;
+      this.currency_id = this.$faker().helpers.randomize(this.currencies).id;
+      this.total_project_cost = this.$faker().random.number() * 1000;
     },
     handleSaved(id) {
       this.saved = true;
-      this.confirmNextStep(id)
+      this.confirmNextStep(id);
     },
     confirmNextStep(id) {
-      this.$q.dialog({
-        title: 'Success',
-        message: 'Would you like to update your recently submitted project? Click Update if yes, cancel if you want to submit a new one.',
-        cancel: true
-      })
-      .onOk(() => {
-        this.goTo(id)
-      });
+      this.$q
+        .dialog({
+          title: 'Success',
+          message:
+            'Would you like to update your recently submitted project? Click OK if yes or cancel if you want to submit a new one.',
+          cancel: true,
+          persistent: true
+        })
+        .onOk(() => {
+          this.goTo(id);
+        })
+        .onCancel(() => {
+          this.$refs.addProject.reset();
+        });
     },
     goTo(id) {
-      this.$router.push('/projects/' + id)
+      this.$router.push('/projects/' + id);
     }
   },
   beforeRouteLeave(to, from, next) {
@@ -365,7 +408,7 @@ export default {
       } else {
         next(false);
       }
-    } 
+    }
   }
 };
 </script>

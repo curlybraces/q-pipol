@@ -1,5 +1,5 @@
-import faker from 'vue-faker'
+import faker from 'vue-faker';
 
 export default async ({ Vue }) => {
-  Vue.use(faker)
-}
+  Vue.use(faker);
+};

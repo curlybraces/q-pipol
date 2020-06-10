@@ -16,7 +16,7 @@
       </q-toolbar-title>
       <q-space />
 
-      <header-search></header-search>
+      <header-search class="q-mr-md"></header-search>
 
       <notification-button></notification-button>
 

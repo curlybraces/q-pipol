@@ -91,7 +91,7 @@ export const UPLOAD_USER_AVATAR_MUTATION = gql`
   mutation uploadUserAvatar($image: Upload!) {
     uploadUserAvatar(image: $image) {
       id
-      image_url
+      avatar
     }
   }
 `;

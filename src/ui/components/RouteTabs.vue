@@ -104,7 +104,17 @@ export default {
   },
   data() {
     return {
-      processing_statuses: [],
+      processing_statuses: [
+        { id: 1, name: 'draft', count_projects: 0 },
+        { id: 2, name: 'finalized', count_projects: 0 },
+        { id: 3, name: 'endorsed', count_projects: 0 },
+        { id: 4, name: 'returned', count_projects: 0 },
+        { id: 5, name: 'validated', count_projects: 0 },
+        { id: 6, name: 'reviewed', count_projects: 0 },
+        { id: 7, name: 'accepted', count_projects: 0 },
+        { id: 8, name: 'approved', count_projects: 0 },
+        { id: 9, name: 'encoded', count_projects: 0 }
+      ],
       tabs: [
         {
           label: 'Dashboard',

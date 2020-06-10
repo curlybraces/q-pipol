@@ -5,7 +5,7 @@ export function fetchProjects({}, payload) {
 }
 
 export function createProject({}, payload) {
-	return projectService.create(payload)
+  return projectService.create(payload);
 }
 
 export function deleteProject({}, payload) {

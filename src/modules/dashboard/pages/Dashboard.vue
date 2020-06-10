@@ -47,7 +47,7 @@
         </div>
 
         <!-- Shortcuts -->
-        <short-cuts/>
+        <short-cuts />
       </div>
 
       <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
@@ -70,11 +70,17 @@ const PageContainer = () =>
 const ActivityComponent = () =>
   import(/* webpackChunkName: '' */ '../components/ActivityComponent');
 const ExchangeRate = () => import('../components/ExchangeRate');
-const ShortCuts = () => import('../components/ShortCuts.vue')
+const ShortCuts = () => import('../components/ShortCuts.vue');
 
 export default {
   name: 'PageIndex',
-  components: { ActivityComponent, PageContainer, PageTitle, ExchangeRate, ShortCuts },
+  components: {
+    ActivityComponent,
+    PageContainer,
+    PageTitle,
+    ExchangeRate,
+    ShortCuts
+  },
   computed: {
     ...mapState('auth', ['user', 'loading']),
     ...mapGetters('auth', ['isEncoder'])
