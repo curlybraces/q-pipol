@@ -1,6 +1,5 @@
 import { client } from '@/boot/apollo';
 import { handleResponse, handleError } from '@/utils';
-import gql from 'graphql-tag';
 
 import {
   SEARCH_PROJECTS,
@@ -11,9 +10,11 @@ import {
   CREATE_PROJECT_MUTATION,
   DELETE_PROJECT_MUTATION,
   REVIEW_PROJECT_MUTATION,
-  ENDORSE_PROJECTS_MUTATION
+  ENDORSE_PROJECTS_MUTATION,
+  CREATE_GAD_FORM,
+  UPDATE_PROJECT_MUTATION,
+  PROCESS_PROJECT_MUTATION
 } from '@/graphql/mutations';
-import { UPDATE_PROJECT_MUTATION } from '../graphql/mutations';
 
 export const projectService = {
   index(payload) {
@@ -164,22 +165,25 @@ export const projectService = {
       .then(handleResponse)
       .catch(handleError);
   },
+  finalize(payload) {
+    return client
+      .mutate({
+        mutation: PROCESS_PROJECT_MUTATION,
+        variables: payload
+      })
+      .then(({ data }) => console.log(data))
+      .catch(err => console.error(err));
+  },
   uploadGad({ project_id, gad_form }) {
     return client
       .mutate({
-        mutation: gql`
-          mutation createGadForm($project_id: ID!, $gad_form: Upload!) {
-            createGadForm(project_id: $project_id, gad_form: $gad_form) {
-              id
-            }
-          }
-        `,
+        mutation: CREATE_GAD_FORM,
         variables: {
           project_id: project_id,
           gad_form: gad_form
         }
       })
-      .then(res => console.log(res.data))
-      .catch(err => console.log(err.message));
+      .then(handleResponse)
+      .catch(handleError);
   }
 };

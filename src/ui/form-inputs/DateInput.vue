@@ -9,6 +9,7 @@
     outlined
     readonly
     label-color="secondary"
+    :rules="rules"
   >
     <template v-slot:append>
       <q-icon name="event" color="secondary" class="cursor-pointer">
@@ -33,7 +34,8 @@ export default {
   props: {
     label: String,
     hint: String,
-    value: String
+    value: String,
+    rules: Array
   },
   computed: {
     ...mapState('settings', ['dense']),

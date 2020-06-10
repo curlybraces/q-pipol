@@ -1,5 +1,5 @@
 <template>
-  <single-select v-model="model" label="Typology" :options="typologies" />
+  <single-select v-model="model" label="Typology" :options="typologies" :rules="rules" />
 </template>
 
 <script>
@@ -9,7 +9,7 @@ import { FETCH_TYPOLOGIES } from '@/graphql/queries';
 export default {
   components: { SingleSelect },
   name: 'Typology',
-  props: ['value'],
+  props: ['value','rules'],
   computed: {
     model: {
       get() {

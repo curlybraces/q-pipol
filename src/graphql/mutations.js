@@ -1261,6 +1261,14 @@ export const UPDATE_PROJECT_MUTATION = gql`
   }
 `;
 
+export const CREATE_GAD_FORM = gql`
+  mutation createGadForm($project_id: ID!, $gad_form: Upload!) {
+    createGadForm(project_id: $project_id, gad_form: $gad_form) {
+      id
+    }
+  }
+`;
+
 export const ASSESS_GAD_RESPONSIVENESS = gql`
   mutation assessGadResponsiveness(
     $id: ID!

@@ -3,6 +3,7 @@
     v-model="model"
     label="Project Status"
     :options="project_statuses"
+    :rules="rules"
   />
 </template>
 
@@ -13,7 +14,7 @@ import { FETCH_PROJECT_STATUSES } from '@/graphql/queries';
 export default {
   components: { SingleSelect },
   name: 'ProjectStatus',
-  props: ['value'],
+  props: ['value','rules'],
   computed: {
     model: {
       get() {

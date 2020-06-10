@@ -25,7 +25,7 @@
       </template>
 
       <template v-else>
-        <q-form ref="editForm">
+        <q-form ref="editForm" @submit="onSubmit" greedy>
           <div class="column">
             <q-item-label header
               >Inclusion in any of the following documents</q-item-label
@@ -166,35 +166,42 @@
 
               <spatial-coverage
                 v-model="project.spatial_coverage_id"
+                :rules="rules.selectOne"
               ></spatial-coverage>
 
               <regions
                 v-model="project.selected_regions"
                 v-if="project.spatial_coverage_id === '2'"
+                :rules="rules.selectOne"
               ></regions>
 
               <region
                 v-model="project.region_id"
                 v-if="project.spatial_coverage_id === '3'"
+                :rules="rules.selectOne"
               ></region>
 
               <province
                 v-model="project.province_id"
                 v-if="project.spatial_coverage_id === '4'"
+                :rules="rules.selectOne"
               ></province>
 
               <district
                 v-model="project.district_id"
                 v-if="project.spatial_coverage_id === '5'"
+                :rules="rules.selectOne"
               ></district>
 
               <city-municipality
                 v-model="project.city_municipality_id"
                 v-if="project.spatial_coverage_id === '6'"
+                :rules="rules.selectOne"
               ></city-municipality>
 
               <implementing-agency
                 v-model="project.operating_unit_id"
+                :rules="rules.selectOne"
               ></implementing-agency>
 
               <q-item-label header>Technical Readiness</q-item-label>
@@ -294,7 +301,7 @@
                   >Gender and Development</span
                 >
                 <div class="row q-col-gutter-sm items-center">
-                  <gad v-model="project.gad_id" class="col" />
+                  <gad v-model="project.gad_id" class="col" :rules="rules.required" />
                   <div class="col-1">
                     <q-btn
                       flat
@@ -344,6 +351,7 @@
 
               <funding-source
                 v-model="project.main_funding_source_id"
+                :rules="rules.required"
               ></funding-source>
 
               <funding-institution
@@ -352,21 +360,24 @@
                   project.main_funding_source_id === '2' ||
                     project.main_funding_source_id === '3'
                 "
+                :rules="rules.required"
               ></funding-institution>
 
               <implementation-mode
                 v-model="project.implementation_mode_id"
+                :rules="rules.required"
               ></implementation-mode>
 
               <div class="row q-col-gutter-sm">
                 <div class="col-3">
-                  <currency v-model="project.currency_id"></currency>
+                  <currency v-model="project.currency_id" :rules="rules.required"></currency>
                 </div>
 
                 <div class="col-9">
                   <money-input
                     v-model="project.total_project_cost"
                     label="Total Project Cost"
+                    :rules="rules.required"
                   />
                 </div>
               </div>
@@ -1766,17 +1777,19 @@
 
               <project-status
                 v-model="project.project_status_id"
+                :rules="rules.selectOne"
               ></project-status>
 
-              <budget-tier v-model="project.tier_id"></budget-tier>
+              <budget-tier v-model="project.tier_id" :rules="rules.selectOne"></budget-tier>
 
               <text-input
                 v-model="project.updates"
                 label="Updates"
                 type="textarea"
+                :rules="rules.required"
               />
 
-              <date-input v-model="project.updates_date" label="As of" />
+              <date-input v-model="project.updates_date" label="As of" :rules="rules.required" />
             </div>
           </div>
 
@@ -1801,7 +1814,6 @@
 
 <script>
 import Vue from 'vue';
-import { mapActions } from 'vuex';
 import {
   FETCH_PROJECT_QUERY,
   FETCH_TYPES,
@@ -1809,44 +1821,33 @@ import {
   FETCH_FUNDING_SOURCES,
   FETCH_REGIONS
 } from '@/graphql/queries';
-import { PROCESS_PROJECT_MUTATION } from '@/graphql/mutations';
-import { PROCESSING_STATUS } from '@/constants/processing_status';
 import BudgetTier from '../components/dropdowns/BudgetTier';
 import Regions from '../components/dropdowns/Regions';
-const TableData = () => import('../components/TableData');
-const Gad = () => import('../components/dropdowns/Gad');
-const Region = () => import('../components/dropdowns/Region');
-const Province = () => import('../components/dropdowns/Province');
-const FundingSource = () => import('../components/dropdowns/FundingSource');
-const FundingInstitution = () =>
-  import('../components/dropdowns/FundingInstitution');
-const ImplementationMode = () =>
-  import('../components/dropdowns/ImplementationMode');
-const CityMunicipality = () =>
-  import('../components/dropdowns/CityMunicipality');
-const District = () => import('../components/dropdowns/District');
-const Currency = () => import('../components/dropdowns/Currency');
-const SpatialCoverage = () => import('../components/dropdowns/SpatialCoverage');
-const TextInput = () =>
-  import(/* webpackChunkName: 'TextInput' */ '@/ui/form-inputs/TextInput');
-const RadioInput = () =>
-  import(/* webpackChunkName: 'RadioInput' */ '@/ui/form-inputs/RadioInput');
-const SingleSelect = () =>
-  import(
-    /* webpackChunkName: 'SingleSelect' */ '@/ui/form-inputs/SingleSelect'
-  );
-const MoneyInput = () =>
-  import(/* webpackChunkName: 'MoneyInput' */ '@/ui/form-inputs/MoneyInput');
-const CheckboxInput = () =>
-  import(
-    /* webpackChunkName: 'CheckboxInput' */ '@/ui/form-inputs/CheckboxInput'
-  );
-const DateInput = () =>
-  import(/* webpackChunkName: 'DateInput' */ '@/ui/form-inputs/DateInput');
+import TableData from '../components/TableData';
+import Gad from '../components/dropdowns/Gad';
+import Region from '../components/dropdowns/Region';
+import Province from '../components/dropdowns/Province';
+import FundingSource from '../components/dropdowns/FundingSource';
+import FundingInstitution from '../components/dropdowns/FundingInstitution';
+import ImplementationMode from '../components/dropdowns/ImplementationMode';
+import CityMunicipality from '../components/dropdowns/CityMunicipality';
+import District from '../components/dropdowns/District';
+import Currency from '../components/dropdowns/Currency';
+import SpatialCoverage from '../components/dropdowns/SpatialCoverage';
+import TextInput from '@/ui/form-inputs/TextInput';
+import RadioInput from '@/ui/form-inputs/RadioInput';
+import SingleSelect from '@/ui/form-inputs/SingleSelect';
+import MoneyInput from '@/ui/form-inputs/MoneyInput';
+import CheckboxInput from '@/ui/form-inputs/CheckboxInput';
+import DateInput from '@/ui/form-inputs/DateInput';
 // dropdowns
-const ImplementingAgency = () =>
-  import('../components/dropdowns/ImplementingAgency');
-const ProjectStatus = () => import('../components/dropdowns/ProjectStatus');
+import ImplementingAgency from '../components/dropdowns/ImplementingAgency';
+import ProjectStatus from '../components/dropdowns/ProjectStatus';
+import {
+  showSuccessNotification,
+  showErrorNotification
+} from '@/functions/function-show-notifications';
+import { PROCESSING_STATUS } from '@/constants/processing_status'
 
 import { projectService } from '@/services';
 
@@ -1972,7 +1973,7 @@ export default {
       error: null,
       rules: {
         required: [val => !!val || '* Required'],
-        selectOne: [val => val.length > 0 || '* Required']
+        selectOne: [ val => !!val && val.length > 0 || '* Required']
       },
       editFSCostDialog: false,
       editRowCostDialog: false,
@@ -1983,35 +1984,69 @@ export default {
       funding_sources: [],
       validationErrors: [],
       gad_form: null,
-      uploadGadForm: false
+      uploadGadForm: false,
+      saved: false
     };
   },
   methods: {
-    ...mapActions('project', ['updateProject']),
     saveFile() {
-      console.log(this.gad_form);
       projectService.uploadGad({
         project_id: this.project.id,
         gad_form: this.gad_form
       });
     },
-    updateGadScore(e) {
-      this.project.gad_score = e;
-      this.showGadForm = false;
-    },
-    checkProject() {
-      // check if data is valid
-    },
     handleSubmit() {
-      const payload = this.project;
-
+      // confirm submission
+      this.$q.dialog({
+        title: 'Confirm',
+        message: 'Save your progress',
+        cancel: true
+      })
+      .onOk(() => this.onSubmit())
+    },
+    handleFinalize() {
       this.$refs.editForm.validate().then(success => {
         if (success) {
-          this.updateProject(payload);
+          this.$q
+            .dialog({
+              title: 'Finalize Project',
+              message: 'Add remarks (if any). Input N/A if none.',
+              prompt: {
+                model: '',
+                type: 'text',
+                isValid: val => !!val
+              },
+              cancel: true
+            })
+            .onOk(data => {
+              this.finalizeProject(data);
+            });
         } else {
-          alert('bad');
+          alert('Incomplete data');
         }
-      });
+      })
+    },
+    finalizeProject(remarks) {  
+      const payload = {
+        project_id: this.$route.params.id,
+        processing_status_id: PROCESSING_STATUS.finalized,
+        remarks: remarks
+      }
+      this.$store.dispatch('projects/finalizeProject', payload)
+    },
+    onSubmit() {
+      this.$q.loading.show()
+      this.$store.dispatch('projects/updateProject', this.project)
+        .then(() => showSuccessNotification({
+          message: 'Successfully updated project.'
+        }))
+        .catch(err => showErrorNotification({
+          message: err.message
+        }))
+        .finally(() => this.$q.loading.hide())
+    },
+    onFinalize() {
+      this.$store.dispatch('projects/finalizeProject', this.project)
     },
     getRegion(val) {
       const regions = this.regions;
@@ -2127,45 +2162,6 @@ export default {
           cancel: true
         })
         .onOk(() => this.deleteFundingSourceRow(funding_source, index));
-    },
-    handleValidation() {
-      return false;
-    },
-    handleFinalize() {
-      if (this.handleValidation()) {
-        this.$q
-          .dialog({
-            title: 'Finalize Project',
-            message: 'Add remarks (if any). Input N/A if none.',
-            prompt: {
-              model: '',
-              type: 'text',
-              isValid: val => !!val
-            },
-            cancel: true
-          })
-          .onOk(data => {
-            console.log(data);
-            this.updateProject(this.project)
-              .then(() => this.finalizeProject(data))
-              .catch(err => console.error(err.message));
-          });
-      } else {
-        alert('Incomplete data');
-      }
-    },
-    finalizeProject(remarks) {
-      this.$apollo
-        .mutate({
-          mutation: PROCESS_PROJECT_MUTATION,
-          variables: {
-            project_id: this.$route.params.id,
-            processing_status_id: PROCESSING_STATUS.finalized,
-            remarks: remarks
-          }
-        })
-        .then(({ data }) => console.log(data))
-        .catch(err => console.error(err));
     }
   },
   filters: {

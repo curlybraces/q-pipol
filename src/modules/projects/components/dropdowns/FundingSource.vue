@@ -3,6 +3,7 @@
     v-model="model"
     label="Main Funding Source"
     :options="funding_sources"
+    :rules="rules"
   />
 </template>
 
@@ -13,7 +14,7 @@ import { FETCH_FUNDING_SOURCES } from '@/graphql/queries';
 export default {
   components: { SingleSelect },
   name: 'FundingSource',
-  props: ['value'],
+  props: ['value','rules'],
   computed: {
     model: {
       get() {

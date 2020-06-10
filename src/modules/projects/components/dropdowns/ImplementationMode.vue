@@ -3,6 +3,7 @@
     v-model="model"
     label="Implementation Mode"
     :options="implementation_modes"
+    :rules="rules"
   />
 </template>
 
@@ -13,7 +14,7 @@ import { FETCH_IMPLEMENTATION_MODES } from '@/graphql/queries';
 export default {
   components: { SingleSelect },
   name: 'ImplementationMode',
-  props: ['value'],
+  props: ['value','rules'],
   computed: {
     model: {
       get() {

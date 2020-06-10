@@ -3,6 +3,7 @@
     v-model="model"
     :options="gads"
     label="GAD Classification"
+    :rules="rules"
   ></single-select>
 </template>
 
@@ -13,7 +14,7 @@ import SingleSelect from '@/ui/form-inputs/SingleSelect';
 export default {
   components: { SingleSelect },
   name: 'Gad',
-  props: ['value'],
+  props: ['value','rules'],
   apollo: {
     gads: {
       query: FETCH_GADS_QUERY

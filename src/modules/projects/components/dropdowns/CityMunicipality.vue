@@ -3,6 +3,7 @@
     v-model="model"
     label="City/Municipality"
     :options="city_municipalities"
+    :rules="rules"
   />
 </template>
 
@@ -13,7 +14,7 @@ import { FETCH_CITY_MUNICIPALITIES_QUERY } from '@/graphql/queries';
 export default {
   components: { SingleSelect },
   name: 'CityMunicipality',
-  props: ['value'],
+  props: ['value','rules'],
   computed: {
     model: {
       get() {

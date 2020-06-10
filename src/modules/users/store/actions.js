@@ -97,10 +97,7 @@ export function assignOperatingUnitToReview({}, payload) {
       }
     })
     .then(res => {
-      const { message } = res.data.assignOperatingUnitToReview;
-      showSuccessNotification({
-        message: message
-      });
+      console.log(res)
     })
     .catch(err => {
       showErrorNotification({

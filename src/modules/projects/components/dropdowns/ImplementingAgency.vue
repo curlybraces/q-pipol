@@ -3,6 +3,7 @@
     v-model="model"
     label="Implementing Agency"
     :options="operating_units"
+    :rules="rules"
   />
 </template>
 
@@ -13,7 +14,7 @@ import SingleSelect from '@/ui/form-inputs/SingleSelect';
 export default {
   components: { SingleSelect },
   name: 'OperatingUnit',
-  props: ['value'],
+  props: ['value','rules'],
   computed: {
     model: {
       get() {

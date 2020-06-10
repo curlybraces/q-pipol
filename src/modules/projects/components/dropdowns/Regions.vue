@@ -4,6 +4,7 @@
     v-model="model"
     :options="regions"
     :recode="true"
+    :rules="rules"
   />
 </template>
 
@@ -14,7 +15,7 @@ import { FETCH_REGIONS } from '@/graphql/queries';
 export default {
   components: { ListOptionGroup },
   name: 'Regions',
-  props: ['value'],
+  props: ['value','rules'],
   computed: {
     model: {
       get() {

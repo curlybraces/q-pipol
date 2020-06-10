@@ -1,5 +1,5 @@
 <template>
-  <single-select v-model="model" label="Province" :options="provinces" />
+  <single-select v-model="model" label="Province" :options="provinces" :rules="rules"/>
 </template>
 
 <script>
@@ -9,7 +9,7 @@ import { FETCH_PROVINCES } from '@/graphql/queries';
 export default {
   components: { SingleSelect },
   name: 'Province',
-  props: ['value'],
+  props: ['value','rules'],
   computed: {
     model: {
       get() {
