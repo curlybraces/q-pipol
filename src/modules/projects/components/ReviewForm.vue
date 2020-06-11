@@ -181,13 +181,21 @@
 
 <script>
 import Vue from 'vue';
-import gql from 'graphql-tag';
 import Typology from './dropdowns/Typology';
 import SingleSelect from '@/ui/form-inputs/SingleSelect';
 import TextInput from '@/ui/form-inputs/TextInput';
 import ListItem from './review-form/ListItem';
 import { PDP_INDICATORS } from '@/constants/pdp';
-import { FETCH_REVIEW_QUERY } from '@/graphql/queries';
+import { 
+  FETCH_REVIEW_QUERY,
+  SDG_QUERY,
+  TEN_POINT_AGENDA_QUERY,
+  PARADIGMS_QUERY,
+  BASES_QUERY,
+  READINESSES_QUERY,
+  CIP_TYPES_QUERY,
+  PDP_CHAPTERS_QUERY
+} from '@/graphql/queries';
 import InnerLoading from '@/ui/components/InnerLoading';
 import { mapActions } from 'vuex';
 
@@ -197,74 +205,25 @@ export default {
   props: ['id'],
   apollo: {
     sustainable_development_goals: {
-      query: gql`
-        {
-          sustainable_development_goals {
-            id
-            name
-          }
-        }
-      `
+      query: SDG_QUERY
     },
     ten_point_agenda: {
-      query: gql`
-        {
-          ten_point_agenda {
-            id
-            name
-          }
-        }
-      `
+      query: TEN_POINT_AGENDA_QUERY
     },
     paradigms: {
-      query: gql`
-        {
-          paradigms {
-            id
-            name
-          }
-        }
-      `
+      query: PARADIGMS_QUERY
     },
     bases: {
-      query: gql`
-        {
-          bases {
-            id
-            name
-          }
-        }
-      `
+      query: BASES_QUERY
     },
     readinesses: {
-      query: gql`
-        {
-          readinesses {
-            id
-            name
-          }
-        }
-      `
+      query: READINESSES_QUERY
     },
     cip_types: {
-      query: gql`
-        {
-          cip_types {
-            id
-            name
-          }
-        }
-      `
+      query: CIP_TYPES_QUERY
     },
     pdp_chapters: {
-      query: gql`
-        {
-          pdp_chapters {
-            id
-            name
-          }
-        }
-      `
+      query: PDP_CHAPTERS_QUERY
     },
     project: {
       query: FETCH_REVIEW_QUERY,

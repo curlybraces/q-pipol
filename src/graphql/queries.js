@@ -851,3 +851,67 @@ export const FETCH_REVIEW_QUERY = gql`
     }
   }
 `;
+
+
+export const PDP_CHAPTERS_QUERY = gql`
+  {
+    pdp_chapters {
+      id
+      name
+    }
+  }
+`;
+
+export const CIP_TYPES_QUERY = gql`
+  {
+    cip_types {
+      id
+      name
+    }
+  }
+`;
+
+export const READINESSES_QUERY = gql`
+  {
+    readinesses {
+      id
+      name
+    }
+  }
+`;
+
+export const BASES_QUERY = gql`
+  {
+    bases {
+      id
+      name
+    }
+  }
+`;
+
+export const PARADIGMS_QUERY = gql`
+  {
+    paradigms {
+      id
+      name
+    }
+  }
+`;
+
+export const TEN_POINT_AGENDA_QUERY = gql`
+  {
+    ten_point_agenda {
+      id
+      name
+    }
+  }
+`;
+
+export const SDG_QUERY = gql`
+  {
+    sustainable_development_goals {
+      id
+      name
+    }
+  }
+`;
