@@ -15,7 +15,7 @@ import { FETCH_REGIONS } from '@/graphql/queries';
 export default {
   components: { ListOptionGroup },
   name: 'Regions',
-  props: ['value','rules'],
+  props: ['value', 'rules'],
   computed: {
     model: {
       get() {

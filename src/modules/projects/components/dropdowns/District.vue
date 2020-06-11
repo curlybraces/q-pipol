@@ -1,5 +1,10 @@
 <template>
-  <single-select v-model="model" label="District" :options="districts" :rules="rules" />
+  <single-select
+    v-model="model"
+    label="District"
+    :options="districts"
+    :rules="rules"
+  />
 </template>
 
 <script>
@@ -9,7 +14,7 @@ import { FETCH_DISTRICTS } from '@/graphql/queries';
 export default {
   components: { SingleSelect },
   name: 'District',
-  props: ['value','rules'],
+  props: ['value', 'rules'],
   computed: {
     model: {
       get() {

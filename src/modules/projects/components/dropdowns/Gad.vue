@@ -14,7 +14,7 @@ import SingleSelect from '@/ui/form-inputs/SingleSelect';
 export default {
   components: { SingleSelect },
   name: 'Gad',
-  props: ['value','rules'],
+  props: ['value', 'rules'],
   apollo: {
     gads: {
       query: FETCH_GADS_QUERY

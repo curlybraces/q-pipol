@@ -97,7 +97,7 @@ export function assignOperatingUnitToReview({}, payload) {
       }
     })
     .then(res => {
-      console.log(res)
+      console.log(res);
     })
     .catch(err => {
       showErrorNotification({

@@ -301,7 +301,11 @@
                   >Gender and Development</span
                 >
                 <div class="row q-col-gutter-sm items-center">
-                  <gad v-model="project.gad_id" class="col" :rules="rules.required" />
+                  <gad
+                    v-model="project.gad_id"
+                    class="col"
+                    :rules="rules.required"
+                  />
                   <div class="col-1">
                     <q-btn
                       flat
@@ -370,7 +374,10 @@
 
               <div class="row q-col-gutter-sm">
                 <div class="col-3">
-                  <currency v-model="project.currency_id" :rules="rules.required"></currency>
+                  <currency
+                    v-model="project.currency_id"
+                    :rules="rules.required"
+                  ></currency>
                 </div>
 
                 <div class="col-9">
@@ -1780,7 +1787,10 @@
                 :rules="rules.selectOne"
               ></project-status>
 
-              <budget-tier v-model="project.tier_id" :rules="rules.selectOne"></budget-tier>
+              <budget-tier
+                v-model="project.tier_id"
+                :rules="rules.selectOne"
+              ></budget-tier>
 
               <text-input
                 v-model="project.updates"
@@ -1789,7 +1799,11 @@
                 :rules="rules.required"
               />
 
-              <date-input v-model="project.updates_date" label="As of" :rules="rules.required" />
+              <date-input
+                v-model="project.updates_date"
+                label="As of"
+                :rules="rules.required"
+              />
             </div>
           </div>
 
@@ -1853,8 +1867,8 @@ import {
   showSuccessNotification,
   showErrorNotification
 } from '@/functions/function-show-notifications';
-import { PROCESSING_STATUS } from '@/constants/processing_status'
-import { date } from 'quasar'
+import { PROCESSING_STATUS } from '@/constants/processing_status';
+import { date } from 'quasar';
 
 import { projectService } from '@/services';
 
@@ -1980,7 +1994,7 @@ export default {
       error: null,
       rules: {
         required: [val => !!val || '* Required'],
-        selectOne: [ val => !!val && val.length > 0 || '* Required']
+        selectOne: [val => (!!val && val.length > 0) || '* Required']
       },
       editFSCostDialog: false,
       editRowCostDialog: false,
@@ -1997,25 +2011,38 @@ export default {
   },
   methods: {
     generateFakeData() {
-      this.project.afmip = this.$faker().random.boolean()
-      this.project.rdip = this.$faker().random.boolean()
-      this.project.pcip = this.$faker().random.boolean()
-      this.project.goals = this.$faker().lorem.sentences(2)
-      this.project.outcomes = this.$faker().lorem.sentences(3)
-      this.project.purpose = this.$faker().lorem.sentences(4)
-      this.project.expected_outputs = this.$faker().lorem.sentences(5)
-      this.project.beneficiaries = this.$faker().lorem.sentences(1)
-      this.project.employment_generated = this.$faker().lorem.sentences(5)
-      this.project.implementation_risk = this.$faker().lorem.sentences(5)
-      this.project.mitigation_strategy = this.$faker().lorem.sentences(5)
-      this.project.region_id = this.$faker().random.number({min:1,max:16}).toString()
-      this.project.gad_id = this.$faker().random.number({min:1,max:4}).toString()
-      this.project.funding_institution_id = this.$faker().random.number({min:1,max:30}).toString()
-      this.project.implementation_mode_id = this.$faker().random.number({min:1,max:5}).toString()
-      this.project.tier_id = this.$faker().random.number({min:1,max:3}).toString()
-      this.project.updates = this.$faker().lorem.sentences(5)
-      this.project.updates_date = date.formatDate(this.$faker().date.future(),'YYYY-MM-DD')
-      console.log(this.project)
+      this.project.afmip = this.$faker().random.boolean();
+      this.project.rdip = this.$faker().random.boolean();
+      this.project.pcip = this.$faker().random.boolean();
+      this.project.goals = this.$faker().lorem.sentences(2);
+      this.project.outcomes = this.$faker().lorem.sentences(3);
+      this.project.purpose = this.$faker().lorem.sentences(4);
+      this.project.expected_outputs = this.$faker().lorem.sentences(5);
+      this.project.beneficiaries = this.$faker().lorem.sentences(1);
+      this.project.employment_generated = this.$faker().lorem.sentences(5);
+      this.project.implementation_risk = this.$faker().lorem.sentences(5);
+      this.project.mitigation_strategy = this.$faker().lorem.sentences(5);
+      this.project.region_id = this.$faker()
+        .random.number({ min: 1, max: 16 })
+        .toString();
+      this.project.gad_id = this.$faker()
+        .random.number({ min: 1, max: 4 })
+        .toString();
+      this.project.funding_institution_id = this.$faker()
+        .random.number({ min: 1, max: 30 })
+        .toString();
+      this.project.implementation_mode_id = this.$faker()
+        .random.number({ min: 1, max: 5 })
+        .toString();
+      this.project.tier_id = this.$faker()
+        .random.number({ min: 1, max: 3 })
+        .toString();
+      this.project.updates = this.$faker().lorem.sentences(5);
+      this.project.updates_date = date.formatDate(
+        this.$faker().date.future(),
+        'YYYY-MM-DD'
+      );
+      console.log(this.project);
     },
     saveFile() {
       projectService.uploadGad({
@@ -2025,12 +2052,13 @@ export default {
     },
     handleSubmit() {
       // confirm submission
-      this.$q.dialog({
-        title: 'Confirm',
-        message: 'Save your progress',
-        cancel: true
-      })
-      .onOk(() => this.onSubmit())
+      this.$q
+        .dialog({
+          title: 'Confirm',
+          message: 'Save your progress',
+          cancel: true
+        })
+        .onOk(() => this.onSubmit());
     },
     handleFinalize() {
       this.$refs.editForm.validate().then(success => {
@@ -2052,29 +2080,34 @@ export default {
         } else {
           alert('Incomplete data');
         }
-      })
+      });
     },
-    finalizeProject(remarks) {  
+    finalizeProject(remarks) {
       const payload = {
         project_id: this.$route.params.id,
         processing_status_id: PROCESSING_STATUS.finalized,
         remarks: remarks
-      }
-      this.$store.dispatch('projects/finalizeProject', payload)
+      };
+      this.$store.dispatch('projects/finalizeProject', payload);
     },
     onSubmit() {
-      this.$q.loading.show()
-      this.$store.dispatch('projects/updateProject', this.project)
-        .then(() => showSuccessNotification({
-          message: 'Successfully updated project.'
-        }))
-        .catch(err => showErrorNotification({
-          message: err.message
-        }))
-        .finally(() => this.$q.loading.hide())
+      this.$q.loading.show();
+      this.$store
+        .dispatch('projects/updateProject', this.project)
+        .then(() =>
+          showSuccessNotification({
+            message: 'Successfully updated project.'
+          })
+        )
+        .catch(err =>
+          showErrorNotification({
+            message: err.message
+          })
+        )
+        .finally(() => this.$q.loading.hide());
     },
     onFinalize() {
-      this.$store.dispatch('projects/finalizeProject', this.project)
+      this.$store.dispatch('projects/finalizeProject', this.project);
     },
     getRegion(val) {
       const regions = this.regions;

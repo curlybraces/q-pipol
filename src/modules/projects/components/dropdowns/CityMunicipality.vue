@@ -14,7 +14,7 @@ import { FETCH_CITY_MUNICIPALITIES_QUERY } from '@/graphql/queries';
 export default {
   components: { SingleSelect },
   name: 'CityMunicipality',
-  props: ['value','rules'],
+  props: ['value', 'rules'],
   computed: {
     model: {
       get() {

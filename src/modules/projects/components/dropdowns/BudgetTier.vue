@@ -1,5 +1,10 @@
 <template>
-  <single-select v-model="model" label="Budget Tier" :options="tiers" :rules="rules" />
+  <single-select
+    v-model="model"
+    label="Budget Tier"
+    :options="tiers"
+    :rules="rules"
+  />
 </template>
 
 <script>
@@ -10,7 +15,7 @@ import { FETCH_TIERS } from '@/graphql/queries';
 export default {
   components: { SingleSelect },
   name: 'BudgetTier',
-  props: ['value','rules'],
+  props: ['value', 'rules'],
   computed: {
     model: {
       get() {

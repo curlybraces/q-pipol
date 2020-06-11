@@ -14,7 +14,7 @@ import { FETCH_PROJECT_STATUSES } from '@/graphql/queries';
 export default {
   components: { SingleSelect },
   name: 'ProjectStatus',
-  props: ['value','rules'],
+  props: ['value', 'rules'],
   computed: {
     model: {
       get() {

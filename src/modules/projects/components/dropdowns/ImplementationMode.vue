@@ -14,7 +14,7 @@ import { FETCH_IMPLEMENTATION_MODES } from '@/graphql/queries';
 export default {
   components: { SingleSelect },
   name: 'ImplementationMode',
-  props: ['value','rules'],
+  props: ['value', 'rules'],
   computed: {
     model: {
       get() {

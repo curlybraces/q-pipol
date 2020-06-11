@@ -50,6 +50,11 @@ export const BASIC_INFORMATION_FRAGMENT = gql`
     }
     created_at
     updated_at
+    processing_status {
+      id
+      name
+    }
+    processing_status_id
   }
 `;
 
@@ -427,6 +432,11 @@ export const PROJECT_FRAGMENT = gql`
           value
         }
       }
+      processing_status {
+        id
+        name
+      }
+      processing_status_id
     }
   }
 `;

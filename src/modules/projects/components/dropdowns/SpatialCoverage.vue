@@ -14,7 +14,7 @@ import { FETCH_SPATIAL_COVERAGES } from '@/graphql/queries';
 export default {
   components: { SingleSelect },
   name: 'SpatialCoverage',
-  props: ['value','rules'],
+  props: ['value', 'rules'],
   computed: {
     model: {
       get() {

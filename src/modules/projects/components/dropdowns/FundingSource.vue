@@ -14,7 +14,7 @@ import { FETCH_FUNDING_SOURCES } from '@/graphql/queries';
 export default {
   components: { SingleSelect },
   name: 'FundingSource',
-  props: ['value','rules'],
+  props: ['value', 'rules'],
   computed: {
     model: {
       get() {

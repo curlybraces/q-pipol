@@ -23,7 +23,7 @@
     <div class="row">
       <div class="col-8">
         <q-scroll-area style="height:80vh;">
-          <project-profile :id="$route.params.id"></project-profile>
+          <project-profile :project="project"></project-profile>
         </q-scroll-area>
       </div>
       <div class="col-4 q-pa-sm">
@@ -80,6 +80,7 @@ const PageContainer = () =>
 const ProjectProfile = () => import('../components/ProjectProfile');
 const ReviewForm = () => import('../components/ReviewForm');
 import { PROCESS_PROJECT_MUTATION } from '@/graphql/mutations';
+import { FETCH_PROJECT_QUERY } from '@/graphql/queries';
 
 export default {
   components: { PageTitle, PageContainer, ProjectProfile, ReviewForm },
@@ -87,8 +88,19 @@ export default {
   data() {
     return {
       remarks: null,
-      showReturnProjectDialog: false
+      showReturnProjectDialog: false,
+      project: {}
     };
+  },
+  apollo: {
+    project: {
+      query: FETCH_PROJECT_QUERY,
+      variables() {
+        return {
+          id: this.$route.params.id
+        };
+      }
+    }
   },
   methods: {
     handleReturnProject() {

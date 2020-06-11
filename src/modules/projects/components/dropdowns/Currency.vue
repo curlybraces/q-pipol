@@ -1,5 +1,10 @@
 <template>
-  <single-select v-model="model" label="Currency" :options="currencies" :rules="rules"/>
+  <single-select
+    v-model="model"
+    label="Currency"
+    :options="currencies"
+    :rules="rules"
+  />
 </template>
 
 <script>
@@ -9,7 +14,7 @@ import { FETCH_CURRENCIES } from '@/graphql/queries';
 export default {
   components: { SingleSelect },
   name: 'Currency',
-  props: ['value','rules'],
+  props: ['value', 'rules'],
   computed: {
     model: {
       get() {

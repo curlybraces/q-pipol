@@ -13,7 +13,7 @@ export function createProject({}, payload) {
 }
 
 export function updateProject({}, payload) {
-	return projectService.update(payload);
+  return projectService.update(payload);
 }
 
 export function deleteProject({}, payload) {
@@ -29,7 +29,7 @@ export function endorseProjects({}, payload) {
 }
 
 export function finalizeProject({}, payload) {
-	return projectService.finalize(payload)
+  return projectService.finalize(payload);
 }
 
 export function selectProject({ commit }, payload) {
