@@ -1805,6 +1805,12 @@
               color="primary"
               @click="handleSubmit"
             ></q-btn>
+            <q-btn
+              outline
+              label="Generate Fake Data"
+              color="red"
+              @click="generateFakeData"
+            ></q-btn>
           </div>
         </q-form>
       </template>
@@ -1848,6 +1854,7 @@ import {
   showErrorNotification
 } from '@/functions/function-show-notifications';
 import { PROCESSING_STATUS } from '@/constants/processing_status'
+import { date } from 'quasar'
 
 import { projectService } from '@/services';
 
@@ -1989,6 +1996,27 @@ export default {
     };
   },
   methods: {
+    generateFakeData() {
+      this.project.afmip = this.$faker().random.boolean()
+      this.project.rdip = this.$faker().random.boolean()
+      this.project.pcip = this.$faker().random.boolean()
+      this.project.goals = this.$faker().lorem.sentences(2)
+      this.project.outcomes = this.$faker().lorem.sentences(3)
+      this.project.purpose = this.$faker().lorem.sentences(4)
+      this.project.expected_outputs = this.$faker().lorem.sentences(5)
+      this.project.beneficiaries = this.$faker().lorem.sentences(1)
+      this.project.employment_generated = this.$faker().lorem.sentences(5)
+      this.project.implementation_risk = this.$faker().lorem.sentences(5)
+      this.project.mitigation_strategy = this.$faker().lorem.sentences(5)
+      this.project.region_id = this.$faker().random.number({min:1,max:16}).toString()
+      this.project.gad_id = this.$faker().random.number({min:1,max:4}).toString()
+      this.project.funding_institution_id = this.$faker().random.number({min:1,max:30}).toString()
+      this.project.implementation_mode_id = this.$faker().random.number({min:1,max:5}).toString()
+      this.project.tier_id = this.$faker().random.number({min:1,max:3}).toString()
+      this.project.updates = this.$faker().lorem.sentences(5)
+      this.project.updates_date = date.formatDate(this.$faker().date.future(),'YYYY-MM-DD')
+      console.log(this.project)
+    },
     saveFile() {
       projectService.uploadGad({
         project_id: this.project.id,

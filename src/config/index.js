@@ -7,8 +7,8 @@ export const CONFIG = {
   // graphQLEndpoint: 'https://wh490179.ispot.cc/graphql'
 
   graphQLEndpoint: process.env.DEV
-    ? 'http://localhost:8000/graphql'
-    // ?  'https://da-ipms.herokuapp.com/graphql'
+    // ? 'http://localhost:8000/graphql'
+    ?  'https://da-ipms.herokuapp.com/graphql'
     // ? 'https://wh490179.ispot.cc/graphql'
     :  'https://da-ipms.herokuapp.com/graphql'
 };
