@@ -115,7 +115,7 @@
       <q-expansion-item label="Readiness" class="text-grey-7">
         <q-item tag="label">
           <q-item-section avatar>
-            <q-checkbox v-model="within_period"></q-checkbox>
+            <q-checkbox v-model="project.review.within_period"></q-checkbox>
           </q-item-section>
           <q-item-section>
             <q-item-label>To be implemented within 2017-2022</q-item-label>
@@ -125,7 +125,7 @@
         <q-item>
           <single-select
             label="Level of Readiness"
-            v-model="readiness_id"
+            v-model="project.review.readiness_id"
             :options="readinesses"
           ></single-select>
         </q-item>
@@ -133,26 +133,26 @@
 
       <q-expansion-item label="Typology" class="text-grey-7">
         <q-item>
-          <typology v-model="typology_id"></typology>
+          <typology v-model="project.review.typology_id"></typology>
         </q-item>
         <q-item tag="label">
           <q-item-section avatar>
-            <q-checkbox v-model="cip"></q-checkbox>
+            <q-checkbox v-model="project.review.cip"></q-checkbox>
           </q-item-section>
           <q-item-section>
             Core Investment Program/Project
           </q-item-section>
         </q-item>
-        <q-item v-if="cip">
+        <q-item v-if="project.review.cip">
           <single-select
             label="CIP Type"
-            v-model="cip_type_id"
+            v-model="project.review.cip_type_id"
             :options="cip_types"
           ></single-select>
         </q-item>
         <q-item tag="label">
           <q-item-section avatar>
-            <q-checkbox v-model="trip"></q-checkbox>
+            <q-checkbox v-model="project.review.trip"></q-checkbox>
           </q-item-section>
           <q-item-section>
             Three-Year Rolling Infrastructure Program
@@ -164,7 +164,7 @@
         <text-input
           type="textarea"
           label="Remarks"
-          v-model="remarks"
+          v-model="project.review.remarks"
         ></text-input>
       </q-item>
 
@@ -272,6 +272,20 @@ export default {
         return {
           id: this.$props.id
         };
+      },
+      result({ data }) {
+        // initialize the review properties
+        if (!data.project.review) {
+          this.project.review = {
+            within_period: false,
+            readiness_id: null,
+            cip: false,
+            typology_id: null,
+            remarks: null,
+            trip: false,
+            cip_type_id: null
+          }
+        }
       }
     }
   },
@@ -304,34 +318,6 @@ export default {
       }
 
       return filteredIndicators;
-    },
-    within_period: {
-      get() {
-        return this.project.review ? this.project.review.within_period : null;
-      },
-      set(val) {
-        this.project.review.within_period = val;
-      }
-    },
-    readiness_id: {
-      get() {
-        return this.project.review ? this.project.review.readiness_id : null;
-      },
-      set(val) {
-        this.project.review.readiness_id = val;
-      }
-    },
-    cip() {
-      return false;
-    },
-    typology_id() {
-      return null;
-    },
-    remarks() {
-      return '';
-    },
-    trip() {
-      return false;
     }
   },
   methods: {
