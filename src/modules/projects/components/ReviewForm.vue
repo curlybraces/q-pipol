@@ -186,7 +186,7 @@ import SingleSelect from '@/ui/form-inputs/SingleSelect';
 import TextInput from '@/ui/form-inputs/TextInput';
 import ListItem from './review-form/ListItem';
 import { PDP_INDICATORS } from '@/constants/pdp';
-import { 
+import {
   FETCH_REVIEW_QUERY,
   SDG_QUERY,
   TEN_POINT_AGENDA_QUERY,
@@ -243,7 +243,7 @@ export default {
             remarks: null,
             trip: false,
             cip_type_id: null
-          }
+          };
         }
       }
     }

@@ -852,7 +852,6 @@ export const FETCH_REVIEW_QUERY = gql`
   }
 `;
 
-
 export const PDP_CHAPTERS_QUERY = gql`
   {
     pdp_chapters {

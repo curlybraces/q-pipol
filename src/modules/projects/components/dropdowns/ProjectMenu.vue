@@ -8,6 +8,12 @@
       :disable="!isOwner || isFinalized"
     ></menu-item>
     <menu-item
+      @click="validateProject"
+      label="Validate"
+      icon="img:statics/icons/fact_check-black-18dp.svg"
+      :disable="!isReviewer && !isEndorsed"
+    ></menu-item>
+    <menu-item
       @click="reviewProject"
       label="Review"
       icon="rate_review"
@@ -67,12 +73,22 @@ export default {
       return this.user.id === this.project.creator.id;
     },
     isFinalized() {
-      return this.project.latest_status === 'finalized';
+      const status = this.project.processing_status ? this.project.processing_status.name: '';
+      return status === 'finalized'
     },
     isReviewer() {
       console.log('role: ', this.$store.getters['auth/isReviewer']);
       return this.$store.getters['auth/isReviewer'];
+    },
+    isEndorsed() {
+      const status = this.project.processing_status ? this.project.processing_status.name: '';
+      return status === 'endorsed'
     }
+  },
+  data() {
+    return {
+      fact_check: null
+    };
   },
   methods: {
     handleSelectProject() {
@@ -81,6 +97,10 @@ export default {
       } else {
         this.$store.dispatch('projects/selectProject', this.project);
       }
+    },
+    validateProject() {
+      const id = this.$props.project.id;
+      this.$router.push(`/projects/${id}/review`);
     },
     viewProject() {
       const id = this.$props.project.id;

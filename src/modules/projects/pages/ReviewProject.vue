@@ -46,7 +46,11 @@
         </q-toolbar>
         <q-form ref="form" @submit.prevent="handleReturnProject">
           <q-card-section>
-            <p>Add remarks for later reference.</p>
+            <p>
+              Inform the encoder of the reason for returning the project, e.g.
+              not included in the endorsement letter, missing/consistent
+              information, etc.
+            </p>
             <q-input
               dense
               outlined
@@ -128,7 +132,8 @@ export default {
       this.$q
         .dialog({
           title: 'Validate Project',
-          message: 'Remarks (min. 10 chars)',
+          message:
+            'Validating project means that (1) it is already included in the endorsement and (2) the required information is complied with. Add remarks below.',
           prompt: {
             model: '',
             isValid: val => val.length >= 10,

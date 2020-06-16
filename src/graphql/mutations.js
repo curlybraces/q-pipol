@@ -1421,3 +1421,19 @@ export const TRANSFER_PROJECT_MUTATION = gql`
     }
   }
 `;
+
+export const RETURN_PROJECT_MUTATION = gql`
+  mutation returnProject($project_id: ID!, $remarks: String) {
+    returnProject(project_id: $project_id, remarks: $remarks) {
+      id
+    }
+  }
+`;
+
+export const VALIDATE_PROJECT_MUTATION = gql`
+  mutation validateProject($project_id: ID!, $remarks: String) {
+    validateProject(project_id: $project_id, remarks: $remarks) {
+      id
+    }
+  }
+`;
