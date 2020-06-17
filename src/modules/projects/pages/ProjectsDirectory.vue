@@ -6,9 +6,14 @@
         icon="add"
         color="primary"
         to="/projects/add"
+        v-if="isEncoder"
       ></q-btn>
     </page-title>
-    <inner-loading v-if="$apollo.loading"></inner-loading>
+
+    <template v-if="$apollo.loading">
+      <inner-loading :loading="$apollo.loading" message="Loading Projects Directory"></inner-loading>
+    </template>
+    
     <template v-else>
       <div class="row q-pa-sm q-col-gutter-sm">
         <div class="col-3" v-for="p in processing_statuses" :key="p.id">
@@ -58,6 +63,11 @@ export default {
           }
         }
       `
+    }
+  },
+  computed: {
+    isEncoder() {
+      return this.$store.getters['auth/isEncoder']
     }
   },
   data() {

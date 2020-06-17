@@ -1,16 +1,29 @@
 <template>
   <page-container>
-    <page-title title="Review Project"></page-title>
+    <page-title title="Validate Project">
+      <div class="row q-gutter-sm">
+        <q-btn
+          icon="subdirectory_arrow_right"
+          color="negative"
+          label="Return"
+          @click="showReturnProjectDialog = true"
+        >
+        </q-btn>
 
-    <div class="row">
-      <div class="col-8">
-        <q-scroll-area style="height:80vh;">
-          <project-profile :project="project"></project-profile>
-        </q-scroll-area>
+        <q-btn
+          icon="check"
+          color="green"
+          label="Validate"
+          @click="handleValidateProject"
+        >
+        </q-btn>
       </div>
-      <div class="col-4 q-pa-sm">
-        <review-form :id="$route.params.id"></review-form>
-      </div>
+    </page-title>
+
+    <div class="col">
+      <q-scroll-area style="height: calc(100vh - 250px);">
+        <project-profile :project="project"></project-profile>
+      </q-scroll-area>
     </div>
 
     <q-dialog v-model="showReturnProjectDialog" persistent>
@@ -39,8 +52,8 @@
               label="Remarks"
               type="textarea"
               v-model="remarks"
-              :rules="[val => !!val || '* Required']"
-              hint="Remarks (if any)"
+              :rules="required"
+              hint="* Required"
             />
           </q-card-section>
           <q-card-actions align="right">
@@ -64,17 +77,17 @@ const PageTitle = () =>
 const PageContainer = () =>
   import(/* webpackChunkName: 'PageTitle' */ '@/ui/page/PageContainer');
 const ProjectProfile = () => import('../components/ProjectProfile');
-const ReviewForm = () => import('../components/ReviewForm');
 import { FETCH_PROJECT_QUERY } from '@/graphql/queries';
 
 export default {
-  components: { PageTitle, PageContainer, ProjectProfile, ReviewForm },
+  components: { PageTitle, PageContainer, ProjectProfile },
   name: 'PageReviewProject',
   data() {
     return {
       remarks: null,
       showReturnProjectDialog: false,
-      project: {}
+      project: {},
+      required: [ val => !!val || '* Required' ]
     };
   },
   apollo: {
@@ -120,8 +133,8 @@ export default {
             id: this.$route.params.id,
             remarks: data
           }
+          
           this.$store.dispatch('projects/validateProject',payload)
-          // Todo: implement validation logic here
         });
     }
   }

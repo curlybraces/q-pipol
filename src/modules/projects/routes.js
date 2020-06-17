@@ -172,6 +172,18 @@ const ProjectsRoutes = [
     }
   },
   {
+    path: 'projects/:id/validate',
+    name: 'validate-project',
+    component: () =>
+      import(
+        /* webpackChunkName: 'ValidateProjectPage' */ './pages/ValidateProject.vue'
+      ),
+    meta: {
+      requiresAuth: true,
+      isReviewer: true
+    }
+  },
+  {
     path: 'projects/:id/edit',
     name: 'edit-project',
     component: () =>

@@ -1,48 +1,53 @@
 <template>
   <q-list>
-    <menu-item @click="viewProject" label="View" icon="search"> </menu-item>
+    <menu-item 
+      @click="viewProject" 
+      label="View" 
+      icon="search"
+    ></menu-item>
     <menu-item
       @click="updateProject"
       label="Update"
       icon="update"
+      v-if="showUpdateItem"
       :disable="!isOwner || isFinalized"
+      tooltip="Restricted to owner only"
     ></menu-item>
     <menu-item
       @click="validateProject"
       label="Validate"
       icon="img:statics/icons/fact_check-black-18dp.svg"
       :disable="!isReviewer && !isEndorsed"
+      v-if="showValidateItem"
     ></menu-item>
     <menu-item
       @click="reviewProject"
       label="Review"
       icon="rate_review"
-      :disable="!isReviewer"
-    ></menu-item>
-    <menu-item
-      @click="handleSelectProject"
-      :label="added ? 'Remove' : 'Select'"
-      :icon="added ? 'clear' : 'add'"
-      :disable="!isFinalized && !isEncoder"
+      v-if="showReviewItem"
+      :disable="reviewProjectItem"
     ></menu-item>
     <q-separator />
     <menu-item
       @click="handleTransferProject"
       label="Transfer"
       icon="subdirectory_arrow_right"
+      tooltip="Restricted to owner only"
       :disable="!isOwner"
     ></menu-item>
     <menu-item
       @click="handleShareProject"
       label="Share"
       icon="share"
-      :disable="!isFinalized"
+      tooltip="Restricted to owner only"
+      :disable="!isOwner"
     ></menu-item>
     <q-separator />
     <menu-item
       @click="promptDelete(project.id)"
       label="Delete"
       icon="delete"
+      tooltip="Restricted to owner only"
       :disable="!isOwner"
     ></menu-item>
   </q-list>
@@ -83,6 +88,25 @@ export default {
     isEndorsed() {
       const status = this.project.processing_status ? this.project.processing_status.name: '';
       return status === 'endorsed'
+    },
+    isValidated() {
+      const status = this.project.processing_status ? this.project.processing_status.name: '';
+      return status === 'validated'
+    },
+    showReviewItem() {
+      return this.$route.fullPath === '/projects/validated'
+    },
+    showUpdateItem() {
+      return this.$route.fullPath === '/projects/draft'
+    },
+    showValidateItem() {
+      return this.$route.fullPath === '/projects/endorsed'
+    },
+    reviewProjectDisabled() {
+      if (!this.isReviewer) {
+        return true
+      }
+      return false
     }
   },
   data() {
@@ -100,7 +124,7 @@ export default {
     },
     validateProject() {
       const id = this.$props.project.id;
-      this.$router.push(`/projects/${id}/review`);
+      this.$router.push(`/projects/${id}/validate`);
     },
     viewProject() {
       const id = this.$props.project.id;

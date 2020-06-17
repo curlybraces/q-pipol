@@ -1,7 +1,7 @@
 <template>
   <q-page>
     <div class="column">
-      <div class="row items-center q-pb-xl">
+      <div class="row items-center q-pb-xl full-page">
         <div
           class="offset-xl-2 col-xl-8 offset-lg-3 col-lg-6 offset-md-1 col-md-10 offset-sm-1 col-sm-10 offset-xs-0 col-xs-12"
         >
@@ -168,3 +168,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+  .full-page {
+    height: calc(100vh - 50px);
+  }
+</style>

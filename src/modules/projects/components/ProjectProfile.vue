@@ -590,6 +590,29 @@
           <q-item>
             <q-item-section>
               <q-item-label caption>
+                Last Updated
+              </q-item-label>
+              <q-item-label class="text-body2">
+                {{ project.updated_at | formatDateTime }}
+              </q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item>
+            <q-item-section>
+              <q-item-label caption>
+                Processing Status
+              </q-item-label>
+              <q-item-label class="text-body2">
+                <q-badge>
+                  {{ project.processing_status ? project.processing_status.name : '' }}
+                </q-badge>
+              </q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-separator spaced />
+          <q-item>
+            <q-item-section>
+              <q-item-label caption>
                 Created
               </q-item-label>
               <q-item-label class="text-body2">
@@ -611,6 +634,20 @@
             </q-item-section>
           </q-item>
         </div>
+        <q-list bordered class="q-mt-md" v-if="this.$route.fullPath.includes('validate')">
+          <q-item clickable>
+            <q-item-section avatar>
+              <q-avatar>
+                <q-icon name="attach_file"></q-icon>
+              </q-avatar>
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>
+                View Endorsement Letter
+              </q-item-label>
+            </q-item-section>
+          </q-item>
+        </q-list>
       </div>
     </div>
   </div>

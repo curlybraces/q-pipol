@@ -39,3 +39,11 @@ export function selectProject({ commit }, payload) {
 export function removeProject({ commit }, payload) {
   commit('REMOVE_PROJECT', payload);
 }
+
+export function returnProject({}, payload) {
+  return projectService.return(payload)
+}
+
+export function validateProject({}, payload) {
+  return projectService.validate(payload)
+}

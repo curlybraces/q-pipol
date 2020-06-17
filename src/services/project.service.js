@@ -13,7 +13,9 @@ import {
   ENDORSE_PROJECTS_MUTATION,
   CREATE_GAD_FORM,
   UPDATE_PROJECT_MUTATION,
-  PROCESS_PROJECT_MUTATION
+  PROCESS_PROJECT_MUTATION,
+  VALIDATE_PROJECT_MUTATION,
+  RETURN_PROJECT_MUTATION
 } from '@/graphql/mutations';
 
 export const projectService = {
@@ -185,5 +187,23 @@ export const projectService = {
       })
       .then(handleResponse)
       .catch(handleError);
+  },
+  validate(payload) {
+    return client
+      .mutation({
+        mutation: VALIDATE_PROJECT_MUTATION,
+        variables: payload
+      })
+      .then(handleResponse)
+      .catch(handleError)
+  },
+  return(payload) {
+    return client
+      .mutation({
+        mutation: RETURN_PROJECT_MUTATION,
+        variables: payload
+      })
+      .then(handleResponse)
+      .catch(handleError)
   }
 };

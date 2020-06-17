@@ -730,6 +730,10 @@ export const FETCH_PROJECT_QUERY = gql`
           name
         }
       }
+      processing_status {
+        id
+        name
+      }
       latest_status
     }
   }

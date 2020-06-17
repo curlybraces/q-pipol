@@ -13,6 +13,9 @@
         {{ label }}
       </q-item-label>
     </q-item-section>
+    <q-tooltip v-if="!!tooltip && disable">
+      {{ tooltip }}
+    </q-tooltip>
   </q-item>
 </template>
 
@@ -25,7 +28,8 @@ export default {
     disable: {
       type: Boolean,
       default: false
-    }
+    },
+    tooltip: String
   }
 };
 </script>
