@@ -20,6 +20,7 @@
 	        </template>
           <q-list separator>
             <q-item
+            	inset-level="1"
               v-for="{ id, name, count_projects } in children"
               :key="id"
               clickable
