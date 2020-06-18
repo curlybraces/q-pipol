@@ -27,9 +27,11 @@
                 clickable
                 :to="`/projects/${name}`"
               >
-                <q-item-section class="text-capitalize">{{
-                  name
-                }}</q-item-section>
+                <q-item-section class="text-capitalize">
+                  {{
+                    name
+                  }}
+                </q-item-section>
                 <q-item-section avatar side>
                   <q-avatar class="bg-grey-6 text-white" size="sm">{{
                     count_projects
@@ -55,95 +57,12 @@
 
 <script>
 import { mapState } from 'vuex';
-import gql from 'graphql-tag';
-// import { PROCESSING_STATUS } from '@/constants/processing_status';
 
 export default {
   name: 'RouteTabs',
+  props: ['filteredTabs'],
   computed: {
     ...mapState('settings', ['dark']),
-    isAdmin() {
-      return this.$store.getters['auth/isAdmin'];
-    },
-    filteredTabs() {
-      // This function hides the users tab if the user is not admin or superadmin
-      let filteredTabs = [];
-
-      if (this.isAdmin) {
-        filteredTabs = this.tabs;
-
-        return filteredTabs;
-      }
-
-      filteredTabs = this.tabs.filter(tab => tab.label !== 'Users');
-
-      return filteredTabs;
-    }
-  },
-  apollo: {
-    processing_statuses: {
-      query: gql`
-        query {
-          processing_statuses {
-            id
-            name
-            count_projects
-          }
-        }
-      `,
-      variables: {},
-      result({ data }) {
-        this.tabs.map(tab => {
-          if (tab.label === 'Projects') {
-            tab.children = data.processing_statuses;
-          }
-          return tab;
-        });
-      }
-    }
-  },
-  data() {
-    return {
-      processing_statuses: [
-        { id: 1, name: 'draft', count_projects: 0 },
-        { id: 2, name: 'finalized', count_projects: 0 },
-        { id: 3, name: 'endorsed', count_projects: 0 },
-        { id: 4, name: 'returned', count_projects: 0 },
-        { id: 5, name: 'validated', count_projects: 0 },
-        { id: 6, name: 'reviewed', count_projects: 0 },
-        { id: 7, name: 'accepted', count_projects: 0 },
-        { id: 8, name: 'approved', count_projects: 0 },
-        { id: 9, name: 'encoded', count_projects: 0 }
-      ],
-      tabs: [
-        {
-          label: 'Dashboard',
-          icon: 'dashboard',
-          to: '/dashboard'
-        },
-        {
-          label: 'Projects',
-          icon: 'storage',
-          to: '/projects',
-          children: []
-        },
-        {
-          label: 'Directory',
-          icon: 'phone',
-          to: '/directory'
-        },
-        {
-          label: 'Profile',
-          icon: 'tune',
-          to: '/profile'
-        },
-        {
-          label: 'Users',
-          icon: 'lock',
-          to: '/admin'
-        }
-      ]
-    };
   }
 };
 </script>

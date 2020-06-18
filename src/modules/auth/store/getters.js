@@ -1,6 +1,6 @@
-export function imageUrl(state) {
-  if (state.user && state.user.image_url) {
-    return state.user.image_url;
+export function avatar(state) {
+  if (state.user && state.user.avatar) {
+    return state.user.avatar;
   } else {
     return 'statics/default.png';
   }
