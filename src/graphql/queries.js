@@ -918,3 +918,33 @@ export const SDG_QUERY = gql`
     }
   }
 `;
+
+export const FETCH_VERSIONS = gql`
+  {
+    versions {
+      id
+      change_log
+      change_type
+      notes
+      user {
+        id
+        name
+      }
+    }
+  }
+`;
+
+export const FETCH_VERSION = gql`
+  query ($id: ID!) {
+    version(id: $id) {
+      id
+      change_log
+      change_type
+      notes
+      user {
+        id
+        name
+      }
+    }
+  }
+`;
