@@ -1437,3 +1437,66 @@ export const VALIDATE_PROJECT_MUTATION = gql`
     }
   }
 `;
+
+export const CREATE_VERSION = gql`
+  mutation createVersion(
+    $change_log: String
+    $change_type: String
+    $notes: String
+  ) {
+    createVersion(
+      change_log: $change_log
+      change_type: $change_type
+      notes: $notes
+    ) {
+      id
+      change_log
+      change_type
+      notes
+      user {
+        id
+        name
+      }
+    }
+  }
+`;
+
+export const UPDATE_VERSION = gql`
+  mutation updateVersion(
+    $id: ID!
+    $change_log: String
+    $change_type: String
+    $notes: String
+  ) {
+    updateVersion(
+      id: $id
+      change_log: $change_log
+      change_type: $change_type
+      notes: $notes
+    ) {
+      id
+      change_log
+      change_type
+      notes
+      user {
+        id
+        name
+      }
+    }
+  }
+`;
+
+export const DELETE_VERSION = gql`
+  mutation deleteVersion($id: ID!) {
+    deleteVersion(id: $id) {
+      id
+      change_log
+      change_type
+      notes
+      user {
+        id
+        name
+      }
+    }
+  }
+`;

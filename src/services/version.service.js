@@ -26,12 +26,32 @@ export const versionService = {
 			.catch(handleError)
 	},
 	create(payload) {
-		console.log(payload)
+		return client
+			.mutate({
+				mutation: CREATE_VERSION,
+				variables: payload
+			})
+			.then(handleResponse)
+			.catch(handleError)
 	},
 	update(payload) {
-		console.log(payload)
+		return client
+			.mutate({
+				mutation: UPDATE_VERSION,
+				variables: payload
+			})
+			.then(handleResponse)
+			.catch(handleError)
 	},
 	delete(id) {
-		console.log(id)
+		return client
+			.mutate({
+				mutation: DELETE_VERSION,
+				variables: {
+					id: id
+				}
+			})
+			.then(handleResponse)
+			.catch(handleError)
 	}
 }
