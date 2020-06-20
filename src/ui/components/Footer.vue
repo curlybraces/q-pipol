@@ -47,6 +47,7 @@
 <script>
 import AboutComponent from './About';
 import { CONFIG } from '@/config';
+import { versionService } from '@/services'
 
 export default {
   name: 'AppFooter',
@@ -56,6 +57,13 @@ export default {
       showAbout: false,
       version: CONFIG.version
     };
+  },
+  created() {
+    versionService.getCurrentVersion()
+      .then(res => {
+        this.version = res.currentVersion.version
+      })
+      .catch(err => console.log(err.message))
   }
 };
 </script>

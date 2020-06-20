@@ -111,7 +111,7 @@
                   color="primary"
                   style="width: 220px;"
                   type="a"
-                  href="https://ipms-docs.web.app/"
+                  :href="DOCS_LINKS.installation"
                   target="_blank"
                 >
                   Learn More
@@ -160,11 +160,17 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { DOCS_LINKS } from '@/constants/docs'
 
 export default {
   name: 'PageLanding',
   computed: {
     ...mapGetters('auth', ['isLoggedIn'])
+  },
+  data() {
+    return {
+      DOCS_LINKS
+    }
   }
 };
 </script>

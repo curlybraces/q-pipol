@@ -75,7 +75,10 @@ export default {
     ...mapState('auth', ['user']),
     ...mapGetters('auth', ['isEncoder', 'isReviewer']),
     isOwner() {
-      return this.user.id === this.project.creator.id;
+      if (this.project.creator && this.project.creator.id) {
+        return this.user.id === this.project.creator.id;
+      }
+      return false;
     },
     isFinalized() {
       const status = this.project.processing_status ? this.project.processing_status.name: '';

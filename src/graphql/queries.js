@@ -923,6 +923,7 @@ export const FETCH_VERSIONS = gql`
   {
     versions {
       id
+      version
       change_log
       change_type
       notes
@@ -938,6 +939,7 @@ export const FETCH_VERSION = gql`
   query ($id: ID!) {
     version(id: $id) {
       id
+      version
       change_log
       change_type
       notes
@@ -948,3 +950,15 @@ export const FETCH_VERSION = gql`
     }
   }
 `;
+
+export const CURRENT_VERSION = gql`
+  query {
+    currentVersion {
+      id
+      change_log
+      change_type
+      notes
+      version
+    }
+  }
+`

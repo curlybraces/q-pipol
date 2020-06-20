@@ -162,15 +162,16 @@ export function updatePassword({ dispatch }, payload) {
   return authService
     .updatePassword(payload)
     .then(res => {
-      console.log(res.updatePassword);
-      if (res.updatePassword.status === 'PASSWORD_UPDATED') {
+      if (res.updatePassword && res.updatePassword.status === 'PASSWORD_UPDATED') {
         dispatch('signoutUser');
       } else {
         return Promise.reject();
       }
     })
     .catch(err => {
-      console.error(err.message);
+      showErrorNotification({
+        message: err.message
+      })
     })
     .finally(() => Loading.hide());
 }

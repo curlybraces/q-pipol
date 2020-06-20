@@ -18,7 +18,7 @@
               type="a"
               flat
               stretch
-              href="https://ipms-docs.web.app"
+              :href="DOCS_LINKS.gettingStarted"
               target="_blank"
               >Get Started</q-btn
             >
@@ -59,12 +59,18 @@
 <script>
 import { mapGetters } from 'vuex';
 import AppFooter from '@/ui/components/Footer';
+import { DOCS_LINKS } from '@/constants/docs'
 
 export default {
   components: { AppFooter },
   name: 'LandingLayout',
   computed: {
     ...mapGetters('auth', ['isLoggedIn'])
+  },
+  data() {
+    return {
+      DOCS_LINKS
+    }
   }
 };
 </script>

@@ -1,7 +1,8 @@
 import { client } from 'boot/apollo'
 import {
 	FETCH_VERSIONS,
-	FETCH_VERSION
+	FETCH_VERSION,
+	CURRENT_VERSION
 } from '@/graphql/queries'
 import {
 	CREATE_VERSION,
@@ -26,6 +27,14 @@ export const versionService = {
 				variables: {
 					id: id
 				}
+			})
+			.then(handleResponse)
+			.catch(handleError)
+	},
+	getCurrentVersion() {
+		return client
+			.query({
+				query: CURRENT_VERSION
 			})
 			.then(handleResponse)
 			.catch(handleError)

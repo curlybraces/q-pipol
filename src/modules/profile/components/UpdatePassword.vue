@@ -14,71 +14,43 @@
         class="q-gutter-y-sm"
         greedy
       >
+
         <div>
           <span class="text-weight-bold">Current Password</span>
-          <q-input
-            outlined
-            dense
-            :type="showPassword ? 'text' : 'password'"
+          <password-input 
             v-model="old_password"
             placeholder="Current Password"
             :rules="[val => !!val || 'Current password is required']"
-            hide-bottom-space
-          >
-            <template v-slot:append>
-              <q-icon
-                :name="showPassword ? 'visibility_off' : 'visibility'"
-                @click="showPassword = !showPassword"
-              />
-            </template>
-          </q-input>
+            ></password-input>
         </div>
+
         <div>
           <span class="text-weight-bold">New Password</span>
-          <q-input
-            outlined
-            dense
-            :type="showPassword ? 'text' : 'password'"
+          <password-input 
             v-model="password"
             placeholder="New Password"
             :rules="[
               val => val.length >= 8 || 'Password must at least be 8 characters'
             ]"
-            hide-bottom-space
-          >
-            <template v-slot:append>
-              <q-icon
-                :name="showPassword ? 'visibility_off' : 'visibility'"
-                @click="showPassword = !showPassword"
-              />
-            </template>
-          </q-input>
+            ></password-input>
         </div>
+
         <div>
           <span class="text-weight-bold">Confirm New Password</span>
-          <q-input
-            outlined
-            dense
-            :type="showPassword ? 'text' : 'password'"
+          <password-input 
             v-model="password_confirmation"
             placeholder="Confirm Password"
             :rules="[
               val => !!val || '* Required',
               val => val === password || 'Password does not match'
             ]"
-            hide-bottom-space
-          >
-            <template v-slot:append>
-              <q-icon
-                :name="showPassword ? 'visibility_off' : 'visibility'"
-                @click="showPassword = !showPassword"
-              />
-            </template>
-          </q-input>
+            ></password-input>
         </div>
+
         <div>
           <submit-button label="Update" @click="handleSubmit"></submit-button>
         </div>
+        
       </q-form>
     </div>
   </div>
@@ -86,9 +58,10 @@
 
 <script>
 import SubmitButton from '@/ui/buttons/SubmitButton';
+import PasswordInput from '@/ui/form-inputs/PasswordInput'
 
 export default {
-  components: { SubmitButton },
+  components: { SubmitButton, PasswordInput },
   name: 'UpdatePassword',
   data() {
     return {
