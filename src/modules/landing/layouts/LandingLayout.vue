@@ -59,7 +59,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import AppFooter from '@/ui/components/Footer';
-import { DOCS_LINKS } from '@/constants/docs'
+import { DOCS_LINKS } from '@/constants/docs';
 
 export default {
   components: { AppFooter },
@@ -70,7 +70,7 @@ export default {
   data() {
     return {
       DOCS_LINKS
-    }
+    };
   }
 };
 </script>

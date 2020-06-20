@@ -87,7 +87,7 @@ export default {
       remarks: null,
       showReturnProjectDialog: false,
       project: {},
-      required: [ val => !!val || '* Required' ]
+      required: [val => !!val || '* Required']
     };
   },
   apollo: {
@@ -108,10 +108,9 @@ export default {
           remarks: this.remarks
         };
 
-        this.$store.dispatch('projects/returnProject', payload)
-
+        this.$store.dispatch('projects/returnProject', payload);
       } else {
-        alert('Remarks is required')
+        alert('Remarks is required');
       }
     },
     handleValidateProject() {
@@ -132,9 +131,9 @@ export default {
           const payload = {
             id: this.$route.params.id,
             remarks: data
-          }
-          
-          this.$store.dispatch('projects/validateProject',payload)
+          };
+
+          this.$store.dispatch('projects/validateProject', payload);
         });
     }
   }

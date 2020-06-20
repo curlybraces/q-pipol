@@ -45,17 +45,25 @@
               PCIP
             </q-badge>
           </div>
-          <copy-button v-copy="project.title"></copy-button>
           {{ project.title }}
+          <q-btn
+            v-copy="project.title"
+            round
+            dense
+            flat
+            icon="img:statics/icons/content_copy-black-18dp.svg"
+            :dark="dark"
+          >
+            <q-tooltip>Copy to clipboard</q-tooltip>
+          </q-btn>
         </div>
 
         <div class="column q-mb-sm">
           <div class="text-weight-lighter text-subtitle1">
-            <copy-button v-copy="project.description"></copy-button>
             DESCRIPTION
           </div>
           <div class="text-body2">
-            {{ project.description }}
+            <textarea-copy :value="project.description"></textarea-copy>
           </div>
         </div>
 
@@ -63,11 +71,10 @@
 
         <div class="column q-mb-sm">
           <div class="text-weight-lighter text-subtitle1">
-            <copy-button v-copy="project.purpose"></copy-button>
             PURPOSE
           </div>
           <div class="text-body2">
-            {{ project.purpose }}
+            <textarea-copy :value="project.purpose"></textarea-copy>
           </div>
         </div>
 
@@ -75,24 +82,18 @@
 
         <div class="column q-mb-sm">
           <div class="text-weight-lighter text-subtitle1">
-            <copy-button v-copy="project.outcomes"></copy-button>
             OUTCOMES
           </div>
-          <div class="text-body2">
-            {{ project.outcomes }}
-          </div>
+          <textarea-copy :value="project.outcomes"></textarea-copy>
         </div>
 
         <q-separator spaced />
 
         <div class="column q-mb-sm">
           <div class="text-weight-lighter text-subtitle1">
-            <copy-button v-copy="project.expected_outputs"></copy-button>
             EXPECTED OUTPUTS
           </div>
-          <div class="text-body2">
-            {{ project.expected_outputs }}
-          </div>
+          <textarea-copy :value="project.expected_outputs" />
         </div>
 
         <q-separator spaced />
@@ -178,7 +179,7 @@
           <div class="text-weight-lighter text-subtitle1">
             PRE-INVESTMENT REQUIREMENT
           </div>
-          <q-markup-table class="col q-pa-sm bg-transparent" flat>
+          <q-markup-table class="col q-my-sm bg-transparent" flat bordered>
             <thead>
               <tr>
                 <th>Type</th>
@@ -255,7 +256,9 @@
         <q-separator spaced />
 
         <div class="column">
-          <div class="text-weight-lighter text-subtitle1">INVESTMENTS</div>
+          <section-header
+            sectionTitle="Investment Requirement"
+          ></section-header>
 
           <template
             v-if="
@@ -292,7 +295,7 @@
                   <td>{{ fs.target_2021 }}</td>
                   <td>{{ fs.target_2022 }}</td>
                   <td>{{ fs.target_2023 }}</td>
-                  <td>{{ fs.target_total }</td>
+                  <td>{{ fs.target_total }}</td>
                 </tr>
               </tbody>
             </q-markup-table>
@@ -327,21 +330,18 @@
                   <td>{{ rf.target_2021 }}</td>
                   <td>{{ rf.target_2022 }}</td>
                   <td>{{ rf.target_2023 }}</td>
-                  <td>{{ rf.target_total }</td>
+                  <td>{{ rf.target_total }}</td>
                 </tr>
               </tbody>
             </q-markup-table>
           </template>
 
-          <q-markup-table class="col q-pa-sm bg-transparent" flat>
+          <q-markup-table class="col q-my-sm bg-transparent" flat bordered>
             <thead>
               <tr>
                 <th>Year</th>
                 <th>Total</th>
                 <th>Infrastructure</th>
-                <th>NEP</th>
-                <th>GAA</th>
-                <th>Disbursement</th>
               </tr>
             </thead>
             <tbody>
@@ -354,80 +354,53 @@
                 <table-data
                   :value="project.infrastructure_target_2016"
                 ></table-data>
-                <table-data :value="project.nep_2016"></table-data>
-                <table-data :value="project.gaa_2016"></table-data>
-                <table-data :value="project.disbursement_2016"></table-data>
               </tr>
               <!-- <tr v-if="project.target_start_year <= 2017 && project.target_end_year >= 2017"> -->
               <tr>
                 <td>2017</td>
                 <table-data :value="project.investment_target_2017" />
                 <table-data :value="project.infrastructure_target_2017" />
-                <table-data :value="project.nep_2017" />
-                <table-data :value="project.gaa_2017" />
-                <table-data :value="project.disbursement_2017" />
               </tr>
               <!-- <tr v-if="project.target_start_year <= 2018 && project.target_end_year >= 2018"> -->
               <tr>
                 <td>2018</td>
                 <table-data :value="project.investment_target_2018" />
                 <table-data :value="project.infrastructure_target_2018" />
-                <table-data :value="project.nep_2018" />
-                <table-data :value="project.gaa_2018" />
-                <table-data :value="project.disbursement_2018" />
               </tr>
               <!-- <tr v-if="project.target_start_year <= 2019 && project.target_end_year >= 2019"> -->
               <tr>
                 <td>2019</td>
                 <table-data :value="project.investment_target_2019" />
                 <table-data :value="project.infrastructure_target_2019" />
-                <table-data :value="project.nep_2019" />
-                <table-data :value="project.gaa_2019" />
-                <table-data :value="project.disbursement_2019" />
               </tr>
               <!-- <tr v-if="project.target_start_year <= 2020 && project.target_end_year >= 2020"> -->
               <tr>
                 <td>2020</td>
                 <table-data :value="project.investment_target_2020" />
                 <table-data :value="project.infrastructure_target_2020" />
-                <table-data :value="project.nep_2020" />
-                <table-data :value="project.gaa_2020" />
-                <table-data :value="project.disbursement_2020" />
               </tr>
               <!-- <tr v-if="project.target_start_year <= 2021 && project.target_end_year >= 2021"> -->
               <tr>
                 <td>2021</td>
                 <table-data :value="project.investment_target_2021" />
                 <table-data :value="project.infrastructure_target_2021" />
-                <table-data :value="project.nep_2021" />
-                <table-data :value="project.gaa_2021" />
-                <table-data :value="project.disbursement_2021" />
               </tr>
               <!-- <tr v-if="project.target_start_year <= 2022 && project.target_end_year >= 2022"> -->
               <tr>
                 <td>2022</td>
                 <table-data :value="project.investment_target_2022" />
                 <table-data :value="project.infrastructure_target_2022" />
-                <table-data :value="project.nep_2022" />
-                <table-data :value="project.gaa_2022" />
-                <table-data :value="project.disbursement_2022" />
               </tr>
               <!-- <tr v-if="project.target_start_year <= 2023 && project.target_end_year >= 2023"> -->
               <tr>
                 <td>2023 &amp; Beyond</td>
                 <table-data :value="project.investment_target_2023" />
                 <table-data :value="project.infrastructure_target_2023" />
-                <table-data :value="project.nep_2023" />
-                <table-data :value="project.gaa_2023" />
-                <table-data :value="project.disbursement_2023" />
               </tr>
               <tr>
                 <td>Total</td>
                 <table-data :value="project.investment_target_total" />
                 <table-data :value="project.infrastructure_target_total" />
-                <table-data :value="project.nep_total" />
-                <table-data :value="project.gaa_total" />
-                <table-data :value="project.disbursement_total" />
               </tr>
             </tbody>
           </q-markup-table>
@@ -437,33 +410,96 @@
 
         <div class="column q-mb-sm">
           <div class="text-weight-lighter text-subtitle1">
-            IMPLEMENTATION RISK
-            <copy-button v-copy="project.implementation_risk"></copy-button>
-            &amp; MITIGATION STRATEGY
-            <copy-button v-copy="project.mitigation_strategy"></copy-button>
+            IMPLEMENTATION RISK AND MITIGATION STRATEGY
           </div>
-          <div class="text-body2" v-if="project.updates">
-            <b>Risk:</b> {{ project.implementation_risk }}<br />
-            <b>Strategy:</b> {{ project.mitigation_strategy }}
-          </div>
-          <div class="text-body2" v-else>
-            Not specified.
-          </div>
+          <textarea-copy :value="riskAndStrategy"></textarea-copy>
         </div>
 
         <q-separator spaced />
 
-        <div class="column q-mb-sm">
-          <div class="text-weight-lighter text-subtitle1">
-            <copy-button v-copy="project.updates"></copy-button>
-            UPDATES
-          </div>
-          <div class="text-body2" v-if="project.updates">
-            As of {{ project.updates_date | formatDate }},
-            {{ project.updates }}
-          </div>
-          <div class="text-body2" v-else>
-            No updates.
+        <div class="column">
+          <section-header sectionTitle="Updates"></section-header>
+
+          <q-markup-table class="col q-my-sm bg-transparent" flat bordered>
+            <thead>
+              <tr>
+                <th>Year</th>
+                <th>NEP</th>
+                <th>GAA</th>
+                <th>Disbursement</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <!-- <tr v-if="project.target_start_year <= 2016 && project.target_end_year >= 2016"> -->
+                <td>2016 &amp; Prior</td>
+                <table-data :value="project.nep_2016"></table-data>
+                <table-data :value="project.gaa_2016"></table-data>
+                <table-data :value="project.disbursement_2016"></table-data>
+              </tr>
+              <!-- <tr v-if="project.target_start_year <= 2017 && project.target_end_year >= 2017"> -->
+              <tr>
+                <td>2017</td>
+                <table-data :value="project.nep_2017" />
+                <table-data :value="project.gaa_2017" />
+                <table-data :value="project.disbursement_2017" />
+              </tr>
+              <!-- <tr v-if="project.target_start_year <= 2018 && project.target_end_year >= 2018"> -->
+              <tr>
+                <td>2018</td>
+                <table-data :value="project.nep_2018" />
+                <table-data :value="project.gaa_2018" />
+                <table-data :value="project.disbursement_2018" />
+              </tr>
+              <!-- <tr v-if="project.target_start_year <= 2019 && project.target_end_year >= 2019"> -->
+              <tr>
+                <td>2019</td>
+                <table-data :value="project.nep_2019" />
+                <table-data :value="project.gaa_2019" />
+                <table-data :value="project.disbursement_2019" />
+              </tr>
+              <!-- <tr v-if="project.target_start_year <= 2020 && project.target_end_year >= 2020"> -->
+              <tr>
+                <td>2020</td>
+                <table-data :value="project.nep_2020" />
+                <table-data :value="project.gaa_2020" />
+                <table-data :value="project.disbursement_2020" />
+              </tr>
+              <!-- <tr v-if="project.target_start_year <= 2021 && project.target_end_year >= 2021"> -->
+              <tr>
+                <td>2021</td>
+                <table-data :value="project.nep_2021" />
+                <table-data :value="project.gaa_2021" />
+                <table-data :value="project.disbursement_2021" />
+              </tr>
+              <!-- <tr v-if="project.target_start_year <= 2022 && project.target_end_year >= 2022"> -->
+              <tr>
+                <td>2022</td>
+                <table-data :value="project.nep_2022" />
+                <table-data :value="project.gaa_2022" />
+                <table-data :value="project.disbursement_2022" />
+              </tr>
+              <!-- <tr v-if="project.target_start_year <= 2023 && project.target_end_year >= 2023"> -->
+              <tr>
+                <td>2023 &amp; Beyond</td>
+                <table-data :value="project.nep_2023" />
+                <table-data :value="project.gaa_2023" />
+                <table-data :value="project.disbursement_2023" />
+              </tr>
+              <tr>
+                <td>Total</td>
+                <table-data :value="project.nep_total" />
+                <table-data :value="project.gaa_total" />
+                <table-data :value="project.disbursement_total" />
+              </tr>
+            </tbody>
+          </q-markup-table>
+
+          <div class="q-mt-sm">
+            <div class="text-weight-lighter text-subtitle1">
+              PROJECT UPDATE
+            </div>
+            <textarea-copy :value="projectUpdates"></textarea-copy>
           </div>
         </div>
       </div>
@@ -590,21 +626,15 @@
           <q-item>
             <q-item-section>
               <q-item-label caption>
-                Last Updated
-              </q-item-label>
-              <q-item-label class="text-body2">
-                {{ project.updated_at | formatDateTime }}
-              </q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-item>
-            <q-item-section>
-              <q-item-label caption>
                 Processing Status
               </q-item-label>
               <q-item-label class="text-body2">
                 <q-badge>
-                  {{ project.processing_status ? project.processing_status.name : '' }}
+                  {{
+                    project.processing_status
+                      ? project.processing_status.name
+                      : ''
+                  }}
                 </q-badge>
               </q-item-label>
             </q-item-section>
@@ -634,7 +664,11 @@
             </q-item-section>
           </q-item>
         </div>
-        <q-list bordered class="q-mt-md" v-if="this.$route.fullPath.includes('validate')">
+        <q-list
+          bordered
+          class="q-mt-md"
+          v-if="this.$route.fullPath.includes('validate')"
+        >
           <q-item clickable>
             <q-item-section avatar>
               <q-avatar>
@@ -656,15 +690,33 @@
 <script>
 import { mapGetters } from 'vuex';
 import TableData from './TableData';
-import CopyButton from '@/ui/buttons/CopyButton';
 import { date } from 'quasar';
+import TextareaCopy from './shared/TextareaCopy';
+import SectionHeader from './shared/SectionHeader';
 
 export default {
-  components: { TableData, CopyButton },
+  components: { TableData, TextareaCopy, SectionHeader },
   name: 'ProjectProfile',
   props: ['project'],
   computed: {
-    ...mapGetters('auth', ['isEncoder'])
+    ...mapGetters('auth', ['isEncoder']),
+    dark() {
+      return this.$store.getters['settings/dark'];
+    },
+    riskAndStrategy() {
+      return (
+        this.project.implementation_risk +
+        ' ' +
+        this.project.mitigation_strategy
+      );
+    },
+    projectUpdates() {
+      if (this.project.updates) {
+        const date = this.project.updates_date;
+        return `As of ${date}, ${this.project.updates}.`;
+      }
+      return '';
+    }
   },
   data() {
     return {

@@ -9,3 +9,7 @@ export function avatarColor(state) {
 export function buttonColor(state) {
   return state.dark ? 'purple-2' : 'primary';
 }
+
+export function dark(state) {
+  return state.dark;
+}

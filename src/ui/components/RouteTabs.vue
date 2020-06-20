@@ -28,9 +28,7 @@
                 :to="`/projects/${name}`"
               >
                 <q-item-section class="text-capitalize">
-                  {{
-                    name
-                  }}
+                  {{ name }}
                 </q-item-section>
                 <q-item-section avatar side>
                   <q-avatar class="bg-grey-6 text-white" size="sm">{{
@@ -62,7 +60,7 @@ export default {
   name: 'RouteTabs',
   props: ['filteredTabs'],
   computed: {
-    ...mapState('settings', ['dark']),
+    ...mapState('settings', ['dark'])
   }
 };
 </script>

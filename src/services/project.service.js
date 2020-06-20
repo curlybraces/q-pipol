@@ -195,7 +195,7 @@ export const projectService = {
         variables: payload
       })
       .then(handleResponse)
-      .catch(handleError)
+      .catch(handleError);
   },
   return(payload) {
     return client
@@ -204,6 +204,6 @@ export const projectService = {
         variables: payload
       })
       .then(handleResponse)
-      .catch(handleError)
+      .catch(handleError);
   }
 };

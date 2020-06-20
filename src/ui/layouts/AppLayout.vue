@@ -5,24 +5,25 @@
 
       <q-separator color="secondary" class="header-separator" />
 
-      <route-tabs 
-        :filteredTabs="filteredTabs"
-        v-if="$q.screen.lt.md"
-      />
+      <route-tabs :filteredTabs="filteredTabs" v-if="$q.screen.lt.md" />
     </q-header>
 
     <q-drawer
-        v-model="drawer"
-        show-if-above
-        :width="250"
-        :breakpoint="400"
-        v-if="$q.screen.gt.sm"
-      >
+      v-model="drawer"
+      show-if-above
+      :width="250"
+      :breakpoint="400"
+      v-if="$q.screen.gt.sm"
+    >
       <app-sidebar :filteredTabs="filteredTabs" />
-      <q-img class="absolute-top" src="https://cdn.quasar.dev/img/material.png" style="height: 150px">
+      <q-img
+        class="absolute-top"
+        src="https://cdn.quasar.dev/img/material.png"
+        style="height: 150px"
+      >
         <div class="absolute-bottom bg-transparent">
           <q-avatar size="56px" class="q-mb-sm">
-            <img :src="avatar">
+            <img :src="avatar" />
           </q-avatar>
           <div class="text-weight-bold text-uppercase">
             {{ user.name }}
@@ -116,7 +117,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('auth',['user','avatar']),
+    ...mapGetters('auth', ['user', 'avatar']),
     ...mapState('settings', ['dark']),
     darkMode() {
       return this.$q.dark.isActive;

@@ -1125,6 +1125,7 @@ export const UPDATE_PROJECT_MUTATION = gql`
       economic_benefit_cost_ratio
       economic_internal_rate_return
       economic_net_present_value
+      employment_generated
       selected_technical_readinesses
       neda_submission
       neda_submission_date

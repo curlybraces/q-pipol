@@ -160,7 +160,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { DOCS_LINKS } from '@/constants/docs'
+import { DOCS_LINKS } from '@/constants/docs';
 
 export default {
   name: 'PageLanding',
@@ -170,13 +170,13 @@ export default {
   data() {
     return {
       DOCS_LINKS
-    }
+    };
   }
 };
 </script>
 
 <style scoped>
-  .full-page {
-    height: calc(100vh - 50px);
-  }
+.full-page {
+  height: calc(100vh - 50px);
+}
 </style>

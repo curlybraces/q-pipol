@@ -41,9 +41,9 @@ export function removeProject({ commit }, payload) {
 }
 
 export function returnProject({}, payload) {
-  return projectService.return(payload)
+  return projectService.return(payload);
 }
 
 export function validateProject({}, payload) {
-  return projectService.validate(payload)
+  return projectService.validate(payload);
 }

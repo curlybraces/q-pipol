@@ -936,7 +936,7 @@ export const FETCH_VERSIONS = gql`
 `;
 
 export const FETCH_VERSION = gql`
-  query ($id: ID!) {
+  query($id: ID!) {
     version(id: $id) {
       id
       version
@@ -961,4 +961,4 @@ export const CURRENT_VERSION = gql`
       version
     }
   }
-`
+`;

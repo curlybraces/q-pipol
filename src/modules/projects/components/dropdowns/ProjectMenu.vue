@@ -1,10 +1,6 @@
 <template>
   <q-list>
-    <menu-item 
-      @click="viewProject" 
-      label="View" 
-      icon="search"
-    ></menu-item>
+    <menu-item @click="viewProject" label="View" icon="search"></menu-item>
     <menu-item
       @click="updateProject"
       label="Update"
@@ -81,35 +77,41 @@ export default {
       return false;
     },
     isFinalized() {
-      const status = this.project.processing_status ? this.project.processing_status.name: '';
-      return status === 'finalized'
+      const status = this.project.processing_status
+        ? this.project.processing_status.name
+        : '';
+      return status === 'finalized';
     },
     isReviewer() {
       console.log('role: ', this.$store.getters['auth/isReviewer']);
       return this.$store.getters['auth/isReviewer'];
     },
     isEndorsed() {
-      const status = this.project.processing_status ? this.project.processing_status.name: '';
-      return status === 'endorsed'
+      const status = this.project.processing_status
+        ? this.project.processing_status.name
+        : '';
+      return status === 'endorsed';
     },
     isValidated() {
-      const status = this.project.processing_status ? this.project.processing_status.name: '';
-      return status === 'validated'
+      const status = this.project.processing_status
+        ? this.project.processing_status.name
+        : '';
+      return status === 'validated';
     },
     showReviewItem() {
-      return this.$route.fullPath === '/projects/validated'
+      return this.$route.fullPath === '/projects/validated';
     },
     showUpdateItem() {
-      return this.$route.fullPath === '/projects/draft'
+      return this.$route.fullPath === '/projects/draft';
     },
     showValidateItem() {
-      return this.$route.fullPath === '/projects/endorsed'
+      return this.$route.fullPath === '/projects/endorsed';
     },
     reviewProjectDisabled() {
       if (!this.isReviewer) {
-        return true
+        return true;
       }
-      return false
+      return false;
     }
   },
   data() {
