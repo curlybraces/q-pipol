@@ -3,6 +3,11 @@ import {
 	FETCH_VERSIONS,
 	FETCH_VERSION
 } from '@/graphql/queries'
+import {
+	CREATE_VERSION,
+	UPDATE_VERSION,
+	DELETE_VERSION
+} from '@/graphql/mutations'
 import { handleResponse, handleError } from '@/utils'
 
 export const versionService = {
